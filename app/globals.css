@@ -51,7 +51,7 @@
   /* Vzorec vijakov — podpis znamke. Samo na temnih ali rdecih pasovih. */
   .pattern-vijaki {
     background-image: url("/vzorec-vijaki.png");
-    background-size: 900px auto;
+    background-size: 1600px auto;
     background-repeat: repeat;
   }
 

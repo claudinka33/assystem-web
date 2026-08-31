@@ -10,7 +10,7 @@ export const metadata = {
 
 const dejstva = [
   ["Na trgu od", `${site.ustanovljeno}`],
-  ["Dobavljamo v", `${site.države} držav`],
+  ["Dobavljamo v", `${site.drzave} držav`],
   ["Proizvodni lokaciji", "2"],
   ["Sidra z oceno", "ETA"],
 ];
