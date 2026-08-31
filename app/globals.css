@@ -1,0 +1,99 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   AS system — dizajn sistem
+   Barve in tipografija so povzete po tiskanih letakih ASfix.
+   Antracit = osnova, rdeca = poudarek, vzorec vijakov = podpis znamke.
+   ------------------------------------------------------------------ */
+
+@theme {
+  --color-ink: #2b2e32;
+  --color-ink-soft: #33373a;
+  --color-ink-line: #43474b;
+  --color-red: #c8102e;
+  --color-red-dark: #a50d26;
+  --color-paper: #ffffff;
+  --color-mist: #f2f3f4;
+  --color-line: #dcdee0;
+  --color-muted: #6b7075;
+
+  --font-display: var(--font-barlow-condensed), "Arial Narrow", sans-serif;
+  --font-body: var(--font-barlow), system-ui, sans-serif;
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    line-height: 0.98;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+  }
+
+  p { max-width: 68ch; }
+
+  :focus-visible {
+    outline: 3px solid var(--color-red);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  /* Vzorec vijakov — podpis znamke. Samo na temnih ali rdecih pasovih. */
+  .pattern-vijaki {
+    background-image: url("/vzorec-vijaki.png");
+    background-size: 900px auto;
+    background-repeat: repeat;
+  }
+
+  /* Rdeca crtica pred oznako sekcije (kot na letakih) */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-red);
+  }
+
+  .eyebrow::before {
+    content: "";
+    width: 1.75rem;
+    height: 2px;
+    background: currentColor;
+  }
+
+  /* Vrstica specifikacije: naziv levo, vrednost desno */
+  .spec-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid var(--color-line);
+    font-size: 0.9375rem;
+  }
+
+  .spec-row > span:first-child { color: var(--color-muted); }
+  .spec-row > span:last-child { font-weight: 700; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
