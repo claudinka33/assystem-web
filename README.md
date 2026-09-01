@@ -44,3 +44,31 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=
 SUPABASE_SERVICE_ROLE_KEY=
 RESEND_API_KEY=
 ```
+
+
+## Administracija
+
+Naslov: `/admin` — prijava z e-naslovom in geslom iz Supabase Authentication.
+
+| Modul | Kaj urejaš |
+|---|---|
+| Kategorije | skupine in podskupine programa, slika, vrstni red, SEO |
+| Izdelki | opis, uporaba, prednosti, slika + **artikli** (šifra, dimenzija, EAN, cena, zaloga) + **dokumenti** (ETA, DoP, letak, navodila) |
+| Novice | objave za Aktualno |
+| Povpraševanja | sporočila s strani, status obdelave |
+| Nastavitve | telefon, mail, naslovi, socialna omrežja |
+
+Slike in PDF-ji se nalagajo neposredno v Supabase shrambo (`slike`, `dokumenti`).
+
+## Okoljske spremenljivke
+
+V Vercelu: Settings → Environment Variables
+
+```
+NEXT_PUBLIC_SUPABASE_URL=https://fnyfdrqbxgbdyxxttpje.supabase.co
+NEXT_PUBLIC_SUPABASE_KEY=sb_publishable_...
+SUPABASE_SECRET_KEY=sb_secret_...
+```
+
+`SUPABASE_SECRET_KEY` je tajni ključ iz Supabase → Settings → API Keys → Secret keys.
+Uporablja se samo na strežniku, nikoli v brskalniku.
