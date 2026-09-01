@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { kategorije, poti, site } from "@/lib/site";
 
@@ -39,7 +40,7 @@ export default function Domov() {
     <>
       {/* ---------- Hero ---------- */}
       <section className="pattern-vijaki bg-ink text-paper">
-        <div className="mx-auto grid max-w-[1240px] gap-12 px-5 py-20 lg:grid-cols-[1.35fr_1fr] lg:py-28">
+        <div className="mx-auto grid max-w-[1240px] items-center gap-12 px-5 py-20 lg:grid-cols-[1.25fr_1fr] lg:py-24">
           <div>
             <span className="eyebrow">Pritrdilna tehnika od {site.ustanovljeno}</span>
             <h1 className="mt-6 text-[clamp(2.75rem,7vw,5.25rem)]">
@@ -70,21 +71,37 @@ export default function Domov() {
             </div>
           </div>
 
-          <div className="self-end">
-            <dl className="border-t border-ink-line">
-              {dejstva.map(([k, v]) => (
-                <div
-                  key={k}
-                  className="flex items-baseline justify-between gap-4 border-b border-ink-line py-4"
-                >
-                  <dt className="text-[0.9375rem] text-paper/60">{k}</dt>
-                  <dd className="font-display text-3xl font-extrabold uppercase">
-                    {v}
-                  </dd>
-                </div>
-              ))}
-            </dl>
+          <div className="relative self-center">
+            <div className="relative aspect-4/3 w-full overflow-hidden">
+              <Image
+                src="/slike/as-system-smarje.jpg"
+                alt="Sedež podjetja AS system v Šmarju pri Jelšah"
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 480px"
+                className="object-cover"
+              />
+            </div>
+            <span className="absolute bottom-0 left-0 bg-red px-4 py-2 text-[0.8125rem] font-semibold uppercase tracking-wide text-paper">
+              Smarje pri Jelsah
+            </span>
           </div>
+        </div>
+
+        {/* pas s podatki pod herom */}
+        <div className="border-t border-ink-line">
+          <dl className="mx-auto grid max-w-[1240px] grid-cols-2 gap-px bg-ink-line px-5 lg:grid-cols-4 lg:px-0">
+            {dejstva.map(([k, v]) => (
+              <div key={k} className="bg-ink px-5 py-7">
+                <dt className="text-[0.8125rem] uppercase tracking-wide text-paper/55">
+                  {k}
+                </dt>
+                <dd className="mt-2 font-display text-4xl font-extrabold uppercase">
+                  {v}
+                </dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </section>
 
