@@ -1,99 +1,680 @@
 @import "tailwindcss";
 
-/* ------------------------------------------------------------------
+/* ==================================================================
    AS system — dizajn sistem
-   Barve in tipografija so povzete po tiskanih letakih ASfix.
-   Antracit = osnova, rdeca = poudarek, vzorec vijakov = podpis znamke.
-   ------------------------------------------------------------------ */
+   Bela osnova, antracit in rdeca udarita v treh tockah.
+   Naslovi: Archivo 800/900, veliki tiskani. Besedilo: Inter.
+   ================================================================== */
 
 @theme {
-  --color-ink: #2b2e32;
-  --color-ink-soft: #33373a;
-  --color-ink-line: #43474b;
+  --color-ink: #1a1d21;
+  --color-ink-2: #2c3238;
   --color-red: #c8102e;
-  --color-red-dark: #a50d26;
+  --color-red-2: #ff4e67;
   --color-paper: #ffffff;
-  --color-mist: #f2f3f4;
-  --color-line: #dcdee0;
-  --color-muted: #6b7075;
+  --color-mist: #f4f6f7;
+  --color-line: #e6e9ec;
+  --color-muted: #6e767e;
+  --color-muted-2: #8e969e;
 
-  --font-display: var(--font-barlow-condensed), "Arial Narrow", sans-serif;
-  --font-body: var(--font-barlow), system-ui, sans-serif;
+  --font-display: var(--font-archivo), "Arial Black", sans-serif;
+  --font-body: var(--font-inter), system-ui, sans-serif;
 }
 
-@layer base {
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--color-paper);
-    color: var(--color-ink);
-    font-family: var(--font-body);
-    -webkit-font-smoothing: antialiased;
-  }
-
-  h1, h2, h3, h4 {
-    font-family: var(--font-display);
-    font-weight: 800;
-    line-height: 0.98;
-    letter-spacing: -0.01em;
-    text-transform: uppercase;
-  }
-
-  p { max-width: 68ch; }
-
-  :focus-visible {
-    outline: 3px solid var(--color-red);
-    outline-offset: 2px;
-  }
+* {
+  box-sizing: border-box;
 }
 
-@layer components {
-  /* Vzorec vijakov — podpis znamke. Samo na temnih ali rdecih pasovih. */
-  .pattern-vijaki {
-    background-image: url("/vzorec-vijaki.png");
-    background-size: 1600px auto;
-    background-repeat: repeat;
-  }
+html {
+  scroll-behavior: smooth;
+}
 
-  /* Rdeca crtica pred oznako sekcije (kot na letakih) */
-  .eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    font-family: var(--font-body);
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--color-red);
-  }
+body {
+  font-family: var(--font-body);
+  color: var(--color-ink);
+  background: #fff;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
 
-  .eyebrow::before {
-    content: "";
-    width: 1.75rem;
-    height: 2px;
-    background: currentColor;
-  }
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  letter-spacing: -0.5px;
+  line-height: 1.12;
+}
 
-  /* Vrstica specifikacije: naziv levo, vrednost desno */
-  .spec-row {
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-red);
+  outline-offset: 2px;
+}
+
+/* ---------- osnovna sirina ---------- */
+.w {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+/* ---------- glava ---------- */
+.util {
+  background: var(--color-ink);
+  color: var(--color-muted-2);
+  font-size: 12.5px;
+}
+.util .w {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 38px;
+}
+.util a:hover {
+  color: #fff;
+}
+.util .lang a {
+  padding: 0 7px;
+  font-weight: 600;
+}
+.util .lang a.on {
+  color: #fff;
+}
+
+.hdr {
+  border-bottom: 1px solid var(--color-line);
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 30;
+}
+.hdr .w {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  height: 82px;
+}
+.logo {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 25px;
+  letter-spacing: -1px;
+}
+.logo i {
+  font-style: normal;
+  color: var(--color-red);
+}
+.logo small {
+  display: block;
+  font: 600 9.5px var(--font-body);
+  letter-spacing: 2.6px;
+  color: var(--color-muted-2);
+  margin-top: -2px;
+}
+.nav {
+  display: flex;
+  gap: 28px;
+  margin-left: auto;
+  font-size: 14.5px;
+  font-weight: 600;
+}
+.nav a {
+  padding: 6px 0;
+  border-bottom: 2px solid transparent;
+}
+.nav a:hover {
+  color: var(--color-red);
+  border-color: var(--color-red);
+}
+.tel {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 19px;
+}
+.tel span {
+  display: block;
+  font: 500 11.5px var(--font-body);
+  color: var(--color-muted-2);
+  letter-spacing: 0.4px;
+}
+.burger {
+  margin-left: auto;
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: 0;
+}
+.burger span {
+  width: 24px;
+  height: 2px;
+  background: var(--color-ink);
+}
+.mobmeni {
+  border-bottom: 1px solid var(--color-line);
+  background: #fff;
+}
+.mobmeni a {
+  display: block;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--color-line);
+  font-weight: 600;
+}
+
+/* ---------- hero ---------- */
+.hero {
+  position: relative;
+  background: var(--color-ink);
+  color: #fff;
+  overflow: hidden;
+}
+.hero:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -9%;
+  width: 52%;
+  height: 100%;
+  background: var(--color-red);
+  transform: skewX(-11deg);
+  transform-origin: top;
+}
+.hero .w {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1.02fr 0.98fr;
+  gap: 40px;
+  align-items: center;
+  min-height: 492px;
+  padding-top: 44px;
+  padding-bottom: 44px;
+}
+.kick {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2.2px;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--color-red);
+  padding: 6px 14px;
+}
+.hero h1 {
+  font-size: clamp(34px, 4.4vw, 58px);
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-top: 20px;
+}
+.hero h1 em {
+  font-style: normal;
+  color: var(--color-red-2);
+}
+.hero p {
+  margin-top: 20px;
+  font-size: 17px;
+  color: rgba(255, 255, 255, 0.78);
+  max-width: 44ch;
+}
+.acts {
+  display: flex;
+  gap: 12px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+.b {
+  display: inline-block;
+  padding: 15px 30px;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  transition: 0.2s;
+}
+.b-w {
+  background: #fff;
+  color: var(--color-ink);
+}
+.b-w:hover {
+  background: var(--color-mist);
+}
+.b-o {
+  border: 2px solid rgba(255, 255, 255, 0.5);
+}
+.b-o:hover {
+  border-color: #fff;
+}
+.b-r {
+  background: var(--color-red);
+  color: #fff;
+}
+.b-r:hover {
+  background: #a50d26;
+}
+.b-d {
+  border: 2px solid var(--color-ink);
+  color: var(--color-ink);
+}
+.hero-im {
+  position: relative;
+}
+.hero-im .okvir {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+}
+.hero-badge {
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  background: #fff;
+  color: var(--color-ink);
+  padding: 12px 18px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+.hero-badge b {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 800;
+}
+.hero-badge span {
+  font-size: 12.5px;
+  color: var(--color-muted);
+}
+
+/* ---------- prednosti pod herom ---------- */
+.adv {
+  border-bottom: 1px solid var(--color-line);
+}
+.adv .w {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.adv div {
+  padding: 26px 26px 26px 0;
+  border-right: 1px solid var(--color-line);
+}
+.adv div:last-child {
+  border-right: 0;
+}
+.adv b {
+  font-family: var(--font-display);
+  font-size: 15.5px;
+  display: block;
+}
+.adv span {
+  font-size: 13px;
+  color: var(--color-muted);
+}
+.adv i {
+  font-style: normal;
+  color: var(--color-red);
+  font-weight: 900;
+  margin-right: 8px;
+}
+
+/* ---------- sekcije ---------- */
+.sec {
+  padding: 74px 0;
+}
+.sec.grey {
+  background: var(--color-mist);
+}
+.st {
+  margin-bottom: 32px;
+}
+.st > span {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2.2px;
+  text-transform: uppercase;
+  color: var(--color-red);
+}
+.st h1,
+.st h2 {
+  font-size: clamp(26px, 3vw, 38px);
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-top: 10px;
+}
+.st p {
+  color: var(--color-muted);
+  margin-top: 14px;
+  max-width: 66ch;
+  font-size: 16px;
+}
+.st.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+}
+.more {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--color-red);
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+.more:hover {
+  color: #a50d26;
+}
+
+/* ---------- kategorije ---------- */
+.kats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.k {
+  border: 1px solid var(--color-line);
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  transition: 0.22s;
+  position: relative;
+  overflow: hidden;
+}
+.k:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 4px;
+  width: 0;
+  background: var(--color-red);
+  transition: 0.25s;
+}
+.k:hover {
+  box-shadow: 0 18px 40px rgba(26, 29, 33, 0.12);
+  transform: translateY(-3px);
+}
+.k:hover:after {
+  width: 100%;
+}
+.k .im {
+  position: relative;
+  height: 172px;
+  background: #fff;
+  border-bottom: 1px solid #f0f2f4;
+}
+.k .im.prazna {
+  background: var(--color-mist);
+}
+.k .tx {
+  padding: 18px 20px 22px;
+}
+.k h2,
+.k h3 {
+  font-size: 16px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.k p {
+  font-size: 13px;
+  color: var(--color-muted);
+  margin-top: 6px;
+}
+
+/* ---------- kdo kupuje ---------- */
+.who {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+.who > div {
+  background: #fff;
+  padding: 32px;
+  border-top: 4px solid var(--color-red);
+}
+.who b {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 800;
+  text-transform: uppercase;
+  display: block;
+}
+.who p {
+  color: var(--color-muted);
+  font-size: 14.5px;
+  margin-top: 10px;
+}
+.who a {
+  display: inline-block;
+  margin-top: 16px;
+  font-weight: 700;
+  font-size: 13.5px;
+  color: var(--color-red);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ---------- dvostolpec s fotografijo ---------- */
+.qua {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+.foto {
+  position: relative;
+  aspect-ratio: 4 / 3;
+}
+.foto:after {
+  content: "";
+  position: absolute;
+  left: -18px;
+  bottom: -18px;
+  width: 120px;
+  height: 120px;
+  background: var(--color-red);
+  z-index: -1;
+}
+.cert {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--color-line);
+  margin-top: 26px;
+  border: 1px solid var(--color-line);
+}
+.cert div {
+  background: #fff;
+  padding: 22px;
+}
+.cert b {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--color-red);
+  display: block;
+}
+.cert span {
+  font-size: 13px;
+  color: var(--color-muted);
+}
+
+/* ---------- stevilke ---------- */
+.nums {
+  background: var(--color-ink);
+  color: #fff;
+}
+.nums .w {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  padding: 52px 28px;
+}
+.nums b {
+  font-family: var(--font-display);
+  font-size: 46px;
+  font-weight: 900;
+  display: block;
+  line-height: 1;
+}
+.nums span {
+  color: var(--color-muted-2);
+  font-size: 13.5px;
+  display: block;
+  margin-top: 8px;
+}
+
+/* ---------- rdeci poziv ---------- */
+.cta {
+  background: var(--color-red);
+  color: #fff;
+}
+.cta .w {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 34px;
+  padding: 48px 28px;
+  flex-wrap: wrap;
+}
+.cta h2 {
+  font-size: clamp(24px, 2.6vw, 32px);
+  font-weight: 900;
+  text-transform: uppercase;
+}
+.cta p {
+  color: rgba(255, 255, 255, 0.85);
+  margin-top: 8px;
+}
+
+/* ---------- naslov podstrani ---------- */
+.pgh {
+  background: var(--color-mist);
+  border-bottom: 1px solid var(--color-line);
+  padding: 46px 0;
+}
+.drobtine {
+  font-size: 12.5px;
+  color: var(--color-muted);
+  margin-bottom: 14px;
+}
+.drobtine a:hover {
+  color: var(--color-red);
+}
+
+/* ---------- v pripravi ---------- */
+.priprava {
+  border-left: 4px solid var(--color-red);
+  padding: 4px 0 4px 22px;
+}
+.priprava h2 {
+  font-size: 20px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.priprava p {
+  color: var(--color-muted);
+  margin-top: 10px;
+  max-width: 64ch;
+}
+
+/* ---------- noga ---------- */
+.ftr {
+  background: var(--color-ink);
+  color: var(--color-muted-2);
+  font-size: 14px;
+  padding: 56px 0 0;
+}
+.ftr .w {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  gap: 40px;
+}
+.ftr b {
+  color: #fff;
+  display: block;
+  margin-bottom: 14px;
+  font-family: var(--font-display);
+  font-size: 14.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+.ftr a {
+  display: block;
+  padding: 4px 0;
+}
+.ftr a:hover {
+  color: #fff;
+}
+.fb {
+  border-top: 1px solid var(--color-ink-2);
+  margin-top: 44px;
+}
+.fb .w {
+  display: flex;
+  justify-content: space-between;
+  padding: 18px 28px;
+  font-size: 12.5px;
+}
+
+/* ---------- odzivnost ---------- */
+@media (max-width: 1000px) {
+  .hero .w,
+  .qua {
+    grid-template-columns: 1fr;
+  }
+  .hero:before {
+    display: none;
+  }
+  .hero {
+    background: linear-gradient(160deg, #1a1d21 55%, #c8102e);
+  }
+  .kats,
+  .who,
+  .adv .w,
+  .nums .w,
+  .ftr .w {
+    grid-template-columns: 1fr 1fr;
+  }
+  .nav,
+  .tel {
+    display: none;
+  }
+  .burger {
     display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 0.55rem 0;
-    border-bottom: 1px solid var(--color-line);
-    font-size: 0.9375rem;
   }
+  .adv div {
+    border-right: 0;
+    border-bottom: 1px solid var(--color-line);
+    padding-right: 0;
+  }
+  .qua {
+    gap: 40px;
+  }
+}
 
-  .spec-row > span:first-child { color: var(--color-muted); }
-  .spec-row > span:last-child { font-weight: 700; }
+@media (max-width: 620px) {
+  .kats,
+  .who,
+  .ftr .w,
+  .nums .w {
+    grid-template-columns: 1fr;
+  }
+  .sec {
+    padding: 48px 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after {
-    animation-duration: 0.001ms !important;
+  html {
+    scroll-behavior: auto;
+  }
+  * {
     transition-duration: 0.001ms !important;
   }
 }

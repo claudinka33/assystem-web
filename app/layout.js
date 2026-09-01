@@ -1,61 +1,60 @@
-import { Barlow, Barlow_Condensed } from "next/font/google";
+import { Archivo, Inter } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { site } from "@/lib/site";
 import "./globals.css";
 
-const barlow = Barlow({
+const inter = Inter({
   subsets: ["latin", "latin-ext"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-barlow",
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-inter",
   display: "swap",
 });
 
-const barlowCondensed = Barlow_Condensed({
+const archivo = Archivo({
   subsets: ["latin", "latin-ext"],
-  weight: ["600", "700", "800"],
-  variable: "--font-barlow-condensed",
+  weight: ["700", "800", "900"],
+  variable: "--font-archivo",
   display: "swap",
 });
 
 export const metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "AS system — razvoj in proizvodnja pritrdilne tehnike",
+    default: "AS system — pritrdilna tehnika ASfix",
     template: "%s | AS system",
   },
   description:
-    "Slovenski proizvajalec jeklenih sider, zidnih vložkov in vijakov. Lastni razvoj, hladno kovanje in brizganje plastike. Private label za evropske blagovne znamke.",
+    "ASfix je blagovna znamka podjetja AS system: jeklena sidra, zidni vložki, udarni vijaki in kemična sidra iz lastne slovenske proizvodnje. Od 1993, dobava v 19 držav.",
   keywords: [
     "pritrdilna tehnika",
     "jeklena sidra",
     "zidni vložki",
     "vijaki",
-    "private label",
+    "kemično sidro",
     "ASfix",
+    "AS system",
   ],
   openGraph: {
     type: "website",
     locale: "sl_SI",
     url: site.url,
     siteName: site.ime,
-    title: "AS system — razvoj in proizvodnja pritrdilne tehnike",
+    title: "AS system — pritrdilna tehnika ASfix",
     description:
-      "Od 1993 razvijamo in proizvajamo pritrdilno tehniko. Dobavljamo v 19 držav, tudi pod znamko naročnika.",
+      "Jeklena sidra, zidni vložki in kemična sidra iz lastne proizvodnje. Od 1993, dobava v 19 držav.",
   },
   robots: { index: true, follow: true },
 };
 
-export const viewport = {
-  themeColor: "#2b2e32",
-};
+export const viewport = { themeColor: "#1a1d21" };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="sl" className={`${barlow.variable} ${barlowCondensed.variable}`}>
-      <body className="flex min-h-screen flex-col">
+    <html lang="sl" className={`${inter.variable} ${archivo.variable}`}>
+      <body>
         <Header />
-        <main className="flex-1">{children}</main>
+        <main>{children}</main>
         <Footer />
       </body>
     </html>
