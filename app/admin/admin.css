@@ -1,0 +1,143 @@
+/* Videz administracije — namenoma preprost in gost, za hitro delo. */
+.adm {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: 100vh;
+  background: #f4f6f7;
+}
+.adm-bok {
+  background: #1a1d21;
+  color: #8e969e;
+  padding: 22px 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+.adm-bok .logo {
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 19px;
+  padding: 0 22px 18px;
+  display: block;
+}
+.adm-bok .logo i { font-style: normal; color: #c8102e; }
+.adm-bok nav a {
+  display: block;
+  padding: 10px 22px;
+  font-size: 14.5px;
+  font-weight: 500;
+  border-left: 3px solid transparent;
+}
+.adm-bok nav a:hover { color: #fff; background: #23272c; }
+.adm-bok nav a.on { color: #fff; border-left-color: #c8102e; background: #23272c; }
+.adm-bok .skupina {
+  padding: 18px 22px 6px;
+  font-size: 11px;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: #5c646c;
+}
+.adm-bok .noga {
+  margin-top: 26px;
+  padding: 16px 22px 0;
+  border-top: 1px solid #2c3238;
+  font-size: 12.5px;
+}
+.adm-glava {
+  background: #fff;
+  border-bottom: 1px solid #e6e9ec;
+  padding: 18px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+.adm-glava h1 { font-size: 22px; font-weight: 800; text-transform: uppercase; }
+.adm-telo { padding: 28px 32px 60px; }
+
+.adm-kartice { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.adm-kartica {
+  background: #fff;
+  border: 1px solid #e6e9ec;
+  padding: 20px;
+}
+.adm-kartica b { font-family: var(--font-display); font-size: 34px; font-weight: 900; display: block; line-height: 1; }
+.adm-kartica span { font-size: 13px; color: #6e767e; }
+
+table.adm-tab { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #e6e9ec; }
+table.adm-tab th {
+  text-align: left;
+  font-size: 11.5px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #6e767e;
+  padding: 12px 14px;
+  border-bottom: 1px solid #e6e9ec;
+  background: #fafbfc;
+}
+table.adm-tab td { padding: 11px 14px; border-bottom: 1px solid #f0f2f4; font-size: 14px; vertical-align: middle; }
+table.adm-tab tr:last-child td { border-bottom: 0; }
+table.adm-tab img { width: 44px; height: 44px; object-fit: contain; background: #f4f6f7; }
+
+.adm-obr { background: #fff; border: 1px solid #e6e9ec; padding: 24px; max-width: 860px; }
+.adm-polje { margin-bottom: 18px; }
+.adm-polje label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+.adm-polje input[type="text"],
+.adm-polje input[type="number"],
+.adm-polje input[type="email"],
+.adm-polje input[type="password"],
+.adm-polje input[type="date"],
+.adm-polje select,
+.adm-polje textarea {
+  width: 100%;
+  border: 1px solid #ccd2d8;
+  padding: 10px 12px;
+  font: inherit;
+  font-size: 14.5px;
+  background: #fff;
+}
+.adm-polje textarea { min-height: 120px; resize: vertical; }
+.adm-polje .namig { font-size: 12.5px; color: #6e767e; margin-top: 5px; }
+.adm-vrsta { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.adm-vrsta-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; }
+
+.gumb {
+  display: inline-block;
+  border: 0;
+  padding: 11px 22px;
+  font: inherit;
+  font-weight: 700;
+  font-size: 13.5px;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+  cursor: pointer;
+  background: #c8102e;
+  color: #fff;
+}
+.gumb:hover { background: #a50d26; }
+.gumb.siv { background: #fff; color: #1a1d21; border: 1px solid #ccd2d8; }
+.gumb.siv:hover { background: #f4f6f7; }
+.gumb.mini { padding: 6px 12px; font-size: 12px; }
+
+.znacka { display: inline-block; padding: 3px 9px; font-size: 11.5px; font-weight: 700; text-transform: uppercase; }
+.znacka.da { background: #e7f6ec; color: #1a7f3c; }
+.znacka.ne { background: #f3f4f5; color: #6e767e; }
+.znacka.novo { background: #fdeaed; color: #c8102e; }
+
+.opozorilo { background: #fdeaed; border-left: 3px solid #c8102e; padding: 12px 16px; font-size: 14px; margin-bottom: 18px; }
+.uspeh { background: #e7f6ec; border-left: 3px solid #1a7f3c; padding: 12px 16px; font-size: 14px; margin-bottom: 18px; }
+
+.prijava { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: #1a1d21; }
+.prijava .box { background: #fff; padding: 40px; width: 100%; max-width: 400px; }
+.prijava h1 { font-size: 22px; font-weight: 900; text-transform: uppercase; margin-bottom: 6px; }
+.prijava p.pod { font-size: 14px; color: #6e767e; margin-bottom: 24px; }
+
+@media (max-width: 900px) {
+  .adm { grid-template-columns: 1fr; }
+  .adm-bok { position: static; height: auto; }
+  .adm-kartice { grid-template-columns: 1fr 1fr; }
+  .adm-vrsta, .adm-vrsta-3 { grid-template-columns: 1fr; }
+  .adm-telo, .adm-glava { padding-left: 18px; padding-right: 18px; }
+}
