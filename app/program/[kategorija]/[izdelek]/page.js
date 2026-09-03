@@ -83,7 +83,10 @@ export default async function StranIzdelka({ params }) {
                 </ul>
               )}
 
-              <Link className="b b-r" href="/kontakt">
+              <Link
+                className="b b-r"
+                href={`/kontakt?izdelek=${encodeURIComponent(i.naziv)}&vir=izdelek`}
+              >
                 Pošlji povpraševanje
               </Link>
             </div>
@@ -231,7 +234,10 @@ export default async function StranIzdelka({ params }) {
             <h2>Potrebujete ponudbo za {i.naziv}?</h2>
             <p>Pošljite dimenzije in količino, odgovorimo v enem delovnem dnevu.</p>
           </div>
-          <Link className="b b-w" href="/kontakt">
+          <Link
+            className="b b-w"
+            href={`/kontakt?izdelek=${encodeURIComponent(i.naziv)}&vir=izdelek`}
+          >
             Pošlji povpraševanje →
           </Link>
         </div>

@@ -19,6 +19,7 @@ const meni = [
   ]},
   { skupina: "Stiki", povezave: [
     { naziv: "Povpraševanja", pot: "/admin/povprasevanja" },
+    { naziv: "Prijave za delo", pot: "/admin/prijave" },
   ]},
   { skupina: "Sistem", povezave: [
     { naziv: "Nastavitve", pot: "/admin/nastavitve" },
