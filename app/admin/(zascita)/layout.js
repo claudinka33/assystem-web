@@ -15,6 +15,7 @@ const meni = [
     { naziv: "Izdelki", pot: "/admin/izdelki" },
   ]},
   { skupina: "Vsebina", povezave: [
+    { naziv: "Besedila na strani", pot: "/admin/vsebine" },
     { naziv: "Novice", pot: "/admin/novice" },
   ]},
   { skupina: "Stiki", povezave: [

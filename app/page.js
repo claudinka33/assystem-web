@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { pridobiKategorije } from "@/lib/podatki";
+import { pridobiVsebine, v } from "@/lib/vsebine";
 import { site } from "@/lib/site";
 
 export const revalidate = 60;
@@ -49,6 +50,7 @@ const certifikati = [
 
 export default async function Domov() {
   const { seznam: kategorije } = await pridobiKategorije();
+  const b = await pridobiVsebine("domov");
 
   const stevilke = [
     ["1993", "Leto ustanovitve"],
@@ -63,18 +65,13 @@ export default async function Domov() {
       <section className="hero">
         <div className="w">
           <div>
-            <span className="kick">Blagovna znamka ASfix</span>
+            <span className="kick">{v(b, "domov.hero.oznaka", "naslov", "Blagovna znamka ASfix")}</span>
             <h1>
-              Pritrdila,
-              <br />
-              ki jih izdelamo
-              <br />
-              <em>od začetka do konca</em>
+              {v(b, "domov.hero.naslov", "naslov", "Pritrdila, ki jih izdelamo od začetka do konca")}
             </h1>
             <p>
-              Jeklena sidra, zidni vložki, udarni vijaki in kemična sidra iz
-              lastne proizvodnje v Sloveniji. Enajst skupin izdelkov, evropski
-              certifikati, dobava iz zaloge.
+              {v(b, "domov.hero.besedilo", "besedilo",
+                "Jeklena sidra, zidni vložki, udarni vijaki in kemična sidra iz lastne proizvodnje v Sloveniji. Enajst skupin izdelkov, evropski certifikati, dobava iz zaloge.")}
             </p>
             <div className="acts">
               <Link className="b b-w" href="/program">
@@ -126,10 +123,10 @@ export default async function Domov() {
           <div className="st row">
             <div>
               <span>Prodajni program</span>
-              <h2>Kategorije izdelkov</h2>
+              <h2>{v(b, "domov.program.naslov", "naslov", "Kategorije izdelkov")}</h2>
               <p>
-                Za vsako podlago svoje pritrdilo — beton, opeka, votlaki, mavčne
-                plošče, izolacija, streha in inštalacije.
+                {v(b, "domov.program.besedilo", "besedilo",
+                  "Za vsako podlago svoje pritrdilo — beton, opeka, votlaki, mavčne plošče, izolacija, streha in inštalacije.")}
               </p>
             </div>
             <Link className="more" href="/program">
@@ -186,11 +183,10 @@ export default async function Domov() {
         <div className="w">
           <div className="st">
             <span>Za koga delamo</span>
-            <h2>Zanesljiv poslovni partner</h2>
+            <h2>{v(b, "domov.zakoga.naslov", "naslov", "Zanesljiv poslovni partner")}</h2>
             <p>
-              Naši kupci so trgovine z gradbenim, kovinskim in inštalacijskim
-              materialom, veletrgovci, distributerji na tujih trgih ter izvajalci
-              na gradbiščih.
+              {v(b, "domov.zakoga.besedilo", "besedilo",
+                "Naši kupci so trgovine z gradbenim, kovinskim in inštalacijskim materialom, veletrgovci, distributerji na tujih trgih ter izvajalci na gradbiščih.")}
             </p>
           </div>
           <div className="who">
@@ -221,11 +217,10 @@ export default async function Domov() {
             <div>
               <div className="st">
                 <span>Kakovost</span>
-                <h2>Je kakovost pomembna? Za nas je najpomembnejša</h2>
+                <h2>{v(b, "domov.kakovost.naslov", "naslov", "Je kakovost pomembna? Za nas je najpomembnejša")}</h2>
                 <p>
-                  Nosilna sidra imajo evropsko tehnično oceno ETA in izjavo o
-                  lastnostih. Vsa dokumentacija je na voljo za prenos, v
-                  slovenščini in angleščini.
+                  {v(b, "domov.kakovost.besedilo", "besedilo",
+                    "Nosilna sidra imajo evropsko tehnično oceno ETA in izjavo o lastnostih. Vsa dokumentacija je na voljo za prenos, v slovenščini in angleščini.")}
                 </p>
               </div>
               <div className="cert">
@@ -263,12 +258,10 @@ export default async function Domov() {
             <div>
               <div className="st">
                 <span>{site.ime}</span>
-                <h2>Proizvajalec, ne prekupčevalec</h2>
+                <h2>{v(b, "domov.podjetje.naslov", "naslov", "Proizvajalec, ne prekupčevalec")}</h2>
                 <p>
-                  Pritrdila razvijamo, kujemo in brizgamo sami. V Bistrici ob
-                  Sotli imamo hladno kovanje, brizganje plastike in lastno
-                  orodjarno, v Šmarju pri Jelšah upravo, visokoregalno skladišče
-                  in avtomatsko montažo.
+                  {v(b, "domov.podjetje.besedilo", "besedilo",
+                    "Pritrdila razvijamo, kujemo in brizgamo sami. V Bistrici ob Sotli imamo hladno kovanje, brizganje plastike in lastno orodjarno, v Šmarju pri Jelšah upravo, visokoregalno skladišče in avtomatsko montažo.")}
                 </p>
                 <p style={{ marginTop: 12 }}>
                   Ker ne kupujemo polizdelkov, lahko spremenimo dimenzijo,
@@ -296,10 +289,10 @@ export default async function Domov() {
       <div className="cta">
         <div className="w">
           <div>
-            <h2>Pritrdila pod vašo blagovno znamko</h2>
+            <h2>{v(b, "domov.cta.naslov", "naslov", "Pritrdila pod vašo blagovno znamko")}</h2>
             <p>
-              Izdelek razvijemo, proizvedemo in zapakiramo v vašo embalažo.
-              Private label za evropske znamke.
+              {v(b, "domov.cta.besedilo", "besedilo",
+                "Izdelek razvijemo, proizvedemo in zapakiramo v vašo embalažo. Private label za evropske znamke.")}
             </p>
           </div>
           <Link className="b b-w" href="/private-label">

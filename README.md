@@ -56,6 +56,8 @@ Naslov: `/admin` — prijava z e-naslovom in geslom iz Supabase Authentication.
 | Izdelki | opis, uporaba, prednosti, slika + **artikli** (šifra, dimenzija, EAN, cena, zaloga) + **dokumenti** (ETA, DoP, letak, navodila) |
 | Novice | objave za Aktualno |
 | Povpraševanja | sporočila s strani, status obdelave |
+| Besedila na strani | naslovi in odstavki na domači strani in podstraneh |
+| Prijave za delo | prispele prijave z življenjepisi |
 | Nastavitve | telefon, mail, naslovi, socialna omrežja |
 
 Slike in PDF-ji se nalagajo neposredno v Supabase shrambo (`slike`, `dokumenti`).
@@ -72,3 +74,21 @@ SUPABASE_SECRET_KEY=sb_secret_...
 
 `SUPABASE_SECRET_KEY` je tajni ključ iz Supabase → Settings → API Keys → Secret keys.
 Uporablja se samo na strežniku, nikoli v brskalniku.
+
+
+## Vrstni red SQL datotek
+
+1. `01-baza.sql` — kategorije, izdelki, artikli, dokumenti, novice, povpraševanja
+2. `02-trgovina.sql` — kupci, podjetja, ceniki, naročila, dostava
+3. `03-vsebine.sql` — besedilni bloki za admin
+
+## Merjenje
+
+GA4 in Meta Pixel se naložita šele po privolitvi obiskovalca. Dodaj v Vercel:
+
+```
+NEXT_PUBLIC_GA_ID=G-XXXXXXX
+NEXT_PUBLIC_META_PIXEL_ID=123456789
+```
+
+Konverzije: `povprasevanje_poslano` (Meta: Lead), `prijava_zaposlitev`.
