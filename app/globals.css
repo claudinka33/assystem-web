@@ -809,3 +809,59 @@ table.adm-tab tr:last-child td { border-bottom: 0; }
   .obr-vrsta { grid-template-columns: 1fr; }
   .obr { padding: 22px; }
 }
+
+/* ---------- pasica o piškotkih ---------- */
+.piskotki {
+  position: fixed;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  z-index: 60;
+  background: #fff;
+  border: 1px solid var(--color-line);
+  border-top: 4px solid var(--color-red);
+  box-shadow: 0 18px 44px rgba(63, 65, 64, 0.18);
+  padding: 22px 26px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 26px;
+  max-width: 940px;
+  margin: 0 auto;
+}
+.piskotki b {
+  font-size: 15px;
+  display: block;
+  margin-bottom: 4px;
+}
+.piskotki p {
+  font-size: 13.5px;
+  color: var(--color-muted);
+  max-width: 62ch;
+}
+.piskotki a {
+  color: var(--color-red);
+  text-decoration: underline;
+}
+.piskotki-gumbi {
+  display: flex;
+  gap: 10px;
+  flex: none;
+}
+.piskotki .b {
+  padding: 11px 20px;
+  font-size: 13px;
+  cursor: pointer;
+}
+@media (max-width: 760px) {
+  .piskotki {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    padding: 18px;
+  }
+  .piskotki-gumbi .b { flex: 1; text-align: center; }
+}

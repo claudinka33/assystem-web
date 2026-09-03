@@ -1,10 +1,16 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
+import { dogodek } from "@/lib/dogodki";
 import { posljiPovprasevanje } from "@/lib/akcije/obrazci";
 
 export default function ObrazecPovprasevanje({ vir = "kontakt", izdelek, naslov }) {
   const [stanje, akcija, caka] = useActionState(posljiPovprasevanje, null);
+
+  // Konverzija za Google Analytics in Meta Pixel.
+  useEffect(() => {
+    if (stanje?.stanje === "ok") dogodek("povprasevanje_poslano", { vir });
+  }, [stanje]);
 
   if (stanje?.stanje === "ok") {
     return (

@@ -1,6 +1,7 @@
 import { Poppins } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Merjenje from "@/components/Merjenje";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -50,6 +51,7 @@ export default function RootLayout({ children }) {
         <Header />
         <main>{children}</main>
         <Footer />
+        <Merjenje />
       </body>
     </html>
   );

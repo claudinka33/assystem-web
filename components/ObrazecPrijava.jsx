@@ -1,10 +1,16 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
+import { dogodek } from "@/lib/dogodki";
 import { posljiPrijavo } from "@/lib/akcije/obrazci";
 
 export default function ObrazecPrijava({ delovnaMesta = [] }) {
   const [stanje, akcija, caka] = useActionState(posljiPrijavo, null);
+
+  // Konverzija za Google Analytics in Meta Pixel.
+  useEffect(() => {
+    if (stanje?.stanje === "ok") dogodek("prijava_zaposlitev");
+  }, [stanje]);
 
   if (stanje?.stanje === "ok") {
     return (
