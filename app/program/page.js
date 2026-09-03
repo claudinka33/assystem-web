@@ -1,7 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import NaslovStrani from "@/components/NaslovStrani";
-import { kategorije } from "@/lib/site";
+import { pridobiKategorije } from "@/lib/podatki";
+
+export const revalidate = 60;
 
 export const metadata = {
   title: "Prodajni program",
@@ -10,18 +12,20 @@ export const metadata = {
   alternates: { canonical: "/program" },
 };
 
-export default function Program() {
+export default async function Program() {
+  const { seznam } = await pridobiKategorije();
+
   return (
     <>
       <NaslovStrani
         oznaka="Program ASfix"
         naslov="Prodajni program"
-        opis="Enajst skupin pritrdil za beton, opeko, mavčne plošče, izolacijo, streho in inštalacije."
+        opis="Pritrdila za beton, opeko, mavčne plošče, izolacijo, streho in inštalacije."
       />
       <section className="sec">
         <div className="w">
           <div className="kats">
-            {kategorije.map((k) => (
+            {seznam.map((k) => (
               <Link key={k.slug} className="k" href={`/program/${k.slug}`}>
                 <div className={k.slika ? "im" : "im prazna"}>
                   {k.slika && (

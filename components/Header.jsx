@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { navigacija, site } from "@/lib/site";
@@ -30,8 +31,13 @@ export default function Header() {
       <header className="hdr">
         <div className="w">
           <Link href="/" className="logo" onClick={() => setOdprt(false)}>
-            AS<i>system</i>
-            <small>ASFIX · ANCHORS &amp; FIXINGS</small>
+            <Image
+              src="/logo-as-system.png"
+              alt="AS system"
+              width={336}
+              height={159}
+              priority
+            />
           </Link>
 
           <nav className="nav">

@@ -1,6 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import { kategorije, site } from "@/lib/site";
+import { pridobiKategorije } from "@/lib/podatki";
+import { site } from "@/lib/site";
+
+export const revalidate = 60;
 
 export const metadata = {
   title: "AS system — pritrdilna tehnika ASfix",
@@ -44,14 +47,16 @@ const certifikati = [
   ["ISO 9001", "Sistem vodenja kakovosti"],
 ];
 
-const stevilke = [
-  ["1993", "Leto ustanovitve"],
-  [`${site.drzave}`, "Držav, kamor dobavljamo"],
-  ["2", "Proizvodni lokaciji v Sloveniji"],
-  [`${kategorije.length}`, "Skupin izdelkov ASfix"],
-];
+export default async function Domov() {
+  const { seznam: kategorije } = await pridobiKategorije();
 
-export default function Domov() {
+  const stevilke = [
+    ["1993", "Leto ustanovitve"],
+    [`${site.drzave}`, "Držav, kamor dobavljamo"],
+    ["2", "Proizvodni lokaciji v Sloveniji"],
+    [`${kategorije.length}`, "Skupin izdelkov ASfix"],
+  ];
+
   return (
     <>
       {/* ---------- Hero ---------- */}

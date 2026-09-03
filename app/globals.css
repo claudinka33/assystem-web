@@ -1,24 +1,29 @@
 @import "tailwindcss";
 
 /* ==================================================================
-   AS system — dizajn sistem
-   Bela osnova, antracit in rdeca udarita v treh tockah.
-   Naslovi: Archivo 800/900, veliki tiskani. Besedilo: Inter.
+   AS system — dizajn sistem po priročniku CGP 2026
+   Barve, pisava in vzorec so predpisani v ASsystem_CGP_2026.pdf.
+   Razmerje: antracit 45 %, bela 35 %, siva 12 %, rdeča 8 %.
+   Rdeča je poudarek, nikoli barva daljšega besedila.
    ================================================================== */
 
 @theme {
-  --color-ink: #1a1d21;
-  --color-ink-2: #2c3238;
-  --color-red: #c8102e;
-  --color-red-2: #ff4e67;
-  --color-paper: #ffffff;
-  --color-mist: #f4f6f7;
-  --color-line: #e6e9ec;
-  --color-muted: #6e767e;
-  --color-muted-2: #8e969e;
+  /* osnovni barvi */
+  --color-ink: #3f4140;        /* AS antracit — Pantone Cool Gray 11 C */
+  --color-ink-2: #313332;      /* globoki antracit — naslovnice, glave */
+  --color-red: #cb2026;        /* AS rdeča — Pantone 186 C */
+  --color-red-2: #d8323c;      /* rdeča hover */
 
-  --font-display: var(--font-archivo), "Arial Black", sans-serif;
-  --font-body: var(--font-inter), system-ui, sans-serif;
+  /* nevtralne */
+  --color-paper: #ffffff;
+  --color-mist: #f2f3f4;       /* ploskev — svetla polja, tabele */
+  --color-line: #dde0e2;       /* robovi kartic, ločilne črte */
+  --color-muted: #6e7276;      /* besedilna siva — odstavki */
+  --color-muted-2: #9ba0a5;    /* mirna siva — nadnaslovi, opombe */
+
+  /* Poppins je edina pisava podobe */
+  --font-display: var(--font-poppins), Arial, Helvetica, sans-serif;
+  --font-body: var(--font-poppins), Arial, Helvetica, sans-serif;
 }
 
 * {
@@ -41,8 +46,9 @@ h1,
 h2,
 h3 {
   font-family: var(--font-display);
-  letter-spacing: -0.5px;
-  line-height: 1.12;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  line-height: 1.14;
 }
 
 a {
@@ -98,22 +104,27 @@ a {
   gap: 36px;
   height: 82px;
 }
+/* Logotip je znak, ne tipografija (CGP str. 06 — »Ne prepisuj«).
+   Minimalna sirina na zaslonu je 100 px (CGP str. 05). */
 .logo {
-  font-family: var(--font-display);
-  font-weight: 900;
-  font-size: 25px;
-  letter-spacing: -1px;
-}
-.logo i {
-  font-style: normal;
-  color: var(--color-red);
-}
-.logo small {
   display: block;
-  font: 600 9.5px var(--font-body);
-  letter-spacing: 2.6px;
-  color: var(--color-muted-2);
-  margin-top: -2px;
+  flex: none;
+}
+.logo img {
+  width: 168px;
+  height: auto;
+  display: block;
+}
+/* bela ploskev za logotip na temni podlagi (kot v CGP na str. 10) */
+.logo-belo {
+  background: #fff;
+  padding: 18px 22px;
+  display: inline-block;
+}
+.logo-belo img {
+  height: 54px;
+  width: auto;
+  display: block;
 }
 .nav {
   display: flex;
@@ -176,6 +187,10 @@ a {
   color: #fff;
   overflow: hidden;
 }
+.hero {
+  background-image: url("/vzorec-antracit.png");
+  background-size: 1100px auto;
+}
 .hero:before {
   content: "";
   position: absolute;
@@ -183,7 +198,8 @@ a {
   right: -9%;
   width: 52%;
   height: 100%;
-  background: var(--color-red);
+  background: var(--color-red) url("/vzorec-rdeca.png") repeat;
+  background-size: 1100px auto;
   transform: skewX(-11deg);
   transform-origin: top;
 }
@@ -210,7 +226,7 @@ a {
 }
 .hero h1 {
   font-size: clamp(34px, 4.4vw, 58px);
-  font-weight: 900;
+  font-weight: 700;
   text-transform: uppercase;
   margin-top: 20px;
 }
@@ -257,7 +273,7 @@ a {
   color: #fff;
 }
 .b-r:hover {
-  background: #a50d26;
+  background: var(--color-red-2);
 }
 .b-d {
   border: 2px solid var(--color-ink);
@@ -367,7 +383,7 @@ a {
   letter-spacing: 0.6px;
 }
 .more:hover {
-  color: #a50d26;
+  color: var(--color-red-2);
 }
 
 /* ---------- kategorije ---------- */
@@ -518,7 +534,7 @@ a {
 .nums b {
   font-family: var(--font-display);
   font-size: 46px;
-  font-weight: 900;
+  font-weight: 800;
   display: block;
   line-height: 1;
 }
@@ -531,7 +547,8 @@ a {
 
 /* ---------- rdeci poziv ---------- */
 .cta {
-  background: var(--color-red);
+  background: var(--color-red) url("/vzorec-rdeca.png") repeat;
+  background-size: 1100px auto;
   color: #fff;
 }
 .cta .w {
@@ -554,7 +571,8 @@ a {
 
 /* ---------- naslov podstrani ---------- */
 .pgh {
-  background: var(--color-mist);
+  background: #f5f6f7 url("/vzorec-svetel.png") repeat;
+  background-size: 900px auto;
   border-bottom: 1px solid var(--color-line);
   padding: 46px 0;
 }
@@ -585,7 +603,8 @@ a {
 
 /* ---------- noga ---------- */
 .ftr {
-  background: var(--color-ink);
+  background: var(--color-ink) url("/vzorec-antracit.png") repeat;
+  background-size: 1100px auto;
   color: var(--color-muted-2);
   font-size: 14px;
   padding: 56px 0 0;
@@ -632,7 +651,7 @@ a {
     display: none;
   }
   .hero {
-    background: linear-gradient(160deg, #1a1d21 55%, #c8102e);
+    background: linear-gradient(160deg, #3f4140 55%, #cb2026);
   }
   .kats,
   .who,
@@ -678,3 +697,12 @@ a {
     transition-duration: 0.001ms !important;
   }
 }
+
+/* ---------- tabela (uporablja se na strani izdelka in v adminu) ---------- */
+table.adm-tab { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid var(--color-line); }
+table.adm-tab th {
+  text-align: left; font-size: 11.5px; letter-spacing: 1px; text-transform: uppercase;
+  color: var(--color-muted); padding: 12px 14px; border-bottom: 1px solid var(--color-line); background: #fafbfc;
+}
+table.adm-tab td { padding: 11px 14px; border-bottom: 1px solid #f0f2f4; font-size: 14px; vertical-align: middle; }
+table.adm-tab tr:last-child td { border-bottom: 0; }

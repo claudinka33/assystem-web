@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { kategorije, site } from "@/lib/site";
 
@@ -6,7 +7,11 @@ export default function Footer() {
     <footer className="ftr">
       <div className="w">
         <div>
-          <b>{site.ime}</b>
+          {/* Na antracitu logotip stoji na beli ploskvi (CGP str. 10). */}
+          <span className="logo-belo">
+            <Image src="/logo-as-system.png" alt="AS system" width={336} height={159} />
+          </span>
+          <b style={{ marginTop: 22 }}>{site.ime}</b>
           {site.lokacije[0].naslov}
           <br />
           Slovenija
@@ -46,7 +51,9 @@ export default function Footer() {
       <div className="fb">
         <div className="w">
           <span>© {new Date().getFullYear()} {site.ime} · Vse pravice pridržane</span>
-          <span>ASfix®</span>
+          <span style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <Image src="/logo-asfix.png" alt="ASfix" width={110} height={37} style={{ opacity: 0.9 }} />
+          </span>
         </div>
       </div>
     </footer>

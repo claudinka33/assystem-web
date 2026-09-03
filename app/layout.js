@@ -1,20 +1,14 @@
-import { Archivo, Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { site } from "@/lib/site";
 import "./globals.css";
 
-const inter = Inter({
+// Poppins je edina pisava celostne podobe (CGP str. 07).
+const poppins = Poppins({
   subsets: ["latin", "latin-ext"],
-  weight: ["400", "500", "600", "700", "800"],
-  variable: "--font-inter",
-  display: "swap",
-});
-
-const archivo = Archivo({
-  subsets: ["latin", "latin-ext"],
-  weight: ["700", "800", "900"],
-  variable: "--font-archivo",
+  weight: ["300", "400", "500", "600", "700", "800"],
+  variable: "--font-poppins",
   display: "swap",
 });
 
@@ -47,11 +41,11 @@ export const metadata = {
   robots: { index: true, follow: true },
 };
 
-export const viewport = { themeColor: "#1a1d21" };
+export const viewport = { themeColor: "#3f4140" };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="sl" className={`${inter.variable} ${archivo.variable}`}>
+    <html lang="sl" className={poppins.variable}>
       <body>
         <Header />
         <main>{children}</main>
