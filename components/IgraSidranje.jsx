@@ -11,7 +11,7 @@ import { dogodek } from "@/lib/dogodki";
    Kladivo dela na udarce.
    -------------------------------------------------------------- */
 
-const LUKNJE = [41.5, 46.5, 53.5, 58.5];
+const LUKNJE = [41, 46, 54, 59];
 
 const SVEDRI = [8, 10, 12];
 
@@ -289,7 +289,7 @@ export default function IgraSidranje() {
         {ograja && (
           <>
             <div className="ograja-senca" />
-            <svg className="ograja" viewBox="0 0 1000 560" preserveAspectRatio="xMidYMax meet">
+            <svg className="ograja" viewBox="0 0 1000 470" preserveAspectRatio="xMidYMax meet">
               <defs>
                 <linearGradient id="jeklo" x1="0" y1="0" x2="1" y2="0">
                   <stop offset="0%" stopColor="#6f767c" />
@@ -308,21 +308,21 @@ export default function IgraSidranje() {
                 </filter>
               </defs>
               <g filter="url(#mehkaSenca)">
-                <rect x="60" y="180" width="880" height="16" fill="url(#jeklo)" />
-                <rect x="60" y="330" width="880" height="16" fill="url(#jeklo)" />
+                <rect x="60" y="150" width="880" height="15" fill="url(#jeklo)" />
+                <rect x="60" y="290" width="880" height="15" fill="url(#jeklo)" />
                 {[105, 175, 245, 315, 690, 760, 830, 900].map((x) => (
                   <g key={x}>
-                    <rect x={x} y="120" width="13" height="300" rx="2" fill="url(#jeklo)" />
-                    <polygon points={`${x - 4},122 ${x + 17},122 ${x + 6.5},96`} fill="#9aa1a7" />
+                    <rect x={x} y="95" width="13" height="275" rx="2" fill="url(#jeklo)" />
+                    <polygon points={`${x - 4},97 ${x + 17},97 ${x + 6.5},72`} fill="#9aa1a7" />
                   </g>
                 ))}
-                <rect x="470" y="70" width="46" height="350" rx="3" fill="url(#jeklo)" />
-                <rect x="470" y="70" width="46" height="12" rx="2" fill="#dfe3e5" />
-                <polygon points="470,360 430,420 470,420" fill="#9aa1a7" />
-                <polygon points="516,360 556,420 516,420" fill="#8e959b" />
-                <rect x="380" y="420" width="226" height="26" rx="2" fill="url(#jekloV)" />
-                <rect x="380" y="420" width="226" height="5" fill="#eff1f2" />
-                <rect x="380" y="441" width="226" height="6" fill="#6f767c" />
+                <rect x="470" y="50" width="46" height="320" rx="3" fill="url(#jeklo)" />
+                <rect x="470" y="50" width="46" height="11" rx="2" fill="#dfe3e5" />
+                <polygon points="470,318 434,370 470,370" fill="#9aa1a7" />
+                <polygon points="516,318 552,370 516,370" fill="#8e959b" />
+                <rect x="392" y="370" width="202" height="22" rx="2" fill="url(#jekloV)" />
+                <rect x="392" y="370" width="202" height="4" fill="#eff1f2" />
+                <rect x="392" y="388" width="202" height="5" fill="#6f767c" />
               </g>
             </svg>
           </>
@@ -353,7 +353,7 @@ export default function IgraSidranje() {
               {l.sidro && (
                 <span
                   className={`sidro${l.zategnjenost >= 100 ? " zategnjeno" : ""}`}
-                  style={{ bottom: `${20 - l.zabitost * 0.08}%` }}
+                  style={{ bottom: `${16 - l.zabitost * 0.06}%` }}
                 >
                   <Image src="/igra/sidro.png" alt="Jekleno sidro TXH7" width={84} height={520} />
                   {l.zategnjenost > 0 && (

@@ -1039,13 +1039,13 @@ table.adm-tab tr:last-child td { border-bottom: 0; }
 
 /* ----- prizor ----- */
 .prizor {
-  position: relative; aspect-ratio: 16 / 9; overflow: hidden;
+  position: relative; aspect-ratio: 21 / 9; max-height: 440px; overflow: hidden;
   border: 1px solid var(--color-line); user-select: none; touch-action: none;
 }
 .prizor.z-orodjem { cursor: none; }
-.prizor-nebo { position: absolute; inset: 0 0 32% 0; background: linear-gradient(180deg, #dfe4e8 0%, #eef1f3 55%, #f6f7f8 100%); }
+.prizor-nebo { position: absolute; inset: 0 0 46% 0; background: linear-gradient(180deg, #dfe4e8 0%, #eef1f3 55%, #f6f7f8 100%); }
 .prizor-beton {
-  position: absolute; left: 0; right: 0; bottom: 0; height: 32%;
+  position: absolute; left: 0; right: 0; bottom: 0; height: 46%;
   background: url("/igra/beton.jpg") center/cover no-repeat;
   box-shadow: inset 0 12px 22px rgba(45, 48, 51, 0.18);
 }
@@ -1056,23 +1056,31 @@ table.adm-tab tr:last-child td { border-bottom: 0; }
   background: rgba(203, 32, 38, 0.92); color: #fff; font-size: 12.5px; font-weight: 700;
   letter-spacing: 1px; text-transform: uppercase; padding: 9px 18px; white-space: nowrap;
 }
-.ograja { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.ograja { position: absolute; left: 0; right: 0; top: 0; height: 56%; width: 100%; pointer-events: none; }
 .ograja-senca {
-  position: absolute; left: 30%; right: 30%; bottom: 26%; height: 5%;
+  position: absolute; left: 32%; right: 32%; bottom: 42%; height: 7%;
   background: radial-gradient(ellipse at center, rgba(45,48,51,.42) 0%, rgba(45,48,51,0) 70%);
 }
 
 /* ----- luknje ----- */
-.tocka { position: absolute; bottom: 4%; width: 36px; height: 48%; transform: translateX(-50%); }
+.tocka {
+  position: absolute; bottom: 4%; width: 58px; height: 50%;
+  transform: translateX(-50%); display: flex; justify-content: center;
+}
+.tocka::before {
+  content: ""; position: absolute; inset: 0;
+  background: rgba(203, 32, 38, 0); transition: background .15s;
+}
+.prizor.z-orodjem .tocka:hover::before { background: rgba(203, 32, 38, .07); }
 .oznaka {
-  position: absolute; left: 50%; bottom: 56%; width: 13px; height: 13px; transform: translateX(-50%);
+  position: absolute; left: 50%; bottom: 44%; width: 15px; height: 15px; transform: translateX(-50%);
   border-radius: 50%; background: var(--color-red); box-shadow: 0 0 0 7px rgba(203,32,38,.22);
   animation: utrip 1.5s ease-in-out infinite;
 }
 @keyframes utrip { 50% { box-shadow: 0 0 0 12px rgba(203,32,38,.1); } }
 
 .luknja {
-  position: absolute; left: 50%; bottom: 18%; width: 12px; transform: translateX(-50%);
+  position: absolute; left: 50%; bottom: 8%; width: 13px; transform: translateX(-50%);
   background: linear-gradient(180deg, #23262a 0%, #45494c 100%);
   box-shadow: inset 0 3px 6px rgba(0,0,0,.7), 0 1px 0 rgba(255,255,255,.35);
   transition: height .07s linear;
@@ -1086,7 +1094,7 @@ table.adm-tab tr:last-child td { border-bottom: 0; }
 
 /* delci betona */
 .delec {
-  position: absolute; left: 50%; bottom: 52%; border-radius: 50%;
+  position: absolute; left: 50%; bottom: 44%; border-radius: 50%;
   background: #b3a98e;
   animation: izmet .6s ease-out forwards;
   pointer-events: none;
@@ -1103,13 +1111,13 @@ table.adm-tab tr:last-child td { border-bottom: 0; }
 }
 .sidro img { width: 100%; height: auto; display: block; }
 .sidro .matica {
-  position: absolute; left: 50%; top: 2%; width: 20px; height: 20px;
-  margin-left: -10px; border: 3px solid rgba(26,127,60,.55); border-radius: 3px;
+  position: absolute; left: 50%; top: 1%; width: 15px; height: 15px;
+  margin-left: -7.5px; border: 2px solid rgba(26,127,60,.6); border-radius: 2px;
   transition: transform .07s linear;
 }
 .sidro.zategnjeno::after {
-  content: ""; position: absolute; left: 50%; top: -8px; width: 32px; height: 32px;
-  transform: translateX(-50%); border-radius: 50%; background: rgba(26,127,60,.2);
+  content: ""; position: absolute; left: 50%; top: -6px; width: 22px; height: 22px;
+  transform: translateX(-50%); border-radius: 50%; background: rgba(26,127,60,.18);
 }
 
 /* ----- orodje v roki ----- */
@@ -1164,7 +1172,7 @@ table.adm-tab tr:last-child td { border-bottom: 0; }
 .vroki.sidro img { width: 100%; height: auto; display: block; }
 
 .prizor-konec {
-  position: absolute; left: 50%; top: 7%; transform: translateX(-50%);
+  position: absolute; left: 50%; top: 5%; transform: translateX(-50%); z-index: 6;
   background: #1a7f3c; color: #fff; padding: 12px 26px; text-align: center;
 }
 .prizor-konec b { display: block; font-family: var(--font-display); font-size: 22px; font-weight: 800; text-transform: uppercase; }
@@ -1222,6 +1230,6 @@ table.adm-tab tr:last-child td { border-bottom: 0; }
   .igra-koraki { grid-template-columns: repeat(3, 1fr); }
   .orodjarna { grid-template-columns: 1fr; }
   .orodjarna .sidra .orodjarna-gumbi { flex-wrap: wrap; }
-  .prizor { aspect-ratio: 4 / 3; }
-  .tocka { width: 30px; }
+  .prizor { aspect-ratio: 3 / 2; max-height: 340px; }
+  .tocka { width: 46px; }
 }
