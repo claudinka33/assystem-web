@@ -100,20 +100,15 @@ export default async function Domov() {
           </div>
 
           <div className="hero-im">
-            <div className="okvir">
-              <Image
-                src="/slike/sidro-txh7.jpg"
-                alt="Jekleno sidro ASfix TXH7"
-                fill
-                priority
-                sizes="(max-width: 1000px) 100vw, 560px"
-                style={{ objectFit: "contain", mixBlendMode: "multiply" }}
-              />
-            </div>
-            <div className="hero-badge">
-              <b>Jekleno sidro TXH7</b>
-              <span>Ocena ETA · M8–M16 · ZnB</span>
-            </div>
+            <Image
+              src="/hero-izdelki.png"
+              alt="Pritrdila ASfix — jeklena sidra, zidni vložki, kemično sidro, vrečka in škatla"
+              width={1600}
+              height={1200}
+              priority
+              sizes="(max-width: 1000px) 100vw, 640px"
+              style={{ width: "100%", height: "auto" }}
+            />
           </div>
         </div>
       </section>
