@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import IgraSidranje from "@/components/IgraSidranje";
+import EmbalazaAsfix from "@/components/EmbalazaAsfix";
 import PolicaAsfix from "@/components/PolicaAsfix";
 import NaslovStrani from "@/components/NaslovStrani";
 
@@ -16,12 +17,6 @@ const aduti = [
   ["Evropska dokazila", "Nosilna sidra imajo oceno ETA in izjavo o lastnostih. Trgovec lahko izdelek zagovarja pred zahtevnim kupcem."],
   ["Embalaža, ki proda", "Vrečka z izveskom, škatla z jasno šifro in dimenzijo, paletna enota za centre. V treh sekundah je jasno, kaj je notri."],
   ["Dobava iz zaloge", "Osnovni asortiman je v visokoregalnem skladišču v Šmarju. Brez čakanja na uvoz."],
-];
-
-const embalaza = [
-  ["/slike/vrecka-rdeca.jpg", "Vrečka z izveskom", "Za police in stojala. Pregleden izvesek, dimenzija in šifra na sprednji strani."],
-  ["/slike/skatla-asfix.jpg", "Škatla", "Za pult in skladišče. Šifra, dimenzija in število kosov so na čelni ploskvi."],
-  ["/slike/paleta.jpg", "Paletna enota", "Za trgovske centre in večje odjeme. Enotno označene škatle na paleti."],
 ];
 
 export default function ASfix() {
@@ -90,31 +85,14 @@ export default function ASfix() {
         <div className="w">
           <div className="st">
             <span>Embalaža</span>
-            <h2>Trije formati za prodajo</h2>
+            <h2>Ena skupina, več pakiranj</h2>
             <p>
-              Embalažo prilagodimo prodajni poti — od samopostrežne police do
-              paletne dobave v center.
+              Isti izdelek pakiramo v različne formate, ker ima vsaka prodajna
+              pot svoje zahteve. Trgovec s tem izkoristi polico, kupec pa dobi
+              velikost, ki jo res potrebuje — od desetih kosov do palete.
             </p>
           </div>
-          <div className="kats">
-            {embalaza.map(([src, naziv, opis]) => (
-              <div key={naziv} className="k">
-                <div className="im">
-                  <Image
-                    src={src}
-                    alt={naziv}
-                    fill
-                    sizes="300px"
-                    style={{ objectFit: "contain", padding: 18, mixBlendMode: "multiply" }}
-                  />
-                </div>
-                <div className="tx">
-                  <h3>{naziv}</h3>
-                  <p>{opis}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+          <EmbalazaAsfix />
         </div>
       </section>
 
