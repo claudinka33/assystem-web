@@ -151,7 +151,7 @@ export default function ASfix() {
             <span>Preizkusite sami</span>
             <h2>Pritrdite ograjo v beton</h2>
             <p>
-              Sedem korakov, kot gredo na gradbišču. Izberite sveder in sidro,
+              Šest korakov, kot gredo na gradbišču. Izberite sveder in sidro,
               izvrtajte, izpihajte luknje, zabijte sidra in jih zategnite. Če kaj
               ni po vrsti, vam vaja pove, zakaj ne gre.
             </p>
