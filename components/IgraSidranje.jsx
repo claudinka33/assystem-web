@@ -2,236 +2,293 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { dogodek } from "@/lib/dogodki";
 
 /* --------------------------------------------------------------
-   Interaktivna vaja: pritrditev ograje v betonsko škarpo.
-   Vrstni red je enak kot na gradbišču — sveder, izpih, sidro,
-   kladivo, ključ. Napačen korak vrne pojasnilo, zakaj ne gre.
+   Vaja sidranja — orodje vzameš v roko in ga držiš nad luknjo.
+   Vrtanje, izpih in zategovanje tečejo, dokler držiš miško.
+   Kladivo dela na udarce.
    -------------------------------------------------------------- */
 
-const LUKNJE = [
-  { id: 0, x: 41.5 },
-  { id: 1, x: 46 },
-  { id: 2, x: 54 },
-  { id: 3, x: 58.5 },
-];
+const LUKNJE = [41.5, 46.5, 53.5, 58.5];
 
-const SVEDRI = [
-  { id: 8, naziv: "Ø8 × 110" },
-  { id: 10, naziv: "Ø10 × 120" },
-  { id: 12, naziv: "Ø12 × 160" },
-];
+const SVEDRI = [8, 10, 12];
 
 const SIDRA = [
-  { id: "8x75", naziv: "TXH7 M8×75", premer: 8, opis: "Lažje konstrukcije, nadstreški" },
+  { id: "8x75", naziv: "TXH7 M8×75", premer: 8, opis: "Nadstreški, lažje konzole" },
   { id: "10x90", naziv: "TXH7 M10×90", premer: 10, opis: "Ograje, konzole, strojne noge", top: true },
-  { id: "12x120", naziv: "TXH7 M12×120", premer: 12, opis: "Težke obremenitve, nosilci" },
+  { id: "12x120", naziv: "TXH7 M12×120", premer: 12, opis: "Nosilci, težke obremenitve" },
 ];
 
-const KORAKI = [
-  { kljuc: "ograja", naziv: "Postavi ograjo", navodilo: "Klikni na betonsko škarpo in postavi steber ograje." },
-  { kljuc: "sveder", naziv: "Izberi sveder", navodilo: "Premer svedra mora ustrezati premeru sidra. Za M10 je to Ø10." },
-  { kljuc: "vrtanje", naziv: "Izvrtaj luknje", navodilo: "Klikni vse štiri oznake na podložni plošči." },
-  { kljuc: "pihanje", naziv: "Izpihaj luknje", navodilo: "Prah v luknji zniža nosilnost. Izpihaj vse štiri." },
-  { kljuc: "sidro", naziv: "Vstavi sidra", navodilo: "Izberi sidro TXH7 in ga vstavi v vse štiri luknje." },
-  { kljuc: "kladivo", naziv: "Zabij sidra", navodilo: "Sidro zabij, dokler se ne usede do podložne plošče." },
-  { kljuc: "kljuc", naziv: "Zategni matice", navodilo: "Zategni matice — stožec se povleče navzgor in razpre tulec." },
-  { kljuc: "konec", naziv: "Končano", navodilo: "Ograja je pritrjena." },
-];
-
-const zacetneLuknje = LUKNJE.map((l) => ({
-  ...l,
-  izvrtana: false,
-  izpihana: false,
-  sidro: false,
-  zabito: false,
-  zategnjeno: false,
+const zacetne = LUKNJE.map((x, id) => ({
+  id,
+  x,
+  globina: 0,      // 0–100 vrtanje
+  prah: 100,       // 100 = polna prahu, 0 = izpihana
+  sidro: null,
+  zabitost: 0,     // 0–100
+  zategnjenost: 0, // 0–100
 }));
 
 export default function IgraSidranje() {
-  const [korak, setKorak] = useState(0);
-  const [luknje, setLuknje] = useState(zacetneLuknje);
+  const [luknje, setLuknje] = useState(zacetne);
   const [ograja, setOgraja] = useState(false);
-  const [sveder, setSveder] = useState(null);
-  const [sidro, setSidro] = useState(null);
+  const [orodje, setOrodje] = useState(null); // {tip, premer?, id?}
+  const [misk, setMisk] = useState({ x: 50, y: 50 });
+  const [vRoki, setVRoki] = useState(false);
+  const [delci, setDelci] = useState([]);
   const [sporocilo, setSporocilo] = useState(null);
   const [napaka, setNapaka] = useState(false);
-  const [animacija, setAnimacija] = useState(null); // { tip, id }
+  const [koncano, setKoncano] = useState(false);
 
-  const trenutni = KORAKI[korak];
+  const prizor = useRef(null);
+  const tik = useRef(null);
+  const stevec = useRef(0);
+
+  const vseIzvrtane = luknje.every((l) => l.globina >= 100);
+  const vseIzpihane = luknje.every((l) => l.prah <= 0);
+  const vseSidra = luknje.every((l) => l.sidro);
+  const vseZabite = luknje.every((l) => l.zabitost >= 100);
+  const vseZategnjene = luknje.every((l) => l.zategnjenost >= 100);
+
+  const korak = !ograja
+    ? 0
+    : !vseIzvrtane
+    ? 1
+    : !vseIzpihane
+    ? 2
+    : !vseSidra
+    ? 3
+    : !vseZabite
+    ? 4
+    : !vseZategnjene
+    ? 5
+    : 6;
+
+  const KORAKI = [
+    ["Postavi ograjo", "Klikni na betonsko škarpo."],
+    ["Izvrtaj luknje", orodje?.tip === "sveder" ? "Sveder je v roki. Postavi ga nad oznako in drži miško, dokler ni luknja izvrtana." : "Vzemi sveder iz orodjarne — premer mora ustrezati sidru."],
+    ["Izpihaj luknje", orodje?.tip === "pihalka" ? "Drži miško nad luknjo, dokler ves prah ne izgine." : "Vzemi pihalko iz orodjarne."],
+    ["Vstavi sidra", orodje?.tip === "sidro" ? "Klikni v vsako izpihano luknjo." : "Izberi sidro TXH7 iz orodjarne."],
+    ["Zabij sidra", orodje?.tip === "kladivo" ? "Vsak klik je en udarec. Štirje udarci na sidro." : "Vzemi kladivo iz orodjarne."],
+    ["Zategni matice", orodje?.tip === "kljuc" ? "Drži miško nad matico, dokler ni zategnjena." : "Vzemi viličasti ključ iz orodjarne."],
+    ["Končano", "Ograja je pritrjena."],
+  ];
 
   function povej(besedilo, jeNapaka = false) {
     setSporocilo(besedilo);
     setNapaka(jeNapaka);
   }
 
-  function animiraj(tip, id, trajanje = 700) {
-    setAnimacija({ tip, id });
-    setTimeout(() => setAnimacija(null), trajanje);
+  const posodobi = useCallback((id, f) => {
+    setLuknje((prej) => prej.map((l) => (l.id === id ? { ...l, ...f(l) } : l)));
+  }, []);
+
+  function vrziDelce(id, koliko = 3) {
+    const novi = Array.from({ length: koliko }, () => ({
+      k: stevec.current++,
+      id,
+      dx: (Math.random() - 0.5) * 90,
+      dy: -18 - Math.random() * 46,
+      r: 2 + Math.random() * 4,
+    }));
+    setDelci((p) => [...p, ...novi]);
+    setTimeout(() => setDelci((p) => p.filter((d) => !novi.includes(d))), 650);
   }
 
-  function naprej(nov) {
-    setKorak(nov);
-    if (KORAKI[nov].kljuc === "konec") dogodek("igra_sidranje_koncana");
+  function ustavi() {
+    if (tik.current) clearInterval(tik.current);
+    tik.current = null;
   }
 
-  function posodobi(id, spremembe) {
-    setLuknje((prej) => prej.map((l) => (l.id === id ? { ...l, ...spremembe } : l)));
+  useEffect(() => ustavi, []);
+
+  useEffect(() => {
+    if (korak === 6 && !koncano) {
+      setKoncano(true);
+      dogodek("igra_sidranje_koncana");
+    }
+  }, [korak, koncano]);
+
+  function premik(e) {
+    const r = prizor.current?.getBoundingClientRect();
+    if (!r) return;
+    setMisk({
+      x: ((e.clientX - r.left) / r.width) * 100,
+      y: ((e.clientY - r.top) / r.height) * 100,
+    });
   }
 
-  function klikBeton() {
-    if (trenutni.kljuc !== "ograja") return;
-    setOgraja(true);
-    povej("Steber stoji na škarpi. Zdaj potrebuješ pravi sveder.");
-    naprej(1);
+  // ---------------- dejanja nad luknjo ----------------
+  function zacniDejanje(l) {
+    if (!orodje) {
+      povej("Najprej vzemi orodje iz orodjarne.", true);
+      return;
+    }
+
+    if (orodje.tip === "sveder") {
+      if (l.globina >= 100) return;
+      setVRoki(true);
+      tik.current = setInterval(() => {
+        vrziDelce(l.id, 3);
+        posodobi(l.id, (x) => {
+          const nova = Math.min(100, x.globina + 7);
+          if (nova >= 100) ustavi();
+          return { globina: nova };
+        });
+      }, 70);
+      return;
+    }
+
+    if (orodje.tip === "pihalka") {
+      if (l.globina < 100) {
+        povej("Ta luknja še ni izvrtana.", true);
+        return;
+      }
+      if (l.prah <= 0) return;
+      setVRoki(true);
+      tik.current = setInterval(() => {
+        posodobi(l.id, (x) => {
+          const nov = Math.max(0, x.prah - 9);
+          if (nov <= 0) ustavi();
+          return { prah: nov };
+        });
+      }, 70);
+      return;
+    }
+
+    if (orodje.tip === "sidro") {
+      if (l.globina < 100) {
+        povej("V neizvrtano luknjo sidra ni mogoče vstaviti.", true);
+        return;
+      }
+      if (l.prah > 0) {
+        povej("Luknja je še polna prahu. Prah zniža nosilnost — najprej izpihaj.", true);
+        return;
+      }
+      if (l.sidro) return;
+      posodobi(l.id, () => ({ sidro: orodje.id }));
+      return;
+    }
+
+    if (orodje.tip === "kladivo") {
+      if (!l.sidro || l.zabitost >= 100) return;
+      posodobi(l.id, (x) => ({ zabitost: Math.min(100, x.zabitost + 25) }));
+      vrziDelce(l.id, 2);
+      return;
+    }
+
+    if (orodje.tip === "kljuc") {
+      if (l.zabitost < 100) {
+        povej("Sidro mora biti najprej zabito do plošče.", true);
+        return;
+      }
+      if (l.zategnjenost >= 100) return;
+      setVRoki(true);
+      tik.current = setInterval(() => {
+        posodobi(l.id, (x) => {
+          const nov = Math.min(100, x.zategnjenost + 8);
+          if (nov >= 100) ustavi();
+          return { zategnjenost: nov };
+        });
+      }, 70);
+    }
   }
 
-  function izberiSveder(s) {
-    if (trenutni.kljuc !== "sveder") return;
-    setSveder(s.id);
-    povej(`Vpet je sveder ${s.naziv}. Izvrtaj štiri luknje skozi podložno ploščo.`);
-    naprej(2);
+  function koncajDejanje() {
+    setVRoki(false);
+    ustavi();
   }
 
-  function izberiSidro(s) {
-    if (trenutni.kljuc !== "sidro") return;
-    if (s.premer !== sveder) {
+  // ---------------- izbira orodja ----------------
+  function vzemiSveder(premer) {
+    setOrodje({ tip: "sveder", premer });
+    povej(`V vrtalnik je vpet sveder Ø${premer}. Drži miško nad oznako, da vrtaš.`);
+  }
+
+  function vzemiSidro(s) {
+    const uporabljen = SVEDRI.find(() => false);
+    const premerIzvrtine = orodjePremerIzvrtine();
+    if (premerIzvrtine && s.premer !== premerIzvrtine) {
       povej(
-        `Sidro ${s.naziv} zahteva izvrtino Ø${s.premer}, ti pa si vrtal z Ø${sveder}. ` +
-          (s.premer > sveder
-            ? "V premajhno luknjo sidra ni mogoče vstaviti."
-            : "V preveliki luknji se tulec ne razpre in sidro ne zagrabi betona."),
+        `Sidro ${s.naziv} zahteva izvrtino Ø${s.premer}, ti pa si vrtal z Ø${premerIzvrtine}. ` +
+          (s.premer > premerIzvrtine
+            ? "V premajhno izvrtino sidra ni mogoče vstaviti."
+            : "V preveliki izvrtini se tulec ne razpre in sidro ne zagrabi betona."),
         true
       );
       return;
     }
-    setSidro(s.id);
-    povej(`Izbrano ${s.naziv}. Vstavi ga v vse štiri luknje.`);
+    setOrodje({ tip: "sidro", id: s.id, premer: s.premer });
+    povej(`${s.naziv} je v roki. Klikni v izpihano luknjo.`);
   }
 
-  function klikLuknja(l) {
-    switch (trenutni.kljuc) {
-      case "ograja":
-        povej("Najprej postavi steber — klikni na betonsko škarpo.", true);
-        break;
-
-      case "sveder":
-        povej("Najprej vpni sveder v vrtalnik.", true);
-        break;
-
-      case "vrtanje": {
-        if (l.izvrtana) return;
-        animiraj("vrtanje", l.id, 800);
-        posodobi(l.id, { izvrtana: true });
-        if (luknje.every((x) => (x.id === l.id ? true : x.izvrtana))) {
-          povej("Vse štiri luknje so izvrtane. Zdaj jih izpihaj.");
-          naprej(3);
-        }
-        break;
-      }
-
-      case "pihanje": {
-        if (!l.izvrtana || l.izpihana) return;
-        animiraj("pihanje", l.id, 700);
-        posodobi(l.id, { izpihana: true });
-        if (luknje.every((x) => (x.id === l.id ? true : x.izpihana))) {
-          povej("Luknje so čiste. Izberi sidro.");
-          naprej(4);
-        }
-        break;
-      }
-
-      case "sidro": {
-        if (!sidro) {
-          povej("Najprej izberi sidro iz orodjarne.", true);
-          return;
-        }
-        if (!l.izpihana) {
-          povej("Ta luknja še ni izpihana. Prah zniža nosilnost sidra.", true);
-          return;
-        }
-        if (l.sidro) return;
-        posodobi(l.id, { sidro: true });
-        if (luknje.every((x) => (x.id === l.id ? true : x.sidro))) {
-          povej("Sidra so vstavljena. Zabij jih s kladivom.");
-          naprej(5);
-        }
-        break;
-      }
-
-      case "kladivo": {
-        if (!l.sidro || l.zabito) return;
-        animiraj("kladivo", l.id, 600);
-        posodobi(l.id, { zabito: true });
-        if (luknje.every((x) => (x.id === l.id ? true : x.zabito))) {
-          povej("Sidra sedijo. Ostane še zategovanje.");
-          naprej(6);
-        }
-        break;
-      }
-
-      case "kljuc": {
-        if (!l.zabito || l.zategnjeno) return;
-        animiraj("kljuc", l.id, 700);
-        posodobi(l.id, { zategnjeno: true });
-        if (luknje.every((x) => (x.id === l.id ? true : x.zategnjeno))) {
-          povej("Vsa štiri sidra so zategnjena.");
-          naprej(7);
-        }
-        break;
-      }
-
-      default:
-        break;
-    }
+  const premerRef = useRef(null);
+  function orodjePremerIzvrtine() {
+    return premerRef.current;
   }
+  useEffect(() => {
+    if (orodje?.tip === "sveder") premerRef.current = orodje.premer;
+  }, [orodje]);
 
   function ponovi() {
-    setKorak(0);
-    setLuknje(zacetneLuknje);
+    ustavi();
+    setLuknje(zacetne);
     setOgraja(false);
-    setSveder(null);
-    setSidro(null);
+    setOrodje(null);
+    setDelci([]);
     setSporocilo(null);
     setNapaka(false);
-    setAnimacija(null);
+    setKoncano(false);
+    premerRef.current = null;
   }
 
-  const izbranoSidro = SIDRA.find((s) => s.id === sidro);
-  const konec = trenutni.kljuc === "konec";
+  const izbranoSidro = SIDRA.find((s) => s.id === luknje.find((l) => l.sidro)?.sidro);
 
   return (
     <div className="igra">
       <ol className="igra-koraki">
-        {KORAKI.slice(0, 7).map((k, i) => (
-          <li key={k.kljuc} className={i < korak ? "koncan" : i === korak ? "aktiven" : undefined}>
+        {KORAKI.slice(0, 6).map(([naziv], i) => (
+          <li key={naziv} className={i < korak ? "koncan" : i === korak ? "aktiven" : undefined}>
             <b>{String(i + 1).padStart(2, "0")}</b>
-            <span>{k.naziv}</span>
+            <span>{naziv}</span>
           </li>
         ))}
       </ol>
 
       <div className="igra-navodilo">
-        <b>{trenutni.naziv}</b>
-        <span>{trenutni.navodilo}</span>
+        <b>{KORAKI[korak][0]}</b>
+        <span>{KORAKI[korak][1]}</span>
       </div>
 
       {sporocilo && <p className={napaka ? "igra-napaka" : "igra-uspeh"}>{sporocilo}</p>}
 
       {/* ---------------- prizor ---------------- */}
-      <div className="prizor">
+      <div
+        ref={prizor}
+        className={`prizor${orodje ? " z-orodjem" : ""}`}
+        onPointerMove={premik}
+        onPointerUp={koncajDejanje}
+        onPointerLeave={koncajDejanje}
+      >
         <div className="prizor-nebo" />
-        <div className="prizor-beton" onClick={klikBeton} data-klik={trenutni.kljuc === "ograja" ? "da" : undefined}>
-          {trenutni.kljuc === "ograja" && <span className="prizor-namig">klikni za postavitev ograje</span>}
+        <div
+          className="prizor-beton"
+          data-klik={!ograja ? "da" : undefined}
+          onPointerDown={() => {
+            if (!ograja) {
+              setOgraja(true);
+              povej("Steber stoji na škarpi. Vzemi sveder iz orodjarne.");
+            }
+          }}
+        >
+          {!ograja && <span className="prizor-namig">klikni za postavitev ograje</span>}
         </div>
 
         {ograja && (
           <>
-            {/* senca ograje na steni */}
             <div className="ograja-senca" />
-
             <svg className="ograja" viewBox="0 0 1000 560" preserveAspectRatio="xMidYMax meet">
               <defs>
                 <linearGradient id="jeklo" x1="0" y1="0" x2="1" y2="0">
@@ -250,9 +307,7 @@ export default function IgraSidranje() {
                   <feDropShadow dx="6" dy="8" stdDeviation="6" floodColor="#2d3033" floodOpacity="0.35" />
                 </filter>
               </defs>
-
               <g filter="url(#mehkaSenca)">
-                {/* stranske precke in polnila */}
                 <rect x="60" y="180" width="880" height="16" fill="url(#jeklo)" />
                 <rect x="60" y="330" width="880" height="16" fill="url(#jeklo)" />
                 {[105, 175, 245, 315, 690, 760, 830, 900].map((x) => (
@@ -261,15 +316,10 @@ export default function IgraSidranje() {
                     <polygon points={`${x - 4},122 ${x + 17},122 ${x + 6.5},96`} fill="#9aa1a7" />
                   </g>
                 ))}
-
-                {/* glavni steber */}
                 <rect x="470" y="70" width="46" height="350" rx="3" fill="url(#jeklo)" />
                 <rect x="470" y="70" width="46" height="12" rx="2" fill="#dfe3e5" />
-                {/* ojacitvena rebra */}
                 <polygon points="470,360 430,420 470,420" fill="#9aa1a7" />
                 <polygon points="516,360 556,420 516,420" fill="#8e959b" />
-
-                {/* podlozna plosca */}
                 <rect x="380" y="420" width="226" height="26" rx="2" fill="url(#jekloV)" />
                 <rect x="380" y="420" width="226" height="5" fill="#eff1f2" />
                 <rect x="380" y="441" width="226" height="6" fill="#6f767c" />
@@ -278,74 +328,162 @@ export default function IgraSidranje() {
           </>
         )}
 
-        {/* luknje, sidra in orodje */}
+        {/* luknje */}
         {ograja &&
           luknje.map((l) => (
             <div
               key={l.id}
               className="tocka"
               style={{ left: `${l.x}%` }}
-              onClick={() => klikLuknja(l)}
+              onPointerDown={(e) => {
+                e.stopPropagation();
+                zacniDejanje(l);
+              }}
             >
-              {!l.izvrtana && <span className="oznaka" />}
+              {l.globina === 0 && <span className="oznaka" />}
 
-              {l.izvrtana && !l.sidro && (
-                <span className="luknja">
-                  {!l.izpihana && <span className="prah" />}
+              {l.globina > 0 && !l.sidro && (
+                <span className="luknja" style={{ height: `${8 + l.globina * 0.34}%` }}>
+                  {l.globina >= 100 && l.prah > 0 && (
+                    <span className="prah" style={{ opacity: l.prah / 100 }} />
+                  )}
                 </span>
               )}
 
               {l.sidro && (
-                <span className={`sidro${l.zabito ? " zabito" : ""}${l.zategnjeno ? " zategnjeno" : ""}`}>
+                <span
+                  className={`sidro${l.zategnjenost >= 100 ? " zategnjeno" : ""}`}
+                  style={{ bottom: `${20 - l.zabitost * 0.08}%` }}
+                >
                   <Image src="/igra/sidro.png" alt="Jekleno sidro TXH7" width={84} height={520} />
+                  {l.zategnjenost > 0 && (
+                    <span className="matica" style={{ transform: `rotate(${l.zategnjenost * 3.6}deg)` }} />
+                  )}
                 </span>
               )}
 
-              {animacija?.id === l.id && <span className={`orodje ${animacija.tip}`} />}
-              {animacija?.id === l.id && animacija.tip === "vrtanje" && <span className="prah-oblak" />}
-              {animacija?.id === l.id && animacija.tip === "pihanje" && <span className="pih" />}
+              {/* delci betona */}
+              {delci
+                .filter((d) => d.id === l.id)
+                .map((d) => (
+                  <span
+                    key={d.k}
+                    className="delec"
+                    style={{
+                      "--dx": `${d.dx}px`,
+                      "--dy": `${d.dy}px`,
+                      width: d.r,
+                      height: d.r,
+                    }}
+                  />
+                ))}
             </div>
           ))}
 
-        {konec && (
+        {/* orodje v roki */}
+        {orodje && (
+          <div
+            className={`vroki ${orodje.tip}${vRoki ? " dela" : ""}`}
+            style={{ left: `${misk.x}%`, top: `${misk.y}%` }}
+          >
+            {orodje.tip === "sveder" && (
+              <>
+                <span className="vpenjalo" />
+                <span className="steblo" />
+                <span className="oznaka-premer">Ø{orodje.premer}</span>
+              </>
+            )}
+            {orodje.tip === "pihalka" && <span className="bucka" />}
+            {orodje.tip === "sidro" && (
+              <Image src="/igra/sidro.png" alt="" width={84} height={520} />
+            )}
+            {orodje.tip === "kladivo" && (
+              <>
+                <span className="glava" />
+                <span className="rocaj" />
+              </>
+            )}
+            {orodje.tip === "kljuc" && <span className="vilice" />}
+          </div>
+        )}
+
+        {korak === 6 && (
           <div className="prizor-konec">
             <b>Ograja drži</b>
-            <span>4 × TXH7 {izbranoSidro?.naziv.replace("TXH7 ", "")}</span>
+            <span>4 × {izbranoSidro?.naziv ?? "TXH7"}</span>
           </div>
         )}
       </div>
 
       {/* ---------------- orodjarna ---------------- */}
-      <div className="igra-orodja">
-        <div>
-          <h4>Sveder</h4>
-          <div className="igra-gumbi">
-            {SVEDRI.map((s) => (
+      <div className="orodjarna">
+        <div className="orodjarna-skupina">
+          <h4>Svedri</h4>
+          <div className="orodjarna-gumbi">
+            {SVEDRI.map((p) => (
               <button
-                key={s.id}
+                key={p}
                 type="button"
-                className={sveder === s.id ? "izbran" : undefined}
-                onClick={() => izberiSveder(s)}
-                disabled={trenutni.kljuc !== "sveder"}
+                className={orodje?.tip === "sveder" && orodje.premer === p ? "izbran" : undefined}
+                onClick={() => vzemiSveder(p)}
               >
-                {s.naziv}
+                <i className="ik-sveder" />
+                Ø{p}
               </button>
             ))}
           </div>
         </div>
 
-        <div>
-          <h4>Sidro TXH7</h4>
-          <div className="igra-gumbi">
+        <div className="orodjarna-skupina">
+          <h4>Orodje</h4>
+          <div className="orodjarna-gumbi">
+            <button
+              type="button"
+              className={orodje?.tip === "pihalka" ? "izbran" : undefined}
+              onClick={() => {
+                setOrodje({ tip: "pihalka" });
+                povej("Pihalka je v roki. Drži miško nad luknjo.");
+              }}
+            >
+              <i className="ik-pihalka" />
+              Pihalka
+            </button>
+            <button
+              type="button"
+              className={orodje?.tip === "kladivo" ? "izbran" : undefined}
+              onClick={() => {
+                setOrodje({ tip: "kladivo" });
+                povej("Kladivo je v roki. Vsak klik je en udarec.");
+              }}
+            >
+              <i className="ik-kladivo" />
+              Kladivo
+            </button>
+            <button
+              type="button"
+              className={orodje?.tip === "kljuc" ? "izbran" : undefined}
+              onClick={() => {
+                setOrodje({ tip: "kljuc" });
+                povej("Ključ je v roki. Drži miško nad matico.");
+              }}
+            >
+              <i className="ik-kljuc" />
+              Ključ
+            </button>
+          </div>
+        </div>
+
+        <div className="orodjarna-skupina sidra">
+          <h4>Sidra TXH7</h4>
+          <div className="orodjarna-gumbi">
             {SIDRA.map((s) => (
               <button
                 key={s.id}
                 type="button"
-                className={sidro === s.id ? "izbran" : undefined}
-                onClick={() => izberiSidro(s)}
-                disabled={trenutni.kljuc !== "sidro"}
+                className={`sidro-gumb${orodje?.tip === "sidro" && orodje.id === s.id ? " izbran" : ""}`}
+                onClick={() => vzemiSidro(s)}
               >
-                {s.naziv}
+                <b>{s.naziv}</b>
                 {s.top && <em>top izbor</em>}
                 <span>{s.opis}</span>
               </button>
@@ -354,14 +492,13 @@ export default function IgraSidranje() {
         </div>
       </div>
 
-      {konec && (
+      {korak === 6 && (
         <div className="igra-konec">
           <h3>Ograja je pritrjena</h3>
           <p>
-            Uporabil si {izbranoSidro?.naziv} in sveder Ø{sveder}. Vsa štiri sidra
-            so izpihana, zabita in zategnjena. Prav izpih izvrtine je korak, ki ga
-            na gradbišču največkrat izpustijo — in prav ta najbolj zniža nosilnost
-            pritrditve.
+            Vsa štiri sidra so izvrtana s pravim svedrom, izpihana, zabita do
+            plošče in zategnjena. Prav izpih izvrtine je korak, ki ga na gradbišču
+            največkrat izpustijo — in prav ta najbolj zniža nosilnost pritrditve.
           </p>
           <div className="igra-konec-gumbi">
             <Link className="b b-r" href="/program/pritrdila-za-beton">
@@ -377,7 +514,7 @@ export default function IgraSidranje() {
         </div>
       )}
 
-      {!konec && (
+      {korak !== 6 && (
         <button type="button" className="igra-ponovi" onClick={ponovi}>
           Začni znova
         </button>
