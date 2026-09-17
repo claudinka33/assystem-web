@@ -2,14 +2,17 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { supabaseAdmin } from "@/lib/supabase-server";
 import {
+  dodajVGalerijo,
   izbrisiArtikel,
   izbrisiDokument,
   izbrisiIzdelek,
+  odstraniIzGalerije,
   shraniArtikel,
   shraniDokument,
 } from "@/lib/akcije/skupno";
 import IzdelekObrazec from "../IzdelekObrazec";
 import NalozSliko from "@/app/admin/NalozSliko";
+import UvozArtiklov from "@/app/admin/UvozArtiklov";
 
 export const dynamic = "force-dynamic";
 
@@ -37,6 +40,8 @@ export default async function UrediIzdelek({ params }) {
 
   if (!izdelek) notFound();
 
+  const galerija = Array.isArray(izdelek.galerija) ? izdelek.galerija : [];
+
   return (
     <>
       <div className="adm-glava">
@@ -51,6 +56,36 @@ export default async function UrediIzdelek({ params }) {
 
       <div className="adm-telo">
         <IzdelekObrazec izdelek={izdelek} kategorije={kategorije ?? []} />
+
+        {/* ---------------- GALERIJA ---------------- */}
+        <h2 style={{ margin: "38px 0 14px", fontSize: 19, fontWeight: 800, textTransform: "uppercase" }}>
+          Galerija slik ({galerija.length})
+        </h2>
+
+        {galerija.length > 0 && (
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginBottom: 16 }}>
+            {galerija.map((url) => (
+              <div key={url} style={{ border: "1px solid #dde0e2", padding: 8, background: "#fff" }}>
+                <img src={url} alt="" style={{ width: 120, height: 120, objectFit: "contain" }} />
+                <form action={odstraniIzGalerije}>
+                  <input type="hidden" name="izdelek_id" value={izdelek.id} />
+                  <input type="hidden" name="url" value={url} />
+                  <button className="gumb siv mini" type="submit" style={{ width: "100%", marginTop: 6 }}>
+                    Odstrani
+                  </button>
+                </form>
+              </div>
+            ))}
+          </div>
+        )}
+
+        <form className="adm-obr" action={dodajVGalerijo}>
+          <input type="hidden" name="izdelek_id" value={izdelek.id} />
+          <NalozSliko ime="slika_url" oznaka="Dodaj sliko v galerijo" />
+          <button className="gumb" type="submit">
+            Dodaj v galerijo
+          </button>
+        </form>
 
         {/* ---------------- ARTIKLI ---------------- */}
         <h2 style={{ margin: "38px 0 14px", fontSize: 19, fontWeight: 800, textTransform: "uppercase" }}>
@@ -167,6 +202,8 @@ export default async function UrediIzdelek({ params }) {
             Dodaj artikel
           </button>
         </form>
+
+        <UvozArtiklov izdelekId={izdelek.id} />
 
         {/* ---------------- DOKUMENTI ---------------- */}
         <h2 style={{ margin: "38px 0 14px", fontSize: 19, fontWeight: 800, textTransform: "uppercase" }}>

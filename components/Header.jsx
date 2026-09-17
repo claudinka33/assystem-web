@@ -48,6 +48,11 @@ export default function Header() {
             ))}
           </nav>
 
+          <form action="/iskanje" className="isci">
+            <input name="q" type="search" placeholder="Išči po šifri ali nazivu…" aria-label="Iskanje" />
+            <button type="submit" aria-label="Išči">→</button>
+          </form>
+
           <a className="tel" href={`tel:${site.telefonRaw}`}>
             {site.telefon}
             <span>{site.emailProdaja}</span>

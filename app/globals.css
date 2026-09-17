@@ -865,3 +865,35 @@ table.adm-tab tr:last-child td { border-bottom: 0; }
   }
   .piskotki-gumbi .b { flex: 1; text-align: center; }
 }
+
+/* ---------- iskalnik v glavi ---------- */
+.isci {
+  display: flex;
+  border: 1px solid #c6cace;
+  margin-left: auto;
+  max-width: 300px;
+  flex: 1;
+}
+.isci input {
+  flex: 1;
+  border: 0;
+  padding: 9px 12px;
+  font: inherit;
+  font-size: 14px;
+  outline: none;
+  min-width: 0;
+}
+.isci button {
+  border: 0;
+  background: var(--color-ink);
+  color: #fff;
+  padding: 0 14px;
+  font-size: 15px;
+  cursor: pointer;
+}
+.isci button:hover { background: var(--color-red); }
+.nav { margin-left: 0; }
+@media (max-width: 1100px) {
+  .isci { display: none; }
+  .nav { margin-left: auto; }
+}

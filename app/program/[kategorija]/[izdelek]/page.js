@@ -33,6 +33,7 @@ export default async function StranIzdelka({ params }) {
 
   const artikli = (i.artikli ?? []).filter((a) => a.objavljeno);
   const dokumenti = i.dokumenti ?? [];
+  const galerija = Array.isArray(i.galerija) ? i.galerija : [];
 
   return (
     <>
@@ -46,16 +47,31 @@ export default async function StranIzdelka({ params }) {
           </nav>
 
           <div className="qua" style={{ alignItems: "flex-start" }}>
-            <div style={{ position: "relative", aspectRatio: "4 / 3", background: "#fff", border: "1px solid var(--color-line)" }}>
-              {i.slika_url && (
-                <Image
-                  src={i.slika_url}
-                  alt={i.naziv}
-                  fill
-                  priority
-                  sizes="(max-width: 1000px) 100vw, 620px"
-                  style={{ objectFit: "contain", padding: 24, mixBlendMode: "multiply" }}
-                />
+            <div>
+              <div style={{ position: "relative", aspectRatio: "4 / 3", background: "#fff", border: "1px solid var(--color-line)" }}>
+                {i.slika_url && (
+                  <Image
+                    src={i.slika_url}
+                    alt={i.naziv}
+                    fill
+                    priority
+                    sizes="(max-width: 1000px) 100vw, 620px"
+                    style={{ objectFit: "contain", padding: 24, mixBlendMode: "multiply" }}
+                  />
+                )}
+              </div>
+
+              {galerija.length > 0 && (
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 10, marginTop: 10 }}>
+                  {galerija.slice(0, 8).map((url) => (
+                    <div
+                      key={url}
+                      style={{ position: "relative", aspectRatio: "1 / 1", background: "#fff", border: "1px solid var(--color-line)" }}
+                    >
+                      <Image src={url} alt={i.naziv} fill sizes="140px" style={{ objectFit: "contain", padding: 8, mixBlendMode: "multiply" }} />
+                    </div>
+                  ))}
+                </div>
               )}
             </div>
 

@@ -17,7 +17,7 @@ export default function NovicaObrazec({ novica }) {
       <div className="adm-vrsta">
         <div className="adm-polje">
           <label htmlFor="slug">Slug</label>
-          <input id="slug" name="slug" type="text" defaultValue={n.slug ?? ""} />
+          <input id="slug" name="slug" type="text" defaultValue={n.slug ?? ""} pattern="[a-z0-9-]*" />
         </div>
         <div className="adm-polje">
           <label htmlFor="objavljeno_dne">Datum objave</label>

@@ -16,8 +16,8 @@ export default function KategorijaObrazec({ kategorija, kategorije }) {
         </div>
         <div className="adm-polje">
           <label htmlFor="slug">Slug (naslov v povezavi)</label>
-          <input id="slug" name="slug" type="text" defaultValue={k.slug ?? ""} />
-          <p className="namig">Pusti prazno in se ustvari sam iz naziva.</p>
+          <input id="slug" name="slug" type="text" defaultValue={k.slug ?? ""} pattern="[a-z0-9-]*" placeholder="npr. pritrdila-za-beton" />
+          <p className="namig">Del spletnega naslova. Pusti prazno in se ustvari sam. Presledki in šumniki se samodejno pretvorijo.</p>
         </div>
       </div>
 
