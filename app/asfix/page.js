@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import IgraSidranje from "@/components/IgraSidranje";
+import PolicaAsfix from "@/components/PolicaAsfix";
 import NaslovStrani from "@/components/NaslovStrani";
 
 export const metadata = {
@@ -141,6 +142,23 @@ export default function ASfix() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ---------- Prodajna polica ---------- */}
+      <section className="sec">
+        <div className="w">
+          <div className="st">
+            <span>Za trgovce</span>
+            <h2>Prodajna polica ASfix</h2>
+            <p>
+              Cel kotiček pritrdilne tehnike na enem mestu — polica, škatle AFR41
+              in banner nad njo. Izberite širino in poglejte, kako izgleda pri vas.
+              Polica je visoka 2 m in ima šest polic, na tekoči meter gredo štiri
+              škatle.
+            </p>
+          </div>
+          <PolicaAsfix />
         </div>
       </section>
 
