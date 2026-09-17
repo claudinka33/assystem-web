@@ -1,0 +1,295 @@
+{
+  "version": 3,
+  "pages404": true,
+  "appType": "app",
+  "caseSensitive": false,
+  "basePath": "",
+  "redirects": [
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "internal": true,
+      "priority": true,
+      "statusCode": 308,
+      "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
+    }
+  ],
+  "headers": [],
+  "onMatchHeaders": [],
+  "rewrites": {
+    "beforeFiles": [],
+    "afterFiles": [],
+    "fallback": []
+  },
+  "dynamicRoutes": [
+    {
+      "page": "/admin/izdelki/[id]",
+      "regex": "^/admin/izdelki/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/admin/izdelki/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/admin/kategorije/[id]",
+      "regex": "^/admin/kategorije/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/admin/kategorije/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/admin/novice/[id]",
+      "regex": "^/admin/novice/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/admin/novice/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/admin/vsebine/[kljuc]",
+      "regex": "^/admin/vsebine/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPkljuc": "nxtPkljuc"
+      },
+      "namedRegex": "^/admin/vsebine/(?<nxtPkljuc>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/aktualno/[slug]",
+      "regex": "^/aktualno/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/aktualno/(?<nxtPslug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/program/[kategorija]",
+      "regex": "^/program/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPkategorija": "nxtPkategorija"
+      },
+      "namedRegex": "^/program/(?<nxtPkategorija>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/program/[kategorija]/[izdelek]",
+      "regex": "^/program/([^/]+?)/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPkategorija": "nxtPkategorija",
+        "nxtPizdelek": "nxtPizdelek"
+      },
+      "namedRegex": "^/program/(?<nxtPkategorija>[^/]+?)/(?<nxtPizdelek>[^/]+?)(?:/)?$"
+    }
+  ],
+  "staticRoutes": [
+    {
+      "page": "/",
+      "regex": "^/(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/(?:/)?$"
+    },
+    {
+      "page": "/_global-error",
+      "regex": "^/_global\\-error(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_global\\-error(?:/)?$"
+    },
+    {
+      "page": "/_not-found",
+      "regex": "^/_not\\-found(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_not\\-found(?:/)?$"
+    },
+    {
+      "page": "/admin",
+      "regex": "^/admin(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin(?:/)?$"
+    },
+    {
+      "page": "/admin/izdelki",
+      "regex": "^/admin/izdelki(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/izdelki(?:/)?$"
+    },
+    {
+      "page": "/admin/izdelki/nov",
+      "regex": "^/admin/izdelki/nov(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/izdelki/nov(?:/)?$"
+    },
+    {
+      "page": "/admin/kategorije",
+      "regex": "^/admin/kategorije(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/kategorije(?:/)?$"
+    },
+    {
+      "page": "/admin/kategorije/nova",
+      "regex": "^/admin/kategorije/nova(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/kategorije/nova(?:/)?$"
+    },
+    {
+      "page": "/admin/nastavitve",
+      "regex": "^/admin/nastavitve(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/nastavitve(?:/)?$"
+    },
+    {
+      "page": "/admin/novice",
+      "regex": "^/admin/novice(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/novice(?:/)?$"
+    },
+    {
+      "page": "/admin/novice/nova",
+      "regex": "^/admin/novice/nova(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/novice/nova(?:/)?$"
+    },
+    {
+      "page": "/admin/povprasevanja",
+      "regex": "^/admin/povprasevanja(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/povprasevanja(?:/)?$"
+    },
+    {
+      "page": "/admin/prijava",
+      "regex": "^/admin/prijava(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/prijava(?:/)?$"
+    },
+    {
+      "page": "/admin/prijave",
+      "regex": "^/admin/prijave(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/prijave(?:/)?$"
+    },
+    {
+      "page": "/admin/vsebine",
+      "regex": "^/admin/vsebine(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/vsebine(?:/)?$"
+    },
+    {
+      "page": "/aktualno",
+      "regex": "^/aktualno(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/aktualno(?:/)?$"
+    },
+    {
+      "page": "/asfix",
+      "regex": "^/asfix(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/asfix(?:/)?$"
+    },
+    {
+      "page": "/distributerji",
+      "regex": "^/distributerji(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/distributerji(?:/)?$"
+    },
+    {
+      "page": "/favicon.ico",
+      "regex": "^/favicon\\.ico(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/favicon\\.ico(?:/)?$"
+    },
+    {
+      "page": "/iskanje",
+      "regex": "^/iskanje(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/iskanje(?:/)?$"
+    },
+    {
+      "page": "/kakovost",
+      "regex": "^/kakovost(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/kakovost(?:/)?$"
+    },
+    {
+      "page": "/katalogi",
+      "regex": "^/katalogi(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/katalogi(?:/)?$"
+    },
+    {
+      "page": "/kontakt",
+      "regex": "^/kontakt(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/kontakt(?:/)?$"
+    },
+    {
+      "page": "/o-nas",
+      "regex": "^/o\\-nas(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/o\\-nas(?:/)?$"
+    },
+    {
+      "page": "/private-label",
+      "regex": "^/private\\-label(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/private\\-label(?:/)?$"
+    },
+    {
+      "page": "/program",
+      "regex": "^/program(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/program(?:/)?$"
+    },
+    {
+      "page": "/proizvodnja",
+      "regex": "^/proizvodnja(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/proizvodnja(?:/)?$"
+    },
+    {
+      "page": "/robots.txt",
+      "regex": "^/robots\\.txt(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/robots\\.txt(?:/)?$"
+    },
+    {
+      "page": "/sitemap.xml",
+      "regex": "^/sitemap\\.xml(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/sitemap\\.xml(?:/)?$"
+    },
+    {
+      "page": "/splosni-pogoji",
+      "regex": "^/splosni\\-pogoji(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/splosni\\-pogoji(?:/)?$"
+    },
+    {
+      "page": "/zaposlitev",
+      "regex": "^/zaposlitev(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/zaposlitev(?:/)?$"
+    },
+    {
+      "page": "/zasebnost",
+      "regex": "^/zasebnost(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/zasebnost(?:/)?$"
+    }
+  ],
+  "dataRoutes": [],
+  "rsc": {
+    "header": "rsc",
+    "varyHeader": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+    "prefetchHeader": "next-router-prefetch",
+    "didPostponeHeader": "x-nextjs-postponed",
+    "contentTypeHeader": "text/x-component",
+    "suffix": ".rsc",
+    "prefetchSegmentHeader": "next-router-segment-prefetch",
+    "prefetchSegmentSuffix": ".segment.rsc",
+    "prefetchSegmentDirSuffix": ".segments",
+    "clientParamParsing": false,
+    "dynamicRSCPrerender": false
+  },
+  "rewriteHeaders": {
+    "pathHeader": "x-nextjs-rewritten-path",
+    "queryHeader": "x-nextjs-rewritten-query"
+  }
+}

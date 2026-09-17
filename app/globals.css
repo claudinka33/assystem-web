@@ -189,7 +189,7 @@ a {
 }
 .hero {
   background-image: url("/vzorec-antracit.png");
-  background-size: 1100px auto;
+  background-size: 600px auto;
 }
 .hero:before {
   content: "";
@@ -199,7 +199,7 @@ a {
   width: 52%;
   height: 100%;
   background: var(--color-red) url("/vzorec-rdeca.png") repeat;
-  background-size: 1100px auto;
+  background-size: 600px auto;
   transform: skewX(-11deg);
   transform-origin: top;
 }
@@ -548,7 +548,7 @@ a {
 /* ---------- rdeci poziv ---------- */
 .cta {
   background: var(--color-red) url("/vzorec-rdeca.png") repeat;
-  background-size: 1100px auto;
+  background-size: 600px auto;
   color: #fff;
 }
 .cta .w {
@@ -572,7 +572,7 @@ a {
 /* ---------- naslov podstrani ---------- */
 .pgh {
   background: #f5f6f7 url("/vzorec-svetel.png") repeat;
-  background-size: 900px auto;
+  background-size: 600px auto;
   border-bottom: 1px solid var(--color-line);
   padding: 46px 0;
 }
@@ -604,7 +604,7 @@ a {
 /* ---------- noga ---------- */
 .ftr {
   background: var(--color-ink) url("/vzorec-antracit.png") repeat;
-  background-size: 1100px auto;
+  background-size: 600px auto;
   color: var(--color-muted-2);
   font-size: 14px;
   padding: 56px 0 0;
@@ -897,3 +897,64 @@ table.adm-tab tr:last-child td { border-bottom: 0; }
   .isci { display: none; }
   .nav { margin-left: auto; }
 }
+
+/* ---------- iskalnik v heroju ---------- */
+.hero-isci {
+  display: flex;
+  margin-top: 26px;
+  max-width: 460px;
+  background: #fff;
+}
+.hero-isci input {
+  flex: 1;
+  border: 0;
+  padding: 15px 18px;
+  font: inherit;
+  font-size: 15px;
+  outline: none;
+  min-width: 0;
+  color: var(--color-ink);
+}
+.hero-isci button {
+  border: 0;
+  background: var(--color-red);
+  color: #fff;
+  padding: 0 26px;
+  font: inherit;
+  font-weight: 700;
+  font-size: 13.5px;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+  cursor: pointer;
+}
+.hero-isci button:hover { background: var(--color-red-2); }
+
+/* ---------- koraki do naročila ---------- */
+.koraki {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  counter-reset: korak;
+}
+.koraki > div {
+  background: #fff;
+  border: 1px solid var(--color-line);
+  padding: 30px 26px;
+  position: relative;
+}
+.koraki b {
+  font-family: var(--font-display);
+  font-size: 34px;
+  font-weight: 800;
+  color: var(--color-line);
+  display: block;
+  line-height: 1;
+}
+.koraki h3 {
+  font-size: 19px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-top: 12px;
+}
+.koraki p { color: var(--color-muted); font-size: 14.5px; margin-top: 10px; }
+@media (max-width: 900px) { .koraki { grid-template-columns: 1fr; } }

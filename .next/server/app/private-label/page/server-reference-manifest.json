@@ -1,0 +1,16 @@
+{
+  "node": {
+    "60b9c3f9e629a8d2144e46e68552ea3915eae6dfef": {
+      "workers": {
+        "app/private-label/page": {
+          "moduleId": 37746,
+          "async": false,
+          "codeHash": null
+        }
+      },
+      "exportedName": "posljiPovprasevanje",
+      "filename": "lib/akcije/obrazci.js"
+    }
+  },
+  "edge": {}
+}

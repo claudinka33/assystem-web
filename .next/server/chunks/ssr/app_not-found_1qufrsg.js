@@ -1,0 +1,3 @@
+module.exports=[99276,a=>{"use strict";var b=a.i(7997),c=a.i(95936);a.s(["default",0,function(){return(0,b.jsx)("section",{className:"sec",children:(0,b.jsxs)("div",{className:"w",children:[(0,b.jsxs)("div",{className:"st",children:[(0,b.jsx)("span",{children:"Napaka 404"}),(0,b.jsx)("h1",{children:"Te strani ni"}),(0,b.jsx)("p",{children:"Povezava je zastarela ali napačno vnesena."})]}),(0,b.jsx)(c.default,{className:"b b-r",href:"/",children:"Nazaj na domačo stran"})]})})},"metadata",0,{title:"Stran ne obstaja"}])},6661,function(a){a.n(a.i(99276))}];
+
+//# sourceMappingURL=app_not-found_1qufrsg.js.map
