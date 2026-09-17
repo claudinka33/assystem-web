@@ -281,9 +281,7 @@ a {
 }
 .hero-im {
   position: relative;
-  /* izdelki lebdijo brez okvirja — malo izstopijo iz mreze */
-  margin: -20px -40px -40px 0;
-  filter: drop-shadow(0 26px 40px rgba(0, 0, 0, 0.35));
+  filter: drop-shadow(0 22px 36px rgba(0, 0, 0, 0.32));
 }
 
 
