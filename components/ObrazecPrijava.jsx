@@ -4,7 +4,7 @@ import { useActionState, useEffect } from "react";
 import { dogodek } from "@/lib/dogodki";
 import { posljiPrijavo } from "@/lib/akcije/obrazci";
 
-export default function ObrazecPrijava({ delovnaMesta = [] }) {
+export default function ObrazecPrijava({ delovnaMesta = [], izbrano }) {
   const [stanje, akcija, caka] = useActionState(posljiPrijavo, null);
 
   // Konverzija za Google Analytics in Meta Pixel.
@@ -34,10 +34,12 @@ export default function ObrazecPrijava({ delovnaMesta = [] }) {
 
       {stanje?.stanje === "napaka" && <p className="obr-napaka">{stanje.sporocilo}</p>}
 
+      <h3 className="obr-naslov">Prijavnica</h3>
+
       {delovnaMesta.length > 0 && (
         <div className="obr-polje">
           <label htmlFor="delovno_mesto_id">Delovno mesto</label>
-          <select id="delovno_mesto_id" name="delovno_mesto_id">
+          <select id="delovno_mesto_id" name="delovno_mesto_id" defaultValue={izbrano ?? ""}>
             <option value="">Splošna prijava</option>
             {delovnaMesta.map((d) => (
               <option key={d.id} value={d.id}>

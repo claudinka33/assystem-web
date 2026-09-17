@@ -18,9 +18,12 @@ const meni = [
     { naziv: "Besedila na strani", pot: "/admin/vsebine" },
     { naziv: "Novice", pot: "/admin/novice" },
   ]},
+  { skupina: "Zaposlovanje", povezave: [
+    { naziv: "Delovna mesta", pot: "/admin/delovna-mesta" },
+    { naziv: "Prijave za delo", pot: "/admin/prijave" },
+  ]},
   { skupina: "Stiki", povezave: [
     { naziv: "Povpraševanja", pot: "/admin/povprasevanja" },
-    { naziv: "Prijave za delo", pot: "/admin/prijave" },
   ]},
   { skupina: "Sistem", povezave: [
     { naziv: "Nastavitve", pot: "/admin/nastavitve" },
