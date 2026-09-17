@@ -103,8 +103,8 @@ export default async function Domov() {
             <Image
               src="/hero-izdelki.png"
               alt="Pritrdila ASfix — jeklena sidra, zidni vložki, kemično sidro, vrečka in škatla"
-              width={1600}
-              height={1200}
+              width={1280}
+              height={960}
               priority
               sizes="(max-width: 1000px) 100vw, 640px"
               style={{ width: "100%", height: "auto" }}
