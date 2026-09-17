@@ -55,13 +55,14 @@ export default function ASfix() {
                 Prodajni program
               </Link>
             </div>
-            <div className="foto">
+            <div>
               <Image
-                src="/slike/skatla-asfix.jpg"
-                alt="Škatla ASfix"
-                fill
-                sizes="(max-width: 1000px) 100vw, 560px"
-                style={{ objectFit: "contain", mixBlendMode: "multiply" }}
+                src="/hero-izdelki.png"
+                alt="Program ASfix — jeklena sidra, zidni vložki, kemično sidro, udarni vijaki, vrečka in škatla"
+                width={1100}
+                height={1044}
+                sizes="(max-width: 1000px) 100vw, 620px"
+                style={{ width: "100%", height: "auto" }}
               />
             </div>
           </div>
@@ -117,8 +118,85 @@ export default function ASfix() {
         </div>
       </section>
 
-      {/* ---------- Kje se vgrajuje ---------- */}
+      {/* ---------- Program znamke ---------- */}
+      <section className="sec">
+        <div className="w">
+          <div className="st">
+            <span>Program</span>
+            <h2>Kaj pokriva znamka ASfix</h2>
+            <p>
+              ASfix je zgodovinski temelj podjetja in znamka z največjo
+              prepoznavnostjo na trgu. Pokriva gradbena pritrdila — od enega
+              vijaka do paletne enote.
+            </p>
+          </div>
+          <div className="kats">
+            {[
+              ["Jeklena sidra", "Nosilne pritrditve v beton, z evropsko tehnično oceno."],
+              ["Zidni vložki", "Najlonski vložki za polne in luknjaste podlage."],
+              ["Udarni vijaki", "Hitra montaža brez privijanja, za serijsko delo."],
+              ["Dolgi vložek in vijak", "Komplet za okvirje, late in fasadne elemente."],
+              ["Vložki za mavčne plošče", "Za suhomontažo, ki se za ploščo razprejo."],
+              ["Lahka pritrdila", "Drobni program za vsakodnevna opravila."],
+            ].map(([naziv, opis]) => (
+              <div key={naziv} className="k" style={{ padding: "26px 24px" }}>
+                <h3>{naziv}</h3>
+                <p style={{ marginTop: 10 }}>{opis}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ---------- Lastna proizvodnja ---------- */}
       <section className="sec grey">
+        <div className="w">
+          <div className="qua" style={{ alignItems: "center" }}>
+            <div>
+              <div className="st">
+                <span>Lastna proizvodnja</span>
+                <h2>Sidra, ki nastanejo pri nas</h2>
+                <p>
+                  Jeklena sidra TXH7 in TX1 so v celoti naša — od razvoja in
+                  orodja do proizvodnje in pakiranja. Na voljo so v pocinkani
+                  izvedbi ZnB in v nerjavečem jeklu A4, vsa z evropsko tehnično
+                  oceno.
+                </p>
+                <p style={{ marginTop: 12 }}>
+                  Enako velja za najlonske zidne vložke in udarne vijake. Ker
+                  imamo orodja doma, lahko spremenimo dimenzijo ali pakiranje brez
+                  čakanja na zunanjega dobavitelja.
+                </p>
+              </div>
+              <Link className="more" href="/proizvodnja">
+                Proizvodnja in razvoj →
+              </Link>
+            </div>
+
+            <dl className="cert" style={{ gridTemplateColumns: "1fr 1fr", marginTop: 0 }}>
+              <div>
+                <b>ETA</b>
+                <span>Evropska tehnična ocena za nosilna sidra</span>
+              </div>
+              <div>
+                <b>ZnB · A4</b>
+                <span>Pocinkana in nerjaveča izvedba</span>
+              </div>
+              <div>
+                <b>1.200 t</b>
+                <span>Zaloge, razpoložljive takoj</span>
+              </div>
+              <div>
+                <b>ISO 9001</b>
+                <span>Sistem vodenja kakovosti</span>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      {/* ---------- Kje se vgrajuje ---------- */}
+      <section className="sec">
         <div className="w">
           <div className="st">
             <span>Uporaba</span>
