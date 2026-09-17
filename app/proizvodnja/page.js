@@ -29,11 +29,11 @@ export default function Proizvodnja() {
         <div className="w">
           <div className="st">
             <span>Kaj delamo sami</span>
-            <h2>Proizvajalec, ne prekupčevalec</h2>
+            <h2>Kupujete neposredno pri proizvajalcu</h2>
             <p>
               Ker ne kupujemo polizdelkov, lahko spremenimo dimenzijo, material
-              ali pakiranje brez čakanja na dobavno verigo. To je razlika med
-              proizvajalcem in trgovcem.
+              ali pakiranje brez čakanja na dobavno verigo. Za kupca to pomeni
+              krajše roke in izdelek, prilagojen njegovi vgradnji.
             </p>
           </div>
 

@@ -5,7 +5,7 @@
       "routeType": "page",
       "response": "complete",
       "compute": "static",
-      "htmlSize": 51272,
+      "htmlSize": 51318,
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -294,7 +294,7 @@
       "routeType": "page",
       "response": "complete",
       "compute": "static",
-      "htmlSize": 23623,
+      "htmlSize": 34070,
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -306,7 +306,8 @@
           "value": "multipart/form-data;.*"
         }
       ],
-      "initialRevalidateSeconds": false,
+      "initialRevalidateSeconds": 60,
+      "initialExpireSeconds": 31536000,
       "srcRoute": "/o-nas",
       "dataRoute": "/o-nas.rsc",
       "allowHeader": [
@@ -379,7 +380,7 @@
       "routeType": "page",
       "response": "complete",
       "compute": "static",
-      "htmlSize": 26081,
+      "htmlSize": 26174,
       "experimentalBypassFor": [
         {
           "type": "header",

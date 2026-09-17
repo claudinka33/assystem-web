@@ -331,13 +331,13 @@ export default async function Domov() {
             <div>
               <div className="st">
                 <span>{site.ime}</span>
-                <h2>{v(b, "domov.podjetje.naslov", "naslov", "Proizvajalec, ne prekupčevalec")}</h2>
+                <h2>{v(b, "domov.podjetje.naslov", "naslov", "Kupujete neposredno pri proizvajalcu")}</h2>
                 <p>
                   {v(
                     b,
                     "domov.podjetje.besedilo",
                     "besedilo",
-                    "Pritrdila razvijamo, kujemo in brizgamo sami, na dveh lokacijah v Sloveniji. Ker ne kupujemo polizdelkov, imamo nadzor nad kakovostjo in lahko hitro spremenimo dimenzijo, material ali pakiranje."
+                    "Sidra, vložke in udarne vijake izdelamo sami, na dveh lokacijah v Sloveniji. Brez vmesnih členov to pomeni boljšo ceno, krajše dobavne roke in možnost prilagoditve dimenzije ali pakiranja po vaših potrebah."
                   )}
                 </p>
               </div>
