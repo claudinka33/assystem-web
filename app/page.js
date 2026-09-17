@@ -102,9 +102,9 @@ export default async function Domov() {
           <div className="hero-im">
             <Image
               src="/hero-izdelki.png"
-              alt="Pritrdila ASfix — jeklena sidra, zidni vložki, kemično sidro, vrečka in škatla"
-              width={1360}
-              height={1000}
+              alt="Pritrdila ASfix — jekleno sidro TXH7, zidni vložki, kemično sidro EASF TOP, udarni vijaki, vrečka in škatla"
+              width={1100}
+              height={1044}
               priority
               sizes="(max-width: 1000px) 100vw, 640px"
               style={{ width: "100%", height: "auto" }}
