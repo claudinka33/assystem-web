@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import IgraSidranje from "@/components/IgraSidranje";
 import NaslovStrani from "@/components/NaslovStrani";
 
 export const metadata = {
@@ -112,6 +113,50 @@ export default function ASfix() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ---------- Kje se vgrajuje ---------- */}
+      <section className="sec grey">
+        <div className="w">
+          <div className="st">
+            <span>Uporaba</span>
+            <h2>Kam gre katero pritrdilo</h2>
+            <p>
+              Podlaga določa izbiro. Polni beton prenese nosilna jeklena sidra,
+              votlaki in opeka zahtevajo vložek z veliko oprijemno površino, v
+              mavčne plošče pa gredo posebni vložki.
+            </p>
+          </div>
+          <div className="kats">
+            {[
+              ["Beton", "Jeklena sidra TXH7 in TX1, kemična sidra za največje obremenitve."],
+              ["Opeka in votlaki", "Najlonski vložki z veliko oprijemno površino, kemična masa z mrežico."],
+              ["Mavčne plošče", "Vložki za suhomontažo, ki se za ploščo razprejo."],
+              ["Fasada in izolacija", "Okvirni vložki in izolacijska sidra za ETICS sisteme."],
+            ].map(([naziv, opis]) => (
+              <div key={naziv} className="k" style={{ padding: "26px 24px" }}>
+                <h3>{naziv}</h3>
+                <p style={{ marginTop: 10 }}>{opis}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ---------- Interaktivna vaja ---------- */}
+      <section className="sec">
+        <div className="w">
+          <div className="st">
+            <span>Preizkusite sami</span>
+            <h2>Pritrdite ograjo v beton</h2>
+            <p>
+              Sedem korakov, kot gredo na gradbišču. Izberite sveder in sidro,
+              izvrtajte, izpihajte luknje, zabijte sidra in jih zategnite. Če kaj
+              ni po vrsti, vam vaja pove, zakaj ne gre.
+            </p>
+          </div>
+          <IgraSidranje />
         </div>
       </section>
 
