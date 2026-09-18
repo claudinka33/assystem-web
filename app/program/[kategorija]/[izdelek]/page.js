@@ -56,22 +56,30 @@ export default async function StranIzdelka({ params }) {
                     fill
                     priority
                     sizes="(max-width: 1000px) 100vw, 620px"
-                    style={{ objectFit: "contain", padding: 24, mixBlendMode: "multiply" }}
+                    style={{ objectFit: "contain", padding: 24 }}
                   />
                 )}
               </div>
 
               {galerija.length > 0 && (
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 10, marginTop: 10 }}>
-                  {galerija.slice(0, 8).map((url) => (
-                    <div
-                      key={url}
-                      style={{ position: "relative", aspectRatio: "1 / 1", background: "#fff", border: "1px solid var(--color-line)" }}
-                    >
-                      <Image src={url} alt={i.naziv} fill sizes="140px" style={{ objectFit: "contain", padding: 8, mixBlendMode: "multiply" }} />
-                    </div>
-                  ))}
-                </div>
+                <>
+                  <p style={{ fontSize: 12, letterSpacing: 1.4, textTransform: "uppercase", color: "var(--color-muted-2)", marginTop: 20, marginBottom: 8 }}>
+                    Izvedbe
+                  </p>
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 10 }}>
+                    {[i.slika_url, ...galerija].filter(Boolean).slice(0, 8).map((url) => {
+                      const oznaka = (url.split("/").pop() || "").replace(/\.[a-z]+$/i, "").split("_").pop();
+                      return (
+                        <div key={url}>
+                          <div style={{ position: "relative", aspectRatio: "1 / 1", background: "#fff", border: "1px solid var(--color-line)" }}>
+                            <Image src={url} alt={`${i.naziv} — ${oznaka}`} fill sizes="140px" style={{ objectFit: "contain", padding: 8 }} />
+                          </div>
+                          <p style={{ fontSize: 12, fontWeight: 600, textAlign: "center", marginTop: 5 }}>{oznaka}</p>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </>
               )}
             </div>
 
