@@ -45,6 +45,9 @@ export default function Footer() {
           <Link href="/private-label">Private label</Link>
           <Link href="/katalogi">Katalogi in prenosi</Link>
           <Link href="/kontakt">Kontakt</Link>
+          <Link href="/admin" className="ftr-cms">
+            CMS za zaposlene
+          </Link>
         </div>
       </div>
 

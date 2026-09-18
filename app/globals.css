@@ -604,6 +604,15 @@ a {
 .ftr a:hover {
   color: #fff;
 }
+.ftr a.ftr-cms {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-ink-2);
+  color: var(--color-red-2);
+  font-weight: 600;
+}
+.ftr a.ftr-cms:hover { color: #fff; }
+
 .fb {
   border-top: 1px solid var(--color-ink-2);
   margin-top: 44px;
