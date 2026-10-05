@@ -154,9 +154,9 @@ export const turbo = {
 };
 
 /* =================================================================
-   UDARNI VIJAK UVS — lesena letev na beton
+   UDARNI VIJAK UVS — kovinski UD profil za mavčne plošče na beton
    ================================================================= */
-const U = { tla: 370, vrh: 326, X: [440, 760], hw: 18, globina: 130, vlozek: 150, ven: 34 };
+const U = { tla: 420, vrh: 412, X: [440, 760], hw: 18, globina: 160, vlozek: 150, ven: 34 };
 U.L = U.tla - U.vrh + U.globina;
 
 function UvsRisba({ x, vrh, glava, razpr = 0 }) {
@@ -177,21 +177,48 @@ function UvsRisba({ x, vrh, glava, razpr = 0 }) {
   );
 }
 
+/* skupni deli igre z udarnimi vijaki (UVS in perforiran trak) */
+function luknjeUvs(s, { X, vrh, tla, L, iVrt, iVstavi, iZabij, lesTla }) {
+  return s.nap.map((r, li) => {
+    const x = X[li];
+    const dno = vrh + L * PROGRESS(r[iVrt]);
+    const z = r[iZabij];
+    return (
+      <g key={li}>
+        {r[iVrt] === 0 && s.korak === iVrt && <Tarca x={x} y={vrh - 2} />}
+        {r[iVrt] > 0 && (
+          <>
+            <rect x={x - U.hw / 2} y={vrh} width={U.hw} height={Math.min(dno, tla) - vrh} fill={lesTla ?? "#4b4f53"} />
+            {dno > tla && <rect x={x - U.hw / 2} y={tla} width={U.hw} height={dno - tla} fill={C.luknja} />}
+          </>
+        )}
+        {r[iVstavi] >= 100 && <UvsRisba x={x} vrh={vrh} glava={vrh - U.ven * (1 - PROGRESS(z))} razpr={PROGRESS(z) * 4} />}
+        {z > 0 && li === 1 && (
+          <g>
+            <Puscica x1={x + U.hw / 2 + 4} y1={vrh + U.vlozek - 26} x2={x + U.hw / 2 + 28} y2={vrh + U.vlozek - 26} />
+            <Puscica x1={x - U.hw / 2 - 4} y1={vrh + U.vlozek - 26} x2={x - U.hw / 2 - 28} y2={vrh + U.vlozek - 26} />
+            <Napis x={x + 44} y={vrh + U.vlozek - 20}>vložek se razpre</Napis>
+          </g>
+        )}
+      </g>
+    );
+  });
+}
+
+const uvsOrodje = { id: "uvs", naziv: "Udarni vijak UVS", risba: "roka", ikona: "vlozek", izbrano: "UVS je v roki. Klikni v izvrtino." };
+const uvsVRoki = () => <g transform={`translate(0 ${-U.vlozek})`}><UvsRisba x={0} vrh={0} glava={-U.ven} /></g>;
+const uvsNapacenVijacnik = { ...vijacnik, napaka: "UVS ne privijaš — vijak zabiješ s kladivom, glava se ugrezne v ovratnik vložka." };
+
 export const uvs = {
   id: "uvs",
-  naslovPrizora: "Udarni vijak UVS: letev na beton",
+  naslovPrizora: "Udarni vijak UVS: profil na beton",
   luknje: U.X.map((x) => ({ x, y: U.vrh })),
   smer: 0,
-  orodja: [
-    sveder(U.hw - 1, U.L + 30),
-    { id: "uvs", naziv: "Udarni vijak UVS", risba: "roka", ikona: "vlozek", izbrano: "UVS je v roki. Klikni v izvrtino." },
-    kladivo(),
-    { ...vijacnik, napaka: "UVS ne privijaš — vijak zabiješ s kladivom, glava se ugrezne v ovratnik vložka." },
-  ],
+  orodja: [sveder(U.hw - 1, U.L + 30), uvsOrodje, kladivo(), uvsNapacenVijacnik],
   koraki: [
-    { naziv: "Postavi letev", tip: "postavi", navodilo: "Klikni na beton, da položiš leseno letev.", obmocje: (t) => t.y > 280, potrdilo: "Letev je na mestu. Vrtaš kar skozi letev." },
-    { naziv: "Izvrtaj luknje", orodje: "sveder", nacin: "drzi", korak: 5, delci: "#b9b4a4", navodilo: "Drži miško nad rdečo oznako — vrtaj skozi letev v beton." },
-    { naziv: "Vstavi UVS", orodje: "uvs", nacin: "klik", navodilo: "Klikni v vsako izvrtino — ovratnik nalega na letev.", preskok: "Najprej vstavi udarni vijak v izvrtino." },
+    { naziv: "Postavi profil", tip: "postavi", navodilo: "Klikni na beton, da postaviš kovinski profil za mavčne plošče.", obmocje: (t) => t.y > 300, potrdilo: "Profil je na mestu. Vrtaš kar skozi luknje v profilu." },
+    { naziv: "Izvrtaj luknje", orodje: "sveder", nacin: "drzi", korak: 5, delci: "#b9b4a4", navodilo: "Drži miško nad rdečo oznako — vrtaj skozi profil v beton." },
+    { naziv: "Vstavi UVS", orodje: "uvs", nacin: "klik", navodilo: "Klikni v vsako izvrtino — ovratnik nalega na profil.", preskok: "Najprej vstavi udarni vijak v izvrtino." },
     { naziv: "Zabij vijaka", orodje: "kladivo", nacin: "udarci", korak: 25, navodilo: "Vsak klik je en udarec. Štirje udarci na vijak." },
   ],
   prijem(o, li, s) {
@@ -200,69 +227,42 @@ export const uvs = {
     if (o === "kladivo") return { x, y: U.vrh - U.ven * (1 - PROGRESS(s.nap[li][3])) };
     return null;
   },
-  vRoki() {
-    return <g transform={`translate(0 ${-U.vlozek})`}><UvsRisba x={0} vrh={0} glava={-U.ven} /></g>;
-  },
+  vRoki: uvsVRoki,
   narisi(s) {
-    const postavljena = s.nap[0][0] >= 100;
+    const postavljen = s.nap[0][0] >= 100;
     return (
       <g>
-        <Beton od={U.tla} visina={300} />
+        <Beton od={U.tla} visina={200} />
         <Napis x={28} y={576} barva={C.ink} velikost={18}>BETON</Napis>
-        {!postavljena && (
+        {!postavljen && (
           <g>
-            <rect x="0" y={U.tla} width="1200" height="230" fill={C.red} opacity="0.08" />
-            <GumbPostavi x={600} y={U.tla + 90} napis="POLOŽI LETEV" />
+            <rect x="0" y={U.tla} width="1200" height="180" fill={C.red} opacity="0.08" />
+            <GumbPostavi x={600} y={U.tla + 60} napis="POSTAVI PROFIL" />
           </g>
         )}
-        {postavljena && (
+        {postavljen && (
           <g>
-            <rect x="280" y={U.vrh} width="640" height={U.tla - U.vrh} fill="url(#v-les)" stroke={C.ink} strokeWidth="2" />
-            <Napis x={600} y={U.vrh - 14} barva={C.ink} sidro="middle">LESENA LETEV</Napis>
-            {s.nap.map((r, li) => {
-              const x = U.X[li];
-              const dno = U.vrh + U.L * PROGRESS(r[1]);
-              const z = r[3];
-              return (
-                <g key={li}>
-                  {r[1] === 0 && <Tarca x={x} y={U.vrh - 2} />}
-                  {r[1] > 0 && (
-                    <>
-                      <rect x={x - U.hw / 2} y={U.vrh} width={U.hw} height={Math.min(dno, U.tla) - U.vrh} fill="#5a3d22" />
-                      {dno > U.tla && <rect x={x - U.hw / 2} y={U.tla} width={U.hw} height={dno - U.tla} fill={C.luknja} />}
-                    </>
-                  )}
-                  {r[2] >= 100 && (
-                    <UvsRisba x={x} vrh={U.vrh} glava={U.vrh - U.ven * (1 - PROGRESS(z))} razpr={PROGRESS(z) * 4} />
-                  )}
-                  {z > 0 && li === 1 && (
-                    <g>
-                      <Puscica x1={x + U.hw / 2 + 4} y1={U.vrh + U.vlozek - 26} x2={x + U.hw / 2 + 28} y2={U.vrh + U.vlozek - 26} />
-                      <Puscica x1={x - U.hw / 2 - 4} y1={U.vrh + U.vlozek - 26} x2={x - U.hw / 2 - 28} y2={U.vrh + U.vlozek - 26} />
-                      <Napis x={x + 44} y={U.vrh + U.vlozek - 20}>vložek se razpre</Napis>
-                    </g>
-                  )}
-                  {z >= 100 && li === 0 && (
-                    <Napis x={x - 30} y={U.vrh - 14} sidro="end">glava v ovratniku</Napis>
-                  )}
-                </g>
-              );
-            })}
+            {/* stranica profila (za prerezom) in dno profila */}
+            <rect x="240" y="352" width="720" height={U.vrh - 352} fill="#e3e6e8" stroke={C.ink} strokeWidth="2" />
+            <rect x="240" y="352" width="720" height="8" fill={C.jekloS} stroke={C.ink} strokeWidth="1.5" />
+            <rect x="240" y={U.vrh} width="720" height={U.tla - U.vrh} fill={C.jeklo} stroke={C.ink} strokeWidth="2" />
+            <Napis x={600} y={340} barva={C.ink} sidro="middle">KOVINSKI PROFIL ZA MAVČNE PLOŠČE</Napis>
+            {luknjeUvs(s, { X: U.X, vrh: U.vrh, tla: U.tla, L: U.L, iVrt: 1, iVstavi: 2, iZabij: 3 })}
+            {s.nap[0][3] >= 100 && <Napis x={U.X[0] - 30} y={U.vrh - 14} sidro="end">glava v ovratniku</Napis>}
           </g>
         )}
       </g>
     );
   },
-  banner: { sirina: 280 },
+  banner: { x: 860, y: 30, sirina: 280 },
   konec: {
     napis: "PRITRJENO",
-    kratko: "Letev je pritrjena.",
-    naslov: "Letev je pritrjena",
-    besedilo: "Izvrtali ste skozi letev, vstavili udarna vijaka in ju zabili s kladivom. Vijak razpre vložek v izvrtini, glava pa se ugrezne v ovratnik — brez privijanja, zato je montaža hitra tudi v seriji.",
+    kratko: "Profil je pritrjen.",
+    naslov: "Profil je pritrjen",
+    besedilo: "Izvrtali ste skozi profil, vstavili udarna vijaka in ju zabili s kladivom. Vijak razpre vložek v izvrtini, glava pa se ugrezne v ovratnik — brez privijanja, zato je montaža profilov za mavčne plošče hitra tudi v seriji.",
     povezave: [{ href: "/kontakt?vir=igra-uvs", label: "Zahtevaj ponudbo" }],
   },
 };
-
 /* =================================================================
    VLOŽEK ZA MAVČNE PLOŠČE — plastičen, samovrezni
    ================================================================= */
@@ -394,50 +394,41 @@ export const gips = {
 };
 
 /* =================================================================
-   PERFORIRAN TRAK — obešanje cevi na strop
+   PERFORIRAN TRAK — kabli po tleh, trak čez, UVS v beton
    ================================================================= */
-const P = { strop: 150, X: [470, 730], hw: 18, globina: 110, vlozek: 90, cx: 600, cy: 340, r: 72 };
-
-function StropniVlozek({ x }) {
-  const vrh = P.strop - P.vlozek;
-  return (
-    <g>
-      <polygon points={`${x - 8},${vrh} ${x + 8},${vrh} ${x + 8},${P.strop - 6} ${x - 8},${P.strop - 6}`} fill={C.najlon} stroke={C.ink} strokeWidth="1.4" />
-      <line x1={x} y1={vrh} x2={x} y2={vrh + 36} stroke={C.ink} strokeWidth="1.2" />
-      <rect x={x - 13} y={P.strop - 6} width="26" height="6" fill={C.najlon} stroke={C.ink} strokeWidth="1.4" />
-    </g>
-  );
-}
-
-const TRAK_POT = `M ${P.X[0]} ${P.strop + 2} L ${P.cx - P.r} ${P.cy} A ${P.r} ${P.r} 0 0 0 ${P.cx + P.r} ${P.cy} L ${P.X[1]} ${P.strop + 2}`;
+const P = { tla: 420, X: [470, 730], debelina: 4 };
+P.vrh = P.tla - P.debelina;
+P.L = P.debelina + 170;
+const KABLI = [{ x: 581, y: P.tla - 19, b: "#1b1e21" }, { x: 619, y: P.tla - 19, b: "#3f4140" }, { x: 600, y: P.tla - 52, b: "#cb2026" }];
+const TRAK_POT = `M 410 ${P.tla - 2} L 520 ${P.tla - 2} C 540 ${P.tla - 2} 536 ${P.tla - 80} 600 ${P.tla - 80} C 664 ${P.tla - 80} 660 ${P.tla - 2} 680 ${P.tla - 2} L 790 ${P.tla - 2}`;
 
 export const trak = {
   id: "trak",
-  naslovPrizora: "Perforiran trak: cev na strop",
-  luknje: P.X.map((x) => ({ x, y: P.strop })),
-  smer: 180,
-  kicker: { x: 40, y: 500 },
+  naslovPrizora: "Perforiran trak: kabli na beton",
+  luknje: P.X.map((x) => ({ x, y: P.vrh })),
+  smer: 0,
   orodja: [
-    sveder(P.hw - 1, P.globina + 30),
-    { id: "vlozek", naziv: "Vložek", risba: "roka", ikona: "vlozek", brezRotacije: true, izbrano: "Vložek je v roki. Klikni v izvrtino." },
-    { id: "trak", naziv: "Perforiran trak", risba: "roka", ikona: "trak", brezRotacije: true, izbrano: "Trak je v roki. Klikni na cev, da jo oviješ." },
-    vijacnik,
-    kladivo("Kladivo tukaj ni potrebno — trak privijaš z vijakom v vložek."),
+    { id: "trak", naziv: "Perforiran trak", risba: "roka", ikona: "trak", brezRotacije: true, izbrano: "Trak je v roki. Klikni na kable, da jih prekriješ." },
+    sveder(U.hw - 1, P.L + 30),
+    uvsOrodje,
+    kladivo(),
+    uvsNapacenVijacnik,
   ],
   koraki: [
-    { naziv: "Izvrtaj luknji", orodje: "sveder", nacin: "drzi", korak: 6, delci: "#b9b4a4", navodilo: "Drži miško pod rdečo oznako in vrtaj v strop." },
-    { naziv: "Vstavi vložka", orodje: "vlozek", nacin: "klik", navodilo: "Klikni v vsako izvrtino." },
-    { naziv: "Ovij trak", tip: "postavi", orodje: "trak", navodilo: "Klikni na cev, da jo oviješ s trakom.", obmocje: (t) => Math.hypot(t.x - P.cx, t.y - P.cy) < P.r + 60, potrdilo: "Trak je ovit okoli cevi. Zdaj privij oba konca.", preskok: "Najprej ovij trak okoli cevi." },
-    { naziv: "Privij konca", orodje: "vijacnik", nacin: "drzi", korak: 6, navodilo: "Drži miško pod vijakom, dokler trak ne nalega na strop.", preskok: "Najprej ovij trak okoli cevi." },
+    { naziv: "Položi kable", tip: "postavi", navodilo: "Klikni na tla, da položiš kable.", obmocje: (t) => t.y > 300, potrdilo: "Kabli so na tleh. Zdaj jih prekrij s trakom." },
+    { naziv: "Prekrij s trakom", tip: "postavi", orodje: "trak", navodilo: "Klikni na kable, da jih prekriješ s perforiranim trakom.", obmocje: (t) => Math.abs(t.x - 600) < 160 && t.y > 260, potrdilo: "Trak je čez kable. Vrtaj skozi luknje v traku." },
+    { naziv: "Izvrtaj luknji", orodje: "sveder", nacin: "drzi", korak: 5, delci: "#b9b4a4", navodilo: "Drži miško nad rdečo oznako — vrtaj skozi trak v beton.", preskok: "Najprej prekrij kable s trakom." },
+    { naziv: "Vstavi UVS", orodje: "uvs", nacin: "klik", navodilo: "Klikni v vsako izvrtino." },
+    { naziv: "Zabij vijaka", orodje: "kladivo", nacin: "udarci", korak: 25, navodilo: "Vsak klik je en udarec. Štirje udarci na vijak." },
   ],
   prijem(o, li, s) {
     const x = P.X[li];
-    if (o === "sveder") return { x, y: P.strop - P.globina * PROGRESS(s.nap[li][0]) };
-    if (o === "vijacnik") return { x, y: P.strop - 84 + 80 * (1 - PROGRESS(s.nap[li][3])) + 94 };
+    if (o === "sveder") return { x, y: P.vrh + P.L * PROGRESS(s.nap[li][2]) };
+    if (o === "kladivo") return { x, y: P.vrh - U.ven * (1 - PROGRESS(s.nap[li][4])) };
     return null;
   },
   vRoki(id) {
-    if (id === "vlozek") return <g transform={`translate(0 ${P.vlozek - P.strop})`}><StropniVlozek x={0} /></g>;
+    if (id === "uvs") return uvsVRoki();
     if (id === "trak") return (
       <g>
         <circle cx="0" cy="0" r="26" fill="none" stroke={C.jeklo} strokeWidth="10" />
@@ -448,65 +439,56 @@ export const trak = {
     return null;
   },
   narisi(s) {
-    const ovit = s.nap[0][2] >= 100;
+    const kabli = s.nap[0][0] >= 100;
+    const trakCez = s.nap[0][1] >= 100;
     return (
       <g>
-        <rect x="0" y="0" width="1200" height={P.strop} fill="url(#v-beton)" />
-        <line x1="0" y1={P.strop} x2="1200" y2={P.strop} stroke={C.ink} strokeWidth="3" />
-        <Napis x={28} y={40} barva={C.ink} velikost={18}>STROP · BETON</Napis>
-
-        {/* cev v prerezu */}
-        <circle cx={P.cx} cy={P.cy} r={P.r} fill="#cfd3d6" stroke={C.ink} strokeWidth="2.5" />
-        <circle cx={P.cx} cy={P.cy} r={P.r - 12} fill="#eef0f1" stroke={C.ink} strokeWidth="1.5" />
-        <Napis x={P.cx} y={P.cy + 7} barva={C.ink} sidro="middle" velikost={18}>CEV</Napis>
-        {!ovit && s.korak === 2 && (
-          <circle cx={P.cx} cy={P.cy} r={P.r + 14} fill="none" stroke={C.red} strokeWidth="3" strokeDasharray="8 8" />
-        )}
-
-        {ovit && (
+        <Beton od={P.tla} visina={200} />
+        <Napis x={28} y={576} barva={C.ink} velikost={18}>BETON</Napis>
+        {!kabli && (
           <g>
-            <path d={TRAK_POT} fill="none" stroke={C.ink} strokeWidth="14" strokeLinejoin="round" />
-            <path d={TRAK_POT} fill="none" stroke={C.jeklo} strokeWidth="10" strokeLinejoin="round" />
-            <path d={TRAK_POT} fill="none" stroke="#fff" strokeWidth="3.5" strokeDasharray="2 9" />
+            <rect x="0" y={P.tla} width="1200" height="180" fill={C.red} opacity="0.08" />
+            <GumbPostavi x={600} y={P.tla + 60} napis="POLOŽI KABLE" />
           </g>
         )}
-
-        {s.nap.map((r, li) => {
-          const x = P.X[li];
-          const vrh = P.strop - P.globina * PROGRESS(r[0]);
-          const v = r[3];
-          const konica = P.strop - 84 + 80 * (1 - PROGRESS(v));
-          return (
-            <g key={li}>
-              {r[0] === 0 && <Tarca x={x} y={P.strop + 2} />}
-              {r[0] > 0 && <rect x={x - P.hw / 2} y={vrh} width={P.hw} height={P.strop - vrh} fill={C.luknja} />}
-              {r[1] >= 100 && <StropniVlozek x={x} />}
-              {ovit && (s.korak === 3 || v > 0) && (
-                <g>
-                  <NavojVijaka x={x} y1={konica + 6} y2={konica + 86} sirina={9} korak={5} faza={-v} />
-                  <polygon points={`${x - 3},${konica + 6} ${x + 3},${konica + 6} ${x},${konica}`} fill={C.jeklo} stroke={C.ink} strokeWidth="1" />
-                  <rect x={x - 14} y={konica + 86} width="28" height="8" rx="2" fill={C.jekloS} stroke={C.ink} strokeWidth="1.4" />
-                </g>
-              )}
-            </g>
-          );
-        })}
-        {ovit && s.nap.every((r) => r[3] >= 100) && (
-          <Napis x={P.cx + P.r + 26} y={P.cy + 6}>cev je obešena</Napis>
+        {kabli && (
+          <g>
+            {KABLI.map((k, i) => (
+              <g key={i}>
+                <circle cx={k.x} cy={k.y} r="19" fill={k.b} stroke={C.ink} strokeWidth="2" />
+                <circle cx={k.x} cy={k.y} r="7" fill="#c98a4b" />
+              </g>
+            ))}
+            <Napis x={600} y={P.tla - 96} barva={C.ink} sidro="middle">KABLI</Napis>
+            {!trakCez && s.korak === 1 && (
+              <ellipse cx="600" cy={P.tla - 40} rx="70" ry="58" fill="none" stroke={C.red} strokeWidth="3" strokeDasharray="8 8" />
+            )}
+          </g>
+        )}
+        {trakCez && (
+          <g>
+            <path d={TRAK_POT} fill="none" stroke={C.ink} strokeWidth="8" strokeLinejoin="round" />
+            <path d={TRAK_POT} fill="none" stroke={C.jeklo} strokeWidth="5" strokeLinejoin="round" />
+            <path d={TRAK_POT} fill="none" stroke="#fff" strokeWidth="2" strokeDasharray="2 9" />
+            <Napis x={820} y={P.tla - 10} barva={C.ink}>PERFORIRAN TRAK</Napis>
+            {luknjeUvs(s, { X: P.X, vrh: P.vrh, tla: P.tla, L: P.L, iVrt: 2, iVstavi: 3, iZabij: 4 })}
+          </g>
         )}
       </g>
     );
   },
-  banner: { x: 860, y: 520, sirina: 300 },
+  banner: { x: 860, y: 30, sirina: 300 },
   konec: {
-    napis: "OBEŠENO",
-    kratko: "Cev je obešena.",
-    naslov: "Cev je obešena",
-    besedilo: "V strop ste izvrtali luknji, vstavili vložka, cev ovili s perforiranim trakom in privili oba konca. Pocinkan trak je na voljo v širini 12 mm in 17 mm, pakiranje 10 m.",
-    povezave: [{ href: "/kontakt?vir=igra-trak", label: "Zahtevaj ponudbo" }],
+    napis: "PRITRJENO",
+    kratko: "Kabli so pritrjeni.",
+    naslov: "Kabli so pritrjeni",
+    besedilo: "Kable ste prekrili s perforiranim trakom, vrtali skozi luknje v traku in trak pritrdili z udarnima vijakoma UVS, ki ju samo zabijete s kladivom. Pocinkan trak je na voljo v širini 12 mm in 17 mm, pakiranje 10 m.",
+    povezave: [
+      { href: "/program/pritrdila-za-suhomontazo/udarni-vijak-nylon", label: "Poglej udarni vijak UVS" },
+      { href: "/kontakt?vir=igra-trak", label: "Zahtevaj ponudbo" },
+    ],
   },
 };
-
 /* =================================================================
    AF-RK — konzola za zunanjo enoto klime v zid
    ================================================================= */

@@ -17,8 +17,8 @@ const IGRE = {
     cfg: turbo,
   },
   "udarni-vijak-nylon": {
-    naslov: "Pritrdite leseno letev na beton",
-    opis: "Izvrtajte skozi letev, vstavite udarna vijaka in ju zabijte s kladivom.",
+    naslov: "Pritrdite profil za mavčne plošče na beton",
+    opis: "Izvrtajte skozi kovinski profil, vstavite udarna vijaka in ju zabijte s kladivom — brez privijanja.",
     cfg: uvs,
   },
   "vlozek-za-gips-plasticni": {
@@ -27,8 +27,8 @@ const IGRE = {
     cfg: gips,
   },
   "perforiran-trak": {
-    naslov: "Obesite cev na strop",
-    opis: "Izvrtajte luknji v strop, vstavite vložka, cev ovijte s trakom in privijte oba konca.",
+    naslov: "Pritrdite kable na beton",
+    opis: "Kable prekrijte s perforiranim trakom, vrtajte skozi trak in ga pritrdite z udarnima vijakoma UVS.",
     cfg: trak,
   },
   "univerzalni-vijak-z-vlozkom-af-rk": {
