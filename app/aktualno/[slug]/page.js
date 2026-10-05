@@ -24,7 +24,7 @@ export default async function Novica({ params }) {
 
   return (
     <article className="sec">
-      <div className="w" style={{ maxWidth: 860 }}>
+      <div className="w besedilo">
         <nav className="drobtine">
           <Link href="/">Domov</Link> / <Link href="/aktualno">Aktualno</Link> / {n.naslov}
         </nav>

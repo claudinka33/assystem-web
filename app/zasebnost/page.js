@@ -27,7 +27,7 @@ export default function Zasebnost() {
         opis="Kako ravnamo s podatki, ki nam jih zaupate."
       />
       <section className="sec">
-        <div className="w" style={{ maxWidth: 860 }}>
+        <div className="w besedilo">
           {razdelki.map(([naslov, besedilo]) => (
             <div key={naslov} style={{ marginBottom: 30 }}>
               <h2 style={{ fontSize: 20, fontWeight: 700, textTransform: "uppercase" }}>

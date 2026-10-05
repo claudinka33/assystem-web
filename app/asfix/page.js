@@ -70,7 +70,7 @@ export default function ASfix() {
             <span>Aduti</span>
             <h2>Zakaj ASfix na polici</h2>
           </div>
-          <div className="who">
+          <div className="who c4">
             {aduti.map(([naziv, opis]) => (
               <div key={naziv}>
                 <b>{naziv}</b>
@@ -108,7 +108,7 @@ export default function ASfix() {
               vijaka do paletne enote.
             </p>
           </div>
-          <div className="kats">
+          <div className="kats c3">
             {[
               ["Jeklena sidra", "Nosilne pritrditve v beton, z evropsko tehnično oceno."],
               ["Zidni vložki", "Najlonski vložki za polne in luknjaste podlage."],

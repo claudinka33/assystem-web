@@ -63,10 +63,12 @@ a {
 
 /* ---------- osnovna sirina ---------- */
 .w {
-  max-width: 1320px;
+  max-width: 1640px;
   margin: 0 auto;
-  padding: 0 28px;
+  padding: 0 clamp(20px, 3vw, 48px);
 }
+/* besedilne strani: polna sirina ovoja, vrstice pa berljive dolzine */
+.besedilo > * { max-width: 920px; }
 
 /* ---------- glava ---------- */
 .util {
@@ -101,7 +103,7 @@ a {
 .hdr .w {
   display: flex;
   align-items: center;
-  gap: 36px;
+  gap: 32px;
   height: 82px;
 }
 /* Logotip je znak, ne tipografija (CGP str. 06 — »Ne prepisuj«).
@@ -135,6 +137,7 @@ a {
 }
 .nav a {
   padding: 6px 0;
+  white-space: nowrap;
   border-bottom: 2px solid transparent;
 }
 .nav a:hover {
@@ -142,6 +145,8 @@ a {
   border-color: var(--color-red);
 }
 .tel {
+  white-space: nowrap;
+  flex: none;
   font-family: var(--font-display);
   font-weight: 800;
   font-size: 19px;
@@ -297,7 +302,7 @@ a {
   padding-left: 0;
   padding-right: 0;
 }
-.adv div {
+.adv .w > div {
   background: #fff;
   padding: 26px 28px;
 }
@@ -324,7 +329,7 @@ a {
 
 /* ---------- sekcije ---------- */
 .sec {
-  padding: 74px 0;
+  padding: 66px 0;
 }
 .sec.grey {
   background: var(--color-mist);
@@ -404,7 +409,7 @@ a {
 }
 .k .im {
   position: relative;
-  height: 172px;
+  height: 196px;
   background: #fff;
   border-bottom: 1px solid #f0f2f4;
 }
@@ -459,6 +464,10 @@ a {
   letter-spacing: 0.5px;
 }
 
+/* mreze z drugim stevilom stolpcev, da kartica ne ostane sama v vrsti */
+.who.c4 { grid-template-columns: repeat(4, 1fr); }
+.kats.c3 { grid-template-columns: repeat(3, 1fr); }
+
 /* ---------- dvostolpec s fotografijo ---------- */
 .qua {
   display: grid;
@@ -503,7 +512,8 @@ a {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 30px;
-  padding: 52px 28px;
+  padding-top: 52px;
+  padding-bottom: 52px;
 }
 .nums b {
   font-family: var(--font-display);
@@ -530,7 +540,8 @@ a {
   justify-content: space-between;
   align-items: center;
   gap: 34px;
-  padding: 48px 28px;
+  padding-top: 48px;
+  padding-bottom: 48px;
   flex-wrap: wrap;
 }
 .cta h2 {
@@ -620,7 +631,8 @@ a {
 .fb .w {
   display: flex;
   justify-content: space-between;
-  padding: 18px 28px;
+  padding-top: 18px;
+  padding-bottom: 18px;
   font-size: 12.5px;
 }
 
@@ -638,7 +650,9 @@ a {
     background: linear-gradient(160deg, #3f4140 55%, #cb2026);
   }
   .kats,
+  .kats.c3,
   .who,
+  .who.c4,
   .adv .w,
   .nums .w,
   .ftr .w {
@@ -659,7 +673,9 @@ a {
 
 @media (max-width: 620px) {
   .kats,
+  .kats.c3,
   .who,
+  .who.c4,
   .ftr .w,
   .nums .w {
     grid-template-columns: 1fr;
@@ -667,6 +683,9 @@ a {
   .sec {
     padding: 48px 0;
   }
+  .hero .w > * { min-width: 0; }
+  .hero h1 { font-size: 29px; overflow-wrap: break-word; }
+  .st.row { flex-direction: column; align-items: flex-start; gap: 12px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -851,8 +870,8 @@ table.adm-tab tr:last-child td { border-bottom: 0; }
   display: flex;
   border: 1px solid #c6cace;
   margin-left: auto;
-  max-width: 300px;
-  flex: 1;
+  max-width: 380px;
+  flex: 1 1 200px;
 }
 .isci input {
   flex: 1;
@@ -873,6 +892,16 @@ table.adm-tab tr:last-child td { border-bottom: 0; }
 }
 .isci button:hover { background: var(--color-red); }
 .nav { margin-left: 0; }
+/* srednje siroki zasloni: glava ostane v eni vrstici */
+@media (max-width: 1440px) {
+  .hdr .w { gap: 24px; }
+  .nav { gap: 22px; }
+  .tel { font-size: 17px; }
+  .tel span { display: none; }
+}
+@media (max-width: 1340px) {
+  .tel { display: none; }
+}
 @media (max-width: 1100px) {
   .isci { display: none; }
   .nav { margin-left: auto; }

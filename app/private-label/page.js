@@ -66,7 +66,7 @@ export default function PrivateLabel() {
             <span>Potek</span>
             <h2>Šest korakov do vašega izdelka</h2>
           </div>
-          <div className="kats">
+          <div className="kats c3">
             {koraki.map(([naziv, opis], i) => (
               <div key={naziv} className="k" style={{ padding: "26px 24px" }}>
                 <span

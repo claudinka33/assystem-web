@@ -26,7 +26,7 @@ export default function SplosniPogoji() {
         opis="Pogoji naročanja, dobave in reklamacij."
       />
       <section className="sec">
-        <div className="w" style={{ maxWidth: 860 }}>
+        <div className="w besedilo">
           {razdelki.map(([naslov, besedilo], i) => (
             <div key={naslov} style={{ marginBottom: 30 }}>
               <h2 style={{ fontSize: 20, fontWeight: 700, textTransform: "uppercase" }}>
