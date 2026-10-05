@@ -233,7 +233,7 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
       )}
 
       <div style={{ overflowX: "auto" }}>
-        <table>
+        <table className="mob-kartice">
           <thead>
             <tr>
               <th>Šifra</th>
@@ -252,23 +252,24 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
           <tbody>
             {prikaz.map((a) => (
               <tr key={a.id}>
-                <td>
+                <td className="mk-gl">
                   <b>{a.sifra}</b>
+                  {a.dimenzija && <span className="mk-dim">{a.dimenzija}</span>}
                 </td>
-                {naziviRazlicni && <td>{a.naziv}</td>}
-                <td>{a.dimenzija ?? "—"}</td>
+                {naziviRazlicni && <td className="mk-cela" data-l="Naziv">{a.naziv}</td>}
+                <td className="mk-skrij" data-l="Dimenzija">{a.dimenzija ?? "—"}</td>
                 {stolpci.map((k) => (
-                  <td key={k}>{(a.lastnosti ?? {})[k] ?? "—"}</td>
+                  <td key={k} data-l={k}>{(a.lastnosti ?? {})[k] ?? "—"}</td>
                 ))}
-                <td className="izd-siv">{a.ean ?? "—"}</td>
-                <td>{pakiranje(a)}</td>
-                <td>
+                <td className="izd-siv" data-l="EAN">{a.ean ?? "—"}</td>
+                <td data-l={stolpci.includes("Pakiranje") ? "Kos v pak." : "Pakiranje"}>{pakiranje(a)}</td>
+                <td data-l="Zaloga">
                   <Zaloga vrednost={a.zaloga} />
                 </td>
-                <td>
+                <td data-l="Cena z DDV">
                   <Cena cena={cenaArtikla(a)} />
                 </td>
-                <td>
+                <td className="mk-cela">
                   <VKosarico a={a} cena={cenaArtikla(a)} izdelek={izdelek} />
                 </td>
               </tr>

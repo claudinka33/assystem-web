@@ -17,25 +17,25 @@ export default function Kosarica() {
   return (
     <>
       <div style={{ overflowX: "auto" }}>
-        <table>
+        <table className="mob-kartice">
           <thead>
             <tr><th>Izdelek</th><th>Šifra</th><th>Pakiranje</th><th>Cena z DDV</th><th>Količina</th><th>Skupaj</th><th></th></tr>
           </thead>
           <tbody>
             {p.map((x) => (
               <tr key={x.id}>
-                <td>
+                <td className="mk-gl">
                   {x.pot ? <Link href={x.pot}><b>{x.naziv}</b></Link> : <b>{x.naziv}</b>}
                   <div className="izd-siv">{x.dimenzija} {Object.values(x.lastnosti ?? {}).join(" · ")}</div>
                 </td>
-                <td className="izd-siv">{x.sifra}</td>
-                <td>{x.kos ? `${x.kos} kos` : "—"}</td>
-                <td>{eur(x.cenaBruto)}</td>
-                <td>
+                <td className="izd-siv" data-l="Šifra">{x.sifra}</td>
+                <td data-l="Pakiranje">{x.kos ? `${x.kos} kos` : "—"}</td>
+                <td data-l="Cena z DDV">{eur(x.cenaBruto)}</td>
+                <td data-l="Količina">
                   <input type="number" min="1" value={x.kolicina} onChange={(e) => nastaviKolicino(x.id, Number(e.target.value) || 1)} style={{ width: 70 }} aria-label="Količina" />
                 </td>
-                <td><b>{eur(zaokrozi(x.cenaBruto * x.kolicina))}</b></td>
-                <td><button type="button" className="kos-x" onClick={() => odstrani(x.id)} aria-label="Odstrani">×</button></td>
+                <td data-l="Skupaj"><b>{eur(zaokrozi(x.cenaBruto * x.kolicina))}</b></td>
+                <td className="mk-x"><button type="button" className="kos-x" onClick={() => odstrani(x.id)} aria-label="Odstrani">×</button></td>
               </tr>
             ))}
           </tbody>

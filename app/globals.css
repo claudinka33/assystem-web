@@ -34,6 +34,18 @@ html {
   scroll-behavior: smooth;
 }
 
+html,
+body {
+  overflow-x: clip; /* nič ne sme raztegniti strani čez rob telefona */
+}
+img,
+video,
+svg,
+canvas,
+iframe {
+  max-width: 100%;
+}
+
 body {
   font-family: var(--font-body);
   color: var(--color-ink);
@@ -641,7 +653,7 @@ a {
   .hero-im { margin: 10px 0 0; }
   .hero .w,
   .qua {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
   .hero:before {
     display: none;
@@ -678,7 +690,7 @@ a {
   .who.c4,
   .ftr .w,
   .nums .w {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
   .sec {
     padding: 48px 0;
@@ -805,7 +817,7 @@ table.adm-tab tr:last-child td { border-bottom: 0; }
 }
 
 @media (max-width: 700px) {
-  .obr-vrsta { grid-template-columns: 1fr; }
+  .obr-vrsta { grid-template-columns: minmax(0, 1fr); }
   .obr { padding: 22px; }
 }
 
@@ -966,7 +978,7 @@ table.adm-tab tr:last-child td { border-bottom: 0; }
   margin-top: 12px;
 }
 .koraki p { color: var(--color-muted); font-size: 14.5px; margin-top: 10px; }
-@media (max-width: 900px) { .koraki { grid-template-columns: 1fr; } }
+@media (max-width: 900px) { .koraki { grid-template-columns: minmax(0, 1fr); } }
 
 /* ---------- zaklenjena stran med prenovo ---------- */
 .zaklep {
@@ -1084,7 +1096,7 @@ table.adm-tab tr:last-child td { border-bottom: 0; }
 /* okvir z vzorcem vijakov, prizor kot bela plošča — kot v videih */
 /* prizor + orodjarna drug ob drugem, prizor nikoli višji od zaslona */
 .igra-telo { display: grid; grid-template-columns: minmax(0, 1fr) 270px; gap: 22px; align-items: start; }
-.igra-telo .orodjarna { grid-template-columns: 1fr; gap: 16px; margin-top: 0; }
+.igra-telo .orodjarna { grid-template-columns: minmax(0, 1fr); gap: 16px; margin-top: 0; }
 .igra-telo .orodjarna .sidra .orodjarna-gumbi { flex-direction: column; flex-wrap: nowrap; gap: 8px; }
 .igra-telo .sidro-gumb { min-width: 0; padding: 10px 12px !important; }
 .igra-telo .orodjarna-gumbi button { padding: 10px 11px; gap: 7px; }
@@ -1184,18 +1196,18 @@ table.adm-tab tr:last-child td { border-bottom: 0; }
 }
 
 @media (max-width: 1100px) {
-  .igra-telo { grid-template-columns: 1fr; }
+  .igra-telo { grid-template-columns: minmax(0, 1fr); }
   .igra-telo .orodjarna { grid-template-columns: auto auto 1fr; gap: 26px; }
   .igra-telo .orodjarna .sidra .orodjarna-gumbi { flex-direction: row; }
 }
 @media (max-width: 900px) {
   .igra { padding: 18px; }
-  .igra-telo .orodjarna { grid-template-columns: 1fr; }
+  .igra-telo .orodjarna { grid-template-columns: minmax(0, 1fr); }
   .igra-telo .orodjarna .sidra .orodjarna-gumbi { flex-wrap: wrap; }
   .igra-koraki { grid-template-columns: repeat(3, 1fr); }
   .prizor-okvir { padding: 8px; max-width: none; }
-  .igra-vrstica { grid-template-columns: 1fr; gap: 10px; }
-  .orodjarna { grid-template-columns: 1fr; }
+  .igra-vrstica { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .orodjarna { grid-template-columns: minmax(0, 1fr); }
   .orodjarna .sidra .orodjarna-gumbi { flex-wrap: wrap; }
 }
 
@@ -1233,7 +1245,7 @@ table.adm-tab tr:last-child td { border-bottom: 0; }
 
 @media (max-width: 900px) {
   .polica { padding: 18px; }
-  .polica-podatki { grid-template-columns: 1fr; }
+  .polica-podatki { grid-template-columns: minmax(0, 1fr); }
   .polica-prizor { padding: 12px; }
 }
 
@@ -1264,7 +1276,7 @@ table.adm-tab tr:last-child td { border-bottom: 0; }
 @media (max-width: 1100px) { .embalaza { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 760px) {
   .embalaza { grid-template-columns: repeat(2, 1fr); }
-  .etiketa { grid-template-columns: 1fr; gap: 24px; }
+  .etiketa { grid-template-columns: minmax(0, 1fr); gap: 24px; }
 }
 
 /* ---------- stran izdelka: kompaktna postavitev ---------- */
@@ -1409,7 +1421,7 @@ table.adm-tab tr:last-child td { border-bottom: 0; }
 }
 
 @media (max-width: 1000px) {
-  .izd-grid, .izd-opis { grid-template-columns: 1fr; gap: 24px; }
+  .izd-grid, .izd-opis { grid-template-columns: minmax(0, 1fr); gap: 24px; }
   .izd-levo { position: static; }
   .izd-slika { max-width: 420px; }
 }
@@ -1512,7 +1524,38 @@ table.adm-tab tr:last-child td { border-bottom: 0; }
 .blag-pog { display: block; font-size: 12.5px; margin: 14px 0; }
 .blag-nap { color: var(--color-red); font-size: 14px; margin-bottom: 10px; }
 @media (max-width: 860px) {
-  .blag { grid-template-columns: 1fr; }
-  .blag-polja { grid-template-columns: 1fr; }
+  .blag { grid-template-columns: minmax(0, 1fr); }
+  .blag-polja { grid-template-columns: minmax(0, 1fr); }
   .blag-d { position: static; }
+}
+
+/* ---------- Telefon: tabele artiklov in košarice kot kartice ---------- */
+.mob-kartice .mk-dim { display: none; }
+@media (max-width: 700px) {
+  .izd-tab table.mob-kartice, table.mob-kartice { min-width: 0; border: 0; background: none; }
+  table.mob-kartice thead { display: none; }
+  table.mob-kartice tbody { display: grid; gap: 8px; }
+  table.mob-kartice tr {
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 14px;
+    padding: 12px 14px; background: #fff; border: 1px solid var(--color-line); border-left: 3px solid var(--color-red);
+  }
+  table.mob-kartice td, .izd-tab table.mob-kartice td {
+    display: block; padding: 0; border: 0; white-space: normal; font-size: 14px; min-width: 0; overflow-wrap: anywhere;
+  }
+  table.mob-kartice tbody tr:hover td { background: none; }
+  table.mob-kartice td[data-l]::before {
+    content: attr(data-l); display: block; font-size: 10px; font-weight: 800; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--color-muted-2); line-height: 1.5;
+  }
+  table.mob-kartice td[colspan] { grid-column: 1 / -1; }
+  table.mob-kartice .mk-gl { grid-column: 1 / -1; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; font-size: 15px; }
+  table.mob-kartice .mk-dim { display: inline; font-weight: 700; color: var(--color-red); }
+  table.mob-kartice .mk-skrij { display: none; }
+  table.mob-kartice .mk-cela { grid-column: 1 / -1; }
+  table.mob-kartice .mk-x { position: absolute; top: 6px; right: 8px; }
+  table.mob-kartice tr:has(.mk-x) { position: relative; padding-right: 40px; }
+  table.mob-kartice .vk { display: flex; width: 100%; }
+  table.mob-kartice .vk input { width: 72px; padding: 9px 8px; font-size: 15px; }
+  table.mob-kartice .vk button { flex: 1; padding: 11px 12px; font-size: 14px; }
+  table.mob-kartice .izd-cena b { font-size: 16px; }
 }
