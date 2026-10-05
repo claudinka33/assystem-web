@@ -73,22 +73,21 @@ export default function Header() {
             <span />
           </button>
         </div>
+        {odprt && (
+          <nav className="mobmeni">
+            <div className="w">
+              {navigacija.map((el) => (
+                <Link key={el.pot} href={el.pot} onClick={() => setOdprt(false)}>
+                  {el.naziv}
+                </Link>
+              ))}
+              <a href={`tel:${site.telefonRaw}`} style={{ color: "var(--color-red)" }}>
+                {site.telefon}
+              </a>
+            </div>
+          </nav>
+        )}
       </header>
-
-      {odprt && (
-        <nav className="mobmeni">
-          <div className="w">
-            {navigacija.map((el) => (
-              <Link key={el.pot} href={el.pot} onClick={() => setOdprt(false)}>
-                {el.naziv}
-              </Link>
-            ))}
-            <a href={`tel:${site.telefonRaw}`} style={{ color: "var(--color-red)" }}>
-              {site.telefon}
-            </a>
-          </div>
-        </nav>
-      )}
     </>
   );
 }

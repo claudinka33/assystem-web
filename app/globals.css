@@ -112,7 +112,7 @@ a {
   background: #fff;
   z-index: 30;
 }
-.hdr .w {
+.hdr > .w {
   display: flex;
   align-items: center;
   gap: 32px;
@@ -187,8 +187,11 @@ a {
   background: var(--color-ink);
 }
 .mobmeni {
-  border-bottom: 1px solid var(--color-line);
+  border-top: 1px solid var(--color-line);
   background: #fff;
+  max-height: calc(100dvh - 82px);
+  overflow-y: auto;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
 }
 .mobmeni a {
   display: block;
@@ -906,7 +909,7 @@ table.adm-tab tr:last-child td { border-bottom: 0; }
 .nav { margin-left: 0; }
 /* srednje siroki zasloni: glava ostane v eni vrstici */
 @media (max-width: 1440px) {
-  .hdr .w { gap: 24px; }
+  .hdr > .w { gap: 24px; }
   .nav { gap: 22px; }
   .tel { font-size: 17px; }
   .tel span { display: none; }
