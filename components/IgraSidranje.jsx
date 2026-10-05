@@ -10,7 +10,7 @@ import { dogodek } from "@/lib/dogodki";
    narisani v merilu: K točk prizora = 1 mm.
    -------------------------------------------------------------- */
 
-const S = { w: 1200, h: 660, tla: 370 }; // tla = zgornji rob betona
+const S = { w: 1200, h: 600, tla: 370 }; // tla = zgornji rob betona
 const K = 2.2;                            // točk na milimeter
 const PLOSCA = 10 * K;                    // debelina podložne plošče (10 mm)
 const VRH_PLOSCE = S.tla - PLOSCA;
@@ -400,13 +400,15 @@ export default function IgraSidranje() {
         ))}
       </ol>
 
-      <div className="igra-navodilo">
-        <b>{KORAKI[korak][0]}</b>
-        <span>{KORAKI[korak][1]}</span>
+      <div className="igra-vrstica">
+        <div className="igra-navodilo">
+          <b>{KORAKI[korak][0]}</b>
+          <span>{KORAKI[korak][1]}</span>
+        </div>
+        {sporocilo && <p className={napaka ? "igra-napaka" : "igra-uspeh"}>{sporocilo}</p>}
       </div>
 
-      {sporocilo && <p className={napaka ? "igra-napaka" : "igra-uspeh"}>{sporocilo}</p>}
-
+      <div className="igra-telo">
       <div className="prizor-okvir">
         <svg
           ref={svgRef}
@@ -593,7 +595,7 @@ export default function IgraSidranje() {
             )}
 
             {/* orodje v roki */}
-            {orodje && (
+            {orodje && korak < 6 && (
               <g transform={`translate(${poz.x} ${poz.y})`} pointerEvents="none">
                 {orodje.tip === "sveder" && <Sveder premer={orodje.premer} dela={dela} />}
                 {orodje.tip === "pihalka" && <Pihalka dela={dela} />}
@@ -665,13 +667,13 @@ export default function IgraSidranje() {
               <button key={s.id} type="button"
                 className={`sidro-gumb${orodje?.tip === "sidro" && orodje.id === s.id ? " izbran" : ""}`}
                 onClick={() => vzemiSidro(s)}>
-                <b>{s.naziv}</b>
-                {s.top && <em>top izbor</em>}
+                <b>{s.naziv}{s.top && <em>top izbor</em>}</b>
                 <span>{s.opis}</span>
               </button>
             ))}
           </div>
         </div>
+      </div>
       </div>
 
       {korak === 6 && (
