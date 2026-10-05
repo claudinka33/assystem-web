@@ -99,6 +99,7 @@ export default async function Kategorija({ params }) {
                     )}
                   </div>
                   <div className="tx">
+                    {i.znamka && <span className="znamka">{i.znamka} program</span>}
                     <h2>{i.naziv}</h2>
                     <p>{i.kratek_opis}</p>
                     {i.eta_stevilka && (
