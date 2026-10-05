@@ -1548,9 +1548,9 @@ table.adm-tab tr:last-child td { border-bottom: 0; }
     text-transform: uppercase; color: var(--color-muted-2); line-height: 1.5;
   }
   table.mob-kartice td[colspan] { grid-column: 1 / -1; }
-  table.mob-kartice td.mk-gl { grid-column: 1 / -1; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; font-size: 15px; }
+  table.mob-kartice td.mk-gl { grid-column: 1 / -1; display: flex; gap: 6px 14px; align-items: baseline; flex-wrap: wrap; font-size: 15px; }
   table.mob-kartice .mk-gl b { color: var(--color-ink); }
-  table.mob-kartice .mk-dim { display: inline; font-weight: 700; color: var(--color-red); }
+  table.mob-kartice .mk-dim { display: inline; font-weight: 800; font-size: 17px; color: var(--color-red); }
   table.mob-kartice td.mk-skrij { display: none; }
   table.mob-kartice td.mk-cela { grid-column: 1 / -1; }
   table.mob-kartice td.mk-x { position: absolute; top: 6px; right: 8px; }
