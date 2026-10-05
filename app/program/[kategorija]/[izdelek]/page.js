@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { pridobiIzdelek } from "@/lib/podatki";
 import TabelaArtiklov from "@/components/TabelaArtiklov";
 import GalerijaIzdelka from "@/components/GalerijaIzdelka";
+import IgraIzdelka from "@/components/IgraIzdelka";
 
 export const revalidate = 60;
 
@@ -171,6 +172,8 @@ export default async function StranIzdelka({ params }) {
             )}
           </div>
         </div>
+
+        <IgraIzdelka slug={izdelek} />
       </div>
     </section>
   );
