@@ -7,7 +7,8 @@ export default async function sitemap() {
   const strani = [
     "", "/program", "/asfix", "/private-label", "/proizvodnja", "/kakovost",
     "/distributerji", "/o-nas", "/katalogi", "/aktualno", "/zaposlitev",
-    "/kontakt", "/splosni-pogoji", "/zasebnost",
+    "/kontakt", "/splosni-pogoji", "/zasebnost", "/nacini-placila", "/dostava",
+    "/odstop-od-pogodbe", "/reklamacije", "/izjava-o-dostopnosti", "/pravna-obvestila",
   ];
 
   const zdaj = new Date();

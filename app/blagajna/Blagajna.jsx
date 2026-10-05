@@ -90,7 +90,7 @@ export default function Blagajna({ dostave }) {
         <div className="blag-v"><span>Dostava</span><b>{eur(postnina)}</b></div>
         <div className="blag-v blag-sk"><span>Skupaj z DDV</span><b>{eur(zaokrozi(blago + postnina))}</b></div>
         <label className="blag-pog">
-          <input type="checkbox" name="pogoji" required /> Strinjam se s <Link href="/splosni-pogoji" target="_blank">splošnimi pogoji</Link> in <Link href="/zasebnost" target="_blank">varstvom podatkov</Link>.
+          <input type="checkbox" name="pogoji" required /> Strinjam se s <Link href="/splosni-pogoji" target="_blank">splošnimi pogoji poslovanja</Link> in sem seznanjen/-a z <Link href="/odstop-od-pogodbe" target="_blank">pravico do odstopa</Link> ter <Link href="/zasebnost" target="_blank">varstvom osebnih podatkov</Link>.
         </label>
         {napaka && <p className="blag-nap">{napaka}</p>}
         <button className="b b-r" type="submit" disabled={cakam} style={{ width: "100%" }}>

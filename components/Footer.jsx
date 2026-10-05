@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { PRAVNE } from "@/lib/pravno";
 import { kategorije, site } from "@/lib/site";
 
 export default function Footer() {
@@ -53,7 +54,14 @@ export default function Footer() {
 
       <div className="fb">
         <div className="w">
-          <span>© {new Date().getFullYear()} {site.ime} · Vse pravice pridržane</span>
+          <span>
+            © {new Date().getFullYear()} {site.ime} · Vse pravice pridržane
+            <span className="ftr-pravno" style={{ marginTop: 6 }}>
+              {PRAVNE.map((x) => (
+                <Link key={x.pot} href={x.pot}>{x.naziv}</Link>
+              ))}
+            </span>
+          </span>
           <span style={{ display: "flex", alignItems: "center", gap: 10 }}>
             <Image src="/logo-asfix.png" alt="ASfix" width={110} height={37} style={{ opacity: 0.9 }} />
           </span>
