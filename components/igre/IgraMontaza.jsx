@@ -17,6 +17,7 @@ import { C, Vzorci, Sveder, Vijacnik, Pihalka, Kladivo } from "./orodje";
    -------------------------------------------------------------- */
 
 const W = 1200;
+const ustreza = (k, id) => (Array.isArray(k.orodje) ? k.orodje.includes(id) : k.orodje === id);
 
 function izmetZa(smer) {
   if (smer === 180) return () => ({ dx: (Math.random() - 0.5) * 150, dy: 30 + Math.random() * 100 });
@@ -35,6 +36,7 @@ export default function IgraMontaza({ cfg }) {
   const [dela, setDela] = useState(false);
   const [aktivna, setAktivna] = useState(null);
   const [delci, setDelci] = useState([]);
+  const [izbire, setIzbire] = useState({});
   const [sporocilo, setSporocilo] = useState(null);
   const [napaka, setNapaka] = useState(false);
   const javljeno = useRef(false);
@@ -88,7 +90,7 @@ export default function IgraMontaza({ cfg }) {
     return naj;
   }
 
-  const imeOrodja = (id) => cfg.orodja.find((o) => o.id === id)?.naziv?.toLowerCase() ?? id;
+  const imeOrodja = (id) => cfg.orodja.find((o) => o.id === (Array.isArray(id) ? id[0] : id))?.naziv ?? String(id);
 
   function pritisk(e) {
     const t = tocka(e);
@@ -99,14 +101,15 @@ export default function IgraMontaza({ cfg }) {
 
     // skupni korak (postavi element)
     if (k.tip === "postavi") {
-      if (k.orodje && !izbrano) { povej(`Vzemi ${imeOrodja(k.orodje)} iz orodjarne.`, true); return; }
+      if (k.orodje && !izbrano) { povej(`Vzemi iz orodjarne: ${imeOrodja(k.orodje)}.`, true); return; }
       if (izbrano?.napaka) { povej(izbrano.napaka, true); return; }
-      if (k.orodje && izbrano.id !== k.orodje) {
+      if (k.orodje && !ustreza(k, izbrano.id)) {
         povej(`Zdaj potrebuješ: ${imeOrodja(k.orodje)}.`, true);
         return;
       }
       if (k.obmocje && !k.obmocje(t)) return;
       setNap((p) => p.map((r) => r.map((v, j) => (j === korak ? 100 : v))));
+      if (izbrano) setIzbire((p) => ({ ...p, [korak]: izbrano.id }));
       if (k.potrdilo) povej(k.potrdilo);
       return;
     }
@@ -116,8 +119,8 @@ export default function IgraMontaza({ cfg }) {
     if (!izbrano) { povej("Najprej vzemi orodje iz orodjarne.", true); return; }
     if (izbrano.napaka) { povej(izbrano.napaka, true); return; }
 
-    if (izbrano.id !== k.orodje) {
-      const kasneje = cfg.koraki.some((x, j) => j > korak && x.orodje === izbrano.id);
+    if (!ustreza(k, izbrano.id)) {
+      const kasneje = cfg.koraki.some((x, j) => j > korak && ustreza(x, izbrano.id));
       if (kasneje) povej(k.preskok ?? `Najprej: ${k.naziv.toLowerCase()}.`, true);
       return;
     }
@@ -125,6 +128,7 @@ export default function IgraMontaza({ cfg }) {
 
     const l = cfg.luknje[li];
     const j = korak;
+    setIzbire((p) => ({ ...p, [j]: izbrano.id }));
 
     if (k.nacin === "klik") {
       nastavi(li, j, () => 100);
@@ -155,11 +159,11 @@ export default function IgraMontaza({ cfg }) {
   }
 
   function ponovi() {
-    ustavi(); setNap(zacetne()); setOrodje(null); setDelci([]);
+    ustavi(); setNap(zacetne()); setOrodje(null); setDelci([]); setIzbire({});
     setSporocilo(null); setNapaka(false); javljeno.current = false;
   }
 
-  const stanje = { nap, korak, koncano, napKorak: (li, j) => nap[li][j] };
+  const stanje = { nap, korak, koncano, izbire, napKorak: (li, j) => nap[li][j] };
 
   // položaj orodja — med delom se pripne na luknjo
   const izbrano = orodje ? cfg.orodja.find((o) => o.id === orodje) : null;
@@ -171,7 +175,7 @@ export default function IgraMontaza({ cfg }) {
   const rot = izbrano?.brezRotacije ? 0 : (cfg.smer ?? 0);
 
   let navodilo = k.navodilo;
-  if (k.orodje && orodje !== k.orodje && !koncano) navodilo = k.vzemi ?? `Vzemi ${imeOrodja(k.orodje)}.`;
+  if (k.orodje && !ustreza(k, orodje) && !koncano) navodilo = k.vzemi ?? `Vzemi iz orodjarne: ${imeOrodja(k.orodje)}.`;
   if (koncano) navodilo = cfg.konec?.kratko ?? "Pritrjeno.";
 
   const kick = cfg.kicker ?? {};
@@ -237,7 +241,7 @@ export default function IgraMontaza({ cfg }) {
 
               {izbrano && !koncano && (
                 <g transform={`translate(${poz.x} ${poz.y}) rotate(${rot})`} pointerEvents="none">
-                  {izbrano.risba === "sveder" && <Sveder sirina={izbrano.sirina} dolzina={izbrano.dolzina} dela={dela} />}
+                  {izbrano.risba === "sveder" && <Sveder sirina={izbrano.sirina} dolzina={izbrano.dolzina} dela={dela} oznaka={izbrano.oznaka} />}
                   {izbrano.risba === "vijacnik" && <Vijacnik dela={dela} />}
                   {izbrano.risba === "pihalka" && <Pihalka dela={dela} />}
                   {izbrano.risba === "kladivo" && <Kladivo udari={aktivna != null} />}
@@ -268,6 +272,16 @@ export default function IgraMontaza({ cfg }) {
               ))}
             </div>
           </div>
+          {cfg.podatki && (
+            <div className="igra-podatki">
+              <h4>Podatki za vgradnjo</h4>
+              <dl>
+                {cfg.podatki.map(([a, b]) => (
+                  <div key={a}><dt>{a}</dt><dd>{b}</dd></div>
+                ))}
+              </dl>
+            </div>
+          )}
           {cfg.opomba && <p className="orodjarna-opomba">{cfg.opomba}</p>}
         </div>
       </div>

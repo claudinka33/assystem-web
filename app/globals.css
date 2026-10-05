@@ -1153,6 +1153,12 @@ table.adm-tab tr:last-child td { border-bottom: 0; }
 .ik-element { width: 24px; height: 18px; background: linear-gradient(90deg, transparent 42%, #b4babf 42% 58%, transparent 58%), linear-gradient(0deg, #b4babf 0 26%, transparent 26%); }
 .ik-trak { width: 22px; height: 22px; border-radius: 50%; border: 5px dotted #9ea4a9; }
 .ik-enota { width: 26px; height: 18px; border: 2px solid #3f4140; border-radius: 3px; background: radial-gradient(circle at 34% 50%, #fff 0 4px, #3f4140 4px 5.5px, #eef0f1 5.5px); }
+.igra-podatki { border: 1px solid var(--color-line); border-top: 3px solid var(--color-red); border-radius: 8px; padding: 12px 14px; background: #fff; }
+.igra-podatki h4 { margin-bottom: 8px; }
+.igra-podatki dl { display: grid; gap: 6px; margin: 0; }
+.igra-podatki dl > div { display: grid; grid-template-columns: 108px 1fr; gap: 8px; font-size: 13px; line-height: 1.35; }
+.igra-podatki dt { color: var(--color-muted); }
+.igra-podatki dd { margin: 0; font-weight: 700; color: var(--color-ink); }
 .orodjarna-opomba { font-size: 12.5px; color: var(--color-muted); }
 .igra-izdelka { margin-top: 48px; }
 .igra-izdelka .st { margin-bottom: 22px; }

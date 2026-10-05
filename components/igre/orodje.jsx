@@ -51,7 +51,7 @@ export function Vzorci() {
   );
 }
 
-export function Sveder({ sirina = 16, dolzina = 220, dela }) {
+export function Sveder({ sirina = 16, dolzina = 220, dela, oznaka }) {
   const bw = sirina, bl = dolzina;
   const vijacnica = [];
   for (let y = -bl + 12; y < -14; y += 9) {
@@ -68,6 +68,12 @@ export function Sveder({ sirina = 16, dolzina = 220, dela }) {
       <rect x="-36" y={ch - 98} width="72" height="70" rx="14" fill={C.dark} />
       <rect x="-36" y={ch - 72} width="72" height="14" fill={C.red} />
       <rect x="30" y={ch - 92} width="96" height="30" rx="10" fill={C.dark} />
+      {oznaka && (
+        <g>
+          <rect x="58" y={ch - 56} width="64" height="26" rx="4" fill={C.red} />
+          <text x="90" y={ch - 37} textAnchor="middle" fill="#fff" fontSize="17" fontWeight="800">{oznaka}</text>
+        </g>
+      )}
     </g>
   );
 }
@@ -157,4 +163,24 @@ export function NavojVijaka({ x, y1, y2, sirina, korak = 7, faza = 0, barva = C.
   for (let y = od; y < y2; y += korak) desno.push(`${x + h},${y}`, `${x + h - z},${Math.min(y2, y + korak / 2)}`);
   desno.reverse();
   return <polygon points={[...tocke, ...desno, `${x + h - z},${y1}`].join(" ")} fill={barva} stroke={C.ink} strokeWidth="1.3" strokeLinejoin="round" />;
+}
+
+/** Kotirna mera (navpična ali vodoravna) z rdečim napisom */
+export function Mera({ x1, y1, x2, y2, napis, stran = 1, odmik = 12 }) {
+  const navp = Math.abs(x2 - x1) < Math.abs(y2 - y1);
+  const t = 7;
+  const kon = navp
+    ? [[x1 - t, y1, x1 + t, y1], [x2 - t, y2, x2 + t, y2]]
+    : [[x1, y1 - t, x1, y1 + t], [x2, y2 - t, x2, y2 + t]];
+  const tx = navp ? x1 + stran * odmik : (x1 + x2) / 2;
+  const ty = navp ? (y1 + y2) / 2 + 6 : y1 - (stran > 0 ? odmik : -odmik - 12);
+  return (
+    <g>
+      <line x1={x1} y1={y1} x2={x2} y2={y2} stroke={C.red} strokeWidth="2" />
+      {kon.map(([a, b, c, d], i) => <line key={i} x1={a} y1={b} x2={c} y2={d} stroke={C.red} strokeWidth="2" />)}
+      <text x={tx} y={ty} textAnchor={navp ? (stran > 0 ? "start" : "end") : "middle"} fill={C.red} fontSize="17" fontWeight="800" className="halo">
+        {napis}
+      </text>
+    </g>
+  );
 }
