@@ -1,8 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { pridobiIzdelek } from "@/lib/podatki";
 import TabelaArtiklov from "@/components/TabelaArtiklov";
+import GalerijaIzdelka from "@/components/GalerijaIzdelka";
 
 export const revalidate = 60;
 
@@ -71,31 +71,7 @@ export default async function StranIzdelka({ params }) {
         <div className="izd-grid">
           {/* Levo: slika, prednosti, dokumenti, povpraševanje — ostane na mestu ob skrolanju */}
           <aside className="izd-levo">
-            <div className="izd-slika">
-              {i.slika_url && (
-                <Image
-                  src={i.slika_url}
-                  alt={i.naziv}
-                  fill
-                  priority
-                  sizes="(max-width: 1000px) 100vw, 380px"
-                  style={{ objectFit: "contain", padding: 18 }}
-                />
-              )}
-            </div>
-
-            {slike.length > 1 && (
-              <div className="izd-mini">
-                {slike.map((url) => {
-                  const oznaka = (url.split("/").pop() || "").replace(/\.[a-z]+$/i, "").split("_").pop();
-                  return (
-                    <a key={url} href={url} target="_blank" rel="noreferrer" title={oznaka}>
-                      <Image src={url} alt={`${i.naziv} — ${oznaka}`} fill sizes="80px" style={{ objectFit: "contain", padding: 4 }} />
-                    </a>
-                  );
-                })}
-              </div>
-            )}
+            <GalerijaIzdelka slike={slike} naziv={i.naziv} />
 
             {i.prednosti?.length > 0 && (
               <ul className="izd-pred">
