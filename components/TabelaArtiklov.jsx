@@ -40,7 +40,6 @@ const PRIVZETA_EMBALAZA = [
   { lastnost: "Pakiranje", vrednost: "škatla", naziv: "Škatla", opis: "Originalno pakiranje za podjetja in serviserje. Število kosov v škatli je v stolpcu »Kos v pak.«.", slika: "/slike/embalaza/ASco_skatla.png" },
   { lastnost: "Pakiranje", vrednost: "vrečka", naziv: "Vrečka", opis: "Maloprodajna vrečka z eurolukno za obešanje na prodajno stojalo.", slika: "/slike/embalaza/ASco_vrecka_modra.png" },
   { lastnost: "Pakiranje", vrednost: "blister", naziv: "Blister", opis: "Maloprodajno pakiranje v blistru za obešanje na stojalo." },
-  { lastnost: "Pakiranje", vrednost: "mala škatla", naziv: "Mala škatla", opis: "Manjša škatla z nekaj deset kosi za trgovine." },
 ];
 
 function Legenda({ vnosi, artikli, izbrani, izberi }) {
