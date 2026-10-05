@@ -62,8 +62,11 @@ function geo(l, s) {
   const prot = 20 * K * (1 - l.zabitost / 100);  // pred zabijanjem gleda 20 mm ven
   const lift = 3 * K * (l.zategnjenost / 100);   // pri zatezanju se palica dvigne
   const rodBot = baseBot - prot - lift;
-  const rodTop = rodBot - s.dolzina * K;
   const coneH = 1.3 * dw, clipH = 1.5 * dw;
+  const wH0 = 2.2 * K, nH0 = 0.8 * dw;
+  // navoj gleda nad matico 3 mm (po zatezanju 6 mm) — enako pri vseh velikostih
+  const dolzinaVidna = (baseBot - 3 * K) - (VRH_PLOSCE - wH0 - nH0 - 6 * K);
+  const rodTop = rodBot - dolzinaVidna;
   const clipBot = baseBot - prot - coneH * 0.4;
   const wH = 2.2 * K, nH = 0.8 * dw;
   const washerBot = VRH_PLOSCE - prot;
