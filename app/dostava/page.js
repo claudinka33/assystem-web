@@ -21,7 +21,7 @@ export default function Dostava() {
         <tbody>
           <tr>
             <td><b>Pošta Slovenije</b></td>
-            <td>{eur0(t.postnina)}<br />brezplačno nad {eur0(t.brezplacnoNad)}</td>
+            <td>glede na težo paketa<br />brezplačno nad {eur0(t.brezplacnoNad)}</td>
             <td>Dostava na naslov v Sloveniji. Mogoče je plačilo po povzetju.</td>
           </tr>
           <tr>
@@ -29,16 +29,12 @@ export default function Dostava() {
             <td>brezplačno</td>
             <td>Šmarje pri Jelšah, {site.lokacije[0].naslov.split(",")[0]}. Pon–pet, 7.00–15.00, ko vas obvestimo, da je naročilo pripravljeno.</td>
           </tr>
-          <tr>
-            <td><b>Dostava z našim vozilom</b></td>
-            <td>po dogovoru</td>
-            <td>Za večja naročila in podjetja dostavimo tudi z lastnim vozilom. Pokličite nas ali pišite v opombo naročila.</td>
-          </tr>
         </tbody>
       </table>
       <p>
-        Meja za brezplačno dostavo velja za vrednost blaga z DDV v enem naročilu. Stroški dostave so pred oddajo naročila
-        prikazani na blagajni.
+        Poštnina se izračuna glede na skupno težo paketa po ceniku Pošte Slovenije in je pred oddajo naročila prikazana na
+        blagajni. Meja za brezplačno dostavo velja za vrednost blaga z DDV v enem naročilu. Za zelo težka naročila (nad
+        30 kg) vas pred odpremo kontaktiramo glede načina dostave.
       </p>
 
       <h2>Kam dostavljamo</h2>
