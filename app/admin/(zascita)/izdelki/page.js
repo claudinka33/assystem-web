@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 export default async function Izdelki() {
   const { data } = await supabaseAdmin()
     .from("izdelki")
-    .select("id, naziv, slug, slika_url, objavljeno, kategorije(naziv), artikli(id)")
+    .select("id, naziv, slug, slika_url, objavljeno, kategorije!izdelki_kategorija_id_fkey(naziv), artikli(id)")
     .order("vrstni_red")
     .order("naziv");
 
