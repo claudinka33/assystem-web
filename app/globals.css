@@ -1360,3 +1360,19 @@ table.adm-tab tr:last-child td { border-bottom: 0; }
   font-size: 11px; font-weight: 700; padding: 2px 6px; line-height: 1.3;
 }
 .izd-slika .izd-oznaka { left: 10px; bottom: 10px; font-size: 12px; }
+
+/* legenda pakiranj */
+.izd-emb { margin-bottom: 14px; }
+.izd-emb-k { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 8px; }
+.izd-emb-k button {
+  display: grid; grid-template-columns: 76px 1fr; gap: 12px; align-items: center; text-align: left;
+  background: #fff; border: 1px solid var(--color-line); padding: 8px 12px 8px 8px; font: inherit; cursor: pointer;
+}
+.izd-emb-k button:hover { border-color: var(--color-ink); }
+.izd-emb-k button.on { border: 2px solid var(--color-red); padding: 7px 11px 7px 7px; }
+.izd-emb-sl { position: relative; width: 76px; height: 64px; background: var(--color-mist); display: grid; place-items: center; }
+.izd-emb-ni { font-weight: 900; font-size: 24px; color: var(--color-muted-2); }
+.izd-emb-tx { display: grid; gap: 2px; }
+.izd-emb-tx b { font-size: 14px; }
+.izd-emb-tx em { font-style: normal; font-size: 11.5px; color: var(--color-red); font-weight: 700; }
+.izd-emb-tx span { font-size: 12.5px; color: var(--color-muted); line-height: 1.35; }

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useMemo, useState } from "react";
 
 // Tabela artiklov na strani izdelka: iskanje, filtri po lastnostih
@@ -34,7 +35,44 @@ function primerjaj(k) {
   return (x, y) => rang(k, x) - rang(k, y) || String(x).localeCompare(String(y), "sl", { numeric: true });
 }
 
-export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicni }) {
+// Privzeta legenda pakiranj (velja za vse izdelke, izdelek jo lahko dopolni s poljem "embalaza")
+const PRIVZETA_EMBALAZA = [
+  { lastnost: "Pakiranje", vrednost: "škatla", naziv: "Škatla", opis: "Originalno pakiranje za podjetja in serviserje. Število kosov v škatli je v stolpcu »Kos v pak.«." },
+  { lastnost: "Pakiranje", vrednost: "vrečka", naziv: "Vrečka", opis: "Maloprodajna vrečka z eurolukno za obešanje na prodajno stojalo.", slika: "/slike/Vrecka_modra_png.jpeg" },
+  { lastnost: "Pakiranje", vrednost: "blister", naziv: "Blister", opis: "Maloprodajno pakiranje v blistru za obešanje na stojalo." },
+  { lastnost: "Pakiranje", vrednost: "mala škatla", naziv: "Mala škatla", opis: "Manjša škatla z nekaj deset kosi za trgovine." },
+];
+
+function Legenda({ vnosi, artikli, izbrani, izberi }) {
+  const prisotni = vnosi
+    .map((e) => ({ ...e, n: artikli.filter((a) => (a.lastnosti ?? {})[e.lastnost] === e.vrednost).length }))
+    .filter((e) => e.n > 0);
+  if (!prisotni.length) return null;
+  return (
+    <div className="izd-emb">
+      <p className="izd-mali">Pakiranje — klikni za prikaz artiklov</p>
+      <div className="izd-emb-k">
+        {prisotni.map((e) => {
+          const on = izbrani[e.lastnost] === e.vrednost;
+          return (
+            <button key={e.lastnost + e.vrednost} type="button" className={on ? "on" : ""} onClick={() => izberi(e.lastnost, on ? undefined : e.vrednost)}>
+              <span className="izd-emb-sl">
+                {e.slika ? <Image src={e.slika} alt={e.naziv} fill sizes="90px" style={{ objectFit: "contain", padding: 4 }} /> : <span className="izd-emb-ni">{e.naziv.slice(0, 1)}</span>}
+              </span>
+              <span className="izd-emb-tx">
+                <b>{e.naziv}</b>
+                <em>{e.n} {e.n === 1 ? "artikel" : e.n < 5 ? "artikli" : "artiklov"}</em>
+                {e.opis && <span>{e.opis}</span>}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicni, embalaza = [] }) {
   const artikli = useMemo(
     () =>
       [...vhodni].sort((a, b) => {
@@ -52,6 +90,27 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
   const [izbrani, setIzbrani] = useState({});
   const [prikazano, setPrikazano] = useState(KORAK);
 
+  // Legenda: najprej posebnosti izdelka (npr. škatla AFR41), nato privzeta pakiranja
+  const vnosiLegende = useMemo(() => {
+    const vsi = [...(Array.isArray(embalaza) ? embalaza : []), ...PRIVZETA_EMBALAZA];
+    const videni = new Set();
+    return vsi.filter((e) => {
+      const k = e.lastnost + "|" + e.vrednost;
+      if (videni.has(k)) return false;
+      videni.add(k);
+      return true;
+    });
+  }, [embalaza]);
+  const kljuciLegende = useMemo(() => {
+    const s = new Set();
+    for (const e of vnosiLegende) if (artikli.some((a) => (a.lastnosti ?? {})[e.lastnost] === e.vrednost)) s.add(e.lastnost);
+    return s;
+  }, [vnosiLegende, artikli]);
+  const izberi = (k, v) => {
+    setIzbrani((prej) => ({ ...prej, [k]: v }));
+    setPrikazano(KORAK);
+  };
+
   // Filtri samo za lastnosti z nekaj vrednostmi (2–10)
   const filtri = useMemo(
     () =>
@@ -60,8 +119,8 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
           const vrednosti = [...new Set(artikli.map((a) => (a.lastnosti ?? {})[k]).filter(Boolean))];
           return [k, vrednosti.sort(primerjaj(k))];
         })
-        .filter(([, v]) => v.length >= 2 && v.length <= 10),
-    [artikli, stolpci]
+        .filter(([k, v]) => v.length >= 2 && v.length <= 10 && !kljuciLegende.has(k)),
+    [artikli, stolpci, kljuciLegende]
   );
 
   const vidni = useMemo(() => {
@@ -81,6 +140,8 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
 
   return (
     <>
+      <Legenda vnosi={vnosiLegende} artikli={artikli} izbrani={izbrani} izberi={izberi} />
+
       {dolg && (
         <div className="izd-filtri">
           <input

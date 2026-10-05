@@ -131,7 +131,7 @@ export default async function StranIzdelka({ params }) {
                   <h2>Dimenzije in šifre</h2>
                   <span>{artikli.length} {artikli.length === 1 ? "artikel" : artikli.length < 5 ? "artikli" : "artiklov"}</span>
                 </div>
-                <TabelaArtiklov artikli={artikli} stolpci={stolpci} naziviRazlicni={naziviRazlicni} />
+                <TabelaArtiklov artikli={artikli} stolpci={stolpci} naziviRazlicni={naziviRazlicni} embalaza={i.embalaza ?? []} />
                 <p className="izd-opomba">
                   Za cene in razpoložljivost <Link href={povprasevanje}>pošljite povpraševanje</Link> ali pokličite prodajo.
                 </p>
