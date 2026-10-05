@@ -21,7 +21,33 @@ function pakiranje(a) {
   return "—";
 }
 
-export default function TabelaArtiklov({ artikli, stolpci, naziviRazlicni }) {
+// Vrstni red vrednosti: najprej ZnB, nato črn, inox A2, inox A4, vroče cinkano, medenina
+const VRSTNI_RED = {
+  Material: ["ZnB", "črn", "črn (brez zaščite)", "INOX A2", "INOX A4", "vroče cinkano", "vroče cinkano (HDG)", "medenina", "poliamid"],
+  Pakiranje: ["osnovno", "razsuto (cena/100 kos)", "vrečka", "blister", "škatla", "pakirano"],
+};
+function rang(k, v) {
+  const r = (VRSTNI_RED[k] ?? []).indexOf(v);
+  return r === -1 ? 99 : r;
+}
+function primerjaj(k) {
+  return (x, y) => rang(k, x) - rang(k, y) || String(x).localeCompare(String(y), "sl", { numeric: true });
+}
+
+export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicni }) {
+  const artikli = useMemo(
+    () =>
+      [...vhodni].sort((a, b) => {
+        const la = a.lastnosti ?? {}, lb = b.lastnosti ?? {};
+        return (
+          rang("Material", la.Material) - rang("Material", lb.Material) ||
+          (a.premer ?? 0) - (b.premer ?? 0) ||
+          (a.dolzina ?? 0) - (b.dolzina ?? 0) ||
+          rang("Pakiranje", la.Pakiranje) - rang("Pakiranje", lb.Pakiranje)
+        );
+      }),
+    [vhodni]
+  );
   const [iskanje, setIskanje] = useState("");
   const [izbrani, setIzbrani] = useState({});
   const [prikazano, setPrikazano] = useState(KORAK);
@@ -32,7 +58,7 @@ export default function TabelaArtiklov({ artikli, stolpci, naziviRazlicni }) {
       stolpci
         .map((k) => {
           const vrednosti = [...new Set(artikli.map((a) => (a.lastnosti ?? {})[k]).filter(Boolean))];
-          return [k, vrednosti.sort((x, y) => String(x).localeCompare(String(y), "sl", { numeric: true }))];
+          return [k, vrednosti.sort(primerjaj(k))];
         })
         .filter(([, v]) => v.length >= 2 && v.length <= 10),
     [artikli, stolpci]
@@ -110,7 +136,7 @@ export default function TabelaArtiklov({ artikli, stolpci, naziviRazlicni }) {
                 <th key={k}>{k}</th>
               ))}
               <th>EAN</th>
-              <th>Pakiranje</th>
+              <th>{stolpci.includes("Pakiranje") ? "Kos v pak." : "Pakiranje"}</th>
               <th>Zaloga</th>
             </tr>
           </thead>
