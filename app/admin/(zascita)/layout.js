@@ -23,6 +23,9 @@ const meni = [
     { naziv: "Delovna mesta", pot: "/admin/delovna-mesta" },
     { naziv: "Prijave za delo", pot: "/admin/prijave" },
   ]},
+  { skupina: "Prodaja", povezave: [
+    { naziv: "Naročila", pot: "/admin/narocila" },
+  ]},
   { skupina: "Stiki", povezave: [
     { naziv: "Povpraševanja", pot: "/admin/povprasevanja" },
   ]},

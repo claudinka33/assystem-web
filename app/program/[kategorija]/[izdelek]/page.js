@@ -132,9 +132,9 @@ export default async function StranIzdelka({ params }) {
                   <h2>Dimenzije in šifre</h2>
                   <span>{artikli.length} {artikli.length === 1 ? "artikel" : artikli.length < 5 ? "artikli" : "artiklov"}</span>
                 </div>
-                <TabelaArtiklov artikli={artikli} stolpci={stolpci} naziviRazlicni={naziviRazlicni} embalaza={i.embalaza ?? []} />
+                <TabelaArtiklov artikli={artikli} stolpci={stolpci} naziviRazlicni={naziviRazlicni} embalaza={i.embalaza ?? []} izdelek={{ naziv: i.naziv, pot: `/program/${kategorija}/${izdelek}` }} />
                 <p className="izd-opomba">
-                  Za cene in razpoložljivost <Link href={povprasevanje}>pošljite povpraševanje</Link> ali pokličite prodajo.
+                  Cene so maloprodajne z DDV, za pakiranje v stolpcu »Kos v pak.«. Za večje količine in podjetja <Link href={povprasevanje}>pošljite povpraševanje</Link>.
                 </p>
               </div>
             )}

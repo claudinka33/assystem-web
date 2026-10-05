@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import { useMemo, useState } from "react";
+import { cenaArtikla, eur } from "@/lib/cene";
+import { dodaj } from "@/lib/kosarica";
 
 // Tabela artiklov na strani izdelka: iskanje, filtri po lastnostih
 // (material, trdnost, pakiranje ...) in postopen prikaz pri dolgih seznamih.
@@ -13,6 +15,51 @@ function Zaloga({ vrednost }) {
     <span style={{ color: "#1a7f3c", fontWeight: 700 }}>Na zalogi</span>
   ) : (
     <span style={{ color: "var(--color-muted)" }}>Po naročilu</span>
+  );
+}
+
+function VKosarico({ a, cena, izdelek }) {
+  const [kol, setKol] = useState(1);
+  const [ok, setOk] = useState(false);
+  if (!cena) return <span className="izd-siv">na povpraševanje</span>;
+  return (
+    <span className="vk">
+      <input type="number" min="1" value={kol} onChange={(e) => setKol(Math.max(1, Number(e.target.value) || 1))} aria-label="Količina" />
+      <button
+        type="button"
+        className={ok ? "on" : ""}
+        onClick={() => {
+          dodaj(
+            {
+              id: a.id,
+              sifra: a.sifra,
+              naziv: izdelek?.naziv ?? a.naziv,
+              dimenzija: a.dimenzija,
+              lastnosti: a.lastnosti ?? {},
+              kos: cena.kos,
+              cenaBruto: cena.bruto,
+              pot: izdelek?.pot,
+            },
+            kol
+          );
+          setOk(true);
+          setTimeout(() => setOk(false), 1500);
+        }}
+        aria-label="Dodaj v košarico"
+      >
+        {ok ? "✓" : "V košarico"}
+      </button>
+    </span>
+  );
+}
+
+function Cena({ cena }) {
+  if (!cena) return "—";
+  return (
+    <span className="izd-cena">
+      <b>{eur(cena.bruto)}</b>
+      {cena.na100Bruto !== null && <em>{eur(cena.na100Bruto)} / 100 kos</em>}
+    </span>
   );
 }
 
@@ -71,7 +118,7 @@ function Legenda({ vnosi, artikli, izbrani, izberi }) {
   );
 }
 
-export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicni, embalaza = [] }) {
+export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicni, embalaza = [], izdelek = null }) {
   const artikli = useMemo(
     () =>
       [...vhodni].sort((a, b) => {
@@ -198,6 +245,8 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
               <th>EAN</th>
               <th>{stolpci.includes("Pakiranje") ? "Kos v pak." : "Pakiranje"}</th>
               <th>Zaloga</th>
+              <th>Cena z DDV</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -215,6 +264,12 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
                 <td>{pakiranje(a)}</td>
                 <td>
                   <Zaloga vrednost={a.zaloga} />
+                </td>
+                <td>
+                  <Cena cena={cenaArtikla(a)} />
+                </td>
+                <td>
+                  <VKosarico a={a} cena={cenaArtikla(a)} izdelek={izdelek} />
                 </td>
               </tr>
             ))}

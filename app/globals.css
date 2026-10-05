@@ -1419,3 +1419,37 @@ table.adm-tab tr:last-child td { border-bottom: 0; }
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
+
+/* ---------- Cene, košarica, blagajna ---------- */
+.izd-cena { display: flex; flex-direction: column; white-space: nowrap; }
+.izd-cena b { font-weight: 700; }
+.izd-cena em { font-style: normal; font-size: 11.5px; color: var(--color-muted); }
+.vk { display: inline-flex; gap: 4px; align-items: center; white-space: nowrap; }
+.vk input { width: 52px; padding: 5px 6px; border: 1px solid #c6cace; font: inherit; font-size: 13px; }
+.vk button { padding: 6px 10px; border: 0; background: var(--color-red); color: #fff; font: inherit; font-size: 12px; font-weight: 700; cursor: pointer; }
+.vk button.on { background: #1a7f3c; }
+.kos-gumb { position: relative; display: inline-flex; align-items: center; color: inherit; margin-left: 12px; }
+.kos-gumb span { position: absolute; top: -8px; right: -10px; min-width: 18px; height: 18px; padding: 0 4px; border-radius: 9px; background: var(--color-red); color: #fff; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.kos-x { border: 0; background: none; font-size: 20px; cursor: pointer; color: var(--color-muted); }
+.kos-sum { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; margin-top: 20px; }
+.kos-sum b { font-size: 18px; }
+.kos-sum .b { margin-top: 8px; }
+.blag { display: grid; grid-template-columns: 1fr 340px; gap: 32px; align-items: start; }
+.blag h2 { font-size: 16px; margin: 22px 0 10px; text-transform: uppercase; }
+.blag h2:first-child { margin-top: 0; }
+.blag-polja { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.blag-polja label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 600; }
+.blag-polja .cela { grid-column: 1 / -1; }
+.blag-polja input, .blag-polja textarea { padding: 9px 10px; border: 1px solid #c6cace; font: inherit; font-weight: 400; }
+.blag-izb { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border: 1px solid #dde0e2; margin-bottom: 8px; font-size: 14px; cursor: pointer; }
+.blag-izb.off { opacity: 0.5; cursor: default; }
+.blag-d { background: #f5f6f7; padding: 20px; position: sticky; top: 20px; }
+.blag-v { display: flex; justify-content: space-between; gap: 10px; font-size: 13.5px; padding: 6px 0; border-bottom: 1px solid #e3e5e7; }
+.blag-sk { font-size: 16px; border-bottom: 0; padding-top: 12px; }
+.blag-pog { display: block; font-size: 12.5px; margin: 14px 0; }
+.blag-nap { color: var(--color-red); font-size: 14px; margin-bottom: 10px; }
+@media (max-width: 860px) {
+  .blag { grid-template-columns: 1fr; }
+  .blag-polja { grid-template-columns: 1fr; }
+  .blag-d { position: static; }
+}

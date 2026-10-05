@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { navigacija, site } from "@/lib/site";
+import KosaricaGumb from "@/components/KosaricaGumb";
 
 const jeziki = ["SI", "EN", "DE", "HR"];
 
@@ -52,6 +53,8 @@ export default function Header() {
             <input name="q" type="search" placeholder="Išči po šifri ali nazivu…" aria-label="Iskanje" />
             <button type="submit" aria-label="Išči">→</button>
           </form>
+
+          <KosaricaGumb />
 
           <a className="tel" href={`tel:${site.telefonRaw}`}>
             {site.telefon}
