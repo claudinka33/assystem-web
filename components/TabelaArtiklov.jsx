@@ -24,7 +24,7 @@ function pakiranje(a) {
 // Vrstni red vrednosti: najprej ZnB, nato črn, inox A2, inox A4, vroče cinkano, medenina
 const VRSTNI_RED = {
   Material: ["ZnB", "ZnR", "črn", "črn (brez zaščite)", "INOX A2", "INOX A4", "vroče cinkano", "vroče cinkano (HDG)", "medenina", "poliamid"],
-  Pakiranje: ["osnovno", "razsuto (cena/100 kos)", "vrečka", "blister", "škatla", "pakirano"],
+  Pakiranje: ["škatla", "osnovno", "razsuto (cena/100 kos)", "vrečka", "blister", "mala škatla", "pakirano"],
 };
 function rang(k, v) {
   const r = (VRSTNI_RED[k] ?? []).indexOf(v);
