@@ -58,7 +58,7 @@ function Cena({ cena }) {
   return (
     <span className="izd-cena">
       <b>{eur(cena.bruto)}</b>
-      {cena.na100Bruto !== null && <em>{eur(cena.na100Bruto)} / 100 kos</em>}
+      {cena.na100Bruto !== null ? <em>{eur(cena.na100Bruto)} / 100 kos</em> : cena.kos > 1 && <em>za {cena.kos} kos</em>}
     </span>
   );
 }
