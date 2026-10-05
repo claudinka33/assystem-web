@@ -13,6 +13,7 @@ const meni = [
   { skupina: "Katalog", povezave: [
     { naziv: "Kategorije", pot: "/admin/kategorije" },
     { naziv: "Izdelki", pot: "/admin/izdelki" },
+    { naziv: "Sinhronizacija Vasco", pot: "/admin/sinhronizacija" },
   ]},
   { skupina: "Vsebina", povezave: [
     { naziv: "Besedila na strani", pot: "/admin/vsebine" },
