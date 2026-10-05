@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { pridobiIzdelek } from "@/lib/podatki";
+import TabelaArtiklov from "@/components/TabelaArtiklov";
 
 export const revalidate = 60;
 
@@ -41,15 +42,6 @@ function razdeliLastnosti(artikli) {
     else stolpci.push(k);
   }
   return { skupne, stolpci };
-}
-
-function Zaloga({ vrednost }) {
-  if (vrednost === null || vrednost === undefined) return "—";
-  return vrednost > 0 ? (
-    <span style={{ color: "#1a7f3c", fontWeight: 700 }}>Na zalogi</span>
-  ) : (
-    <span style={{ color: "var(--color-muted)" }}>Po naročilu</span>
-  );
 }
 
 export default async function StranIzdelka({ params }) {
@@ -163,38 +155,7 @@ export default async function StranIzdelka({ params }) {
                   <h2>Dimenzije in šifre</h2>
                   <span>{artikli.length} {artikli.length === 1 ? "artikel" : artikli.length < 5 ? "artikli" : "artiklov"}</span>
                 </div>
-                <div style={{ overflowX: "auto" }}>
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>Šifra</th>
-                        {naziviRazlicni && <th>Naziv</th>}
-                        <th>Dimenzija</th>
-                        {stolpci.map((k) => (
-                          <th key={k}>{k}</th>
-                        ))}
-                        <th>EAN</th>
-                        <th>Pakiranje</th>
-                        <th>Zaloga</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {artikli.map((a) => (
-                        <tr key={a.id}>
-                          <td><b>{a.sifra}</b></td>
-                          {naziviRazlicni && <td>{a.naziv}</td>}
-                          <td>{a.dimenzija ?? "—"}</td>
-                          {stolpci.map((k) => (
-                            <td key={k}>{(a.lastnosti ?? {})[k] ?? "—"}</td>
-                          ))}
-                          <td className="izd-siv">{a.ean ?? "—"}</td>
-                          <td>{a.pakiranje ? `${a.pakiranje} ${a.enota ?? "kos"}` : "—"}</td>
-                          <td><Zaloga vrednost={a.zaloga} /></td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                <TabelaArtiklov artikli={artikli} stolpci={stolpci} naziviRazlicni={naziviRazlicni} />
                 <p className="izd-opomba">
                   Za cene in razpoložljivost <Link href={povprasevanje}>pošljite povpraševanje</Link> ali pokličite prodajo.
                 </p>
