@@ -94,14 +94,28 @@ function Legenda({ vnosi, artikli, izbrani, izberi }) {
     .map((e) => ({ ...e, n: artikli.filter((a) => (a.lastnosti ?? {})[e.lastnost] === e.vrednost).length }))
     .filter((e) => e.n > 0);
   if (!prisotni.length) return null;
+  const kljuci = [...new Set(prisotni.map((e) => e.lastnost))];
+  const nicIzbrano = kljuci.every((k) => !izbrani[k]);
   return (
     <div className="izd-emb">
-      <p className="izd-mali">Pakiranje — klikni za prikaz artiklov</p>
+      <p className="izd-mali">Pakiranje — klikni za prikaz artiklov, ponoven klik prikaže vse</p>
       <div className="izd-emb-k">
+        <button
+          type="button"
+          className={"izd-emb-vse" + (nicIzbrano ? " on" : "")}
+          onClick={() => kljuci.forEach((k) => izberi(k, undefined))}
+        >
+          <span className="izd-emb-sl"><span className="izd-emb-ni">∑</span></span>
+          <span className="izd-emb-tx">
+            <b>Vsa pakiranja</b>
+            <em>{artikli.length} {artikli.length === 1 ? "artikel" : artikli.length < 5 ? "artikli" : "artiklov"}</em>
+            <span>Prikaži vse artikle tega izdelka.</span>
+          </span>
+        </button>
         {prisotni.map((e) => {
           const on = izbrani[e.lastnost] === e.vrednost;
           return (
-            <button key={e.lastnost + e.vrednost} type="button" className={on ? "on" : ""} onClick={() => izberi(e.lastnost, on ? undefined : e.vrednost)}>
+            <button key={e.lastnost + e.vrednost} type="button" className={on ? "on" : ""} aria-pressed={on} onClick={() => izberi(e.lastnost, on ? undefined : e.vrednost)}>
               <span className="izd-emb-sl">
                 {e.slika ? <Image src={e.slika} alt={e.naziv} fill sizes="90px" style={{ objectFit: "contain", padding: 4 }} /> : <span className="izd-emb-ni">{e.naziv.slice(0, 1)}</span>}
               </span>
@@ -152,6 +166,11 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
     for (const e of vnosiLegende) if (artikli.some((a) => (a.lastnosti ?? {})[e.lastnost] === e.vrednost)) s.add(e.lastnost);
     return s;
   }, [vnosiLegende, artikli]);
+  const ponastavi = () => {
+    setIzbrani({});
+    setIskanje("");
+    setPrikazano(KORAK);
+  };
   const izberi = (k, v) => {
     setIzbrani((prej) => ({ ...prej, [k]: v }));
     setPrikazano(KORAK);
@@ -226,10 +245,17 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
           ))}
           {vidni.length !== artikli.length && (
             <span className="izd-stevec">
-              Prikazanih {vidni.length} od {artikli.length}
+              Prikazanih {vidni.length} od {artikli.length} ·{" "}
+              <button type="button" className="izd-ponastavi" onClick={ponastavi}>Prikaži vse</button>
             </span>
           )}
         </div>
+      )}
+      {!dolg && vidni.length !== artikli.length && (
+        <p className="izd-stevec" style={{ marginBottom: 10 }}>
+          Prikazanih {vidni.length} od {artikli.length} ·{" "}
+          <button type="button" className="izd-ponastavi" onClick={ponastavi}>Prikaži vse</button>
+        </p>
       )}
 
       <div style={{ overflowX: "auto" }}>

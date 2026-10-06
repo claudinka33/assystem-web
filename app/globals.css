@@ -1477,6 +1477,12 @@ table.adm-tab tr:last-child td { border-bottom: 0; }
 }
 .izd-emb-k button:hover { border-color: var(--color-ink); }
 .izd-emb-k button.on { border: 2px solid var(--color-red); padding: 7px 11px 7px 7px; }
+.izd-emb-k button.on .izd-emb-tx b { color: var(--color-red); }
+.izd-emb-vse .izd-emb-ni { color: var(--color-ink); }
+.izd-ponastavi {
+  background: none; border: 0; padding: 0; font: inherit; font-weight: 700;
+  color: var(--color-red); text-decoration: underline; cursor: pointer;
+}
 .izd-emb-sl { position: relative; width: 76px; height: 64px; background: var(--color-mist); display: grid; place-items: center; }
 .izd-emb-ni { font-weight: 900; font-size: 24px; color: var(--color-muted-2); }
 .izd-emb-tx { display: grid; gap: 2px; }
