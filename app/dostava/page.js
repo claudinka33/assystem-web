@@ -21,7 +21,7 @@ export default function Dostava() {
         <tbody>
           <tr>
             <td><b>Pošta Slovenije</b></td>
-            <td>glede na težo paketa<br />brezplačno nad {eur0(t.brezplacnoNad)}</td>
+            <td>{eur0(t.postnina)}<br />brezplačno nad {eur0(t.brezplacnoNad)}</td>
             <td>Dostava na naslov v Sloveniji. Mogoče je plačilo po povzetju.</td>
           </tr>
           <tr>
@@ -32,8 +32,7 @@ export default function Dostava() {
         </tbody>
       </table>
       <p>
-        Poštnina se izračuna glede na skupno težo paketa po ceniku Pošte Slovenije in je pred oddajo naročila prikazana na
-        blagajni. Meja za brezplačno dostavo velja za vrednost blaga z DDV v enem naročilu. Za zelo težka naročila (nad
+        Poštnina je pred oddajo naročila prikazana na blagajni. Meja za brezplačno dostavo velja za vrednost blaga z DDV v enem naročilu. Za zelo težka naročila (nad
         30 kg) vas pred odpremo kontaktiramo glede načina dostave.
       </p>
 
