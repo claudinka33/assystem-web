@@ -219,7 +219,7 @@ export default function ASfix() {
       </section>
 
       {/* ---------- Interaktivna vaja ---------- */}
-      <section className="sec">
+      <section id="igra" className="sec">
         <div className="w">
           <div className="st">
             <span>Preizkusite sami</span>
