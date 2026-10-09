@@ -1749,7 +1749,7 @@ table.adm-tab tr:last-child td { border-bottom: 0; }
 .poti-sec { background: var(--color-ink) url("/vzorec-antracit.png") repeat; background-size: 600px auto; color: #fff; }
 .poti-sec .st h2 { color: #fff; }
 .poti-sec .st p { color: rgba(255, 255, 255, 0.78); }
-.poti { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+.poti { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
 .pot { background: #fff; color: var(--color-ink); display: flex; flex-direction: column; position: relative; transition: 0.22s; border-bottom: 4px solid transparent; }
 .pot:hover { transform: translateY(-3px); border-bottom-color: var(--color-red); box-shadow: 0 18px 40px rgba(0, 0, 0, 0.3); }
 .pot-im { position: relative; height: 190px; background: #fff; border-bottom: 1px solid #f0f2f4; display: grid; place-items: center; }
@@ -1760,7 +1760,7 @@ table.adm-tab tr:last-child td { border-bottom: 0; }
 .pot-tx h3 { font-size: 20px; font-weight: 900; text-transform: uppercase; }
 .pot-tx p { color: var(--color-muted); font-size: 14px; line-height: 1.5; flex: 1; }
 .pot-tx span { font-weight: 800; font-size: 13.5px; margin-top: 6px; }
-@media (max-width: 1100px) { .poti { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 1100px) and (min-width: 621px) { .poti { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 620px) { .poti { grid-template-columns: minmax(0, 1fr); } .pot-im { height: 160px; } }
 
 /* koraki z velikimi številkami (private label, vijaki po naročilu) */
