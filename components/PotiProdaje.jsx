@@ -38,9 +38,9 @@ export default function PotiProdaje({ izpusti }) {
     <section className="sec poti-sec">
       <div className="w">
         <div className="st">
-          <span>Sodelovanje</span>
-          <h2>Kaj še lahko naredimo za vas</h2>
-          <p>Poleg prodaje iz kataloga ponujamo dve lastni blagovni znamki, izdelke pod vašo znamko in vijake po vaši risbi.</p>
+          <span>Znamke in storitve</span>
+          <h2>Izberite, kako sodelujemo</h2>
+          <p>ASfix in ASco sta naši blagovni znamki za trgovine in izvajalce. Trgovskim verigam in distributerjem izdelke zapakiramo pod njihovo znamko, industriji pa izdelamo vijake po risbi.</p>
         </div>
         <div className="poti">
           {POTI.filter((p) => p.pot !== izpusti).map((p) => (
