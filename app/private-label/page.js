@@ -2,30 +2,39 @@ import Image from "next/image";
 import Link from "next/link";
 import NaslovStrani from "@/components/NaslovStrani";
 import ObrazecPovprasevanje from "@/components/ObrazecPovprasevanje";
+import PotiProdaje from "@/components/PotiProdaje";
 
 export const metadata = {
-  title: "Private label",
+  title: "Private label — pritrdila pod vašo blagovno znamko",
   description:
-    "Pritrdila pod vašo blagovno znamko: razvoj, hladno kovanje, brizganje plastike, lastna orodjarna in avtomatsko pakiranje v vašo embalažo.",
+    "Sidra, vložke in udarne vijake iz lastne proizvodnje zapakiramo v vrečke in škatle z vašim logotipom. Private label za trgovske verige, distributerje in blagovne znamke.",
   alternates: { canonical: "/private-label" },
 };
 
+// Izdelki iz lastne proizvodnje, ki jih ponujamo pod znamko kupca
+const izdelki = [
+  { naziv: "Jeklena sidra", primer: "npr. TXH7 z oceno ETA", slika: "/slike/AF_TXH7.jpeg", pot: "/program/pritrdila-za-beton" },
+  { naziv: "Udarni vijaki", primer: "z najlonskim vložkom", slika: "/slike/Udarni_vijak_AS.jpeg", pot: "/program/klasicna-pritrdila" },
+  { naziv: "Zidni vložki", primer: "za polne in votle materiale", slika: "/slike/Vlozek_za_zid_AS.jpeg", pot: "/program/klasicna-pritrdila" },
+  { naziv: "Vložki za mavčne plošče", primer: "kovinski in plastični", slika: "/slike/Vlozek_GIPS_kovinski.jpeg", pot: "/program/pritrdila-za-suhomontazo" },
+];
+
 const koraki = [
-  ["Povpraševanje in risba", "Pošljete vzorec, risbo ali samo opis vgradnje. Skupaj določimo dimenzije, material in zahtevano nosilnost."],
-  ["Orodje", "Orodje izdelamo in vzdržujemo v lastni orodjarni v Bistrici ob Sotli. Spremembe so zato hitre in ne gredo prek zunanjih dobaviteljev."],
-  ["Vzorci in potrditev", "Izdelamo vzorčno serijo. Po potrditvi pripravimo tehnično dokumentacijo in dogovorimo dinamiko dobav."],
-  ["Proizvodnja", "Hladno kovanje jekla in brizganje plastike na lastnem strojnem parku, s kontrolo kakovosti med procesom."],
-  ["Pakiranje v vašo embalažo", "Popolnoma avtomatizirano pakiranje v vrečke ali škatle z vašim logotipom in celostno podobo."],
-  ["Dobava", "Odprema iz visokoregalnega skladišča v Šmarju pri Jelšah, v 19 držav."],
+  ["Izbira izdelkov", "Iz našega programa izberete izdelke in dimenzije. Svetujemo, kaj se na vašem trgu prodaja."],
+  ["Vaša embalaža", "Vrečke z izveskom ali škatle z vašim logotipom in celostno podobo. Grafično predlogo pripravimo mi ali jo pošljete vi."],
+  ["Potrditev vzorca", "Pred serijo potrdite vzorec embalaže in označevanje — EAN, šifre, opozorila, ETA."],
+  ["Proizvodnja in pakiranje", "Izdelke izdelamo v lastni proizvodnji in jih avtomatsko zapakiramo v vašo embalažo."],
+  ["Paletna dobava", "Odprema iz visokoregalnega skladišča v Šmarju pri Jelšah, za trg v Sloveniji ali v tujini."],
+  ["Ponovna naročila", "Embalaža in šifre ostanejo shranjene, zato je vsako naslednje naročilo hitro."],
 ];
 
 export default function PrivateLabel() {
   return (
     <>
       <NaslovStrani
-        oznaka="Za blagovne znamke"
+        oznaka="Pod vašo znamko"
         naslov="Private label"
-        opis="Pritrdila pod vašo znamko — od prve risbe do zapakirane police."
+        opis="Naši izdelki iz lastne proizvodnje, zapakirani v vašo embalažo."
       />
 
       <section className="sec">
@@ -34,23 +43,28 @@ export default function PrivateLabel() {
             <div>
               <div className="st">
                 <span>Kaj to pomeni</span>
-                <h2>Vaš logotip, naša proizvodnja</h2>
+                <h2>Naš izdelek, vaša blagovna znamka</h2>
                 <p>
-                  Za evropske blagovne znamke pokrivamo celotno pot izdelka:
-                  razvoj, izdelavo orodja, hladno kovanje, brizganje plastike in
-                  avtomatsko pakiranje v embalažo naročnika.
+                  Trgovskim verigam, distributerjem in blagovnim znamkam ponujamo pritrdila iz naše proizvodnje
+                  pod njihovim imenom. Izdelek je preverjen in v redni proizvodnji, vi pa ga prodajate v svoji
+                  embalaži.
                 </p>
                 <p style={{ marginTop: 12 }}>
-                  Ker so vsi koraki pri nas, se izognemo posrednikom — kar pomeni
-                  krajše roke, boljši nadzor kakovosti in fleksibilnost pri
-                  spremembah.
+                  Proizvodnja, pakiranje in skladišče so pri nas, zato so roki kratki, kakovost pa pod nadzorom
+                  od surovine do palete.
                 </p>
               </div>
+              <p style={{ fontSize: 14, color: "var(--color-muted)" }}>
+                Iščete vijak po svoji risbi? To je drug postopek —{" "}
+                <Link href="/vijaki-po-narocilu" style={{ color: "var(--color-red)", fontWeight: 700 }}>
+                  vijaki po naročilu →
+                </Link>
+              </p>
             </div>
             <div className="foto">
               <Image
-                src="/slike/skatla-private-label.jpg"
-                alt="Škatla v embalaži naročnika"
+                src="/slike/AF_TXH7_PrivateLabel_BOX.jpeg"
+                alt="Škatla s sidri v embalaži naročnika"
                 fill
                 sizes="(max-width: 1000px) 100vw, 560px"
                 style={{ objectFit: "contain", mixBlendMode: "multiply" }}
@@ -63,25 +77,21 @@ export default function PrivateLabel() {
       <section className="sec grey">
         <div className="w">
           <div className="st">
-            <span>Potek</span>
-            <h2>Šest korakov do vašega izdelka</h2>
+            <span>Izdelki</span>
+            <h2>Kaj lahko dobite pod svojo znamko</h2>
+            <p>Izdelki iz naše proizvodnje, ki jih ponujamo kot private label. Za celoten seznam nas vprašajte.</p>
           </div>
-          <div className="kats c3">
-            {koraki.map(([naziv, opis], i) => (
-              <div key={naziv} className="k" style={{ padding: "26px 24px" }}>
-                <span
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontSize: 30,
-                    fontWeight: 800,
-                    color: "var(--color-line)",
-                  }}
-                >
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h3 style={{ marginTop: 6 }}>{naziv}</h3>
-                <p style={{ marginTop: 10 }}>{opis}</p>
-              </div>
+          <div className="pl-izdelki">
+            {izdelki.map((x) => (
+              <Link key={x.naziv} href={x.pot} className="k">
+                <div className="im">
+                  <Image src={x.slika} alt={x.naziv} fill sizes="(max-width: 900px) 50vw, 300px" style={{ objectFit: "contain", padding: 16, mixBlendMode: "multiply" }} />
+                </div>
+                <div className="tx">
+                  <h3>{x.naziv}</h3>
+                  <p>{x.primer}</p>
+                </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -89,43 +99,55 @@ export default function PrivateLabel() {
 
       <section className="sec">
         <div className="w">
-          <div className="qua" style={{ alignItems: "flex-start" }}>
-            <div>
-              <div className="st">
-                <span>Povpraševanje</span>
-                <h2>Povejte, kaj potrebujete</h2>
-                <p>
-                  Zanima nas vrsta izdelka, letne količine, zahtevani certifikati
-                  in kakšno embalažo želite. Na podlagi tega pripravimo predlog
-                  in oceno.
-                </p>
+          <div className="st">
+            <span>Potek</span>
+            <h2>Od izbire do police</h2>
+          </div>
+          <div className="koraki-st">
+            {koraki.map(([naziv, opis], i) => (
+              <div key={naziv}>
+                <b>{String(i + 1).padStart(2, "0")}</b>
+                <h3>{naziv}</h3>
+                <p>{opis}</p>
               </div>
-              <div style={{ position: "relative", aspectRatio: "1 / 1", maxWidth: 320 }}>
-                <Image
-                  src="/slike/vrecka-your-brand.jpg"
-                  alt="Vrečka z znamko naročnika"
-                  fill
-                  sizes="320px"
-                  style={{ objectFit: "contain", mixBlendMode: "multiply" }}
-                />
-              </div>
-            </div>
-            <ObrazecPovprasevanje vir="private-label" naslov="Povpraševanje private label" />
+            ))}
           </div>
         </div>
       </section>
 
-      <div className="cta">
+      <section className="sec grey">
         <div className="w">
-          <div>
-            <h2>Iščete tudi izdelke pod znamko ASfix?</h2>
-            <p>Poleg private label programa ponujamo tudi lastno blagovno znamko.</p>
+          <div className="qua" style={{ alignItems: "flex-start" }}>
+            <div>
+              <div className="st">
+                <span>Povpraševanje</span>
+                <h2>Povejte, kaj bi prodajali</h2>
+                <p>
+                  Napišite, katere izdelke in kakšne letne količine predvidevate ter kakšno embalažo želite.
+                  Pripravimo predlog asortimana, embalaže in ponudbo.
+                </p>
+              </div>
+              <div style={{ position: "relative", aspectRatio: "1 / 1", maxWidth: 320 }}>
+                <Image src="/slike/vrecka-your-brand.jpg" alt="Vrečka z znamko naročnika" fill sizes="320px" style={{ objectFit: "contain", mixBlendMode: "multiply" }} />
+              </div>
+            </div>
+            <ObrazecPovprasevanje
+              vir="private-label"
+              naslov="Povpraševanje private label"
+              dodatnaPolja={[
+                { oznaka: "Izdelki", namig: "npr. TXH7, udarni vijaki 6x40" },
+                { oznaka: "Letne količine", namig: "npr. 20.000 kosov" },
+                { oznaka: "Embalaža", moznosti: ["vrečke", "škatle", "vrečke in škatle", "še ne vem"] },
+                { oznaka: "Trg", namig: "npr. Slovenija, Hrvaška, DACH" },
+              ]}
+              priloga="Logotip ali celostna podoba (neobvezno)"
+              namig="Kaj še moramo vedeti — certifikati, jezik embalaže, rok …"
+            />
           </div>
-          <Link className="b b-w" href="/asfix">
-            Program ASfix →
-          </Link>
         </div>
-      </div>
+      </section>
+
+      <PotiProdaje izpusti="/private-label" />
     </>
   );
 }

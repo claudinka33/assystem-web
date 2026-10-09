@@ -4,6 +4,7 @@ import IgraSidranje from "@/components/IgraSidranje";
 import EmbalazaAsfix from "@/components/EmbalazaAsfix";
 import PolicaAsfix from "@/components/PolicaAsfix";
 import NaslovStrani from "@/components/NaslovStrani";
+import PotiProdaje from "@/components/PotiProdaje";
 
 export const metadata = {
   title: "ASfix — blagovna znamka",
@@ -245,6 +246,7 @@ export default function ASfix() {
           </Link>
         </div>
       </div>
+      <PotiProdaje izpusti="/asfix" />
     </>
   );
 }

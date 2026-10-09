@@ -13,6 +13,15 @@ export default async function Povprasevanja() {
     .limit(200);
 
   const seznam = data ?? [];
+  // Povezave do priloženih risb (zasebna shramba, povezava velja 1 uro)
+  for (const p of seznam) {
+    for (const x of p.izdelki ?? []) {
+      if (x?.datoteka) {
+        const { data: u } = await supabaseAdmin().storage.from("prijave").createSignedUrl(x.datoteka, 3600);
+        x.url = u?.signedUrl ?? null;
+      }
+    }
+  }
 
   return (
     <>
@@ -42,6 +51,23 @@ export default async function Povprasevanja() {
                 </div>
                 <span className={p.status === "novo" ? "znacka novo" : "znacka ne"}>{p.status}</span>
               </div>
+
+              {(p.izdelki ?? []).length > 0 && (
+                <div style={{ marginTop: 10, fontSize: 14, display: "flex", gap: 12, flexWrap: "wrap" }}>
+                  {p.izdelki.map((x, i) =>
+                    x.url ? (
+                      <a key={i} href={x.url} target="_blank" rel="noreferrer" style={{ color: "#c8102e", fontWeight: 600 }}>
+                        📎 {x.naziv}
+                      </a>
+                    ) : (
+                      <span key={i}>
+                        Izdelek: <b>{x.naziv}</b>
+                        {x.sifra ? ` (${x.sifra})` : ""}
+                      </span>
+                    )
+                  )}
+                </div>
+              )}
 
               {p.sporocilo && (
                 <p style={{ marginTop: 14, fontSize: 14.5, whiteSpace: "pre-wrap" }}>{p.sporocilo}</p>

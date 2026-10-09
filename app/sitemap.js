@@ -5,7 +5,7 @@ export const revalidate = 3600;
 
 export default async function sitemap() {
   const strani = [
-    "", "/program", "/asfix", "/private-label", "/proizvodnja", "/kakovost",
+    "", "/program", "/asfix", "/asco", "/private-label", "/vijaki-po-narocilu", "/proizvodnja", "/kakovost",
     "/distributerji", "/o-nas", "/katalogi", "/aktualno", "/zaposlitev",
     "/kontakt", "/splosni-pogoji", "/zasebnost", "/nacini-placila", "/dostava",
     "/odstop-od-pogodbe", "/reklamacije", "/izjava-o-dostopnosti", "/pravna-obvestila",

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { pridobiKategorije } from "@/lib/podatki";
 import { pridobiVsebine, v } from "@/lib/vsebine";
 import { site } from "@/lib/site";
+import PotiProdaje from "@/components/PotiProdaje";
 
 export const revalidate = 60;
 
@@ -21,9 +22,9 @@ const prednosti = [
 ];
 
 const koraki = [
-  ["Poiščite izdelek", "Po šifri, EAN kodi ali nazivu. Pri vsakem izdelku so dimenzije, pakiranja in dokumentacija."],
-  ["Pošljite povpraševanje", "V enem koraku pošljete šifre in količine. Odgovorimo v enem delovnem dnevu."],
-  ["Prevzem ali dostava", "Odprema iz skladišča v Šmarju ali osebni prevzem. Za večje količine paletna dobava."],
+  ["Poiščite izdelek", "Po šifri, EAN kodi ali nazivu. Pri vsakem izdelku so dimenzije, pakiranja, zaloga in cena."],
+  ["Dodajte v košarico", "Izberite pakiranja in količine ter oddajte naročilo — plačilo po predračunu ali po povzetju."],
+  ["Prevzem ali dostava", "Pošljemo s Pošto Slovenije, nad 100 € brezplačno, ali prevzamete osebno v Šmarju."],
 ];
 
 const zaKoga = [
@@ -170,24 +171,12 @@ export default async function Domov() {
               </Link>
             ))}
 
-            <Link className="k" href="/private-label">
-              <div className="im">
-                <Image
-                  src="/slike/skatla-private-label.jpg"
-                  alt="Private label embalaža"
-                  fill
-                  sizes="300px"
-                  style={{ objectFit: "contain", padding: 18, mixBlendMode: "multiply" }}
-                />
-              </div>
-              <div className="tx">
-                <h3>Private label</h3>
-                <p>Pritrdila pod vašo blagovno znamko</p>
-              </div>
-            </Link>
           </div>
         </div>
       </section>
+
+      {/* ---------- Poti: ASfix, ASco, private label, vijaki po naročilu ---------- */}
+      <PotiProdaje />
 
       {/* ---------- Kako naročite ---------- */}
       <section className="sec grey">
@@ -200,7 +189,7 @@ export default async function Domov() {
                 b,
                 "domov.narocilo.besedilo",
                 "besedilo",
-                "Spletna trgovina s cenami in košarico je v pripravi. Do takrat naročila oddate prek povpraševanja — odgovorimo v enem delovnem dnevu."
+                "Spletna trgovina je odprta za podjetja in posameznike. Za večje količine in posebne cene nam pošljite povpraševanje — odgovorimo v enem delovnem dnevu."
               )}
             </p>
           </div>

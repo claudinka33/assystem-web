@@ -4,7 +4,7 @@ import { useActionState, useEffect } from "react";
 import { dogodek } from "@/lib/dogodki";
 import { posljiPovprasevanje } from "@/lib/akcije/obrazci";
 
-export default function ObrazecPovprasevanje({ vir = "kontakt", izdelek, naslov }) {
+export default function ObrazecPovprasevanje({ vir = "kontakt", izdelek, naslov, dodatnaPolja = [], priloga = null, namig }) {
   const [stanje, akcija, caka] = useActionState(posljiPovprasevanje, null);
 
   // Konverzija za Google Analytics in Meta Pixel.
@@ -62,13 +62,41 @@ export default function ObrazecPovprasevanje({ vir = "kontakt", izdelek, naslov 
         </div>
       </div>
 
+      {dodatnaPolja.length > 0 && (
+        <div className="obr-vrsta">
+          {dodatnaPolja.map((p) => (
+            <div key={p.oznaka} className="obr-polje">
+              <label htmlFor={`dod-${p.oznaka}`}>{p.oznaka}</label>
+              {p.moznosti ? (
+                <select id={`dod-${p.oznaka}`} name={`dod:${p.oznaka}`} defaultValue="">
+                  <option value="">— izberite —</option>
+                  {p.moznosti.map((m) => (
+                    <option key={m}>{m}</option>
+                  ))}
+                </select>
+              ) : (
+                <input id={`dod-${p.oznaka}`} name={`dod:${p.oznaka}`} type="text" placeholder={p.namig} />
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {priloga && (
+        <div className="obr-polje">
+          <label htmlFor="priloga">{priloga}</label>
+          <input id="priloga" name="priloga" type="file" multiple accept=".pdf,.dwg,.dxf,.step,.stp,.igs,.iges,.jpg,.jpeg,.png,.zip" />
+          <small style={{ color: "var(--color-muted)", fontSize: 12.5 }}>PDF, DWG, DXF, STEP, IGES, JPG, PNG ali ZIP, skupaj do 4 MB. Večje datoteke pošljite po e-pošti.</small>
+        </div>
+      )}
+
       <div className="obr-polje">
         <label htmlFor="sporocilo">Sporočilo</label>
         <textarea
           id="sporocilo"
           name="sporocilo"
           rows={6}
-          placeholder="Dimenzije, količine, podlaga v katero pritrjujete…"
+          placeholder={namig ?? "Dimenzije, količine, podlaga v katero pritrjujete…"}
         />
       </div>
 

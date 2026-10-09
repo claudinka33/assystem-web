@@ -1744,3 +1744,42 @@ table.adm-tab tr:last-child td { border-bottom: 0; }
     max-height: 60vh; overflow: auto;
   }
 }
+
+/* ---------- Poti prodaje (ASfix, ASco, private label, vijaki po naročilu) ---------- */
+.poti-sec { background: var(--color-ink) url("/vzorec-antracit.png") repeat; background-size: 600px auto; color: #fff; }
+.poti-sec .st h2 { color: #fff; }
+.poti-sec .st p { color: rgba(255, 255, 255, 0.78); }
+.poti { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+.pot { background: #fff; color: var(--color-ink); display: flex; flex-direction: column; position: relative; transition: 0.22s; border-bottom: 4px solid transparent; }
+.pot:hover { transform: translateY(-3px); border-bottom-color: var(--color-red); box-shadow: 0 18px 40px rgba(0, 0, 0, 0.3); }
+.pot-im { position: relative; height: 190px; background: #fff; border-bottom: 1px solid #f0f2f4; display: grid; place-items: center; }
+.pot-vzorec .pot-im { background: var(--color-red) url("/vzorec-rdeca.png") repeat; background-size: 420px auto; }
+.pot-vzorec .pot-im b { color: #fff; font-size: 26px; font-weight: 900; letter-spacing: 1px; }
+.pot-tx { padding: 18px 20px 22px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.pot-tx em { font-style: normal; font-size: 11px; font-weight: 800; letter-spacing: 1.3px; text-transform: uppercase; color: var(--color-red); }
+.pot-tx h3 { font-size: 20px; font-weight: 900; text-transform: uppercase; }
+.pot-tx p { color: var(--color-muted); font-size: 14px; line-height: 1.5; flex: 1; }
+.pot-tx span { font-weight: 800; font-size: 13.5px; margin-top: 6px; }
+@media (max-width: 1100px) { .poti { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 620px) { .poti { grid-template-columns: minmax(0, 1fr); } .pot-im { height: 160px; } }
+
+/* koraki z velikimi številkami (private label, vijaki po naročilu) */
+.koraki-st { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.koraki-st > div { background: #fff; border: 1px solid var(--color-line); padding: 24px; }
+.koraki-st b { font-family: var(--font-display); font-size: 30px; font-weight: 800; color: var(--color-red); }
+.koraki-st h3 { margin-top: 6px; font-size: 16px; font-weight: 800; text-transform: uppercase; }
+.koraki-st p { margin-top: 8px; color: var(--color-muted); font-size: 14.5px; }
+@media (max-width: 900px) { .koraki-st { grid-template-columns: minmax(0, 1fr); } }
+.dejstva { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--color-line); border: 1px solid var(--color-line); margin-top: 26px; }
+.dejstva > div { background: #fff; padding: 18px 20px; }
+.dejstva b { display: block; font-size: 22px; font-weight: 900; color: var(--color-ink); }
+.dejstva span { font-size: 13px; color: var(--color-muted); }
+@media (max-width: 900px) { .dejstva { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.pl-izdelki { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 900px) { .pl-izdelki { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* glava z 8 povezavami: telefon in iskanje se umakneta prej, meni prej preide v hamburger */
+@media (max-width: 1640px) { .tel { display: none; } }
+@media (max-width: 1440px) { .nav { gap: 18px; font-size: 14px; } .isci { flex-basis: 150px; } }
+@media (max-width: 1340px) { .isci { display: none; } .nav { margin-left: auto; } }
+@media (max-width: 1180px) { .nav { display: none; } .burger { display: flex; } }

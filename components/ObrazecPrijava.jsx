@@ -67,7 +67,7 @@ export default function ObrazecPrijava({ delovnaMesta = [], izbrano }) {
       </div>
 
       <div className="obr-polje">
-        <label htmlFor="cv">Življenjepis (PDF, DOC, do 8 MB)</label>
+        <label htmlFor="cv">Življenjepis (PDF, DOC, do 4 MB)</label>
         <input id="cv" name="cv" type="file" accept=".pdf,.doc,.docx" />
       </div>
 
