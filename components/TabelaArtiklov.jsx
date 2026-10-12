@@ -72,7 +72,7 @@ function pakiranje(a) {
 // Vrstni red vrednosti: najprej ZnB, nato črn, inox A2, inox A4, vroče cinkano, medenina
 const VRSTNI_RED = {
   Material: ["ZnB", "ZnR", "črn", "črn (brez zaščite)", "INOX A2", "INOX A4", "vroče cinkano", "vroče cinkano (HDG)", "medenina", "poliamid"],
-  Pakiranje: ["škatla", "osnovno", "razsuto (cena/100 kos)", "vrečka", "blister", "mala škatla", "pakirano"],
+  Pakiranje: ["škatla", "škatla AFR41", "škatla AFR51", "škatla AFR71", "škatla AFR81", "osnovno", "razsuto (cena/100 kos)", "vrečka", "blister", "mala škatla", "pakirano"],
 };
 function rang(k, v) {
   const r = (VRSTNI_RED[k] ?? []).indexOf(v);
@@ -82,12 +82,19 @@ function primerjaj(k) {
   return (x, y) => rang(k, x) - rang(k, y) || String(x).localeCompare(String(y), "sl", { numeric: true });
 }
 
-// Privzeta legenda pakiranj (velja za vse izdelke, izdelek jo lahko dopolni s poljem "embalaza")
-const PRIVZETA_EMBALAZA = [
-  { lastnost: "Pakiranje", vrednost: "škatla", naziv: "Škatla", opis: "Originalno pakiranje za podjetja in serviserje. Število kosov v škatli je v stolpcu »Kos v pak.«.", slika: "/slike/embalaza/ASco_skatla.png" },
-  { lastnost: "Pakiranje", vrednost: "vrečka", naziv: "Vrečka", opis: "Maloprodajna vrečka z eurolukno za obešanje na prodajno stojalo.", slika: "/slike/embalaza/ASco_vrecka_modra.png" },
-  { lastnost: "Pakiranje", vrednost: "blister", naziv: "Blister", opis: "Maloprodajno pakiranje v blistru za obešanje na stojalo." },
-];
+// Privzeta legenda pakiranj (izdelek jo lahko dopolni s poljem "embalaza").
+// ASco (vijačno blago) ima modro vrečko in sivo škatlo, ASfix (pritrdilna tehnika) rdečo vrečko in škatlo AFR.
+function privzetaEmbalaza(asco) {
+  return [
+    asco
+      ? { lastnost: "Pakiranje", vrednost: "škatla", naziv: "Škatla", opis: "Originalno pakiranje za podjetja in serviserje. Število kosov v škatli je v stolpcu »Kos v pak.«.", slika: "/slike/embalaza/ASco_skatla.png" }
+      : { lastnost: "Pakiranje", vrednost: "škatla", naziv: "Škatla", opis: "ASfix škatla za podjetja in serviserje. Število kosov v škatli je v stolpcu »Kos v pak.«.", slika: "/slike/embalaza/AFR41.png" },
+    asco
+      ? { lastnost: "Pakiranje", vrednost: "vrečka", naziv: "Vrečka", opis: "Maloprodajna vrečka z eurolukno za obešanje na prodajno stojalo.", slika: "/slike/embalaza/ASco_vrecka_modra.png" }
+      : { lastnost: "Pakiranje", vrednost: "vrečka", naziv: "Vrečka", opis: "Rdeča ASfix vrečka z eurolukno za obešanje na prodajno stojalo. Število kosov v vrečki je v stolpcu »Kos v pak.«.", slika: "/polica/vrecka-rdeca.png" },
+    { lastnost: "Pakiranje", vrednost: "blister", naziv: "Blister", opis: "Maloprodajno pakiranje v blistru za obešanje na stojalo." },
+  ];
+}
 
 function Legenda({ vnosi, artikli, izbrani, izberi }) {
   const prisotni = vnosi
@@ -150,7 +157,8 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
 
   // Legenda: najprej posebnosti izdelka (npr. škatla AFR41), nato privzeta pakiranja
   const vnosiLegende = useMemo(() => {
-    const vsi = [...(Array.isArray(embalaza) ? embalaza : []), ...PRIVZETA_EMBALAZA];
+    const asco = (izdelek?.pot ?? "").startsWith("/program/vijacno-blago");
+    const vsi = [...(Array.isArray(embalaza) ? embalaza : []), ...privzetaEmbalaza(asco)];
     const videni = new Set();
     return vsi.filter((e) => {
       const k = e.lastnost + "|" + e.vrednost;
@@ -158,7 +166,7 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
       videni.add(k);
       return true;
     });
-  }, [embalaza]);
+  }, [embalaza, izdelek?.pot]);
   const kljuciLegende = useMemo(() => {
     const s = new Set();
     for (const e of vnosiLegende) if (artikli.some((a) => (a.lastnosti ?? {})[e.lastnost] === e.vrednost)) s.add(e.lastnost);
