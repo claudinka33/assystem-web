@@ -16,22 +16,22 @@ const TIPI = [
     opis: "Doypack z zadrgo, ki stoji na polici in se po odprtju zapre. Fotografija vgradnje na sprednji strani.",
   },
   {
-    slika: "/polica/skatla.png",
-    naziv: "Škatla AFR41",
+    slika: "/slike/znamke/asfix-afr41.png",
+    naziv: "Škatla AFA / AFR",
     kolicina: "50 – 200 kos",
-    opis: "Kartonska škatla za pult in skladišče. Šifra, dimenzija in število kosov na čelni ploskvi.",
+    opis: "Deset velikosti v enotnem dizajnu — AFA za avtomatsko, AFR za ročno pakiranje. Šifra, dimenzija in število kosov na čelni ploskvi.",
   },
   {
-    slika: "/polica/skatla-private.png",
+    slika: "/slike/znamke/asfix-afr41-private-label.png",
     naziv: "Private label",
     kolicina: "po dogovoru",
     opis: "Ista embalaža z vašim logotipom in celostno podobo. Brez sledi ASfix na izdelku.",
   },
   {
-    slika: "/polica/paleta.png",
-    naziv: "Paletna enota",
-    kolicina: "cela paleta",
-    opis: "Za trgovske centre in večje odjeme. Enotno označene škatle, pripravljene za regal.",
+    slika: "/slike/znamke/asfix-transportna-3xafr41.jpg",
+    naziv: "Transportni karton",
+    kolicina: "3 škatle · paleta",
+    opis: "Tri škatle v kartonu ASZ, kartoni na paleti. Za trgovske centre in večje odjeme.",
   },
 ];
 

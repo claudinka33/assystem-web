@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import NaslovStrani from "@/components/NaslovStrani";
+import ZnamkaHero from "@/components/ZnamkaHero";
+import DveZnamki from "@/components/DveZnamki";
 import PotiProdaje from "@/components/PotiProdaje";
 
 export const metadata = {
@@ -10,25 +11,73 @@ export const metadata = {
   alternates: { canonical: "/asco" },
 };
 
+// Isti štirje aduti kot pri ASfix — prilagojeni vijačnemu blagu
+const aduti = [
+  ["Po normi", "Vsak vijak, matica in podložka nosi oznako DIN ali ISO. Kupec ve, kaj dobi, brez ugibanja o merah."],
+  ["Barva pove material", "Modra vrečka je pocinkano jeklo ZnB, zelena nerjavno INOX. Na polici se ne zamenja."],
+  ["Od vrečke do škatle", "Vrečke za trgovino, škatle za servis in industrijo, večje količine v rinfuzi."],
+  ["Skupaj z ASfix", "Vijaki in pritrdilna tehnika z enim naročilom. Trgovec ima en dobavni rok za celo polico."],
+];
+
 const skupine = [
-  ["Vijaki", "šestrobi, imbus, ugrezni, lečasti, samorezni in lesni vijaki", "/program/vijacno-blago"],
-  ["Matice", "šestrobe, samovarovalne, kapne, krilne in druge", "/program/vijacno-blago"],
-  ["Podložke", "ravne, velike, vzmetne in zobate", "/program/vijacno-blago"],
-  ["Navojne palice in zatiči", "navojne palice, zatiči, varovala in kovice", "/program/vijacno-blago"],
+  { naziv: "Vijaki s šestrobo glavo", norme: "DIN 931 · DIN 933", slika: "/slike/DIN/933_ZnB.jpeg" },
+  { naziv: "Imbus in ugrezni vijaki", norme: "DIN 912 · DIN 7991", slika: "/slike/DIN/912_A2.jpeg" },
+  { naziv: "Matice", norme: "DIN 934 · DIN 985 · DIN 1587", slika: "/slike/DIN/934_ZnB.jpeg" },
+  { naziv: "Podložke", norme: "DIN 125 · DIN 9021 · DIN 127B", slika: "/slike/DIN/125_ZnB.jpeg" },
+  { naziv: "Samorezni in samovrtni", norme: "DIN 7981 · DIN 7982 · DIN 7504", slika: "/slike/DIN/7504K_ZnB.jpeg" },
+  { naziv: "Navojne palice", norme: "DIN 975", slika: "/slike/DIN/975_ZnB.jpeg" },
+  { naziv: "Vijaki za les", norme: "DIN 571 · križ in torx", slika: "/slike/DIN/LESNI_TORX_DELNI_ZnR.jpeg" },
+  { naziv: "Vijaki za kovino", norme: "DIN 603 · DIN 84 · DIN 965", slika: "/slike/DIN/603_ZnB.jpeg" },
+];
+
+// Vrstni red materialov: ZnB, črn, INOX A2, INOX A4
+const izvedbe = [
+  { b: "ZnB", s: "pocinkano", p: "Osnovna izvedba za notranjo rabo in suhe prostore. Modra vrečka.", c: "#4a9fcc" },
+  { b: "Črn", s: "brez prevleke", p: "Za strojegradnjo in notranje jeklene konstrukcije.", c: "#3f4140" },
+  { b: "INOX A2", s: "nerjavno", p: "Za zunanjo rabo in vlažne prostore. Zelena vrečka.", c: "#2a9c48" },
+  { b: "INOX A4", s: "nerjavno", p: "Za morsko okolje, bazene in zahtevnejše pogoje.", c: "#2a9c48" },
 ];
 
 const pakiranja = [
-  { naziv: "Škatla ASco", opis: "Za podjetja, servisno in industrijsko porabo.", slika: "/slike/embalaza/ASco_skatla.png" },
-  { naziv: "Vrečka ASco", opis: "Za trgovine — z eurolukno za obešanje na stojalo.", slika: "/slike/embalaza/ASco_vrecka_modra.png" },
+  {
+    naziv: "Škatla ASco",
+    kolicina: "za podjetja",
+    opis: "Za servise, montažo in industrijo. Kartonska škatla z logotipom ASco in nalepko z normo, dimenzijo in številom kosov.",
+    slika: "/slike/znamke/asco-skatla-spredaj.jpg",
+  },
+  {
+    naziv: "Modra vrečka",
+    kolicina: "ZnB · za trgovine",
+    opis: "Pocinkani vijaki v vrečki z eurolukno za obešanje na stojalo ali perforirano steno.",
+    slika: "/slike/znamke/asco-vrecka-znb.jpg",
+  },
+  {
+    naziv: "Zelena vrečka",
+    kolicina: "INOX · za trgovine",
+    opis: "Nerjavni vijaki v enaki vrečki — zelena barva kupcu takoj pove, da gre za INOX.",
+    slika: "/slike/znamke/asco-vrecka-inox.jpg",
+  },
 ];
 
 export default function ASco() {
   return (
     <>
-      <NaslovStrani
-        oznaka="Blagovna znamka"
-        naslov="ASco"
-        opis="Standardno vijačno blago po DIN in ISO — vijaki, matice in podložke iz zaloge."
+      <ZnamkaHero
+        podlaga="antracit"
+        ime="ASco"
+        logo="/slike/znamke/asco-logo-negativ.png"
+        oznaka="Blagovna znamka · vijačno blago"
+        naslov="Vijaki, matice in podložke po DIN in ISO"
+        opis="Standardno vijačno blago iz zaloge — pocinkano, črno in nerjavno, v škatlah za podjetja in vrečkah za trgovine."
+        znacke={["DIN · ISO", "ZnB", "INOX A2 / A4", "Modra in zelena vrečka"]}
+        slika="/slike/znamke/asco-skatla.png"
+        slikaAlt="Škatla ASco"
+        slikaW={1100}
+        slikaH={658}
+        gumbi={[
+          { href: "/program/vijacno-blago", naziv: "Vijačno blago v katalogu", cls: "b-r" },
+          { href: "/kontakt?vir=asco", naziv: "Povpraševanje →", cls: "b-o" },
+        ]}
       />
 
       <section className="sec">
@@ -40,19 +89,26 @@ export default function ASco() {
                 <h2>Vijačno blago, ki je vedno na zalogi</h2>
                 <p>
                   ASco je naša znamka za standardno vijačno blago po normah DIN in ISO. Pokriva vijake, matice,
-                  podložke, navojne palice in lesne vijake v pocinkani, črni in nerjavni izvedbi (A2, A4).
+                  podložke, navojne palice in lesne vijake v pocinkani, črni in nerjavni izvedbi.
                 </p>
                 <p style={{ marginTop: 12 }}>
-                  Asortiman dopolnjuje pritrdilno tehniko ASfix, tako da trgovec ali izvajalec vse dobi na enem
-                  mestu, z enim dobavnim rokom.
+                  Kjer ASfix pritrdi v beton, opeko ali mavčno ploščo, ASco poveže kovino s kovino in les z lesom.
+                  Skupaj pokrijeta celotno polico pritrdilnega materiala.
                 </p>
               </div>
               <Link className="b b-r" href="/program/vijacno-blago">
                 Vijačno blago v katalogu
               </Link>
             </div>
-            <div className="foto">
-              <Image src="/slike/embalaza/ASco_skatla.png" alt="Škatla ASco" fill sizes="(max-width: 1000px) 100vw, 560px" style={{ objectFit: "contain", mixBlendMode: "multiply" }} />
+            <div>
+              <Image
+                src="/slike/znamke/asco-skatla-spredaj.jpg"
+                alt="Škatla ASco s pogledom od spredaj"
+                width={1400}
+                height={746}
+                sizes="(max-width: 1000px) 100vw, 620px"
+                style={{ width: "100%", height: "auto" }}
+              />
             </div>
           </div>
         </div>
@@ -61,15 +117,15 @@ export default function ASco() {
       <section className="sec grey">
         <div className="w">
           <div className="st">
-            <span>Asortiman</span>
-            <h2>Kaj je v programu ASco</h2>
+            <span>Aduti</span>
+            <h2>Zakaj ASco na polici</h2>
           </div>
-          <div className="kats">
-            {skupine.map(([n, o, p]) => (
-              <Link key={n} href={p} className="k" style={{ padding: "22px" }}>
-                <h3>{n}</h3>
-                <p style={{ marginTop: 8 }}>{o}</p>
-              </Link>
+          <div className="who c4">
+            {aduti.map(([naziv, opis]) => (
+              <div key={naziv}>
+                <b>{naziv}</b>
+                <p>{opis}</p>
+              </div>
             ))}
           </div>
         </div>
@@ -78,25 +134,134 @@ export default function ASco() {
       <section className="sec">
         <div className="w">
           <div className="st">
-            <span>Pakiranje</span>
-            <h2>Za podjetja in za trgovine</h2>
+            <span>Program</span>
+            <h2>Kaj pokriva znamka ASco</h2>
+            <p>Najpogostejše norme za montažo, servis in industrijo.</p>
           </div>
-          <div className="kats c3">
-            {pakiranja.map((x) => (
-              <div key={x.naziv} className="k">
+          <div className="kats">
+            {skupine.map((x) => (
+              <Link key={x.naziv} href="/program/vijacno-blago" className="k">
                 <div className="im">
-                  <Image src={x.slika} alt={x.naziv} fill sizes="300px" style={{ objectFit: "contain", padding: 16 }} />
+                  <Image src={x.slika} alt={x.naziv} fill sizes="(max-width: 700px) 50vw, 300px" style={{ objectFit: "contain", padding: 18 }} />
                 </div>
                 <div className="tx">
                   <h3>{x.naziv}</h3>
-                  <p>{x.opis}</p>
+                  <p>{x.norme}</p>
                 </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="sec grey">
+        <div className="w">
+          <div className="st">
+            <span>Izvedbe</span>
+            <h2>Material izberete po okolju</h2>
+            <p>Ista mera v različnih izvedbah. V trgovini barva vrečke loči pocinkano od nerjavnega.</p>
+          </div>
+          <div className="izvedbe">
+            {izvedbe.map((x) => (
+              <div key={x.b} style={{ "--c": x.c }}>
+                <b>{x.b}</b>
+                <span>{x.s}</span>
+                <p>{x.p}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
+      <section className="sec">
+        <div className="w">
+          <div className="st">
+            <span>Embalaža</span>
+            <h2>Za podjetja in za trgovine</h2>
+            <p>
+              Isti vijak pakiramo glede na to, kdo ga kupuje. Podjetje dobi škatlo za skladišče, trgovina vrečko
+              za stojalo, večji odjemalci pa rinfuzo.
+            </p>
+          </div>
+          <div className="embalaza" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
+            {pakiranja.map((t) => (
+              <div key={t.naziv} className="embalaza-kartica">
+                <div className="embalaza-slika">
+                  <Image src={t.slika} alt={t.naziv} fill sizes="300px" style={{ objectFit: "contain", mixBlendMode: "multiply" }} />
+                </div>
+                <h3>{t.naziv}</h3>
+                <span className="embalaza-kolicina">{t.kolicina}</span>
+                <p>{t.opis}</p>
+              </div>
+            ))}
+            <div className="embalaza-kartica">
+              <div
+                className="embalaza-slika"
+                style={{ display: "grid", placeItems: "center", background: "var(--color-ink) url('/vzorec-antracit.png') repeat", backgroundSize: "420px auto" }}
+              >
+                <b style={{ color: "#fff", fontSize: 26, fontWeight: 900, letterSpacing: 1 }}>RINFUZA</b>
+              </div>
+              <h3>Rinfuza</h3>
+              <span className="embalaza-kolicina">večje količine</span>
+              <p>Za industrijo in serijsko montažo — količina in pakiranje po dogovoru.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="sec grey">
+        <div className="w">
+          <div className="stojalo">
+            <div className="stojalo-im">
+              <Image
+                src="/slike/znamke/asco-stojalo.jpg"
+                alt="Stojalo ASco z modrimi in zelenimi vrečkami"
+                width={672}
+                height={1568}
+                sizes="(max-width: 900px) 360px, 420px"
+                style={{ width: "100%", height: "auto" }}
+              />
+            </div>
+            <div>
+              <div className="st" style={{ marginBottom: 0 }}>
+                <span>Za trgovce</span>
+                <h2>Stojalo ASco</h2>
+                <p>
+                  Samostoječe stojalo na kolesih s tremi stranicami za obešanje vrečk. Modre vrečke ZnB in zelene
+                  INOX so ločene po barvi, tako da kupec v trenutku najde pravo izvedbo.
+                </p>
+              </div>
+              <ul>
+                <li>Zavzame malo prostora — ob pultu ali na koncu regala.</li>
+                <li>Asortiman sestavimo glede na vašo prodajo in ga dopolnjujemo.</li>
+                <li>Postavi se ob polico ASfix — sidra in vijaki na enem mestu.</li>
+              </ul>
+              <div className="zn-gumbi">
+                <Link className="b b-r" href="/kontakt?vir=asco-stojalo">
+                  Želim stojalo →
+                </Link>
+                <Link className="b b-d" href="/asfix">
+                  Polica ASfix
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <DveZnamki trenutna="asco" />
+
+      <div className="cta">
+        <div className="w">
+          <div>
+            <h2>Zanima vas program ASco za vašo trgovino?</h2>
+            <p>Pošljite povpraševanje in pripravimo predlog asortimana ter pogoje.</p>
+          </div>
+          <Link className="b b-w" href="/kontakt?vir=asco">
+            Pošlji povpraševanje →
+          </Link>
+        </div>
+      </div>
       <PotiProdaje izpusti="/asco" />
     </>
   );

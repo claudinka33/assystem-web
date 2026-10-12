@@ -3,7 +3,8 @@ import Link from "next/link";
 import IgraSidranje from "@/components/IgraSidranje";
 import EmbalazaAsfix from "@/components/EmbalazaAsfix";
 import PolicaAsfix from "@/components/PolicaAsfix";
-import NaslovStrani from "@/components/NaslovStrani";
+import ZnamkaHero from "@/components/ZnamkaHero";
+import DveZnamki from "@/components/DveZnamki";
 import PotiProdaje from "@/components/PotiProdaje";
 
 export const metadata = {
@@ -23,10 +24,20 @@ const aduti = [
 export default function ASfix() {
   return (
     <>
-      <NaslovStrani
-        oznaka="Blagovna znamka"
-        naslov="ASfix"
-        opis="Pritrdilna tehnika podjetja AS system — sidra, vložki, vijaki in kemična sidra pod eno znamko."
+      <ZnamkaHero
+        podlaga="rdeca"
+        ime="ASfix"
+        logo="/slike/znamke/asfix-logo-bela-za-rdeco.png"
+        oznaka="Blagovna znamka · pritrdilna tehnika"
+        naslov="Pritrdila, ki jih trgovec lahko zagovarja"
+        opis="Sidra, vložki, udarni vijaki in kemična sidra iz lastne proizvodnje — v embalaži, pripravljeni za polico."
+        znacke={["Lastna proizvodnja", "ETA", "Škatle AFA / AFR", "Rdeča vrečka"]}
+        slika="/slike/znamke/asfix-afr41.png"
+        slikaAlt="Škatla ASfix AFR41"
+        gumbi={[
+          { href: "/program", naziv: "Prodajni program", cls: "b-w" },
+          { href: "/kontakt?vir=asfix", naziv: "Povpraševanje →", cls: "b-o" },
+        ]}
       />
 
       <section className="sec">
@@ -94,6 +105,33 @@ export default function ASfix() {
             </p>
           </div>
           <EmbalazaAsfix />
+          <div className="zn-foto">
+            <figure>
+              <Image
+                src="/slike/znamke/asfix-druzina-skatel.jpg"
+                alt="Družina škatel ASfix — AFA za avtomatsko in AFR za ročno pakiranje"
+                width={1800}
+                height={1260}
+                sizes="(max-width: 900px) 100vw, 900px"
+                style={{ width: "100%", height: "auto", display: "block" }}
+              />
+              <figcaption>Deset škatel, en dizajn — AFA za pakirni stroj, AFR za ročno pakiranje.</figcaption>
+            </figure>
+            <figure>
+              <Image
+                src="/slike/znamke/asfix-vs-private-label.jpg"
+                alt="Enaka škatla v dizajnu ASfix ali bela za private label"
+                width={1800}
+                height={975}
+                sizes="(max-width: 900px) 100vw, 640px"
+                style={{ width: "100%", height: "auto", display: "block" }}
+              />
+              <figcaption>
+                Ista škatla v dizajnu ASfix ali bela za vašo znamko —{" "}
+                <Link href="/private-label" style={{ color: "#fff", fontWeight: 700 }}>private label →</Link>
+              </figcaption>
+            </figure>
+          </div>
         </div>
       </section>
 
@@ -234,6 +272,8 @@ export default function ASfix() {
           <IgraSidranje />
         </div>
       </section>
+
+      <DveZnamki trenutna="asfix" />
 
       <div className="cta">
         <div className="w">
