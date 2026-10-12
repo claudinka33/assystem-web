@@ -6,6 +6,13 @@ import { registracija } from "@/lib/akcije/b2b";
 
 export default function Registracija() {
   const [stanje, akcija, cakam] = useActionState(registracija, null);
+  if (stanje?.ok && stanje.obstojec)
+    return (
+      <div className="b2b-ok">
+        <b>Podjetje je dodano tvojemu obstoječemu računu.</b> Prijavi se na <Link href="/b2b">B2B prijavi</Link> z istim geslom —
+        podatke podjetja preverimo v nekaj minutah.
+      </div>
+    );
   if (stanje?.ok)
     return (
       <div className="b2b-ok">
