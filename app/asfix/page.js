@@ -15,7 +15,7 @@ export const metadata = {
 };
 
 const aduti = [
-  ["Znan izvor", "Za vsakim izdelkom stoji slovenska proizvodnja z lastnim razvojem. Kupec ve, kdo je izdelal to, kar drži v roki."],
+  ["Znan izvor", "Jeklena sidra, zidni vložki in udarni vijaki nastanejo v naši proizvodnji v Sloveniji. Za vsak izdelek pod znamko ASfix odgovarjamo mi."],
   ["Evropska dokazila", "Nosilna sidra imajo oceno ETA in izjavo o lastnostih. Trgovec lahko izdelek zagovarja pred zahtevnim kupcem."],
   ["Embalaža, ki proda", "Vrečka z izveskom, škatla z jasno šifro in dimenzijo, paletna enota za centre. V treh sekundah je jasno, kaj je notri."],
   ["Dobava iz zaloge", "Osnovni asortiman je v visokoregalnem skladišču v Šmarju. Brez čakanja na uvoz."],
@@ -30,7 +30,7 @@ export default function ASfix() {
         logo="/slike/znamke/asfix-logo-bela-za-rdeco.png"
         oznaka="Blagovna znamka · pritrdilna tehnika"
         naslov="Pritrdila, ki jih trgovec lahko zagovarja"
-        opis="Sidra, vložki, udarni vijaki in kemična sidra iz lastne proizvodnje — v embalaži, pripravljeni za polico."
+        opis="Jeklena sidra, zidni vložki in udarni vijaki iz lastne proizvodnje, dopolnjeni s kemičnimi sidri in okvirnimi vložki — v embalaži, pripravljeni za polico."
         znacke={["Lastna proizvodnja", "ETA", "Škatle AFA / AFR", "Rdeča vrečka"]}
         slika="/slike/znamke/asfix-afr41.png"
         slikaAlt="Škatla ASfix AFR41"
@@ -64,7 +64,7 @@ export default function ASfix() {
             </div>
             <div>
               <Image
-                src="/hero-izdelki.png"
+                src="/hero-izdelki-2026.png"
                 alt="Program ASfix — jeklena sidra, zidni vložki, kemično sidro, udarni vijaki, vrečka in škatla"
                 width={1100}
                 height={1044}

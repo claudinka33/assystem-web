@@ -63,7 +63,7 @@ export default function Footer() {
             </span>
           </span>
           <span style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <Image src="/logo-asfix.png" alt="ASfix" width={110} height={37} style={{ opacity: 0.9 }} />
+            <Image src="/slike/znamke/asfix-logo-negativ.png" alt="ASfix" width={110} height={41} style={{ opacity: 0.9 }} />
           </span>
         </div>
       </div>

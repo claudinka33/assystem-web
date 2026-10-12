@@ -7,7 +7,8 @@ import { navigacija, site } from "@/lib/site";
 import KosaricaGumb from "@/components/KosaricaGumb";
 import B2BPovezava from "@/components/B2BPovezava";
 
-const jeziki = ["SI", "EN", "DE", "HR"];
+// Jeziki se prikažejo, ko bodo prevodi strani pripravljeni (npr. ["SI", "EN", "DE", "HR"]).
+const jeziki = [];
 
 export default function Header() {
   const [odprt, setOdprt] = useState(false);
@@ -20,8 +21,8 @@ export default function Header() {
           <span>{site.ime} · proizvajalec pritrdilne tehnike od {site.ustanovljeno}</span>
           <span className="lang">
             <B2BPovezava /> · <Link href="/katalogi">Katalogi</Link> · <Link href="/zaposlitev">Zaposlitev</Link>
-            {" | "}
-            {jeziki.map((j) => (
+            {jeziki.length > 1 && " | "}
+            {jeziki.length > 1 && jeziki.map((j) => (
               <a key={j} href="#" className={j === "SI" ? "on" : undefined}>
                 {j}
               </a>

@@ -118,7 +118,7 @@ export default function PolicaAsfix() {
 
             {/* bel blok z logotipom */}
             <rect x={sirinaRegala - 104} y="24" width="124" height="54" fill="#fff" />
-            <image href="/logo-asfix.png" x={sirinaRegala - 94} y="34" width="104" height="34" preserveAspectRatio="xMidYMid meet" />
+            <image href="/slike/znamke/asfix-logo-pozitiv.png" x={sirinaRegala - 94} y="34" width="104" height="34" preserveAspectRatio="xMidYMid meet" />
           </g>
 
           {/* ---------- perforirana stena ---------- */}
@@ -179,7 +179,7 @@ export default function PolicaAsfix() {
                 {Array.from({ length: sirina.stolpci }).map((_, n) => (
                   <image
                     key={n}
-                    href="/polica/skatla.png"
+                    href="/polica/skatla-afr41.png"
                     x={30 + n * skatlaW + 2}
                     y={yPolica - 22 - skatlaH}
                     width={skatlaW - 4}

@@ -77,7 +77,7 @@ export default async function Domov() {
                 b,
                 "domov.hero.besedilo",
                 "besedilo",
-                "Jeklena sidra, zidni vložki, udarni vijaki, kemična sidra in vijačno blago — enajst skupin izdelkov z evropskimi certifikati. Za trgovine, izvajalce in distributerje."
+                "Jeklena sidra, zidni vložki, udarni vijaki, kemična sidra in vijačno blago iz zaloge — nosilna sidra z evropsko tehnično oceno ETA. Za trgovine, izvajalce in distributerje."
               )}
             </p>
 
@@ -103,7 +103,7 @@ export default async function Domov() {
 
           <div className="hero-im">
             <Image
-              src="/hero-izdelki.png"
+              src="/hero-izdelki-2026.png"
               alt="Pritrdila ASfix — jekleno sidro TXH7, zidni vložki, kemično sidro EASF TOP, udarni vijaki, vrečka in škatla"
               width={1100}
               height={1044}
@@ -249,8 +249,8 @@ export default async function Domov() {
           <div className="qua">
             <div className="foto">
               <Image
-                src="/slike/skatla-asfix.jpg"
-                alt="Škatla ASfix"
+                src="/slike/znamke/asfix-afr41.png"
+                alt="Škatla ASfix AFR41"
                 fill
                 sizes="(max-width: 1000px) 100vw, 620px"
                 style={{ objectFit: "contain", mixBlendMode: "multiply" }}
@@ -267,7 +267,7 @@ export default async function Domov() {
                     b,
                     "domov.kakovost.besedilo",
                     "besedilo",
-                    "Nosilna sidra imajo evropsko tehnično oceno ETA in izjavo o lastnostih. Vsa dokumentacija je na voljo za prenos, v slovenščini in angleščini."
+                    "Nosilna sidra imajo evropsko tehnično oceno ETA in izjavo o lastnostih. Dokumentacijo za izbrani izdelek vam pošljemo na zahtevo."
                   )}
                 </p>
               </div>

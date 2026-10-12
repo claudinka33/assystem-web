@@ -19,19 +19,13 @@ const TIPI = [
     slika: "/slike/znamke/asfix-afr41.png",
     naziv: "Škatla AFA / AFR",
     kolicina: "50 – 200 kos",
-    opis: "Deset velikosti v enotnem dizajnu — AFA za avtomatsko, AFR za ročno pakiranje. Šifra, dimenzija in število kosov na čelni ploskvi.",
+    opis: "Deset velikosti v enotnem dizajnu — AFA za avtomatsko, AFR za ročno pakiranje. Šifra, dimenzija in število kosov na čelni ploskvi. Za večje odjeme tri škatle v transportnem kartonu, kartoni na paleti.",
   },
   {
     slika: "/slike/znamke/asfix-afr41-private-label.png",
     naziv: "Private label",
     kolicina: "po dogovoru",
     opis: "Ista embalaža z vašim logotipom in celostno podobo. Brez sledi ASfix na izdelku.",
-  },
-  {
-    slika: "/slike/znamke/asfix-transportna-3xafr41.jpg",
-    naziv: "Transportni karton",
-    kolicina: "3 škatle · paleta",
-    opis: "Tri škatle v kartonu ASZ, kartoni na paleti. Za trgovske centre in večje odjeme.",
   },
 ];
 
@@ -45,7 +39,7 @@ const ETIKETA = [
 export default function EmbalazaAsfix() {
   return (
     <>
-      <div className="embalaza">
+      <div className="embalaza" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
         {TIPI.map((t) => (
           <div key={t.naziv} className="embalaza-kartica">
             <div className="embalaza-slika">

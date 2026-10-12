@@ -116,7 +116,7 @@ export default function ZemljevidProdaje() {
             <circle cx={SI[0]} cy={SI[1]} r="12" className="zem-utrip" />
             <circle cx={SI[0]} cy={SI[1]} r="4.5" className="zem-si" />
           </svg>
-          <p className="zem-pod">From Slovenia to the world. Fastening solutions you can trust.</p>
+          <p className="zem-pod">Iz Slovenije v svet. Pritrdilna tehnika, na katero se lahko zanesete.</p>
         </div>
       </div>
     </section>

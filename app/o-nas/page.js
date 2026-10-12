@@ -24,11 +24,11 @@ const znamki = [
   },
   {
     naziv: "ASco",
-    podnaslov: "DIN elementi",
+    podnaslov: "Vijaki po DIN in ISO",
     opis:
-      "Standardni program vijakov, matic in podložk po standardih DIN in EN. Namenjen trgovcem in izvajalcem, ki želijo celoten asortiman pri enem dobavitelju.",
-    pot: "/program",
-    cta: "Prodajni program",
+      "Standardno vijačno blago po normah DIN in ISO — vijaki, matice in podložke, pocinkani in nerjavni. Za trgovce in izvajalce, ki želijo celoten asortiman pri enem dobavitelju.",
+    pot: "/asco",
+    cta: "Program ASco",
   },
 ];
 
@@ -131,8 +131,8 @@ export default async function ONas() {
             <h2>Dve znamki na trgu</h2>
             <p>
               Pod svojo streho razvijamo in tržimo dve lastni blagovni znamki.
-              Vsaka pokriva svoj del programa, obe pa stojita na isti proizvodnji
-              in isti kontroli kakovosti.
+              ASfix pokriva pritrdilno tehniko, ASco standardno vijačno blago —
+              skupaj ju trgovec naroči pri enem dobavitelju.
             </p>
           </div>
 

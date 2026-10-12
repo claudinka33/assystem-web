@@ -20,7 +20,7 @@ export const metadata = {
     template: "%s | AS system",
   },
   description:
-    "ASfix je blagovna znamka podjetja AS system: jeklena sidra, zidni vložki, udarni vijaki in kemična sidra iz lastne slovenske proizvodnje. Od 1993, dobava v 19 držav.",
+    "AS system je slovenski proizvajalec pritrdilne tehnike: jeklena sidra, zidni vložki in udarni vijaki iz lastne proizvodnje, kemična sidra in vijačno blago iz zaloge. Znamki ASfix in ASco. Od 1993, dobava v 19 držav.",
   keywords: [
     "pritrdilna tehnika",
     "jeklena sidra",
@@ -37,7 +37,7 @@ export const metadata = {
     siteName: site.ime,
     title: "AS system — pritrdilna tehnika ASfix",
     description:
-      "Jeklena sidra, zidni vložki in kemična sidra iz lastne proizvodnje. Od 1993, dobava v 19 držav.",
+      "Jeklena sidra, zidni vložki in udarni vijaki iz lastne proizvodnje, kemična sidra in vijačno blago iz zaloge. Od 1993, dobava v 19 držav.",
   },
   robots: { index: true, follow: true },
 };
