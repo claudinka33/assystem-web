@@ -112,9 +112,18 @@ function privzetaEmbalaza(asco) {
   ];
 }
 
+// Pri pakiranju ločimo samo škatlo in vrečko — "škatla AFR41", "škatla AFR51" ... štejejo kot "škatla".
+function skupina(k, v) {
+  if (k === "Pakiranje" && typeof v === "string" && v.startsWith("škatla")) return "škatla";
+  return v;
+}
+function ujema(a, k, v) {
+  return skupina(k, (a.lastnosti ?? {})[k]) === v;
+}
+
 function Legenda({ vnosi, artikli, izbrani, izberi }) {
   const prisotni = vnosi
-    .map((e) => ({ ...e, n: artikli.filter((a) => (a.lastnosti ?? {})[e.lastnost] === e.vrednost).length }))
+    .map((e) => ({ ...e, n: artikli.filter((a) => ujema(a, e.lastnost, e.vrednost)).length }))
     .filter((e) => e.n > 0);
   if (!prisotni.length) return null;
   const kljuci = [...new Set(prisotni.map((e) => e.lastnost))];
@@ -131,7 +140,6 @@ function Legenda({ vnosi, artikli, izbrani, izberi }) {
           <span className="izd-emb-sl"><span className="izd-emb-ni">∑</span></span>
           <span className="izd-emb-tx">
             <b>Vsa pakiranja</b>
-            <span>Prikaži vse artikle tega izdelka.</span>
           </span>
         </button>
         {prisotni.map((e) => {
@@ -143,7 +151,6 @@ function Legenda({ vnosi, artikli, izbrani, izberi }) {
               </span>
               <span className="izd-emb-tx">
                 <b>{e.naziv}</b>
-                {e.opis && <span>{e.opis}</span>}
               </span>
             </button>
           );
@@ -174,7 +181,10 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
   // Legenda: najprej posebnosti izdelka (npr. škatla AFR41), nato privzeta pakiranja
   const vnosiLegende = useMemo(() => {
     const asco = (izdelek?.pot ?? "").startsWith("/program/vijacno-blago");
-    const vsi = [...(Array.isArray(embalaza) ? embalaza : []), ...privzetaEmbalaza(asco)];
+    const vsi = [...(Array.isArray(embalaza) ? embalaza : []), ...privzetaEmbalaza(asco)].map((e) => {
+      const v = skupina(e.lastnost, e.vrednost);
+      return v === e.vrednost ? e : { ...e, vrednost: v, naziv: "Škatla" };
+    });
     const videni = new Set();
     return vsi.filter((e) => {
       const k = e.lastnost + "|" + e.vrednost;
@@ -185,7 +195,7 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
   }, [embalaza, izdelek?.pot]);
   const kljuciLegende = useMemo(() => {
     const s = new Set();
-    for (const e of vnosiLegende) if (artikli.some((a) => (a.lastnosti ?? {})[e.lastnost] === e.vrednost)) s.add(e.lastnost);
+    for (const e of vnosiLegende) if (artikli.some((a) => ujema(a, e.lastnost, e.vrednost))) s.add(e.lastnost);
     return s;
   }, [vnosiLegende, artikli]);
   const ponastavi = () => {
@@ -214,7 +224,7 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
     const q = iskanje.trim().toLowerCase().replace(/\s+/g, "");
     return artikli.filter((a) => {
       for (const [k, v] of Object.entries(izbrani)) {
-        if (v && (a.lastnosti ?? {})[k] !== v) return false;
+        if (v && !ujema(a, k, v)) return false;
       }
       if (!q) return true;
       const niz = `${a.sifra} ${a.dimenzija ?? ""} ${a.ean ?? ""}`.toLowerCase().replace(/\s+/g, "");
