@@ -313,11 +313,11 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
             {prikaz.map((a) => (
               <tr key={a.id}>
                 <td className="mk-gl">
-                  <b>{a.sifra}</b>
+                  <span className="izd-sif">{a.sifra}</span>
                   {a.dimenzija && <span className="mk-dim">{a.dimenzija}</span>}
                 </td>
                 {naziviRazlicni && <td className="mk-cela" data-l="Naziv">{a.naziv}</td>}
-                <td className="mk-skrij" data-l="Dimenzija">{a.dimenzija ?? "—"}</td>
+                <td className="mk-skrij izd-dim" data-l="Dimenzija">{a.dimenzija ?? "—"}</td>
                 {stolpci.map((k) => (
                   <td key={k} data-l={k}>{(a.lastnosti ?? {})[k] ?? "—"}</td>
                 ))}
