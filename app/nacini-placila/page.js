@@ -5,7 +5,7 @@ import { VELJA_OD } from "@/lib/pravno";
 
 export const metadata = {
   title: "Načini plačila",
-  description: "Plačilo po predračunu ali po povzetju v spletni trgovini AS system.",
+  description: "Plačilo s kartico, PayPal, po predračunu ali po povzetju v spletni trgovini AS system.",
   alternates: { canonical: "/nacini-placila" },
 };
 
@@ -29,8 +29,18 @@ export default function NaciniPlacila() {
         dostavi na naslov, ne pa pri osebnem prevzemu. Za plačilo po povzetju ne zaračunamo dodatnih stroškov.
       </p>
 
-      <h2>Plačilne kartice in PayPal</h2>
-      <p>Plačilo s plačilno kartico in prek PayPala uvajamo. Ko bosta na voljo, bosta prikazana na blagajni.</p>
+      <h2>Plačilna kartica</h2>
+      <p>
+        Plačate lahko s kartico Visa, Mastercard ali Maestro ter z Apple Pay in Google Pay. Plačilo izvede ponudnik
+        Stripe na varni plačilni strani; podatkov o kartici ne prejmemo in jih ne hranimo. Znesek je bremenjen ob oddaji
+        naročila, naročilo pa odpremimo praviloma v 1–2 delovnih dneh.
+      </p>
+
+      <h2>PayPal</h2>
+      <p>
+        Po oddaji naročila vas preusmerimo na PayPal, kjer plačilo potrdite s svojim PayPal računom. Ko je plačilo potrjeno,
+        prejmete potrdilo naročila po e-pošti.
+      </p>
 
       <h2>Račun</h2>
       <p>

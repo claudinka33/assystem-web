@@ -21,7 +21,7 @@ export default function Dostava() {
         <tbody>
           <tr>
             <td><b>Pošta Slovenije</b></td>
-            <td>{eur0(t.postnina)}<br />brezplačno nad {eur0(t.brezplacnoNad)}</td>
+            <td>do 50 €: 10 €<br />50–100 €: 5 €<br />nad {eur0(t.brezplacnoNad)}: brezplačno</td>
             <td>Dostava na naslov v Sloveniji. Mogoče je plačilo po povzetju.</td>
           </tr>
           <tr>
@@ -43,7 +43,7 @@ export default function Dostava() {
       <ul>
         <li>Izdelke na zalogi odpremimo {t.odprema}; pri plačilu po predračunu po prejemu plačila.</li>
         <li>{t.dostavaPosta}.</li>
-        <li>Za izdelke, ki so dobavljivi po naročilu, vam dobavni rok sporočimo po e-pošti.</li>
+        <li>Za izdelke, ki niso na zalogi, vam dobavni rok sporočimo po e-pošti. Pred naročilom nas lahko pokličete ali nam pišete in rok preverimo vnaprej.</li>
         <li>Naročilo dostavimo najkasneje v 30 dneh od sklenitve pogodbe, razen če se dogovorimo drugače.</li>
       </ul>
       <p>Ob odpremi vas obvestimo po e-pošti; po možnosti vam pošljemo tudi številko za sledenje pošiljki.</p>

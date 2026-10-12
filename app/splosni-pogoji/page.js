@@ -77,14 +77,14 @@ export default function SplosniPogoji() {
 
       <h2>7. Plačilo</h2>
       <p>
-        Na voljo sta plačilo po predračunu in plačilo po povzetju. Podrobnosti so na strani{" "}
+        Na voljo so plačilo s plačilno kartico (Stripe), PayPal, plačilo po predračunu in plačilo po povzetju. Podrobnosti so na strani{" "}
         <Link href="/nacini-placila">Načini plačila</Link>. Račun prejmete s pošiljko ali po e-pošti.
       </p>
 
       <h2>8. Dostava</h2>
       <p>
-        Pošiljke dostavlja Pošta Slovenije, mogoč je tudi osebni prevzem v Šmarju pri Jelšah. Poštnina znaša{" "}
-        {eur0(t.postnina)}, za naročila nad {eur0(t.brezplacnoNad)} je dostava brezplačna. Vse o rokih in prevzemu je na
+        Pošiljke dostavlja Pošta Slovenije, mogoč je tudi osebni prevzem v Šmarju pri Jelšah. Poštnina je odvisna od
+        vrednosti blaga z DDV: {t.razredi}. Osebni prevzem je brezplačen. Vse o rokih in prevzemu je na
         strani <Link href="/dostava">Dostava in pošiljanje</Link>.
       </p>
 

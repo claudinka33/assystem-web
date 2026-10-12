@@ -47,6 +47,16 @@ export default async function Narocila() {
                 {n.naslov_dostava?.ime}, {n.naslov_dostava?.ulica}, {n.naslov_dostava?.posta} {n.naslov_dostava?.kraj}
                 <br />
                 Dostava: {n.nacin_dostave} · Plačilo: {PLACILO[n.nacin_placila] ?? n.nacin_placila} ({n.status_placila})
+                {n.placilo_ref && <span style={{ color: "#6e767e" }}> · ref. {n.placilo_ref}</span>}
+                <br />
+                Vasco:{" "}
+                {n.vasco_predracun ? (
+                  <b>predračun {n.vasco_predracun}</b>
+                ) : n.vasco_napaka ? (
+                  <span style={{ color: "#cb2026" }}>napaka — {n.vasco_napaka}</span>
+                ) : (
+                  <span style={{ color: "#6e767e" }}>čaka na prenos (as-terminal)</span>
+                )}
               </p>
               {n.opomba_kupca && <p style={{ whiteSpace: "pre-wrap" }}>Opomba kupca: {n.opomba_kupca}</p>}
               <table className="adm-tab" style={{ marginTop: 10 }}>

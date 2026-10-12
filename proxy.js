@@ -5,7 +5,8 @@ import { NextResponse } from "next/server";
 const PISKOTEK = "as_vstop";
 
 // Poti, ki so dosegljive tudi med zaklepom.
-const PROSTO = ["/v-pripravi", "/api/vstop", "/admin", "/favicon.ico", "/robots.txt"];
+// /api/stripe in /api/paypal morata biti dosegljiva za plačilne sisteme tudi med zaklepom.
+const PROSTO = ["/v-pripravi", "/api/vstop", "/api/stripe", "/api/paypal", "/admin", "/favicon.ico", "/robots.txt"];
 
 function zeton(geslo) {
   // preprost odtis gesla, da v piškotku ni zapisano geslo samo

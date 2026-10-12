@@ -24,7 +24,7 @@ const prednosti = [
 const koraki = [
   ["Poiščite izdelek", "Po šifri, EAN kodi ali nazivu. Pri vsakem izdelku so dimenzije, pakiranja, zaloga in cena."],
   ["Dodajte v košarico", "Izberite pakiranja in količine ter oddajte naročilo — plačilo po predračunu ali po povzetju."],
-  ["Prevzem ali dostava", "Pošljemo s Pošto Slovenije, nad 100 € brezplačno, ali prevzamete osebno v Šmarju."],
+  ["Prevzem ali dostava", "Pošljemo s Pošto Slovenije (nad 100 € brezplačno) ali prevzamete osebno v Šmarju."],
 ];
 
 const zaKoga = [
