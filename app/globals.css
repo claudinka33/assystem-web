@@ -2066,3 +2066,4 @@ table.adm-tab tr:last-child td { border-bottom: 0; }
   .bl-polja label.pol { grid-column: span 1; }
   .bl-moz { grid-template-columns: minmax(0, 1fr); }
 }
+.bl-polja input, .bl-polja textarea, .bl-polja select { width: 100%; min-width: 0; }
