@@ -26,7 +26,7 @@ export default function NaciniPlacila() {
       <h2>Plačilo po povzetju</h2>
       <p>
         Znesek naročila plačate dostavljavcu (Pošti Slovenije) ob prevzemu paketa. Plačilo po povzetju je mogoče samo pri
-        dostavi na naslov, ne pa pri osebnem prevzemu. Za plačilo po povzetju ne zaračunamo dodatnih stroškov.
+        dostavi na naslov, ne pa pri osebnem prevzemu. Za plačilo po povzetju zaračunamo doplačilo 1,50 € (z DDV), ki je prikazano na blagajni.
       </p>
 
       <h2>Plačilna kartica</h2>

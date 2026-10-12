@@ -22,7 +22,7 @@ export default function Dostava() {
           <tr>
             <td><b>Pošta Slovenije</b></td>
             <td>do 50 €: 10 €<br />50–100 €: 5 €<br />nad {eur0(t.brezplacnoNad)}: brezplačno</td>
-            <td>Dostava na naslov v Sloveniji. Mogoče je plačilo po povzetju.</td>
+            <td>Dostava na naslov v Sloveniji. Mogoče je plačilo po povzetju (doplačilo 1,50 €).</td>
           </tr>
           <tr>
             <td><b>Osebni prevzem</b></td>

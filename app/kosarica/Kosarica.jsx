@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { slikeArtiklov } from "@/lib/akcije/narocila";
 import { useKosarica, nastaviKolicino, odstrani } from "@/lib/kosarica";
 import { eur, zaokrozi, DDV } from "@/lib/cene";
 import { useB2BCene } from "@/lib/b2b-klient";
@@ -9,6 +11,13 @@ import { Ikona, Koraki, Zaupanje, BrezplacnaDostava } from "@/components/trgovin
 export default function Kosarica() {
   const p = useKosarica();
   const b2b = useB2BCene(p.map((x) => x.id));
+  // slika izdelka za artikle, ki so bili dodani brez slike
+  const [slike, setSlike] = useState({});
+  const brezSlike = p.filter((x) => !x.slika).map((x) => x.id).join(",");
+  useEffect(() => {
+    if (!brezSlike) return;
+    slikeArtiklov(brezSlike.split(",").map(Number)).then(setSlike).catch(() => {});
+  }, [brezSlike]);
 
   if (!p.length)
     return (
@@ -51,7 +60,7 @@ export default function Kosarica() {
             {p.map((x) => (
               <div key={x.id} className="ks-vrst">
                 <div className="ks-sl">
-                  {x.slika ? <img src={x.slika} alt="" loading="lazy" /> : <Ikona ime="skatla" velikost={26} />}
+                  {x.slika || slike[x.id] ? <img src={x.slika || slike[x.id]} alt="" loading="lazy" /> : <Ikona ime="skatla" velikost={26} />}
                 </div>
                 <div className="ks-ime">
                   {x.pot ? <Link href={x.pot}>{x.naziv}</Link> : <b>{x.naziv}</b>} {x.dimenzija && <span className="ks-dim">{x.dimenzija}</span>}

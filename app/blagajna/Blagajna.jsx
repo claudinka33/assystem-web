@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState, useTransition } from "react";
 import { useKosarica, izprazni } from "@/lib/kosarica";
 import { oddajNarocilo } from "@/lib/akcije/narocila";
-import { eur, zaokrozi, izracunajPostnino, DDV } from "@/lib/cene";
+import { eur, zaokrozi, izracunajPostnino, DDV, DOPLACILO_POVZETJE } from "@/lib/cene";
 import { dogodekKoJePripravljeno } from "@/lib/dogodki";
 import { Ikona, Koraki, Zaupanje, KodaPopust } from "@/components/trgovina/Deli";
 
@@ -13,7 +13,7 @@ const PLACILA = [
   { k: "kartica", n: "Plačilna kartica", o: "Visa, Mastercard, Maestro, Amex, Apple Pay, Google Pay", ik: "kartica" },
   { k: "paypal", n: "PayPal", o: "Plačilo s PayPal računom", ik: "paypal" },
   { k: "predracun", n: "Po predračunu", o: "Nakazilo na TRR, odprema po plačilu", ik: "banka" },
-  { k: "povzetje", n: "Po povzetju", o: "Plačate ob prevzemu paketa", ik: "denar" },
+  { k: "povzetje", n: "Po povzetju", o: "Plačate ob prevzemu paketa, doplačilo 1,50 €", ik: "denar" },
 ];
 
 export default function Blagajna({ dostave, placila = ["predracun", "povzetje"] }) {
@@ -53,7 +53,8 @@ export default function Blagajna({ dostave, placila = ["predracun", "povzetje"] 
   const osebno = d?.koda === "osebno";
   const postnina = koda?.brezplacnaDostava ? 0 : izracunajPostnino(d, blago);
   const popust = koda?.popustBruto ?? 0;
-  const skupaj = zaokrozi(blago - popust + postnina);
+  const povzetje = plac === "povzetje" ? DOPLACILO_POVZETJE : 0;
+  const skupaj = zaokrozi(blago - popust + postnina + povzetje);
   const spletno = plac === "kartica" || plac === "paypal";
 
   function oddaj(e) {
@@ -185,6 +186,7 @@ export default function Blagajna({ dostave, placila = ["predracun", "povzetje"] 
               <div className="trg-v"><span>Blago</span><b>{eur(blago)}</b></div>
               {popust > 0 && <div className="trg-v pop"><span>Popust ({koda.koda})</span><b>−{eur(popust)}</b></div>}
               <div className="trg-v"><span>Dostava</span><b>{postnina === 0 ? "brezplačno" : eur(postnina)}</b></div>
+              {povzetje > 0 && <div className="trg-v"><span>Doplačilo za povzetje</span><b>{eur(povzetje)}</b></div>}
               <div className="trg-sk"><span>Za plačilo</span><b>{eur(skupaj)}</b></div>
               <div className="trg-sk-ddv">vključno z DDV ({eur(zaokrozi(skupaj - skupaj / (1 + DDV)))})</div>
               <label className="bl-pog">
