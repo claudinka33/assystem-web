@@ -27,9 +27,12 @@ function VKosarico({ a, cena, izdelek }) {
   const [kol, setKol] = useState(1);
   const [ok, setOk] = useState(false);
   if (!cena) return <span className="izd-siv">na povpraševanje</span>;
+  const vPak = cena.kos > 1; // cena velja za pakiranje (npr. 100 kos), količina = število pakiranj
   return (
+    <span className="vk-w">
     <span className="vk">
-      <input type="number" min="1" value={kol} onChange={(e) => setKol(Math.max(1, Number(e.target.value) || 1))} aria-label="Količina" />
+      <input type="number" min="1" value={kol} onChange={(e) => setKol(Math.max(1, Number(e.target.value) || 1))} aria-label={vPak ? `Število pakiranj po ${cena.kos} kos` : "Količina"} />
+      <span className="vk-x">{vPak ? `× ${cena.kos} kos` : "kos"}</span>
       <button
         type="button"
         className={ok ? "on" : ""}
@@ -59,6 +62,11 @@ function VKosarico({ a, cena, izdelek }) {
       >
         {ok ? "✓" : "V košarico"}
       </button>
+    </span>
+    <span className="vk-sk">
+      {vPak ? `= ${(kol * cena.kos).toLocaleString("sl-SI")} kos · ` : ""}
+      {eur(Math.round(cena.bruto * kol * 100) / 100)}
+    </span>
     </span>
   );
 }

@@ -19,7 +19,7 @@ export default function Kosarica() {
       <div style={{ overflowX: "auto" }}>
         <table className="mob-kartice">
           <thead>
-            <tr><th>Izdelek</th><th>Šifra</th><th>Pakiranje</th><th>Cena z DDV</th><th>Količina</th><th>Skupaj</th><th></th></tr>
+            <tr><th>Izdelek</th><th>Šifra</th><th>Pakiranje</th><th>Cena z DDV</th><th>Število pakiranj</th><th>Skupaj</th><th></th></tr>
           </thead>
           <tbody>
             {p.map((x) => (
@@ -32,7 +32,11 @@ export default function Kosarica() {
                 <td data-l="Pakiranje">{x.kos ? `${x.kos} kos` : "—"}</td>
                 <td data-l="Cena z DDV">{eur(x.cenaBruto)}</td>
                 <td data-l="Količina">
-                  <input type="number" min="1" value={x.kolicina} onChange={(e) => nastaviKolicino(x.id, Number(e.target.value) || 1)} style={{ width: 70 }} aria-label="Količina" />
+                  <span className="vk">
+                    <input type="number" min="1" value={x.kolicina} onChange={(e) => nastaviKolicino(x.id, Number(e.target.value) || 1)} aria-label="Število pakiranj" />
+                    {x.kos > 1 && <span className="vk-x">× {x.kos} kos</span>}
+                  </span>
+                  {x.kos > 1 && <div className="vk-sk">= {(x.kolicina * x.kos).toLocaleString("sl-SI")} kos</div>}
                 </td>
                 <td data-l="Skupaj"><b>{eur(zaokrozi(x.cenaBruto * x.kolicina))}</b></td>
                 <td className="mk-x"><button type="button" className="kos-x" onClick={() => odstrani(x.id)} aria-label="Odstrani">×</button></td>

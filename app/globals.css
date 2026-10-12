@@ -1884,3 +1884,12 @@ table.adm-tab tr:last-child td { border-bottom: 0; }
 @media (min-width: 701px) and (max-width: 1500px) {
   .izd-tab .izd-ean { display: none; }
 }
+
+/* Količina = število pakiranj: »[2] × 100 kos« in sproten izračun pod gumbom */
+.vk-w { display: inline-grid; gap: 3px; }
+.vk-x { font-size: 12px; font-weight: 600; color: var(--color-muted); white-space: nowrap; margin-right: 4px; }
+.vk-sk { font-size: 11.5px; color: var(--color-muted-2); white-space: nowrap; }
+@media (max-width: 700px) {
+  table.mob-kartice .vk-w { display: grid; width: 100%; }
+  table.mob-kartice .vk-x { align-self: center; }
+}
