@@ -15,9 +15,8 @@ export default async function Stran() {
     b2b ? prodajalneKupca(k.vasco_partner) : [],
   ]);
   return (
-    <section className="sec">
-      <div className="w" style={{ maxWidth: 1000 }}>
-        <h1 className="izd-h1" style={{ marginBottom: 20 }}>Blagajna{b2b ? " — B2B" : ""}</h1>
+    <section className="trg">
+      <div className="w">
         {b2b ? (
           <BlagajnaB2B
             dostave={dostave}

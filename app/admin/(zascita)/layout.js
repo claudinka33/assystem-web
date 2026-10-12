@@ -26,6 +26,7 @@ const meni = [
   { skupina: "Prodaja", povezave: [
     { naziv: "Naročila", pot: "/admin/narocila" },
     { naziv: "B2B kupci", pot: "/admin/b2b" },
+    { naziv: "Kode za popust", pot: "/admin/popusti" },
   ]},
   { skupina: "Stiki", povezave: [
     { naziv: "Povpraševanja", pot: "/admin/povprasevanja" },

@@ -50,6 +50,7 @@ function VKosarico({ a, cena, izdelek, b2b }) {
               cenaNeto: cena.neto,
               b2b: Boolean(b2b),
               pot: izdelek?.pot,
+              slika: izdelek?.slika ?? null,
             },
             kol
           );
