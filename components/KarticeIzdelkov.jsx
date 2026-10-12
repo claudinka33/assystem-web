@@ -3,13 +3,20 @@ import Link from "next/link";
 
 // Mreža kartic izdelkov na dnu strani izdelka (isti videz kot stran kategorije).
 // izdelki: [{ slug, naziv, kratek_opis, slika_url, href, znamka }]
-export default function KarticeIzdelkov({ oznaka, naslov, izdelki }) {
+export default function KarticeIzdelkov({ oznaka, naslov, izdelki, vec = null }) {
   if (!izdelki?.length) return null;
   return (
     <div className="izd-sorodni">
-      <div className="st">
-        <span>{oznaka}</span>
-        <h2>{naslov}</h2>
+      <div className={vec ? "st row" : "st"}>
+        <div>
+          <span>{oznaka}</span>
+          <h2>{naslov}</h2>
+        </div>
+        {vec && (
+          <Link className="more" href={vec.href}>
+            {vec.naziv} →
+          </Link>
+        )}
       </div>
       <div className="kats">
         {izdelki.map((i) => (
@@ -27,6 +34,7 @@ export default function KarticeIzdelkov({ oznaka, naslov, izdelki }) {
             </div>
             <div className="tx">
               {i.znamka && <span className="znamka">{i.znamka} program</span>}
+              {i.skupina && <span className="izd-sk">{i.skupina}</span>}
               <h2>{i.naziv}</h2>
               {i.kratek_opis && <p>{i.kratek_opis}</p>}
             </div>

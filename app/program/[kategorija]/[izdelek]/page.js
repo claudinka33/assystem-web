@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { pridobiIzdelek, pridobiSorodne } from "@/lib/podatki";
+import { pridobiIzdelek, pridobiPonudbo, pridobiSorodne } from "@/lib/podatki";
 import TabelaArtiklov from "@/components/TabelaArtiklov";
 import GalerijaIzdelka from "@/components/GalerijaIzdelka";
 import IgraIzdelka from "@/components/IgraIzdelka";
 import KarticeIzdelkov from "@/components/KarticeIzdelkov";
 import NazadnjeOgledano from "@/components/NazadnjeOgledano";
+import KajSePonujamo from "@/components/KajSePonujamo";
 
 export const revalidate = 60;
 
@@ -61,6 +62,7 @@ export default async function StranIzdelka({ params }) {
   const { skupne, stolpci } = razdeliLastnosti(artikli);
   const naziviRazlicni = new Set(artikli.map((a) => a.naziv)).size > 1;
   const sorodni = await pridobiSorodne(i, kategorija);
+  const ponudba = await pridobiPonudbo(i, sorodni.map((x) => x.id));
   const trenutni = {
     slug: i.slug,
     naziv: i.naziv,
@@ -186,6 +188,7 @@ export default async function StranIzdelka({ params }) {
         <IgraIzdelka slug={izdelek} />
 
         <KarticeIzdelkov oznaka="Iz iste skupine" naslov="Sorodni izdelki" izdelki={sorodni} />
+        <KajSePonujamo izdelki={ponudba} />
         <NazadnjeOgledano trenutni={trenutni} />
       </div>
     </section>
