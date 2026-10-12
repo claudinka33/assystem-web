@@ -7,7 +7,7 @@ import PotiProdaje from "@/components/PotiProdaje";
 export const metadata = {
   title: "Private label — pritrdila pod vašo blagovno znamko",
   description:
-    "Sidra, vložke in udarne vijake iz lastne proizvodnje zapakiramo v vrečke in škatle z vašim logotipom. Private label za trgovske verige, distributerje in blagovne znamke.",
+    "Montaža in pakiranje pod vašo blagovno znamko: v nevtralne bele škatle ali v embalažo z vašo celostno podobo. Private label za trgovske verige, distributerje in blagovne znamke.",
   alternates: { canonical: "/private-label" },
 };
 
@@ -21,7 +21,7 @@ const izdelki = [
 
 const koraki = [
   ["Izbira izdelkov", "Iz našega programa izberete izdelke in dimenzije. Svetujemo, kaj se na vašem trgu prodaja."],
-  ["Vaša embalaža", "Vrečke z izveskom ali škatle z vašim logotipom in celostno podobo. Grafično predlogo pripravimo mi ali jo pošljete vi."],
+  ["Vaša embalaža", "Nevtralne bele škatle ali vrečke in škatle z vašim logotipom. Izdelavo embalaže organiziramo prek našega dobavitelja — grafično predlogo pripravimo mi ali jo pošljete vi."],
   ["Potrditev vzorca", "Pred serijo potrdite vzorec embalaže in označevanje — EAN, šifre, opozorila, ETA."],
   ["Proizvodnja in pakiranje", "Izdelke izdelamo v lastni proizvodnji in jih avtomatsko zapakiramo v vašo embalažo."],
   ["Paletna dobava", "Odprema iz visokoregalnega skladišča v Šmarju pri Jelšah, za trg v Sloveniji ali v tujini."],
@@ -34,7 +34,7 @@ export default function PrivateLabel() {
       <NaslovStrani
         oznaka="Pod vašo znamko"
         naslov="Private label"
-        opis="Naši izdelki iz lastne proizvodnje, zapakirani v vašo embalažo."
+        opis="Montaža in pakiranje pod vašo blagovno znamko — v nevtralne bele škatle ali v embalažo z vašo podobo."
       />
 
       <section className="sec">

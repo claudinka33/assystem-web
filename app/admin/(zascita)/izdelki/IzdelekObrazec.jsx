@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { shraniIzdelek } from "@/lib/akcije/skupno";
 import NalozSliko from "@/app/admin/NalozSliko";
+import { ZNAMKE, ZNAMKE_INFO, normZnamka } from "@/lib/znamke";
 
 export default function IzdelekObrazec({ izdelek, kategorije }) {
   const i = izdelek ?? {};
@@ -28,11 +29,23 @@ export default function IzdelekObrazec({ izdelek, kategorije }) {
         </div>
       </div>
 
-      <div className="adm-vrsta">
+      <div className="adm-vrsta-3">
         <div className="adm-polje">
           <label htmlFor="slug">Slug</label>
           <input id="slug" name="slug" type="text" defaultValue={i.slug ?? ""} pattern="[a-z0-9-]*" placeholder="npr. jekleno-sidro-txh7" />
           <p className="namig">Del spletnega naslova. Pusti prazno in se ustvari sam iz naziva.</p>
+        </div>
+        <div className="adm-polje">
+          <label htmlFor="znamka">Znamka</label>
+          <select id="znamka" name="znamka" defaultValue={normZnamka(i.znamka) ?? ""}>
+            <option value="">— samodejno po šifri in kategoriji —</option>
+            {ZNAMKE.map((z) => (
+              <option key={z} value={z}>
+                {ZNAMKE_INFO[z].ime}
+              </option>
+            ))}
+          </select>
+          <p className="namig">Logotip znamke se pokaže pri izdelku na strani. Pregled vseh: Znamke izdelkov.</p>
         </div>
         <div className="adm-polje">
           <label htmlFor="eta_stevilka">Številka ETA</label>

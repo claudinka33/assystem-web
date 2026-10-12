@@ -26,7 +26,7 @@ const skupine = [
   { naziv: "Podložke", norme: "DIN 125 · DIN 9021 · DIN 127B", slika: "/slike/DIN/125_ZnB.jpeg" },
   { naziv: "Samorezni in samovrtni", norme: "DIN 7981 · DIN 7982 · DIN 7504", slika: "/slike/DIN/7504K_ZnB.jpeg" },
   { naziv: "Navojne palice", norme: "DIN 975", slika: "/slike/DIN/975_ZnB.jpeg" },
-  { naziv: "Vijaki za les", norme: "DIN 571 · križ in torx", slika: "/slike/DIN/LESNI_TORX_DELNI_ZnR.jpeg" },
+  { naziv: "Vijaki za les s šestrobo glavo", norme: "DIN 571", slika: "/slike/DIN/571_ZnB.jpeg" },
   { naziv: "Vijaki za kovino", norme: "DIN 603 · DIN 84 · DIN 965", slika: "/slike/DIN/603_ZnB.jpeg" },
 ];
 
@@ -249,7 +249,7 @@ export default function ASco() {
         </div>
       </section>
 
-      <DveZnamki trenutna="asco" />
+      <DveZnamki trenutna="ASco" />
 
       <div className="cta">
         <div className="w">

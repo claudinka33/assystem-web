@@ -42,6 +42,7 @@ export default function Footer() {
 
         <div>
           <b>Za partnerje</b>
+          <Link href="/za-trgovce">Za trgovce</Link>
           <Link href="/distributerji">Postanite distributer</Link>
           <Link href="/private-label">Private label</Link>
           <Link href="/katalogi">Katalogi in prenosi</Link>

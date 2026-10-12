@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ZnamkaZnak from "@/components/ZnamkaZnak";
 import { notFound } from "next/navigation";
 import { pridobiIzdelek, pridobiPonudbo, pridobiSorodne } from "@/lib/podatki";
 import TabelaArtiklov from "@/components/TabelaArtiklov";
@@ -120,7 +121,7 @@ export default async function StranIzdelka({ params }) {
           <div className="izd-desno">
             <p className="izd-kat">{i.kategorije?.naziv}</p>
             <h1 className="izd-h1">{i.naziv}</h1>
-            {i.znamka && <span className="znamka">{i.znamka} program</span>}
+            <ZnamkaZnak znamka={i.znamka} velik />
             {i.kratek_opis && <p className="izd-kratko">{i.kratek_opis}</p>}
 
             {(skupne.length > 0 || i.eta_stevilka) && (

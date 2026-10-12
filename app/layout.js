@@ -20,7 +20,7 @@ export const metadata = {
     template: "%s | AS system",
   },
   description:
-    "AS system je slovenski proizvajalec pritrdilne tehnike: jeklena sidra, zidni vložki in udarni vijaki iz lastne proizvodnje, kemična sidra in vijačno blago iz zaloge. Znamki ASfix in ASco. Od 1993, dobava v 19 držav.",
+    "AS system: pritrdilna tehnika in vijačno blago pod znamkami ASfix, ASco, Mungo in Silvermate. Proizvodnja v Sloveniji, police za trgovce, private label in vijaki po naročilu. Od 1993, dobava v 19 držav.",
   keywords: [
     "pritrdilna tehnika",
     "jeklena sidra",
@@ -35,9 +35,9 @@ export const metadata = {
     locale: "sl_SI",
     url: site.url,
     siteName: site.ime,
-    title: "AS system — pritrdilna tehnika ASfix",
+    title: "AS system — pritrdilna tehnika in vijačno blago",
     description:
-      "Jeklena sidra, zidni vložki in udarni vijaki iz lastne proizvodnje, kemična sidra in vijačno blago iz zaloge. Od 1993, dobava v 19 držav.",
+      "Pritrdilna tehnika in vijačno blago ASfix, ASco, Mungo in Silvermate. Od 1993, dobava v 19 držav.",
   },
   robots: { index: true, follow: true },
 };

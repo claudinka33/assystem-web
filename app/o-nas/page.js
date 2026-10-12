@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import DveZnamki from "@/components/DveZnamki";
 import NaslovStrani from "@/components/NaslovStrani";
 import { pridobiVsebine, v } from "@/lib/vsebine";
 import { site } from "@/lib/site";
@@ -9,32 +10,13 @@ export const revalidate = 60;
 export const metadata = {
   title: "O nas",
   description:
-    "AS system d.o.o. je slovensko družinsko podjetje s področja pritrdilne tehnike. Od 1993, lastni proizvodnji in blagovni znamki ASfix in ASco, dobava v 19 držav.",
+    "AS system d.o.o. je slovensko družinsko podjetje s področja pritrdilne tehnike in vijačnega blaga. Od 1993, lastna proizvodnja, znamke ASfix, ASco, Mungo in Silvermate, dobava v 19 držav.",
   alternates: { canonical: "/o-nas" },
 };
 
-const znamki = [
-  {
-    naziv: "ASfix",
-    podnaslov: "Gradbena pritrdila",
-    opis:
-      "Zgodovinski temelj podjetja in znamka z največjo prepoznavnostjo. Jeklena sidra, zidni vložki, udarni vijaki, dolgi vložki z vijakom, vložki za mavčne plošče in lahka pritrdila.",
-    pot: "/asfix",
-    cta: "Program ASfix",
-  },
-  {
-    naziv: "ASco",
-    podnaslov: "Vijaki po DIN in ISO",
-    opis:
-      "Standardno vijačno blago po normah DIN in ISO — vijaki, matice in podložke, pocinkani in nerjavni. Za trgovce in izvajalce, ki želijo celoten asortiman pri enem dobavitelju.",
-    pot: "/asco",
-    cta: "Program ASco",
-  },
-];
-
 const stevilke = [
   ["1993", "Leto ustanovitve"],
-  ["2", "Lastni blagovni znamki"],
+  ["4", "Znamke v programu"],
   [`${site.drzave}`, "Držav, kamor dobavljamo"],
   ["ISO 9001", "Certifikat kakovosti"],
 ];
@@ -67,7 +49,7 @@ export default async function ONas() {
       <NaslovStrani
         oznaka="Podjetje"
         naslov="O nas"
-        opis="Slovensko družinsko podjetje s področja pritrdilne tehnike — z lastnim razvojem, lastno proizvodnjo in lastnima blagovnima znamkama."
+        opis="Slovensko družinsko podjetje s področja pritrdilne tehnike in vijačnega blaga — z lastnim razvojem, proizvodnjo ter montažo in pakiranjem."
       />
 
       {/* Uvod */}
@@ -123,52 +105,8 @@ export default async function ONas() {
         </div>
       </div>
 
-      {/* Znamki */}
-      <section className="sec">
-        <div className="w">
-          <div className="st">
-            <span>Blagovni znamki</span>
-            <h2>Dve znamki na trgu</h2>
-            <p>
-              Pod svojo streho razvijamo in tržimo dve lastni blagovni znamki.
-              ASfix pokriva pritrdilno tehniko, ASco standardno vijačno blago —
-              skupaj ju trgovec naroči pri enem dobavitelju.
-            </p>
-          </div>
-
-          <div className="qua" style={{ alignItems: "stretch", gap: 22 }}>
-            {znamki.map((z) => (
-              <div
-                key={z.naziv}
-                style={{
-                  border: "1px solid var(--color-line)",
-                  borderTop: "4px solid var(--color-red)",
-                  padding: "32px 30px",
-                  background: "#fff",
-                }}
-              >
-                <h3 style={{ fontSize: 28, fontWeight: 800 }}>{z.naziv}</h3>
-                <p
-                  style={{
-                    color: "var(--color-red)",
-                    fontWeight: 600,
-                    fontSize: 13,
-                    letterSpacing: "1.4px",
-                    textTransform: "uppercase",
-                    marginTop: 6,
-                  }}
-                >
-                  {z.podnaslov}
-                </p>
-                <p style={{ color: "var(--color-muted)", marginTop: 14 }}>{z.opis}</p>
-                <Link className="more" href={z.pot} style={{ display: "inline-block", marginTop: 18 }}>
-                  {z.cta} →
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Znamke */}
+      <DveZnamki siv={false} />
 
       {/* Proizvodnja */}
       <section className="sec grey">

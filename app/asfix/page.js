@@ -15,7 +15,7 @@ export const metadata = {
 };
 
 const aduti = [
-  ["Znan izvor", "Jeklena sidra, zidni vložki in udarni vijaki nastanejo v naši proizvodnji v Sloveniji. Za vsak izdelek pod znamko ASfix odgovarjamo mi."],
+  ["Znan izvor", "ASfix je slovenska znamka podjetja AS system. Za vsak izdelek pod to znamko odgovarjamo mi — od kakovosti do dokumentacije."],
   ["Evropska dokazila", "Nosilna sidra imajo oceno ETA in izjavo o lastnostih. Trgovec lahko izdelek zagovarja pred zahtevnim kupcem."],
   ["Embalaža, ki proda", "Vrečka z izveskom, škatla z jasno šifro in dimenzijo, paletna enota za centre. V treh sekundah je jasno, kaj je notri."],
   ["Dobava iz zaloge", "Osnovni asortiman je v visokoregalnem skladišču v Šmarju. Brez čakanja na uvoz."],
@@ -30,8 +30,8 @@ export default function ASfix() {
         logo="/slike/znamke/asfix-logo-bela-za-rdeco.png"
         oznaka="Blagovna znamka · pritrdilna tehnika"
         naslov="Pritrdila, ki jih trgovec lahko zagovarja"
-        opis="Jeklena sidra, zidni vložki in udarni vijaki iz lastne proizvodnje, dopolnjeni s kemičnimi sidri in okvirnimi vložki — v embalaži, pripravljeni za polico."
-        znacke={["Lastna proizvodnja", "ETA", "Škatle AFA / AFR", "Rdeča vrečka"]}
+        opis="Jeklena sidra, zidni vložki, vložki za mavčne plošče, udarni in Turbo vijaki, kemične mase in pritrdila za klimatske naprave — v embalaži, pripravljeni za polico."
+        znacke={["Slovenska znamka", "ETA", "Škatle AFA / AFR", "Rdeča vrečka"]}
         slika="/slike/znamke/asfix-afr41.png"
         slikaAlt="Škatla ASfix AFR41"
         gumbi={[
@@ -171,18 +171,17 @@ export default function ASfix() {
           <div className="qua" style={{ alignItems: "center" }}>
             <div>
               <div className="st">
-                <span>Lastna proizvodnja</span>
-                <h2>Sidra, ki nastanejo pri nas</h2>
+                <span>Kakovost in dokazila</span>
+                <h2>Jeklena sidra z oceno ETA</h2>
                 <p>
-                  Jeklena sidra TXH7 in TX1 so v celoti naša — od razvoja in
-                  orodja do proizvodnje in pakiranja. Na voljo so v pocinkani
-                  izvedbi ZnB in v nerjavečem jeklu A4, vsa z evropsko tehnično
-                  oceno.
+                  Jeklena sidra ASfix so na voljo v pocinkani izvedbi ZnB in v
+                  nerjavečem jeklu A4, z evropsko tehnično oceno in izjavo o
+                  lastnostih.
                 </p>
                 <p style={{ marginTop: 12 }}>
-                  Enako velja za najlonske zidne vložke in udarne vijake. Ker
-                  imamo orodja doma, lahko spremenimo dimenzijo ali pakiranje brez
-                  čakanja na zunanjega dobavitelja.
+                  Za proizvodnjo, montažo in pakiranje skrbimo na dveh lokacijah
+                  v Sloveniji, zato lahko dimenzijo ali pakiranje prilagodimo
+                  potrebam trgovine.
                 </p>
               </div>
               <Link className="more" href="/proizvodnja">
@@ -273,7 +272,7 @@ export default function ASfix() {
         </div>
       </section>
 
-      <DveZnamki trenutna="asfix" />
+      <DveZnamki trenutna="ASfix" />
 
       <div className="cta">
         <div className="w">

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import ZnamkaZnak from "@/components/ZnamkaZnak";
 import Link from "next/link";
 
 // Mreža kartic izdelkov na dnu strani izdelka (isti videz kot stran kategorije).
@@ -33,7 +34,7 @@ export default function KarticeIzdelkov({ oznaka, naslov, izdelki, vec = null })
               )}
             </div>
             <div className="tx">
-              {i.znamka && <span className="znamka">{i.znamka} program</span>}
+              <ZnamkaZnak znamka={i.znamka} />
               {i.skupina && <span className="izd-sk">{i.skupina}</span>}
               <h2>{i.naziv}</h2>
               {i.kratek_opis && <p>{i.kratek_opis}</p>}

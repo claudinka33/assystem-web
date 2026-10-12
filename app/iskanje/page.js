@@ -1,4 +1,5 @@
 import Image from "next/image";
+import ZnamkaZnak from "@/components/ZnamkaZnak";
 import Link from "next/link";
 import NaslovStrani from "@/components/NaslovStrani";
 import { isci } from "@/lib/podatki";
@@ -79,6 +80,7 @@ export default async function Iskanje({ searchParams }) {
                       )}
                     </div>
                     <div className="tx">
+                      <ZnamkaZnak znamka={i.znamka} />
                       <h3>{i.naziv}</h3>
                       <p>{i.kratek_opis}</p>
                     </div>

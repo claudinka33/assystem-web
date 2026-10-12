@@ -21,7 +21,7 @@ export const POTI = [
     pot: "/private-label",
     oznaka: "Pod vašo znamko",
     naziv: "Private label",
-    opis: "Naše izdelke iz lastne proizvodnje zapakiramo v vrečke in škatle z vašim logotipom.",
+    opis: "Montaža in pakiranje v nevtralne bele škatle ali v embalažo z vašim logotipom.",
     slika: "/slike/poti/private-label.jpg",
   },
   {

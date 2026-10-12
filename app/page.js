@@ -4,14 +4,15 @@ import Link from "next/link";
 import { pridobiKategorije } from "@/lib/podatki";
 import { pridobiVsebine, v } from "@/lib/vsebine";
 import { site } from "@/lib/site";
-import PotiProdaje from "@/components/PotiProdaje";
+import Vrata from "@/components/Vrata";
+import DveZnamki from "@/components/DveZnamki";
 
 export const revalidate = 60;
 
 export const metadata = {
-  title: "ASfix — pritrdilna tehnika za vsako podlago",
+  title: "AS system — pritrdilna tehnika in vijačno blago",
   description:
-    "Jeklena sidra, zidni vložki, udarni vijaki, kemična sidra in vijačno blago ASfix. Dobava iz zaloge, evropski certifikati ETA, cene za trgovce in izvajalce.",
+    "Pritrdilna tehnika ASfix, vijačno blago ASco, Mungo in lesni vijaki Silvermate. Dobava iz zaloge, police za trgovce, private label in vijaki po naročilu.",
   alternates: { canonical: "/" },
 };
 
@@ -26,27 +27,6 @@ const koraki = [
   ["Poiščite izdelek", "Po šifri, EAN kodi ali nazivu. Pri vsakem izdelku so dimenzije, pakiranja, zaloga in cena."],
   ["Dodajte v košarico", "Izberite pakiranja in količine ter oddajte naročilo — plačilo po predračunu ali po povzetju."],
   ["Prevzem ali dostava", "Pošljemo s Pošto Slovenije (nad 100 € brezplačno) ali prevzamete osebno v Šmarju."],
-];
-
-const zaKoga = [
-  {
-    naziv: "Trgovine",
-    opis: "Asortiman ASfix v embalaži, ki proda sama — vrečke z izveskom, škatle z jasno šifro, paletne enote.",
-    cta: "Program ASfix",
-    pot: "/asfix",
-  },
-  {
-    naziv: "Izvajalci",
-    opis: "Pravo pritrdilo za vsako podlago, s tehničnimi listi, izjavami o lastnostih in navodili za vgradnjo.",
-    cta: "Prodajni program",
-    pot: "/program",
-  },
-  {
-    naziv: "Distributerji",
-    opis: "Evropski proizvajalec z lastnim razvojem, oceno ETA in stabilnimi dobavnimi roki za vaš trg.",
-    cta: "Postanite distributer",
-    pot: "/distributerji",
-  },
 ];
 
 const certifikati = [
@@ -67,7 +47,7 @@ export default async function Domov() {
         <div className="w">
           <div>
             <span className="kick">
-              {v(b, "domov.hero.oznaka", "naslov", "Pritrdilna tehnika ASfix")}
+              {v(b, "domov.hero.oznaka", "naslov", "Pritrdilna tehnika in vijaki")}
             </span>
             <h1>
               {v(b, "domov.hero.naslov", "naslov", "Vse za pritrjevanje. Iz zaloge.")}
@@ -95,8 +75,8 @@ export default async function Domov() {
               <Link className="b b-w" href="/program">
                 Prodajni program
               </Link>
-              <Link className="b b-o" href="/kontakt?vir=cenik">
-                Zahtevaj cenik
+              <Link className="b b-o" href="/b2b">
+                B2B za podjetja
               </Link>
             </div>
           </div>
@@ -129,6 +109,12 @@ export default async function Domov() {
           ))}
         </div>
       </div>
+
+      {/* ---------- Kaj iščete: štiri publike ---------- */}
+      <Vrata />
+
+      {/* ---------- Naše znamke ---------- */}
+      <DveZnamki />
 
       {/* ---------- Kaj ponujamo ---------- */}
       <section className="sec" id="program">
@@ -176,8 +162,38 @@ export default async function Domov() {
         </div>
       </section>
 
-      {/* ---------- Poti: ASfix, ASco, private label, vijaki po naročilu ---------- */}
-      <PotiProdaje />
+      {/* ---------- Za trgovce: police ---------- */}
+      <section className="sec trg-sec">
+        <div className="w">
+          <div className="qua" style={{ alignItems: "center" }}>
+            <div>
+              <div className="st">
+                <span>Za trgovce</span>
+                <h2>Polica, ki proda sama</h2>
+                <p>
+                  Sestavimo prodajni program in postavitev police za vašo trgovino — ASfix, ASco ali kombinacijo
+                  obeh. Postavitve od 1, 2, 4 in 6 metrov do 20 metrov.
+                </p>
+              </div>
+              <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+                <Link className="b b-w" href="/za-trgovce">
+                  Police in pogoji →
+                </Link>
+              </div>
+            </div>
+            <div className="trg-slika">
+              <Image
+                src="/slike/trgovci/asfix-polica-2m.jpg"
+                alt="Prodajna polica ASfix, 2 m"
+                width={1092}
+                height={1120}
+                sizes="(max-width: 1000px) 100vw, 560px"
+                style={{ width: "100%", height: "auto" }}
+              />
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* ---------- Kako naročite ---------- */}
       <section className="sec grey">
@@ -212,33 +228,6 @@ export default async function Domov() {
             <Link className="b b-d" href="/kontakt?vir=cenik">
               Zahtevaj cenik
             </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ---------- Za koga ---------- */}
-      <section className="sec">
-        <div className="w">
-          <div className="st">
-            <span>Za koga delamo</span>
-            <h2>{v(b, "domov.zakoga.naslov", "naslov", "Zanesljiv poslovni partner")}</h2>
-            <p>
-              {v(
-                b,
-                "domov.zakoga.besedilo",
-                "besedilo",
-                "Naši kupci so trgovine z gradbenim, kovinskim in inštalacijskim materialom, veletrgovci, izvajalci na gradbiščih ter distributerji na tujih trgih."
-              )}
-            </p>
-          </div>
-          <div className="who">
-            {zaKoga.map((z) => (
-              <div key={z.naziv}>
-                <b>{z.naziv}</b>
-                <p>{z.opis}</p>
-                <Link href={z.pot}>{z.cta} →</Link>
-              </div>
-            ))}
           </div>
         </div>
       </section>
@@ -297,13 +286,13 @@ export default async function Domov() {
             <div>
               <div className="st">
                 <span>{site.ime}</span>
-                <h2>{v(b, "domov.podjetje.naslov", "naslov", "Kupujete neposredno pri proizvajalcu")}</h2>
+                <h2>{v(b, "domov.zmogljivosti.naslov", "naslov", "Proizvodnja in storitve")}</h2>
                 <p>
                   {v(
                     b,
-                    "domov.podjetje.besedilo",
+                    "domov.zmogljivosti.besedilo",
                     "besedilo",
-                    "Sidra, vložke in udarne vijake izdelamo sami, na dveh lokacijah v Sloveniji. Brez vmesnih členov to pomeni boljšo ceno, krajše dobavne roke in možnost prilagoditve dimenzije ali pakiranja po vaših potrebah."
+                    "Na dveh lokacijah v Sloveniji izdelujemo jeklena sidra, brizgamo plastiko za zidne vložke in vložke za mavčne plošče ter proizvajamo udarne vijake, žičnike in vijake po naročilu. Montaža in pakiranje potekata pri nas — tudi za druge blagovne znamke."
                   )}
                 </p>
               </div>
