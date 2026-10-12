@@ -4,27 +4,21 @@ import Image from "next/image";
 import { useMemo, useState } from "react";
 import { cenaArtikla, eur } from "@/lib/cene";
 import { dodaj } from "@/lib/kosarica";
-import { site } from "@/lib/site";
 import { dogodek } from "@/lib/dogodki";
 
 // Tabela artiklov na strani izdelka: iskanje, filtri po lastnostih
 // (material, trdnost, pakiranje ...) in postopen prikaz pri dolgih seznamih.
 const KORAK = 80;
 
-// Ko artikla ni na zalogi, roka dobave ne poznamo -> kupec pokliče ali piše.
-function Zaloga({ vrednost, sifra }) {
+// Ko artikla ni na zalogi, roka dobave ne poznamo -> kupec ga z enim klikom vpraša prek obrazca.
+function Zaloga({ vrednost, sifra, izdelek }) {
   if (vrednost === null || vrednost === undefined) return "—";
   if (vrednost > 0) return <span style={{ color: "#1a7f3c", fontWeight: 700 }}>Na zalogi</span>;
-  const zadeva = encodeURIComponent(`Rok dobave za artikel ${sifra ?? ""}`);
+  const kaj = encodeURIComponent(`${izdelek?.naziv ?? ""} ${sifra ?? ""}`.trim());
   return (
     <span className="zal-ni">
-      <span style={{ color: "var(--color-muted)", fontWeight: 600 }}>Ni na zalogi</span>
-      <span style={{ display: "block", fontSize: 12.5, lineHeight: 1.35 }}>
-        Rok dobave:{" "}
-        <a href={`tel:${site.telefonRaw}`} style={{ color: "var(--color-red)" }}>{site.telefon}</a>
-        {" · "}
-        <a href={`mailto:${site.emailProdaja}?subject=${zadeva}`} style={{ color: "var(--color-red)" }}>pišite nam</a>
-      </span>
+      <b>Po naročilu</b>
+      <a href={`/kontakt?izdelek=${kaj}&vir=rok-dobave`}>Vprašaj za rok →</a>
     </span>
   );
 }
@@ -300,7 +294,7 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
               {stolpci.map((k) => (
                 <th key={k}>{k}</th>
               ))}
-              <th>EAN</th>
+              <th className="izd-ean">EAN</th>
               <th>{stolpci.includes("Pakiranje") ? "Kos v pak." : "Pakiranje"}</th>
               <th>Zaloga</th>
               <th>Cena z DDV</th>
@@ -319,10 +313,10 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
                 {stolpci.map((k) => (
                   <td key={k} data-l={k}>{(a.lastnosti ?? {})[k] ?? "—"}</td>
                 ))}
-                <td className="izd-siv" data-l="EAN">{a.ean ?? "—"}</td>
+                <td className="izd-siv izd-ean" data-l="EAN">{a.ean ?? "—"}</td>
                 <td data-l={stolpci.includes("Pakiranje") ? "Kos v pak." : "Pakiranje"}>{pakiranje(a)}</td>
                 <td data-l="Zaloga">
-                  <Zaloga vrednost={a.zaloga} sifra={a.sifra} />
+                  <Zaloga vrednost={a.zaloga} sifra={a.sifra} izdelek={izdelek} />
                 </td>
                 <td data-l="Cena z DDV">
                   <Cena cena={cenaArtikla(a)} />
