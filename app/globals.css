@@ -1867,3 +1867,7 @@ table.adm-tab tr:last-child td { border-bottom: 0; }
 .stojalo li { padding-left: 18px; position: relative; color: var(--color-muted); }
 .stojalo li:before { content: ""; position: absolute; left: 0; top: 10px; width: 8px; height: 8px; background: var(--color-red); }
 @media (max-width: 900px) { .stojalo { grid-template-columns: minmax(0, 1fr); } .stojalo-im { max-width: 360px; } }
+
+/* ---------- sorodni in nazadnje ogledani izdelki (dno strani izdelka) ---------- */
+.izd-sorodni { margin-top: 64px; padding-top: 48px; border-top: 1px solid var(--color-line); }
+.izd-sorodni + .izd-sorodni { margin-top: 48px; }

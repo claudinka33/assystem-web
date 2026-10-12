@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { pridobiIzdelek } from "@/lib/podatki";
+import { pridobiIzdelek, pridobiSorodne } from "@/lib/podatki";
 import TabelaArtiklov from "@/components/TabelaArtiklov";
 import GalerijaIzdelka from "@/components/GalerijaIzdelka";
 import IgraIzdelka from "@/components/IgraIzdelka";
+import KarticeIzdelkov from "@/components/KarticeIzdelkov";
+import NazadnjeOgledano from "@/components/NazadnjeOgledano";
 
 export const revalidate = 60;
 
@@ -58,6 +60,15 @@ export default async function StranIzdelka({ params }) {
   const slike = [i.slika_url, ...galerija].filter(Boolean).slice(0, 8);
   const { skupne, stolpci } = razdeliLastnosti(artikli);
   const naziviRazlicni = new Set(artikli.map((a) => a.naziv)).size > 1;
+  const sorodni = await pridobiSorodne(i, kategorija);
+  const trenutni = {
+    slug: i.slug,
+    naziv: i.naziv,
+    kratek_opis: i.kratek_opis ?? null,
+    slika_url: i.slika_url ?? null,
+    znamka: i.znamka ?? null,
+    href: `/program/${kategorija}/${izdelek}`,
+  };
   const povprasevanje = `/kontakt?izdelek=${encodeURIComponent(i.naziv)}&vir=izdelek`;
 
   return (
@@ -131,7 +142,6 @@ export default async function StranIzdelka({ params }) {
               <div className="izd-tab">
                 <div className="izd-tab-gl">
                   <h2>Dimenzije in šifre</h2>
-                  <span>{artikli.length} {artikli.length === 1 ? "artikel" : artikli.length < 5 ? "artikli" : "artiklov"}</span>
                 </div>
                 <TabelaArtiklov artikli={artikli} stolpci={stolpci} naziviRazlicni={naziviRazlicni} embalaza={i.embalaza ?? []} izdelek={{ naziv: i.naziv, pot: `/program/${kategorija}/${izdelek}` }} />
                 <p className="izd-opomba">
@@ -174,6 +184,9 @@ export default async function StranIzdelka({ params }) {
         </div>
 
         <IgraIzdelka slug={izdelek} />
+
+        <KarticeIzdelkov oznaka="Iz iste skupine" naslov="Sorodni izdelki" izdelki={sorodni} />
+        <NazadnjeOgledano trenutni={trenutni} />
       </div>
     </section>
   );

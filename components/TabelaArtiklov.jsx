@@ -108,7 +108,6 @@ function Legenda({ vnosi, artikli, izbrani, izberi }) {
           <span className="izd-emb-sl"><span className="izd-emb-ni">∑</span></span>
           <span className="izd-emb-tx">
             <b>Vsa pakiranja</b>
-            <em>{artikli.length} {artikli.length === 1 ? "artikel" : artikli.length < 5 ? "artikli" : "artiklov"}</em>
             <span>Prikaži vse artikle tega izdelka.</span>
           </span>
         </button>
@@ -121,7 +120,6 @@ function Legenda({ vnosi, artikli, izbrani, izberi }) {
               </span>
               <span className="izd-emb-tx">
                 <b>{e.naziv}</b>
-                <em>{e.n} {e.n === 1 ? "artikel" : e.n < 5 ? "artikli" : "artiklov"}</em>
                 {e.opis && <span>{e.opis}</span>}
               </span>
             </button>
