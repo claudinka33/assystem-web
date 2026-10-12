@@ -65,6 +65,12 @@ export default async function Hvala({ searchParams }) {
             <p style={{ marginTop: 10 }}>Podatke in predračun prejmete tudi po e-pošti. Naročilo {osebno ? "pripravimo" : "odpremimo"} po prejemu plačila.</p>
           </div>
         )}
+        {n.nacin_placila === "racun" && (
+          <p style={{ marginTop: 14 }}>
+            Naročilo <b>{eur(Number(n.skupaj))}</b> (z DDV) smo prejeli. Račun prejmete z blagom. Potrdilo smo vam poslali po e-pošti,
+            naročilo vidite tudi v <Link href="/b2b/racun">svojem B2B računu</Link>.
+          </p>
+        )}
         {n.nacin_placila === "povzetje" && (
           <p style={{ marginTop: 14 }}>Znesek <b>{eur(Number(n.skupaj))}</b> plačate ob prevzemu paketa. Ko naročilo odpošljemo, vas obvestimo.</p>
         )}

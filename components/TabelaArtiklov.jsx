@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 import { cenaArtikla, eur } from "@/lib/cene";
 import { dodaj } from "@/lib/kosarica";
 import { dogodek } from "@/lib/dogodki";
+import { useB2BCene } from "@/lib/b2b-klient";
 
 // Tabela artiklov na strani izdelka: iskanje, filtri po lastnostih
 // (material, trdnost, pakiranje ...) in postopen prikaz pri dolgih seznamih.
@@ -23,7 +24,7 @@ function Zaloga({ vrednost, sifra, izdelek }) {
   );
 }
 
-function VKosarico({ a, cena, izdelek }) {
+function VKosarico({ a, cena, izdelek, b2b }) {
   const [kol, setKol] = useState(1);
   const [ok, setOk] = useState(false);
   if (!cena) return <span className="izd-siv">na povpraševanje</span>;
@@ -46,6 +47,8 @@ function VKosarico({ a, cena, izdelek }) {
               lastnosti: a.lastnosti ?? {},
               kos: cena.kos,
               cenaBruto: cena.bruto,
+              cenaNeto: cena.neto,
+              b2b: Boolean(b2b),
               pot: izdelek?.pot,
             },
             kol
@@ -71,8 +74,16 @@ function VKosarico({ a, cena, izdelek }) {
   );
 }
 
-function Cena({ cena }) {
-  if (!cena) return "—";
+function Cena({ cena, b2b }) {
+  if (!cena) return b2b ? <span className="izd-siv">na povpraševanje</span> : "—";
+  if (b2b)
+    return (
+      <span className="izd-cena">
+        <b>{eur(cena.neto)}</b>
+        {cena.posebna && <span className="b2b-cena" title="Vaša posebna cena">VAŠA CENA</span>}
+        {cena.na100Neto !== null ? <em>{eur(cena.na100Neto)} / 100 kos</em> : cena.kos > 1 && <em>za {cena.kos} kos</em>}
+      </span>
+    );
   return (
     <span className="izd-cena">
       <b>{eur(cena.bruto)}</b>
@@ -176,6 +187,8 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
       }),
     [vhodni]
   );
+  const b2b = useB2BCene(useMemo(() => vhodni.map((a) => a.id), [vhodni]));
+  const cenaZa = (a) => (b2b ? b2b.cene[a.id] ?? null : cenaArtikla(a));
   const [iskanje, setIskanje] = useState("");
   const [izbrani, setIzbrani] = useState({});
   const [prikazano, setPrikazano] = useState(KORAK);
@@ -305,7 +318,7 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
               <th className="izd-ean">EAN</th>
               <th>{stolpci.includes("Pakiranje") ? "Kos v pak." : "Pakiranje"}</th>
               <th>Zaloga</th>
-              <th>Cena z DDV</th>
+              <th>{b2b ? "Vaša cena brez DDV" : "Cena z DDV"}</th>
               <th></th>
             </tr>
           </thead>
@@ -326,11 +339,11 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
                 <td data-l="Zaloga">
                   <Zaloga vrednost={a.zaloga} sifra={a.sifra} izdelek={izdelek} />
                 </td>
-                <td data-l="Cena z DDV">
-                  <Cena cena={cenaArtikla(a)} />
+                <td data-l={b2b ? "Vaša cena brez DDV" : "Cena z DDV"}>
+                  <Cena cena={cenaZa(a)} b2b={b2b} />
                 </td>
                 <td className="mk-cela">
-                  <VKosarico a={a} cena={cenaArtikla(a)} izdelek={izdelek} />
+                  <VKosarico a={a} cena={cenaZa(a)} izdelek={izdelek} b2b={b2b} />
                 </td>
               </tr>
             ))}

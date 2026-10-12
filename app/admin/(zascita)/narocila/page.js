@@ -5,7 +5,7 @@ import { eur } from "@/lib/cene";
 export const dynamic = "force-dynamic";
 
 const STATUSI = ["novo", "potrjeno", "v pripravi", "odposlano", "zaključeno", "preklicano"];
-const PLACILO = { predracun: "predračun", povzetje: "povzetje", paypal: "PayPal", kartica: "kartica" };
+const PLACILO = { predracun: "predračun", povzetje: "povzetje", paypal: "PayPal", kartica: "kartica", racun: "na račun (B2B)" };
 
 function cas(t) {
   return t ? new Date(t).toLocaleString("sl-SI", { timeZone: "Europe/Ljubljana", dateStyle: "short", timeStyle: "short" }) : "";

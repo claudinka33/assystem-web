@@ -1,0 +1,84 @@
+import { supabaseAdmin } from "@/lib/supabase-server";
+import { adminB2B } from "@/lib/akcije/b2b";
+import { B2B_STATUSI } from "@/lib/b2b";
+import Osvezi from "../../Osvezi";
+
+export const dynamic = "force-dynamic";
+
+const cas = (t) => (t ? new Date(t).toLocaleString("sl-SI", { timeZone: "Europe/Ljubljana", dateStyle: "short", timeStyle: "short" }) : "—");
+const VRSTNI_RED = ["caka_odobritev", "preverjanje", "aktiven", "zavrnjen"];
+
+export default async function B2BKupci() {
+  const { data, error } = await supabaseAdmin().from("b2b_kupci").select("*").order("ustvarjeno", { ascending: false }).limit(500);
+  if (error)
+    return (
+      <div className="adm-telo">
+        <div className="opozorilo">Tabela B2B kupcev še ne obstaja. V Supabase (assystem-web) zaženi SQL »40-b2b.sql«.</div>
+      </div>
+    );
+  const kupci = [...(data ?? [])].sort((a, b) => VRSTNI_RED.indexOf(a.status) - VRSTNI_RED.indexOf(b.status));
+  const caka = kupci.filter((k) => k.status === "caka_odobritev").length;
+
+  return (
+    <>
+      <Osvezi aktivno={kupci.some((k) => k.status === "preverjanje")} />
+      <div className="adm-glava">
+        <h1>B2B kupci</h1>
+        <span style={{ fontSize: 14, color: "#6e767e" }}>{kupci.length} skupaj · {caka} čaka na odobritev</span>
+      </div>
+      <div className="adm-telo">
+        <p style={{ fontSize: 14, color: "#6e767e", marginTop: 0 }}>
+          as-terminal vsaki 2 minuti poišče partnerja v Vascu po davčni. Če se e-naslov ali domena ujema s partnerjem, se kupec aktivira
+          sam. Ostale odobri tukaj — pri novem podjetju ga najprej odpri v Vascu in vpiši šifro partnerja.
+        </p>
+        {kupci.length === 0 && <div className="opozorilo">Ni še registracij.</div>}
+        {kupci.map((k) => (
+          <details key={k.id} className="adm-obr" style={{ marginBottom: 12 }} open={k.status === "caka_odobritev"}>
+            <summary style={{ display: "flex", gap: 16, alignItems: "center", cursor: "pointer", listStyle: "none", flexWrap: "wrap" }}>
+              <b style={{ minWidth: 220 }}>{k.podjetje}</b>
+              <span style={{ color: "#6e767e", fontSize: 13 }}>SI{k.davcna}</span>
+              <span style={{ flex: 1 }}>{k.ime} · {k.email}</span>
+              <span className={k.status === "aktiven" ? "znacka da" : k.status === "caka_odobritev" ? "znacka novo" : "znacka ne"}>
+                {B2B_STATUSI[k.status] ?? k.status}
+              </span>
+            </summary>
+            <div style={{ marginTop: 12, fontSize: 14 }}>
+              <p>
+                Registracija: {cas(k.ustvarjeno)} · tel. {k.telefon} · {k.naslov} {k.posta} {k.kraj}
+                <br />
+                Vasco:{" "}
+                {k.vasco_partner ? (
+                  <b>{k.vasco_partner} — {k.vasco_naziv} ({k.vasco_naslov}, {k.vasco_posta})</b>
+                ) : (
+                  <span style={{ color: "#cb2026" }}>partner ni najden</span>
+                )}
+                {k.vasco_partner && (
+                  <> · rok {k.rok_placila ?? "—"} dni · rabat {Number(k.rabat ?? 0)} %{k.ustavljena_prodaja && <b style={{ color: "#cb2026" }}> · USTAVLJENA PRODAJA</b>}</>
+                )}
+                <br />
+                {k.vasco_emaili?.length ? <>E-naslovi v Vascu: {k.vasco_emaili.join(", ")}<br /></> : null}
+                Zadnja sinhronizacija: {cas(k.vasco_sync_ob)}{k.vasco_sporocilo ? ` — ${k.vasco_sporocilo}` : ""}
+                {k.odobreno_rocno && <> · odobreno ročno</>}
+              </p>
+              <form action={adminB2B} style={{ display: "flex", gap: 10, alignItems: "flex-end", flexWrap: "wrap" }}>
+                <input type="hidden" name="id" value={k.id} />
+                <div className="adm-polje" style={{ marginBottom: 0, width: 170 }}>
+                  <label>Šifra partnerja v Vascu</label>
+                  <input type="text" name="vasco_partner" defaultValue={k.vasco_partner ?? ""} placeholder="npr. 12345678" />
+                </div>
+                <div className="adm-polje" style={{ marginBottom: 0, flex: 1, minWidth: 200 }}>
+                  <label>Interna opomba</label>
+                  <input type="text" name="opomba_interna" defaultValue={k.opomba_interna ?? ""} />
+                </div>
+                {k.status !== "aktiven" && <button className="gumb" type="submit" name="akcija" value="odobri">Odobri</button>}
+                <button className="gumb siv" type="submit" name="akcija" value="preveri">Preveri v Vascu</button>
+                <button className="gumb siv" type="submit" name="akcija" value="shrani">Shrani opombo</button>
+                {k.status !== "zavrnjen" && <button className="gumb siv" type="submit" name="akcija" value="zavrni">Zavrni</button>}
+              </form>
+            </div>
+          </details>
+        ))}
+      </div>
+    </>
+  );
+}

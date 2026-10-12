@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { navigacija, site } from "@/lib/site";
 import KosaricaGumb from "@/components/KosaricaGumb";
+import B2BPovezava from "@/components/B2BPovezava";
 
 const jeziki = ["SI", "EN", "DE", "HR"];
 
@@ -18,7 +19,7 @@ export default function Header() {
         <div className="w">
           <span>{site.ime} · proizvajalec pritrdilne tehnike od {site.ustanovljeno}</span>
           <span className="lang">
-            <Link href="/katalogi">Katalogi</Link> · <Link href="/zaposlitev">Zaposlitev</Link>
+            <B2BPovezava /> · <Link href="/katalogi">Katalogi</Link> · <Link href="/zaposlitev">Zaposlitev</Link>
             {" | "}
             {jeziki.map((j) => (
               <a key={j} href="#" className={j === "SI" ? "on" : undefined}>
@@ -81,6 +82,7 @@ export default function Header() {
                   {el.naziv}
                 </Link>
               ))}
+              <Link href="/b2b" onClick={() => setOdprt(false)}>B2B prijava za podjetja</Link>
               <a href={`tel:${site.telefonRaw}`} style={{ color: "var(--color-red)" }}>
                 {site.telefon}
               </a>
