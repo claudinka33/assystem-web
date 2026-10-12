@@ -2079,17 +2079,21 @@ table.adm-tab tr:last-child td { border-bottom: 0; }
 .zem-st span { display: block; font-size: 12px; color: rgba(255, 255, 255, 0.6); margin-top: 6px; line-height: 1.35; }
 .zem-k svg { width: 100%; height: auto; display: block; }
 .zem-pod { text-align: right; font-size: 12.5px; font-weight: 600; color: rgba(255, 255, 255, 0.55); margin: 6px 0 0; }
-.zem-lok { fill: none; stroke: rgba(255, 255, 255, 0.75); stroke-width: 1; stroke-dasharray: 900; stroke-dashoffset: 900; animation: zem-risi 2.4s ease-out forwards; }
+.zem-lok { fill: none; stroke: rgba(255, 255, 255, 0.75); stroke-width: 1; stroke-dasharray: 1; stroke-dashoffset: 1; }
 .zem-lok.kratek { stroke: var(--color-red-2); stroke-width: 1.2; }
-.zem-tocka { fill: #fff; }
+.zem-tocka { fill: #fff; opacity: 0; transform-box: fill-box; transform-origin: center; }
+.zem-letalo path { fill: #fff; filter: drop-shadow(0 0 3px rgba(203, 32, 38, 0.9)); }
 .zem-si { fill: var(--color-red); stroke: #fff; stroke-width: 1.5; }
-.zem-utrip { fill: var(--color-red); opacity: 0.35; transform-origin: 536.1px 123.8px; animation: zem-utrip 2.2s ease-out infinite; }
+.zem-utrip { fill: var(--color-red); opacity: 0; transform-origin: 536.1px 123.8px; }
+/* animacija se začne, ko je zemljevid viden */
+.zem-svg.leti .zem-lok { animation-name: zem-risi; animation-timing-function: cubic-bezier(0.45, 0, 0.35, 1); animation-fill-mode: forwards; }
+.zem-svg.leti .zem-tocka { animation: zem-pristanek 0.6s ease-out forwards; }
+.zem-svg.leti .zem-utrip, .zem-svg.koncano .zem-utrip { animation: zem-utrip 2.2s ease-out infinite; }
+.zem-svg.koncano .zem-lok { stroke-dashoffset: 0; }
+.zem-svg.koncano .zem-tocka { opacity: 1; }
 @keyframes zem-risi { to { stroke-dashoffset: 0; } }
+@keyframes zem-pristanek { 0% { opacity: 0; transform: scale(3); } 60% { opacity: 1; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1); } }
 @keyframes zem-utrip { 0% { transform: scale(0.4); opacity: 0.55; } 100% { transform: scale(2.2); opacity: 0; } }
-@media (prefers-reduced-motion: reduce) {
-  .zem-lok { animation: none; stroke-dashoffset: 0; }
-  .zem-utrip { animation: none; }
-}
 @media (max-width: 900px) {
   .zem { padding: 44px 0; }
   .zem-w { grid-template-columns: minmax(0, 1fr); gap: 24px; }
