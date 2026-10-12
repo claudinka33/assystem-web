@@ -2067,3 +2067,31 @@ table.adm-tab tr:last-child td { border-bottom: 0; }
   .bl-moz { grid-template-columns: minmax(0, 1fr); }
 }
 .bl-polja input, .bl-polja textarea, .bl-polja select { width: 100%; min-width: 0; }
+
+/* ---------- Zemljevid prodaje (začetna stran) ---------- */
+.zem { background: var(--color-ink-2) url("/vzorec-antracit.png") repeat; background-size: 600px auto; color: #fff; padding: 64px 0; overflow: hidden; }
+.zem-w { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.6fr); gap: 40px; align-items: center; }
+.zem-nad { display: inline-block; font-size: 12.5px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase; color: var(--color-red-2); margin-bottom: 10px; }
+.zem-t h2 { font-size: clamp(26px, 3vw, 40px); font-weight: 800; text-transform: uppercase; line-height: 1.08; margin: 0 0 16px; }
+.zem-t p { color: rgba(255, 255, 255, 0.72); font-size: 15.5px; margin: 0; max-width: 440px; }
+.zem-st { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 28px; border-top: 1px solid rgba(255, 255, 255, 0.16); padding-top: 20px; }
+.zem-st b { display: block; font-size: 30px; font-weight: 800; line-height: 1; color: #fff; }
+.zem-st span { display: block; font-size: 12px; color: rgba(255, 255, 255, 0.6); margin-top: 6px; line-height: 1.35; }
+.zem-k svg { width: 100%; height: auto; display: block; }
+.zem-pod { text-align: right; font-size: 12.5px; font-weight: 600; color: rgba(255, 255, 255, 0.55); margin: 6px 0 0; }
+.zem-lok { fill: none; stroke: rgba(255, 255, 255, 0.75); stroke-width: 1; stroke-dasharray: 900; stroke-dashoffset: 900; animation: zem-risi 2.4s ease-out forwards; }
+.zem-lok.kratek { stroke: var(--color-red-2); stroke-width: 1.2; }
+.zem-tocka { fill: #fff; }
+.zem-si { fill: var(--color-red); stroke: #fff; stroke-width: 1.5; }
+.zem-utrip { fill: var(--color-red); opacity: 0.35; transform-origin: 536.1px 123.8px; animation: zem-utrip 2.2s ease-out infinite; }
+@keyframes zem-risi { to { stroke-dashoffset: 0; } }
+@keyframes zem-utrip { 0% { transform: scale(0.4); opacity: 0.55; } 100% { transform: scale(2.2); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .zem-lok { animation: none; stroke-dashoffset: 0; }
+  .zem-utrip { animation: none; }
+}
+@media (max-width: 900px) {
+  .zem { padding: 44px 0; }
+  .zem-w { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .zem-pod { text-align: left; }
+}

@@ -1,3 +1,4 @@
+import ZemljevidProdaje from "@/components/ZemljevidProdaje";
 import Image from "next/image";
 import Link from "next/link";
 import { pridobiKategorije } from "@/lib/podatki";
@@ -286,27 +287,8 @@ export default async function Domov() {
         </div>
       </section>
 
-      {/* ---------- Številke ---------- */}
-      <div className="nums">
-        <div className="w">
-          <div>
-            <b>1993</b>
-            <span>Leto ustanovitve</span>
-          </div>
-          <div>
-            <b>{site.drzave}</b>
-            <span>Držav, kamor dobavljamo</span>
-          </div>
-          <div>
-            <b>{kategorije.length}</b>
-            <span>Skupin izdelkov ASfix</span>
-          </div>
-          <div>
-            <b>ETA</b>
-            <span>Evropska tehnična ocena</span>
-          </div>
-        </div>
-      </div>
+      {/* ---------- Zemljevid: iz Slovenije v svet ---------- */}
+      <ZemljevidProdaje />
 
       {/* ---------- Podjetje ---------- */}
       <section className="sec">
