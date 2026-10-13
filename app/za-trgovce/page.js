@@ -29,7 +29,7 @@ const dolzine = [
 const embalaza = [
   { znamka: "ASfix", slike: [["/slike/znamke/asfix-afr41.png", "Škatla ASfix"], ["/slike/znamke/asfix-vrecka.jpg", "Rdeča vrečka ASfix"]], opis: "Škatle AFA / AFR v enotnem dizajnu in rdeče vrečke z izveskom." },
   { znamka: "ASco", slike: [["/slike/znamke/asco-vrecka-znb.jpg", "Modra vrečka ASco"], ["/slike/znamke/asco-vrecka-inox.jpg", "Zelena vrečka ASco"]], opis: "Modre vrečke za pocinkano (ZnB), zelene za INOX — na polici se ne zamenjata. Škatle za večje količine." },
-  { znamka: "Silvermate", slike: [["/slike/znamke/silvermate-vijaki.jpg", "Lesni vijaki Silvermate"]], opis: "Lesni vijaki s križno in torx glavo, s celim ali delnim navojem." },
+  { znamka: "Silvermate", slike: [["/slike/silvermate/silvermate-vijaka.jpg", "Lesni vijaki Silvermate"]], opis: "Lesni vijaki s križno in torx glavo, s celim ali delnim navojem." },
 ];
 
 export default function ZaTrgovce() {

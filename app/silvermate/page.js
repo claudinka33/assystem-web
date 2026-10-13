@@ -11,10 +11,18 @@ export const metadata = {
 };
 
 const vijaki = [
-  { sifra: "AS811", naziv: "Lesni vijak, križ", navoj: "cel navoj", slika: "/slike/DIN/LESNI_KRIZ_CELI_ZnR.jpeg" },
-  { sifra: "AS812", naziv: "Lesni vijak, križ", navoj: "delni navoj", slika: "/slike/DIN/LESNI_KRIZ_DELNI_ZnR.jpeg" },
-  { sifra: "AS814", naziv: "Lesni vijak, torx", navoj: "cel navoj", slika: "/slike/DIN/LESNI_TORX_CELI_ZnR.jpeg" },
-  { sifra: "AS816", naziv: "Lesni vijak, torx", navoj: "delni navoj", slika: "/slike/DIN/LESNI_TORX_DELNI_ZnR.jpeg" },
+  { sifra: "AS811", naziv: "Lesni vijak, križ", navoj: "cel navoj", slika: "/slike/silvermate/AS811.jpg" },
+  { sifra: "AS812", naziv: "Lesni vijak, križ", navoj: "delni navoj", slika: "/slike/silvermate/AS812.jpg" },
+  { sifra: "AS814", naziv: "Lesni vijak, torx", navoj: "cel navoj", slika: "/slike/silvermate/AS814.jpg" },
+  { sifra: "AS816", naziv: "Lesni vijak, torx", navoj: "delni navoj", slika: "/slike/silvermate/AS816.jpg" },
+];
+
+// Lastnosti vijaka — besedila s table na polici Silvermate
+const lastnosti = [
+  { naziv: "Konica za hiter oprijem", slika: "/slike/silvermate/detajl-konica.jpg" },
+  { naziv: "Minimalni upor pri vijačenju", slika: "/slike/silvermate/detajl-navoj.jpg" },
+  { naziv: "Majhno tveganje cepitve lesa", slika: "/slike/silvermate/detajl-rezilo.jpg" },
+  { naziv: "Zelo trpežen vijak", slika: "/slike/silvermate/detajl-glava.jpg" },
 ];
 
 const izbira = [
@@ -29,7 +37,7 @@ export default function Silvermate() {
       <ZnamkaHero
         podlaga="antracit"
         ime="Silvermate"
-        logo="/slike/znamke/silvermate-logo.png"
+        logo="/slike/znamke/silvermate-logo-negativ.png"
         oznaka="Blagovna znamka · lesni vijaki"
         naslov="Lesni vijaki Silvermate"
         opis="Štiri izvedbe za les — s križno ali torx glavo, s celim ali delnim navojem."
@@ -38,7 +46,6 @@ export default function Silvermate() {
         slikaW={893}
         slikaH={1600}
         stojalo
-        logoPloscica
         slikaAlt="Prodajna polica Silvermate"
         gumbi={[
           { href: "/iskanje?q=AS81", naziv: "Lesni vijaki v katalogu", cls: "b-r" },
@@ -56,7 +63,7 @@ export default function Silvermate() {
             {vijaki.map((x) => (
               <Link key={x.sifra} href={`/iskanje?q=${x.sifra}`} className="k">
                 <div className="im">
-                  <Image src={x.slika} alt={`${x.naziv}, ${x.navoj}`} fill sizes="(max-width: 700px) 50vw, 300px" style={{ objectFit: "contain", padding: 18, mixBlendMode: "multiply" }} />
+                  <Image src={x.slika} alt={`Silvermate ${x.sifra} — ${x.naziv}, ${x.navoj}`} fill sizes="(max-width: 700px) 50vw, 340px" style={{ objectFit: "contain", padding: 8 }} />
                 </div>
                 <div className="tx">
                   <p style={{ color: "var(--color-red)", fontWeight: 800 }}>{x.sifra}</p>
@@ -70,6 +77,27 @@ export default function Silvermate() {
       </section>
 
       <section className="sec grey">
+        <div className="w">
+          <div className="st">
+            <span>Lastnosti</span>
+            <h2>Zakaj Silvermate</h2>
+          </div>
+          <div className="kats">
+            {lastnosti.map((x) => (
+              <div key={x.naziv} className="k">
+                <div className="im" style={{ height: 220 }}>
+                  <Image src={x.slika} alt={x.naziv} fill sizes="(max-width: 700px) 50vw, 340px" style={{ objectFit: "contain", padding: 10 }} />
+                </div>
+                <div className="tx">
+                  <h3>{x.naziv}</h3>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="sec">
         <div className="w">
           <div className="st">
             <span>Izbira</span>
