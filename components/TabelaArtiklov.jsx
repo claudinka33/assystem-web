@@ -148,9 +148,10 @@ function Legenda({ vnosi, artikli, izbrani, izberi }) {
   if (!prisotni.length) return null;
   const kljuci = [...new Set(prisotni.map((e) => e.lastnost))];
   const nicIzbrano = kljuci.every((k) => !izbrani[k]);
+  const samoPak = kljuci.every((k) => k === "Pakiranje");
   return (
     <div className="izd-emb">
-      <p className="izd-mali">Pakiranje — klikni za prikaz artiklov, ponoven klik prikaže vse</p>
+      <p className="izd-mali">{samoPak ? "Pakiranje" : "Izberite"} — klikni za prikaz artiklov, ponoven klik prikaže vse</p>
       <div className="izd-emb-k">
         <button
           type="button"
@@ -159,7 +160,7 @@ function Legenda({ vnosi, artikli, izbrani, izberi }) {
         >
           <span className="izd-emb-sl"><span className="izd-emb-ni">∑</span></span>
           <span className="izd-emb-tx">
-            <b>Vsa pakiranja</b>
+            <b>{samoPak ? "Vsa pakiranja" : "Vse"}</b>
           </span>
         </button>
         {prisotni.map((e) => {

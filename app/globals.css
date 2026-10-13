@@ -2448,3 +2448,8 @@ table.adm-tab tr:last-child td { border-bottom: 0; }
 }
 .on-izd-im { width: 100%; min-width: 0; } .on-izd-im img { min-width: 0; flex: 0 1 auto; }
 .pr-vpn { align-items: start; }
+/* Tabela artiklov: na ožjih zaslonih brez EAN in z manjšimi odmiki, da je vidna cela */
+.izd-tab td { padding: 6px 9px; }
+.izd-tab th { padding-left: 9px; padding-right: 9px; }
+@media (max-width: 1800px) { .izd-tab .izd-ean { display: none; } }
+.izd-emb-sl img { mix-blend-mode: multiply; }

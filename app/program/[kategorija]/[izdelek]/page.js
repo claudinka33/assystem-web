@@ -78,7 +78,7 @@ export default async function StranIzdelka({ params }) {
 
   return (
     <>
-    <section className="izd" style={{ paddingBottom: 0 }}>
+    <section className="izd">
       <div className="w izd-w">
         <nav className="drobtine">
           <Link href="/">Domov</Link> / <Link href="/program">Program</Link> /{" "}
@@ -197,7 +197,7 @@ export default async function StranIzdelka({ params }) {
       <SilvermateVsebina glava={Object.keys(SILVERMATE_IZDELKI).find((k) => SILVERMATE_IZDELKI[k].slug === izdelek) ?? null} />
     )}
 
-    <section className="izd">
+    <section className="izd" style={i.znamka === "Silvermate" ? undefined : { paddingTop: 0 }}>
       <div className="w izd-w">
 
         <KarticeIzdelkov oznaka="Iz iste skupine" naslov="Sorodni izdelki" izdelki={sorodni} />
