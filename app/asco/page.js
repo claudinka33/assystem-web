@@ -13,10 +13,17 @@ export const metadata = {
 
 // Isti štirje aduti kot pri ASfix — prilagojeni vijačnemu blagu
 const aduti = [
-  ["Po normi", "Vsak vijak, matica in podložka nosi oznako DIN ali ISO. Kupec ve, kaj dobi, brez ugibanja o merah."],
-  ["Barva pove material", "Modra vrečka je pocinkano jeklo ZnB, zelena nerjavno INOX. Na polici se ne zamenja."],
-  ["Od vrečke do škatle", "Vrečke za trgovino, škatle za servis in industrijo, večje količine v rinfuzi."],
-  ["Skupaj z ASfix", "Vijaki in pritrdilna tehnika z enim naročilom. Trgovec ima en dobavni rok za celo polico."],
+  { naziv: "Po standardu DIN in ISO", opis: "Vsak vijak, matica in podložka je izdelana po standardu DIN ali ISO. Kupec ve, kaj dobi, brez ugibanja o merah.", slike: ["/slike/DIN/933_ZnB.jpeg"] },
+  { naziv: "Barva pove material", opis: "Modra vrečka je pocinkano jeklo ZnB, zelena nerjavno INOX. Na polici se ne zamenja.", slike: ["/slike/znamke/asco-vrecka-znb.jpg", "/slike/znamke/asco-vrecka-inox.jpg"] },
+  { naziv: "Od vrečke do škatle", opis: "Vrečke za trgovino, škatle za servis in industrijo, večje količine v rinfuzi.", slike: ["/slike/znamke/asco-skatla.png"] },
+  { naziv: "Skupaj z ASfix", opis: "Vijaki in pritrdilna tehnika z enim naročilom. Trgovec ima en dobavni rok za celo polico.", slike: ["/slike/znamke/asfix-afr41.png"] },
+];
+
+const police = [
+  { m: "1 m", opis: "Vstopni modul — pocinkano in INOX na enem metru.", slika: "/slike/trgovci/asco-polica-1m.jpg" },
+  { m: "2 m", opis: "DIN vijačno blago ZnB in modul z INOX programom.", slika: "/slike/trgovci/asco-polica-2m.jpg" },
+  { m: "4 m", opis: "Vsaka skupina svoj modul — DIN, lesni vijaki, INOX.", slika: "/slike/trgovci/asco-polica-4m.jpg" },
+  { m: "6 m", opis: "Celoten program z več zaloge — 4 m ZnB, 2 m INOX.", slika: "/slike/trgovci/asco-polica-6m.jpg" },
 ];
 
 const skupine = [
@@ -67,9 +74,9 @@ export default function ASco() {
         ime="ASco"
         logo="/slike/znamke/asco-logo-negativ.png"
         oznaka="Blagovna znamka · vijačno blago"
-        naslov="Vijaki, matice in podložke po DIN in ISO"
-        opis="Standardno vijačno blago iz zaloge — pocinkano, črno in nerjavno, v škatlah za podjetja in vrečkah za trgovine."
-        znacke={["DIN · ISO", "ZnB", "INOX A2 / A4", "Modra in zelena vrečka"]}
+        naslov="Vijaki, matice in podložke po DIN in ISO standardih"
+        opis="Vijačno blago po DIN in ISO standardih iz zaloge — pocinkano, črno in nerjavno, v škatlah za podjetja in vrečkah za trgovine."
+        znacke={["DIN · ISO standardi", "ZnB", "INOX A2 / A4"]}
         slika="/slike/stojala/asco-stojalo.jpg"
         slikaW={893}
         slikaH={1600}
@@ -89,7 +96,7 @@ export default function ASco() {
                 <span>Kaj je ASco</span>
                 <h2>Vijačno blago, ki je vedno na zalogi</h2>
                 <p>
-                  ASco je naša znamka za standardno vijačno blago po normah DIN in ISO. Pokriva vijake, matice,
+                  ASco je naša znamka za vijačno blago po DIN in ISO standardih. Pokriva vijake, matice,
                   podložke, navojne palice in lesne vijake v pocinkani, črni in nerjavni izvedbi.
                 </p>
                 <p style={{ marginTop: 12 }}>
@@ -121,11 +128,20 @@ export default function ASco() {
             <span>Aduti</span>
             <h2>Zakaj ASco na polici</h2>
           </div>
-          <div className="who c4">
-            {aduti.map(([naziv, opis]) => (
-              <div key={naziv}>
-                <b>{naziv}</b>
-                <p>{opis}</p>
+          <div className="kats">
+            {aduti.map((a) => (
+              <div key={a.naziv} className="k adut">
+                <div className="im adut-sl">
+                  {a.slike.map((sl) => (
+                    <div key={sl}>
+                      <Image src={sl} alt={a.naziv} fill sizes="(max-width: 700px) 50vw, 300px" style={{ objectFit: "contain", mixBlendMode: "multiply" }} />
+                    </div>
+                  ))}
+                </div>
+                <div className="tx">
+                  <h3>{a.naziv}</h3>
+                  <p>{a.opis}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -137,7 +153,7 @@ export default function ASco() {
           <div className="st">
             <span>Program</span>
             <h2>Kaj pokriva znamka ASco</h2>
-            <p>Najpogostejše norme za montažo, servis in industrijo.</p>
+            <p>Najpogostejši DIN in ISO standardi za montažo, servis in industrijo.</p>
           </div>
           <div className="kats">
             {skupine.map((x) => (
@@ -196,11 +212,8 @@ export default function ASco() {
               </div>
             ))}
             <div className="embalaza-kartica">
-              <div
-                className="embalaza-slika"
-                style={{ display: "grid", placeItems: "center", background: "var(--color-ink) url('/vzorec-antracit.png') repeat", backgroundSize: "420px auto" }}
-              >
-                <b style={{ color: "#fff", fontSize: 26, fontWeight: 900, letterSpacing: 1 }}>RINFUZA</b>
+              <div className="embalaza-slika">
+                <Image src="/slike/znamke/asco-rinfuza.jpg" alt="Vijaki, matice in podložke po DIN standardu v rinfuzi" fill sizes="300px" style={{ objectFit: "cover" }} />
               </div>
               <h3>Rinfuza</h3>
               <span className="embalaza-kolicina">večje količine</span>
@@ -246,6 +259,37 @@ export default function ASco() {
                 </Link>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="sec">
+        <div className="w">
+          <div className="st">
+            <span>Za trgovce</span>
+            <h2>Polica ASco — 1, 2, 4 ali 6 metrov</h2>
+            <p>Moduli se samo dodajajo. Zgoraj vrečke, spodaj škatle z večjim pakiranjem, na vsaki nalepki standard, dimenzija in količina.</p>
+          </div>
+          <div className="kats">
+            {police.map((d) => (
+              <div key={d.m} className="k">
+                <div className="im" style={{ height: 260, background: "#fff" }}>
+                  <Image src={d.slika} alt={`Polica ASco ${d.m}`} fill sizes="(max-width: 700px) 100vw, 320px" style={{ objectFit: "contain", padding: 10 }} />
+                </div>
+                <div className="tx">
+                  <h3>{d.m}</h3>
+                  <p>{d.opis}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="zn-gumbi" style={{ marginTop: 24 }}>
+            <Link className="b b-r" href="/za-trgovce#povprasevanje">
+              Želim polico ASco →
+            </Link>
+            <Link className="b b-d" href="/za-trgovce">
+              Vse za trgovce
+            </Link>
           </div>
         </div>
       </section>

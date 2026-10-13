@@ -8,7 +8,7 @@ import { ZNAMKE, ZNAMKE_INFO } from "@/lib/znamke";
    -------------------------------------------------------------- */
 
 const DODATNO = {
-  ASfix: { podpis: "Pritrdilna tehnika", embalaza: "Škatle AFA / AFR, rdeče vrečke, police ASfix" },
+  ASfix: { podpis: "Pritrdilna tehnika", embalaza: "Škatle, vrečke z izveskom, police 1, 2 in 4 m" },
   ASco: { podpis: "Vijaki po DIN in ISO", embalaza: "Škatle, modre (ZnB) in zelene (INOX) vrečke, stojalo" },
   MUNGO: { podpis: "Vložki, sidra, kemične mase", embalaza: "Vrečke in škatle Mungo" },
   Silvermate: { podpis: "Lesni vijaki", embalaza: "Križ ali torx, cel ali delni navoj" },
