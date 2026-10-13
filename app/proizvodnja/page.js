@@ -112,7 +112,7 @@ export default function Proizvodnja() {
                 <div>
                   <dt>Lokacija</dt>
                   <dd style={{ fontWeight: 400, fontSize: 15 }}>
-                    Bistrica ob Sotli, Slovenija
+                    Hrastje ob Bistrici 2a, 3256 Bistrica ob Sotli
                   </dd>
                 </div>
               </dl>

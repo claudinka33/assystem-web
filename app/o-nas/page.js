@@ -27,8 +27,8 @@ const lokacije = [
   {
     naziv: "Bistrica ob Sotli",
     vloga: "Proizvodnja: hladno kovanje, valjanje navojev, brizganje plastike",
-    naslov: "Bistrica ob Sotli, Slovenija",
-    zemljevid: "Bistrica ob Sotli, Slovenija",
+    naslov: "Hrastje ob Bistrici 2a, 3256 Bistrica ob Sotli",
+    zemljevid: "Hrastje ob Bistrici 2a, 3256 Bistrica ob Sotli",
   },
 ];
 
