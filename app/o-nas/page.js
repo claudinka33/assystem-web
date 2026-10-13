@@ -1,167 +1,137 @@
 import Image from "next/image";
 import Link from "next/link";
-import DveZnamki from "@/components/DveZnamki";
-import NaslovStrani from "@/components/NaslovStrani";
-import { pridobiVsebine, v } from "@/lib/vsebine";
 import { site } from "@/lib/site";
-
-export const revalidate = 60;
+import { oddelki, kogaPoklicem, teren, poisci, telRaw } from "@/lib/kontakti";
 
 export const metadata = {
   title: "O nas",
   description:
-    "AS system d.o.o. je slovensko družinsko podjetje s področja pritrdilne tehnike in vijačnega blaga. Od 1993, lastna proizvodnja, znamke ASfix, ASco, Mungo in Silvermate, dobava v 19 držav.",
+    "AS system d.o.o. — slovensko družinsko podjetje s področja pritrdilne tehnike od leta 1993. Lastna proizvodnja sider, zidnih vložkov in udarnih vijakov, dve lokaciji, kontakti po oddelkih.",
   alternates: { canonical: "/o-nas" },
 };
 
 const stevilke = [
   ["1993", "Leto ustanovitve"],
-  ["4", "Znamke v programu"],
+  ["2", "Lokaciji v Sloveniji"],
   [`${site.drzave}`, "Držav, kamor dobavljamo"],
-  ["ISO 9001", "Certifikat kakovosti"],
+  ["ISO 9001", "Certificiran sistem kakovosti"],
 ];
 
-const skladisce = [
-  ["2.300 m²", "Površina skladišča na dveh lokacijah"],
-  ["1.400", "Paletnih mest v visokoregalnem skladišču"],
-  ["1.200 t", "Zaloge, razpoložljive takoj"],
-  ["ETA · DoP", "Dokumentacija za nosilna sidra"],
+const lokacije = [
+  {
+    naziv: "Šmarje pri Jelšah",
+    vloga: "Sedež in uprava, visokoregalno skladišče, avtomatska montaža in pakiranje",
+    naslov: "Obrtniška ulica 14, 3240 Šmarje pri Jelšah",
+    zemljevid: "AS system d.o.o., Obrtniška ulica 14, 3240 Šmarje pri Jelšah",
+  },
+  {
+    naziv: "Bistrica ob Sotli",
+    vloga: "Proizvodnja: hladno kovanje, valjanje navojev, brizganje plastike",
+    naslov: "Bistrica ob Sotli, Slovenija",
+    zemljevid: "Bistrica ob Sotli, Slovenija",
+  },
 ];
 
-const proizvodnja = [
-  ["Hladno kovanje", "Dvostopenjske stiskalnice, valjanje navojev, ekscentrične stiskalnice in CNC stružnice."],
-  ["Brizganje plastike", "Najlonski vložki in tulci iz poliamida, brizgani na lastnih orodjih."],
-  ["Lastna orodjarna", "Orodja razvijemo, izdelamo in vzdržujemo sami, zato so spremembe hitre."],
-  ["Avtomatska montaža", "Sestavljanje kompletov in pakiranje v vrečke ali škatle brez ročnega dela."],
-];
+function Stik({ p, svetlo }) {
+  if (!p) return null;
+  const nic = !p.tel && !p.mob && !p.email;
+  return (
+    <ul className={`on-stik${svetlo ? " svetlo" : ""}`}>
+      {p.tel && (
+        <li>
+          <span>T</span>
+          <a href={`tel:${telRaw(p.tel)}`}>{p.tel}</a>
+        </li>
+      )}
+      {p.mob && (
+        <li>
+          <span>M</span>
+          <a href={`tel:${telRaw(p.mob)}`}>{p.mob}</a>
+        </li>
+      )}
+      {p.email && (
+        <li>
+          <span>@</span>
+          <a href={`mailto:${p.email}`}>{p.email}</a>
+        </li>
+      )}
+      {nic && (
+        <li className="on-kmalu">
+          Kontakt v pripravi — do takrat{" "}
+          <a href={`tel:${site.telefonRaw}`}>{site.telefon}</a> ·{" "}
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+        </li>
+      )}
+    </ul>
+  );
+}
 
-const kupci = [
-  ["Trgovina", "Gradbeni centri, veletrgovine, specializirane trgovine s pritrdili in trgovine za obrtnike."],
-  ["Izvajalci", "Podjetja, ki pritrdila dejansko vgrajujejo — od fasaderjev do inštalaterjev."],
-  ["Distributerji", "Partnerji na tujih trgih, ki prodajajo naše lastne blagovne znamke."],
-];
-
-export default async function ONas() {
-  const b = await pridobiVsebine("o-nas");
-
+export default function ONas() {
   return (
     <>
-      <NaslovStrani
-        oznaka="Podjetje"
-        naslov="O nas"
-        opis="Slovensko družinsko podjetje s področja pritrdilne tehnike in vijačnega blaga — z lastnim razvojem, proizvodnjo ter montažo in pakiranjem."
-      />
-
-      {/* Uvod */}
-      <section className="sec">
+      {/* Glava */}
+      <section className="zn-hero antracit">
         <div className="w">
-          <div className="qua" style={{ alignItems: "center" }}>
-            <div>
-              <div className="st">
-                <span>Od 1993</span>
-                <h2>{v(b, "o-nas.uvod.naslov", "naslov", "Družinsko podjetje z lastno proizvodnjo")}</h2>
-                <p>
-                  {v(
-                    b,
-                    "o-nas.uvod.besedilo",
-                    "besedilo",
-                    "AS system sta leta 1993 ustanovila Aleš in Cvetka Seidl. Ime združuje priimek ustanovitelja in besedo »system« — sistematičen pristop k pritrjevanju je od prvega dne jedro tega, kar delamo."
-                  )}
-                </p>
-                <p style={{ marginTop: 12 }}>
-                  Poleg ustanoviteljev v podjetju delajo tudi njuni otroci, vsak
-                  na svojem področju. Danes razvijamo in izdelujemo jeklena sidra
-                  za beton, najlonske zidne vložke, udarne vijake in vijake po
-                  naročilu, na slovenskem trgu pa nastopamo tudi kot veletrgovec
-                  s kompletnim vijačnim blagom.
-                </p>
-              </div>
-              <Link className="b b-r" href="/program">
-                Prodajni program
-              </Link>
-            </div>
-            <div className="foto">
-              <Image
-                src="/slike/as-system-smarje.jpg"
-                alt="Sedež podjetja AS system v Šmarju pri Jelšah"
-                fill
-                sizes="(max-width: 1000px) 100vw, 560px"
-                style={{ objectFit: "cover" }}
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Številke */}
-      <div className="nums">
-        <div className="w">
-          {stevilke.map(([v1, k]) => (
-            <div key={k}>
-              <b>{v1}</b>
-              <span>{k}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Znamke */}
-      <DveZnamki siv={false} />
-
-      {/* Proizvodnja */}
-      <section className="sec grey">
-        <div className="w">
-          <div className="st">
-            <span>Proizvodnja</span>
-            <h2>Kaj delamo sami</h2>
+          <div>
+            <nav className="drobtine">
+              <Link href="/">Domov</Link> / O nas
+            </nav>
+            <span className="zn-oznaka" style={{ marginTop: 0 }}>Podjetje</span>
+            <h1>Pritrdilna tehnika iz Slovenije — od leta 1993</h1>
             <p>
-              Tri skupine izdelkov so v celoti naše — od razvoja in orodja do
-              proizvodnje in pakiranja: jeklena sidra, zidni vložki in udarni
-              vijaki. Nosilna sidra imajo evropsko tehnično oceno.
+              AS system je slovensko družinsko podjetje z lastno proizvodnjo.
+              Jeklena sidra, zidne vložke in udarne vijake razvijamo, izdelamo in
+              zapakiramo sami — v Šmarju pri Jelšah in Bistrici ob Sotli.
             </p>
+            <ul className="zn-znacke">
+              <li>Od 1993</li>
+              <li>Lastna proizvodnja</li>
+              <li>ETA · CE</li>
+              <li>ISO 9001</li>
+            </ul>
+            <div className="zn-gumbi">
+              <a className="b b-r" href="#kontakti">Kontakti</a>
+              <a className="b b-o" href="#lokacije">Kje smo</a>
+            </div>
           </div>
-
-          <div className="kats">
-            {proizvodnja.map(([naziv, opis]) => (
-              <div key={naziv} className="k" style={{ padding: "26px 24px" }}>
-                <h3>{naziv}</h3>
-                <p style={{ marginTop: 10 }}>{opis}</p>
-              </div>
-            ))}
-          </div>
-
-          <div style={{ marginTop: 22 }}>
-            <Link className="more" href="/proizvodnja">
-              Več o proizvodnji in razvoju →
-            </Link>
+          <div className="zn-slika">
+            <Image
+              src="/slike/o-nas/asfix-skatla.webp"
+              alt="Škatla ASfix iz lastne proizvodnje AS system"
+              width={1400}
+              height={1047}
+              priority
+              sizes="(max-width: 1000px) 90vw, 620px"
+              style={{ width: "100%", height: "auto" }}
+            />
           </div>
         </div>
       </section>
 
-      {/* Skladišče */}
+      {/* Na kratko */}
       <section className="sec">
         <div className="w">
-          <div className="qua" style={{ alignItems: "center" }}>
-            <div>
-              <div className="st">
-                <span>Zaloga in dobava</span>
-                <h2>Dvoje odloča, ali nas kupec izbere</h2>
-                <p>
-                  Ali imamo izdelek na zalogi in ali zanj obstajajo papirji. Oboje
-                  imamo. Osnovni asortiman je v visokoregalnem skladišču v Šmarju
-                  pri Jelšah in ga odpremimo takoj.
-                </p>
-              </div>
-              <Link className="b b-r" href="/kontakt?vir=o-nas">
-                Pošlji povpraševanje
-              </Link>
+          <div className="on-kratko">
+            <div className="st" style={{ marginBottom: 0 }}>
+              <span>Na kratko</span>
+              <h2>Proizvajalec in veletrgovec na enem naslovu</h2>
+              <p>
+                Podjetje sta leta 1993 ustanovila Aleš in Cvetka Seidl. Danes
+                imamo lastno proizvodnjo sider, zidnih vložkov in udarnih
+                vijakov, izdelujemo vijake po naročilu in pakiramo pod znamko
+                kupca. Na slovenskem trgu smo tudi veletrgovec s kompletnim
+                vijačnim blagom — vse za pritrjevanje pri enem dobavitelju.
+              </p>
+              <p style={{ marginTop: 12 }}>
+                Doma prodajamo trgovcem in izvajalcem, v tujino pa svoje znamke
+                ASfix in ASco prek distributerjev.
+              </p>
             </div>
-
-            <dl className="cert" style={{ gridTemplateColumns: "1fr 1fr" }}>
-              {skladisce.map(([v1, k]) => (
+            <dl className="on-nums">
+              {stevilke.map(([v, k]) => (
                 <div key={k}>
-                  <b style={{ fontSize: 21 }}>{v1}</b>
-                  <span>{k}</span>
+                  <dt>{v}</dt>
+                  <dd>{k}</dd>
                 </div>
               ))}
             </dl>
@@ -169,41 +139,146 @@ export default async function ONas() {
         </div>
       </section>
 
-      {/* Kupci */}
+      {/* Koga pokličem */}
       <section className="sec grey">
         <div className="w">
           <div className="st">
-            <span>Kupci</span>
-            <h2>Komu prodajamo</h2>
-            <p>
-              Na domačem trgu pokrivamo celoten asortiman — pritrdilno tehniko in
-              vijačno blago pri enem dobavitelju. Na tujih trgih prodajamo lastne
-              blagovne znamke prek distributerjev.
-            </p>
+            <span>Hitro do prave osebe</span>
+            <h2>Koga pokličem?</h2>
           </div>
-          <div className="who">
-            {kupci.map(([naziv, opis]) => (
-              <div key={naziv}>
-                <b>{naziv}</b>
-                <p>{opis}</p>
+          <div className="on-koga">
+            {kogaPoklicem.map((k) => (
+              <div key={k.kdo} className="on-koga-k">
+                <b>{k.kdo}</b>
+                <p>{k.opis}</p>
+                {k.oseba && (
+                  <div className="on-koga-o">
+                    <strong>{k.oseba}</strong>
+                    <Stik p={poisci(k.oseba)} />
+                  </div>
+                )}
+                {k.deljeno &&
+                  k.deljeno.map((d) => (
+                    <div key={d.kje} className="on-koga-o">
+                      <em>{d.kje}</em>
+                      <strong>{d.oseba}</strong>
+                      <Stik p={poisci(d.oseba)} />
+                    </div>
+                  ))}
+                {k.regija && (
+                  <a className="more" href="#teren" style={{ marginTop: "auto" }}>
+                    Poiščite svojega komercialista →
+                  </a>
+                )}
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Moto */}
-      <section className="sec">
+      {/* Teren */}
+      <section className="sec" id="teren">
         <div className="w">
-          <div className="st" style={{ marginBottom: 0, maxWidth: 780 }}>
-            <span>Moto</span>
-            <h2>Ko pritrjevanje postane igra</h2>
+          <div className="st">
+            <span>Za trgovce</span>
+            <h2>Komercialisti na terenu</h2>
+            <p>Slovenija je razdeljena po regijah. Poiščite svojo in pokličite komercialista, ki jo pokriva.</p>
+          </div>
+          <div className="on-teren">
+            <div className="on-karta">
+              <Image
+                src="/slike/o-nas/teren-regije.webp"
+                alt="Zemljevid Slovenije, razdeljen na regije komercialistov"
+                width={1420}
+                height={935}
+                sizes="(max-width: 1000px) 100vw, 720px"
+                style={{ width: "100%", height: "auto" }}
+              />
+            </div>
+            <div className="on-komerc">
+              {teren.map((t) => (
+                <div key={t.oseba} className="on-kom">
+                  <strong>{t.oseba}</strong>
+                  <ul className="on-reg">
+                    <li>
+                      <i style={{ background: t.barva }} />
+                      <span>{t.regije.join(" · ")}</span>
+                    </li>
+                    {t.dodatno && (
+                      <li>
+                        <i style={{ background: t.dodatno.barva }} />
+                        <span>{t.dodatno.regije.join(" · ")}</span>
+                      </li>
+                    )}
+                  </ul>
+                  <Stik p={poisci(t.oseba)} />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Kontakti po oddelkih */}
+      <section className="sec grey" id="kontakti">
+        <div className="w">
+          <div className="st">
+            <span>Ekipa</span>
+            <h2>Kontakti po oddelkih</h2>
             <p>
-              Sistematičen pristop k pritrjevanju je od prvega dne jedro tega, kar
-              delamo. Enotna podoba je pri tem enako pomembna kot toleranca na
-              vijaku — ista logika, isti red, isti občutek kakovosti, od tehnične
-              risbe do embalaže.
+              Splošno: <a href={`tel:${site.telefonRaw}`}>{site.telefon}</a> ·{" "}
+              <a href={`mailto:${site.email}`}>{site.email}</a> · pon–pet 7.00–15.00
             </p>
+          </div>
+          {oddelki.map((o) => (
+            <div key={o.naziv} className="on-odd">
+              <h3>{o.naziv}</h3>
+              <div className="on-ljudje">
+                {o.ljudje.map((p) => (
+                  <div key={p.ime} className="on-oseba">
+                    <strong>{p.ime}</strong>
+                    <span className="on-vloga">{p.vloga}</span>
+                    <Stik p={p} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Lokacije */}
+      <section className="sec" id="lokacije">
+        <div className="w">
+          <div className="st">
+            <span>Kje smo</span>
+            <h2>Dve lokaciji</h2>
+          </div>
+          <div className="on-lok">
+            {lokacije.map((l) => (
+              <div key={l.naziv} className="on-lok-k">
+                <div className="on-lok-tx">
+                  <b>{l.naziv}</b>
+                  <p>{l.naslov}</p>
+                  <span>{l.vloga}</span>
+                  <a
+                    className="more"
+                    href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(l.zemljevid)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Navodila za pot →
+                  </a>
+                </div>
+                <iframe
+                  title={`Zemljevid — ${l.naziv}`}
+                  src={`https://www.google.com/maps?q=${encodeURIComponent(l.zemljevid)}&z=15&output=embed`}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allowFullScreen
+                />
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -211,11 +286,11 @@ export default async function ONas() {
       <div className="cta">
         <div className="w">
           <div>
-            <h2>Bi sodelovali z nami?</h2>
-            <p>Kot trgovec, izvajalec, distributer ali blagovna znamka — pišite nam.</p>
+            <h2>Pišite nam</h2>
+            <p>Pošljite povpraševanje — odgovorimo v enem delovnem dnevu.</p>
           </div>
           <Link className="b b-w" href="/kontakt?vir=o-nas">
-            Kontakt →
+            Povpraševanje →
           </Link>
         </div>
       </div>
