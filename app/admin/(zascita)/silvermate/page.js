@@ -39,7 +39,7 @@ export default async function SilvermateUvoz({ searchParams }) {
         {napaka && <div className="opozorilo" style={{ marginBottom: 16 }}>Napaka: {napaka}</div>}
 
         <p style={{ color: "#6e767e", marginBottom: 14, maxWidth: 820 }}>
-          Gumb ustvari (ali posodobi) kategorijo »{SILVERMATE_KATEGORIJA.naziv}« pod Vijačno blago, dva izdelka —
+          Gumb ustvari (ali posodobi) kategorijo »{SILVERMATE_KATEGORIJA.naziv}« (med glavnimi kategorijami), dva izdelka —
           Pozi (AS811 cel + AS812 delni navoj) in Torx (AS814 cel + AS816 delni navoj) — ter {SILVERMATE_ARTIKLI.length}{" "}
           artiklov iz Vasca. V tabeli izdelka je stolpec »Navoj« s filtrom cel / delni. Zalogo in ceno potem osvežuje
           sinhronizacija z Vascom. Če so bili artikli prej pri drugem izdelku, se premaknejo; izdelek brez artiklov se skrije.
