@@ -165,9 +165,21 @@ export default function ONas() {
                       <Stik p={poisci(d.oseba)} />
                     </div>
                   ))}
+                {k.regija &&
+                  teren.map((t) => (
+                    <div key={t.oseba} className="on-koga-o">
+                      <em className="on-koga-reg">
+                        <i style={{ background: t.barva }} />
+                        {t.dodatno && <i style={{ background: t.dodatno.barva }} />}
+                        {t.kratko}
+                      </em>
+                      <strong>{t.oseba}</strong>
+                      <Stik p={poisci(t.oseba)} />
+                    </div>
+                  ))}
                 {k.regija && (
-                  <a className="more" href="#teren" style={{ marginTop: "auto" }}>
-                    Poiščite svojega komercialista →
+                  <a className="more" href="#teren" style={{ marginTop: 14 }}>
+                    Zemljevid regij →
                   </a>
                 )}
               </div>
