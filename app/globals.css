@@ -2542,3 +2542,47 @@ a.medij:hover { transform: translateY(-2px); border-color: var(--color-ink); bor
   .kk-vrsta.glava { display: none; }
   .kk-vrsta b { grid-column: 1 / -1; }
 }
+
+/* Kontakt */
+.on-lok-foto { position: relative; aspect-ratio: 16 / 7; overflow: hidden; }
+.on-lok-foto img { object-fit: cover; }
+
+.kt-hero .w { align-items: stretch; }
+.kt-hitro { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: rgba(255, 255, 255, 0.14); margin-top: 28px; }
+.kt-hitro > * { background: rgba(20, 22, 23, 0.6); padding: 18px 20px; display: block; transition: 0.2s; min-width: 0; }
+.kt-hitro a:hover { background: var(--color-red); }
+.kt-hitro small { display: block; font-size: 11.5px; font-weight: 800; letter-spacing: 1.8px; text-transform: uppercase; color: rgba(255, 255, 255, 0.6); }
+.kt-hitro b { display: block; font-size: 17px; margin-top: 4px; overflow-wrap: anywhere; }
+.kt-hero-foto { position: relative; min-height: 360px; overflow: hidden; box-shadow: 0 26px 50px rgba(0, 0, 0, 0.4); }
+.kt-hero-foto img { object-fit: cover; }
+.kt-hero-foto span { position: absolute; left: 0; bottom: 0; background: var(--color-red); color: #fff; font-size: 13px; font-weight: 700; padding: 8px 14px; }
+
+.kt-glavno { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 48px; align-items: start; }
+.kt-podatki { display: grid; gap: 20px; }
+.kt-kartica { border: 1px solid var(--color-line); padding: 26px 28px; display: flex; flex-direction: column; gap: 6px; }
+.kt-kartica.temna { background: var(--color-ink) url("/vzorec-antracit.png") repeat; background-size: 400px auto; color: #fff; border: 0; border-top: 4px solid var(--color-red); }
+.kt-kartica small { font-size: 12px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--color-muted-2); }
+.kt-kartica.temna small { color: #ff6b72; }
+.kt-kartica strong { font-size: 16px; }
+.kt-usmeri { list-style: none; padding: 0; margin: 8px 0 0; }
+.kt-usmeri li { display: flex; justify-content: space-between; gap: 12px; padding: 11px 0; border-top: 1px solid rgba(255, 255, 255, 0.12); flex-wrap: wrap; }
+.kt-usmeri li:first-child { border-top: 0; }
+.kt-usmeri b { font-size: 15px; }
+.kt-usmeri a { color: rgba(255, 255, 255, 0.78); font-size: 14px; }
+.kt-usmeri a:hover { color: #ff6b72; }
+.kt-dl { margin: 8px 0 0; display: grid; gap: 8px; }
+.kt-dl > div { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 12px; font-size: 14px; }
+.kt-dl dt { color: var(--color-muted); }
+.kt-dl dd { margin: 0; font-weight: 600; overflow-wrap: anywhere; }
+.kt-dl a:hover { color: var(--color-red); }
+.kt-druzbena { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.kt-druzbena a { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; border: 1px solid var(--color-line); padding: 6px 10px; }
+.kt-druzbena a:hover { border-color: var(--color-red); color: var(--color-red); }
+
+@media (max-width: 1000px) {
+  .kt-glavno { grid-template-columns: minmax(0, 1fr); }
+  .kt-hero-foto { min-height: 240px; }
+}
+@media (max-width: 640px) {
+  .kt-hitro { grid-template-columns: minmax(0, 1fr); }
+}
