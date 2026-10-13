@@ -27,20 +27,22 @@ export default function Silvermate() {
   return (
     <>
       <ZnamkaHero
-        podlaga="svetla"
+        podlaga="antracit"
         ime="Silvermate"
         logo="/slike/znamke/silvermate-logo.png"
         oznaka="Blagovna znamka · lesni vijaki"
         naslov="Lesni vijaki Silvermate"
         opis="Štiri izvedbe za les — s križno ali torx glavo, s celim ali delnim navojem."
         znacke={["Križ", "Torx", "Cel navoj", "Delni navoj"]}
-        slika="/slike/znamke/silvermate-vijaki.jpg"
-        slikaAlt="Lesni vijaki Silvermate"
-        slikaW={1280}
-        slikaH={320}
+        slika="/slike/stojala/silvermate-stojalo.jpg"
+        slikaW={893}
+        slikaH={1600}
+        stojalo
+        logoPloscica
+        slikaAlt="Prodajna polica Silvermate"
         gumbi={[
           { href: "/iskanje?q=AS81", naziv: "Lesni vijaki v katalogu", cls: "b-r" },
-          { href: "/kontakt?vir=silvermate", naziv: "Povpraševanje →", cls: "b-d" },
+          { href: "/kontakt?vir=silvermate", naziv: "Povpraševanje →", cls: "b-o" },
         ]}
       />
 

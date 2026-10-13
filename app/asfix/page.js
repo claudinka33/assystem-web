@@ -25,15 +25,18 @@ export default function ASfix() {
   return (
     <>
       <ZnamkaHero
-        podlaga="rdeca"
+        podlaga="antracit"
         ime="ASfix"
-        logo="/slike/znamke/asfix-logo-bela-za-rdeco.png"
+        logo="/slike/znamke/asfix-logo-negativ.png"
         oznaka="Blagovna znamka · pritrdilna tehnika"
         naslov="Pritrdila, ki jih trgovec lahko zagovarja"
         opis="Jeklena sidra, zidni vložki, vložki za mavčne plošče, udarni in Turbo vijaki, kemične mase in pritrdila za klimatske naprave — v embalaži, pripravljeni za polico."
         znacke={["Slovenska znamka", "ETA", "Škatle AFA / AFR", "Rdeča vrečka"]}
-        slika="/slike/znamke/asfix-afr41.png"
-        slikaAlt="Škatla ASfix AFR41"
+        slika="/slike/stojala/asfix-stojalo.jpg"
+        slikaW={893}
+        slikaH={1600}
+        stojalo
+        slikaAlt="Prodajna polica ASfix"
         gumbi={[
           { href: "/program", naziv: "Prodajni program", cls: "b-w" },
           { href: "/kontakt?vir=asfix", naziv: "Povpraševanje →", cls: "b-o" },

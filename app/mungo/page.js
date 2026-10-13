@@ -26,20 +26,21 @@ export default function Mungo() {
   return (
     <>
       <ZnamkaHero
-        podlaga="svetla"
+        podlaga="antracit"
         ime="Mungo"
-        logo="/slike/znamke/mungo-logo.png"
+        logo="/slike/znamke/mungo-logo-2026.png"
         oznaka="Blagovna znamka · pritrdilna tehnika"
         naslov="Vložki, sidra in kemične mase Mungo"
         opis="Najlonski in okvirni vložki, kovinska sidra in kemične mase za beton, opeko in votle stene — v našem prodajnem programu."
         znacke={["Najlonski vložki", "Kovinska sidra", "Kemične mase"]}
-        slika="/slike/znamke/mungo-izdelki.jpg"
-        slikaAlt="Izdelki Mungo — vložki in sidra"
-        slikaW={1200}
-        slikaH={800}
+        slika="/slike/stojala/mungo-stojalo.jpg"
+        slikaW={893}
+        slikaH={1600}
+        stojalo
+        slikaAlt="Prodajna polica Mungo"
         gumbi={[
           { href: "/iskanje?q=Mungo", naziv: "Izdelki Mungo", cls: "b-r" },
-          { href: "/kontakt?vir=mungo", naziv: "Povpraševanje →", cls: "b-d" },
+          { href: "/kontakt?vir=mungo", naziv: "Povpraševanje →", cls: "b-o" },
         ]}
       />
 

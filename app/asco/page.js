@@ -70,10 +70,11 @@ export default function ASco() {
         naslov="Vijaki, matice in podložke po DIN in ISO"
         opis="Standardno vijačno blago iz zaloge — pocinkano, črno in nerjavno, v škatlah za podjetja in vrečkah za trgovine."
         znacke={["DIN · ISO", "ZnB", "INOX A2 / A4", "Modra in zelena vrečka"]}
-        slika="/slike/znamke/asco-skatla.png"
-        slikaAlt="Škatla ASco"
-        slikaW={1100}
-        slikaH={658}
+        slika="/slike/stojala/asco-stojalo.jpg"
+        slikaW={893}
+        slikaH={1600}
+        stojalo
+        slikaAlt="Prodajna polica ASco"
         gumbi={[
           { href: "/program/vijacno-blago", naziv: "Vijačno blago v katalogu", cls: "b-r" },
           { href: "/kontakt?vir=asco", naziv: "Povpraševanje →", cls: "b-o" },

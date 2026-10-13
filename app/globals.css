@@ -2179,3 +2179,13 @@ table.adm-tab tr:last-child td { border-bottom: 0; }
 .trg-emb-k p { color: var(--color-muted); font-size: 14.5px; flex: 1; }
 @media (max-width: 900px) { .trg-emb { grid-template-columns: minmax(0, 1fr); } }
 .zn-logo { max-height: 130px; object-fit: contain; object-position: left center; }
+
+/* Glava znamke s sliko prodajne police (pokončna slika) */
+.zn-hero.zn-polica .w { grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr); padding-top: 30px; padding-bottom: 40px; }
+.zn-hero.zn-polica .zn-slika { display: flex; justify-content: center; filter: drop-shadow(0 24px 40px rgba(0, 0, 0, 0.45)); }
+.zn-hero.zn-polica .zn-slika img { width: auto !important; height: auto !important; max-height: 620px; max-width: 100%; }
+.zn-logo.ploscica { background: #fff; padding: 10px 14px; border-radius: 4px; }
+@media (max-width: 1000px) {
+  .zn-hero.zn-polica .w { grid-template-columns: minmax(0, 1fr); }
+  .zn-hero.zn-polica .zn-slika img { max-height: 460px; }
+}

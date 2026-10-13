@@ -21,15 +21,17 @@ export default function ZnamkaHero({
   slikaH = 654,
   gumbi = [],
   znacke = [],
+  logoPloscica = false,
+  stojalo = false,
 }) {
   return (
-    <section className={`zn-hero ${podlaga}`}>
+    <section className={`zn-hero ${podlaga}${stojalo ? " zn-polica" : ""}`}>
       <div className="w">
         <div className="zn-tx">
           <nav className="drobtine">
             <Link href="/">Domov</Link> / {ime}
           </nav>
-          <Image className="zn-logo" src={logo} alt={ime} width={800} height={300} priority />
+          <Image className={`zn-logo${logoPloscica ? " ploscica" : ""}`} src={logo} alt={ime} width={800} height={300} priority />
           {oznaka && <span className="zn-oznaka">{oznaka}</span>}
           <h1>{naslov}</h1>
           {opis && <p>{opis}</p>}
