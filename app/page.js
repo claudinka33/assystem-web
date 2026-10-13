@@ -183,7 +183,7 @@ export default async function Domov() {
             </div>
             <div className="trg-slika">
               <Image
-                src="/slike/trgovci/asfix-polica-2m.jpg"
+                src="/slike/trgovci/asfix-polica-2m-bela.jpg"
                 alt="Prodajna polica ASfix, 2 m"
                 width={1092}
                 height={1120}

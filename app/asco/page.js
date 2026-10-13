@@ -20,10 +20,10 @@ const aduti = [
 ];
 
 const police = [
-  { m: "1 m", opis: "Vstopni modul — pocinkano in INOX na enem metru.", slika: "/slike/trgovci/asco-polica-1m.jpg" },
-  { m: "2 m", opis: "DIN vijačno blago ZnB in modul z INOX programom.", slika: "/slike/trgovci/asco-polica-2m.jpg" },
-  { m: "4 m", opis: "Vsaka skupina svoj modul — DIN, lesni vijaki, INOX.", slika: "/slike/trgovci/asco-polica-4m.jpg" },
-  { m: "6 m", opis: "Celoten program z več zaloge — 4 m ZnB, 2 m INOX.", slika: "/slike/trgovci/asco-polica-6m.jpg" },
+  { m: "1 m", opis: "Vstopni modul — pocinkano in INOX na enem metru.", slika: "/slike/trgovci/asco-polica-1m-bela.jpg" },
+  { m: "2 m", opis: "DIN vijačno blago ZnB in modul z INOX programom.", slika: "/slike/trgovci/asco-polica-2m-bela.jpg" },
+  { m: "4 m", opis: "Vsaka skupina svoj modul — DIN, lesni vijaki, INOX.", slika: "/slike/trgovci/asco-polica-4m-bela.jpg" },
+  { m: "6 m", opis: "Celoten program z več zaloge — 4 m ZnB, 2 m INOX.", slika: "/slike/trgovci/asco-polica-6m-bela.jpg" },
 ];
 
 const skupine = [
@@ -213,7 +213,7 @@ export default function ASco() {
             ))}
             <div className="embalaza-kartica">
               <div className="embalaza-slika">
-                <Image src="/slike/znamke/asco-rinfuza.jpg" alt="Vijaki, matice in podložke po DIN standardu v rinfuzi" fill sizes="300px" style={{ objectFit: "cover" }} />
+                <Image src="/slike/znamke/asco-rinfuza-bela.jpg" alt="Vijaki, matice in podložke po DIN standardu v rinfuzi" fill sizes="300px" style={{ objectFit: "contain" }} />
               </div>
               <h3>Rinfuza</h3>
               <span className="embalaza-kolicina">večje količine</span>

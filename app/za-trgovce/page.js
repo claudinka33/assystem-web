@@ -20,9 +20,9 @@ const kajDobite = [
 ];
 
 const dolzine = [
-  { m: "1 m", opis: "Glavne dimenzije za manjše trgovine in pulte.", slika: "/slike/trgovci/asfix-polica-1m.jpg", w: 808, h: 1400 },
-  { m: "2 m", opis: "Vse dimenzije — najpogostejša izbira.", slika: "/slike/trgovci/asfix-polica-2m.jpg", w: 1092, h: 1120 },
-  { m: "4 m", opis: "Več zaloge vseh dimenzij za gradbene centre.", slika: "/slike/trgovci/asfix-polica-4m.jpg", w: 1400, h: 752 },
+  { m: "1 m", opis: "Glavne dimenzije za manjše trgovine in pulte.", slika: "/slike/trgovci/asfix-polica-1m-bela.jpg", w: 808, h: 1400 },
+  { m: "2 m", opis: "Vse dimenzije — najpogostejša izbira.", slika: "/slike/trgovci/asfix-polica-2m-bela.jpg", w: 1092, h: 1120 },
+  { m: "4 m", opis: "Več zaloge vseh dimenzij za gradbene centre.", slika: "/slike/trgovci/asfix-polica-4m-bela.jpg", w: 1400, h: 752 },
   { m: "6 m – 20 m", opis: "Večje postavitve po meri trgovine, tudi kombinacija ASfix in ASco.", slika: null },
 ];
 
