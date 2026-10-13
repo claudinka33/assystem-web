@@ -146,36 +146,55 @@ function Legenda({ vnosi, artikli, izbrani, izberi }) {
     .map((e) => ({ ...e, n: artikli.filter((a) => ujema(a, e.lastnost, e.vrednost)).length }))
     .filter((e) => e.n > 0);
   if (!prisotni.length) return null;
-  const kljuci = [...new Set(prisotni.map((e) => e.lastnost))];
+  // Vnos, ki velja za vse artikle (npr. edino pakiranje), ni filter — pokažemo ga samo kot podatek.
+  const info = prisotni.filter((e) => e.n === artikli.length);
+  const filtri = prisotni.filter((e) => e.n < artikli.length);
+  const kljuci = [...new Set(filtri.map((e) => e.lastnost))];
   const nicIzbrano = kljuci.every((k) => !izbrani[k]);
   const samoPak = kljuci.every((k) => k === "Pakiranje");
+  const slika = (e) => (
+    <span className="izd-emb-sl">
+      {e.slika ? <Image src={e.slika} alt={e.naziv} fill sizes="90px" style={{ objectFit: "contain", padding: 4 }} /> : <span className="izd-emb-ni">{e.naziv.slice(0, 1)}</span>}
+    </span>
+  );
   return (
     <div className="izd-emb">
-      <p className="izd-mali">{samoPak ? "Pakiranje" : "Izberite"} — klikni za prikaz artiklov, ponoven klik prikaže vse</p>
+      {filtri.length > 0 && (
+        <p className="izd-mali">{samoPak ? "Pakiranje" : "Izberite"} — klikni za prikaz artiklov, ponoven klik prikaže vse</p>
+      )}
       <div className="izd-emb-k">
-        <button
-          type="button"
-          className={"izd-emb-vse" + (nicIzbrano ? " on" : "")}
-          onClick={() => kljuci.forEach((k) => izberi(k, undefined))}
-        >
-          <span className="izd-emb-sl"><span className="izd-emb-ni">∑</span></span>
-          <span className="izd-emb-tx">
-            <b>{samoPak ? "Vsa pakiranja" : "Vse"}</b>
-          </span>
-        </button>
-        {prisotni.map((e) => {
+        {filtri.length > 0 && (
+          <button
+            type="button"
+            className={"izd-emb-vse" + (nicIzbrano ? " on" : "")}
+            onClick={() => kljuci.forEach((k) => izberi(k, undefined))}
+          >
+            <span className="izd-emb-sl"><span className="izd-emb-ni">∑</span></span>
+            <span className="izd-emb-tx">
+              <b>{samoPak ? "Vsa pakiranja" : "Vse"}</b>
+            </span>
+          </button>
+        )}
+        {filtri.map((e) => {
           const on = izbrani[e.lastnost] === e.vrednost;
           return (
             <button key={e.lastnost + e.vrednost} type="button" className={on ? "on" : ""} aria-pressed={on} onClick={() => izberi(e.lastnost, on ? undefined : e.vrednost)}>
-              <span className="izd-emb-sl">
-                {e.slika ? <Image src={e.slika} alt={e.naziv} fill sizes="90px" style={{ objectFit: "contain", padding: 4 }} /> : <span className="izd-emb-ni">{e.naziv.slice(0, 1)}</span>}
-              </span>
+              {slika(e)}
               <span className="izd-emb-tx">
                 <b>{e.naziv}</b>
               </span>
             </button>
           );
         })}
+        {info.map((e) => (
+          <div key={e.lastnost + e.vrednost} className="izd-emb-info">
+            {slika(e)}
+            <span className="izd-emb-tx">
+              <b>{e.naziv}</b>
+              <em>{e.lastnost === "Pakiranje" ? "pakiranje vseh artiklov" : "velja za vse artikle"}</em>
+            </span>
+          </div>
+        ))}
       </div>
     </div>
   );
