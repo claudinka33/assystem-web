@@ -14,7 +14,7 @@ const stevilke = [
   ["1993", "Leto ustanovitve"],
   ["2", "Lokaciji v Sloveniji"],
   [`${site.drzave}`, "Držav, kamor dobavljamo"],
-  ["3", "Skupine izdelkov iz lastne proizvodnje"],
+  ["4", "Skupine izdelkov iz lastne proizvodnje"],
 ];
 
 const izdelki = [
@@ -38,6 +38,13 @@ const izdelki = [
     opis: "Najlonski vložki za polne in luknjaste podlage — od lažjih do zahtevnejših vgradenj.",
     slika: "/slike/asfix/mq.png",
     pot: "/program/klasicna-pritrdila",
+  },
+  {
+    naziv: "Perforiran trak",
+    oznaka: "12 mm · 17 mm",
+    opis: "Pocinkan montažni trak za inštalacije in prezračevanje, v škatli po 10 m.",
+    slika: "/slike/asfix/trak.png",
+    pot: "/program/pritrdila-za-instalacije",
   },
 ];
 
@@ -219,7 +226,7 @@ export default function ONas() {
               </p>
               <p style={{ marginTop: 12 }}>
                 Smo proizvajalec in hkrati veletrgovec. Jeklena sidra, udarne
-                vijake in zidne vložke izdelamo sami — ne uvažamo jih. Na
+                vijake, zidne vložke in perforiran trak izdelamo sami — ne uvažamo jih. Na
                 slovenskem trgu kupcu pokrijemo celoten program: od DIN vijakov,
                 matic in podložk do sider, vložkov in žebljev, pri enem
                 dobavitelju.
@@ -249,12 +256,12 @@ export default function ONas() {
             <span>Lastna proizvodnja</span>
             <h2>Kaj izdelamo sami</h2>
             <p>
-              Tri skupine izdelkov so v celoti naše — od razvoja in postopka do
+              Štiri skupine izdelkov so v celoti naše — od razvoja in postopka do
               proizvodnje in pakiranja. Vse so na voljo tudi pod vašo blagovno
               znamko.
             </p>
           </div>
-          <div className="on-izd">
+          <div className="on-izd stiri">
             {izdelki.map((i) => (
               <Link key={i.naziv} href={i.pot} className="on-izd-k">
                 <div className="on-izd-im">

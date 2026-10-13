@@ -2371,3 +2371,48 @@ table.adm-tab tr:last-child td { border-bottom: 0; }
   .on-stroji, .on-pravila { padding: 56px 0; }
 }
 .on-stroji .st > span { color: #ff6b72; }
+
+/* Proizvodnja */
+.on-izd.stiri { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.pr-hero-im { padding: 30px 0; }
+.pr-pas { background: var(--color-ink-2); color: #fff; }
+.pr-pas .w { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.pr-pas .w > div { padding: 26px 20px; border-left: 1px solid rgba(255, 255, 255, 0.12); }
+.pr-pas .w > div:first-child { border-left: 0; padding-left: 0; }
+.pr-pas b { display: block; font-family: var(--font-display); font-size: clamp(26px, 2.6vw, 36px); font-weight: 900; color: #fff; line-height: 1.1; }
+.pr-pas span { font-size: 13.5px; color: rgba(255, 255, 255, 0.65); }
+
+.pr-koraki { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 0; counter-reset: k; position: relative; }
+.pr-koraki li { counter-increment: k; padding: 0 16px 0 0; position: relative; }
+.pr-koraki li::before { content: counter(k); display: flex; width: 44px; height: 44px; align-items: center; justify-content: center; border-radius: 50%; background: var(--color-red); color: #fff; font-weight: 800; position: relative; z-index: 1; margin-bottom: 16px; }
+.pr-koraki li::after { content: ""; position: absolute; top: 21px; left: 44px; right: 0; height: 2px; background: var(--color-line); }
+.pr-koraki li:last-child::after { display: none; }
+.pr-koraki b { display: block; font-size: 15.5px; }
+.pr-koraki p { color: var(--color-muted); font-size: 13.5px; margin-top: 6px; }
+
+.pr-lok { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.pr-lok > div { border: 1px solid var(--color-line); border-top: 4px solid var(--color-red); padding: 30px 32px; display: flex; flex-direction: column; gap: 8px; }
+.pr-lok small { font-size: 12px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--color-muted-2); }
+.pr-lok h3 { font-size: 24px; font-weight: 800; text-transform: uppercase; }
+.pr-lok p { color: var(--color-muted); }
+.pr-lok ul { list-style: none; padding: 0; margin: 6px 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.pr-lok li { font-size: 12px; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; background: var(--color-mist); padding: 6px 10px; }
+.pr-naslov { margin-top: auto; padding-top: 10px; font-weight: 600; font-size: 14.5px; }
+
+.pr-pak-im { filter: drop-shadow(0 24px 36px rgba(0, 0, 0, 0.18)); }
+.pr-vpn { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 56px; align-items: center; }
+.pr-vpn .b { display: inline-block; }
+
+@media (max-width: 1200px) {
+  .pr-koraki { grid-template-columns: repeat(4, minmax(0, 1fr)); row-gap: 30px; }
+  .pr-koraki li::after { display: none; }
+}
+@media (max-width: 1100px) { .on-izd.stiri { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 1000px) {
+  .pr-lok, .pr-vpn { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .pr-pas .w { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pr-pas .w > div:nth-child(3) { border-left: 0; padding-left: 0; }
+}
+@media (max-width: 640px) {
+  .on-izd.stiri, .pr-koraki { grid-template-columns: minmax(0, 1fr); }
+}

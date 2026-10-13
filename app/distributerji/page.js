@@ -9,7 +9,7 @@ export const metadata = {
 };
 
 const razlogi = [
-  ["Lastna proizvodnja", "Hladno kovanje, brizganje plastike in orodjarna pod eno streho — brez posrednikov v dobavni verigi."],
+  ["Lastna proizvodnja", "Hladno kovanje, brizganje plastike, montaža in pakiranje pod eno streho — brez posrednikov v dobavni verigi."],
   ["Evropski certifikati", "Nosilna sidra z oceno ETA in izjavo o lastnostih, dokumentacija v slovenščini in angleščini."],
   ["Prilagodljivost", "Spremembe dimenzij, materiala ali pakiranja brez čakanja na zunanjega dobavitelja."],
   ["Zaščita trga", "Distributerju zagotovimo jasne pogoje sodelovanja na dogovorjenem območju."],
