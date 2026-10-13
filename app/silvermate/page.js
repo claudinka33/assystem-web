@@ -7,27 +7,37 @@ import YouTubeVideo from "@/components/YouTubeVideo";
 export const metadata = {
   title: "Silvermate — lesni vijaki",
   description:
-    "Lesni vijaki Silvermate s križno ali torx glavo, s celim ali delnim navojem: AS811, AS812, AS814 in AS816.",
+    "Lesni vijaki Silvermate z oceno ETA-18/0284: Pozi ali Torx, cel ali delni navoj, od 3,0 × 16 do 6,0 × 200 mm. AS811, AS812, AS814 in AS816.",
   alternates: { canonical: "/silvermate" },
 };
 
 const vijaki = [
-  { sifra: "AS811", naziv: "Lesni vijak, križ", navoj: "cel navoj", slika: "/slike/silvermate/AS811.jpg" },
-  { sifra: "AS812", naziv: "Lesni vijak, križ", navoj: "delni navoj", slika: "/slike/silvermate/AS812.jpg" },
-  { sifra: "AS814", naziv: "Lesni vijak, torx", navoj: "cel navoj", slika: "/slike/silvermate/AS814.jpg" },
-  { sifra: "AS816", naziv: "Lesni vijak, torx", navoj: "delni navoj", slika: "/slike/silvermate/AS816.jpg" },
+  { sifra: "AS811", naziv: "Lesni vijak, Pozi", navoj: "cel navoj", slika: "/slike/silvermate/AS811.jpg" },
+  { sifra: "AS812", naziv: "Lesni vijak, Pozi", navoj: "delni navoj", slika: "/slike/silvermate/AS812.jpg" },
+  { sifra: "AS814", naziv: "Lesni vijak, Torx", navoj: "cel navoj", slika: "/slike/silvermate/AS814.jpg" },
+  { sifra: "AS816", naziv: "Lesni vijak, Torx", navoj: "delni navoj", slika: "/slike/silvermate/AS816.jpg" },
 ];
 
-// Lastnosti vijaka — besedila s table na polici Silvermate
+// Lastnosti vijaka — po originalnem letaku Silvermate
 const lastnosti = [
-  { naziv: "Konica za hiter oprijem", slika: "/slike/silvermate/detajl-konica.jpg" },
-  { naziv: "Minimalni upor pri vijačenju", slika: "/slike/silvermate/detajl-navoj.jpg" },
-  { naziv: "Majhno tveganje cepitve lesa", slika: "/slike/silvermate/detajl-rezilo.jpg" },
-  { naziv: "Zelo trpežen vijak", slika: "/slike/silvermate/detajl-glava.jpg" },
+  { naziv: "Konica za hiter oprijem", opis: "Izjemno ostra konica in izboljšan navoj — vijak takoj prime v lesu.", slika: "/slike/silvermate/detajl-konica.jpg" },
+  { naziv: "Minimalni upor pri vijačenju", opis: "Rebra na steblu pri delnem navoju in kakovosten vosek — vijak gre v les z manj sile.", slika: "/slike/silvermate/detajl-navoj.jpg" },
+  { naziv: "Majhno tveganje cepitve", opis: "Izboljšana rezalna rebra za čist zaključek brez poškodb lesa.", slika: "/slike/silvermate/detajl-rezilo.jpg" },
+  { naziv: "Zelo trpežen vijak", opis: "Najmočnejši vijak za iverne plošče v svojem razredu — za skoraj vse vrste lesa.", slika: "/slike/silvermate/detajl-glava.jpg" },
+];
+
+// Program po premerih — po originalnem letaku (dolžine v mm)
+const tabela = [
+  { d: "3,0", pz: "PZ 1", tx: "TX 10", cel: "16 – 30", delni: "—", kos: 200 },
+  { d: "3,5", pz: "PZ 2", tx: "TX 10", cel: "16 – 45", delni: "—", kos: 200 },
+  { d: "4,0", pz: "PZ 2", tx: "TX 20", cel: "16 – 70", delni: "40 – 70", kos: 200 },
+  { d: "4,5", pz: "PZ 2", tx: "TX 20", cel: "30 – 60", delni: "45 – 70", kos: 200 },
+  { d: "5,0", pz: "PZ 2", tx: "TX 20", cel: "30 – 60", delni: "50 – 120", kos: 200 },
+  { d: "6,0", pz: "PZ 3", tx: "TX 30", cel: "40 – 60", delni: "60 – 200", kos: 100 },
 ];
 
 const izbira = [
-  ["Križ ali torx", "Torx nastavek prenese večji navor in manj zdrsava — za daljše vijake in trši les. Križni nastavek je klasika za vsakdanje delo.", "/slike/silvermate/izbira-nastavek.jpg"],
+  ["Pozi ali Torx", "Torx prenese večji navor in manj zdrsava — za daljše vijake in trši les. Pozi je klasika za vsakdanje delo. Za cel program zadoščajo trije biti vsake vrste.", "/slike/silvermate/izbira-nastavek.jpg"],
   ["Cel navoj", "Za spoje, kjer vijak drži po vsej dolžini — pritrjevanje plošč, letev in okovja.", "/slike/silvermate/izbira-cel-navoj-2.jpg"],
   ["Delni navoj", "Gladki del pod glavo potegne dva kosa lesa skupaj — za konstrukcijske spoje in tramove.", "/slike/silvermate/izbira-delni-navoj-2.jpg"],
 ];
@@ -41,8 +51,8 @@ export default function Silvermate() {
         logo="/slike/znamke/silvermate-logo-negativ.png"
         oznaka="Blagovna znamka · lesni vijaki"
         naslov="Lesni vijaki Silvermate"
-        opis="Štiri izvedbe za les — s križno ali torx glavo, s celim ali delnim navojem."
-        znacke={["Križ", "Torx", "Cel navoj", "Delni navoj"]}
+        opis="Vijaki za les in iverne plošče z evropsko tehnično oceno — Pozi ali Torx, s celim ali delnim navojem, od 3,0 × 16 do 6,0 × 200 mm."
+        znacke={["ETA-18/0284", "CE", "Pozi · Torx", "Cel · delni navoj"]}
         slika="/slike/stojala/silvermate-stojalo.jpg"
         slikaW={893}
         slikaH={1600}
@@ -104,6 +114,7 @@ export default function Silvermate() {
                 </div>
                 <div className="tx">
                   <h3>{x.naziv}</h3>
+                  <p>{x.opis}</p>
                 </div>
               </div>
             ))}
@@ -112,6 +123,46 @@ export default function Silvermate() {
       </section>
 
       <section className="sec">
+        <div className="w">
+          <div className="st">
+            <span>Tehnični podatki</span>
+            <h2>Dimenzije in nastavki</h2>
+            <p>
+              Pocinkani vijaki, izdelani tudi v izvedbi brez kroma VI. Z oznako CE in evropsko tehnično oceno
+              ETA-18/0284. Pakirani v profesionalni škatli z okencem in pladnjem za lažji dostop.
+            </p>
+          </div>
+          <div className="sm-tab-ovoj">
+            <table className="sm-tab">
+              <thead>
+                <tr>
+                  <th>Premer (mm)</th>
+                  <th>Pozi</th>
+                  <th>Torx</th>
+                  <th>Cel navoj — dolžina</th>
+                  <th>Delni navoj — dolžina</th>
+                  <th>Kos v škatli</th>
+                </tr>
+              </thead>
+              <tbody>
+                {tabela.map((r) => (
+                  <tr key={r.d}>
+                    <td><b>Ø {r.d}</b></td>
+                    <td>{r.pz}</td>
+                    <td>{r.tx}</td>
+                    <td>{r.cel}</td>
+                    <td>{r.delni}</td>
+                    <td>{r.kos}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="sm-opomba">Dolžine v mm. Točne dimenzije in zalogo posamezne izvedbe najdete pri artiklih v katalogu.</p>
+        </div>
+      </section>
+
+      <section className="sec grey">
         <div className="w">
           <div className="st">
             <span>Izbira</span>
@@ -131,7 +182,7 @@ export default function Silvermate() {
         </div>
       </section>
 
-      <section className="sec grey">
+      <section className="sec">
         <div className="w">
           <div className="stojalo">
             <div className="stojalo-im">
@@ -155,8 +206,8 @@ export default function Silvermate() {
                 </p>
               </div>
               <ul>
-                <li>Vse štiri izvedbe na eni polici — križ in torx, cel in delni navoj.</li>
-                <li>Škatle z jasno oznako dimenzije, pripravljene za samopostrežbo.</li>
+                <li>Vse štiri izvedbe na eni polici — Pozi in Torx, cel in delni navoj.</li>
+                <li>Profesionalne škatle z okencem in pladnjem za lažji dostop, z jasno oznako dimenzije.</li>
                 <li>Asortiman sestavimo glede na vašo prodajo in ga dopolnjujemo.</li>
                 <li>Polico lahko postavite ob polici ASfix in ASco — vse za pritrjevanje na enem mestu.</li>
               </ul>
