@@ -4,13 +4,18 @@ import { useState } from "react";
 
 /* YouTube video, ki se naloži šele ob kliku (youtube-nocookie).
    Do klika ni piškotkov YouTuba in stran ostane hitra. */
-export default function YouTubeVideo({ id, naslov }) {
-  const [igra, setIgra] = useState(false);
+// samodejno: video se takoj predvaja v tišini (brez zvoka) in se ponavlja.
+export default function YouTubeVideo({ id, naslov, samodejno = false }) {
+  const [igra, setIgra] = useState(samodejno);
   return (
     <div className="yt">
       {igra ? (
         <iframe
-          src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`}
+          src={
+            samodejno
+              ? `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=1&loop=1&playlist=${id}&playsinline=1&rel=0&modestbranding=1`
+              : `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`
+          }
           title={naslov}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen

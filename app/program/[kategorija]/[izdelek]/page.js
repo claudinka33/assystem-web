@@ -9,7 +9,8 @@ import KarticeIzdelkov from "@/components/KarticeIzdelkov";
 import NazadnjeOgledano from "@/components/NazadnjeOgledano";
 import KajSePonujamo from "@/components/KajSePonujamo";
 import SilvermateVsebina from "@/components/SilvermateVsebina";
-import { SILVERMATE_IZDELKI } from "@/lib/silvermate";
+import { SILVERMATE_IZDELKI, SILVERMATE_MEDIJI } from "@/lib/silvermate";
+import MedijiBanner from "@/components/MedijiBanner";
 
 export const revalidate = 60;
 
@@ -60,6 +61,18 @@ export default async function StranIzdelka({ params }) {
     .filter((a) => a.objavljeno)
     .sort((a, b) => (a.premer ?? 0) - (b.premer ?? 0) || (a.dolzina ?? 0) - (b.dolzina ?? 0));
   const dokumenti = i.dokumenti ?? [];
+  // Pas VIDEO · LETAK · CERTIFIKAT: Silvermate ima svoje gradivo, drugi izdelki iz dokumentov
+  const dokLetak = dokumenti.find((d) => d.tip === "letak" || d.tip === "katalog");
+  const dokEta = dokumenti.find((d) => d.tip === "eta" || d.tip === "certifikat" || d.tip === "dop");
+  const mediji =
+    i.znamka === "Silvermate"
+      ? { ...SILVERMATE_MEDIJI, ...(dokEta ? { certifikat: { ...SILVERMATE_MEDIJI.certifikat, url: dokEta.datoteka_url, opis: "Odpri PDF ↓" } } : {}) }
+      : {
+          letak: dokLetak ? { url: dokLetak.datoteka_url, naziv: dokLetak.naziv } : null,
+          certifikat: dokEta
+            ? { oznaka: i.eta_stevilka ?? oznakeTipov[dokEta.tip] ?? "ETA", url: dokEta.datoteka_url, naslov: dokEta.naziv, opis: "Odpri PDF ↓" }
+            : null,
+        };
   const galerija = Array.isArray(i.galerija) ? i.galerija : [];
   const slike = [...new Set([i.slika_url, ...galerija].filter(Boolean))].slice(0, 8);
   const { skupne, stolpci } = razdeliLastnosti(artikli);
@@ -186,6 +199,7 @@ export default async function StranIzdelka({ params }) {
                 )}
               </div>
             )}
+            <MedijiBanner {...mediji} />
           </div>
         </div>
 
@@ -194,7 +208,7 @@ export default async function StranIzdelka({ params }) {
     </section>
 
     {i.znamka === "Silvermate" && (
-      <SilvermateVsebina glava={Object.keys(SILVERMATE_IZDELKI).find((k) => SILVERMATE_IZDELKI[k].slug === izdelek) ?? null} />
+      <SilvermateVsebina mediji={false} glava={Object.keys(SILVERMATE_IZDELKI).find((k) => SILVERMATE_IZDELKI[k].slug === izdelek) ?? null} />
     )}
 
     <section className="izd" style={i.znamka === "Silvermate" ? undefined : { paddingTop: 0 }}>

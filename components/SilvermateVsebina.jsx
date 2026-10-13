@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import YouTubeVideo from "@/components/YouTubeVideo";
-import { SILVERMATE_KATEGORIJA, SILVERMATE_IZDELKI } from "@/lib/silvermate";
+import MedijiBanner from "@/components/MedijiBanner";
+import { SILVERMATE_KATEGORIJA, SILVERMATE_IZDELKI, SILVERMATE_MEDIJI } from "@/lib/silvermate";
 
 /* --------------------------------------------------------------
    Skupna vsebina Silvermate: video, lastnosti, (tabela dimenzij),
@@ -34,22 +34,21 @@ const izbira = [
 ];
 
 
-export default function SilvermateVsebina({ tabela = false, glava = null }) {
+export default function SilvermateVsebina({ tabela = false, glava = null, mediji = true }) {
   const druga = glava === "pozi" ? "torx" : glava === "torx" ? "pozi" : null;
   return (
     <>
-      <section className="sec video-sec">
-        <div className="w">
-          <div className="qua" style={{ alignItems: "center" }}>
+      {mediji && (
+        <section className="sec">
+          <div className="w">
             <div className="st" style={{ marginBottom: 0 }}>
-              <span>Video</span>
+              <span>Video · letak · certifikat</span>
               <h2>Silvermate v praksi</h2>
-              <p>Kratka predstavitev lesnega vijaka Silvermate.</p>
             </div>
-            <YouTubeVideo id="CDTqtc-Er_w" naslov="Lesni vijak Silvermate" />
+            <MedijiBanner {...SILVERMATE_MEDIJI} />
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <section className="sec grey">
         <div className="w">
