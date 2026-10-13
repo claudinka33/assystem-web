@@ -14,6 +14,7 @@ const meni = [
     { naziv: "Kategorije", pot: "/admin/kategorije" },
     { naziv: "Izdelki", pot: "/admin/izdelki" },
     { naziv: "Znamke izdelkov", pot: "/admin/znamke" },
+    { naziv: "Silvermate uvoz", pot: "/admin/silvermate" },
     { naziv: "Sinhronizacija Vasco", pot: "/admin/sinhronizacija" },
   ]},
   { skupina: "Vsebina", povezave: [

@@ -3,6 +3,10 @@ import Link from "next/link";
 import ZnamkaHero from "@/components/ZnamkaHero";
 import DveZnamki from "@/components/DveZnamki";
 import YouTubeVideo from "@/components/YouTubeVideo";
+import { pridobiIzdelkePoSlugih } from "@/lib/podatki";
+import { SILVERMATE_KATEGORIJA, SILVERMATE_IZDELKI } from "@/lib/silvermate";
+
+export const revalidate = 300;
 
 export const metadata = {
   title: "Silvermate — lesni vijaki",
@@ -12,10 +16,10 @@ export const metadata = {
 };
 
 const vijaki = [
-  { sifra: "AS811", naziv: "Lesni vijak, Pozi", navoj: "cel navoj", slika: "/slike/silvermate/AS811.jpg" },
-  { sifra: "AS812", naziv: "Lesni vijak, Pozi", navoj: "delni navoj", slika: "/slike/silvermate/AS812.jpg" },
-  { sifra: "AS814", naziv: "Lesni vijak, Torx", navoj: "cel navoj", slika: "/slike/silvermate/AS814.jpg" },
-  { sifra: "AS816", naziv: "Lesni vijak, Torx", navoj: "delni navoj", slika: "/slike/silvermate/AS816.jpg" },
+  { sifra: "AS811", naziv: "Lesni vijak, Pozi", navoj: "cel navoj", glava: "pozi", slika: "/slike/silvermate/AS811.jpg" },
+  { sifra: "AS812", naziv: "Lesni vijak, Pozi", navoj: "delni navoj", glava: "pozi", slika: "/slike/silvermate/AS812.jpg" },
+  { sifra: "AS814", naziv: "Lesni vijak, Torx", navoj: "cel navoj", glava: "torx", slika: "/slike/silvermate/AS814.jpg" },
+  { sifra: "AS816", naziv: "Lesni vijak, Torx", navoj: "delni navoj", glava: "torx", slika: "/slike/silvermate/AS816.jpg" },
 ];
 
 // Lastnosti vijaka — po originalnem letaku Silvermate
@@ -42,7 +46,11 @@ const izbira = [
   ["Delni navoj", "Gladki del pod glavo potegne dva kosa lesa skupaj — za konstrukcijske spoje in tramove.", "/slike/silvermate/izbira-delni-navoj-2.jpg"],
 ];
 
-export default function Silvermate() {
+export default async function Silvermate() {
+  const izBaze = await pridobiIzdelkePoSlugih(Object.values(SILVERMATE_IZDELKI).map((x) => x.slug));
+  const vKatalogu = Object.values(izBaze).some((x) => x.href);
+  const katalog = vKatalogu ? `/program/${SILVERMATE_KATEGORIJA.slug}` : "/iskanje?q=AS81";
+  const povezava = (x) => izBaze[SILVERMATE_IZDELKI[x.glava].slug]?.href ?? `/iskanje?q=${x.sifra}`;
   return (
     <>
       <ZnamkaHero
@@ -59,7 +67,7 @@ export default function Silvermate() {
         stojalo
         slikaAlt="Prodajna polica Silvermate"
         gumbi={[
-          { href: "/iskanje?q=AS81", naziv: "Lesni vijaki v katalogu", cls: "b-r" },
+          { href: katalog, naziv: "Lesni vijaki v katalogu", cls: "b-r" },
           { href: "/kontakt?vir=silvermate", naziv: "Povpraševanje →", cls: "b-o" },
         ]}
       />
@@ -69,10 +77,11 @@ export default function Silvermate() {
           <div className="st">
             <span>Program</span>
             <h2>Štiri izvedbe lesnih vijakov</h2>
+            <p>Kliknite izvedbo za vse dimenzije, zalogo in cene. Pozi in Torx imata vsak svojo stran — v tabeli izberete cel ali delni navoj.</p>
           </div>
           <div className="kats">
             {vijaki.map((x) => (
-              <Link key={x.sifra} href={`/iskanje?q=${x.sifra}`} className="k">
+              <Link key={x.sifra} href={povezava(x)} className="k">
                 <div className="im">
                   <Image src={x.slika} alt={`Silvermate ${x.sifra} — ${x.naziv}, ${x.navoj}`} fill sizes="(max-width: 700px) 50vw, 340px" style={{ objectFit: "contain", padding: 8 }} />
                 </div>
@@ -83,6 +92,14 @@ export default function Silvermate() {
                 </div>
               </Link>
             ))}
+          </div>
+          <div className="zn-gumbi" style={{ marginTop: 24 }}>
+            <Link className="b b-r" href={izBaze[SILVERMATE_IZDELKI.pozi.slug]?.href ?? "/iskanje?q=AS811"}>
+              Vsi vijaki Pozi →
+            </Link>
+            <Link className="b b-r" href={izBaze[SILVERMATE_IZDELKI.torx.slug]?.href ?? "/iskanje?q=AS814"}>
+              Vsi vijaki Torx →
+            </Link>
           </div>
         </div>
       </section>

@@ -114,7 +114,13 @@ function primerjaj(k) {
 
 // Privzeta legenda pakiranj (izdelek jo lahko dopolni s poljem "embalaza").
 // ASco (vijačno blago) ima modro vrečko in sivo škatlo, ASfix (pritrdilna tehnika) rdečo vrečko in škatlo AFR.
-function privzetaEmbalaza(asco) {
+function privzetaEmbalaza(asco, znamka) {
+  // Silvermate in Mungo imata svojo embalažo — brez slik ASfix/ASco
+  if (znamka === "Silvermate" || znamka === "MUNGO")
+    return [
+      { lastnost: "Pakiranje", vrednost: "škatla", naziv: "Škatla", opis: "Število kosov v škatli je v stolpcu »Pakiranje«." },
+      { lastnost: "Pakiranje", vrednost: "vrečka", naziv: "Vrečka", opis: "Maloprodajna vrečka." },
+    ];
   return [
     asco
       ? { lastnost: "Pakiranje", vrednost: "škatla", naziv: "Škatla", opis: "Originalno pakiranje za podjetja in serviserje. Število kosov v škatli je v stolpcu »Kos v pak.«.", slika: "/slike/embalaza/ASco_skatla.png" }
@@ -197,7 +203,7 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
   // Legenda: najprej posebnosti izdelka (npr. škatla AFR41), nato privzeta pakiranja
   const vnosiLegende = useMemo(() => {
     const asco = (izdelek?.pot ?? "").startsWith("/program/vijacno-blago");
-    const vsi = [...(Array.isArray(embalaza) ? embalaza : []), ...privzetaEmbalaza(asco)].map((e) => {
+    const vsi = [...(Array.isArray(embalaza) ? embalaza : []), ...privzetaEmbalaza(asco, izdelek?.znamka)].map((e) => {
       const v = skupina(e.lastnost, e.vrednost);
       return v === e.vrednost ? e : { ...e, vrednost: v, naziv: "Škatla" };
     });
@@ -208,7 +214,7 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
       videni.add(k);
       return true;
     });
-  }, [embalaza, izdelek?.pot]);
+  }, [embalaza, izdelek?.pot, izdelek?.znamka]);
   const kljuciLegende = useMemo(() => {
     const s = new Set();
     for (const e of vnosiLegende) if (artikli.some((a) => ujema(a, e.lastnost, e.vrednost))) s.add(e.lastnost);
