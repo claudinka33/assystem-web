@@ -59,7 +59,7 @@ export default async function StranIzdelka({ params }) {
     .sort((a, b) => (a.premer ?? 0) - (b.premer ?? 0) || (a.dolzina ?? 0) - (b.dolzina ?? 0));
   const dokumenti = i.dokumenti ?? [];
   const galerija = Array.isArray(i.galerija) ? i.galerija : [];
-  const slike = [i.slika_url, ...galerija].filter(Boolean).slice(0, 8);
+  const slike = [...new Set([i.slika_url, ...galerija].filter(Boolean))].slice(0, 8);
   const { skupne, stolpci } = razdeliLastnosti(artikli);
   const naziviRazlicni = new Set(artikli.map((a) => a.naziv)).size > 1;
   const sorodni = await pridobiSorodne(i, kategorija);
