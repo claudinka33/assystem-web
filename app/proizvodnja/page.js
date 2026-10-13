@@ -47,13 +47,13 @@ const izdelki = [
 ];
 
 const koraki = [
-  ["Razvoj in tehnologija", "Postopek, material in tolerance določimo sami. Pripravimo tehnično dokumentacijo — ETA, CE in izjave o lastnostih (DoP)."],
-  ["Hladno kovanje", "Iz jeklene žice na večstopenjskih stiskalnicah nastanejo telesa sider in vijakov. Material ohrani strukturo, nosilnost je ponovljiva."],
-  ["Valjanje navojev", "Navoj se valja, ne reže — vlakna materiala ostanejo nepretrgana, navoj je trdnejši."],
-  ["Brizganje plastike", "Najlonski vložki in tulci iz poliamida (PA6) in polietilena (PE)."],
-  ["Kontrola kakovosti", "Vhodna, medfazna in končna kontrola. Vsaka serija je sledljiva od materiala do palete."],
-  ["Montaža in pakiranje", "Avtomatsko sestavljanje kompletov in pakiranje v vrečke ali škatle — tudi v embalažo kupca."],
-  ["Skladišče in odprema", "Visokoregalno skladišče v Šmarju pri Jelšah. Osnovni asortiment odpremimo takoj."],
+  ["Razvoj in tehnologija", "Postopek, material in tolerance določimo sami. Pripravimo tehnično dokumentacijo — ETA, CE in izjave o lastnostih (DoP).", "/slike/poti/vijaki-po-narocilu.jpg", "cover"],
+  ["Hladno kovanje", "Iz jeklene žice na večstopenjskih stiskalnicah nastanejo telesa sider in vijakov. Material ohrani strukturo, nosilnost je ponovljiva.", "/slike/asfix/tx1.png"],
+  ["Valjanje navojev", "Navoj se valja, ne reže — vlakna materiala ostanejo nepretrgana, navoj je trdnejši.", "/slike/asfix/turbo.png"],
+  ["Brizganje plastike", "Najlonski vložki in tulci iz poliamida (PA6) in polietilena (PE).", "/slike/asfix/mq.png"],
+  ["Kontrola kakovosti", "Vhodna, medfazna in končna kontrola. Vsaka serija je sledljiva od materiala do palete.", "/slike/embalaza/ASfix_vrecka_TXH7.png"],
+  ["Montaža in pakiranje", "Avtomatsko sestavljanje kompletov in pakiranje v vrečke ali škatle — tudi v embalažo kupca.", "/slike/znamke/asfix-afr41.png"],
+  ["Skladišče in odprema", "Visokoregalno skladišče v Šmarju pri Jelšah. Osnovni asortiment odpremimo takoj.", "/slike/paleta.jpg"],
 ];
 
 const stroji = [
@@ -90,6 +90,8 @@ const lokacije = [
     naslov: "Hrastje ob Bistrici 2a, 3256 Bistrica ob Sotli",
     opis: "Težki strojni park. Tu nastanejo jeklena sidra in vijaki: hladno kovanje, valjanje navojev, obdelava in brizganje plastike.",
     znacke: ["Hladno kovanje", "Valjanje navojev", "Brizganje plastike", "Vijaki po naročilu"],
+    slika: "/slike/proizvodnja/kovanje-izdelki.webp",
+    alt: "Jeklena sidra in vijaki iz hladnega kovanja",
   },
   {
     st: "Lokacija 02",
@@ -97,6 +99,8 @@ const lokacije = [
     naslov: "Obrtniška ulica 14, 3240 Šmarje pri Jelšah",
     opis: "Sedež podjetja z upravo in prodajo. Avtomatska montaža, pakiranje in visokoregalno skladišče, iz katerega odpremljamo doma in v izvoz.",
     znacke: ["Avtomatska montaža", "Pakiranje", "1.400 paletnih mest", "Odprema"],
+    slika: "/slike/as-system-smarje.jpg",
+    alt: "Sedež AS system v Šmarju pri Jelšah",
   },
 ];
 
@@ -105,6 +109,17 @@ const pakiranje = [
   ["Škatle", "Družina škatel ASfix za avtomatsko in ročno pakiranje."],
   ["Embalaža kupca", "Vaša znamka, vaša etiketa, vaša EAN koda."],
   ["Poljubna količina", "Velikost pakiranja prilagodimo kupcu in prodajnemu mestu."],
+];
+
+const galerija = [
+  ["/slike/embalaza/ASfix_vrecka_TXH7.png", "Vrečka z izveskom"],
+  ["/slike/embalaza/AFR41.png", "Škatla ASfix"],
+  ["/slike/embalaza/AFR81.png", "Dolga škatla za sidra"],
+  ["/slike/skatla-private-label.jpg", "Škatla pod vašo znamko"],
+  ["/slike/embalaza/ASco_vrecka_modra.png", "Vrečka ASco — ZnB"],
+  ["/slike/embalaza/ASco_vrecka_zelena.png", "Vrečka ASco — INOX"],
+  ["/slike/proizvodnja/transportna-skatla.webp", "Transportna škatla"],
+  ["/slike/paleta.jpg", "Paletna enota"],
 ];
 
 const kakovost = [
@@ -143,14 +158,14 @@ export default function Proizvodnja() {
               <Link className="b b-o" href="/kontakt?vir=proizvodnja">Povpraševanje</Link>
             </div>
           </div>
-          <div className="zn-slika pr-hero-im">
+          <div className="zn-slika pr-hero-im" style={{ maxWidth: 640, justifySelf: "center" }}>
             <Image
-              src="/slike/asfix/txh7.png"
-              alt="Jekleno sidro TXH7 iz lastne proizvodnje"
-              width={1200}
-              height={264}
+              src="/slike/proizvodnja/hero-izdelki.png"
+              alt="Jekleno sidro, zidni vložek, udarni vijak in perforiran trak iz lastne proizvodnje"
+              width={1416}
+              height={941}
               priority
-              sizes="(max-width: 1000px) 90vw, 640px"
+              sizes="(max-width: 1000px) 90vw, 560px"
               style={{ width: "100%", height: "auto" }}
             />
           </div>
@@ -204,8 +219,11 @@ export default function Proizvodnja() {
             <p>Vsak korak je v naših rokah — zato vemo, kaj je v vsaki škatli.</p>
           </div>
           <ol className="pr-koraki">
-            {koraki.map(([n, o]) => (
+            {koraki.map(([n, o, slika, fit]) => (
               <li key={n}>
+                <div className={`pr-korak-im${fit === "cover" ? " cover" : ""}`}>
+                  <Image src={slika} alt={n} fill sizes="(max-width: 640px) 90vw, 220px" />
+                </div>
                 <b>{n}</b>
                 <p>{o}</p>
               </li>
@@ -251,6 +269,9 @@ export default function Proizvodnja() {
           <div className="pr-lok">
             {lokacije.map((l) => (
               <div key={l.naziv}>
+                <div className="pr-lok-im">
+                  <Image src={l.slika} alt={l.alt} fill sizes="(max-width: 1000px) 100vw, 680px" />
+                </div>
                 <small>{l.st}</small>
                 <h3>{l.naziv}</h3>
                 <p>{l.opis}</p>
@@ -292,13 +313,43 @@ export default function Proizvodnja() {
                 <Link className="more" href="/private-label">Private label — pakiranje pod vašo znamko →</Link>
               </div>
             </div>
-            <div className="pr-pak-im">
+            <div className="pr-gal">
+              {galerija.map(([src, opis]) => (
+                <figure key={src}>
+                  <div>
+                    <Image src={src} alt={opis} fill sizes="(max-width: 1000px) 45vw, 260px" />
+                  </div>
+                  <figcaption>{opis}</figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Na polici */}
+      <section className="sec">
+        <div className="w">
+          <div className="pr-polica">
+            <div className="st" style={{ marginBottom: 0 }}>
+              <span>Zadnji korak</span>
+              <h2>Na polici trgovca</h2>
+              <p>
+                Iz montaže gre blago naravnost na polico — v vrečkah z izveskom,
+                v škatlah z jasno šifro in s prodajno tablo, ki kupcu pove, kaj
+                kupuje. Trgovcem pripravimo police od 1 do 4 metrov.
+              </p>
+              <Link className="more" href="/za-trgovce" style={{ marginTop: 18, display: "inline-block" }}>
+                Ponudba za trgovce →
+              </Link>
+            </div>
+            <div className="pr-polica-im">
               <Image
-                src="/slike/znamke/asfix-afr41.png"
-                alt="Škatla ASfix iz lastne montaže in pakiranja"
-                width={1100}
-                height={654}
-                sizes="(max-width: 1000px) 90vw, 560px"
+                src="/slike/trgovci/asfix-polica-4m-bela.jpg"
+                alt="Prodajna polica ASfix 4 m"
+                width={1400}
+                height={752}
+                sizes="(max-width: 1000px) 100vw, 820px"
                 style={{ width: "100%", height: "auto" }}
               />
             </div>
@@ -323,6 +374,15 @@ export default function Proizvodnja() {
                 Vijaki po naročilu →
               </Link>
             </div>
+            <div>
+            <div className="pr-vpn-im">
+              <Image
+                src="/slike/poti/vijaki-po-narocilu.jpg"
+                alt="Tehnična risba vijaka in kljunasto merilo"
+                fill
+                sizes="(max-width: 1000px) 100vw, 640px"
+              />
+            </div>
             <dl className="on-nums">
               <div>
                 <dt>M3×4</dt>
@@ -341,6 +401,7 @@ export default function Proizvodnja() {
                 <dd>Borova jekla (tudi 19MnB4)</dd>
               </div>
             </dl>
+            </div>
           </div>
         </div>
       </section>
