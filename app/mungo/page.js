@@ -115,8 +115,8 @@ export default async function Mungo() {
                 <span className="medij-oz">Video</span>
                 <YouTubeVideo id={v.id} naslov={v.naslov} />
                 <b>{v.naslov}</b>
-                {povezava[v.slug] && (
-                  <Link href={povezava[v.slug]} style={{ fontWeight: 700, fontSize: 13, color: "var(--color-red)" }}>
+                {(povezava[v.slug] ?? v.href) && (
+                  <Link href={povezava[v.slug] ?? v.href} style={{ fontWeight: 700, fontSize: 13, color: "var(--color-red)" }}>
                     Na izdelek →
                   </Link>
                 )}
