@@ -1,16 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import IgraSidranje from "@/components/IgraSidranje";
-import EmbalazaAsfix from "@/components/EmbalazaAsfix";
-import PolicaAsfix from "@/components/PolicaAsfix";
 import ZnamkaHero from "@/components/ZnamkaHero";
 import DveZnamki from "@/components/DveZnamki";
 import PotiProdaje from "@/components/PotiProdaje";
+import { pridobiIzdelkePoSlugih } from "@/lib/podatki";
+
+export const revalidate = 300;
 
 export const metadata = {
   title: "ASfix — blagovna znamka",
   description:
-    "ASfix je blagovna znamka pritrdilne tehnike podjetja AS system: sidra, vložki, vijaki in kemična sidra v embalaži, pripravljeni za polico.",
+    "ASfix je blagovna znamka pritrdilne tehnike podjetja AS system: jeklena sidra, zidni vložki, udarni in Turbo vijaki, vložki za mavčne plošče in kemična sidra.",
   alternates: { canonical: "/asfix" },
 };
 
@@ -21,7 +22,49 @@ const aduti = [
   ["Dobava iz zaloge", "Osnovni asortiman je v visokoregalnem skladišču v Šmarju. Brez čakanja na uvoz."],
 ];
 
-export default function ASfix() {
+// Izdelki ASfix — kartica vodi na stran izdelka (če je v katalogu), sicer na kategorijo.
+const IZDELKI = {
+  txh7: { naziv: "Jekleno sidro TXH7", opis: "Nosilno sidro za beton, z oceno ETA.", slika: "/slike/asfix/txh7.png", slug: "jekleno-sidro-txh7", skupina: "pritrdila-za-beton" },
+  tx1: { naziv: "Jekleno sidro TX1", opis: "S široko podložko za les in pločevino.", slika: "/slike/asfix/tx1.png", slug: "jekleno-sidro-tx1-siroka-podlozka", skupina: "pritrdila-za-beton" },
+  turbo: { naziv: "Turbo vijak za beton", opis: "Privijete neposredno v beton — brez vložka.", slika: "/slike/asfix/turbo.png", slug: "turbo-vijak-za-beton", skupina: "pritrdila-za-beton" },
+  mq: { naziv: "Najlonski zidni vložek", opis: "Za beton, polno in votlo opeko.", slika: "/slike/asfix/mq.png", slug: null, skupina: "klasicna-pritrdila" },
+  udarni: { naziv: "Udarni vijak", opis: "Hitra montaža brez privijanja.", slika: "/slike/asfix/udarni.png", slug: "udarni-vijak-nylon", skupina: "klasicna-pritrdila" },
+  afrk: { naziv: "Univerzalni vijak z vložkom", opis: "Dolg vložek z vijakom za okvirje in late.", slika: "/slike/asfix/afrk.png", slug: "univerzalni-vijak-z-vlozkom-af-rk", skupina: "pritrdila-za-v-votle-stene" },
+  gips: { naziv: "Vložek za mavčne plošče", opis: "Samorezni vložek za suhomontažo.", slika: "/slike/asfix/gips.png", slug: null, skupina: "pritrdila-za-suhomontazo" },
+  gipsKov: { naziv: "Kovinski vložek za gips", opis: "Se za ploščo razpre — za težje predmete.", slika: "/slike/asfix/gips-kov.png", slug: "vlozek-za-gips-kovinski", skupina: "pritrdila-za-suhomontazo" },
+  stiropor: { naziv: "Vložek za stiropor", opis: "Za pritrjevanje v toplotno izolacijo.", slika: "/slike/asfix/stiropor.png", slug: "vlozek-za-stiropor", skupina: "pritrdila-za-v-izolacijo" },
+  easf: { naziv: "Kemično sidro EASF", opis: "Za največje obremenitve v betonu.", slika: "/slike/asfix/easf.png", slug: "kemicno-sidro-easf-top", skupina: "kemicna-pritrditev" },
+  pesf: { naziv: "Kemično sidro PESF", opis: "Za opeko in votle podlage, z mrežico.", slika: "/slike/asfix/pesf.png", slug: "kemicno-sidro-pesf-top", skupina: "kemicna-pritrditev" },
+  trak: { naziv: "Perforiran trak", opis: "Za obešanje cevi in inštalacij.", slika: "/slike/asfix/trak.png", slug: "perforiran-trak", skupina: "pritrdila-za-instalacije" },
+};
+
+const podlage = [
+  { naziv: "Beton", opis: "Nosilna jeklena sidra, Turbo vijaki in kemična sidra za največje obremenitve.", slika: "/slike/asfix/podlaga-beton.jpg", izdelki: ["txh7", "turbo", "easf"] },
+  { naziv: "Opeka in votlaki", opis: "Vložki z veliko oprijemno površino in kemična masa z mrežico.", slika: "/slike/asfix/podlaga-opeka.jpg", izdelki: ["mq", "udarni", "pesf"] },
+  { naziv: "Mavčne plošče", opis: "Vložki za suhomontažo, ki se za ploščo razprejo.", slika: "/slike/asfix/podlaga-gips.jpg", izdelki: ["gips", "gipsKov"] },
+  { naziv: "Fasada in izolacija", opis: "Vložki za pritrjevanje v toplotno izolacijo.", slika: "/slike/asfix/podlaga-izolacija.jpg", izdelki: ["stiropor"] },
+];
+
+const embalaza = [
+  { naziv: "Vrečka z izveskom", opis: "Za perforirano steno — manjše količine za končnega kupca.", slika: "/slike/asfix/vrecka-rdeca.png" },
+  { naziv: "Stoječa vrečka", opis: "Večje pakiranje udarnih vijakov in vložkov za mojstre.", slika: "/slike/asfix/vrecka-hammer.png" },
+  { naziv: "Škatla ASfix", opis: "Jasna šifra in dimenzija na čelu, enoten dizajn na polici.", slika: "/slike/asfix/afr41.png" },
+  { naziv: "Private label", opis: "Ista škatla v nevtralni beli izvedbi ali z vašo znamko.", slika: "/slike/asfix/afr41-pl.png", href: "/private-label" },
+];
+
+const police = [
+  { m: "1 m", opis: "Glavne dimenzije za manjše trgovine in pulte.", slika: "/slike/trgovci/asfix-polica-1m.jpg" },
+  { m: "2 m", opis: "Vse dimenzije — najpogostejša izbira.", slika: "/slike/trgovci/asfix-polica-2m.jpg" },
+  { m: "4 m", opis: "Več zaloge vseh dimenzij za gradbene centre.", slika: "/slike/trgovci/asfix-polica-4m.jpg" },
+];
+
+export default async function ASfix() {
+  const izBaze = await pridobiIzdelkePoSlugih(Object.values(IZDELKI).map((x) => x.slug).filter(Boolean));
+  const povezava = (k) => {
+    const x = IZDELKI[k];
+    return (x.slug && izBaze[x.slug]?.href) || `/program/${x.skupina}`;
+  };
+
   return (
     <>
       <ZnamkaHero
@@ -30,8 +73,8 @@ export default function ASfix() {
         logo="/slike/znamke/asfix-logo-negativ.png"
         oznaka="Blagovna znamka · pritrdilna tehnika"
         naslov="Pritrdila, ki jih trgovec lahko zagovarja"
-        opis="Jeklena sidra, zidni vložki, vložki za mavčne plošče, udarni in Turbo vijaki, kemične mase in pritrdila za klimatske naprave — v embalaži, pripravljeni za polico."
-        znacke={["Slovenska znamka", "ETA", "Škatle AFA / AFR", "Rdeča vrečka"]}
+        opis="Jeklena sidra, zidni vložki, vložki za mavčne plošče, udarni in Turbo vijaki, kemične mase in pritrdila za inštalacije — v embalaži, pripravljeni za polico."
+        znacke={["Slovenska znamka", "ETA", "Iz zaloge"]}
         slika="/slike/stojala/asfix-stojalo.jpg"
         slikaW={893}
         slikaH={1600}
@@ -51,14 +94,12 @@ export default function ASfix() {
                 <span>Kaj je ASfix</span>
                 <h2>Znamka, ki jo trgovec lahko zagovarja</h2>
                 <p>
-                  ASfix je produktna znamka podjetja AS system. Nastopa na
-                  embalaži, letakih in v katalogih, medtem ko AS system ostaja
-                  znamka podjetja in razvojnega partnerja.
+                  ASfix je produktna znamka podjetja AS system. Nastopa na embalaži, letakih in v katalogih, medtem
+                  ko AS system ostaja znamka podjetja in razvojnega partnerja.
                 </p>
                 <p style={{ marginTop: 12 }}>
-                  Program pokriva pritrdila za beton, opeko, votlake, mavčne
-                  plošče, izolacijo, streho in inštalacije — od enega vijaka do
-                  paletne enote.
+                  Program pokriva pritrdila za beton, opeko, votlake, mavčne plošče, izolacijo in inštalacije — od
+                  enega vijaka do paletne enote.
                 </p>
               </div>
               <Link className="b b-r" href="/program">
@@ -68,7 +109,7 @@ export default function ASfix() {
             <div>
               <Image
                 src="/hero-izdelki-2026.png"
-                alt="Program ASfix — jeklena sidra, zidni vložki, kemično sidro, udarni vijaki, vrečka in škatla"
+                alt="Program ASfix — jeklena sidra, zidni vložki, kemično sidro, udarni vijaki"
                 width={1100}
                 height={1044}
                 sizes="(max-width: 1000px) 100vw, 620px"
@@ -96,79 +137,31 @@ export default function ASfix() {
         </div>
       </section>
 
-      <section className="sec">
-        <div className="w">
-          <div className="st">
-            <span>Embalaža</span>
-            <h2>Ena skupina, več pakiranj</h2>
-            <p>
-              Isti izdelek pakiramo v različne formate, ker ima vsaka prodajna
-              pot svoje zahteve. Trgovec s tem izkoristi polico, kupec pa dobi
-              velikost, ki jo res potrebuje — od desetih kosov do palete.
-            </p>
-          </div>
-          <EmbalazaAsfix />
-          <div className="zn-foto">
-            <figure>
-              <Image
-                src="/slike/znamke/asfix-druzina-skatel.jpg"
-                alt="Družina škatel ASfix — AFA za avtomatsko in AFR za ročno pakiranje"
-                width={1800}
-                height={1260}
-                sizes="(max-width: 900px) 100vw, 900px"
-                style={{ width: "100%", height: "auto", display: "block" }}
-              />
-              <figcaption>Deset škatel, en dizajn — AFA za pakirni stroj, AFR za ročno pakiranje.</figcaption>
-            </figure>
-            <figure>
-              <Image
-                src="/slike/znamke/asfix-vs-private-label.jpg"
-                alt="Enaka škatla v dizajnu ASfix ali bela za private label"
-                width={1800}
-                height={975}
-                sizes="(max-width: 900px) 100vw, 640px"
-                style={{ width: "100%", height: "auto", display: "block" }}
-              />
-              <figcaption>
-                Ista škatla v dizajnu ASfix ali bela za vašo znamko —{" "}
-                <Link href="/private-label" style={{ color: "#fff", fontWeight: 700 }}>private label →</Link>
-              </figcaption>
-            </figure>
-          </div>
-        </div>
-      </section>
-
       {/* ---------- Program znamke ---------- */}
       <section className="sec">
         <div className="w">
           <div className="st">
             <span>Program</span>
-            <h2>Kaj pokriva znamka ASfix</h2>
-            <p>
-              ASfix je zgodovinski temelj podjetja in znamka z največjo
-              prepoznavnostjo na trgu. Pokriva gradbena pritrdila — od enega
-              vijaka do paletne enote.
-            </p>
+            <h2>Izdelki ASfix</h2>
+            <p>Kliknite izdelek za dimenzije, pakiranja in cene.</p>
           </div>
-          <div className="kats c3">
-            {[
-              ["Jeklena sidra", "Nosilne pritrditve v beton, z evropsko tehnično oceno."],
-              ["Zidni vložki", "Najlonski vložki za polne in luknjaste podlage."],
-              ["Udarni vijaki", "Hitra montaža brez privijanja, za serijsko delo."],
-              ["Dolgi vložek in vijak", "Komplet za okvirje, late in fasadne elemente."],
-              ["Vložki za mavčne plošče", "Za suhomontažo, ki se za ploščo razprejo."],
-              ["Lahka pritrdila", "Drobni program za vsakodnevna opravila."],
-            ].map(([naziv, opis]) => (
-              <div key={naziv} className="k" style={{ padding: "26px 24px" }}>
-                <h3>{naziv}</h3>
-                <p style={{ marginTop: 10 }}>{opis}</p>
-              </div>
+          <div className="kats">
+            {Object.entries(IZDELKI).map(([k, x]) => (
+              <Link key={k} href={povezava(k)} className="k">
+                <div className="im" style={{ background: "#fff" }}>
+                  <Image src={x.slika} alt={`ASfix — ${x.naziv}`} fill sizes="(max-width: 700px) 50vw, 300px" style={{ objectFit: "contain", padding: 14 }} />
+                </div>
+                <div className="tx">
+                  <h3>{x.naziv}</h3>
+                  <p>{x.opis}</p>
+                </div>
+              </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ---------- Lastna proizvodnja ---------- */}
+      {/* ---------- Jeklena sidra ---------- */}
       <section className="sec grey">
         <div className="w">
           <div className="qua" style={{ alignItems: "center" }}>
@@ -177,39 +170,40 @@ export default function ASfix() {
                 <span>Kakovost in dokazila</span>
                 <h2>Jeklena sidra z oceno ETA</h2>
                 <p>
-                  Jeklena sidra ASfix so na voljo v pocinkani izvedbi ZnB in v
-                  nerjavečem jeklu A4, z evropsko tehnično oceno in izjavo o
-                  lastnostih.
-                </p>
-                <p style={{ marginTop: 12 }}>
-                  Za proizvodnjo, montažo in pakiranje skrbimo na dveh lokacijah
-                  v Sloveniji, zato lahko dimenzijo ali pakiranje prilagodimo
-                  potrebam trgovine.
+                  Jeklena sidra ASfix so na voljo v pocinkani izvedbi ZnB in v nerjavečem jeklu A4, z evropsko
+                  tehnično oceno in izjavo o lastnostih.
                 </p>
               </div>
-              <Link className="more" href="/proizvodnja">
-                Proizvodnja in razvoj →
-              </Link>
+              <dl className="cert" style={{ gridTemplateColumns: "1fr 1fr", marginTop: 0 }}>
+                <div>
+                  <b>ETA</b>
+                  <span>Evropska tehnična ocena za nosilna sidra</span>
+                </div>
+                <div>
+                  <b>ZnB · A4</b>
+                  <span>Pocinkana in nerjaveča izvedba</span>
+                </div>
+                <div>
+                  <b>1.200 t</b>
+                  <span>Zaloge, razpoložljive takoj</span>
+                </div>
+                <div>
+                  <b>ISO 9001</b>
+                  <span>Sistem vodenja kakovosti</span>
+                </div>
+              </dl>
             </div>
-
-            <dl className="cert" style={{ gridTemplateColumns: "1fr 1fr", marginTop: 0 }}>
-              <div>
-                <b>ETA</b>
-                <span>Evropska tehnična ocena za nosilna sidra</span>
-              </div>
-              <div>
-                <b>ZnB · A4</b>
-                <span>Pocinkana in nerjaveča izvedba</span>
-              </div>
-              <div>
-                <b>1.200 t</b>
-                <span>Zaloge, razpoložljive takoj</span>
-              </div>
-              <div>
-                <b>ISO 9001</b>
-                <span>Sistem vodenja kakovosti</span>
-              </div>
-            </dl>
+            <div className="sidra-sl">
+              {["txh7", "tx1"].map((k) => (
+                <Link key={k} href={povezava(k)} className="sidra-k">
+                  <div className="sidra-im">
+                    <Image src={IZDELKI[k].slika} alt={IZDELKI[k].naziv} fill sizes="(max-width: 900px) 50vw, 300px" style={{ objectFit: "contain", padding: 16 }} />
+                  </div>
+                  <b>{IZDELKI[k].naziv}</b>
+                  <span>{IZDELKI[k].opis}</span>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -220,62 +214,118 @@ export default function ASfix() {
           <div className="st">
             <span>Uporaba</span>
             <h2>Kam gre katero pritrdilo</h2>
-            <p>
-              Podlaga določa izbiro. Polni beton prenese nosilna jeklena sidra,
-              votlaki in opeka zahtevajo vložek z veliko oprijemno površino, v
-              mavčne plošče pa gredo posebni vložki.
-            </p>
+            <p>Podlaga določa izbiro. Izberite podlago in poglejte, kateri izdelki gredo vanjo.</p>
           </div>
-          <div className="kats">
-            {[
-              ["Beton", "Jeklena sidra TXH7 in TX1, kemična sidra za največje obremenitve."],
-              ["Opeka in votlaki", "Najlonski vložki z veliko oprijemno površino, kemična masa z mrežico."],
-              ["Mavčne plošče", "Vložki za suhomontažo, ki se za ploščo razprejo."],
-              ["Fasada in izolacija", "Okvirni vložki in izolacijska sidra za ETICS sisteme."],
-            ].map(([naziv, opis]) => (
-              <div key={naziv} className="k" style={{ padding: "26px 24px" }}>
-                <h3>{naziv}</h3>
-                <p style={{ marginTop: 10 }}>{opis}</p>
+          <div className="podlage">
+            {podlage.map((p) => (
+              <div key={p.naziv} className="podlaga">
+                <div className="podlaga-sl">
+                  <Image src={p.slika} alt={p.naziv} fill sizes="(max-width: 700px) 100vw, 320px" style={{ objectFit: "cover" }} />
+                  <b>{p.naziv}</b>
+                </div>
+                <p>{p.opis}</p>
+                <div className="podlaga-izd">
+                  {p.izdelki.map((k) => (
+                    <Link key={k} href={povezava(k)} title={IZDELKI[k].naziv}>
+                      <div className="podlaga-izd-sl">
+                        <Image src={IZDELKI[k].slika} alt={IZDELKI[k].naziv} fill sizes="90px" style={{ objectFit: "contain", padding: 6 }} />
+                      </div>
+                      <span>{IZDELKI[k].naziv}</span>
+                    </Link>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ---------- Prodajna polica ---------- */}
+      {/* ---------- Embalaža ---------- */}
+      <section className="sec grey">
+        <div className="w">
+          <div className="st">
+            <span>Embalaža</span>
+            <h2>Ena znamka, več pakiranj</h2>
+            <p>
+              Isti izdelek pakiramo v različne formate, ker ima vsaka prodajna pot svoje zahteve — od nekaj kosov
+              do palete.
+            </p>
+          </div>
+          <div className="kats">
+            {embalaza.map((e) => {
+              const vsebina = (
+                <>
+                  <div className="im" style={{ background: "#fff", height: 260 }}>
+                    <Image src={e.slika} alt={e.naziv} fill sizes="(max-width: 700px) 50vw, 300px" style={{ objectFit: "contain", padding: 14 }} />
+                  </div>
+                  <div className="tx">
+                    <h3>{e.naziv}</h3>
+                    <p>{e.opis}</p>
+                  </div>
+                </>
+              );
+              return e.href ? (
+                <Link key={e.naziv} href={e.href} className="k">
+                  {vsebina}
+                </Link>
+              ) : (
+                <div key={e.naziv} className="k">
+                  {vsebina}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ---------- Police ---------- */}
       <section className="sec">
         <div className="w">
           <div className="st">
             <span>Za trgovce</span>
-            <h2>Prodajna polica ASfix</h2>
-            <p>
-              Cel kotiček pritrdilne tehnike na enem mestu — polica, škatle AFR41
-              in banner nad njo. Izberite širino in poglejte, kako izgleda pri vas.
-              Polica je visoka 2 m in ima šest polic, na tekoči meter gredo štiri
-              škatle.
-            </p>
+            <h2>Polica ASfix — 1, 2 ali 4 metre</h2>
+            <p>Polico prilagodimo trgovini. Večje postavitve do 20 m pripravimo po meri.</p>
           </div>
-          <PolicaAsfix />
+          <div className="kats c3">
+            {police.map((d) => (
+              <div key={d.m} className="k">
+                <div className="im" style={{ height: 300, background: "#fff" }}>
+                  <Image src={d.slika} alt={`Polica ASfix ${d.m}`} fill sizes="(max-width: 700px) 100vw, 400px" style={{ objectFit: "contain", padding: 10 }} />
+                </div>
+                <div className="tx">
+                  <h3>{d.m}</h3>
+                  <p>{d.opis}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="zn-gumbi" style={{ marginTop: 24 }}>
+            <Link className="b b-r" href="/za-trgovce#povprasevanje">
+              Želim polico ASfix →
+            </Link>
+            <Link className="b b-d" href="/za-trgovce">
+              Vse za trgovce
+            </Link>
+          </div>
         </div>
       </section>
 
       {/* ---------- Interaktivna vaja ---------- */}
-      <section id="igra" className="sec">
+      <section id="igra" className="sec grey">
         <div className="w">
           <div className="st">
             <span>Preizkusite sami</span>
             <h2>Pritrdite ograjo v beton</h2>
             <p>
-              Šest korakov, kot gredo na gradbišču. Izberite sveder in sidro,
-              izvrtajte, izpihajte luknje, zabijte sidra in jih zategnite. Če kaj
-              ni po vrsti, vam vaja pove, zakaj ne gre.
+              Šest korakov, kot gredo na gradbišču. Izberite sveder in sidro, izvrtajte, izpihajte luknje, zabijte
+              sidra in jih zategnite. Če kaj ni po vrsti, vam vaja pove, zakaj ne gre.
             </p>
           </div>
           <IgraSidranje />
         </div>
       </section>
 
-      <DveZnamki trenutna="ASfix" />
+      <DveZnamki trenutna="ASfix" siv={false} />
 
       <div className="cta">
         <div className="w">
