@@ -26,9 +26,9 @@ const lastnosti = [
 ];
 
 const izbira = [
-  ["Križ ali torx", "Torx nastavek prenese večji navor in manj zdrsava — za daljše vijake in trši les. Križni nastavek je klasika za vsakdanje delo."],
-  ["Cel navoj", "Za spoje, kjer vijak drži po vsej dolžini — pritrjevanje plošč, letev in okovja."],
-  ["Delni navoj", "Gladki del pod glavo potegne dva kosa lesa skupaj — za konstrukcijske spoje in tramove."],
+  ["Križ ali torx", "Torx nastavek prenese večji navor in manj zdrsava — za daljše vijake in trši les. Križni nastavek je klasika za vsakdanje delo.", "/slike/silvermate/izbira-nastavek.jpg"],
+  ["Cel navoj", "Za spoje, kjer vijak drži po vsej dolžini — pritrjevanje plošč, letev in okovja.", "/slike/silvermate/izbira-cel-navoj-2.jpg"],
+  ["Delni navoj", "Gladki del pod glavo potegne dva kosa lesa skupaj — za konstrukcijske spoje in tramove.", "/slike/silvermate/izbira-delni-navoj-2.jpg"],
 ];
 
 export default function Silvermate() {
@@ -104,12 +104,57 @@ export default function Silvermate() {
             <h2>Kateri vijak za kateri spoj</h2>
           </div>
           <div className="who">
-            {izbira.map(([n, o]) => (
-              <div key={n}>
+            {izbira.map(([n, o, sl]) => (
+              <div key={n} className="izbira-k">
+                <div className="izbira-sl">
+                  <Image src={sl} alt={n} fill sizes="(max-width: 900px) 100vw, 480px" style={{ objectFit: "contain" }} />
+                </div>
                 <b>{n}</b>
                 <p>{o}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="sec grey">
+        <div className="w">
+          <div className="stojalo">
+            <div className="stojalo-im">
+              <Image
+                src="/slike/stojala/silvermate-stojalo.jpg"
+                alt="Prodajna polica Silvermate"
+                width={893}
+                height={1600}
+                sizes="(max-width: 900px) 360px, 420px"
+                style={{ width: "100%", height: "auto" }}
+              />
+            </div>
+            <div>
+              <div className="st" style={{ marginBottom: 0 }}>
+                <span>Za trgovce</span>
+                <h2>Polica Silvermate</h2>
+                <p>
+                  Polica širine 1 m z lesnimi vijaki Silvermate v škatlah, razvrščenih po dimenzijah. Tabla na vrhu
+                  kupcu na prvi pogled pove, zakaj izbrati Silvermate, rdeče cenovne letvice pa poskrbijo za
+                  pregled cen.
+                </p>
+              </div>
+              <ul>
+                <li>Vse štiri izvedbe na eni polici — križ in torx, cel in delni navoj.</li>
+                <li>Škatle z jasno oznako dimenzije, pripravljene za samopostrežbo.</li>
+                <li>Asortiman sestavimo glede na vašo prodajo in ga dopolnjujemo.</li>
+                <li>Polico lahko postavite ob polici ASfix in ASco — vse za pritrjevanje na enem mestu.</li>
+              </ul>
+              <div className="zn-gumbi">
+                <Link className="b b-r" href="/za-trgovce#povprasevanje">
+                  Želim polico Silvermate →
+                </Link>
+                <Link className="b b-d" href="/za-trgovce">
+                  Vse police za trgovce
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>

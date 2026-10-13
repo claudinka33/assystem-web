@@ -2189,3 +2189,6 @@ table.adm-tab tr:last-child td { border-bottom: 0; }
   .zn-hero.zn-polica .w { grid-template-columns: minmax(0, 1fr); }
   .zn-hero.zn-polica .zn-slika img { max-height: 460px; }
 }
+.izbira-k { display: flex; flex-direction: column; }
+.izbira-sl { position: relative; aspect-ratio: 900 / 420; margin: -32px -32px 22px; background: #fff; border-bottom: 1px solid var(--color-line); }
+.who > .izbira-k { border: 1px solid var(--color-line); border-top: 4px solid var(--color-red); }
