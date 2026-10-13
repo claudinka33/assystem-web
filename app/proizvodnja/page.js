@@ -47,14 +47,74 @@ const izdelki = [
 ];
 
 const koraki = [
-  ["Razvoj in tehnologija", "Postopek, material in tolerance določimo sami. Pripravimo tehnično dokumentacijo — ETA, CE in izjave o lastnostih (DoP).", "/slike/poti/vijaki-po-narocilu.jpg", "cover"],
-  ["Hladno kovanje", "Iz jeklene žice na večstopenjskih stiskalnicah nastanejo telesa sider in vijakov. Material ohrani strukturo, nosilnost je ponovljiva.", "/slike/asfix/tx1.png"],
-  ["Valjanje navojev", "Navoj se valja, ne reže — vlakna materiala ostanejo nepretrgana, navoj je trdnejši.", "/slike/asfix/turbo.png"],
-  ["Brizganje plastike", "Najlonski vložki in tulci iz poliamida (PA6) in polietilena (PE).", "/slike/asfix/mq.png"],
-  ["Kontrola kakovosti", "Vhodna, medfazna in končna kontrola. Vsaka serija je sledljiva od materiala do palete.", "/slike/embalaza/ASfix_vrecka_TXH7.png"],
-  ["Montaža in pakiranje", "Avtomatsko sestavljanje kompletov in pakiranje v vrečke ali škatle — tudi v embalažo kupca.", "/slike/znamke/asfix-afr41.png"],
-  ["Skladišče in odprema", "Visokoregalno skladišče v Šmarju pri Jelšah. Osnovni asortiment odpremimo takoj.", "/slike/paleta.jpg"],
+  ["Razvoj in tehnologija", "Postopek, material in tolerance določimo sami. Pripravimo tehnično dokumentacijo — ETA, CE in izjave o lastnostih (DoP).", "razvoj"],
+  ["Hladno kovanje", "Iz jeklene žice na večstopenjskih stiskalnicah nastanejo telesa sider in vijakov. Material ohrani strukturo, nosilnost je ponovljiva.", "kovanje"],
+  ["Valjanje navojev", "Navoj se valja, ne reže — vlakna materiala ostanejo nepretrgana, navoj je trdnejši.", "navoj"],
+  ["Brizganje plastike", "Najlonski vložki in tulci iz poliamida (PA6) in polietilena (PE).", "brizganje"],
+  ["Kontrola kakovosti", "Vhodna, medfazna in končna kontrola. Vsaka serija je sledljiva od materiala do palete.", "kontrola"],
+  ["Montaža in pakiranje", "Avtomatsko sestavljanje kompletov in pakiranje v vrečke ali škatle — tudi v embalažo kupca.", "montaza"],
+  ["Skladišče in odprema", "Visokoregalno skladišče v Šmarju pri Jelšah. Osnovni asortiment odpremimo takoj.", "odprema"],
 ];
+
+// Črtne ikone korakov (24 × 24, barva iz CSS)
+const ikone = {
+  razvoj: (
+    <>
+      <path d="M4 3h11l5 5v13H4z" />
+      <path d="M15 3v5h5" />
+      <path d="M8 13h8M8 17h5" />
+      <circle cx="9" cy="9" r="1.5" />
+    </>
+  ),
+  kovanje: (
+    <>
+      <path d="M3 20h18" />
+      <path d="M6 20v-3h12v3" />
+      <path d="M8 17v-3h8v3" />
+      <path d="M12 14V4" />
+      <path d="M8 4h8" />
+      <path d="M10 8l2 2 2-2" />
+    </>
+  ),
+  navoj: (
+    <>
+      <path d="M9 3h6v3H9z" />
+      <path d="M10 6v12l2 3 2-3V6" />
+      <path d="M10 9l4 1.5M10 12l4 1.5M10 15l4 1.5" />
+    </>
+  ),
+  brizganje: (
+    <>
+      <path d="M3 9h9v6H3z" />
+      <path d="M12 10.5h3v3h-3" />
+      <path d="M15 12h2" />
+      <path d="M18 9.5l3 1v3l-3 1z" />
+      <path d="M6 9V5h3v4" />
+    </>
+  ),
+  kontrola: (
+    <>
+      <circle cx="10.5" cy="10.5" r="6.5" />
+      <path d="M15.5 15.5L21 21" />
+      <path d="M7.5 10.5l2 2 4-4" />
+    </>
+  ),
+  montaza: (
+    <>
+      <path d="M3 8l9-4 9 4-9 4z" />
+      <path d="M3 8v9l9 4 9-4V8" />
+      <path d="M12 12v9" />
+    </>
+  ),
+  odprema: (
+    <>
+      <path d="M2 6h12v10H2z" />
+      <path d="M14 9h4l3 3v4h-7" />
+      <circle cx="6" cy="18" r="2" />
+      <circle cx="17" cy="18" r="2" />
+    </>
+  ),
+};
 
 const stroji = [
   {
@@ -90,8 +150,8 @@ const lokacije = [
     naslov: "Hrastje ob Bistrici 2a, 3256 Bistrica ob Sotli",
     opis: "Težki strojni park. Tu nastanejo jeklena sidra in vijaki: hladno kovanje, valjanje navojev, obdelava in brizganje plastike.",
     znacke: ["Hladno kovanje", "Valjanje navojev", "Brizganje plastike", "Vijaki po naročilu"],
-    slika: "/slike/proizvodnja/kovanje-izdelki.webp",
-    alt: "Jeklena sidra in vijaki iz hladnega kovanja",
+    slika: "/slike/proizvodnja/bistrica-ob-sotli.jpg",
+    alt: "Proizvodni obrat AS system v Bistrici ob Sotli",
   },
   {
     st: "Lokacija 02",
@@ -99,7 +159,7 @@ const lokacije = [
     naslov: "Obrtniška ulica 14, 3240 Šmarje pri Jelšah",
     opis: "Sedež podjetja z upravo in prodajo. Avtomatska montaža, pakiranje in visokoregalno skladišče, iz katerega odpremljamo doma in v izvoz.",
     znacke: ["Avtomatska montaža", "Pakiranje", "1.400 paletnih mest", "Odprema"],
-    slika: "/slike/as-system-smarje.jpg",
+    slika: "/slike/proizvodnja/smarje-pri-jelsah.jpg",
     alt: "Sedež AS system v Šmarju pri Jelšah",
   },
 ];
@@ -219,10 +279,10 @@ export default function Proizvodnja() {
             <p>Vsak korak je v naših rokah — zato vemo, kaj je v vsaki škatli.</p>
           </div>
           <ol className="pr-koraki">
-            {koraki.map(([n, o, slika, fit]) => (
+            {koraki.map(([n, o, ik]) => (
               <li key={n}>
-                <div className={`pr-korak-im${fit === "cover" ? " cover" : ""}`}>
-                  <Image src={slika} alt={n} fill sizes="(max-width: 640px) 90vw, 220px" />
+                <div className="pr-korak-ik">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">{ikone[ik]}</svg>
                 </div>
                 <b>{n}</b>
                 <p>{o}</p>
@@ -328,28 +388,44 @@ export default function Proizvodnja() {
       </section>
 
       {/* Na polici */}
-      <section className="sec">
+      <section className="pr-polica-sec">
         <div className="w">
           <div className="pr-polica">
-            <div className="st" style={{ marginBottom: 0 }}>
-              <span>Zadnji korak</span>
-              <h2>Na polici trgovca</h2>
-              <p>
-                Iz montaže gre blago naravnost na polico — v vrečkah z izveskom,
-                v škatlah z jasno šifro in s prodajno tablo, ki kupcu pove, kaj
-                kupuje. Trgovcem pripravimo police od 1 do 4 metrov.
-              </p>
-              <Link className="more" href="/za-trgovce" style={{ marginTop: 18, display: "inline-block" }}>
+            <div>
+              <div className="st">
+                <span>Zadnji korak</span>
+                <h2>Na polici trgovca</h2>
+                <p>
+                  Iz montaže gre blago naravnost na polico — pripravljeno za
+                  prodajo, brez prepakiranja. Trgovcem pripravimo police od 1
+                  do 4 metrov.
+                </p>
+              </div>
+              <ul className="pr-polica-tocke">
+                <li>
+                  <b>Prodajna tabla »V kaj pritrjuješ?«</b>
+                  <span>Kupec najprej izbere podlago, nato pritrdilo — manj vprašanj na blagajni.</span>
+                </li>
+                <li>
+                  <b>Vrečke z izveskom</b>
+                  <span>Vložki, udarni vijaki in sidra v manjših količinah, na kavljih.</span>
+                </li>
+                <li>
+                  <b>Škatle z jasno šifro</b>
+                  <span>Dimenzija in količina sta vidni s prednje strani škatle.</span>
+                </li>
+              </ul>
+              <Link className="b b-r" href="/za-trgovce" style={{ marginTop: 26 }}>
                 Ponudba za trgovce →
               </Link>
             </div>
             <div className="pr-polica-im">
               <Image
-                src="/slike/trgovci/asfix-polica-4m-bela.jpg"
-                alt="Prodajna polica ASfix 4 m"
-                width={1400}
-                height={752}
-                sizes="(max-width: 1000px) 100vw, 820px"
+                src="/slike/proizvodnja/polica-asfix-1m.jpg"
+                alt="Prodajna polica ASfix z vrečkami, škatlami in prodajno tablo"
+                width={1100}
+                height={1970}
+                sizes="(max-width: 1000px) 80vw, 460px"
                 style={{ width: "100%", height: "auto" }}
               />
             </div>
