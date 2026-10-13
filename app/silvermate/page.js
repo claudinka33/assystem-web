@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import ZnamkaHero from "@/components/ZnamkaHero";
 import DveZnamki from "@/components/DveZnamki";
+import YouTubeVideo from "@/components/YouTubeVideo";
 
 export const metadata = {
   title: "Silvermate — lesni vijaki",
@@ -72,6 +73,19 @@ export default function Silvermate() {
                 </div>
               </Link>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="sec video-sec">
+        <div className="w">
+          <div className="qua" style={{ alignItems: "center" }}>
+            <div className="st" style={{ marginBottom: 0 }}>
+              <span>Video</span>
+              <h2>Silvermate v praksi</h2>
+              <p>Kratka predstavitev lesnega vijaka Silvermate.</p>
+            </div>
+            <YouTubeVideo id="CDTqtc-Er_w" naslov="Lesni vijak Silvermate" />
           </div>
         </div>
       </section>
