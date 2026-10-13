@@ -2501,3 +2501,44 @@ a.medij:hover { transform: translateY(-2px); border-color: var(--color-ink); bor
 .mediji.temno .medij { background: #fff; }
 @media (max-width: 900px) { .mediji.z-videom { grid-template-columns: 1fr 1fr; } .mediji.z-videom .medij-video { grid-column: 1 / -1; } }
 @media (max-width: 520px) { .mediji, .mediji.z-videom { grid-template-columns: 1fr; } }
+
+/* Kakovost */
+.kk-oznake { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; }
+.kk-oznake > div { border: 1px solid var(--color-line); padding: 24px 22px; display: flex; flex-direction: column; gap: 6px; }
+.kk-oznake i { font-style: normal; align-self: flex-start; font-family: var(--font-display); font-weight: 900; font-size: 18px; padding: 10px 14px; background: var(--color-ink); color: #fff; margin-bottom: 8px; }
+.kk-oznake > div:first-child i { background: var(--color-red); }
+.kk-oznake b { font-size: 16px; }
+.kk-oznake p { color: var(--color-muted); font-size: 14px; }
+
+.kk-sidra { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.3fr); gap: 48px; align-items: start; }
+.kk-tabela { background: #fff; border: 1px solid var(--color-line); }
+.kk-vrsta { display: grid; grid-template-columns: 1.4fr 1fr 1fr auto; gap: 16px; align-items: center; padding: 18px 22px; border-top: 1px solid var(--color-line); }
+.kk-vrsta.glava { border-top: 0; background: var(--color-ink); color: #fff; font-size: 12px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 12px 22px; }
+.kk-vrsta b { font-size: 15.5px; }
+.kk-eta { font-weight: 700; color: var(--color-red); }
+.kk-zahtevaj { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
+.kk-zahtevaj:hover { color: var(--color-red); }
+
+.kk-kontrola { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; counter-reset: k; }
+.kk-kontrola li { counter-increment: k; background: rgba(20, 22, 23, 0.55); border-top: 4px solid var(--color-red); padding: 28px 30px; }
+.kk-kontrola li::before { content: counter(k, decimal-leading-zero); display: block; font-family: var(--font-display); font-weight: 900; font-size: 42px; color: rgba(255, 255, 255, 0.25); line-height: 1; margin-bottom: 14px; }
+.kk-kontrola b { display: block; font-size: 19px; text-transform: uppercase; }
+.kk-kontrola p { color: rgba(255, 255, 255, 0.78); margin-top: 8px; font-size: 15px; }
+
+.kk-oseba { background: var(--color-ink) url("/vzorec-antracit.png") repeat; background-size: 400px auto; color: #fff; padding: 32px 34px; display: flex; flex-direction: column; gap: 4px; border-top: 4px solid var(--color-red); }
+.kk-oseba small { font-size: 12px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #ff6b72; }
+.kk-oseba strong { font-size: 24px; font-family: var(--font-display); margin-top: 6px; }
+.kk-oseba > span { color: rgba(255, 255, 255, 0.7); font-size: 14px; }
+.kk-oseba .on-stik { margin: 12px 0 8px; font-size: 15.5px; }
+.kk-oseba .on-stik a:hover { color: #ff6b72; }
+.kk-oseba p { color: rgba(255, 255, 255, 0.75); font-size: 14px; margin-bottom: 18px; }
+.kk-oseba .b { align-self: flex-start; }
+
+@media (max-width: 1100px) { .kk-oznake { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 1000px) { .kk-sidra, .kk-kontrola { grid-template-columns: minmax(0, 1fr); gap: 24px; } }
+@media (max-width: 640px) {
+  .kk-oznake { grid-template-columns: minmax(0, 1fr); }
+  .kk-vrsta { grid-template-columns: 1fr 1fr; row-gap: 6px; }
+  .kk-vrsta.glava { display: none; }
+  .kk-vrsta b { grid-column: 1 / -1; }
+}
