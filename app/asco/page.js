@@ -15,7 +15,7 @@ export const metadata = {
 const aduti = [
   { naziv: "Po standardu DIN in ISO", opis: "Vsak vijak, matica in podložka je izdelana po standardu DIN ali ISO. Kupec ve, kaj dobi, brez ugibanja o merah.", slike: ["/slike/DIN/933_ZnB.jpeg"] },
   { naziv: "Barva pove material", opis: "Modra vrečka je pocinkano jeklo ZnB, zelena nerjavno INOX. Na polici se ne zamenja.", slike: ["/slike/znamke/asco-vrecka-znb.jpg", "/slike/znamke/asco-vrecka-inox.jpg"] },
-  { naziv: "Od vrečke do škatle", opis: "Vrečke za trgovino, škatle za servis in industrijo, večje količine v rinfuzi.", slike: ["/slike/znamke/asco-skatla.png"] },
+  { naziv: "Od vrečke do škatle", opis: "Vrečke za trgovino, škatle za servis in industrijo, večje količine v rinfuzi.", slike: ["/slike/znamke/asco-skatla-brez-sence.png"] },
   { naziv: "Skupaj z ASfix", opis: "Vijaki in pritrdilna tehnika z enim naročilom. Trgovec ima en dobavni rok za celo polico.", slike: ["/slike/znamke/asfix-afr41.png"] },
 ];
 
@@ -50,7 +50,7 @@ const pakiranja = [
     naziv: "Škatla ASco",
     kolicina: "za podjetja",
     opis: "Za servise, montažo in industrijo. Kartonska škatla z logotipom ASco in nalepko z normo, dimenzijo in številom kosov.",
-    slika: "/slike/znamke/asco-skatla-spredaj.jpg",
+    slika: "/slike/znamke/asco-skatla-brez-sence.jpg",
   },
   {
     naziv: "Modra vrečka",
@@ -110,10 +110,10 @@ export default function ASco() {
             </div>
             <div>
               <Image
-                src="/slike/znamke/asco-skatla-spredaj.jpg"
+                src="/slike/znamke/asco-skatla-brez-sence.jpg"
                 alt="Škatla ASco s pogledom od spredaj"
-                width={1400}
-                height={746}
+                width={1242}
+                height={654}
                 sizes="(max-width: 1000px) 100vw, 620px"
                 style={{ width: "100%", height: "auto" }}
               />
