@@ -2590,3 +2590,16 @@ a.medij:hover { transform: translateY(-2px); border-color: var(--color-ink); bor
 .mungo-videi { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
 @media (max-width: 900px) { .mungo-videi { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 560px) { .mungo-videi { grid-template-columns: 1fr; } }
+
+/* Spustni meni »Izdelki«: mreža kategorij s slikami */
+.nav-sk.kt .nav-pod { width: min(760px, calc(100vw - 48px)); padding: 12px; }
+.kt-mreza { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; }
+.nav-sk.kt .kt-mreza a { grid-template-columns: 64px 1fr; align-items: center; gap: 12px; padding: 8px 10px; }
+.kt-im { width: 64px; height: 64px; background: var(--color-mist); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.kt-im img { width: 100%; height: 100%; object-fit: contain; padding: 6px; mix-blend-mode: multiply; }
+.kt-im.prazna { background: var(--color-ink) url("/vzorec-antracit.png") repeat; background-size: 220px auto; }
+.nav-pod a:hover .kt-im { outline: 2px solid var(--color-red); outline-offset: -2px; }
+.nav-sk.kt .kt-mreza a b { font-size: 13.5px; line-height: 1.3; }
+.nav-sk.kt .nav-pod a.kt-vse { display: block; margin-top: 8px; padding: 12px 10px 4px; border-top: 1px solid var(--color-line) !important; font-size: 13px; font-weight: 700; color: var(--color-red); }
+.nav-sk.kt .nav-pod a.kt-vse:hover { background: none; text-decoration: underline; }
+@media (max-width: 1340px) { .kt-mreza { grid-template-columns: repeat(2, minmax(0, 1fr)); } .nav-sk.kt .nav-pod { width: 540px; } }

@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Merjenje from "@/components/Merjenje";
 import { site } from "@/lib/site";
+import { pridobiKategorije } from "@/lib/podatki";
 import "./globals.css";
 
 // Poppins je edina pisava celostne podobe (CGP str. 07).
@@ -44,11 +45,15 @@ export const metadata = {
 
 export const viewport = { themeColor: "#3f4140" };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  // Kategorije za spustni meni »Izdelki« (slika + naziv).
+  const { seznam } = await pridobiKategorije();
+  const kategorijeMeni = seznam.map((k) => ({ slug: k.slug, naziv: k.naziv, slika: k.slika ?? null }));
+
   return (
     <html lang="sl" className={poppins.variable}>
       <body>
-        <Header />
+        <Header kategorije={kategorijeMeni} />
         <main>{children}</main>
         <Footer />
         <Merjenje />
