@@ -2586,3 +2586,7 @@ a.medij:hover { transform: translateY(-2px); border-color: var(--color-ink); bor
 @media (max-width: 640px) {
   .kt-hitro { grid-template-columns: minmax(0, 1fr); }
 }
+/* Mungo: mreža videov */
+.mungo-videi { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 900px) { .mungo-videi { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .mungo-videi { grid-template-columns: 1fr; } }

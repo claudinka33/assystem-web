@@ -11,6 +11,7 @@ import KajSePonujamo from "@/components/KajSePonujamo";
 import SilvermateVsebina from "@/components/SilvermateVsebina";
 import { SILVERMATE_IZDELKI, SILVERMATE_MEDIJI } from "@/lib/silvermate";
 import MedijiBanner from "@/components/MedijiBanner";
+import { VIDEI_IZDELKOV } from "@/lib/videi";
 
 export const revalidate = 60;
 
@@ -68,10 +69,13 @@ export default async function StranIzdelka({ params }) {
     i.znamka === "Silvermate"
       ? { ...SILVERMATE_MEDIJI, ...(dokEta ? { certifikat: { ...SILVERMATE_MEDIJI.certifikat, url: dokEta.datoteka_url, opis: "Odpri PDF ↓" } } : {}) }
       : {
+          video: VIDEI_IZDELKOV[izdelek] ?? null,
           letak: dokLetak ? { url: dokLetak.datoteka_url, naziv: dokLetak.naziv } : null,
           certifikat: dokEta
             ? { oznaka: i.eta_stevilka ?? oznakeTipov[dokEta.tip] ?? "ETA", url: dokEta.datoteka_url, naslov: dokEta.naziv, opis: "Odpri PDF ↓" }
-            : null,
+            : i.eta_stevilka
+              ? { oznaka: i.eta_stevilka, url: `/kontakt?izdelek=${encodeURIComponent(i.eta_stevilka + " " + i.naziv)}&vir=certifikat`, opis: "Pošljemo na zahtevo →" }
+              : null,
         };
   const galerija = Array.isArray(i.galerija) ? i.galerija : [];
   const slike = [...new Set([i.slika_url, ...galerija].filter(Boolean))].slice(0, 8);
