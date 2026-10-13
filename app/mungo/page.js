@@ -113,7 +113,7 @@ export default async function Mungo() {
             {MUNGO_VIDEI.map((v) => (
               <div key={v.id} className="medij">
                 <span className="medij-oz">Video</span>
-                <YouTubeVideo id={v.id} naslov={v.naslov} />
+                <YouTubeVideo id={v.id} naslov={v.naslov} samodejno />
                 <b>{v.naslov}</b>
                 {(povezava[v.slug] ?? v.href) && (
                   <Link href={povezava[v.slug] ?? v.href} style={{ fontWeight: 700, fontSize: 13, color: "var(--color-red)" }}>
