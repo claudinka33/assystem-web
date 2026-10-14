@@ -51,6 +51,12 @@ export default function Zasebnost() {
             <td data-l="Hramba">1 leto</td>
           </tr>
           <tr>
+            <td className="mk-gl">E-novice</td>
+            <td data-l="Podatki">e-naslov, ime (neobvezno)</td>
+            <td data-l="Pravna podlaga">privolitev (čl. 6(1)(a) GDPR)</td>
+            <td data-l="Hramba">do odjave (povezava v vsakem sporočilu)</td>
+          </tr>
+          <tr>
             <td className="mk-gl">Merjenje obiska in oglaševanje</td>
             <td data-l="Podatki">piškotki in podobni identifikatorji</td>
             <td data-l="Pravna podlaga">privolitev (ZEKom-2)</td>

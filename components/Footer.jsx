@@ -2,9 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { PRAVNE } from "@/lib/pravno";
 import { kategorije, site } from "@/lib/site";
+import PrijavaNovice from "@/components/PrijavaNovice";
 
 export default function Footer() {
   return (
+    <>
+    <PrijavaNovice />
     <footer className="ftr">
       <div className="w">
         <div>
@@ -69,5 +72,6 @@ export default function Footer() {
         </div>
       </div>
     </footer>
+    </>
   );
 }
