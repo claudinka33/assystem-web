@@ -11,7 +11,7 @@ import { ZNAMKE, ZNAMKE_INFO } from "@/lib/znamke";
 // Postavke spustnega seznama: znamke z logotipi ali navadne povezave.
 const podPostavke = (el, kategorije = []) =>
   el.kategorije
-    ? kategorije.map((k) => ({ naziv: k.naziv, pot: `/program/${k.slug}`, slika: k.slika }))
+    ? kategorije.map((k) => ({ naziv: k.naziv, pot: `/program/${k.slug}`, slika: k.slika, opis: k.opis }))
     : el.znamke
     ? ZNAMKE.map((z) => ({ naziv: ZNAMKE_INFO[z].ime, pot: ZNAMKE_INFO[z].pot, opis: ZNAMKE_INFO[z].opis, logo: ZNAMKE_INFO[z] }))
     : el.pod ?? [];
@@ -62,7 +62,7 @@ export default function Header({ kategorije = [] }) {
                   </Link>
                 );
               return (
-                <div key={el.naziv} className={`nav-sk${el.znamke ? " zn" : ""}${el.kategorije ? " kt" : ""}`}>
+                <div key={el.naziv} className={`nav-sk${el.kategorije ? " kt" : " zn"}`}>
                   <Link href={el.pot} className="nav-gl" aria-haspopup="true">
                     {el.naziv} <i aria-hidden="true">▾</i>
                   </Link>
@@ -75,7 +75,10 @@ export default function Header({ kategorije = [] }) {
                               <span className={p.slika ? "kt-im" : "kt-im prazna"}>
                                 {p.slika && <img src={p.slika} alt="" loading="lazy" />}
                               </span>
-                              <b>{p.naziv}</b>
+                              <span className="kt-tx">
+                                <b>{p.naziv}</b>
+                                {p.opis && <small>{p.opis}</small>}
+                              </span>
                             </Link>
                           ))}
                         </div>

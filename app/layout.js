@@ -48,7 +48,7 @@ export const viewport = { themeColor: "#3f4140" };
 export default async function RootLayout({ children }) {
   // Kategorije za spustni meni »Izdelki« (slika + naziv).
   const { seznam } = await pridobiKategorije();
-  const kategorijeMeni = seznam.map((k) => ({ slug: k.slug, naziv: k.naziv, slika: k.slika ?? null }));
+  const kategorijeMeni = seznam.map((k) => ({ slug: k.slug, naziv: k.naziv, slika: k.slika ?? null, opis: k.opis ?? null }));
 
   return (
     <html lang="sl" className={poppins.variable}>
