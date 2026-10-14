@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import KorakiSlike from "@/components/KorakiSlike";
+import FotoGalerija from "@/components/FotoGalerija";
+import { FOTO_KOVANJE, FOTO_PLASTIKA, FOTO_ORODJARNA, FOTO_KAKOVOST, FOTO_VPN } from "@/lib/foto";
 
 export const metadata = {
   title: "Proizvodnja in razvoj",
@@ -293,6 +295,26 @@ export default function Proizvodnja() {
         </div>
       </section>
 
+      {/* Fotografije iz proizvodnje */}
+      <section className="sec grey" id="foto">
+        <div className="w">
+          <div className="st">
+            <span>Pogled v proizvodnjo</span>
+            <h2>Tako nastajajo naši izdelki</h2>
+            <p>Fotografije iz naših obratov — kliknite sliko za povečavo.</p>
+          </div>
+          <FotoGalerija
+            skupine={[
+              { naziv: "Hladno kovanje in navoji", slike: FOTO_KOVANJE },
+              { naziv: "Brizganje plastike", slike: FOTO_PLASTIKA },
+              { naziv: "Orodjarna", slike: FOTO_ORODJARNA },
+              { naziv: "Kontrola kakovosti", slike: FOTO_KAKOVOST },
+              { naziv: "Vijaki po naročilu", slike: FOTO_VPN },
+            ]}
+          />
+        </div>
+      </section>
+
       {/* Strojni park */}
       <section className="on-stroji">
         <div className="w">
@@ -456,10 +478,10 @@ export default function Proizvodnja() {
               href="/vijaki-po-narocilu"
               gumb="Vijaki po naročilu →"
               koraki={[
-                { naslov: "Risba", podnaslov: "Korak 1", opis: "Vaša risba ali tehnična dokumentacija — preverimo izvedljivost in material.", slika: "/slike/poti/vijaki-po-narocilu.jpg", alt: "Tehnična risba vijaka in kljunasto merilo" },
-                { naslov: "Orodje in vzorci", podnaslov: "Korak 2", opis: "Izdelava orodja in potrditev vzorcev pred serijo.", slika: "/slike/vijaki-po-narocilu/orodje.jpg", alt: "Orodje za hladno kovanje in prvi vzorci vijakov" },
-                { naslov: "Serija", podnaslov: "Korak 3", opis: "Serijska proizvodnja s hladnim kovanjem in valjanjem navojev.", slika: "/slike/vijaki-po-narocilu/serija.jpg", alt: "Serijsko izdelani vijaki" },
-                { naslov: "Kontrola in dostava", podnaslov: "Korak 4", opis: "Kontrola mer in navojev, pakiranje in dostava.", slika: "/slike/vijaki-po-narocilu/kontrola.jpg", alt: "Kontrola mer vijakov in pakiranje" },
+                { naslov: "Risba", podnaslov: "Korak 1", opis: "Vaša risba ali tehnična dokumentacija — preverimo izvedljivost in material.", slika: "/slike/foto/vpn-risba.jpg", alt: "Tehnična risba vijaka" },
+                { naslov: "Orodje in vzorci", podnaslov: "Korak 2", opis: "Izdelava orodja in potrditev vzorcev pred serijo.", slika: "/slike/foto/proizvodnja-09.jpg", alt: "Prvi kosi iz novega orodja" },
+                { naslov: "Serija", podnaslov: "Korak 3", opis: "Serijska proizvodnja s hladnim kovanjem in valjanjem navojev.", slika: "/slike/foto/proizvodnja-13.jpg", alt: "Serijsko izdelani vijaki" },
+                { naslov: "Kontrola in dostava", podnaslov: "Korak 4", opis: "Kontrola mer in navojev, pakiranje in dostava.", slika: "/slike/foto/kakovost-04.jpg", alt: "Optična kontrola mer vijaka" },
               ]}
             />
             <dl className="on-nums">
@@ -496,13 +518,24 @@ export default function Proizvodnja() {
               ustaviti proizvodnjo ali odpremo, če izdelek ni skladen.
             </p>
           </div>
-          <div className="on-zakaj">
-            {kakovost.map(([n, o]) => (
-              <div key={n}>
-                <b>{n}</b>
-                <p>{o}</p>
-              </div>
-            ))}
+          <div className="pr-kak">
+            <KorakiSlike
+              href="/kakovost"
+              gumb="Več o kakovosti →"
+              koraki={[
+                { naslov: "Nosilnost", podnaslov: "Preizkus", opis: "Preizkus izvlečne sile sider v betonu.", slika: "/slike/foto/kakovost-03.jpg", alt: "Sidro med preizkusom nosilnosti" },
+                { naslov: "Mere", podnaslov: "Optična kontrola", opis: "Optično merjenje profila in navoja — brez dotika.", slika: "/slike/foto/kakovost-04.jpg", alt: "Optično merjenje vijaka" },
+                { naslov: "Ob stroju", podnaslov: "Medfazna kontrola", opis: "Kontrola mer med serijo, neposredno ob stroju.", slika: "/slike/foto/proizvodnja-11.jpg", alt: "Kontrola mer s kljunastim merilom ob stroju" },
+              ]}
+            />
+            <div className="on-zakaj">
+              {kakovost.map(([n, o]) => (
+                <div key={n}>
+                  <b>{n}</b>
+                  <p>{o}</p>
+                </div>
+              ))}
+            </div>
           </div>
           <div style={{ marginTop: 22 }}>
             <Link className="more" href="/kakovost">Več o kakovosti →</Link>

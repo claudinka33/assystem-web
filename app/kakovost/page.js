@@ -1,4 +1,6 @@
 import Image from "next/image";
+import FotoGalerija from "@/components/FotoGalerija";
+import { FOTO_KAKOVOST } from "@/lib/foto";
 import Link from "next/link";
 import { pridobiDokumente } from "@/lib/podatki";
 import { poisci, telRaw } from "@/lib/kontakti";
@@ -194,6 +196,18 @@ export default async function Kakovost() {
               </li>
             ))}
           </ol>
+        </div>
+      </section>
+
+      {/* Fotografije kontrole */}
+      <section className="sec grey">
+        <div className="w">
+          <div className="st">
+            <span>Kontrola v praksi</span>
+            <h2>Preizkusi in meritve</h2>
+            <p>Preizkus nosilnosti sider v betonu in optično merjenje vijakov. Kliknite sliko za povečavo.</p>
+          </div>
+          <FotoGalerija skupine={[{ naziv: "Kontrola", slike: FOTO_KAKOVOST }]} />
         </div>
       </section>
 

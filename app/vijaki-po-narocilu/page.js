@@ -2,6 +2,9 @@ import Link from "next/link";
 import NaslovStrani from "@/components/NaslovStrani";
 import ObrazecPovprasevanje from "@/components/ObrazecPovprasevanje";
 import PotiProdaje from "@/components/PotiProdaje";
+import KorakiSlike from "@/components/KorakiSlike";
+import FotoGalerija from "@/components/FotoGalerija";
+import { FOTO_VPN, FOTO_KOVANJE, FOTO_KAKOVOST } from "@/lib/foto";
 
 export const metadata = {
   title: "Vijaki po naročilu — po vaši risbi",
@@ -44,6 +47,8 @@ export default function VijakiPoNarocilu() {
 
       <section className="sec">
         <div className="w">
+          <div className="pr-vpn">
+            <div>
           <div className="st">
             <span>Kaj izdelujemo</span>
             <h2>Vijak, ki ga ni v katalogu</h2>
@@ -65,6 +70,16 @@ export default function VijakiPoNarocilu() {
             Iščete standardne vijake po DIN? Ti so v programu{" "}
             <Link href="/asco" style={{ color: "var(--color-red)", fontWeight: 700 }}>ASco →</Link>
           </p>
+            </div>
+            <KorakiSlike
+              koraki={[
+                { naslov: "Risba", podnaslov: "Korak 1", opis: "Vaša risba ali tehnična dokumentacija.", slika: "/slike/foto/vpn-risba.jpg", alt: "Tehnična risba vijaka" },
+                { naslov: "Vzorci", podnaslov: "Korak 2", opis: "Izdelava orodja in potrditev vzorcev.", slika: "/slike/foto/proizvodnja-09.jpg", alt: "Prvi kosi iz novega orodja" },
+                { naslov: "Serija", podnaslov: "Korak 3", opis: "Hladno preoblikovanje in valjanje navoja.", slika: "/slike/foto/proizvodnja-06.jpg", alt: "Valjanje navoja" },
+                { naslov: "Kontrola", podnaslov: "Korak 4", opis: "Dimenzijska kontrola z zapisom za vsako serijo.", slika: "/slike/foto/kakovost-04.jpg", alt: "Optično merjenje vijaka" },
+              ]}
+            />
+          </div>
         </div>
       </section>
 
@@ -89,6 +104,23 @@ export default function VijakiPoNarocilu() {
       <section className="sec">
         <div className="w">
           <div className="st">
+            <span>Iz proizvodnje</span>
+            <h2>Primeri in proizvodnja</h2>
+            <p>Nekaj vijakov, ki smo jih izdelali po risbah naročnikov, in pogled v proizvodnjo. Kliknite sliko za povečavo.</p>
+          </div>
+          <FotoGalerija
+            skupine={[
+              { naziv: "Primeri vijakov", slike: FOTO_VPN },
+              { naziv: "Proizvodnja", slike: FOTO_KOVANJE.slice(0, 9) },
+              { naziv: "Kontrola", slike: FOTO_KAKOVOST.filter((x) => !/sidr/i.test(x.alt)) },
+            ]}
+          />
+        </div>
+      </section>
+
+      <section className="sec grey">
+        <div className="w">
+          <div className="st">
             <span>Za koga</span>
             <h2>Panoge, za katere delamo</h2>
           </div>
@@ -103,7 +135,7 @@ export default function VijakiPoNarocilu() {
         </div>
       </section>
 
-      <section className="sec grey">
+      <section className="sec">
         <div className="w">
           <div className="qua" style={{ alignItems: "flex-start" }}>
             <div>
