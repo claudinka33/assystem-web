@@ -16,7 +16,7 @@ const LOKACIJE = [
   {
     kraj: "Bistrica ob Sotli",
     vloga: "Proizvodnja",
-    opis: "Hladno kovanje, valjanje navojev, brizganje plastike in orodjarna.",
+    opis: "Hladno kovanje, valjanje navojev in brizganje plastike.",
     slika: "/slike/proizvodnja/bistrica-ob-sotli.jpg",
   },
 ];

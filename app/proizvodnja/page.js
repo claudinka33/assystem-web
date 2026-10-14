@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import KorakiSlike from "@/components/KorakiSlike";
 
 export const metadata = {
   title: "Proizvodnja in razvoj",
@@ -451,14 +452,16 @@ export default function Proizvodnja() {
               </Link>
             </div>
             <div>
-            <div className="pr-vpn-im">
-              <Image
-                src="/slike/poti/vijaki-po-narocilu.jpg"
-                alt="Tehnična risba vijaka in kljunasto merilo"
-                fill
-                sizes="(max-width: 1000px) 100vw, 640px"
-              />
-            </div>
+            <KorakiSlike
+              href="/vijaki-po-narocilu"
+              gumb="Vijaki po naročilu →"
+              koraki={[
+                { naslov: "Risba", podnaslov: "Korak 1", opis: "Vaša risba ali tehnična dokumentacija — preverimo izvedljivost in material.", slika: "/slike/poti/vijaki-po-narocilu.jpg", alt: "Tehnična risba vijaka in kljunasto merilo" },
+                { naslov: "Orodje in vzorci", podnaslov: "Korak 2", opis: "Izdelava orodja in potrditev vzorcev pred serijo.", slika: "/slike/vijaki-po-narocilu/orodje.jpg", alt: "Orodje za hladno kovanje in prvi vzorci vijakov" },
+                { naslov: "Serija", podnaslov: "Korak 3", opis: "Serijska proizvodnja s hladnim kovanjem in valjanjem navojev.", slika: "/slike/vijaki-po-narocilu/serija.jpg", alt: "Serijsko izdelani vijaki" },
+                { naslov: "Kontrola in dostava", podnaslov: "Korak 4", opis: "Kontrola mer in navojev, pakiranje in dostava.", slika: "/slike/vijaki-po-narocilu/kontrola.jpg", alt: "Kontrola mer vijakov in pakiranje" },
+              ]}
+            />
             <dl className="on-nums">
               <div>
                 <dt>M3×4</dt>
