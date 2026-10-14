@@ -180,7 +180,7 @@ const galerija = [
   ["/slike/embalaza/ASco_vrecka_modra.png", "Vrečka ASco — ZnB"],
   ["/slike/embalaza/ASco_vrecka_zelena.png", "Vrečka ASco — INOX"],
   ["/slike/proizvodnja/transportna-skatla.webp", "Transportna škatla"],
-  ["/slike/paleta.jpg", "Paletna enota"],
+  ["/slike/proizvodnja/paleta-asfix.jpg", "Paletna enota"],
 ];
 
 const kakovost = [
