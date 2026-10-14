@@ -302,7 +302,7 @@ export default async function Domov() {
             </div>
             <div className="foto">
               <Image
-                src="/slike/as-system-smarje.jpg"
+                src="/slike/as-system-smarje-2026.jpg"
                 alt="AS system Šmarje pri Jelšah"
                 fill
                 sizes="(max-width: 1000px) 100vw, 560px"
