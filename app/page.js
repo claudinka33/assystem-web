@@ -1,6 +1,7 @@
 import ZemljevidProdaje from "@/components/ZemljevidProdaje";
 import Image from "next/image";
 import Link from "next/link";
+import LokacijiDomov from "@/components/LokacijiDomov";
 import { pridobiKategorije } from "@/lib/podatki";
 import { pridobiVsebine, v } from "@/lib/vsebine";
 import { site } from "@/lib/site";
@@ -282,7 +283,7 @@ export default async function Domov() {
       {/* ---------- Podjetje ---------- */}
       <section className="sec">
         <div className="w">
-          <div className="qua">
+          <div className="qua lok-qua">
             <div>
               <div className="st">
                 <span>{site.ime}</span>
@@ -300,16 +301,7 @@ export default async function Domov() {
                 Proizvodnja in razvoj →
               </Link>
             </div>
-            <div className="foto">
-              <Image
-                src="/slike/as-system-smarje-2026.jpg"
-                alt="AS system Šmarje pri Jelšah"
-                fill
-                sizes="(max-width: 1000px) 100vw, 50vw"
-                quality={90}
-                style={{ objectFit: "cover" }}
-              />
-            </div>
+            <LokacijiDomov />
           </div>
         </div>
       </section>

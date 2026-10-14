@@ -320,7 +320,7 @@ export default function Proizvodnja() {
       </section>
 
       {/* Lokaciji */}
-      <section className="sec">
+      <section className="sec" id="lokacije">
         <div className="w">
           <div className="st">
             <span>Dve lokaciji</span>

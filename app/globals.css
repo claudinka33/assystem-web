@@ -2614,3 +2614,34 @@ a.medij:hover { transform: translateY(-2px); border-color: var(--color-ink); bor
 .kt-tx { display: grid; gap: 3px; }
 .nav-sk.kt .nav-pod a .kt-tx small { font-size: 11.5px; font-weight: 500; line-height: 1.35; color: var(--color-muted); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 @media (max-width: 1340px) { .nav-sk.kt .nav-pod { width: 600px; } }
+
+/* Domov — lokaciji Šmarje / Bistrica */
+.qua.lok-qua { grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr); gap: 56px; }
+@media (max-width: 1000px) { .qua.lok-qua { grid-template-columns: minmax(0, 1fr); gap: 28px; } }
+.lok-d-foto { position: relative; display: block; aspect-ratio: 16 / 9; overflow: hidden; background: #2b2f33; box-shadow: 0 18px 40px -22px rgba(0,0,0,.45); }
+.lok-d-sl { position: absolute; inset: 0; opacity: 0; transition: opacity .9s ease; }
+.lok-d-sl.on { opacity: 1; }
+.lok-d-sl img { object-fit: cover; transform: scale(1); transition: transform 7s ease-out; }
+.lok-d-sl.on img { transform: scale(1.06); }
+.lok-d-foto:hover .lok-d-sl.on img { transform: scale(1.09); transition-duration: 1.2s; }
+.lok-d-nap { position: absolute; left: 0; right: 0; bottom: 0; padding: 60px 26px 22px; color: #fff; background: linear-gradient(to top, rgba(20,22,25,.82), rgba(20,22,25,0)); display: grid; gap: 4px; pointer-events: none; }
+.lok-d-nap small { font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: #ff5a6e; }
+.lok-d-nap b { font-size: 26px; font-weight: 800; line-height: 1.1; }
+.lok-d-nap span { font-size: 14px; opacity: .9; max-width: 480px; }
+.lok-d-vec { position: absolute; top: 18px; right: 18px; background: var(--color-red, #C8102E); color: #fff; font-size: 12px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; padding: 9px 14px; opacity: 0; transform: translateY(-6px); transition: .3s; }
+.lok-d-foto:hover .lok-d-vec { opacity: 1; transform: none; }
+.lok-d-tab { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--color-line, #e3e5e8); border-top: 0; }
+.lok-d-tab button { position: relative; display: flex; align-items: center; gap: 14px; padding: 16px 18px; background: #fff; border: 0; cursor: pointer; text-align: left; font: inherit; transition: background .25s; overflow: hidden; }
+.lok-d-tab button + button { border-left: 1px solid var(--color-line, #e3e5e8); }
+.lok-d-tab button:hover { background: #f6f7f8; }
+.lok-d-tab b { display: block; font-size: 15px; color: #2b2f33; }
+.lok-d-tab small { display: block; font-size: 12px; color: #6e767e; }
+.lok-d-st { font-size: 22px; font-weight: 800; color: #c9ccd0; transition: color .25s; }
+.lok-d-tab button.on .lok-d-st { color: var(--color-red, #C8102E); }
+.lok-d-tab button.on b { color: var(--color-red, #C8102E); }
+.lok-d-tab i { position: absolute; left: 0; top: 0; height: 3px; width: 0; background: var(--color-red, #C8102E); }
+.lok-d-tab button.on i { width: 100%; }
+.lok-d-tab i.tece { width: 0; animation: lokTece linear forwards; }
+@keyframes lokTece { from { width: 0; } to { width: 100%; } }
+@media (max-width: 600px) { .lok-d-nap span { display: none; } .lok-d-nap b { font-size: 20px; } .lok-d-nap { padding: 40px 16px 14px; } .lok-d-tab button { padding: 12px; gap: 10px; } }
+@media (prefers-reduced-motion: reduce) { .lok-d-sl img, .lok-d-sl.on img { transform: none; transition: none; } }
