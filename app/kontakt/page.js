@@ -60,7 +60,8 @@ export default async function Kontakt({ searchParams }) {
               alt="Sedež AS system v Šmarju pri Jelšah"
               fill
               priority
-              sizes="(max-width: 1000px) 100vw, 640px"
+              sizes="(max-width: 1000px) 100vw, 50vw"
+              quality={90}
             />
             <span>Obrtniška ulica 14, Šmarje pri Jelšah</span>
           </div>

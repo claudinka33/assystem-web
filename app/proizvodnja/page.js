@@ -330,7 +330,7 @@ export default function Proizvodnja() {
             {lokacije.map((l) => (
               <div key={l.naziv}>
                 <div className="pr-lok-im">
-                  <Image src={l.slika} alt={l.alt} fill sizes="(max-width: 1000px) 100vw, 680px" />
+                  <Image src={l.slika} alt={l.alt} fill sizes="(max-width: 1000px) 100vw, 50vw" quality={90} />
                 </div>
                 <small>{l.st}</small>
                 <h3>{l.naziv}</h3>

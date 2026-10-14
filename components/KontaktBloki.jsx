@@ -200,7 +200,7 @@ export function Lokacije({ siva = false, naslov = "Dve lokaciji" }) {
             <div key={l.naziv} className="on-lok-k">
               {l.slika && (
                 <div className="on-lok-foto">
-                  <Image src={l.slika} alt={l.alt} fill sizes="(max-width: 1000px) 100vw, 680px" />
+                  <Image src={l.slika} alt={l.alt} fill sizes="(max-width: 1000px) 100vw, 50vw" quality={90} />
                 </div>
               )}
               <div className="on-lok-tx">
