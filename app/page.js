@@ -7,6 +7,9 @@ import { pridobiVsebine, v } from "@/lib/vsebine";
 import { site } from "@/lib/site";
 import Vrata from "@/components/Vrata";
 import DveZnamki from "@/components/DveZnamki";
+import ResitveObjekt from "@/components/ResitveObjekt";
+import { objekt, cone, vsiSlugi } from "@/lib/resitve";
+import { pridobiIzdelkePoSlugih } from "@/lib/podatki";
 
 export const revalidate = 60;
 
@@ -40,6 +43,7 @@ const certifikati = [
 export default async function Domov() {
   const { seznam: kategorije } = await pridobiKategorije();
   const b = await pridobiVsebine("domov");
+  const izdelkiResitev = await pridobiIzdelkePoSlugih(vsiSlugi());
 
   return (
     <>
@@ -160,6 +164,13 @@ export default async function Domov() {
             ))}
 
           </div>
+        </div>
+      </section>
+
+      {/* ---------- Rešitve: interaktivni objekt ---------- */}
+      <section className="sec grey res-dom" id="resitve">
+        <div className="w">
+          <ResitveObjekt objekt={objekt} cone={cone} izdelki={izdelkiResitev} kompaktno />
         </div>
       </section>
 

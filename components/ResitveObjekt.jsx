@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 // Interaktivni objekt: pregled → cona (detajl) → plus → kartica izdelkov.
-export default function ResitveObjekt({ objekt, cone, izdelki }) {
+export default function ResitveObjekt({ objekt, cone, izdelki, kompaktno = false }) {
   const [cona, setCona] = useState(null); // id izbrane cone
   const [poudarjena, setPoudarjena] = useState(null); // cona pod miško
   const [plus, setPlus] = useState(null); // indeks odprtega plusa
@@ -234,7 +234,7 @@ export default function ResitveObjekt({ objekt, cone, izdelki }) {
         </p>
 
         {/* seznam izdelkov cone — tudi za telefon in iskalnike */}
-        {izbrana && (
+        {izbrana && !kompaktno && (
           <div className="res-seznam">
             {izbrana.plusi.map((p, i) => (
               <div key={i} className="res-seznam-sk">
