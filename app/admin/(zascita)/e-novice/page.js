@@ -33,10 +33,10 @@ export default async function ENovice() {
 
         <ENoviceObrazec segmenti={segmenti} posiljatelj={posiljatelj} />
 
-        <h2 style={{ fontSize: 18, margin: "34px 0 12px" }}>Zadnje kampanje</h2>
-        {kampanje.length === 0 ? (
-          <p style={{ color: "#6e767e", fontSize: 14 }}>Še ni poslanih kampanj.</p>
-        ) : (
+        {kampanje.length > 0 && (
+          <h2 style={{ fontSize: 15, margin: "28px 0 10px" }}>Zadnje kampanje</h2>
+        )}
+        {kampanje.length > 0 && (
           <table className="adm-tab">
             <thead>
               <tr>

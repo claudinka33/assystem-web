@@ -5,8 +5,16 @@ import { posljiTestENovice, posljiENoviceVsem } from "@/lib/akcije/enovice-posil
 
 function Sporocilo({ s }) {
   if (!s) return null;
-  return <div className={s.stanje === "ok" ? "uspeh" : "opozorilo"}>{s.sporocilo}</div>;
+  return (
+    <div className={s.stanje === "ok" ? "uspeh" : "opozorilo"} style={{ margin: "8px 0", padding: "8px 12px", fontSize: 13 }}>
+      {s.sporocilo}
+    </div>
+  );
 }
+
+const korak = { fontSize: 12, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", color: "#6e767e", margin: "0 0 8px" };
+const blok = { borderTop: "1px solid #e4e6e8", paddingTop: 14, marginTop: 14 };
+const vrsta = { display: "flex", gap: 8, alignItems: "center" };
 
 export default function ENoviceObrazec({ segmenti, posiljatelj }) {
   const [html, setHtml] = useState("");
@@ -16,80 +24,71 @@ export default function ENoviceObrazec({ segmenti, posiljatelj }) {
   const brezOdjave = html && !html.includes("{{{RESEND_UNSUBSCRIBE_URL}}}");
 
   return (
-    <form className="adm-obr" style={{ maxWidth: "none" }}>
-      <div className="adm-vrsta">
+    <form style={{ display: "grid", gridTemplateColumns: "minmax(300px, 380px) minmax(0, 1fr)", gap: 20, alignItems: "start" }}>
+      {/* LEVO: vnos in pošiljanje */}
+      <div className="adm-obr" style={{ maxWidth: "none", padding: 18 }}>
+        <p style={korak}>1 · Vsebina</p>
         <div className="adm-polje">
           <label htmlFor="zadeva">Zadeva *</label>
-          <input id="zadeva" name="zadeva" type="text" required placeholder="Novo: jekleno sidro ASfix TX1 – ETA Option 1" />
+          <input id="zadeva" name="zadeva" type="text" required placeholder="Novo: jekleno sidro ASfix TX1" />
         </div>
         <div className="adm-polje">
-          <label htmlFor="posiljatelj">Pošiljatelj</label>
-          <input id="posiljatelj" name="posiljatelj" type="text" defaultValue={posiljatelj} />
-          <p className="namig">Domena mora biti potrjena v Resendu. Odgovori gredo na info@as-system.si.</p>
-        </div>
-      </div>
-
-      <div className="adm-polje">
-        <label htmlFor="predogled">Predogledno besedilo (neobvezno)</label>
-        <input id="predogled" name="predogled" type="text" placeholder="Kratek tekst, ki se v nabiralniku izpiše pod zadevo" />
-      </div>
-
-      <div style={{ display: "grid", gridTemplateColumns: "minmax(0,1fr) minmax(0,1fr)", gap: 20 }}>
-        <div className="adm-polje">
-          <label htmlFor="html">HTML koda maila *</label>
+          <label htmlFor="html">HTML koda *</label>
           <textarea
             id="html"
             name="html"
             required
             value={html}
             onChange={(e) => setHtml(e.target.value)}
-            placeholder="Sem prilepi celotno HTML kodo (od <!DOCTYPE html> do </html>)"
-            style={{ minHeight: 620, fontFamily: "ui-monospace, Menlo, monospace", fontSize: 12 }}
+            placeholder="Prilepi celotno HTML kodo maila"
+            style={{ minHeight: 110, height: 110, fontFamily: "ui-monospace, Menlo, monospace", fontSize: 11 }}
           />
           {brezOdjave && (
             <p className="namig" style={{ color: "#cb2026" }}>
-              V kodi ni povezave za odjavo {"{{{RESEND_UNSUBSCRIBE_URL}}}"} – za pošiljanje vsem jo dodaj.
+              Manjka povezava za odjavo {"{{{RESEND_UNSUBSCRIBE_URL}}}"}.
             </p>
           )}
         </div>
-        <div className="adm-polje">
-          <label>Predogled</label>
-          <iframe
-            title="Predogled maila"
-            srcDoc={html || "<p style='font-family:sans-serif;color:#999;padding:20px'>Tu se prikaže mail.</p>"}
-            sandbox=""
-            style={{ width: "100%", height: 620, border: "1px solid #dde0e2", background: "#fff" }}
-          />
-        </div>
-      </div>
-
-      {/* 1 · TEST */}
-      <div style={{ borderTop: "1px solid #e4e6e8", marginTop: 10, paddingTop: 18 }}>
-        <h2 style={{ fontSize: 16, margin: "0 0 10px" }}>1 · Pošlji test</h2>
-        <Sporocilo s={testStanje} />
-        <div className="adm-vrsta" style={{ alignItems: "end" }}>
-          <div className="adm-polje">
-            <label htmlFor="test_naslovi">Testni naslovi</label>
-            <input id="test_naslovi" name="test_naslovi" type="text" defaultValue="claudia.seidl@as-system.si" />
-            <p className="namig">Več naslovov loči z vejico.</p>
+        <details style={{ fontSize: 13, marginBottom: 4 }}>
+          <summary style={{ cursor: "pointer", color: "#6e767e" }}>Več možnosti</summary>
+          <div className="adm-polje" style={{ marginTop: 10 }}>
+            <label htmlFor="predogled">Predogledno besedilo</label>
+            <input id="predogled" name="predogled" type="text" placeholder="Tekst pod zadevo v nabiralniku" />
           </div>
           <div className="adm-polje">
-            <button className="gumb siv" formAction={testAkcija} disabled={caka}>
-              {testCaka ? "Pošiljam …" : "Pošlji test"}
+            <label htmlFor="posiljatelj">Pošiljatelj</label>
+            <input id="posiljatelj" name="posiljatelj" type="text" defaultValue={posiljatelj} />
+            <p className="namig">Odgovori gredo na info@as-system.si.</p>
+          </div>
+        </details>
+
+        <div style={blok}>
+          <p style={korak}>2 · Test</p>
+          <div style={vrsta}>
+            <input
+              name="test_naslovi"
+              type="text"
+              defaultValue="claudia.seidl@as-system.si"
+              aria-label="Testni naslovi"
+              style={{ flex: 1, minWidth: 0, padding: "8px 10px", border: "1px solid #c6cace", fontSize: 13 }}
+            />
+            <button className="gumb siv mini" formAction={testAkcija} disabled={caka}>
+              {testCaka ? "…" : "Pošlji test"}
             </button>
           </div>
+          <Sporocilo s={testStanje} />
         </div>
-      </div>
 
-      {/* 2 · VSEM */}
-      <div style={{ borderTop: "1px solid #e4e6e8", marginTop: 10, paddingTop: 18 }}>
-        <h2 style={{ fontSize: 16, margin: "0 0 10px" }}>2 · Pošlji prejemnikom</h2>
-        <Sporocilo s={vsemStanje} />
-        <div className="adm-polje">
-          <label htmlFor="segment">Komu (segment v Resendu)</label>
-          <select id="segment" name="segment" defaultValue="">
+        <div style={blok}>
+          <p style={korak}>3 · Pošlji</p>
+          <select
+            name="segment"
+            defaultValue=""
+            aria-label="Segment"
+            style={{ width: "100%", padding: "8px 10px", border: "1px solid #c6cace", fontSize: 13, marginBottom: 8 }}
+          >
             <option value="" disabled>
-              — izberi segment —
+              {segmenti.length ? "Komu? (segment)" : "Ni segmentov v Resendu"}
             </option>
             {segmenti.map((s) => (
               <option key={s.id} value={s.id}>
@@ -97,17 +96,28 @@ export default function ENoviceObrazec({ segmenti, posiljatelj }) {
               </option>
             ))}
           </select>
-          {segmenti.length === 0 && <p className="namig">V Resendu še ni segmentov (Contacts → Segments).</p>}
-        </div>
-        <div className="adm-polje">
-          <label style={{ fontWeight: 400, display: "flex", gap: 8, alignItems: "center" }}>
+          <label style={{ ...vrsta, fontSize: 13, marginBottom: 10 }}>
             <input name="potrditev" type="checkbox" />
-            Test sem pregledal(a) – pošlji vsem v izbranem segmentu
+            Test je pregledan – pošlji vsem
           </label>
+          <button className="gumb" formAction={vsemAkcija} disabled={caka} style={{ width: "100%" }}>
+            {vsemCaka ? "Pošiljam …" : "Pošlji vsem"}
+          </button>
+          <Sporocilo s={vsemStanje} />
         </div>
-        <button className="gumb" formAction={vsemAkcija} disabled={caka}>
-          {vsemCaka ? "Pošiljam …" : "Pošlji vsem"}
-        </button>
+      </div>
+
+      {/* DESNO: predogled */}
+      <div style={{ position: "sticky", top: 16 }}>
+        <iframe
+          title="Predogled maila"
+          srcDoc={
+            html ||
+            "<div style='font-family:sans-serif;color:#9aa0a6;display:flex;height:90vh;align-items:center;justify-content:center'>Predogled maila</div>"
+          }
+          sandbox=""
+          style={{ width: "100%", height: "calc(100vh - 200px)", minHeight: 420, border: "1px solid #dde0e2", background: "#fff" }}
+        />
       </div>
     </form>
   );
