@@ -163,16 +163,15 @@ export default function ResitveObjekt({ objekt, cone, izdelki, kompaktno = false
             />
             {izbrana.plusi.map((p, i) => {
               const odprt = plus === i;
-              const desno = p.x > 58;
-              const spodaj = p.y > 55;
+              const desno = p.x > 50;
               return (
                 <div
                   key={i}
                   className={"res-plus-ovoj" + (odprt ? " odprt" : "")}
-                  style={{ left: `${p.x}%`, top: `${p.y}%` }}
                 >
                   <button
                     type="button"
+                    style={{ left: `${p.x}%`, top: `${p.y}%` }}
                     className={"res-plus" + (odprt ? " on" : "")}
                     onClick={() => setPlus(odprt ? null : i)}
                     aria-expanded={odprt}
@@ -182,10 +181,15 @@ export default function ResitveObjekt({ objekt, cone, izdelki, kompaktno = false
                   </button>
                   {odprt && (
                     <div
-                      className={"res-kartica" + (desno ? " levo" : "") + (spodaj ? " gor" : "")}
+                      className={"res-kartica" + (desno ? " levo" : "")}
                       role="dialog"
                       aria-label={p.naslov}
                     >
+                      {p.slika && (
+                        <span className="res-k-foto">
+                          <Image src={p.slika} alt={p.naslov} fill sizes="340px" style={{ objectFit: "cover" }} />
+                        </span>
+                      )}
                       <div className="res-k-glava">
                         <b className="res-k-naslov">{p.naslov}</b>
                         <button type="button" className="res-k-zapri" aria-label="Zapri" onClick={() => setPlus(null)}>×</button>
