@@ -21,6 +21,7 @@ const meni = [
     { naziv: "Besedila na strani", pot: "/admin/vsebine" },
     { naziv: "Novice", pot: "/admin/novice" },
     { naziv: "E-novice (mailing)", pot: "/admin/e-novice" },
+    { naziv: "E-novice kontakti", pot: "/admin/e-novice/kontakti" },
   ]},
   { skupina: "Zaposlovanje", povezave: [
     { naziv: "Delovna mesta", pot: "/admin/delovna-mesta" },

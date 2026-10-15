@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Resend } from "resend";
 import ENoviceObrazec from "./ENoviceObrazec";
 
@@ -25,7 +26,9 @@ export default async function ENovice() {
     <>
       <div className="adm-glava">
         <h1>E-novice</h1>
-        <span style={{ fontSize: 14, color: "#6e767e" }}>pošiljanje prek Resenda</span>
+        <Link className="gumb siv mini" href="/admin/e-novice/kontakti">
+          + Dodaj kontakte
+        </Link>
       </div>
 
       <div className="adm-telo">
