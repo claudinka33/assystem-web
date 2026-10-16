@@ -101,7 +101,7 @@ export default async function ENovice({ searchParams }) {
                 return (
                   <tr key={k.id}>
                     <td>
-                      <Link href={`/admin/e-novice/${k.id}`} style={{ fontWeight: 600 }}>
+                      <Link href={`/admin/e-novice/${k.id}`} style={{ fontWeight: 600, display: "block" }}>
                         {(zavihek === "predloga" ? k.naziv : k.zadeva) || k.zadeva || <em style={{ color: "#9aa0a6" }}>(brez zadeve)</em>}
                       </Link>
                       {k.naziv && zavihek !== "predloga" && (
@@ -127,6 +127,9 @@ export default async function ENovice({ searchParams }) {
                       </td>
                     )}
                     <td style={{ whiteSpace: "nowrap", textAlign: "right" }}>
+                      <Link className="gumb mini" href={`/admin/e-novice/${k.id}`}>
+                        {["osnutek", "predloga"].includes(k.status) ? "Uredi" : "Odpri"}
+                      </Link>{" "}
                       <form action={podvojiKampanjo} style={{ display: "inline" }}>
                         <input type="hidden" name="iz" value={k.id} />
                         <button className="gumb siv mini">{zavihek === "predloga" ? "Uporabi" : "Podvoji"}</button>
