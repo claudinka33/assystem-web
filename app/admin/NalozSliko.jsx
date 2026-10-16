@@ -1,57 +1,84 @@
 "use client";
 
-import { useState } from "react";
-import { naloziDatoteko } from "@/lib/akcije/skupno";
+import { useRef, useState } from "react";
+import { naloziVShrambo } from "./nalaganje";
 
-// Naloži sliko ali PDF v Supabase shrambo in vrne javno povezavo.
-export default function NalozSliko({ ime, zacetna, oznaka = "Slika", vedro = "slike" }) {
+// Polje za sliko ali PDF: povleci datoteko sem ali klikni. Datoteka gre v Supabase
+// shrambo in se na spletni strani pokaže takoj po shranjevanju obrazca.
+export default function NalozSliko({ ime, zacetna, oznaka = "Slika", vedro = "slike", privzeta = null, namig = null }) {
   const [url, setUrl] = useState(zacetna ?? "");
   const [caka, setCaka] = useState(false);
   const [napaka, setNapaka] = useState("");
+  const [nad, setNad] = useState(false);
+  const vnos = useRef(null);
+  const jeSlika = vedro === "slike";
 
-  async function nalozi(e) {
-    const datoteka = e.target.files?.[0];
+  async function nalozi(datoteka) {
     if (!datoteka) return;
-
     setCaka(true);
     setNapaka("");
-
-    const fd = new FormData();
-    fd.append("datoteka", datoteka);
-    fd.append("vedro", vedro);
-
-    const rezultat = await naloziDatoteko(fd);
+    const r = await naloziVShrambo(datoteka, vedro);
     setCaka(false);
-
-    if (rezultat?.napaka) setNapaka(rezultat.napaka);
-    else setUrl(rezultat.url);
+    if (r.napaka) setNapaka(r.napaka);
+    else setUrl(r.url);
   }
+
+  const prikaz = url || privzeta;
 
   return (
     <div className="adm-polje">
       <label>{oznaka}</label>
-      <div style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
-        {url && vedro === "slike" && (
-          <img
-            src={url}
-            alt=""
-            style={{ width: 76, height: 76, objectFit: "contain", background: "#f4f6f7", border: "1px solid #e6e9ec" }}
-          />
+      <input type="hidden" name={ime} value={url} />
+      <div
+        className={`nalozi${nad ? " nad" : ""}`}
+        onDragOver={(e) => { e.preventDefault(); setNad(true); }}
+        onDragLeave={() => setNad(false)}
+        onDrop={(e) => { e.preventDefault(); setNad(false); nalozi(e.dataTransfer.files?.[0]); }}
+      >
+        {jeSlika ? (
+          <div className="nalozi-predogled">
+            {prikaz ? <img src={prikaz} alt="" /> : <span>Ni slike</span>}
+            {!url && privzeta && <em>privzeta</em>}
+          </div>
+        ) : (
+          <div className="nalozi-predogled pdf">{url ? "PDF" : "—"}</div>
         )}
-        <div style={{ flex: 1 }}>
-          <input type="hidden" name={ime} value={url} />
-          <input type="file" onChange={nalozi} accept={vedro === "slike" ? "image/*" : ".pdf"} />
-          {caka && <p className="namig">Nalagam…</p>}
-          {napaka && <p className="namig" style={{ color: "#c8102e" }}>{napaka}</p>}
-          <input
-            type="text"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-            placeholder="ali prilepi povezavo"
-            style={{ marginTop: 8 }}
-          />
+        <div className="nalozi-desno">
+          <button type="button" className="gumb siv mini" onClick={() => vnos.current?.click()} disabled={caka}>
+            {caka ? "Nalagam …" : url ? "Zamenjaj" : "Izberi datoteko"}
+          </button>
+          {url && (
+            <button type="button" className="gumb siv mini" onClick={() => setUrl("")}>
+              Odstrani
+            </button>
+          )}
+          <p className="namig" style={{ margin: "8px 0 0" }}>
+            {caka
+              ? "Nalagam …"
+              : namig ??
+                (jeSlika
+                  ? !url && privzeta
+                    ? "Trenutno se prikazuje privzeta slika. Povleci novo sliko sem, da jo zamenjaš."
+                    : "Povleci sliko sem ali klikni »Izberi datoteko«. JPG, PNG ali WEBP."
+                  : "Povleci PDF sem ali klikni »Izberi datoteko«. Tudi veliki katalogi (do 50 MB).")}
+          </p>
+          {url && !jeSlika && (
+            <a href={url} target="_blank" rel="noreferrer" className="namig" style={{ color: "#cb2026" }}>Odpri naloženo datoteko ↗</a>
+          )}
+          {napaka && <p className="namig" style={{ color: "#cb2026" }}>Napaka: {napaka}</p>}
         </div>
+        <input
+          ref={vnos}
+          type="file"
+          hidden
+          accept={jeSlika ? "image/*" : ".pdf,application/pdf"}
+          onChange={(e) => nalozi(e.target.files?.[0])}
+        />
       </div>
+      <details className="nalozi-url">
+        <summary>ali prilepi povezavo</summary>
+        <input type="text" value={url} onChange={(e) => setUrl(e.target.value)} placeholder="https://…" />
+      </details>
     </div>
   );
 }

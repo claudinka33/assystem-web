@@ -2,17 +2,18 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { supabaseAdmin } from "@/lib/supabase-server";
 import {
-  dodajVGalerijo,
   izbrisiArtikel,
   izbrisiDokument,
   izbrisiIzdelek,
-  odstraniIzGalerije,
   shraniArtikel,
   shraniDokument,
 } from "@/lib/akcije/skupno";
 import IzdelekObrazec from "../IzdelekObrazec";
 import NalozSliko from "@/app/admin/NalozSliko";
 import UvozArtiklov from "@/app/admin/UvozArtiklov";
+import GalerijaIzdelka from "@/app/admin/GalerijaIzdelka";
+import VideiIzdelka from "@/app/admin/VideiIzdelka";
+import { VIDEI_IZDELKOV } from "@/lib/videi";
 
 export const dynamic = "force-dynamic";
 
@@ -40,7 +41,14 @@ export default async function UrediIzdelek({ params }) {
 
   if (!izdelek) notFound();
 
-  const galerija = Array.isArray(izdelek.galerija) ? izdelek.galerija : [];
+  // galerija vključuje tudi glavno sliko (da jo lahko razvrščaš skupaj z ostalimi)
+  const galerija = [...new Set([izdelek.slika_url, ...(Array.isArray(izdelek.galerija) ? izdelek.galerija : [])].filter(Boolean))];
+  // videi iz baze; če jih še ni, pokaži tiste iz lib/videi.js (da se ne izgubijo)
+  const videi = Array.isArray(izdelek.videi) && izdelek.videi.length
+    ? izdelek.videi
+    : VIDEI_IZDELKOV[izdelek.slug]
+      ? [{ ...VIDEI_IZDELKOV[izdelek.slug], samodejno: true }]
+      : [];
 
   return (
     <>
@@ -59,33 +67,16 @@ export default async function UrediIzdelek({ params }) {
 
         {/* ---------------- GALERIJA ---------------- */}
         <h2 style={{ margin: "38px 0 14px", fontSize: 19, fontWeight: 800, textTransform: "uppercase" }}>
-          Galerija slik ({galerija.length})
+          Slike izdelka ({galerija.length})
         </h2>
 
-        {galerija.length > 0 && (
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginBottom: 16 }}>
-            {galerija.map((url) => (
-              <div key={url} style={{ border: "1px solid #dde0e2", padding: 8, background: "#fff" }}>
-                <img src={url} alt="" style={{ width: 120, height: 120, objectFit: "contain" }} />
-                <form action={odstraniIzGalerije}>
-                  <input type="hidden" name="izdelek_id" value={izdelek.id} />
-                  <input type="hidden" name="url" value={url} />
-                  <button className="gumb siv mini" type="submit" style={{ width: "100%", marginTop: 6 }}>
-                    Odstrani
-                  </button>
-                </form>
-              </div>
-            ))}
-          </div>
-        )}
+        <GalerijaIzdelka izdelekId={izdelek.id} glavna={izdelek.slika_url} galerija={galerija} />
 
-        <form className="adm-obr" action={dodajVGalerijo}>
-          <input type="hidden" name="izdelek_id" value={izdelek.id} />
-          <NalozSliko ime="slika_url" oznaka="Dodaj sliko v galerijo" />
-          <button className="gumb" type="submit">
-            Dodaj v galerijo
-          </button>
-        </form>
+        {/* ---------------- VIDEI ---------------- */}
+        <h2 style={{ margin: "38px 0 14px", fontSize: 19, fontWeight: 800, textTransform: "uppercase" }}>
+          Videi — YouTube ({videi.length})
+        </h2>
+        <VideiIzdelka izdelekId={izdelek.id} zacetni={videi} />
 
         {/* ---------------- ARTIKLI ---------------- */}
         <h2 style={{ margin: "38px 0 14px", fontSize: 19, fontWeight: 800, textTransform: "uppercase" }}>

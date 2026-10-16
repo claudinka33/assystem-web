@@ -2,7 +2,7 @@ import Link from "next/link";
 import { shraniKategorijo } from "@/lib/akcije/skupno";
 import NalozSliko from "@/app/admin/NalozSliko";
 
-export default function KategorijaObrazec({ kategorija, kategorije }) {
+export default function KategorijaObrazec({ kategorija, kategorije, privzetaSlika = null }) {
   const k = kategorija ?? {};
 
   return (
@@ -26,7 +26,7 @@ export default function KategorijaObrazec({ kategorija, kategorije }) {
         <textarea id="opis" name="opis" defaultValue={k.opis ?? ""} style={{ minHeight: 80 }} />
       </div>
 
-      <NalozSliko ime="slika_url" zacetna={k.slika_url} oznaka="Slika kategorije" />
+      <NalozSliko ime="slika_url" zacetna={k.slika_url} oznaka="Slika kategorije" privzeta={privzetaSlika} />
 
       <div className="adm-vrsta-3">
         <div className="adm-polje">

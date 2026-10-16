@@ -79,7 +79,7 @@ export default function IzdelekObrazec({ izdelek, kategorije }) {
         <textarea id="tehnicni_opis" name="tehnicni_opis" defaultValue={i.tehnicni_opis ?? ""} style={{ minHeight: 90 }} />
       </div>
 
-      <NalozSliko ime="slika_url" zacetna={i.slika_url} oznaka="Glavna slika izdelka" />
+      {!i.id && <NalozSliko ime="slika_url" zacetna={i.slika_url} oznaka="Glavna slika izdelka" />}
 
       <div className="adm-vrsta-3">
         <div className="adm-polje">

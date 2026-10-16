@@ -15,7 +15,7 @@ export default function MedijiBanner({ video, letak, certifikat, temno = false }
       {video && (
         <div className="medij medij-video">
           <span className="medij-oz">Video</span>
-          <YouTubeVideo id={video.id} naslov={video.naslov} samodejno />
+          <YouTubeVideo id={video.id} naslov={video.naslov} samodejno={video.samodejno !== false} />
           <p>{video.naslov}</p>
         </div>
       )}

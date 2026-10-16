@@ -15,8 +15,8 @@ export default async function Kategorije() {
     sb.from("izdelki").select("kategorija_id").limit(5000),
   ]);
 
-  // Na strani ima prednost slika iz repa (public/slike/kategorije), sicer slika iz baze.
-  const seznam = (data ?? []).map((k) => ({ ...k, slika: lokalnaSlikaKategorije(k.slug, k.naziv) || k.slika_url }));
+  // Slika iz admina ima prednost, sicer privzeta slika iz repa (public/slike/kategorije).
+  const seznam = (data ?? []).map((k) => ({ ...k, slika: k.slika_url || lokalnaSlikaKategorije(k.slug, k.naziv) }));
   const stIzd = {};
   for (const i of izdelki ?? []) stIzd[i.kategorija_id] = (stIzd[i.kategorija_id] ?? 0) + 1;
 

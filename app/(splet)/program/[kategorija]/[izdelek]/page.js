@@ -69,7 +69,7 @@ export default async function StranIzdelka({ params }) {
     i.znamka === "Silvermate"
       ? { ...SILVERMATE_MEDIJI, ...(dokEta ? { certifikat: { ...SILVERMATE_MEDIJI.certifikat, url: dokEta.datoteka_url, opis: "Odpri PDF ↓" } } : {}) }
       : {
-          video: VIDEI_IZDELKOV[izdelek] ?? null,
+          video: i.videi?.[0] ?? VIDEI_IZDELKOV[izdelek] ?? null,
           letak: dokLetak ? { url: dokLetak.datoteka_url, naziv: dokLetak.naziv } : null,
           certifikat: dokEta
             ? { oznaka: i.eta_stevilka ?? oznakeTipov[dokEta.tip] ?? "ETA", url: dokEta.datoteka_url, naslov: dokEta.naziv, opis: "Odpri PDF ↓" }
