@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import NaslovStrani from "@/components/NaslovStrani";
-import PolicaAsfix from "@/components/PolicaAsfix";
 import ObrazecPovprasevanje from "@/components/ObrazecPovprasevanje";
 import { ZNAMKE_INFO } from "@/lib/znamke";
 
@@ -90,17 +89,6 @@ export default function ZaTrgovce() {
 
       <section className="sec">
         <div className="w">
-          <div className="st">
-            <span>Polica ASfix</span>
-            <h2>Poglejte, kako izgleda pri vas</h2>
-            <p>Izberite širino. Polica je visoka 2 m: zgoraj tabla, na perforirani steni vrečke, spodaj škatle s cenovnimi letvicami.</p>
-          </div>
-          <PolicaAsfix />
-        </div>
-      </section>
-
-      <section className="sec grey">
-        <div className="w">
           <div className="stojalo">
             <div className="stojalo-im">
               <Image
@@ -134,7 +122,7 @@ export default function ZaTrgovce() {
         </div>
       </section>
 
-      <section className="sec">
+      <section className="sec grey">
         <div className="w">
           <div className="st">
             <span>Embalaža</span>
@@ -164,7 +152,7 @@ export default function ZaTrgovce() {
         </div>
       </section>
 
-      <section id="povprasevanje" className="sec grey">
+      <section id="povprasevanje" className="sec">
         <div className="w">
           <div className="qua" style={{ alignItems: "start" }}>
             <div className="st">
