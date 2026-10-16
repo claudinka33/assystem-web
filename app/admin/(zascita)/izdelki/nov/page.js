@@ -9,13 +9,16 @@ export default async function NovIzdelek() {
   return (
     <>
       <div className="adm-glava">
-        <h1>Nov izdelek</h1>
-      </div>
-      <div className="adm-telo">
-        <IzdelekObrazec kategorije={data ?? []} />
-        <div className="namig" style={{ marginTop: 14, fontSize: 13, color: "#6e767e" }}>
-          Artikle (šifre, dimenzije, cene) in dokumente dodaš, ko izdelek prvič shraniš.
+        <div>
+          <div className="adm-nad">Izdelki</div>
+          <h1>Nov izdelek</h1>
         </div>
+      </div>
+      <div className="adm-telo izd-telo">
+        <div className="izd-manjka" style={{ background: "#f4f7fb", borderColor: "#d6e0ec", borderLeftColor: "#3f4140" }}>
+          Najprej vpiši osnovne podatke in izdelek ustvari — nato dodaš slike, videe, artikle in dokumente.
+        </div>
+        <IzdelekObrazec kategorije={data ?? []} />
       </div>
     </>
   );

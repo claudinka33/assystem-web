@@ -39,7 +39,7 @@ export default function VideiIzdelka({ izdelekId, zacetni }) {
   const predogled = youtubeId(povezava);
 
   return (
-    <div className="adm-obr" style={{ maxWidth: "none" }}>
+    <div>
       {videi.length > 0 && (
         <div className="video-seznam">
           {videi.map((v, i) => (

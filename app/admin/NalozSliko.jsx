@@ -5,7 +5,7 @@ import { naloziVShrambo } from "./nalaganje";
 
 // Polje za sliko ali PDF: povleci datoteko sem ali klikni. Datoteka gre v Supabase
 // shrambo in se na spletni strani pokaže takoj po shranjevanju obrazca.
-export default function NalozSliko({ ime, zacetna, oznaka = "Slika", vedro = "slike", privzeta = null, namig = null }) {
+export default function NalozSliko({ ime, zacetna, oznaka = "Slika", vedro = "slike", privzeta = null, namig = null, form }) {
   const [url, setUrl] = useState(zacetna ?? "");
   const [caka, setCaka] = useState(false);
   const [napaka, setNapaka] = useState("");
@@ -28,7 +28,7 @@ export default function NalozSliko({ ime, zacetna, oznaka = "Slika", vedro = "sl
   return (
     <div className="adm-polje">
       <label>{oznaka}</label>
-      <input type="hidden" name={ime} value={url} />
+      <input type="hidden" name={ime} value={url} form={form} />
       <div
         className={`nalozi${nad ? " nad" : ""}`}
         onDragOver={(e) => { e.preventDefault(); setNad(true); }}

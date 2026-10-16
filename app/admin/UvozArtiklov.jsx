@@ -7,12 +7,9 @@ export default function UvozArtiklov({ izdelekId }) {
   const [stanje, akcija, caka] = useActionState(uvoziArtikle, null);
 
   return (
-    <form className="adm-obr" action={akcija} style={{ marginTop: 16 }}>
+    <form action={akcija} style={{ marginTop: 14 }}>
       <input type="hidden" name="izdelek_id" value={izdelekId} />
 
-      <h3 style={{ fontSize: 16, fontWeight: 700, textTransform: "uppercase", marginBottom: 12 }}>
-        Uvoz iz Excela
-      </h3>
 
       {stanje?.stanje === "ok" && <div className="uspeh">{stanje.sporocilo}</div>}
       {stanje?.stanje === "napaka" && <div className="opozorilo">{stanje.sporocilo}</div>}

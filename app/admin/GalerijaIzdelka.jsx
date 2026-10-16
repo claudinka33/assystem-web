@@ -62,7 +62,7 @@ export default function GalerijaIzdelka({ izdelekId, glavna, galerija: zacetna }
   }
 
   return (
-    <div className="adm-obr" style={{ maxWidth: "none" }}>
+    <div>
       <div
         className={`nalozi velika${nad ? " nad" : ""}`}
         onDragOver={(e) => { if (vlecem.current == null) { e.preventDefault(); setNad(true); } }}
