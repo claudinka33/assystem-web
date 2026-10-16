@@ -250,7 +250,6 @@ export default function KampanjaUrejevalnik({ kampanja, segmenti, privzetiPosilj
                 <input
                   type="datetime-local"
                   value={cas}
-                  min={lokalno(new Date(Date.now() + 5 * 60 * 1000))}
                   onChange={(e) => setCas(e.target.value)}
                   style={{ ...vnos, marginBottom: 10 }}
                 />

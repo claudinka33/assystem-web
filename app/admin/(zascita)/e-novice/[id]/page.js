@@ -2,10 +2,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Resend } from "resend";
 import { supabaseAdmin } from "@/lib/supabase-server";
-import { privzetiPosiljatelj, prekliciNacrt, podvojiKampanjo } from "@/lib/akcije/enovice-kampanje";
+import { privzetiPosiljatelj } from "@/lib/akcije/enovice-kampanje";
 import KampanjaUrejevalnik from "./KampanjaUrejevalnik";
+import Pregled from "./Pregled";
 
 export const dynamic = "force-dynamic";
+// osveževanje statistike iz Resenda lahko pri velikih seznamih traja
+export const maxDuration = 300;
 
 async function segmentiIzResenda() {
   const kljuc = process.env.RESEND_API_KEY;
@@ -14,11 +17,9 @@ async function segmentiIzResenda() {
   return { napaka: s.error?.message ?? null, segmenti: s.data?.data ?? [] };
 }
 
-const cas = (d) =>
-  d ? new Date(d).toLocaleString("sl-SI", { timeZone: "Europe/Ljubljana", dateStyle: "medium", timeStyle: "short" }) : "";
-
-export default async function Kampanja({ params }) {
+export default async function Kampanja({ params, searchParams }) {
   const { id } = await params;
+  const sp = await searchParams;
   const { data: k } = await supabaseAdmin().from("enovice_kampanje").select("*").eq("id", id).single();
   if (!k) notFound();
 
@@ -41,7 +42,7 @@ export default async function Kampanja({ params }) {
         {urejanje ? (
           <Urejanje k={k} />
         ) : (
-          <Pregled k={k} />
+          <Pregled k={k} sp={sp} />
         )}
       </div>
     </>
@@ -55,47 +56,5 @@ async function Urejanje({ k }) {
       {napaka && <div className="opozorilo">Resend: {napaka}</div>}
       <KampanjaUrejevalnik kampanja={k} segmenti={segmenti} privzetiPosiljatelj={await privzetiPosiljatelj()} />
     </>
-  );
-}
-
-function Pregled({ k }) {
-  return (
-    <div style={{ display: "grid", gridTemplateColumns: "minmax(300px, 380px) minmax(0, 1fr)", gap: 20, alignItems: "start" }}>
-      <div className="adm-obr" style={{ maxWidth: "none", padding: 18, fontSize: 14 }}>
-        <p style={{ margin: "0 0 4px", color: "#6e767e", fontSize: 12 }}>Zadeva</p>
-        <p style={{ margin: "0 0 14px", fontWeight: 600 }}>{k.zadeva}</p>
-        <p style={{ margin: "0 0 4px", color: "#6e767e", fontSize: 12 }}>Komu</p>
-        <p style={{ margin: "0 0 14px" }}>{k.segment_ime || k.segment_id}</p>
-        {k.status === "nacrtovano" ? (
-          <>
-            <p style={{ margin: "0 0 4px", color: "#6e767e", fontSize: 12 }}>Pošlje se</p>
-            <p style={{ margin: "0 0 16px", fontWeight: 600 }}>{cas(k.nacrtovano_za)}</p>
-            <form action={prekliciNacrt}>
-              <input type="hidden" name="id" value={k.id} />
-              <button className="gumb siv" style={{ width: "100%" }}>
-                Prekliči in vrni med osnutke
-              </button>
-            </form>
-          </>
-        ) : (
-          <>
-            <p style={{ margin: "0 0 4px", color: "#6e767e", fontSize: 12 }}>Poslano</p>
-            <p style={{ margin: "0 0 16px" }}>{cas(k.poslano_ob)}</p>
-          </>
-        )}
-        <form action={podvojiKampanjo} style={{ marginTop: 10 }}>
-          <input type="hidden" name="iz" value={k.id} />
-          <button className="gumb siv" style={{ width: "100%" }}>
-            Podvoji v nov osnutek
-          </button>
-        </form>
-      </div>
-      <iframe
-        title="Predogled maila"
-        srcDoc={k.html || ""}
-        sandbox=""
-        style={{ width: "100%", height: "calc(100vh - 200px)", minHeight: 420, border: "1px solid #dde0e2", background: "#fff" }}
-      />
-    </div>
   );
 }
