@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import NaslovStrani from "@/components/NaslovStrani";
-import ObrazecPovprasevanje from "@/components/ObrazecPovprasevanje";
+import ObrazecTrgovci from "@/components/ObrazecTrgovci";
+import { site } from "@/lib/site";
 import { ZNAMKE_INFO } from "@/lib/znamke";
 
 export const metadata = {
@@ -155,24 +156,25 @@ export default function ZaTrgovce() {
       <section id="povprasevanje" className="sec">
         <div className="w">
           <div className="qua" style={{ alignItems: "start" }}>
-            <div className="st">
-              <span>Povpraševanje</span>
-              <h2>Predlog police za vašo trgovino</h2>
-              <p>
-                Napišite, koliko prostora imate in kaj prodajate. Pripravimo predlog programa, postavitev police in
-                pogoje sodelovanja.
-              </p>
+            <div className="ot-levo">
+              <div className="st">
+                <span>Povpraševanje</span>
+                <h2>Predlog police za vašo trgovino</h2>
+                <p>Trije kratki koraki — mi pripravimo predlog programa, postavitev police in pogoje sodelovanja.</p>
+              </div>
+              <ol className="ot-potek">
+                <li><b>Izberete program in prostor</b><span>Brez šifer in tehničnih podatkov.</span></li>
+                <li><b>Pripravimo predlog</b><span>Planogram police, izbor izdelkov in cene.</span></li>
+                <li><b>Postavimo polico</b><span>Dostava, postavitev in dopolnjevanje po prodaji.</span></li>
+              </ol>
+              <div className="ot-kontakt">
+                <span>Raje pokličete?</span>
+                <a href={`tel:${site.telefonRaw}`}>{site.telefon}</a>
+                <a href={`mailto:${site.email}`}>{site.email}</a>
+                <small>Odgovorimo v enem delovnem dnevu.</small>
+              </div>
             </div>
-            <ObrazecPovprasevanje
-              vir="za-trgovce"
-              naslov="Povpraševanje za trgovce"
-              dodatnaPolja={[
-                { oznaka: "Program", moznosti: ["ASfix", "ASco", "ASfix in ASco", "še ne vem"] },
-                { oznaka: "Dolžina police", moznosti: ["1 m", "2 m", "4 m", "6 m", "več kot 6 m", "stojalo", "še ne vem"] },
-                { oznaka: "Trgovina in kraj", namig: "npr. Gradbeni center, Celje" },
-              ]}
-              namig="Kaj še moramo vedeti — kupci, obstoječa polica, rok …"
-            />
+            <ObrazecTrgovci />
           </div>
         </div>
       </section>
