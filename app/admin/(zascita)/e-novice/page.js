@@ -44,6 +44,7 @@ export default async function ENovice({ searchParams }) {
             Kontakti
           </Link>
           <form action={novaKampanja}>
+            <input type="hidden" name="nacin" value="bloki" />
             <button className="gumb mini">+ Nova kampanja</button>
           </form>
         </div>
