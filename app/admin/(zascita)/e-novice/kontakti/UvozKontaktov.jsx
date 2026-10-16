@@ -15,7 +15,12 @@ export default function UvozKontaktov({ segmenti }) {
 
   return (
     <form action={akcija} className="adm-obr" style={{ maxWidth: 720, padding: 18 }}>
-      {stanje && <div className={stanje.stanje === "ok" ? "uspeh" : "opozorilo"}>{stanje.sporocilo}</div>}
+      {stanje && (
+        <div className={stanje.stanje === "ok" ? "uspeh" : "opozorilo"} style={{ fontSize: 15 }}>
+          {stanje.stanje === "ok" ? "✓ " : ""}
+          {stanje.sporocilo}
+        </div>
+      )}
 
       <div className="adm-polje">
         <label htmlFor="kontakti">Kontakti</label>
@@ -47,6 +52,8 @@ export default function UvozKontaktov({ segmenti }) {
           <option value="__nova__">+ Nova panoga …</option>
         </select>
       </div>
+
+      <input type="hidden" name="segment_ime" value={segment === "__nova__" ? "" : segmenti.find((s) => s.id === segment)?.name ?? ""} />
 
       {segment === "__nova__" && (
         <div className="adm-polje">
