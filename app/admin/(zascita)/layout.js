@@ -1,7 +1,6 @@
-import Link from "next/link";
 import { redirect } from "next/navigation";
-import { trenutniAdmin } from "@/lib/supabase-server";
-import Odjava from "../Odjava";
+import { supabaseAdmin, trenutniAdmin } from "@/lib/supabase-server";
+import AdminMeni from "../AdminMeni";
 import "../admin.css";
 
 export const metadata = {
@@ -9,71 +8,33 @@ export const metadata = {
   robots: { index: false, follow: false },
 };
 
-const meni = [
-  { skupina: "Katalog", povezave: [
-    { naziv: "Kategorije", pot: "/admin/kategorije" },
-    { naziv: "Izdelki", pot: "/admin/izdelki" },
-    { naziv: "Znamke izdelkov", pot: "/admin/znamke" },
-    { naziv: "Silvermate uvoz", pot: "/admin/silvermate" },
-    { naziv: "Sinhronizacija Vasco", pot: "/admin/sinhronizacija" },
-  ]},
-  { skupina: "Vsebina", povezave: [
-    { naziv: "Besedila na strani", pot: "/admin/vsebine" },
-    { naziv: "Novice", pot: "/admin/novice" },
-    { naziv: "E-novice (mailing)", pot: "/admin/e-novice" },
-    { naziv: "E-novice kontakti", pot: "/admin/e-novice/kontakti" },
-  ]},
-  { skupina: "Zaposlovanje", povezave: [
-    { naziv: "Delovna mesta", pot: "/admin/delovna-mesta" },
-    { naziv: "Prijave za delo", pot: "/admin/prijave" },
-  ]},
-  { skupina: "Prodaja", povezave: [
-    { naziv: "Naročila", pot: "/admin/narocila" },
-    { naziv: "B2B kupci", pot: "/admin/b2b" },
-    { naziv: "Kode za popust", pot: "/admin/popusti" },
-  ]},
-  { skupina: "Stiki", povezave: [
-    { naziv: "Povpraševanja", pot: "/admin/povprasevanja" },
-  ]},
-  { skupina: "Sistem", povezave: [
-    { naziv: "Nastavitve", pot: "/admin/nastavitve" },
-  ]},
-];
+async function prestej(tabela, stolpec, vrednost) {
+  try {
+    const { count } = await supabaseAdmin()
+      .from(tabela)
+      .select("id", { count: "exact", head: true })
+      .eq(stolpec, vrednost);
+    return count ?? 0;
+  } catch {
+    return 0;
+  }
+}
 
 export default async function AdminLayout({ children }) {
   const admin = await trenutniAdmin();
   if (!admin) redirect("/admin/prijava");
 
+  // Števci ob meniju — kar čaka na odziv.
+  const [narocila, b2b, povprasevanja] = await Promise.all([
+    prestej("narocila", "status", "novo"),
+    prestej("b2b_kupci", "status", "caka_odobritev"),
+    prestej("povprasevanja", "status", "novo"),
+  ]);
+
   return (
     <div className="adm">
-      <aside className="adm-bok">
-        <Link className="logo" href="/admin">
-          AS<i>system</i> admin
-        </Link>
-        <nav>
-          <Link href="/admin">Nadzorna plošča</Link>
-          {meni.map((s) => (
-            <div key={s.skupina}>
-              <div className="skupina">{s.skupina}</div>
-              {s.povezave.map((p) => (
-                <Link key={p.pot} href={p.pot}>
-                  {p.naziv}
-                </Link>
-              ))}
-            </div>
-          ))}
-        </nav>
-        <div className="noga">
-          {admin.ime}
-          <br />
-          <Link href="/" style={{ color: "#c8102e" }}>
-            ↗ Poglej stran
-          </Link>
-          <br />
-          <Odjava />
-        </div>
-      </aside>
-      <div>{children}</div>
+      <AdminMeni ime={admin.ime} stevci={{ narocila, b2b, povprasevanja }} />
+      <div className="adm-vsebina">{children}</div>
     </div>
   );
 }

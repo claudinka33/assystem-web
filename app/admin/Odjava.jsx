@@ -13,20 +13,7 @@ export default function Odjava() {
   }
 
   return (
-    <button
-      type="button"
-      onClick={odjavi}
-      style={{
-        background: "none",
-        border: 0,
-        color: "#8e969e",
-        padding: 0,
-        marginTop: 6,
-        cursor: "pointer",
-        font: "inherit",
-        fontSize: "12.5px",
-      }}
-    >
+    <button type="button" className="adm-odjava" onClick={odjavi}>
       Odjava
     </button>
   );

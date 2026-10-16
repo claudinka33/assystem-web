@@ -1,9 +1,18 @@
 import Link from "next/link";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import { pridobiKategorije } from "@/lib/podatki";
 
 export const metadata = { title: "Stran ne obstaja" };
 
-export default function NiNajdeno() {
+export default async function NiNajdeno() {
+  const { seznam } = await pridobiKategorije();
+  const kategorijeMeni = seznam.map((k) => ({ slug: k.slug, naziv: k.naziv, slika: k.slika ?? null, opis: k.opis ?? null }));
+
   return (
+    <>
+    <Header kategorije={kategorijeMeni} />
+    <main>
     <section className="sec">
       <div className="w">
         <div className="st">
@@ -16,5 +25,8 @@ export default function NiNajdeno() {
         </Link>
       </div>
     </section>
+    </main>
+    <Footer />
+    </>
   );
 }
