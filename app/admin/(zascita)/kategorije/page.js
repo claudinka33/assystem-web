@@ -2,6 +2,7 @@ import Link from "next/link";
 import { supabaseAdmin } from "@/lib/supabase-server";
 import { izbrisiKategorijo } from "@/lib/akcije/skupno";
 import IzbrisiGumb from "../../IzbrisiGumb";
+import { lokalnaSlikaKategorije } from "@/lib/podatki";
 
 export const dynamic = "force-dynamic";
 
@@ -10,7 +11,7 @@ function Vrstica({ k, stIzdelkov, podrejenih, otrok }) {
     <div className={`kat-vrstica${otrok ? " otrok" : ""}${k.objavljeno ? "" : " skrita"}`}>
       <span className="kat-red" title="Vrstni red">{k.vrstni_red ?? 0}</span>
       <span className="kat-slika">
-        {k.slika_url ? <img src={k.slika_url} alt="" /> : <span className="brez" />}
+        {k.slika ? <img src={k.slika} alt="" /> : <span className="brez" title="Ni slike" />}
       </span>
       <Link href={`/admin/kategorije/${k.id}`} className="kat-ime">
         <b>{k.naziv}</b>
@@ -47,7 +48,8 @@ export default async function Kategorije() {
     sb.from("izdelki").select("kategorija_id").limit(5000),
   ]);
 
-  const seznam = data ?? [];
+  // Na strani ima prednost slika iz repa (public/slike/kategorije), sicer slika iz baze.
+  const seznam = (data ?? []).map((k) => ({ ...k, slika: lokalnaSlikaKategorije(k.slug, k.naziv) || k.slika_url }));
   const stIzd = {};
   for (const i of izdelki ?? []) stIzd[i.kategorija_id] = (stIzd[i.kategorija_id] ?? 0) + 1;
 
