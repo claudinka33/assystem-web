@@ -257,13 +257,7 @@ details.adm-obr[open] { border-color: #cfd3d7; }
 
 .adm-polje { margin-bottom: 18px; }
 .adm-polje label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: var(--a-ink); }
-.adm-polje input[type="text"],
-.adm-polje input[type="number"],
-.adm-polje input[type="email"],
-.adm-polje input[type="password"],
-.adm-polje input[type="date"],
-.adm-polje input[type="url"],
-.adm-polje input[type="search"],
+.adm-polje input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="hidden"]):not([type="submit"]),
 .adm-polje select,
 .adm-polje textarea,
 .adm select,
@@ -279,7 +273,7 @@ details.adm-obr[open] { border-color: #cfd3d7; }
   transition: border-color .12s, box-shadow .12s;
 }
 .adm select:not(.adm-polje select) { width: auto; }
-.adm-polje input:focus,
+.adm-polje input:not([type="checkbox"]):focus,
 .adm-polje select:focus,
 .adm-polje textarea:focus,
 .adm select:focus,
@@ -580,4 +574,45 @@ details.adm-obr[open] { border-color: #cfd3d7; }
   .seo-mreza { grid-template-columns: 1fr; }
   .izd-kartica > header, .izd-kartica-telo { padding-left: 16px; padding-right: 16px; }
   .izd-slika { width: 48px; height: 48px; }
+}
+
+/* ---------- kode za popust ---------- */
+.kupon-obrazec { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 0; background: #fff; border: 1px solid var(--a-line); border-radius: var(--a-r); box-shadow: var(--a-sh); max-width: 1180px; overflow: hidden; }
+.kupon-polja { padding: 22px 26px 8px; min-width: 0; }
+.kupon-polja > h2 { font-size: 17px; margin: 0 0 18px; }
+.kupon-korak { display: flex; gap: 14px; padding-bottom: 6px; margin-bottom: 14px; border-bottom: 1px solid #f0f2f4; }
+.kupon-korak:last-child { border-bottom: 0; margin-bottom: 0; }
+.korak-st { width: 26px; height: 26px; flex: none; border-radius: 50%; background: var(--a-antracit); color: #fff; font-size: 13px; font-weight: 700; display: grid; place-items: center; margin-top: 1px; }
+.korak-vsebina { flex: 1; min-width: 0; }
+.korak-vsebina h3 { font-size: 14.5px; font-weight: 700; margin: 3px 0 12px; }
+.korak-vsebina .opomba { font-weight: 400; color: #9ba0a5; font-size: 13px; }
+.kupon-predogled { background: var(--a-antracit) url("/vzorec-antracit.png") center / 420px repeat; padding: 22px; display: flex; flex-direction: column; }
+.kupon-predogled > small { color: #b9bdc1; font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 12px; }
+.kupon { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,.25); position: relative; }
+.kupon-vrh { background: var(--a-red); color: #fff; padding: 16px 18px 18px; }
+.kupon-vrh span { font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; opacity: .85; }
+.kupon-vrh b { display: block; font-size: 28px; font-weight: 800; line-height: 1.1; margin-top: 4px; word-break: break-word; }
+.kupon-koda { margin: 14px 18px 4px; border: 2px dashed #ccd0d4; border-radius: 8px; text-align: center; padding: 9px; font-weight: 800; font-size: 19px; letter-spacing: 2px; word-break: break-all; }
+.kupon ul { list-style: none; margin: 0; padding: 8px 18px 16px; font-size: 13px; color: var(--a-muted); }
+.kupon li { padding: 3px 0; }
+.kupon li::before { content: "✓ "; color: #1a7f3c; font-weight: 700; }
+
+.kupon-seznam { display: grid; gap: 10px; max-width: 1180px; }
+.kupon-el { display: flex; align-items: stretch; background: #fff; border: 1px solid var(--a-line); border-radius: var(--a-r); box-shadow: var(--a-sh); overflow: hidden; }
+.kupon-el.neaktiven { opacity: .7; }
+.kupon-el-levo { width: 170px; flex: none; background: var(--a-red); color: #fff; padding: 14px 16px; display: flex; flex-direction: column; justify-content: center; border-right: 2px dashed rgba(255,255,255,.6); }
+.kupon-el.neaktiven .kupon-el-levo { background: #8b9095; }
+.kupon-el-levo b { font-size: 20px; font-weight: 800; line-height: 1.15; }
+.kupon-el-koda { font-size: 13px; font-weight: 700; letter-spacing: 1px; margin-top: 4px; background: rgba(255,255,255,.18); border-radius: 5px; padding: 2px 8px; align-self: flex-start; }
+.kupon-el-sredina { flex: 1; min-width: 0; padding: 12px 18px; display: flex; flex-direction: column; justify-content: center; gap: 6px; }
+.kupon-el-vrsta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.kupon-el-opis { font-size: 13.5px; color: var(--a-ink); }
+.kupon-el-pogoji { display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 13px; color: var(--a-muted); }
+.kupon-el-pogoji b { color: var(--a-ink); font-weight: 600; }
+.kupon-el-gumbi { display: flex; align-items: center; gap: 6px; padding: 0 14px; }
+@media (max-width: 1000px) {
+  .kupon-obrazec { grid-template-columns: 1fr; }
+  .kupon-el { flex-wrap: wrap; }
+  .kupon-el-levo { width: 100%; border-right: 0; border-bottom: 2px dashed rgba(255,255,255,.6); }
+  .kupon-el-gumbi { padding: 0 14px 12px; }
 }

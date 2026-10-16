@@ -2,15 +2,25 @@ import { supabaseAdmin } from "@/lib/supabase-server";
 import { preklopiKodo, izbrisiKodo } from "@/lib/akcije/popusti-admin";
 import { ZNAMKE } from "@/lib/popusti";
 import ObrazecKode from "./ObrazecKode";
+import IzbrisiGumb from "../../IzbrisiGumb";
 
 export const dynamic = "force-dynamic";
 
 const datum = (d) => (d ? new Date(d).toLocaleDateString("sl-SI") : "");
 
 function opisVrednosti(k) {
-  if (k.tip === "dostava") return "brezplačna dostava";
+  if (k.tip === "dostava") return "Brezplačna dostava";
   if (k.tip === "odstotek") return `−${Number(k.vrednost)} %`;
-  return `−${Number(k.vrednost).toFixed(2).replace(".", ",")} € z DDV`;
+  return `−${Number(k.vrednost).toFixed(2).replace(".", ",")} €`;
+}
+
+function stanjeKode(k) {
+  const danes = new Date().toISOString().slice(0, 10);
+  if (!k.aktivno) return ["izklopljena", "ne"];
+  if (k.velja_do && k.velja_do < danes) return ["potekla", "ne"];
+  if (k.velja_od && k.velja_od > danes) return ["še ne velja", "ne"];
+  if (k.max_uporab && k.uporabljeno >= k.max_uporab) return ["porabljena", "ne"];
+  return ["aktivna", "da"];
 }
 
 export default async function Popusti() {
@@ -27,7 +37,6 @@ export default async function Popusti() {
     );
   const kategorije = kat ?? [];
   const imeKat = Object.fromEntries(kategorije.map((k) => [String(k.id), k.naziv]));
-  // glavne kategorije, pod njimi podkategorije
   const glavne = kategorije.filter((k) => !k.nadrejena_id);
   const seznamKat = glavne.flatMap((g) => [
     { id: String(g.id), naziv: g.naziv },
@@ -38,56 +47,65 @@ export default async function Popusti() {
     k.velja_za === "trgovina"
       ? "celotno naročilo"
       : k.velja_za === "kategorija"
-        ? `kategorija: ${imeKat[k.kategorija_id] ?? k.kategorija_id}`
+        ? imeKat[k.kategorija_id] ?? `kategorija ${k.kategorija_id}`
         : k.velja_za === "znamka"
-          ? `znamka: ${k.znamka}`
-          : `artikel: ${k.artikel_sifra}`;
+          ? `znamka ${k.znamka}`
+          : `artikel ${k.artikel_sifra}`;
+
+  const kode = data ?? [];
+  const aktivnih = kode.filter((k) => stanjeKode(k)[1] === "da").length;
+  const uporab = kode.reduce((s, k) => s + (k.uporabljeno ?? 0), 0);
 
   return (
     <>
       <div className="adm-glava">
-        <h1>Kode za popust</h1>
-        <span style={{ fontSize: 14, color: "#6e767e" }}>{(data ?? []).filter((k) => k.aktivno).length} aktivnih</span>
+        <div>
+          <div className="adm-nad">Prodaja</div>
+          <h1>Kode za popust</h1>
+        </div>
+        <span className="adm-info">{aktivnih} aktivnih · {kode.length} skupaj · {uporab} uporab</span>
       </div>
       <div className="adm-telo">
         <ObrazecKode kategorije={seznamKat} znamke={ZNAMKE} />
 
-        <h2 style={{ fontSize: 16, margin: "28px 0 10px" }}>Vse kode</h2>
-        {(data ?? []).length === 0 ? (
-          <div className="opozorilo">Ni še kod.</div>
+        <h2 className="adm-naslov">Vse kode</h2>
+        {kode.length === 0 ? (
+          <p className="prazno-besedilo">Ni še kod. Ustvari prvo zgoraj.</p>
         ) : (
-          <table className="adm-tab">
-            <thead>
-              <tr><th>Koda</th><th>Popust</th><th>Velja za</th><th>Kupci</th><th>Pogoji</th><th>Uporabe</th><th>Stanje</th><th></th></tr>
-            </thead>
-            <tbody>
-              {data.map((k) => (
-                <tr key={k.id}>
-                  <td><b>{k.koda}</b>{k.opis && <div style={{ fontSize: 12.5, color: "#6e767e" }}>{k.opis}</div>}</td>
-                  <td>{opisVrednosti(k)}</td>
-                  <td>{veljaZa(k)}</td>
-                  <td>{k.kupci === "vsi" ? "vsi" : k.kupci.toUpperCase()}</td>
-                  <td style={{ fontSize: 13 }}>
-                    {k.min_znesek ? `nad ${Number(k.min_znesek)} €` : ""}
-                    {k.velja_od || k.velja_do ? <div>{datum(k.velja_od)} – {datum(k.velja_do)}</div> : null}
-                  </td>
-                  <td>{k.uporabljeno}{k.max_uporab ? ` / ${k.max_uporab}` : ""}</td>
-                  <td><span className={k.aktivno ? "znacka da" : "znacka ne"}>{k.aktivno ? "aktivna" : "izklopljena"}</span></td>
-                  <td style={{ whiteSpace: "nowrap" }}>
-                    <form action={preklopiKodo} style={{ display: "inline" }}>
+          <div className="kupon-seznam">
+            {kode.map((k) => {
+              const [st, razred] = stanjeKode(k);
+              return (
+                <div key={k.id} className={`kupon-el${razred === "da" ? "" : " neaktiven"}`}>
+                  <div className="kupon-el-levo">
+                    <b>{opisVrednosti(k)}</b>
+                    <span className="kupon-el-koda">{k.koda}</span>
+                  </div>
+                  <div className="kupon-el-sredina">
+                    <div className="kupon-el-vrsta">
+                      <span className={`znacka ${razred}`}>{st}</span>
+                      {k.opis && <span className="kupon-el-opis">{k.opis}</span>}
+                    </div>
+                    <div className="kupon-el-pogoji">
+                      <span>Velja za: <b>{veljaZa(k)}</b></span>
+                      <span>Kupci: <b>{k.kupci === "vsi" ? "vsi" : k.kupci.toUpperCase()}</b></span>
+                      {k.min_znesek ? <span>Nakup nad <b>{Number(k.min_znesek)} €</b></span> : null}
+                      {k.velja_od || k.velja_do ? <span>Obdobje: <b>{datum(k.velja_od) || "…"} – {datum(k.velja_do) || "…"}</b></span> : null}
+                      <span>Uporabljena: <b>{k.uporabljeno}{k.max_uporab ? ` / ${k.max_uporab}` : "×"}</b></span>
+                    </div>
+                  </div>
+                  <div className="kupon-el-gumbi">
+                    <form action={preklopiKodo}>
                       <input type="hidden" name="id" value={k.id} />
                       <input type="hidden" name="aktivno" value={k.aktivno ? "0" : "1"} />
                       <button className="gumb siv mini" type="submit">{k.aktivno ? "Izklopi" : "Vklopi"}</button>
-                    </form>{" "}
-                    <form action={izbrisiKodo} style={{ display: "inline" }}>
-                      <input type="hidden" name="id" value={k.id} />
-                      <button className="gumb siv mini" type="submit">Izbriši</button>
                     </form>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                    <IzbrisiGumb action={izbrisiKodo} id={k.id} ime={k.koda} />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         )}
       </div>
     </>
