@@ -2844,3 +2844,18 @@ a.medij:hover { transform: translateY(-2px); border-color: var(--color-ink); bor
 .ot-uspeh { text-align: center; }
 .ot-kljukica { display: inline-grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: #1a7f3c; color: #fff; font-size: 28px; margin-bottom: 10px; }
 @media (max-width: 600px) { .ot-izbire.ot-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } .ot-izbire.ot-2 { grid-template-columns: minmax(0, 1fr); } }
+
+/* Za trgovce — glava in »Kaj dobite« */
+.trg-hero-im { max-width: 680px; justify-self: center; background: #fff; padding: 22px 18px 10px; box-shadow: 0 24px 50px -24px rgba(0,0,0,.6); transition: transform .4s ease; }
+.trg-hero-im:hover { transform: translateY(-4px) scale(1.01); }
+.trg-kaj { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+.trg-kaj-k { border: 1px solid var(--color-line); border-top: 3px solid var(--color-red); background: #fff; padding: 0 0 22px; transition: transform .25s, box-shadow .25s; }
+.trg-kaj-k:hover { transform: translateY(-4px); box-shadow: 0 16px 30px -18px rgba(0,0,0,.35); }
+.trg-kaj-im { position: relative; aspect-ratio: 4 / 3; margin: 14px 14px 16px; background: #fff; }
+.trg-kaj-im img { padding: 6px; transition: transform .4s ease; }
+.trg-kaj-k:hover .trg-kaj-im img { transform: scale(1.06); }
+.trg-kaj-im span { position: absolute; left: -14px; top: -14px; background: var(--color-red); color: #fff; font-weight: 800; font-size: 14px; padding: 6px 10px; }
+.trg-kaj-k b { display: block; font-size: 17px; color: var(--color-ink-2, #2b2f33); padding: 0 22px; margin-bottom: 6px; }
+.trg-kaj-k p { color: var(--color-muted); font-size: 14.5px; padding: 0 22px; margin: 0; }
+@media (max-width: 1000px) { .trg-kaj { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .trg-kaj { grid-template-columns: minmax(0, 1fr); } }

@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import NaslovStrani from "@/components/NaslovStrani";
 import ObrazecTrgovci from "@/components/ObrazecTrgovci";
 import { site } from "@/lib/site";
 import { ZNAMKE_INFO } from "@/lib/znamke";
@@ -26,6 +25,8 @@ const dolzine = [
   { m: "6 m – 20 m", opis: "Večje postavitve po meri trgovine, tudi kombinacija ASfix in ASco.", slika: null },
 ];
 
+const KAJ_SLIKE = ["/slike/proizvodnja/hero-izdelki.png", "/slike/trgovci/asfix-polica-2m-bela.jpg", "/slike/znamke/asfix-afr41-sredina.png", "/slike/asfix-paleta-txm2.jpg"];
+
 const embalaza = [
   { znamka: "ASfix", slike: [["/slike/znamke/asfix-afr41-sredina.png", "Škatla ASfix", "6% 8%"], ["/slike/znamke/asfix-vrecka.jpg", "Rdeča vrečka ASfix"], ["/slike/asfix-paleta-txm2.jpg", "Paleta škatel ASfix"]], opis: "Škatle v enotnem dizajnu, vrečke z izveskom za perforirano steno in cele palete za večje trgovine." },
   { znamka: "ASco", slike: [["/slike/znamke/asco-skatla-sredina.png", "Rjava škatla ASco", "12% 22%"], ["/slike/znamke/asco-vrecka-znb.jpg", "Modra vrečka ASco"], ["/slike/znamke/asco-vrecka-inox.jpg", "Zelena vrečka ASco"]], opis: "Modre vrečke za pocinkano (ZnB), zelene za INOX — na polici se ne zamenjata. Rjave škatle za večje količine." },
@@ -35,21 +36,56 @@ const embalaza = [
 export default function ZaTrgovce() {
   return (
     <>
-      <NaslovStrani
-        oznaka="Za trgovce"
-        naslov="Program in police za trgovino"
-        opis="Sestavimo prodajni program in postavitev police — ASfix, ASco ali kombinacijo obeh, od 1 do 20 metrov."
-      />
+      <section className="zn-hero antracit">
+        <div className="w">
+          <div>
+            <nav className="drobtine">
+              <Link href="/">Domov</Link> / Za trgovce
+            </nav>
+            <span className="zn-oznaka" style={{ marginTop: 0 }}>Za trgovce</span>
+            <h1>Polica, ki proda sama</h1>
+            <p>
+              Sestavimo prodajni program in postavitev police za vašo trgovino — ASfix, ASco, Silvermate ali
+              kombinacijo, od 1 do 20 metrov. Vi prodajate, mi skrbimo za polico.
+            </p>
+            <ul className="zn-znacke">
+              <li>Police 1 – 20 m</li>
+              <li>Planogram po meri</li>
+              <li>Zaloga takoj</li>
+              <li>Dopolnjevanje</li>
+            </ul>
+            <div className="zn-gumbi">
+              <a className="b b-r" href="#povprasevanje">Predlog police →</a>
+              <a className="b b-o" href="#dolzine">Dolžine polic</a>
+            </div>
+          </div>
+          <div className="zn-slika trg-hero-im">
+            <Image
+              src="/slike/trgovci/hero-police.jpg"
+              alt="Police ASco, ASfix in Silvermate v trgovini"
+              width={1997}
+              height={1100}
+              priority
+              sizes="(max-width: 1000px) 92vw, 640px"
+              style={{ width: "100%", height: "auto" }}
+            />
+          </div>
+        </div>
+      </section>
 
       <section className="sec">
         <div className="w">
           <div className="st">
             <span>Kaj dobite</span>
-            <h2>Polica, ki proda sama</h2>
+            <h2>Vse za polico na enem mestu</h2>
           </div>
-          <div className="who c4">
-            {kajDobite.map(([n, o]) => (
-              <div key={n}>
+          <div className="trg-kaj">
+            {kajDobite.map(([n, o], i) => (
+              <div key={n} className="trg-kaj-k">
+                <div className="trg-kaj-im">
+                  <Image src={KAJ_SLIKE[i]} alt={n} fill sizes="(max-width: 700px) 50vw, 340px" style={{ objectFit: "contain" }} />
+                  <span>0{i + 1}</span>
+                </div>
                 <b>{n}</b>
                 <p>{o}</p>
               </div>
@@ -58,7 +94,7 @@ export default function ZaTrgovce() {
         </div>
       </section>
 
-      <section className="sec grey">
+      <section className="sec grey" id="dolzine">
         <div className="w">
           <div className="st">
             <span>Dolžine postavitev</span>
