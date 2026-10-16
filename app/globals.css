@@ -2795,3 +2795,4 @@ a.medij:hover { transform: translateY(-2px); border-color: var(--color-ink); bor
 .trg-emb-sl { overflow: hidden; }
 .trg-emb-sl img { transition: transform .4s ease; }
 .trg-emb-sl:hover img { transform: scale(1.06); }
+.trg-emb-slike.dva .trg-emb-sl { aspect-ratio: 4 / 9; }
