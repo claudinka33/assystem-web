@@ -26,9 +26,9 @@ const dolzine = [
 ];
 
 const embalaza = [
-  { znamka: "ASfix", slike: [["/slike/znamke/asfix-afr41.png", "Škatla ASfix"], ["/slike/znamke/asfix-vrecka.jpg", "Rdeča vrečka ASfix"], ["/slike/paleta.jpg", "Paleta škatel ASfix"]], opis: "Škatle v enotnem dizajnu, vrečke z izveskom za perforirano steno in cele palete za večje trgovine." },
-  { znamka: "ASco", slike: [["/slike/znamke/asco-skatla-brez-sence.jpg", "Rjava škatla ASco"], ["/slike/znamke/asco-vrecka-znb.jpg", "Modra vrečka ASco"], ["/slike/znamke/asco-vrecka-inox.jpg", "Zelena vrečka ASco"]], opis: "Modre vrečke za pocinkano (ZnB), zelene za INOX — na polici se ne zamenjata. Rjave škatle za večje količine." },
-  { znamka: "Silvermate", slike: [["/slike/silvermate/silvermate-vijaka.jpg", "Lesni vijaki Silvermate"], ["/slike/silvermate/skatla-silvermate.png", "Škatla Silvermate"], ["/slike/silvermate/letak-naslovnica.jpg", "Letak Silvermate"]], opis: "Lesni vijaki s križno in torx glavo, s celim ali delnim navojem — v profesionalni škatli z okencem." },
+  { znamka: "ASfix", slike: [["/slike/znamke/asfix-afr41.png", "Škatla ASfix"], ["/slike/znamke/asfix-vrecka.jpg", "Rdeča vrečka ASfix"], ["/slike/asfix-paleta-txm2.jpg", "Paleta škatel ASfix"]], opis: "Škatle v enotnem dizajnu, vrečke z izveskom za perforirano steno in cele palete za večje trgovine." },
+  { znamka: "ASco", slike: [["/slike/znamke/asco-skatla-brez-sence.jpg", "Rjava škatla ASco", "18% 26%"], ["/slike/znamke/asco-vrecka-znb.jpg", "Modra vrečka ASco"], ["/slike/znamke/asco-vrecka-inox.jpg", "Zelena vrečka ASco"]], opis: "Modre vrečke za pocinkano (ZnB), zelene za INOX — na polici se ne zamenjata. Rjave škatle za večje količine." },
+  { znamka: "Silvermate", slike: [["/slike/silvermate/silvermate-vijaka.jpg", "Lesni vijaki Silvermate"], ["/slike/silvermate/skatla-silvermate.png", "Škatla Silvermate"], ["/slike/silvermate/polica-1m.jpg", "Polica Silvermate 1 m"]], opis: "Lesni vijaki s križno in torx glavo, s celim ali delnim navojem — v profesionalni škatli z okencem in na polici 1 m." },
 ];
 
 export default function ZaTrgovce() {
@@ -135,9 +135,9 @@ export default function ZaTrgovce() {
                 <div key={e.znamka} className="trg-emb-k">
                   <Image src={z.logo} alt={z.ime} width={z.w} height={z.h} className="trg-emb-logo" />
                   <div className="trg-emb-slike">
-                    {e.slike.map(([src, alt], i) => (
+                    {e.slike.map(([src, alt, pad], i) => (
                       <div key={src} className={`trg-emb-sl${i === 0 ? " glavna" : ""}`} title={alt}>
-                        <Image src={src} alt={alt} fill sizes={i === 0 ? "(max-width: 900px) 90vw, 420px" : "(max-width: 900px) 45vw, 210px"} style={{ objectFit: "contain", objectPosition: "center", padding: i === 0 ? "14px 18px" : 10, mixBlendMode: "multiply" }} />
+                        <Image src={src} alt={alt} fill sizes={i === 0 ? "(max-width: 900px) 90vw, 420px" : "(max-width: 900px) 45vw, 210px"} style={{ objectFit: "contain", objectPosition: "center", padding: pad ?? (i === 0 ? "14px 18px" : 10), mixBlendMode: "multiply" }} />
                       </div>
                     ))}
                   </div>
