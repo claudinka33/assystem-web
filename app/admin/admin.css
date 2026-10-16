@@ -383,3 +383,50 @@ details.adm-obr[open] { border-color: #cfd3d7; }
   .adm-kartica b { font-size: 26px; }
   .adm-kartica .ik { display: none; }
 }
+
+/* ---------- skupni drobni elementi ---------- */
+.adm-info { font-size: 13px; color: var(--a-muted); background: var(--a-soft); border: 1px solid var(--a-line); padding: 6px 12px; border-radius: 20px; }
+.adm-namig { font-size: 12.5px; color: var(--a-muted); margin-top: 16px; }
+.ikona-gumb {
+  display: inline-grid; place-items: center;
+  width: 32px; height: 32px; border-radius: 7px;
+  border: 1px solid transparent; background: none; color: #7a7f84; cursor: pointer;
+  transition: background .12s, color .12s, border-color .12s;
+}
+.ikona-gumb:hover { background: var(--a-soft); color: var(--a-ink); border-color: var(--a-line); }
+.ikona-gumb.nevaren:hover { background: #fdeced; color: var(--a-red); border-color: #f3c6c8; }
+
+/* ---------- kategorije (drevo) ---------- */
+.kat-seznam { display: grid; gap: 12px; max-width: 1100px; }
+.kat-skupina { background: #fff; border: 1px solid var(--a-line); border-radius: var(--a-r); box-shadow: var(--a-sh); overflow: hidden; }
+.kat-vrstica {
+  display: grid;
+  grid-template-columns: 34px 48px minmax(0, 1fr) auto 100px auto;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 14px 10px 16px;
+}
+.kat-vrstica:hover { background: #fafbfc; }
+.kat-vrstica.otrok { border-top: 1px solid #f0f2f4; padding-left: 52px; grid-template-columns: 34px 40px minmax(0, 1fr) auto 100px auto; }
+.kat-vrstica.otrok .kat-ime b { font-weight: 500; font-size: 14px; }
+.kat-vrstica.otrok .kat-ime::before { content: "└"; color: #c3c7cb; margin-right: 8px; position: absolute; margin-left: -18px; }
+.kat-vrstica.skrita .kat-ime b, .kat-vrstica.skrita .kat-slika { opacity: .5; }
+.kat-red { font-size: 12px; font-weight: 600; color: #8b9095; background: var(--a-soft); border-radius: 6px; text-align: center; padding: 3px 0; }
+.kat-slika img, .kat-slika .brez { width: 44px; height: 44px; border-radius: 8px; object-fit: contain; background: var(--a-soft); border: 1px solid #eef0f2; display: block; }
+.kat-vrstica.otrok .kat-slika img, .kat-vrstica.otrok .kat-slika .brez { width: 36px; height: 36px; }
+.kat-slika .brez { background: repeating-linear-gradient(45deg, #f4f5f7, #f4f5f7 4px, #eceef1 4px, #eceef1 8px); }
+.kat-ime { position: relative; min-width: 0; }
+.kat-ime b { display: block; font-size: 15px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.kat-ime small { color: #9ba0a5; font-size: 12px; }
+.kat-ime:hover b { color: var(--a-red); }
+.kat-meta { display: flex; gap: 6px; font-size: 12.5px; color: var(--a-muted); white-space: nowrap; }
+.kat-meta span { background: var(--a-soft); padding: 3px 9px; border-radius: 20px; }
+.kat-meta .nic { color: #b3b7bb; }
+.kat-vrstica > .znacka { justify-self: start; }
+.kat-akcije { display: flex; align-items: center; gap: 4px; }
+
+@media (max-width: 760px) {
+  .kat-vrstica, .kat-vrstica.otrok { grid-template-columns: 40px minmax(0, 1fr) auto; padding-left: 14px; }
+  .kat-vrstica.otrok { padding-left: 30px; }
+  .kat-red, .kat-meta, .kat-vrstica > .znacka { display: none; }
+}
