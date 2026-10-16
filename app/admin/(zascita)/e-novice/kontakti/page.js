@@ -55,7 +55,7 @@ export default async function KontaktiENovic() {
               <tbody>
                 {uvozi.map((u) => (
                   <tr key={u.id}>
-                    <td>{u.created_at ? new Date(u.created_at).toLocaleString("sl-SI") : ""}</td>
+                    <td>{u.created_at ? new Date(u.created_at).toLocaleString("sl-SI", { timeZone: "Europe/Ljubljana" }) : ""}</td>
                     <td>
                       <span className={u.status === "completed" ? "znacka" : "znacka ne"}>{stanja[u.status] ?? u.status}</span>
                     </td>
