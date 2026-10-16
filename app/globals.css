@@ -2789,3 +2789,9 @@ a.medij:hover { transform: translateY(-2px); border-color: var(--color-ink); bor
     position: fixed; left: 12px; right: 12px; top: auto; bottom: 12px; transform: none; max-height: 70vh; z-index: 50;
   }
 }
+/* Embalaža po znamkah: glavna slika čez celo širino, pod njo dve manjši */
+.trg-emb-slike { grid-auto-flow: row; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.trg-emb-sl.glavna { grid-column: 1 / -1; aspect-ratio: 16 / 10; }
+.trg-emb-sl { overflow: hidden; }
+.trg-emb-sl img { transition: transform .4s ease; }
+.trg-emb-sl:hover img { transform: scale(1.06); }
