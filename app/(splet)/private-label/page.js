@@ -28,14 +28,14 @@ const izdelki = [
 ];
 
 const embalaza = [
-  { naziv: "Bela nevtralna škatla", opis: "Najhitrejša pot na trg — vaša nalepka z EAN in šifro.", slika: "/slike/skatla-private-label.jpg" },
-  { naziv: "Škatla z vašo podobo", opis: "Vaš logotip, barve in jezik — v enotni družini škatel.", slika: "/slike/asfix/afr41-pl.png" },
+  { naziv: "Bela škatla z vašo nalepko", opis: "Najhitrejša pot na trg — na belo škatlo nalepimo nalepko z vašim logotipom, šifro in EAN kodo.", slika: "/slike/pl-nalepka.jpg" },
+  { naziv: "Škatla z vašim dizajnom", opis: "Pošljemo vam mrežo škatle, vi pripravite dizajn, mi poskrbimo za tisk in pakiranje.", slika: "/slike/pl-dizajn.jpg" },
   { naziv: "Vrečka z vašo podobo", opis: "Z izveskom za perforirano steno v trgovini.", slika: "/slike/vrecka-your-brand.jpg" },
 ];
 
 const koraki = [
   ["Izbira izdelkov", "Iz našega programa izberete izdelke in dimenzije. Svetujemo, kaj se na vašem trgu prodaja."],
-  ["Vaša embalaža", "Nevtralna bela ali z vašo podobo. Grafično predlogo pripravimo mi ali jo pošljete vi."],
+  ["Vaša embalaža", "Bela škatla z vašo nalepko ali vaš dizajn — pošljemo vam mrežo škatle za pripravo dizajna."],
   ["Potrditev vzorca", "Pred serijo potrdite vzorec embalaže in označevanje — EAN, šifre, opozorila, ETA."],
   ["Proizvodnja in pakiranje", "Izdelamo v lastni proizvodnji in avtomatsko zapakiramo v vašo embalažo."],
   ["Paletna dobava", "Odprema iz visokoregalnega skladišča v Šmarju pri Jelšah — doma in v tujino."],

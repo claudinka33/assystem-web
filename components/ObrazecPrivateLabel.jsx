@@ -14,8 +14,8 @@ const IZDELKI = [
   { v: "Še ne vem", o: "Svetujemo vam" },
 ];
 const EMBALAZA = [
-  { v: "Bela nevtralna škatla", o: "Hitro, brez tiska" },
-  { v: "Škatla z vašo podobo", o: "Logotip in barve" },
+  { v: "Bela škatla z vašo nalepko", o: "Hitro, z vašim logotipom" },
+  { v: "Škatla z vašim dizajnom", o: "Pošljemo mrežo škatle" },
   { v: "Vrečka z vašo podobo", o: "Za perforirano steno" },
   { v: "Še ne vem", o: "Predlagamo mi" },
 ];
