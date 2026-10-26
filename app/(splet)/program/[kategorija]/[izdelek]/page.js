@@ -162,6 +162,9 @@ export default async function StranIzdelka({ params }) {
               </div>
             )}
 
+            {/* Video in certifikat takoj pod naslovom — vidno brez skrolanja */}
+            <MedijiBanner {...mediji} />
+
             {artikli.length > 0 && (
               <div className="izd-tab">
                 <div className="izd-tab-gl">
@@ -204,7 +207,6 @@ export default async function StranIzdelka({ params }) {
                 )}
               </div>
             )}
-            <MedijiBanner {...mediji} />
           </div>
         </div>
 
