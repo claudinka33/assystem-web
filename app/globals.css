@@ -2898,8 +2898,8 @@ a.medij:hover { transform: translateY(-2px); border-color: var(--color-ink); bor
 .ig-sledi { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
 .ig-mreza { display: grid; grid-template-columns: repeat(8, 1fr); gap: 10px; }
 .ig-obj { position: relative; display: block; aspect-ratio: 9 / 16; overflow: hidden; background: var(--color-ink-2); border-radius: 4px; }
-.ig-obj img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
-.ig-obj:hover img { transform: scale(1.05); }
+.ig-obj img, .ig-obj video { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
+.ig-obj:hover img, .ig-obj:hover video { transform: scale(1.05); }
 .ig-znak { position: absolute; top: 7px; right: 7px; width: 24px; height: 24px; border-radius: 50%; background: rgba(0, 0, 0, 0.55); color: #fff; font-style: normal; font-size: 10px; display: grid; place-items: center; z-index: 2; }
 .ig-video { background: var(--color-red); padding-left: 2px; }
 .ig-opis { position: absolute; inset: 0; display: flex; align-items: flex-end; padding: 14px; background: linear-gradient(to top, rgba(49, 51, 50, 0.92), rgba(49, 51, 50, 0) 65%); opacity: 0; transition: opacity 0.25s; font-size: 12px; line-height: 1.35; padding: 10px; }

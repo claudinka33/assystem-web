@@ -1,4 +1,5 @@
 import { pridobiInstagramObjave } from "@/lib/instagram";
+import IgPloscica from "@/components/IgPloscica";
 
 /* --------------------------------------------------------------
    Zadnje objave z Instagrama @assystem.si (domača stran, pred nogo).
@@ -36,17 +37,7 @@ export default async function InstagramObjave() {
 
         <div className="ig-mreza">
           {objave.map((o) => (
-            <a key={o.id} className="ig-obj" href={o.povezava} target="_blank" rel="noreferrer" aria-label={o.opis ? o.opis.slice(0, 90) : "Objava na Instagramu"}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={o.slika} alt="" loading="lazy" />
-              {o.tip === "VIDEO" && <i className="ig-znak ig-video" aria-hidden="true">▶</i>}
-              {o.tip === "CAROUSEL_ALBUM" && <i className="ig-znak" aria-hidden="true">❐</i>}
-              {o.opis && (
-                <span className="ig-opis">
-                  <span>{o.opis}</span>
-                </span>
-              )}
-            </a>
+            <IgPloscica key={o.id} o={o} />
           ))}
         </div>
       </div>
