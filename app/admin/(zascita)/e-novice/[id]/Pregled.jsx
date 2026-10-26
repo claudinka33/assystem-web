@@ -91,6 +91,9 @@ export default async function Pregled({ k, sp = {} }) {
             <p style={label}>Poslano</p>
             <p style={{ margin: "0 0 16px" }}>{cas(k.poslano_ob)}</p>
             <PonovnoNeodprtim id={k.id} stevilo={s.dostavljeno ? neodprli : null} />
+            <a className="gumb siv" href={`/admin/porocilo-enovice/${k.id}`} target="_blank" rel="noreferrer" style={{ width: "100%", marginTop: 8 }}>
+              Poročilo (PDF)
+            </a>
             <a className="gumb siv" href={`/admin/e-novice/${k.id}/izvoz`} style={{ width: "100%", marginTop: 8 }}>
               Izvozi v Excel
             </a>
