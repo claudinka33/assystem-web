@@ -4,8 +4,9 @@ import { ZNAMKE_INFO, normZnamka } from "@/lib/znamke";
 
 // Logotip znamke pri izdelku. velik = stran izdelka (s povezavo na stran znamke).
 export default function ZnamkaZnak({ znamka, velik = false }) {
-  const z = ZNAMKE_INFO[normZnamka(znamka)];
-  if (!z) return null;
+  const info = ZNAMKE_INFO[normZnamka(znamka)];
+  if (!info) return null;
+  const z = { ...info, ...(info.znak ?? {}) };
   const visina = velik ? 30 : 18;
   const slika = (
     <Image

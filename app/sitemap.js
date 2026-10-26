@@ -6,7 +6,7 @@ export const revalidate = 3600;
 
 export default async function sitemap() {
   const strani = [
-    "", "/program", "/asfix", "/asco", "/mungo", "/silvermate", "/za-trgovce", "/private-label", "/vijaki-po-narocilu", "/proizvodnja", "/kakovost",
+    "", "/program", "/asfix", "/asco", "/mungo", "/silvermate", "/hammer", "/za-trgovce", "/private-label", "/vijaki-po-narocilu", "/proizvodnja", "/kakovost",
     "/distributerji", "/o-nas", "/katalogi", "/aktualno", "/zaposlitev",
     "/kontakt", "/b2b", "/splosni-pogoji", "/zasebnost", "/nacini-placila", "/dostava",
     "/odstop-od-pogodbe", "/reklamacije", "/izjava-o-dostopnosti", "/pravna-obvestila",

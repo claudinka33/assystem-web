@@ -15,6 +15,7 @@ const DODATNO = {
   ASco: { podpis: "Vijaki po DIN in ISO", embalaza: "Škatle, modre (ZnB) in zelene (INOX) vrečke, stojalo" },
   MUNGO: { podpis: "Vložki, sidra, kemične mase", embalaza: "Vrečke in škatle Mungo" },
   Silvermate: { podpis: "Lesni vijaki", embalaza: "Križ ali torx, cel ali delni navoj" },
+  HAMMER: { podpis: "Žeblji", embalaza: "Za ročno zabijanje in pnevmatske žebljalnike" },
 };
 
 export default async function DveZnamki({ trenutna, siv = true }) {
@@ -27,7 +28,7 @@ export default async function DveZnamki({ trenutna, siv = true }) {
           <span>Naše znamke</span>
           <h2>{STEVNIK[vidne.length] ?? "Naše znamke"}, en dobavitelj</h2>
           <p>
-            Pritrdilna tehnika, vijačno blago in lesni vijaki pod znamkami, ki jih poznate — vse z enim naročilom,
+            Pritrdilna tehnika, vijačno blago, lesni vijaki in žeblji pod znamkami, ki jih poznate — vse z enim naročilom,
             eno dobavo in enim računom.
           </p>
         </div>

@@ -13,7 +13,7 @@ const podPostavke = (el, kategorije = [], skrite = []) =>
   el.kategorije
     ? kategorije.map((k) => ({ naziv: k.naziv, pot: `/program/${k.slug}`, slika: k.slika, opis: k.opis }))
     : el.znamke
-    ? ZNAMKE.filter((z) => !skrite.includes(z)).map((z) => ({ naziv: ZNAMKE_INFO[z].ime, pot: ZNAMKE_INFO[z].pot, opis: ZNAMKE_INFO[z].opis, logo: ZNAMKE_INFO[z] }))
+    ? ZNAMKE.filter((z) => !skrite.includes(z)).map((z) => ({ naziv: ZNAMKE_INFO[z].ime, pot: ZNAMKE_INFO[z].pot, opis: ZNAMKE_INFO[z].opis, logo: ZNAMKE_INFO[z].znak ?? ZNAMKE_INFO[z] }))
     : el.pod ?? [];
 
 // Jeziki se prikažejo, ko bodo prevodi strani pripravljeni (npr. ["SI", "EN", "DE", "HR"]).
