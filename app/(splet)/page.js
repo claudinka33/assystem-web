@@ -10,6 +10,7 @@ import DveZnamki from "@/components/DveZnamki";
 import ResitveObjekt from "@/components/ResitveObjekt";
 import { objekt, cone, vsiSlugi } from "@/lib/resitve";
 import { pridobiIzdelkePoSlugih } from "@/lib/podatki";
+import InstagramObjave from "@/components/InstagramObjave";
 
 export const revalidate = 60;
 
@@ -316,6 +317,9 @@ export default async function Domov() {
           </div>
         </div>
       </section>
+
+      {/* ---------- Instagram ---------- */}
+      <InstagramObjave />
 
       {/* ---------- Private label ---------- */}
       <div className="cta">
