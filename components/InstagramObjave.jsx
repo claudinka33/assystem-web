@@ -17,7 +17,7 @@ function IgIkona({ size = 18 }) {
 }
 
 export default async function InstagramObjave() {
-  const objave = await pridobiInstagramObjave(8);
+  const objave = await pridobiInstagramObjave(16);
   if (!objave.length) return null;
 
   return (
