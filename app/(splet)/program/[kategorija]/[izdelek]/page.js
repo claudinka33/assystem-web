@@ -3,6 +3,7 @@ import ZnamkaZnak from "@/components/ZnamkaZnak";
 import { notFound } from "next/navigation";
 import { pridobiIzdelek, pridobiPonudbo, pridobiSorodne } from "@/lib/podatki";
 import TabelaArtiklov from "@/components/TabelaArtiklov";
+import { SLIKE_VREDNOSTI } from "@/lib/slike-vrednosti";
 import GalerijaIzdelka from "@/components/GalerijaIzdelka";
 import IgraIzdelka from "@/components/IgraIzdelka";
 import KarticeIzdelkov from "@/components/KarticeIzdelkov";
@@ -166,7 +167,7 @@ export default async function StranIzdelka({ params }) {
                 <div className="izd-tab-gl">
                   <h2>Dimenzije in šifre</h2>
                 </div>
-                <TabelaArtiklov artikli={artikli} stolpci={stolpci} naziviRazlicni={naziviRazlicni} embalaza={i.embalaza ?? []} izdelek={{ naziv: i.naziv, pot: `/program/${kategorija}/${izdelek}`, slika: i.slika_url ?? null, znamka: i.znamka ?? null }} />
+                <TabelaArtiklov artikli={artikli} stolpci={stolpci} naziviRazlicni={naziviRazlicni} embalaza={i.embalaza ?? []} izdelek={{ naziv: i.naziv, pot: `/program/${kategorija}/${izdelek}`, slika: i.slika_url ?? null, znamka: i.znamka ?? null }} slikeVrednosti={SLIKE_VREDNOSTI[izdelek] ?? null} />
                 <p className="izd-opomba">
                   Cene so maloprodajne z DDV, za pakiranje v stolpcu »Kos v pak.«. Za večje količine in podjetja <Link href={povprasevanje}>pošljite povpraševanje</Link>.
                 </p>

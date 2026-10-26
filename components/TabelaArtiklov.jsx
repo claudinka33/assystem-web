@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { cenaArtikla, eur } from "@/lib/cene";
 import { dodaj } from "@/lib/kosarica";
 import { dogodek } from "@/lib/dogodki";
@@ -200,7 +200,7 @@ function Legenda({ vnosi, artikli, izbrani, izberi }) {
   );
 }
 
-export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicni, embalaza = [], izdelek = null }) {
+export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicni, embalaza = [], izdelek = null, slikeVrednosti = null }) {
   const artikli = useMemo(
     () =>
       [...vhodni].sort((a, b) => {
@@ -223,7 +223,19 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
   // Legenda: najprej posebnosti izdelka (npr. škatla AFR41), nato privzeta pakiranja
   const vnosiLegende = useMemo(() => {
     const asco = (izdelek?.pot ?? "").startsWith("/program/vijacno-blago");
-    const vsi = [...(Array.isArray(embalaza) ? embalaza : []), ...privzetaEmbalaza(asco, izdelek?.znamka)].map((e) => {
+    // Vrednosti lastnosti s slikami (npr. material cinkani / aluminij / baker)
+    const izVrednosti = [];
+    if (slikeVrednosti) {
+      const kljuci = [...new Set(vhodni.flatMap((a) => Object.keys(a.lastnosti ?? {})))];
+      for (const k of kljuci) {
+        const vr = [...new Set(vhodni.map((a) => (a.lastnosti ?? {})[k]).filter(Boolean))];
+        if (vr.length >= 2 && vr.every((v) => slikeVrednosti[String(v).toLowerCase()])) {
+          for (const v of vr) izVrednosti.push({ lastnost: k, vrednost: v, ...slikeVrednosti[String(v).toLowerCase()] });
+          break;
+        }
+      }
+    }
+    const vsi = [...izVrednosti, ...(Array.isArray(embalaza) ? embalaza : []), ...privzetaEmbalaza(asco, izdelek?.znamka)].map((e) => {
       const v = skupina(e.lastnost, e.vrednost);
       return v === e.vrednost ? e : { ...e, vrednost: v, naziv: "Škatla" };
     });
@@ -234,7 +246,7 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
       videni.add(k);
       return true;
     });
-  }, [embalaza, izdelek?.pot, izdelek?.znamka]);
+  }, [embalaza, izdelek?.pot, izdelek?.znamka, slikeVrednosti, vhodni]);
   const kljuciLegende = useMemo(() => {
     const s = new Set();
     for (const e of vnosiLegende) if (artikli.some((a) => ujema(a, e.lastnost, e.vrednost))) s.add(e.lastnost);
@@ -249,6 +261,12 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
     setIzbrani((prej) => ({ ...prej, [k]: v }));
     setPrikazano(KORAK);
   };
+  // Izbrana vrednost s sliko zamenja glavno sliko izdelka (GalerijaIzdelka posluša dogodek)
+  useEffect(() => {
+    if (!slikeVrednosti) return;
+    const e = vnosiLegende.find((x) => x.slika && izbrani[x.lastnost] === x.vrednost && slikeVrednosti[String(x.vrednost).toLowerCase()]);
+    window.dispatchEvent(new CustomEvent("izdelek-slika", { detail: e ? e.slika : null }));
+  }, [izbrani, vnosiLegende, slikeVrednosti]);
 
   // Filtri samo za lastnosti z nekaj vrednostmi (2–10)
   const filtri = useMemo(

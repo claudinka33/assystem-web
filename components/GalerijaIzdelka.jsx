@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // Glavna slika izdelka + sličice. Klik na sličico zamenja glavno sliko.
 function oznakaIz(url) {
@@ -12,8 +12,15 @@ function oznakaIz(url) {
 
 export default function GalerijaIzdelka({ slike, naziv }) {
   const [izbrana, setIzbrana] = useState(0);
-  if (!slike.length) return <div className="izd-slika" />;
-  const url = slike[izbrana] ?? slike[0];
+  const [zunanja, setZunanja] = useState(null);
+  // Filter v tabeli (npr. material) lahko zamenja glavno sliko
+  useEffect(() => {
+    const f = (e) => setZunanja(e.detail || null);
+    window.addEventListener("izdelek-slika", f);
+    return () => window.removeEventListener("izdelek-slika", f);
+  }, []);
+  if (!slike.length && !zunanja) return <div className="izd-slika" />;
+  const url = zunanja ?? slike[izbrana] ?? slike[0];
 
   return (
     <>
@@ -36,8 +43,8 @@ export default function GalerijaIzdelka({ slike, naziv }) {
             <button
               key={s}
               type="button"
-              className={n === izbrana ? "on" : ""}
-              onClick={() => setIzbrana(n)}
+              className={!zunanja && n === izbrana ? "on" : ""}
+              onClick={() => { setIzbrana(n); setZunanja(null); }}
               aria-label={`${naziv} — slika ${n + 1}`}
             >
               <Image src={s} alt="" fill sizes="80px" style={{ objectFit: "contain", padding: 4 }} />
