@@ -194,7 +194,7 @@ export default function ResitveObjekt({ objekt, cone, izdelki, kompaktno = false
                         <b className="res-k-naslov">{p.naslov}</b>
                         <button type="button" className="res-k-zapri" aria-label="Zapri" onClick={() => setPlus(null)}>×</button>
                       </div>
-                      {p.izdelki.map((iz) => {
+                      {p.izdelki.filter((iz) => !izdelki[iz.slug]?.skrit).map((iz) => {
                         const d = podatki(iz);
                         return (
                           <Link key={iz.slug} href={d.href} className="res-k-izdelek">
@@ -244,7 +244,7 @@ export default function ResitveObjekt({ objekt, cone, izdelki, kompaktno = false
               <div key={i} className="res-seznam-sk">
                 <b>{p.naslov}</b>
                 <ul>
-                  {p.izdelki.map((iz) => {
+                  {p.izdelki.filter((iz) => !izdelki[iz.slug]?.skrit).map((iz) => {
                     const d = podatki(iz);
                     return (
                       <li key={iz.slug}>

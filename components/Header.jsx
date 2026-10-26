@@ -9,17 +9,17 @@ import B2BPovezava from "@/components/B2BPovezava";
 import { ZNAMKE, ZNAMKE_INFO } from "@/lib/znamke";
 
 // Postavke spustnega seznama: znamke z logotipi ali navadne povezave.
-const podPostavke = (el, kategorije = []) =>
+const podPostavke = (el, kategorije = [], skrite = []) =>
   el.kategorije
     ? kategorije.map((k) => ({ naziv: k.naziv, pot: `/program/${k.slug}`, slika: k.slika, opis: k.opis }))
     : el.znamke
-    ? ZNAMKE.map((z) => ({ naziv: ZNAMKE_INFO[z].ime, pot: ZNAMKE_INFO[z].pot, opis: ZNAMKE_INFO[z].opis, logo: ZNAMKE_INFO[z] }))
+    ? ZNAMKE.filter((z) => !skrite.includes(z)).map((z) => ({ naziv: ZNAMKE_INFO[z].ime, pot: ZNAMKE_INFO[z].pot, opis: ZNAMKE_INFO[z].opis, logo: ZNAMKE_INFO[z] }))
     : el.pod ?? [];
 
 // Jeziki se prikažejo, ko bodo prevodi strani pripravljeni (npr. ["SI", "EN", "DE", "HR"]).
 const jeziki = [];
 
-export default function Header({ kategorije = [] }) {
+export default function Header({ kategorije = [], skrite = [] }) {
   const [odprt, setOdprt] = useState(false);
 
   return (
@@ -54,7 +54,7 @@ export default function Header({ kategorije = [] }) {
 
           <nav className="nav">
             {navigacija.map((el) => {
-              const pod = podPostavke(el, kategorije);
+              const pod = podPostavke(el, kategorije, skrite);
               if (!pod.length)
                 return (
                   <Link key={el.naziv} href={el.pot}>
@@ -131,7 +131,7 @@ export default function Header({ kategorije = [] }) {
           <nav className="mobmeni">
             <div className="w">
               {navigacija.map((el) => {
-                const pod = podPostavke(el, kategorije);
+                const pod = podPostavke(el, kategorije, skrite);
                 if (!pod.length)
                   return (
                     <Link key={el.naziv} href={el.pot} onClick={() => setOdprt(false)}>

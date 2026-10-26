@@ -1,4 +1,5 @@
-import { pridobiKategorije, pridobiNovice } from "@/lib/podatki";
+import { pridobiKategorije, pridobiNovice, skriteZnamke } from "@/lib/podatki";
+import { ZNAMKE_INFO } from "@/lib/znamke";
 import { site } from "@/lib/site";
 
 export const revalidate = 3600;
@@ -11,12 +12,13 @@ export default async function sitemap() {
     "/odstop-od-pogodbe", "/reklamacije", "/izjava-o-dostopnosti", "/pravna-obvestila",
   ];
 
+  const skrite = (await skriteZnamke()).map((z) => ZNAMKE_INFO[z]?.pot);
   const zdaj = new Date();
   const { seznam } = await pridobiKategorije();
   const novice = await pridobiNovice(50);
 
   return [
-    ...strani.map((p) => ({
+    ...strani.filter((p) => !skrite.includes(p)).map((p) => ({
       url: `${site.url}${p}`,
       lastModified: zdaj,
       changeFrequency: p === "" ? "weekly" : "monthly",

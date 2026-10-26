@@ -1,9 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ZNAMKE, ZNAMKE_INFO } from "@/lib/znamke";
+import { skriteZnamke } from "@/lib/podatki";
+
+const STEVNIK = { 1: "Ena znamka", 2: "Dve znamki", 3: "Tri znamke", 4: "Štiri znamke", 5: "Pet znamk" };
 
 /* --------------------------------------------------------------
-   Naše znamke — ASfix, ASco, Mungo, Silvermate. Isti blok na začetni
+   Naše znamke (brez tistih, ki so v Admin → Znamke izklopljene). Isti blok na začetni
    strani in na straneh znamk (trenutna je označena »Ste tukaj«).
    -------------------------------------------------------------- */
 
@@ -14,20 +17,22 @@ const DODATNO = {
   Silvermate: { podpis: "Lesni vijaki", embalaza: "Križ ali torx, cel ali delni navoj" },
 };
 
-export default function DveZnamki({ trenutna, siv = true }) {
+export default async function DveZnamki({ trenutna, siv = true }) {
+  const skrite = await skriteZnamke();
+  const vidne = ZNAMKE.filter((k) => !skrite.includes(k));
   return (
     <section className={`sec${siv ? " grey" : ""}`}>
       <div className="w">
         <div className="st">
           <span>Naše znamke</span>
-          <h2>Štiri znamke, en dobavitelj</h2>
+          <h2>{STEVNIK[vidne.length] ?? "Naše znamke"}, en dobavitelj</h2>
           <p>
             Pritrdilna tehnika, vijačno blago in lesni vijaki pod znamkami, ki jih poznate — vse z enim naročilom,
             eno dobavo in enim računom.
           </p>
         </div>
         <div className="dz">
-          {ZNAMKE.map((k) => {
+          {vidne.map((k) => {
             const z = ZNAMKE_INFO[k];
             const tu = k === trenutna;
             return (

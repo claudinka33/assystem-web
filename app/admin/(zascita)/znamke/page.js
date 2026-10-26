@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { izdelkiZPredlogi } from "@/lib/znamke-admin";
-import { nastaviZnamko, vpisiPredloge } from "@/lib/akcije/znamke-admin";
+import { nastaviZnamko, vpisiPredloge, preklopiZnamkoNaSpletu } from "@/lib/akcije/znamke-admin";
+import { skriteZnamkeAdmin } from "@/lib/znamke-admin";
 import { ZNAMKE, ZNAMKE_INFO } from "@/lib/znamke";
 
 export const dynamic = "force-dynamic";
@@ -9,6 +10,7 @@ export const dynamic = "force-dynamic";
 export default async function ZnamkeIzdelkov({ searchParams }) {
   const { seznam, stolpec } = await izdelkiZPredlogi();
   const { prikaz = "vse" } = (await searchParams) ?? {};
+  const skrite = await skriteZnamkeAdmin();
 
   const nastrani = (i) => i.vpis ?? i.predlog;
   const brezVpisa = seznam.filter((i) => !i.vpis);
@@ -41,6 +43,30 @@ export default async function ZnamkeIzdelkov({ searchParams }) {
             </pre>
           </div>
         )}
+
+        <div style={{ border: "1px solid #e3e5e8", borderRadius: 10, padding: "14px 16px", marginBottom: 22, maxWidth: 820 }}>
+          <b style={{ display: "block", marginBottom: 4 }}>Znamke na spletni strani</b>
+          <p style={{ color: "#6e767e", margin: "0 0 12px" }}>
+            Izklopljena znamka se na assystem.si ne pokaže nikjer (meni, stran znamke, izdelki, iskanje, Rešitve,
+            sitemap). Izdelki ostanejo tu v administraciji — z vklopom se vse vrne.
+          </p>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+            {ZNAMKE.map((z) => {
+              const off = skrite.includes(z);
+              return (
+                <form key={z} action={preklopiZnamkoNaSpletu} style={{ display: "flex", alignItems: "center", gap: 8, padding: "6px 10px", borderRadius: 8, background: off ? "#fdecec" : "#eaf6ee" }}>
+                  <input type="hidden" name="znamka" value={z} />
+                  <input type="hidden" name="akcija" value={off ? "vklopi" : "izklopi"} />
+                  <b>{ZNAMKE_INFO[z].ime}</b>
+                  <span style={{ fontSize: 12.5, color: off ? "#CB2026" : "#1e7a3c" }}>{off ? "● izklopljena" : "● na spletu"}</span>
+                  <button className={`gumb mini${off ? "" : " siv"}`} type="submit">
+                    {off ? "Vklopi" : "Izklopi"}
+                  </button>
+                </form>
+              );
+            })}
+          </div>
+        </div>
 
         <p style={{ color: "#6e767e", marginBottom: 14, maxWidth: 820 }}>
           Pravilo predloga: šifra AS811/812/814/816 → Silvermate · slug »mungo-…« ali šifra M… → Mungo ·

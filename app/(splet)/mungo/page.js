@@ -1,10 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import ZnamkaHero from "@/components/ZnamkaHero";
 import DveZnamki from "@/components/DveZnamki";
 import KarticeIzdelkov from "@/components/KarticeIzdelkov";
 import YouTubeVideo from "@/components/YouTubeVideo";
-import { pridobiIzdelkeZnamke } from "@/lib/podatki";
+import { pridobiIzdelkeZnamke, skriteZnamke } from "@/lib/podatki";
 import { MUNGO_VIDEI } from "@/lib/videi";
 
 export const revalidate = 300;
@@ -52,6 +53,8 @@ const druzine = [
 ];
 
 export default async function Mungo() {
+  // Znamka izklopljena v Admin → Znamke → stran ne obstaja (404).
+  if ((await skriteZnamke()).includes("MUNGO")) notFound();
   const izdelki = await pridobiIzdelkeZnamke("MUNGO");
   const poSkupinah = {};
   for (const i of izdelki) (poSkupinah[i.skupina] ??= []).push(i);

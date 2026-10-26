@@ -17,7 +17,7 @@ export const metadata = {
     template: "%s | AS system",
   },
   description:
-    "AS system: pritrdilna tehnika in vijačno blago pod znamkami ASfix, ASco, Mungo in Silvermate. Proizvodnja v Sloveniji, police za trgovce, private label in vijaki po naročilu. Od 1993, dobava v 19 držav.",
+    "AS system: pritrdilna tehnika in vijačno blago pod znamkami ASfix, ASco in Silvermate. Proizvodnja v Sloveniji, police za trgovce, private label in vijaki po naročilu. Od 1993, dobava v 19 držav.",
   keywords: [
     "pritrdilna tehnika",
     "jeklena sidra",
@@ -34,7 +34,7 @@ export const metadata = {
     siteName: site.ime,
     title: "AS system — pritrdilna tehnika in vijačno blago",
     description:
-      "Pritrdilna tehnika in vijačno blago ASfix, ASco, Mungo in Silvermate. Od 1993, dobava v 19 držav.",
+      "Pritrdilna tehnika in vijačno blago ASfix, ASco in Silvermate. Od 1993, dobava v 19 držav.",
   },
   robots: { index: true, follow: true },
 };
