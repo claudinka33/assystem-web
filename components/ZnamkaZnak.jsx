@@ -7,7 +7,7 @@ export default function ZnamkaZnak({ znamka, velik = false }) {
   const info = ZNAMKE_INFO[normZnamka(znamka)];
   if (!info) return null;
   const z = { ...info, ...(info.znak ?? {}) };
-  const visina = velik ? 30 : 18;
+  const visina = velik ? (z.visinaVelik ?? 30) : (z.visina ?? 18);
   const slika = (
     <Image
       src={z.logo}
