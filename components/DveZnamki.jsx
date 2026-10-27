@@ -15,7 +15,7 @@ const DODATNO = {
   ASco: { podpis: "Vijaki po DIN in ISO", embalaza: "Škatle, modre (ZnB) in zelene (INOX) vrečke, stojalo" },
   MUNGO: { podpis: "Vložki, sidra, kemične mase", embalaza: "Vrečke in škatle Mungo" },
   Silvermate: { podpis: "Lesni vijaki", embalaza: "Križ ali torx, cel ali delni navoj" },
-  HAMMER: { podpis: "Žeblji", embalaza: "Za ročno zabijanje in pnevmatske žebljalnike" },
+  HAMMEX: { podpis: "Žeblji", embalaza: "Za ročno zabijanje in pnevmatske žebljalnike" },
 };
 
 export default async function DveZnamki({ trenutna, siv = true }) {

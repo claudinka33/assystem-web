@@ -17,7 +17,7 @@ export const revalidate = 60;
 export const metadata = {
   title: "AS system — pritrdilna tehnika in vijačno blago",
   description:
-    "Pritrdilna tehnika ASfix, vijačno blago ASco, lesni vijaki Silvermate in žeblji HAMMER. Dobava iz zaloge, police za trgovce, private label in vijaki po naročilu.",
+    "Pritrdilna tehnika ASfix, vijačno blago ASco, lesni vijaki Silvermate in žeblji HAMMEX. Dobava iz zaloge, police za trgovce, private label in vijaki po naročilu.",
   alternates: { canonical: "/" },
 };
 

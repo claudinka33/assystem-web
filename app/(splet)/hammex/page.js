@@ -5,10 +5,10 @@ import DveZnamki from "@/components/DveZnamki";
 import PotiProdaje from "@/components/PotiProdaje";
 
 export const metadata = {
-  title: "HAMMER — žeblji in žičniki",
+  title: "HAMMEX — žeblji in žičniki",
   description:
-    "Žeblji pod znamko HAMMER: gradbeni žičniki, lepenkarji (cinkani, aluminij, baker), strojni žičniki v traku za pnevmatske žebljalnike in kolarniki.",
-  alternates: { canonical: "/hammer" },
+    "Žeblji pod znamko HAMMEX: gradbeni žičniki, lepenkarji (cinkani, aluminij, baker), strojni žičniki v traku za pnevmatske žebljalnike in kolarniki.",
+  alternates: { canonical: "/hammex" },
 };
 
 const KAT = "/program/zicniki";
@@ -74,19 +74,19 @@ export default function Hammer() {
     <>
       <ZnamkaHero
         podlaga="svetla"
-        ime="HAMMER"
-        logo="/slike/znamke/hammer-logo.png"
+        ime="HAMMEX"
+        logo="/slike/znamke/hammex-logo.png"
         oznaka="Blagovna znamka · žeblji"
-        naslov="Žeblji HAMMER"
+        naslov="Žeblji HAMMEX"
         opis="Gradbeni žičniki, lepenkarji, strojni žičniki v traku in kolarniki — za ročno zabijanje in pnevmatske žebljalnike."
         znacke={["Professional nails", "Gradbeni · lepenkarji", "Strojni v traku", "Kolarniki"]}
         slika="/slike/zicniki/zicniki-skupna.jpg"
         slikaW={1376}
         slikaH={768}
-        slikaAlt="Žeblji HAMMER — strojni žičniki v traku, gradbeni žičniki in lepenkarji"
+        slikaAlt="Žeblji HAMMEX — strojni žičniki v traku, gradbeni žičniki in lepenkarji"
         gumbi={[
           { href: KAT, naziv: "Žeblji v katalogu", cls: "b-r" },
-          { href: "/kontakt?vir=hammer", naziv: "Povpraševanje →", cls: "b-d" },
+          { href: "/kontakt?vir=hammex", naziv: "Povpraševanje →", cls: "b-d" },
         ]}
       />
 
@@ -95,14 +95,14 @@ export default function Hammer() {
           <div className="qua" style={{ alignItems: "center" }}>
             <div>
               <div className="st">
-                <span>Kaj je HAMMER</span>
+                <span>Kaj je HAMMEX</span>
                 <h2>Naša znamka za žeblje</h2>
                 <p>
-                  HAMMER je blagovna znamka AS system za žeblje. Pod njo so gradbeni žičniki, lepenkarji,
+                  HAMMEX je blagovna znamka AS system za žeblje. Pod njo so gradbeni žičniki, lepenkarji,
                   strojni žičniki v traku in kolarniki — za tesarje, krovce, gradbince in trgovine.
                 </p>
                 <p style={{ marginTop: 12 }}>
-                  Kjer ASfix pritrdi v beton in zid, ASco poveže kovino s kovino, HAMMER poveže les z lesom
+                  Kjer ASfix pritrdi v beton in zid, ASco poveže kovino s kovino, HAMMEX poveže les z lesom
                   in pritrdi kritino. Skupaj pokrijejo celotno polico pritrdilnega materiala.
                 </p>
               </div>
@@ -112,8 +112,8 @@ export default function Hammer() {
             </div>
             <div style={{ display: "grid", placeItems: "center", padding: "20px 0" }}>
               <Image
-                src="/slike/znamke/hammer-logo.png"
-                alt="HAMMER professional nails"
+                src="/slike/znamke/hammex-logo.png"
+                alt="HAMMEX professional nails"
                 width={800}
                 height={393}
                 sizes="(max-width: 1000px) 80vw, 480px"
@@ -128,14 +128,14 @@ export default function Hammer() {
         <div className="w">
           <div className="st">
             <span>Program</span>
-            <h2>Kaj pokriva znamka HAMMER</h2>
+            <h2>Kaj pokriva znamka HAMMEX</h2>
             <p>Kliknite skupino za vse dimenzije, zalogo in cene.</p>
           </div>
           <div className="kats">
             {program.map((x) => (
               <Link key={x.naziv} href={x.pot} className="k">
                 <div className="im" style={{ background: "#fff" }}>
-                  <Image src={x.slika} alt={`HAMMER — ${x.naziv}`} fill sizes="(max-width: 700px) 50vw, 300px" style={{ objectFit: "contain", padding: 12 }} />
+                  <Image src={x.slika} alt={`HAMMEX — ${x.naziv}`} fill sizes="(max-width: 700px) 50vw, 300px" style={{ objectFit: "contain", padding: 12 }} />
                 </div>
                 <div className="tx">
                   <h3>{x.naziv}</h3>
@@ -151,7 +151,7 @@ export default function Hammer() {
         <div className="w">
           <div className="st">
             <span>Aduti</span>
-            <h2>Zakaj HAMMER</h2>
+            <h2>Zakaj HAMMEX</h2>
           </div>
           <div className="kats">
             {aduti.map((a) => (
@@ -193,20 +193,20 @@ export default function Hammer() {
         </div>
       </section>
 
-      <DveZnamki trenutna="HAMMER" siv={false} />
+      <DveZnamki trenutna="HAMMEX" siv={false} />
 
       <div className="cta">
         <div className="w">
           <div>
-            <h2>Žeblji HAMMER za vašo trgovino ali gradbišče?</h2>
+            <h2>Žeblji HAMMEX za vašo trgovino ali gradbišče?</h2>
             <p>Pošljite povpraševanje in pripravimo predlog asortimana ter pogoje.</p>
           </div>
-          <Link className="b b-w" href="/kontakt?vir=hammer">
+          <Link className="b b-w" href="/kontakt?vir=hammex">
             Pošlji povpraševanje →
           </Link>
         </div>
       </div>
-      <PotiProdaje izpusti="/hammer" />
+      <PotiProdaje izpusti="/hammex" />
     </>
   );
 }

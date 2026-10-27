@@ -10,7 +10,7 @@ const PROGRAMI = [
   { v: "ASfix", o: "Sidra, vložki, udarni vijaki" },
   { v: "ASco", o: "Vijačno blago po DIN in ISO" },
   { v: "Silvermate", o: "Lesni vijaki" },
-  { v: "HAMMER", o: "Žeblji in žičniki" },
+  { v: "HAMMEX", o: "Žeblji in žičniki" },
   { v: "Še ne vem", o: "Svetujemo vam" },
 ];
 const PROSTOR = [
