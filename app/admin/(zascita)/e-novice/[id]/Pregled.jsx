@@ -2,7 +2,7 @@ import Link from "next/link";
 import { supabaseAdmin } from "@/lib/supabase-server";
 import { prekliciNacrt, podvojiKampanjo } from "@/lib/akcije/enovice-kampanje";
 import { rabiOsvezitev } from "@/lib/enovice-statistika";
-import { OsveziStatistiko, PonovnoNeodprtim } from "./StatistikaGumbi";
+import { OsveziStatistiko, PonovnoNeodprtim, IstimPrejemnikom } from "./StatistikaGumbi";
 
 const cas = (d) =>
   d ? new Date(d).toLocaleString("sl-SI", { timeZone: "Europe/Ljubljana", dateStyle: "medium", timeStyle: "short" }) : "";
@@ -91,6 +91,7 @@ export default async function Pregled({ k, sp = {} }) {
             <p style={label}>Poslano</p>
             <p style={{ margin: "0 0 16px" }}>{cas(k.poslano_ob)}</p>
             <PonovnoNeodprtim id={k.id} stevilo={s.dostavljeno ? neodprli : null} />
+            <IstimPrejemnikom id={k.id} stevilo={s.dostavljeno ? Math.max(0, s.dostavljeno - (s.odjave ?? 0) - (s.pritozbe ?? 0)) : null} />
             <a className="gumb siv" href={`/admin/porocilo-enovice/${k.id}`} target="_blank" rel="noreferrer" style={{ width: "100%", marginTop: 8 }}>
               Poročilo (PDF)
             </a>
