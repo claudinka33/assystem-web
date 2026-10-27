@@ -424,7 +424,7 @@ a {
 }
 .k .im {
   position: relative;
-  aspect-ratio: 1 / 1;
+  height: 196px;
   background: #fff;
   border-bottom: 1px solid #f0f2f4;
 }
