@@ -10,3 +10,7 @@ create table if not exists b2b_kosarice (
   posodobljeno timestamptz not null default now()
 );
 alter table b2b_kosarice enable row level security;
+
+-- (dodano) Samoregistracija: poslovalnica, ki jo vpiše kupec, in e-naslov poslovalnice iz Vasca
+alter table b2b_kupci add column if not exists poslovalnica_vnos text;
+alter table b2b_prodajalne add column if not exists email text;

@@ -91,7 +91,11 @@ export default async function B2BKupci({ searchParams }) {
                       <b>{k.ime}</b> · {k.email}
                     </span>
                     <span style={{ fontSize: 13, color: "#6e767e" }}>
-                      {k.prodajalna ? `📍 ${imeProdajalne(k.vasco_partner, k.prodajalna)}` : "sedež / vse poslovalnice"}
+                      {k.prodajalna
+                        ? `📍 ${imeProdajalne(k.vasco_partner, k.prodajalna)}`
+                        : k.poslovalnica_vnos
+                          ? <span style={{ color: "#b26a00" }}>⚠ določi poslovalnico (»{k.poslovalnica_vnos}«)</span>
+                          : "sedež / vse poslovalnice"}
                     </span>
                     <span className={k.status === "aktiven" ? "znacka da" : k.status === "caka_odobritev" ? "znacka novo" : "znacka ne"}>
                       {B2B_STATUSI[k.status] ?? k.status}
@@ -103,6 +107,7 @@ export default async function B2BKupci({ searchParams }) {
                       Registracija: {cas(k.ustvarjeno)} · zadnja sinhronizacija: {cas(k.vasco_sync_ob)}
                       {k.vasco_sporocilo ? ` — ${k.vasco_sporocilo}` : ""}
                       {k.odobreno_rocno && <> · odobreno ročno</>}
+                      {k.poslovalnica_vnos && <><br />Poslovalnica, ki jo je vpisal kupec: <b>{k.poslovalnica_vnos}</b></>}
                     </p>
                   <form action={adminB2B}>
                     <input type="hidden" name="id" value={k.id} />
@@ -145,7 +150,12 @@ export default async function B2BKupci({ searchParams }) {
                       </div>
                       {(prodajalnePartnerja[k.vasco_partner] ?? []).length > 0 && (
                         <div className="adm-polje" style={{ gridColumn: "1 / -1" }}>
-                          <label>Poslovalnica uporabnika</label>
+                          <label>
+                            Poslovalnica uporabnika
+                            {k.poslovalnica_vnos && !k.prodajalna && (
+                              <span style={{ color: "#b26a00", fontWeight: 400 }}> — kupec je vpisal: »{k.poslovalnica_vnos}«</span>
+                            )}
+                          </label>
                           <select name="prodajalna" defaultValue={k.prodajalna ?? ""}>
                             <option value="">Sedež — vidi vse poslovalnice in vsa naročila podjetja</option>
                             {prodajalnePartnerja[k.vasco_partner].map((x) => (
