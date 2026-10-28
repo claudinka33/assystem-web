@@ -53,7 +53,7 @@ export default async function Kategorija({ params, searchParams }) {
       />
 
       {podkategorije.length > 0 && (
-        <section className="sec" style={{ paddingBottom: 0 }}>
+        <section className="sec" style={izdelki.length > 0 ? { paddingBottom: 0 } : undefined}>
           <div className="w">
             <div className="st">
               <span>Podskupine</span>
