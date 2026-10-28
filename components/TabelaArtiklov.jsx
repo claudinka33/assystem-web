@@ -80,15 +80,21 @@ function Cena({ cena, b2b }) {
   if (b2b)
     return (
       <span className="izd-cena b2b-c">
-        {cena.redna && (
-          <s className="b2b-redna" title="Redna cena brez DDV">{eur(cena.redna)}</s>
-        )}
+        {cena.redna ? (
+          cena.popust > 0 ? (
+            <span className="b2b-redna">VPC <s>{eur(cena.redna)}</s></span>
+          ) : (
+            <span className="b2b-redna">VPC {eur(cena.redna)}</span>
+          )
+        ) : null}
         <b>
           {eur(cena.neto)}
-          {cena.posebna ? (
-            <span className="b2b-cena" title="Posebna cena, dogovorjena za vaše podjetje">VAŠA CENA</span>
-          ) : cena.popust > 0 ? (
-            <span className="b2b-cena" title="Vaš rabat na redno ceno">−{String(cena.popust).replace(".", ",")} %</span>
+          {cena.popust > 0 ? (
+            <span className="b2b-cena" title={cena.posebna ? "Vaša cena, nižja od redne VPC" : "Vaš rabat na redno VPC"}>
+              −{String(cena.popust).replace(".", ",")} %
+            </span>
+          ) : cena.posebna ? (
+            <span className="b2b-cena" title="Posebna cena za vaše podjetje">VAŠA CENA</span>
           ) : null}
         </b>
         <em>{cena.kos > 1 ? `za ${cena.kos} kos · ` : ""}brez DDV</em>

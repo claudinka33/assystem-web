@@ -10,7 +10,7 @@ const cas = (t) => (t ? new Date(t).toLocaleString("sl-SI", { timeZone: "Europe/
 const VRSTNI_RED = ["caka_odobritev", "preverjanje", "aktiven", "zavrnjen"];
 
 export default async function B2BKupci({ searchParams }) {
-  const { napaka, shranjeno } = await searchParams;
+  const { napaka, shranjeno, poslano } = await searchParams;
   const { data, error } = await supabaseAdmin().from("b2b_kupci").select("*").order("ustvarjeno", { ascending: false }).limit(500);
   if (error)
     return (
@@ -36,6 +36,11 @@ export default async function B2BKupci({ searchParams }) {
           sam. Ostale odobri tukaj — pri novem podjetju ga najprej odpri v Vascu in vpiši šifro partnerja. Z »+ Nov B2B kupec« lahko podjetje odpreš sam: vpiši davčno, poišči podatke, dodaj kontakt — kupec dobi mail za potrditev in geslo.
         </p>
         {napaka && <div className="opozorilo" style={{ marginBottom: 12 }}>{napaka}</div>}
+        {poslano && (
+          <div className="opozorilo" style={{ marginBottom: 12, borderColor: "#1a7f3c", color: "#1a7f3c" }}>
+            ✓ Povabilo za potrditev in geslo je poslano na <b>{poslano}</b>.
+          </div>
+        )}
         {shranjeno && <div className="opozorilo" style={{ marginBottom: 12, borderColor: "#1a7f3c", color: "#1a7f3c" }}>Spremembe shranjene.</div>}
         <NovB2B />
         {kupci.length === 0 && <div className="opozorilo">Ni še registracij.</div>}
