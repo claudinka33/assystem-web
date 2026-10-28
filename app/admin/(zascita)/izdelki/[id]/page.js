@@ -117,7 +117,7 @@ export default async function UrediIzdelek({ params }) {
           <OpisiPolja izdelek={izdelek} />
         </Kartica>
 
-        <Kartica id="videi" naslov="Videi (YouTube)" opis="Prvi video se pokaže na strani izdelka.">
+        <Kartica id="videi" naslov="Videi (MP4 ali YouTube)" opis="Prvi video se pokaže na strani izdelka. MP4 je vedno oster in brez YouTube logotipa.">
           <VideiIzdelka izdelekId={izdelek.id} zacetni={videi} />
         </Kartica>
 

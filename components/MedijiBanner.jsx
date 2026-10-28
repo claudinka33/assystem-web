@@ -1,11 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import YouTubeVideo from "@/components/YouTubeVideo";
+import Mp4Video from "@/components/Mp4Video";
 
 /* --------------------------------------------------------------
    Pas »VIDEO · LETAK · CERTIFIKAT« pod opisom izdelka (in na strani
    znamke). Pokažejo se samo ploščice, za katere imamo vsebino.
-   video: { id, naslov } · letak: { url, slika, naziv } ·
+   video: { id, naslov } ali { mp4, poster, naslov } · letak: { url, slika, naziv } ·
    certifikat: { oznaka, url, opis }
    -------------------------------------------------------------- */
 export default function MedijiBanner({ video, letak, certifikat, temno = false }) {
@@ -15,7 +16,11 @@ export default function MedijiBanner({ video, letak, certifikat, temno = false }
       {video && (
         <div className="medij medij-video">
           <span className="medij-oz">Video</span>
-          <YouTubeVideo id={video.id} naslov={video.naslov} samodejno={video.samodejno !== false} />
+          {video.mp4 ? (
+            <Mp4Video src={video.mp4} poster={video.poster} naslov={video.naslov} samodejno={video.samodejno !== false} />
+          ) : (
+            <YouTubeVideo id={video.id} naslov={video.naslov} samodejno={video.samodejno !== false} />
+          )}
           <p>{video.naslov}</p>
         </div>
       )}

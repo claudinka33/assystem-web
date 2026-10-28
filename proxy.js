@@ -27,7 +27,7 @@ export async function proxy(request) {
       PROSTO.some((p) => pathname === p || pathname.startsWith(p + "/")) ||
       pathname.startsWith("/_next") ||
       pathname.startsWith("/slike/") ||
-      /\.(png|jpg|jpeg|svg|webp|ico|pdf|css|js|woff2?)$/.test(pathname);
+      /\.(png|jpg|jpeg|svg|webp|ico|pdf|mp4|css|js|woff2?)$/.test(pathname);
 
     if (!dovoljeno && request.cookies.get(PISKOTEK)?.value !== zeton(geslo)) {
       const cilj = request.nextUrl.clone();
