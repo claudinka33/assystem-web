@@ -3,6 +3,8 @@ import Link from "next/link";
 import ZnamkaHero from "@/components/ZnamkaHero";
 import DveZnamki from "@/components/DveZnamki";
 import PotiProdaje from "@/components/PotiProdaje";
+import FotoGalerija from "@/components/FotoGalerija";
+import { FOTO_PAKIRANJE, FOTO_EKIPA, FOTO_SKLADISCE } from "@/lib/foto";
 
 export const metadata = {
   title: "ASco — standardno vijačno blago po DIN in ISO",
@@ -294,7 +296,23 @@ export default function ASco() {
         </div>
       </section>
 
-      <DveZnamki trenutna="ASco" />
+      <section className="sec grey" id="foto">
+        <div className="w">
+          <div className="st">
+            <span>Pakiranje in zaloga</span>
+            <h2>Od skladišča do vaše police</h2>
+            <p>Vijačno blago pakiramo v vrečke z EAN kodo na lastni liniji in ga hranimo v skladišču v Šmarju pri Jelšah — pripravljeno za takojšnjo odpremo.</p>
+          </div>
+          <FotoGalerija
+            skupine={[
+              { naziv: "Pakiranje v vrečke", slike: [...FOTO_PAKIRANJE.slice(6), ...FOTO_EKIPA.slice(2, 4)] },
+              { naziv: "Skladišče", slike: FOTO_SKLADISCE },
+            ]}
+          />
+        </div>
+      </section>
+
+      <DveZnamki trenutna="ASco" siv={false} />
 
       <div className="cta">
         <div className="w">

@@ -4,6 +4,8 @@ import IgraSidranje from "@/components/IgraSidranje";
 import ZnamkaHero from "@/components/ZnamkaHero";
 import DveZnamki from "@/components/DveZnamki";
 import PotiProdaje from "@/components/PotiProdaje";
+import FotoGalerija from "@/components/FotoGalerija";
+import { FOTO_SIDRA, FOTO_MONTAZA, FOTO_PAKIRANJE, FOTO_SKLADISCE } from "@/lib/foto";
 import { pridobiIzdelkePoSlugih } from "@/lib/podatki";
 
 export const revalidate = 300;
@@ -278,8 +280,26 @@ export default async function ASfix() {
         </div>
       </section>
 
+      <section className="sec" id="foto">
+        <div className="w">
+          <div className="st">
+            <span>Od stroja do police</span>
+            <h2>Kako nastane ASfix</h2>
+            <p>Sidra kujemo in sestavljamo sami, vložke brizgamo, nato vse pakiramo in odpremimo iz našega skladišča.</p>
+          </div>
+          <FotoGalerija
+            skupine={[
+              { naziv: "Kovanje sider", slike: FOTO_SIDRA },
+              { naziv: "Montaža sider", slike: FOTO_MONTAZA },
+              { naziv: "Pakiranje", slike: FOTO_PAKIRANJE.slice(0, 6) },
+              { naziv: "Skladišče", slike: FOTO_SKLADISCE },
+            ]}
+          />
+        </div>
+      </section>
+
       {/* ---------- Police ---------- */}
-      <section className="sec">
+      <section className="sec grey">
         <div className="w">
           <div className="st">
             <span>Za trgovce</span>
@@ -311,7 +331,7 @@ export default async function ASfix() {
       </section>
 
       {/* ---------- Interaktivna vaja ---------- */}
-      <section id="igra" className="sec grey">
+      <section id="igra" className="sec">
         <div className="w">
           <div className="st">
             <span>Preizkusite sami</span>
@@ -325,7 +345,7 @@ export default async function ASfix() {
         </div>
       </section>
 
-      <DveZnamki trenutna="ASfix" siv={false} />
+      <DveZnamki trenutna="ASfix" />
 
       <div className="cta">
         <div className="w">

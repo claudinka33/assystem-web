@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import KorakiSlike from "@/components/KorakiSlike";
 import FotoGalerija from "@/components/FotoGalerija";
-import { FOTO_KOVANJE, FOTO_PLASTIKA, FOTO_ORODJARNA, FOTO_KAKOVOST, FOTO_VPN } from "@/lib/foto";
+import { FOTO_KOVANJE, FOTO_PLASTIKA, FOTO_ORODJARNA, FOTO_KAKOVOST, FOTO_VPN, FOTO_SIDRA, FOTO_VIJAKI, FOTO_PLASTIKA_2, FOTO_MONTAZA, FOTO_PAKIRANJE, FOTO_ZEBLJI, FOTO_SKLADISCE } from "@/lib/foto";
 
 export const metadata = {
   title: "Proizvodnja in razvoj",
@@ -305,8 +305,13 @@ export default function Proizvodnja() {
           </div>
           <FotoGalerija
             skupine={[
-              { naziv: "Hladno kovanje in navoji", slike: FOTO_KOVANJE },
-              { naziv: "Brizganje plastike", slike: FOTO_PLASTIKA },
+              { naziv: "Kovanje sider", slike: FOTO_SIDRA },
+              { naziv: "Hladno kovanje in navoji", slike: [...FOTO_VIJAKI, ...FOTO_KOVANJE] },
+              { naziv: "Brizganje plastike", slike: [...FOTO_PLASTIKA_2, ...FOTO_PLASTIKA] },
+              { naziv: "Montaža sider", slike: FOTO_MONTAZA },
+              { naziv: "Pakiranje", slike: FOTO_PAKIRANJE },
+              { naziv: "Žeblji", slike: FOTO_ZEBLJI },
+              { naziv: "Skladišče", slike: FOTO_SKLADISCE },
               { naziv: "Orodjarna", slike: FOTO_ORODJARNA },
               { naziv: "Kontrola kakovosti", slike: FOTO_KAKOVOST },
               { naziv: "Vijaki po naročilu", slike: FOTO_VPN },

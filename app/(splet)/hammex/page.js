@@ -3,6 +3,8 @@ import Link from "next/link";
 import ZnamkaHero from "@/components/ZnamkaHero";
 import DveZnamki from "@/components/DveZnamki";
 import PotiProdaje from "@/components/PotiProdaje";
+import FotoGalerija from "@/components/FotoGalerija";
+import { FOTO_ZEBLJI } from "@/lib/foto";
 
 export const metadata = {
   title: "HAMMEX — žeblji in žičniki",
@@ -169,7 +171,22 @@ export default function Hammer() {
         </div>
       </section>
 
-      <section className="sec grey">
+      <section className="sec grey" id="foto">
+        <div className="w">
+          <div className="st">
+            <span>Pakirano pri nas</span>
+            <h2>Tako nastajajo koluti HAMMEX</h2>
+            <p>Žeblje za pnevmatske žebljalnike povezujemo z bakreno žico, navijamo v kolute in pakiramo na lastni liniji.</p>
+          </div>
+          <FotoGalerija
+            skupine={[
+              { naziv: "Žeblji v kolutih", slike: FOTO_ZEBLJI },
+            ]}
+          />
+        </div>
+      </section>
+
+      <section className="sec">
         <div className="w">
           <div className="st">
             <span>Lepenkarji</span>
@@ -193,7 +210,7 @@ export default function Hammer() {
         </div>
       </section>
 
-      <DveZnamki trenutna="HAMMEX" siv={false} />
+      <DveZnamki trenutna="HAMMEX" />
 
       <div className="cta">
         <div className="w">

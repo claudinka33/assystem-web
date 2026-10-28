@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/lib/site";
+import FotoGalerija from "@/components/FotoGalerija";
+import { FOTO_EKIPA, FOTO_SKLADISCE, FOTO_VIJAKI, FOTO_SIDRA, FOTO_MONTAZA, FOTO_ZEBLJI } from "@/lib/foto";
 import { KogaPoklicem, TerenKomercialisti, KontaktiOddelki, Lokacije } from "@/components/KontaktBloki";
 
 export const metadata = {
@@ -274,6 +276,23 @@ export default function ONas() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="sec grey" id="foto">
+        <div className="w">
+          <div className="st">
+            <span>Spoznajte nas</span>
+            <h2>Ljudje in prostori za našimi izdelki</h2>
+            <p>Ekipa, ki odgovori na vaš klic, nastavi stroj in pripravi vaše naročilo. Tako je videti dan v AS systemu — kliknite sliko za povečavo.</p>
+          </div>
+          <FotoGalerija
+            skupine={[
+              { naziv: "Ekipa", slike: FOTO_EKIPA },
+              { naziv: "Proizvodnja", slike: [...FOTO_SIDRA.slice(0, 4), ...FOTO_VIJAKI.slice(0, 6), ...FOTO_MONTAZA.slice(0, 3), ...FOTO_ZEBLJI.slice(0, 3)] },
+              { naziv: "Skladišče", slike: FOTO_SKLADISCE },
+            ]}
+          />
         </div>
       </section>
 
