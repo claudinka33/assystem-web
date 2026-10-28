@@ -5,6 +5,7 @@ import DveZnamki from "@/components/DveZnamki";
 import PotiProdaje from "@/components/PotiProdaje";
 import FotoGalerija from "@/components/FotoGalerija";
 import { FOTO_ZEBLJI } from "@/lib/foto";
+import { pridobiIzdelkePoSlugih } from "@/lib/podatki";
 
 export const metadata = {
   title: "HAMMEX — žeblji in žičniki",
@@ -12,6 +13,8 @@ export const metadata = {
     "Žeblji pod znamko HAMMEX: gradbeni žičniki, lepenkarji (cinkani, aluminij, baker), strojni žičniki v traku za pnevmatske žebljalnike in kolarniki.",
   alternates: { canonical: "/hammex" },
 };
+
+export const revalidate = 300;
 
 const KAT = "/program/zicniki";
 
@@ -71,7 +74,8 @@ const materiali = [
   { b: "Baker", s: "lepenkarji", p: "Za bakrene kritine in obrobe — brez galvanske korozije.", slika: "/slike/zicniki/en-lepenkar-baker.jpg" },
 ];
 
-export default function Hammer() {
+export default async function Hammer() {
+  const izBaze = await pridobiIzdelkePoSlugih(program.map((x) => x.pot.split("/").pop()));
   return (
     <>
       <ZnamkaHero
@@ -137,7 +141,7 @@ export default function Hammer() {
             {program.map((x) => (
               <Link key={x.naziv} href={x.pot} className="k">
                 <div className="im" style={{ background: "#fff" }}>
-                  <Image src={x.slika} alt={`HAMMEX — ${x.naziv}`} fill sizes="(max-width: 700px) 50vw, 300px" style={{ objectFit: "contain", padding: 12 }} />
+                  <Image src={izBaze[x.pot.split("/").pop()]?.slika || x.slika} alt={`HAMMEX — ${x.naziv}`} fill sizes="(max-width: 700px) 50vw, 300px" style={{ objectFit: "contain", padding: 12 }} />
                 </div>
                 <div className="tx">
                   <h3>{x.naziv}</h3>

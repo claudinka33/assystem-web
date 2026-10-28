@@ -25,25 +25,30 @@ const aduti = [
 ];
 
 // Izdelki ASfix — kartica vodi na stran izdelka (če je v katalogu), sicer na kategorijo.
+// Slika se vzame z izdelka v katalogu (glavna slika iz admina); lokalna je le rezerva.
 const IZDELKI = {
   txh7: { naziv: "Jekleno sidro TXH7", opis: "Nosilno sidro za beton, z oceno ETA.", slika: "/slike/asfix/txh7.png", slug: "jekleno-sidro-txh7", skupina: "pritrdila-za-beton" },
   tx1: { naziv: "Jekleno sidro TX1", opis: "S široko podložko za les in pločevino.", slika: "/slike/asfix/tx1.png", slug: "jekleno-sidro-tx1-siroka-podlozka", skupina: "pritrdila-za-beton" },
   turbo: { naziv: "Turbo vijak za beton", opis: "Privijete neposredno v beton — brez vložka.", slika: "/slike/asfix/turbo.png", slug: "turbo-vijak-za-beton", skupina: "pritrdila-za-beton" },
-  mq: { naziv: "Najlonski zidni vložek", opis: "Za beton, polno in votlo opeko.", slika: "/slike/asfix/mq.png", slug: null, skupina: "klasicna-pritrdila" },
+  mq: { naziv: "Najlonski zidni vložek", opis: "Za beton, polno in votlo opeko.", slika: "/slike/asfix/mq.png", slug: "zidni-vlozek-mq", skupina: "klasicna-pritrdila" },
   udarni: { naziv: "Udarni vijak", opis: "Hitra montaža brez privijanja.", slika: "/slike/asfix/udarni.png", slug: "udarni-vijak-nylon", skupina: "klasicna-pritrdila" },
   afrk: { naziv: "Univerzalni vijak z vložkom", opis: "Dolg vložek z vijakom za okvirje in late.", slika: "/slike/asfix/afrk.png", slug: "univerzalni-vijak-z-vlozkom-af-rk", skupina: "pritrdila-za-v-votle-stene" },
-  gips: { naziv: "Vložek za mavčne plošče", opis: "Samorezni vložek za suhomontažo.", slika: "/slike/asfix/gips.png", slug: null, skupina: "pritrdila-za-suhomontazo" },
+  gips: { naziv: "Vložek za mavčne plošče", opis: "Samorezni vložek za suhomontažo.", slika: "/slike/asfix/gips.png", slug: "vlozek-za-gips-plasticni", skupina: "pritrdila-za-suhomontazo" },
   gipsKov: { naziv: "Kovinski vložek za gips", opis: "Se za ploščo razpre — za težje predmete.", slika: "/slike/asfix/gips-kov.png", slug: "vlozek-za-gips-kovinski", skupina: "pritrdila-za-suhomontazo" },
   stiropor: { naziv: "Vložek za stiropor", opis: "Za pritrjevanje v toplotno izolacijo.", slika: "/slike/asfix/stiropor.png", slug: "vlozek-za-stiropor", skupina: "pritrdila-za-v-izolacijo" },
   easf: { naziv: "Kemično sidro EASF", opis: "Za največje obremenitve v betonu.", slika: "/slike/asfix/easf.png", slug: "kemicno-sidro-easf-top", skupina: "kemicna-pritrditev" },
   pesf: { naziv: "Kemično sidro PESF", opis: "Za opeko in votle podlage, z mrežico.", slika: "/slike/asfix/pesf.png", slug: "kemicno-sidro-pesf-top", skupina: "kemicna-pritrditev" },
+  txm1: { naziv: "Jekleno sidro TXm1", opis: "Jekleno sidro za beton z oceno ETA.", slika: "/slike/asfix/txh7.png", slug: "jekleno-sidro-m1", skupina: "pritrdila-za-beton", brezMreze: true },
+  txm2: { naziv: "Jekleno sidro TXm2", opis: "Razpiralno jekleno sidro za beton z oceno ETA.", slika: "/slike/asfix/txh7.png", slug: "jekleno-sidro-txm2", skupina: "pritrdila-za-beton", brezMreze: true },
+  afrs: { naziv: "Univerzalni vijak z vložkom AF-RS", opis: "Vložek z vijakom za okvirje in late.", slika: "/slike/asfix/afrk.png", slug: "univerzalni-vijak-z-vlozkom-af-rs", skupina: "pritrdila-za-instalacije", brezMreze: true },
+  gipsVijak: { naziv: "Vijak za mavčne plošče", opis: "Za pritrjevanje mavčnih plošč na podkonstrukcijo.", slika: "/slike/asfix/gips.png", slug: "vijak-za-mavcne-plosce-fini-navoj", skupina: "pritrdila-za-suhomontazo", brezMreze: true },
   trak: { naziv: "Perforiran trak", opis: "Za obešanje cevi in inštalacij.", slika: "/slike/asfix/trak.png", slug: "perforiran-trak", skupina: "pritrdila-za-instalacije" },
 };
 
 const podlage = [
-  { naziv: "Beton", opis: "Nosilna jeklena sidra, Turbo vijaki in kemična sidra za največje obremenitve.", slika: "/slike/asfix/podlaga-beton.jpg", izdelki: ["txh7", "turbo", "easf"] },
-  { naziv: "Opeka in votlaki", opis: "Vložki z veliko oprijemno površino in kemična masa z mrežico.", slika: "/slike/asfix/podlaga-opeka.jpg", izdelki: ["mq", "udarni", "pesf"] },
-  { naziv: "Mavčne plošče", opis: "Vložki za suhomontažo, ki se za ploščo razprejo.", slika: "/slike/asfix/podlaga-gips.jpg", izdelki: ["gips", "gipsKov"] },
+  { naziv: "Beton", opis: "Nosilna jeklena sidra, Turbo vijaki in kemična sidra za največje obremenitve.", slika: "/slike/asfix/podlaga-beton.jpg", izdelki: ["txh7", "turbo", "easf", "udarni", "mq"] },
+  { naziv: "Opeka in votlaki", opis: "Vložki z veliko oprijemno površino in kemična masa z mrežico.", slika: "/slike/asfix/podlaga-opeka.jpg", izdelki: ["mq", "udarni", "pesf", "afrk", "afrs"] },
+  { naziv: "Mavčne plošče", opis: "Vložki za suhomontažo, ki se za ploščo razprejo.", slika: "/slike/asfix/podlaga-gips.jpg", izdelki: ["gips", "gipsKov", "gipsVijak"] },
   { naziv: "Fasada in izolacija", opis: "Vložki za pritrjevanje v toplotno izolacijo.", slika: "/slike/asfix/podlaga-izolacija.jpg", izdelki: ["stiropor"] },
 ];
 
@@ -69,6 +74,7 @@ const FOTO_ASFIX = Array.from({ length: 12 }, (_, i) => [FOTO_SIDRA[i], FOTO_MON
 
 export default async function ASfix() {
   const izBaze = await pridobiIzdelkePoSlugih(Object.values(IZDELKI).map((x) => x.slug).filter(Boolean));
+  const sl = (k) => (IZDELKI[k].slug && izBaze[IZDELKI[k].slug]?.slika) || IZDELKI[k].slika;
   const povezava = (k) => {
     const x = IZDELKI[k];
     return (x.slug && izBaze[x.slug]?.href) || `/program/${x.skupina}`;
@@ -155,10 +161,10 @@ export default async function ASfix() {
             <p>Kliknite izdelek za dimenzije, pakiranja in cene.</p>
           </div>
           <div className="kats">
-            {Object.entries(IZDELKI).map(([k, x]) => (
+            {Object.entries(IZDELKI).filter(([, x]) => !x.brezMreze).map(([k, x]) => (
               <Link key={k} href={povezava(k)} className="k">
                 <div className="im" style={{ background: "#fff" }}>
-                  <Image src={x.slika} alt={`ASfix — ${x.naziv}`} fill sizes="(max-width: 700px) 50vw, 300px" style={{ objectFit: "contain", padding: 14 }} />
+                  <Image src={sl(k)} alt={`ASfix — ${x.naziv}`} fill sizes="(max-width: 700px) 50vw, 300px" style={{ objectFit: "contain", padding: 14 }} />
                 </div>
                 <div className="tx">
                   <h3>{x.naziv}</h3>
@@ -203,10 +209,10 @@ export default async function ASfix() {
               </dl>
             </div>
             <div className="sidra-sl">
-              {["txh7", "tx1"].map((k) => (
+              {["txh7", "tx1", "txm1", "txm2"].map((k) => (
                 <Link key={k} href={povezava(k)} className="sidra-k">
                   <div className="sidra-im">
-                    <Image src={IZDELKI[k].slika} alt={IZDELKI[k].naziv} fill sizes="(max-width: 900px) 50vw, 300px" style={{ objectFit: "contain", padding: 16 }} />
+                    <Image src={sl(k)} alt={IZDELKI[k].naziv} fill sizes="(max-width: 900px) 50vw, 300px" style={{ objectFit: "contain", padding: 16 }} />
                   </div>
                   <b>{IZDELKI[k].naziv}</b>
                   <span>{IZDELKI[k].opis}</span>
@@ -237,7 +243,7 @@ export default async function ASfix() {
                   {p.izdelki.map((k) => (
                     <Link key={k} href={povezava(k)} title={IZDELKI[k].naziv}>
                       <div className="podlaga-izd-sl">
-                        <Image src={IZDELKI[k].slika} alt={IZDELKI[k].naziv} fill sizes="90px" style={{ objectFit: "contain", padding: 6 }} />
+                        <Image src={sl(k)} alt={IZDELKI[k].naziv} fill sizes="160px" style={{ objectFit: "contain", padding: 8 }} />
                       </div>
                       <span>{IZDELKI[k].naziv}</span>
                     </Link>
