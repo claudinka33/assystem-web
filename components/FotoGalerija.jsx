@@ -45,8 +45,7 @@ export default function FotoGalerija({ skupine, max = 12, kolaz = false }) {
       <div className={kolaz ? "fg-kolaz" : "fg-mreza"} key={s}>
         {(vse ? slike : slike.slice(0, MAX)).map((x, i) => (
           <button key={x.src} type="button" className={`fg-sl${x.h > x.w ? " pokonc" : ""}${x.vel ? " vel" : ""}`} onClick={() => setOdprta(i)} style={{ animationDelay: `${i * 45}ms` }} aria-label={`Povečaj: ${x.alt}`}>
-            <Image src={x.src} alt={x.alt} width={x.w} height={x.h} sizes="(max-width: 700px) 50vw, (max-width: 1100px) 33vw, 320px" />
-            <span>{x.alt}</span>
+            <Image src={x.src} alt={x.alt} width={x.w} height={x.h} sizes={x.vel ? "(max-width: 800px) 100vw, 800px" : "(max-width: 700px) 50vw, (max-width: 1100px) 33vw, 400px"} quality={85} />
           </button>
         ))}
       </div>
@@ -64,7 +63,6 @@ export default function FotoGalerija({ skupine, max = 12, kolaz = false }) {
           <figure onClick={(e) => e.stopPropagation()}>
             <Image src={slike[odprta].src} alt={slike[odprta].alt} width={slike[odprta].w} height={slike[odprta].h} sizes="92vw" quality={90} />
             <figcaption>
-              {slike[odprta].alt}
               <small>{odprta + 1} / {slike.length}</small>
             </figcaption>
           </figure>
