@@ -165,50 +165,52 @@ export default async function StranIzdelka({ params }) {
             {/* Video in certifikat takoj pod naslovom — vidno brez skrolanja */}
             <MedijiBanner {...mediji} />
 
-            {artikli.length > 0 && (
-              <div className="izd-tab">
-                <div className="izd-tab-gl">
-                  <h2>Dimenzije in šifre</h2>
-                </div>
-                <TabelaArtiklov artikli={artikli} stolpci={stolpci} naziviRazlicni={naziviRazlicni} embalaza={i.embalaza ?? []} izdelek={{ naziv: i.naziv, pot: `/program/${kategorija}/${izdelek}`, slika: i.slika_url ?? null, znamka: i.znamka ?? null }} slikeVrednosti={SLIKE_VREDNOSTI[izdelek] ?? null} />
-                <p className="izd-opomba">
-                  Cene so maloprodajne z DDV, za pakiranje v stolpcu »Kos v pak.«. Za večje količine in podjetja <Link href={povprasevanje}>pošljite povpraševanje</Link>.
-                </p>
-              </div>
-            )}
+          </div>
+        </div>
 
-            {(i.opis || i.tehnicni_opis || i.uporaba?.length > 0) && (
-              <div className="izd-opis">
-                {(i.opis || i.tehnicni_opis) && (
-                  <div>
-                    <h2>O izdelku</h2>
-                    {(i.opis ?? "").split("\n").filter(Boolean).map((odstavek, n) => (
-                      <p key={n}>{odstavek}</p>
-                    ))}
-                    {i.tehnicni_opis && (
-                      <div className="izd-teh">
-                        <p className="izd-mali">Tehnični podatki in vgradnja</p>
-                        {i.tehnicni_opis.split("\n").filter(Boolean).map((odstavek, n) => (
-                          <p key={n}>{odstavek}</p>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                )}
-                {i.uporaba?.length > 0 && (
-                  <div>
-                    <h2>Kje se vgrajuje</h2>
-                    <ul className="izd-upo">
-                      {i.uporaba.map((u) => (
-                        <li key={u}>{u}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
+        {/* Tabela in opis čez celo širino */}
+    {artikli.length > 0 && (
+      <div className="izd-tab izd-tab-siroka">
+        <div className="izd-tab-gl">
+          <h2>Dimenzije in šifre</h2>
+        </div>
+        <TabelaArtiklov artikli={artikli} stolpci={stolpci} naziviRazlicni={naziviRazlicni} embalaza={i.embalaza ?? []} izdelek={{ naziv: i.naziv, pot: `/program/${kategorija}/${izdelek}`, slika: i.slika_url ?? null, znamka: i.znamka ?? null }} slikeVrednosti={SLIKE_VREDNOSTI[izdelek] ?? null} />
+        <p className="izd-opomba">
+          Cene so maloprodajne z DDV, za pakiranje v stolpcu »Kos v pak.«. Za večje količine in podjetja <Link href={povprasevanje}>pošljite povpraševanje</Link>.
+        </p>
+      </div>
+    )}
+
+    {(i.opis || i.tehnicni_opis || i.uporaba?.length > 0) && (
+      <div className="izd-opis">
+        {(i.opis || i.tehnicni_opis) && (
+          <div>
+            <h2>O izdelku</h2>
+            {(i.opis ?? "").split("\n").filter(Boolean).map((odstavek, n) => (
+              <p key={n}>{odstavek}</p>
+            ))}
+            {i.tehnicni_opis && (
+              <div className="izd-teh">
+                <p className="izd-mali">Tehnični podatki in vgradnja</p>
+                {i.tehnicni_opis.split("\n").filter(Boolean).map((odstavek, n) => (
+                  <p key={n}>{odstavek}</p>
+                ))}
               </div>
             )}
           </div>
-        </div>
+        )}
+        {i.uporaba?.length > 0 && (
+          <div>
+            <h2>Kje se vgrajuje</h2>
+            <ul className="izd-upo">
+              {i.uporaba.map((u) => (
+                <li key={u}>{u}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    )}
 
         <IgraIzdelka slug={izdelek} />
       </div>

@@ -75,18 +75,21 @@ function VKosarico({ a, cena, izdelek, b2b }) {
   );
 }
 
+function VpcCena({ cena }) {
+  if (!cena?.redna) return <span className="izd-siv">—</span>;
+  return (
+    <span className="izd-cena">
+      {cena.popust > 0 ? <s className="b2b-vpc">{eur(cena.redna)}</s> : <span className="b2b-vpc">{eur(cena.redna)}</span>}
+      <em>brez DDV</em>
+    </span>
+  );
+}
+
 function Cena({ cena, b2b }) {
   if (!cena) return b2b ? <span className="izd-siv">na povpraševanje</span> : "—";
   if (b2b)
     return (
       <span className="izd-cena b2b-c">
-        {cena.redna ? (
-          cena.popust > 0 ? (
-            <span className="b2b-redna">VPC <s>{eur(cena.redna)}</s></span>
-          ) : (
-            <span className="b2b-redna">VPC {eur(cena.redna)}</span>
-          )
-        ) : null}
         <b>
           {eur(cena.neto)}
           {cena.popust > 0 ? (
@@ -309,6 +312,8 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
     });
   }, [artikli, izbrani, iskanje]);
 
+  const ostali = stolpci.filter((k) => k !== "Pakiranje");
+  const imaPakiranje = stolpci.includes("Pakiranje");
   const dolg = artikli.length > 20;
   const prikaz = vidni.slice(0, prikazano);
 
@@ -372,16 +377,24 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
           <thead>
             <tr>
               <th>Šifra</th>
-              {naziviRazlicni && <th>Naziv</th>}
+              <th className="izd-ean">EAN</th>
+              <th>Naziv</th>
               <th>Dimenzija</th>
-              {stolpci.map((k) => (
+              {ostali.map((k) => (
                 <th key={k}>{k}</th>
               ))}
-              <th className="izd-ean">EAN</th>
-              <th>{stolpci.includes("Pakiranje") ? "Kos v pak." : "Pakiranje"}</th>
+              <th>Kos v pak.</th>
               <th>Zaloga</th>
-              <th>{b2b ? "Vaša cena" : "Cena z DDV"}</th>
+              {b2b ? (
+                <>
+                  <th>VPC cena</th>
+                  <th>Vaša cena</th>
+                </>
+              ) : (
+                <th>Cena z DDV</th>
+              )}
               <th></th>
+              {imaPakiranje && <th>Pakiranje</th>}
             </tr>
           </thead>
           <tbody>
@@ -391,22 +404,34 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
                   <span className="izd-sif">{a.sifra}</span>
                   {a.dimenzija && <span className="mk-dim">{a.dimenzija}</span>}
                 </td>
-                {naziviRazlicni && <td className="mk-cela" data-l="Naziv">{a.naziv}</td>}
+                <td className="izd-siv izd-ean" data-l="EAN">{a.ean ?? "—"}</td>
+                <td className="mk-cela izd-naziv" data-l="Naziv">{a.naziv}</td>
                 <td className="mk-skrij izd-dim" data-l="Dimenzija">{a.dimenzija ?? "—"}</td>
-                {stolpci.map((k) => (
+                {ostali.map((k) => (
                   <td key={k} data-l={k}>{(a.lastnosti ?? {})[k] ?? "—"}</td>
                 ))}
-                <td className="izd-siv izd-ean" data-l="EAN">{a.ean ?? "—"}</td>
-                <td data-l={stolpci.includes("Pakiranje") ? "Kos v pak." : "Pakiranje"}>{pakiranje(a)}</td>
+                <td data-l="Kos v pak.">{pakiranje(a)}</td>
                 <td data-l="Zaloga">
                   <Zaloga vrednost={a.zaloga} sifra={a.sifra} izdelek={izdelek} />
                 </td>
-                <td data-l={b2b ? "Vaša cena" : "Cena z DDV"}>
-                  <Cena cena={cenaZa(a)} b2b={b2b} />
-                </td>
+                {b2b ? (
+                  <>
+                    <td data-l="VPC cena">
+                      <VpcCena cena={cenaZa(a)} />
+                    </td>
+                    <td data-l="Vaša cena">
+                      <Cena cena={cenaZa(a)} b2b={b2b} />
+                    </td>
+                  </>
+                ) : (
+                  <td data-l="Cena z DDV">
+                    <Cena cena={cenaZa(a)} b2b={b2b} />
+                  </td>
+                )}
                 <td className="mk-cela">
                   <VKosarico a={a} cena={cenaZa(a)} izdelek={izdelek} b2b={b2b} />
                 </td>
+                {imaPakiranje && <td data-l="Pakiranje">{(a.lastnosti ?? {}).Pakiranje ?? "—"}</td>}
               </tr>
             ))}
             {prikaz.length === 0 && (

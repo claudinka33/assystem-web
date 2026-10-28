@@ -1955,9 +1955,7 @@ table.adm-tab tr:last-child td { border-bottom: 0; }
 .zal-ni a { font-size: 12px; color: var(--color-red); font-weight: 600; }
 .zal-ni a:hover { text-decoration: underline; }
 .izd-tab td, .izd-tab th { padding-left: 10px; padding-right: 10px; }
-@media (min-width: 701px) and (max-width: 1500px) {
-  .izd-tab .izd-ean { display: none; }
-}
+
 
 /* Količina = število pakiranj: »[2] × 100 kos« in sproten izračun pod gumbom */
 .vk-w { display: inline-grid; gap: 3px; }
@@ -2528,7 +2526,7 @@ table.adm-tab tr:last-child td { border-bottom: 0; }
 /* Tabela artiklov: na ožjih zaslonih brez EAN in z manjšimi odmiki, da je vidna cela */
 .izd-tab td { padding: 6px 9px; }
 .izd-tab th { padding-left: 9px; padding-right: 9px; }
-@media (max-width: 1800px) { .izd-tab .izd-ean { display: none; } }
+@media (min-width: 701px) and (max-width: 1100px) { .izd-tab .izd-ean { display: none; } }
 .izd-emb-sl img { mix-blend-mode: multiply; }
 
 /* Legenda: podatek, ki velja za vse artikle (ni filter) */
@@ -2919,3 +2917,15 @@ a.medij:hover { transform: translateY(-2px); border-color: var(--color-ink); bor
 .ig-obj:hover .ig-opis, .ig-obj:focus-visible .ig-opis { opacity: 1; }
 @media (max-width: 900px) { .ig-mreza { grid-template-columns: repeat(4, 1fr); gap: 8px; } .ig-znak { width: 20px; height: 20px; font-size: 9px; top: 5px; right: 5px; } }
 @media (hover: none) { .ig-opis { display: none; } }
+
+/* Tabela artiklov čez celo širino strani */
+.izd-tab-siroka { margin-top: 32px; }
+.izd-tab-siroka table { width: 100%; }
+.izd-tab td.izd-naziv { white-space: normal; min-width: 140px; }
+.izd-tab .b2b-vpc { font-size: 14px; color: var(--color-muted); font-weight: 600; }
+.izd-tab s.b2b-vpc { text-decoration-thickness: 1.5px; }
+@media (min-width: 701px) and (max-width: 1300px) {
+  .izd-tab td, .izd-tab th { padding-left: 6px; padding-right: 6px; font-size: 12.5px; }
+  .izd-tab th { font-size: 10px; letter-spacing: 0.4px; }
+  .izd-tab td.izd-naziv { min-width: 110px; }
+}
