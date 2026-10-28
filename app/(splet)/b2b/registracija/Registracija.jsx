@@ -38,8 +38,8 @@ export default function Registracija() {
   return (
     <form action={akcija}>
       {stanje?.napaka && <p className="blag-nap">{stanje.napaka}</p>}
-      <div className="blag-polja">
-        <label>
+      <div className="blag-polja reg-mreza">
+        <label className="r2">
           Davčna številka *
           <span style={{ display: "flex", gap: 8 }}>
             <input
@@ -55,39 +55,40 @@ export default function Registracija() {
                   poisci();
                 }
               }}
-              style={{ flex: 1 }}
+              style={{ flex: 1, minWidth: 0 }}
             />
             <button type="button" className="b b-d" onClick={poisci} disabled={isce || davcna.replace(/\D/g, "").length < 8} style={{ whiteSpace: "nowrap", padding: "0 14px" }}>
               {isce ? "Iščem …" : "Poišči"}
             </button>
           </span>
-          {iskanje?.najdeno && <small style={{ color: "#1a7f3c" }}>Podatki podjetja so izpolnjeni — preverite jih.</small>}
+          {iskanje?.najdeno && <small style={{ color: "#1a7f3c" }}>Podatki so izpolnjeni — preverite jih.</small>}
           {iskanje && !iskanje.najdeno && iskanje.napaka && <small style={{ color: "var(--color-red)" }}>{iskanje.napaka}</small>}
         </label>
-        <label>Telefon *<input name="telefon" required autoComplete="tel" /></label>
-        <label className="cela">Naziv podjetja *<input name="podjetje" required autoComplete="organization" {...polje("podjetje")} /></label>
-        <label className="cela">Ulica in hišna številka<input name="naslov" autoComplete="street-address" {...polje("naslov")} /></label>
+        <label className="r2">Naziv podjetja *<input name="podjetje" required autoComplete="organization" {...polje("podjetje")} /></label>
+        <label className="r2">Ulica in hišna številka<input name="naslov" autoComplete="street-address" {...polje("naslov")} /></label>
         <label>Poštna številka<input name="posta" autoComplete="postal-code" {...polje("posta")} /></label>
         <label>Kraj<input name="kraj" autoComplete="address-level2" {...polje("kraj")} /></label>
-        <label className="cela">
-          Poslovalnica (neobvezno)
-          <input name="poslovalnica" placeholder="Če naročate za poslovalnico: ime in kraj, npr. PE Celje, Mariborska 10" />
-          <small style={{ color: "var(--color-muted)" }}>Pustite prazno, če naročate za sedež podjetja.</small>
+        <label className="r2">
+          Poslovalnica (neobvezno — prazno = sedež)
+          <input name="poslovalnica" placeholder="npr. PE Celje, Mariborska 10" />
         </label>
         <label>Ime in priimek *<input name="ime" required autoComplete="name" /></label>
-        <label>Službeni e-naslov *<input name="email" type="email" required autoComplete="email" /></label>
-        <label>Geslo * (vsaj 8 znakov)<input name="geslo" type="password" required minLength={8} autoComplete="new-password" /></label>
+        <label>Telefon *<input name="telefon" required autoComplete="tel" /></label>
+        <label className="r2">Službeni e-naslov *<input name="email" type="email" required autoComplete="email" /></label>
+        <label>Geslo * (min. 8 znakov)<input name="geslo" type="password" required minLength={8} autoComplete="new-password" /></label>
         <label>Ponovi geslo *<input name="geslo2" type="password" required minLength={8} autoComplete="new-password" /></label>
       </div>
-      <p className="blag-op" style={{ marginTop: 12 }}>
-        Uporabi službeni e-naslov podjetja — če se ujema s podatki v našem sistemu, dostop odobrimo samodejno.
+      <p className="blag-op" style={{ margin: "10px 0 6px" }}>
+        Uporabite službeni e-naslov podjetja — če se ujema s podatki v našem sistemu, dostop odobrimo samodejno.
       </p>
-      <label className="blag-pog">
-        <input type="checkbox" name="pogoji" required /> Strinjam se s{" "}
-        <Link href="/splosni-pogoji" target="_blank">splošnimi pogoji poslovanja</Link> in z obdelavo podatkov po{" "}
-        <Link href="/zasebnost" target="_blank">politiki zasebnosti</Link>.
-      </label>
-      <button className="b b-r" type="submit" disabled={cakam}>{cakam ? "Pošiljam …" : "Registriraj podjetje"}</button>
+      <div className="reg-dno">
+        <label className="blag-pog" style={{ margin: 0 }}>
+          <input type="checkbox" name="pogoji" required /> Strinjam se s{" "}
+          <Link href="/splosni-pogoji" target="_blank">splošnimi pogoji poslovanja</Link> in z obdelavo podatkov po{" "}
+          <Link href="/zasebnost" target="_blank">politiki zasebnosti</Link>.
+        </label>
+        <button className="b b-r" type="submit" disabled={cakam}>{cakam ? "Pošiljam …" : "Registriraj podjetje"}</button>
+      </div>
     </form>
   );
 }

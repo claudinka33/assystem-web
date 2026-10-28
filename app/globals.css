@@ -2929,3 +2929,14 @@ a.medij:hover { transform: translateY(-2px); border-color: var(--color-ink); bor
   .izd-tab th { font-size: 10px; letter-spacing: 0.4px; }
   .izd-tab td.izd-naziv { min-width: 110px; }
 }
+
+/* B2B registracija: ves obrazec na enem zaslonu */
+.reg-sec { padding-top: 24px; padding-bottom: 32px; }
+.reg-mreza { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px 14px; }
+.reg-mreza .r2 { grid-column: span 2; }
+.reg-mreza input { padding: 8px 10px; }
+.reg-dno { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+@media (max-width: 760px) {
+  .reg-mreza { grid-template-columns: 1fr 1fr; }
+  .reg-mreza .r2 { grid-column: 1 / -1; }
+}
