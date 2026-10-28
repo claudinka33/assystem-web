@@ -69,7 +69,7 @@ function VKosarico({ a, cena, izdelek, b2b }) {
     </span>
     <span className="vk-sk">
       {vPak ? `= ${(kol * cena.kos).toLocaleString("sl-SI")} kos · ` : ""}
-      {eur(Math.round(cena.bruto * kol * 100) / 100)}
+      {b2b ? `${eur(Math.round(cena.neto * kol * 100) / 100)} + DDV` : eur(Math.round(cena.bruto * kol * 100) / 100)}
     </span>
     </span>
   );
@@ -79,10 +79,21 @@ function Cena({ cena, b2b }) {
   if (!cena) return b2b ? <span className="izd-siv">na povpraševanje</span> : "—";
   if (b2b)
     return (
-      <span className="izd-cena">
-        <b>{eur(cena.neto)}</b>
-        {cena.posebna && <span className="b2b-cena" title="Vaša posebna cena">VAŠA CENA</span>}
-        {cena.na100Neto !== null ? <em>{eur(cena.na100Neto)} / 100 kos</em> : cena.kos > 1 && <em>za {cena.kos} kos</em>}
+      <span className="izd-cena b2b-c">
+        {cena.redna && (
+          <s className="b2b-redna" title="Redna cena brez DDV">{eur(cena.redna)}</s>
+        )}
+        <b>
+          {eur(cena.neto)}
+          {cena.posebna ? (
+            <span className="b2b-cena" title="Posebna cena, dogovorjena za vaše podjetje">VAŠA CENA</span>
+          ) : cena.popust > 0 ? (
+            <span className="b2b-cena" title="Vaš rabat na redno ceno">−{String(cena.popust).replace(".", ",")} %</span>
+          ) : null}
+        </b>
+        <em>{cena.kos > 1 ? `za ${cena.kos} kos · ` : ""}brez DDV</em>
+        {cena.na100Neto !== null && <em>{eur(cena.na100Neto)} / 100 kos</em>}
+        <em>z DDV {eur(cena.bruto)}</em>
       </span>
     );
   return (
@@ -363,7 +374,7 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
               <th className="izd-ean">EAN</th>
               <th>{stolpci.includes("Pakiranje") ? "Kos v pak." : "Pakiranje"}</th>
               <th>Zaloga</th>
-              <th>{b2b ? "Vaša cena brez DDV" : "Cena z DDV"}</th>
+              <th>{b2b ? "Vaša cena" : "Cena z DDV"}</th>
               <th></th>
             </tr>
           </thead>
@@ -384,7 +395,7 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
                 <td data-l="Zaloga">
                   <Zaloga vrednost={a.zaloga} sifra={a.sifra} izdelek={izdelek} />
                 </td>
-                <td data-l={b2b ? "Vaša cena brez DDV" : "Cena z DDV"}>
+                <td data-l={b2b ? "Vaša cena" : "Cena z DDV"}>
                   <Cena cena={cenaZa(a)} b2b={b2b} />
                 </td>
                 <td className="mk-cela">
