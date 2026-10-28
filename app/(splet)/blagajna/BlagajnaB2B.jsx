@@ -17,7 +17,7 @@ export default function BlagajnaB2B({ kupec, dostave, prodajalne }) {
   const router = useRouter();
   const [napaka, setNapaka] = useState("");
   const [dost, setDost] = useState(String(dostave.find((x) => x.koda !== "osebno")?.id ?? dostave[0]?.id ?? 0));
-  const [prodajalna, setProdajalna] = useState("");
+  const [prodajalna, setProdajalna] = useState(kupec.prodajalna ? String(kupec.prodajalna) : "");
   const [koda, setKoda] = useState(null);
   const [cakam, zacni] = useTransition();
 
@@ -127,9 +127,9 @@ export default function BlagajnaB2B({ kupec, dostave, prodajalne }) {
                 <div className="bl-polja" style={{ marginTop: 10 }}>
                   <label className="s6">
                     Naslov dostave
-                    <select value={prodajalna} onChange={(e) => setProdajalna(e.target.value)}>
-                      <option value="">Sedež — {kupec.naslov}</option>
-                      {prodajalne.map((x) => (
+                    <select value={prodajalna} onChange={(e) => setProdajalna(e.target.value)} disabled={Boolean(kupec.prodajalna)}>
+                      {!kupec.prodajalna && <option value="">Sedež — {kupec.naslov}</option>}
+                      {prodajalne.filter((x) => !kupec.prodajalna || x.sifra === kupec.prodajalna).map((x) => (
                         <option key={x.sifra} value={x.sifra}>{x.naziv2 || x.naziv} — {x.naslov}, {x.posta}</option>
                       ))}
                     </select>

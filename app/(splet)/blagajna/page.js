@@ -24,6 +24,7 @@ export default async function Stran() {
             kupec={{
               podjetje: k.vasco_naziv || k.podjetje,
               naslov: k.vasco_naslov ? `${k.vasco_naslov}, ${k.vasco_posta ?? ""}` : `${k.naslov ?? ""}, ${k.posta ?? ""} ${k.kraj ?? ""}`,
+              prodajalna: k.prodajalna ?? null,
               ime: k.ime,
               email: k.email,
               telefon: k.telefon,

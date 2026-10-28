@@ -16,15 +16,24 @@ export default async function Racun({ searchParams }) {
   const k = await trenutniB2B();
   if (!k) redirect("/b2b?naprej=/b2b/racun");
   const aktiven = jeAktiven(k);
-  const [prodajalne, { data: narocila }] = await Promise.all([
+  // Zgodovina: uporabnik poslovalnice vidi naročila svoje poslovalnice, uporabnik sedeža vsa naročila podjetja.
+  let poizvedba = supabaseAdmin()
+    .from("narocila")
+    .select("id, stevilka, ustvarjeno, skupaj, status, nacin_dostave, vasco_predracun, b2b_kupec_id, prodajalna")
+    .order("id", { ascending: false })
+    .limit(100);
+  if (aktiven) {
+    poizvedba = poizvedba.eq("vasco_partner", k.vasco_partner);
+    if (k.prodajalna) poizvedba = poizvedba.eq("prodajalna", k.prodajalna);
+  } else poizvedba = poizvedba.eq("b2b_kupec_id", k.id);
+  const [prodajalne, { data: narocila }, { data: sodelavci }] = await Promise.all([
     prodajalneKupca(k.vasco_partner),
-    supabaseAdmin()
-      .from("narocila")
-      .select("id, stevilka, ustvarjeno, skupaj, status, nacin_dostave, vasco_predracun")
-      .eq("b2b_kupec_id", k.id)
-      .order("id", { ascending: false })
-      .limit(50),
+    poizvedba,
+    supabaseAdmin().from("b2b_kupci").select("id, ime").eq("davcna", k.davcna),
   ]);
+  const imeKupca = Object.fromEntries((sodelavci ?? []).map((x) => [x.id, x.ime]));
+  const mojaPoslovalnica = k.prodajalna ? prodajalne.find((p) => p.sifra === k.prodajalna) : null;
+  const imePoslovalnice = Object.fromEntries(prodajalne.map((p) => [p.sifra, p.naziv2 || p.naziv]));
 
   return (
     <section className="sec">
@@ -66,6 +75,7 @@ export default async function Racun({ searchParams }) {
               <dt>Naslov</dt><dd>{k.vasco_naslov ? `${k.vasco_naslov}, ${k.vasco_posta ?? ""}` : `${k.naslov ?? ""} ${k.posta ?? ""} ${k.kraj ?? ""}`}</dd>
               <dt>Davčna</dt><dd>SI{k.davcna}</dd>
               <dt>Kontakt</dt><dd>{k.ime} · {k.email} · {k.telefon}</dd>
+              {mojaPoslovalnica && <><dt>Poslovalnica</dt><dd>{mojaPoslovalnica.naziv2 || mojaPoslovalnica.naziv}, {mojaPoslovalnica.naslov}</dd></>}
               <dt>Status</dt><dd>{B2B_STATUSI[k.status] ?? k.status}</dd>
               {aktiven && <><dt>Plačilo</dt><dd>Na račun{k.rok_placila ? `, rok ${k.rok_placila} dni` : ""}</dd></>}
             </dl>
@@ -77,7 +87,7 @@ export default async function Racun({ searchParams }) {
               <form action={odjava}><button className="b b-d" type="submit">Odjava</button></form>
             </div>
           </div>
-          {prodajalne.length > 0 && (
+          {prodajalne.length > 0 && !k.prodajalna && (
             <div className="b2b-skatla">
               <h2>Poslovalnice ({prodajalne.length})</h2>
               <p style={{ fontSize: 14, color: "var(--color-muted)", margin: "0 0 10px" }}>Na blagajni izbereš, kam dostavimo.</p>
@@ -98,12 +108,14 @@ export default async function Racun({ searchParams }) {
         ) : (
           <div style={{ overflowX: "auto" }}>
             <table className="mob-kartice">
-              <thead><tr><th>Številka</th><th>Datum</th><th>Dostava</th><th>Znesek z DDV</th><th>Status</th></tr></thead>
+              <thead><tr><th>Številka</th><th>Datum</th><th>Naročil</th><th>Poslovalnica</th><th>Dostava</th><th>Znesek z DDV</th><th>Status</th></tr></thead>
               <tbody>
                 {narocila.map((n) => (
                   <tr key={n.id}>
                     <td className="mk-gl"><b>{n.stevilka}</b></td>
                     <td data-l="Datum">{cas(n.ustvarjeno)}</td>
+                    <td data-l="Naročil">{imeKupca[n.b2b_kupec_id] ?? "—"}</td>
+                    <td data-l="Poslovalnica">{n.prodajalna ? imePoslovalnice[n.prodajalna] ?? n.prodajalna : "sedež"}</td>
                     <td data-l="Dostava">{n.nacin_dostave}</td>
                     <td data-l="Znesek z DDV">{eur(Number(n.skupaj))}</td>
                     <td data-l="Status">{n.status}</td>

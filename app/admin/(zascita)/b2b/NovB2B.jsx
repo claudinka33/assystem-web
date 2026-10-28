@@ -1,25 +1,26 @@
 "use client";
 
-import { useActionState, useState, useTransition } from "react";
+import { useActionState, useEffect, useState, useTransition } from "react";
 import { poisciPodjetje, ustvariB2B } from "@/lib/akcije/b2b";
 
 const prazno = { podjetje: "", naslov: "", posta: "", kraj: "", vasco_partner: "" };
 
 // Ovoj: "+ Nov B2B kupec" odpre obrazec; vsak nov kupec dobi svež obrazec (key).
-export default function NovB2B() {
+// zacetnaDavcna: "+ Dodaj uporabnika" pri obstoječem podjetju — podatki podjetja se naložijo sami.
+export default function NovB2B({ zacetnaDavcna = "", oznaka = "+ Nov B2B kupec", siv = false }) {
   const [odprto, setOdprto] = useState(false);
   const [st, setSt] = useState(0);
   if (!odprto)
     return (
-      <button className="gumb" type="button" onClick={() => setOdprto(true)} style={{ marginBottom: 18 }}>
-        + Nov B2B kupec
+      <button className={siv ? "gumb siv" : "gumb"} type="button" onClick={() => setOdprto(true)} style={siv ? undefined : { marginBottom: 18 }}>
+        {oznaka}
       </button>
     );
-  return <Obrazec key={st} zapri={() => setOdprto(false)} znova={() => setSt((x) => x + 1)} />;
+  return <Obrazec key={st} zacetnaDavcna={zacetnaDavcna} zapri={() => setOdprto(false)} znova={() => setSt((x) => x + 1)} />;
 }
 
-function Obrazec({ zapri, znova }) {
-  const [davcna, setDavcna] = useState("");
+function Obrazec({ zacetnaDavcna, zapri, znova }) {
+  const [davcna, setDavcna] = useState(zacetnaDavcna);
   const [podj, setPodj] = useState(prazno);
   const [iskanje, setIskanje] = useState(null);
   const [isce, zacni] = useTransition();
@@ -33,10 +34,15 @@ function Obrazec({ zapri, znova }) {
       if (r?.najdeno) setPodj({ podjetje: r.podjetje, naslov: r.naslov, posta: r.posta, kraj: r.kraj, vasco_partner: r.vasco_partner ?? "" });
     });
 
+  useEffect(() => {
+    if (zacetnaDavcna) poisci();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div className="adm-obr" style={{ marginBottom: 22, borderLeft: "4px solid #cb2026" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 10 }}>
-        <h3 style={{ margin: 0 }}>Nov B2B kupec</h3>
+        <h3 style={{ margin: 0 }}>{zacetnaDavcna ? "Nov uporabnik podjetja" : "Nov B2B kupec"}</h3>
         <button className="gumb siv" type="button" onClick={zapri}>Zapri</button>
       </div>
 
@@ -127,6 +133,17 @@ function Obrazec({ zapri, znova }) {
                 onChange={(e) => setPodj({ ...podj, vasco_partner: e.target.value })}
               />
             </div>
+            {iskanje?.prodajalne?.length > 0 && (
+              <div className="adm-polje" style={{ gridColumn: "1 / -1" }}>
+                <label>Poslovalnica uporabnika</label>
+                <select name="prodajalna" defaultValue="">
+                  <option value="">Sedež — vidi vse poslovalnice in vsa naročila podjetja</option>
+                  {iskanje.prodajalne.map((x) => (
+                    <option key={x.sifra} value={x.sifra}>{x.naziv}</option>
+                  ))}
+                </select>
+              </div>
+            )}
             <div className="adm-polje" style={{ gridColumn: "1 / -1" }}>
               <label>Dodatni kontakti (nabava, računovodstvo …)</label>
               <textarea name="kontakti" rows={2} placeholder="npr. Janez Novak, nabava, janez@podjetje.si, 041 123 456" />
