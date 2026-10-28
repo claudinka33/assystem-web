@@ -1,11 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
+import { dogodek } from "@/lib/dogodki";
 import { registracija } from "@/lib/akcije/b2b";
 
 export default function Registracija() {
   const [stanje, akcija, cakam] = useActionState(registracija, null);
+  useEffect(() => {
+    if (stanje?.ok && !stanje.obstojec) dogodek("b2b_registracija");
+  }, [stanje]);
   if (stanje?.ok && stanje.obstojec)
     return (
       <div className="b2b-ok">

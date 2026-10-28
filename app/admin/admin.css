@@ -616,3 +616,111 @@ details.adm-obr[open] { border-color: #cfd3d7; }
   .kupon-el-levo { width: 100%; border-right: 0; border-bottom: 2px dashed rgba(255,255,255,.6); }
   .kupon-el-gumbi { padding: 0 14px 12px; }
 }
+
+/* ============================================================
+   Statistika obiska (/admin/statistika)
+   ============================================================ */
+.st-podnaslov { font-size: 13px; color: var(--a-muted); margin: 4px 0 0; }
+.st-zivo { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: #1fa34a; box-shadow: 0 0 0 3px rgba(31, 163, 74, .18); vertical-align: 0; margin-left: 2px; }
+.st-obdobja { display: flex; flex-wrap: wrap; gap: 2px; background: #fff; border: 1px solid var(--a-line); border-radius: 9px; padding: 3px; }
+.st-obdobja a { padding: 6px 12px; font-size: 13px; font-weight: 600; color: var(--a-muted); border-radius: 6px; }
+.st-obdobja a:hover { color: var(--a-ink); background: var(--a-soft); }
+.st-obdobja a.on { background: var(--a-antracit); color: #fff; }
+
+.st-filtri { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; margin-bottom: 18px; }
+.st-meri { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.st-meri label { font-size: 13px; color: var(--a-muted); display: flex; align-items: center; gap: 6px; }
+.st-meri input[type="date"] { border: 1px solid #d5d9dd; border-radius: 7px; padding: 5px 8px; font: inherit; font-size: 13px; background: #fff; }
+.st-primerjava { font-size: 12.5px; color: var(--a-muted); }
+.st-cipi { display: flex; flex-wrap: wrap; gap: 6px; width: 100%; }
+.st-cip { display: inline-flex; align-items: center; gap: 8px; background: #fdeced; color: var(--a-red); border: 1px solid #f3c6c8; border-radius: 20px; padding: 4px 12px; font-size: 13px; font-weight: 600; }
+.st-cip b { font-size: 15px; line-height: 1; }
+.st-cip.pocisti { background: #fff; color: var(--a-muted); border-color: var(--a-line); }
+
+.st-kpiji { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-bottom: 18px; }
+.st-kpi { background: #fff; border: 1px solid var(--a-line); border-radius: var(--a-r); box-shadow: var(--a-sh); padding: 16px 18px; min-width: 0; }
+.st-kpi > span { font-size: 12.5px; font-weight: 600; color: var(--a-muted); }
+.st-kpi > b { display: block; font-size: 28px; font-weight: 800; letter-spacing: -.5px; line-height: 1.15; margin: 6px 0 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.st-kpi.vroca > b { color: var(--a-red); }
+.st-kpi-pod { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+.st-kpi-pod em { font-style: normal; font-size: 12.5px; color: var(--a-muted); }
+.st-d { font-size: 12px; font-weight: 700; color: #8b9095; white-space: nowrap; }
+.st-d.gor { color: #1a7f3c; }
+.st-d.dol { color: var(--a-red); }
+
+.st-panel { background: #fff; border: 1px solid var(--a-line); border-radius: var(--a-r); box-shadow: var(--a-sh); overflow: hidden; margin-bottom: 18px; min-width: 0; }
+.st-panel > header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding: 15px 20px 12px; }
+.st-panel > header h2 { font-size: 15px; font-weight: 700; margin: 0; }
+.st-panel > header p { font-size: 12.5px; color: var(--a-muted); margin: 3px 0 0; }
+.st-prazno { padding: 6px 20px 22px; color: var(--a-muted); font-size: 14px; margin: 0; }
+.st-mreza { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; }
+.st-mreza > .st-panel { margin-bottom: 18px; }
+.st-mreza.tri { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+table.st-tab th { font-size: 11px; }
+table.st-tab td { padding: 9px 16px; font-size: 13.5px; }
+table.st-tab .d { text-align: right; white-space: nowrap; }
+table.st-tab small { color: var(--a-muted); font-size: 11.5px; }
+table.st-tab td a { color: var(--a-ink); }
+table.st-tab td a:hover { color: var(--a-red); }
+table.st-tab tr.on td { background: #fff4f4; }
+table.st-tab tr.on td:first-child { box-shadow: inset 3px 0 0 var(--a-red); }
+.st-pot { display: block; font-size: 11px !important; color: #9ba0a5 !important; }
+.st-zastava { font-size: 16px; }
+.st-drsno { max-height: 470px; overflow: auto; }
+.st-drsno.kratko { max-height: 360px; }
+.st-drsno thead th { position: sticky; top: 0; background: #fff; z-index: 1; }
+
+.st-delez { display: inline-block; width: 90px; height: 7px; background: #eef0f2; border-radius: 4px; overflow: hidden; vertical-align: middle; margin-right: 6px; }
+.st-delez i { display: block; height: 100%; background: var(--a-red); border-radius: 4px; }
+.st-lijak, .st-seznam { padding: 4px 20px 18px; display: grid; gap: 14px; }
+.st-lijak .st-delez, .st-seznam .st-delez { width: 100%; height: 9px; margin: 6px 0 0; }
+.st-lijak-vrsta { display: flex; justify-content: space-between; gap: 10px; font-size: 13.5px; }
+.st-lijak-vrsta span { color: var(--a-muted); white-space: nowrap; }
+.st-lijak-vrsta span b { color: var(--a-ink); }
+.st-lijak-b2b { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--a-line); }
+.st-lijak-b2b div { padding: 14px 20px; border-right: 1px solid var(--a-line); }
+.st-lijak-b2b div:last-child { border-right: 0; }
+.st-lijak-b2b b { display: block; font-size: 22px; font-weight: 800; }
+.st-lijak-b2b span { font-size: 12px; color: var(--a-muted); }
+
+.st-graf { display: flex; align-items: stretch; gap: 2px; height: 220px; padding: 10px 20px 14px; }
+.st-stolpec { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; min-width: 0; }
+.st-stolpec i { display: block; background: var(--a-red); border-radius: 3px 3px 0 0; min-height: 2px; position: relative; max-width: 42px; width: 70%; margin: 0 auto; }
+.st-stolpec i em { position: absolute; top: -17px; left: 50%; transform: translateX(-50%); font-style: normal; font-size: 10.5px; font-weight: 700; color: var(--a-muted); }
+.st-stolpec:hover i { background: var(--a-antracit); }
+.st-stolpec span { font-size: 10px; color: #9ba0a5; text-align: center; height: 16px; margin-top: 5px; white-space: nowrap; overflow: visible; }
+
+.st-ure { display: flex; align-items: flex-end; gap: 3px; height: 170px; padding: 10px 20px 18px; }
+.st-ure div { flex: 1; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; }
+.st-ure i { display: block; background: var(--a-antracit); border-radius: 2px 2px 0 0; min-height: 2px; }
+.st-ure div:hover i { background: var(--a-red); }
+.st-ure span { font-size: 10px; color: #9ba0a5; text-align: center; height: 14px; margin-top: 4px; }
+
+.st-mali { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; padding: 4px 20px 18px; border-top: 1px solid #f0f2f4; }
+.st-mali.en { grid-template-columns: 1fr; border-top: 0; }
+.st-mali h3 { font-size: 11.5px; letter-spacing: .8px; text-transform: uppercase; color: var(--a-muted); margin: 12px 0 6px; }
+.st-mali p { display: flex; justify-content: space-between; gap: 8px; font-size: 13px; margin: 0; padding: 4px 0; border-bottom: 1px solid #f4f5f6; }
+.st-mali p b small { color: var(--a-muted); font-weight: 500; margin-left: 4px; }
+
+.st-utm { border-top: 1px solid var(--a-line); background: var(--a-soft); padding: 16px 20px 18px; }
+.st-utm h3 { font-size: 14px; margin: 0 0 4px; }
+.st-utm p { font-size: 12.5px; color: var(--a-muted); margin: 0 0 12px; }
+.st-utm code { background: #fff; border: 1px solid var(--a-line); border-radius: 4px; padding: 1px 5px; font-size: 12px; }
+.st-utm-polja { display: grid; grid-template-columns: 2fr 1.4fr 1fr 1.2fr 1fr; gap: 10px; }
+.st-utm-polja label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; font-weight: 600; color: var(--a-ink); }
+.st-utm-polja input, .st-utm-polja select { border: 1px solid #d5d9dd; border-radius: 7px; padding: 7px 9px; font: inherit; font-size: 13px; background: #fff; width: 100% !important; }
+.st-utm-rez { display: flex; gap: 10px; align-items: center; margin-top: 12px; }
+.st-utm-rez code { flex: 1; min-width: 0; padding: 8px 10px; word-break: break-all; font-size: 12.5px; }
+
+@media (max-width: 1100px) {
+  .st-kpiji { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .st-mreza, .st-mreza.tri { grid-template-columns: minmax(0, 1fr); }
+  .st-utm-polja { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  .st-kpi > b { font-size: 22px; }
+  .st-utm-polja { grid-template-columns: 1fr; }
+  .st-graf { padding: 10px 8px 14px; gap: 1px; }
+  .st-delez { width: 50px; }
+}

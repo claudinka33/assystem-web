@@ -6,7 +6,7 @@ const PISKOTEK = "as_vstop";
 
 // Poti, ki so dosegljive tudi med zaklepom.
 // /api/stripe in /api/paypal morata biti dosegljiva za plačilne sisteme tudi med zaklepom.
-const PROSTO = ["/v-pripravi", "/api/vstop", "/api/stripe", "/api/paypal", "/api/b2b", "/admin", "/favicon.ico", "/robots.txt"];
+const PROSTO = ["/v-pripravi", "/api/vstop", "/api/obisk", "/api/stripe", "/api/paypal", "/api/b2b", "/admin", "/favicon.ico", "/robots.txt"];
 
 function zeton(geslo) {
   // preprost odtis gesla, da v piškotku ni zapisano geslo samo

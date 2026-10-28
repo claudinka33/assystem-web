@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Merjenje from "@/components/Merjenje";
+import Sledenje from "@/components/Sledenje";
 import { pridobiKategorije, skriteZnamke } from "@/lib/podatki";
 
 export default async function SpletLayout({ children }) {
@@ -15,6 +16,7 @@ export default async function SpletLayout({ children }) {
       <main>{children}</main>
       <Footer />
       <Merjenje />
+      <Sledenje />
     </>
   );
 }
