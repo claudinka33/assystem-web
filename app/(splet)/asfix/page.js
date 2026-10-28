@@ -46,10 +46,10 @@ const IZDELKI = {
 };
 
 const podlage = [
-  { naziv: "Beton", opis: "Nosilna jeklena sidra, Turbo vijaki in kemična sidra za največje obremenitve.", slika: "/slike/asfix/podlaga-beton.jpg", izdelki: ["txh7", "turbo", "easf", "udarni", "mq"] },
-  { naziv: "Opeka in votlaki", opis: "Vložki z veliko oprijemno površino in kemična masa z mrežico.", slika: "/slike/asfix/podlaga-opeka.jpg", izdelki: ["mq", "udarni", "pesf", "afrk", "afrs"] },
-  { naziv: "Mavčne plošče", opis: "Vložki za suhomontažo, ki se za ploščo razprejo.", slika: "/slike/asfix/podlaga-gips.jpg", izdelki: ["gips", "gipsKov", "gipsVijak"] },
-  { naziv: "Fasada in izolacija", opis: "Vložki za pritrjevanje v toplotno izolacijo.", slika: "/slike/asfix/podlaga-izolacija.jpg", izdelki: ["stiropor"] },
+  { naziv: "Beton", opis: "Nosilna jeklena sidra, Turbo vijaki in kemična sidra za največje obremenitve.", slika: "/slike/asfix/podlaga-beton-2.jpg", izdelki: ["txh7", "turbo", "easf", "udarni", "mq"] },
+  { naziv: "Opeka in votlaki", opis: "Vložki z veliko oprijemno površino in kemična masa z mrežico.", slika: "/slike/asfix/podlaga-opeka-2.jpg", izdelki: ["mq", "udarni", "pesf", "afrk", "afrs"] },
+  { naziv: "Mavčne plošče", opis: "Vložki za suhomontažo, ki se za ploščo razprejo.", slika: "/slike/asfix/podlaga-gips-2.jpg", izdelki: ["gips", "gipsKov", "gipsVijak"] },
+  { naziv: "Fasada in izolacija", opis: "Vložki za pritrjevanje v toplotno izolacijo.", slika: "/slike/asfix/podlaga-izolacija-2.jpg", izdelki: ["stiropor"] },
 ];
 
 const embalaza = [
