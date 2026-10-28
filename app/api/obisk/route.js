@@ -9,12 +9,6 @@ import { razvrstiVir, trgDrzave, napravaIzUA, jeBot } from "@/lib/obisk";
 
 export const runtime = "nodejs";
 
-function zeton(geslo) {
-  let h = 0;
-  for (let i = 0; i < geslo.length; i++) h = (h * 31 + geslo.charCodeAt(i)) >>> 0;
-  return `as${h.toString(36)}`;
-}
-
 const prazno = () => new NextResponse(null, { status: 204 });
 const rez = (v, n) => (v == null || v === "" ? null : String(v).slice(0, n));
 
@@ -24,9 +18,6 @@ export async function POST(request) {
     if (process.env.VERCEL_ENV && process.env.VERCEL_ENV !== "production") return prazno();
     // naprave administratorjev se ne štejejo
     if (request.cookies.get("as_ne_stej")?.value) return prazno();
-    // med zaklepom (pred zagonom) štejemo samo tiste, ki so vpisali geslo — ne robotov na zaklenjeni strani
-    const geslo = process.env.SPLET_GESLO;
-    if (geslo && request.cookies.get("as_vstop")?.value !== zeton(geslo)) return prazno();
 
     const h = request.headers;
     const ua = h.get("user-agent") || "";
