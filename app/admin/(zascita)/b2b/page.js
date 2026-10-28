@@ -19,6 +19,8 @@ export default async function B2BKupci() {
     );
   const kupci = [...(data ?? [])].sort((a, b) => VRSTNI_RED.indexOf(a.status) - VRSTNI_RED.indexOf(b.status));
   const caka = kupci.filter((k) => k.status === "caka_odobritev").length;
+  const poDavcni = {};
+  for (const k of kupci) (poDavcni[k.davcna] ??= []).push(k);
 
   return (
     <>
@@ -40,6 +42,9 @@ export default async function B2BKupci() {
               <b style={{ minWidth: 220 }}>{k.podjetje}</b>
               <span style={{ color: "#6e767e", fontSize: 13 }}>SI{k.davcna}</span>
               <span style={{ flex: 1 }}>{k.ime} · {k.email}</span>
+              {poDavcni[k.davcna].length > 1 && (
+                <span style={{ fontSize: 12, color: "#6e767e" }}>{poDavcni[k.davcna].length} uporabniki podjetja</span>
+              )}
               <span className={k.status === "aktiven" ? "znacka da" : k.status === "caka_odobritev" ? "znacka novo" : "znacka ne"}>
                 {B2B_STATUSI[k.status] ?? k.status}
               </span>
@@ -61,6 +66,13 @@ export default async function B2BKupci() {
                 {k.vasco_emaili?.length ? <>E-naslovi v Vascu: {k.vasco_emaili.join(", ")}<br /></> : null}
                 Zadnja sinhronizacija: {cas(k.vasco_sync_ob)}{k.vasco_sporocilo ? ` — ${k.vasco_sporocilo}` : ""}
                 {k.odobreno_rocno && <> · odobreno ročno</>}
+                {poDavcni[k.davcna].length > 1 && (
+                  <>
+                    <br />
+                    Drugi uporabniki podjetja:{" "}
+                    {poDavcni[k.davcna].filter((x) => x.id !== k.id).map((x) => `${x.ime} (${x.email})`).join(", ")}
+                  </>
+                )}
               </p>
               <form action={adminB2B} style={{ display: "flex", gap: 10, alignItems: "flex-end", flexWrap: "wrap" }}>
                 <input type="hidden" name="id" value={k.id} />
