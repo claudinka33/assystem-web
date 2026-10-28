@@ -2,6 +2,7 @@ import { supabaseAdmin } from "@/lib/supabase-server";
 import { adminB2B } from "@/lib/akcije/b2b";
 import { B2B_STATUSI } from "@/lib/b2b";
 import Osvezi from "../../Osvezi";
+import NovB2B from "./NovB2B";
 
 export const dynamic = "force-dynamic";
 
@@ -29,8 +30,9 @@ export default async function B2BKupci() {
       <div className="adm-telo">
         <p style={{ fontSize: 14, color: "#6e767e", marginTop: 0 }}>
           as-terminal vsaki 2 minuti poišče partnerja v Vascu po davčni. Če se e-naslov ali domena ujema s partnerjem, se kupec aktivira
-          sam. Ostale odobri tukaj — pri novem podjetju ga najprej odpri v Vascu in vpiši šifro partnerja.
+          sam. Ostale odobri tukaj — pri novem podjetju ga najprej odpri v Vascu in vpiši šifro partnerja. Z »+ Nov B2B kupec« lahko podjetje odpreš sam: vpiši davčno, poišči podatke, dodaj kontakt — kupec dobi mail za potrditev in geslo.
         </p>
+        <NovB2B />
         {kupci.length === 0 && <div className="opozorilo">Ni še registracij.</div>}
         {kupci.map((k) => (
           <details key={k.id} className="adm-obr" style={{ marginBottom: 12 }} open={k.status === "caka_odobritev"}>
@@ -73,6 +75,7 @@ export default async function B2BKupci() {
                 {k.status !== "aktiven" && <button className="gumb" type="submit" name="akcija" value="odobri">Odobri</button>}
                 <button className="gumb siv" type="submit" name="akcija" value="preveri">Preveri v Vascu</button>
                 <button className="gumb siv" type="submit" name="akcija" value="shrani">Shrani opombo</button>
+                {k.status !== "zavrnjen" && <button className="gumb siv" type="submit" name="akcija" value="povabilo">Pošlji povabilo za geslo</button>}
                 {k.status !== "zavrnjen" && <button className="gumb siv" type="submit" name="akcija" value="zavrni">Zavrni</button>}
               </form>
             </div>
