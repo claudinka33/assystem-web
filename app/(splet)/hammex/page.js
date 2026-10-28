@@ -179,8 +179,9 @@ export default function Hammer() {
             <p>Žeblje za pnevmatske žebljalnike povezujemo z bakreno žico, navijamo v kolute in pakiramo na lastni liniji.</p>
           </div>
           <FotoGalerija
+            kolaz
             skupine={[
-              { naziv: "Žeblji v kolutih", slike: FOTO_ZEBLJI },
+              { naziv: "Žeblji v kolutih", slike: FOTO_ZEBLJI.map((x) => (["zeblji-01", "zeblji-09"].some((n) => x.src.includes(n)) ? { ...x, vel: true } : x)) },
             ]}
           />
         </div>

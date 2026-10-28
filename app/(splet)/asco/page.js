@@ -68,6 +68,15 @@ const pakiranja = [
   },
 ];
 
+// Vse fotografije ASco v enem kolažu: pakiranje v vrečke in skladišče.
+const FOTO_ASCO = (() => {
+  const a = [...FOTO_PAKIRANJE.slice(6), ...FOTO_EKIPA.slice(2, 4)];
+  const b = FOTO_SKLADISCE;
+  const out = [];
+  for (let i = 0; i < Math.max(a.length, b.length); i++) { if (a[i]) out.push(a[i]); if (b[i]) out.push(b[i]); }
+  return out.map((x) => (["pakiranje-07", "skladisce-08", "ekipa-03", "skladisce-01"].some((n) => x.src.includes(n)) ? { ...x, vel: true } : x));
+})();
+
 export default function ASco() {
   return (
     <>
@@ -304,9 +313,10 @@ export default function ASco() {
             <p>Vijačno blago pakiramo v vrečke z EAN kodo na lastni liniji in ga hranimo v skladišču v Šmarju pri Jelšah — pripravljeno za takojšnjo odpremo.</p>
           </div>
           <FotoGalerija
+            kolaz
+            max={24}
             skupine={[
-              { naziv: "Pakiranje v vrečke", slike: [...FOTO_PAKIRANJE.slice(6), ...FOTO_EKIPA.slice(2, 4)] },
-              { naziv: "Skladišče", slike: FOTO_SKLADISCE },
+              { naziv: "ASco", slike: FOTO_ASCO },
             ]}
           />
         </div>
