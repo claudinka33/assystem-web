@@ -111,14 +111,30 @@ export default async function ENovice({ searchParams }) {
                     {zavihek !== "predloga" && <td>{k.segment_ime || "–"}</td>}
                     {zavihek === "poslano" ? (
                       <>
-                        <td>{cas(k.poslano_ob)}</td>
-                        <td>{s.dostavljeno ?? s.poslano ?? "–"}</td>
-                        <td>{s.odprli != null ? `${s.odprli} (${odst(s.odprli, s.dostavljeno)})` : "–"}</td>
-                        <td>{s.kliknili != null ? `${s.kliknili} (${odst(s.kliknili, s.dostavljeno)})` : "–"}</td>
+                        <td style={{ whiteSpace: "nowrap" }}>{cas(k.poslano_ob)}</td>
+                        <td style={{ whiteSpace: "nowrap", fontWeight: 600 }}>{s.dostavljeno ?? s.poslano ?? "–"}</td>
+                        <td style={{ whiteSpace: "nowrap" }}>
+                          {s.odprli != null ? (
+                            <>
+                              <b>{s.odprli}</b> <span style={{ color: "#6e767e", fontSize: 12.5 }}>· {odst(s.odprli, s.dostavljeno)}</span>
+                            </>
+                          ) : (
+                            "–"
+                          )}
+                        </td>
+                        <td style={{ whiteSpace: "nowrap" }}>
+                          {s.kliknili != null ? (
+                            <>
+                              <b>{s.kliknili}</b> <span style={{ color: "#6e767e", fontSize: 12.5 }}>· {odst(s.kliknili, s.dostavljeno)}</span>
+                            </>
+                          ) : (
+                            "–"
+                          )}
+                        </td>
                       </>
                     ) : zavihek === "nacrtovano" ? (
                       <td>
-                        <span className="znacka novo">{cas(k.nacrtovano_za)}</span>
+                        <span className="znacka novo" style={{ whiteSpace: "nowrap" }}>{cas(k.nacrtovano_za)}</span>
                       </td>
                     ) : (
                       <td style={{ fontSize: 13, color: "#6e767e" }}>
