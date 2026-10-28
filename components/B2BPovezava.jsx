@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { mojStatus, naloziKosarico, shraniKosarico } from "@/lib/akcije/b2b";
+import { mojStatus, naloziKosarico, shraniKosarico, odjava } from "@/lib/akcije/b2b";
 import { zamenjaj, beriKosarico, poslusaj, izprazni } from "@/lib/kosarica";
 
 const LASTNIK = "as_kosarica_lastnik";
@@ -60,8 +60,18 @@ export default function B2BPovezava() {
   }, []);
   useB2BKosarica(s?.id);
   return (
-    <Link href={s ? "/b2b/racun" : "/b2b"} className="b2b-link">
-      {s ? `B2B: ${s.podjetje}` : "B2B prijava"}
-    </Link>
+    <>
+      <Link href={s ? "/b2b/racun" : "/b2b"} className="b2b-link">
+        {s ? `B2B: ${s.podjetje}` : "B2B prijava"}
+      </Link>
+      {s && (
+        <>
+          {" · "}
+          <form action={odjava} className="util-odjava">
+            <button type="submit">Odjava</button>
+          </form>
+        </>
+      )}
+    </>
   );
 }
