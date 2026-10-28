@@ -5,7 +5,7 @@ import Image from "next/image";
 
 // Galerija fotografij iz proizvodnje: zavihki (skupine), mozaik, povečava ob kliku.
 // skupine: [{ naziv, slike: [{ src, alt, w, h }] }]
-export default function FotoGalerija({ skupine, max = 12 }) {
+export default function FotoGalerija({ skupine, max = 12, kolaz = false }) {
   const [s, setS] = useState(0);
   const [odprta, setOdprta] = useState(null);
   const [vse, setVse] = useState(false);
@@ -42,9 +42,9 @@ export default function FotoGalerija({ skupine, max = 12 }) {
           ))}
         </div>
       )}
-      <div className="fg-mreza" key={s}>
+      <div className={kolaz ? "fg-kolaz" : "fg-mreza"} key={s}>
         {(vse ? slike : slike.slice(0, MAX)).map((x, i) => (
-          <button key={x.src} type="button" className={`fg-sl${x.h > x.w ? " pokonc" : ""}`} onClick={() => setOdprta(i)} style={{ animationDelay: `${i * 45}ms` }} aria-label={`Povečaj: ${x.alt}`}>
+          <button key={x.src} type="button" className={`fg-sl${x.h > x.w ? " pokonc" : ""}${x.vel ? " vel" : ""}`} onClick={() => setOdprta(i)} style={{ animationDelay: `${i * 45}ms` }} aria-label={`Povečaj: ${x.alt}`}>
             <Image src={x.src} alt={x.alt} width={x.w} height={x.h} sizes="(max-width: 700px) 50vw, (max-width: 1100px) 33vw, 320px" />
             <span>{x.alt}</span>
           </button>

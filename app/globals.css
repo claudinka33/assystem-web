@@ -2747,6 +2747,12 @@ a.medij:hover { transform: translateY(-2px); border-color: var(--color-ink); bor
 .fg-tab button.on small { background: rgba(255,255,255,.22); color: #fff; }
 .fg-mreza { columns: 4 220px; column-gap: 10px; }
 .fg-mreza .fg-sl { margin-bottom: 10px; }
+.fg-kolaz { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 170px; grid-auto-flow: dense; gap: 10px; }
+.fg-kolaz .fg-sl { margin: 0; height: 100%; }
+.fg-kolaz .fg-sl img { width: 100%; height: 100%; object-fit: cover; }
+.fg-kolaz .fg-sl.vel { grid-column: span 2; grid-row: span 2; }
+.fg-kolaz .fg-sl.pokonc { grid-row: span 2; }
+@media (max-width: 800px) { .fg-kolaz { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 130px; gap: 8px; } }
 .fg-sl { position: relative; display: block; width: 100%; margin: 0 0 14px; padding: 0; border: 0; background: #2b2f33; cursor: zoom-in; overflow: hidden; break-inside: avoid; opacity: 0; animation: fgIn .5s ease forwards; }
 .fg-sl img { display: block; width: 100%; height: auto; transition: transform .6s ease, filter .3s; }
 .fg-sl:hover img { transform: scale(1.06); filter: brightness(.82); }

@@ -125,8 +125,9 @@ const pravila = [
 
 // Ena mešana galerija: ljudje, proizvodnja in skladišče prepleteni.
 const prepleti = (...l) => Array.from({ length: Math.max(...l.map((x) => x.length)) }, (_, i) => l.map((x) => x[i])).flat().filter(Boolean);
+const vel = (x) => ({ ...x, vel: true });
 const FOTO_O_NAS = prepleti(
-  FOTO_EKIPA,
+  FOTO_EKIPA.map((x, i) => ([0, 1, 4, 8].includes(i) ? vel(x) : x)),
   [...FOTO_SIDRA.slice(1, 4), ...FOTO_VIJAKI.slice(0, 3), FOTO_MONTAZA[0]],
   FOTO_SKLADISCE.filter((_, i) => i % 2 === 0),
   [FOTO_ZEBLJI[0], FOTO_ZEBLJI[8], FOTO_MONTAZA[5], FOTO_VIJAKI[7]],
@@ -296,7 +297,8 @@ export default function ONas() {
             <p>Ekipa, ki odgovori na vaš klic, nastavi stroj in pripravi vaše naročilo. Tako je videti dan v AS systemu — kliknite sliko za povečavo.</p>
           </div>
           <FotoGalerija
-            max={16}
+            max={20}
+            kolaz
             skupine={[
               { naziv: "Spoznajte nas", slike: FOTO_O_NAS },
             ]}
