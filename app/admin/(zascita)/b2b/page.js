@@ -9,7 +9,8 @@ export const dynamic = "force-dynamic";
 const cas = (t) => (t ? new Date(t).toLocaleString("sl-SI", { timeZone: "Europe/Ljubljana", dateStyle: "short", timeStyle: "short" }) : "—");
 const VRSTNI_RED = ["caka_odobritev", "preverjanje", "aktiven", "zavrnjen"];
 
-export default async function B2BKupci() {
+export default async function B2BKupci({ searchParams }) {
+  const { napaka, shranjeno } = await searchParams;
   const { data, error } = await supabaseAdmin().from("b2b_kupci").select("*").order("ustvarjeno", { ascending: false }).limit(500);
   if (error)
     return (
@@ -34,6 +35,8 @@ export default async function B2BKupci() {
           as-terminal vsaki 2 minuti poišče partnerja v Vascu po davčni. Če se e-naslov ali domena ujema s partnerjem, se kupec aktivira
           sam. Ostale odobri tukaj — pri novem podjetju ga najprej odpri v Vascu in vpiši šifro partnerja. Z »+ Nov B2B kupec« lahko podjetje odpreš sam: vpiši davčno, poišči podatke, dodaj kontakt — kupec dobi mail za potrditev in geslo.
         </p>
+        {napaka && <div className="opozorilo" style={{ marginBottom: 12 }}>{napaka}</div>}
+        {shranjeno && <div className="opozorilo" style={{ marginBottom: 12, borderColor: "#1a7f3c", color: "#1a7f3c" }}>Spremembe shranjene.</div>}
         <NovB2B />
         {kupci.length === 0 && <div className="opozorilo">Ni še registracij.</div>}
         {kupci.map((k) => (
@@ -74,21 +77,57 @@ export default async function B2BKupci() {
                   </>
                 )}
               </p>
-              <form action={adminB2B} style={{ display: "flex", gap: 10, alignItems: "flex-end", flexWrap: "wrap" }}>
+              <form action={adminB2B}>
                 <input type="hidden" name="id" value={k.id} />
-                <div className="adm-polje" style={{ marginBottom: 0, width: 170 }}>
-                  <label>Šifra partnerja v Vascu</label>
-                  <input type="text" name="vasco_partner" defaultValue={k.vasco_partner ?? ""} placeholder="npr. 12345678" />
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(190px, 1fr))", gap: "0 12px" }}>
+                  <div className="adm-polje" style={{ gridColumn: "span 2" }}>
+                    <label>Podjetje</label>
+                    <input name="podjetje" defaultValue={k.podjetje ?? ""} required />
+                  </div>
+                  <div className="adm-polje">
+                    <label>Davčna</label>
+                    <input name="davcna" defaultValue={k.davcna ?? ""} required />
+                  </div>
+                  <div className="adm-polje">
+                    <label>Šifra partnerja v Vascu</label>
+                    <input name="vasco_partner" defaultValue={k.vasco_partner ?? ""} placeholder="poišče se po davčni" />
+                  </div>
+                  <div className="adm-polje">
+                    <label>Kontaktna oseba</label>
+                    <input name="ime" defaultValue={k.ime ?? ""} required />
+                  </div>
+                  <div className="adm-polje">
+                    <label>E-naslov (prijava)</label>
+                    <input name="email" type="email" defaultValue={k.email ?? ""} required />
+                  </div>
+                  <div className="adm-polje">
+                    <label>Telefon</label>
+                    <input name="telefon" defaultValue={k.telefon ?? ""} />
+                  </div>
+                  <div className="adm-polje" style={{ gridColumn: "span 2" }}>
+                    <label>Naslov</label>
+                    <input name="naslov" defaultValue={k.naslov ?? ""} />
+                  </div>
+                  <div className="adm-polje">
+                    <label>Pošta</label>
+                    <input name="posta" defaultValue={k.posta ?? ""} />
+                  </div>
+                  <div className="adm-polje">
+                    <label>Kraj</label>
+                    <input name="kraj" defaultValue={k.kraj ?? ""} />
+                  </div>
+                  <div className="adm-polje" style={{ gridColumn: "1 / -1" }}>
+                    <label>Interna opomba / kontakti</label>
+                    <textarea name="opomba_interna" rows={3} defaultValue={k.opomba_interna ?? ""} />
+                  </div>
                 </div>
-                <div className="adm-polje" style={{ marginBottom: 0, flex: 1, minWidth: 200 }}>
-                  <label>Interna opomba</label>
-                  <input type="text" name="opomba_interna" defaultValue={k.opomba_interna ?? ""} />
+                <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+                  <button className="gumb" type="submit" name="akcija" value="shrani">Shrani spremembe</button>
+                  {k.status !== "aktiven" && <button className="gumb" type="submit" name="akcija" value="odobri">Odobri</button>}
+                  <button className="gumb siv" type="submit" name="akcija" value="preveri">Preveri v Vascu</button>
+                  {k.status !== "zavrnjen" && <button className="gumb siv" type="submit" name="akcija" value="povabilo">Pošlji povabilo za geslo</button>}
+                  {k.status !== "zavrnjen" && <button className="gumb siv" type="submit" name="akcija" value="zavrni">Zavrni</button>}
                 </div>
-                {k.status !== "aktiven" && <button className="gumb" type="submit" name="akcija" value="odobri">Odobri</button>}
-                <button className="gumb siv" type="submit" name="akcija" value="preveri">Preveri v Vascu</button>
-                <button className="gumb siv" type="submit" name="akcija" value="shrani">Shrani opombo</button>
-                {k.status !== "zavrnjen" && <button className="gumb siv" type="submit" name="akcija" value="povabilo">Pošlji povabilo za geslo</button>}
-                {k.status !== "zavrnjen" && <button className="gumb siv" type="submit" name="akcija" value="zavrni">Zavrni</button>}
               </form>
             </div>
           </details>
