@@ -60,6 +60,13 @@ const police = [
   { m: "4 m", opis: "Več zaloge vseh dimenzij za gradbene centre.", slika: "/slike/trgovci/asfix-polica-4m-bela.jpg" },
 ];
 
+// Vse fotografije ASfix v enem kolažu: kovanje, montaža, pakiranje, skladišče.
+const vel = (x) => ({ ...x, vel: true });
+const FOTO_ASFIX = Array.from({ length: 12 }, (_, i) => [FOTO_SIDRA[i], FOTO_MONTAZA[i], FOTO_PAKIRANJE.slice(0, 6)[i], FOTO_SKLADISCE[i]])
+  .flat()
+  .filter(Boolean)
+  .map((x) => (["kovanje-01", "montaza-01", "pakiranje-01", "skladisce-08"].some((n) => x.src.includes(n)) ? vel(x) : x));
+
 export default async function ASfix() {
   const izBaze = await pridobiIzdelkePoSlugih(Object.values(IZDELKI).map((x) => x.slug).filter(Boolean));
   const povezava = (k) => {
@@ -288,11 +295,10 @@ export default async function ASfix() {
             <p>Sidra kujemo in sestavljamo sami, vložke brizgamo, nato vse pakiramo in odpremimo iz našega skladišča.</p>
           </div>
           <FotoGalerija
+            kolaz
+            max={24}
             skupine={[
-              { naziv: "Kovanje sider", slike: FOTO_SIDRA },
-              { naziv: "Montaža sider", slike: FOTO_MONTAZA },
-              { naziv: "Pakiranje", slike: FOTO_PAKIRANJE.slice(0, 6) },
-              { naziv: "Skladišče", slike: FOTO_SKLADISCE },
+              { naziv: "ASfix", slike: FOTO_ASFIX },
             ]}
           />
         </div>
