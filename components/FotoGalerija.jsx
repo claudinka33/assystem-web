@@ -5,11 +5,11 @@ import Image from "next/image";
 
 // Galerija fotografij iz proizvodnje: zavihki (skupine), mozaik, povečava ob kliku.
 // skupine: [{ naziv, slike: [{ src, alt, w, h }] }]
-export default function FotoGalerija({ skupine }) {
+export default function FotoGalerija({ skupine, max = 12 }) {
   const [s, setS] = useState(0);
   const [odprta, setOdprta] = useState(null);
   const [vse, setVse] = useState(false);
-  const MAX = 9;
+  const MAX = max;
   const slike = skupine[s].slike;
 
   const naprej = useCallback((d) => setOdprta((i) => (i === null ? null : (i + d + slike.length) % slike.length)), [slike.length]);
@@ -45,7 +45,7 @@ export default function FotoGalerija({ skupine }) {
       <div className="fg-mreza" key={s}>
         {(vse ? slike : slike.slice(0, MAX)).map((x, i) => (
           <button key={x.src} type="button" className={`fg-sl${x.h > x.w ? " pokonc" : ""}`} onClick={() => setOdprta(i)} style={{ animationDelay: `${i * 45}ms` }} aria-label={`Povečaj: ${x.alt}`}>
-            <Image src={x.src} alt={x.alt} width={x.w} height={x.h} sizes="(max-width: 700px) 50vw, (max-width: 1100px) 33vw, 400px" />
+            <Image src={x.src} alt={x.alt} width={x.w} height={x.h} sizes="(max-width: 700px) 50vw, (max-width: 1100px) 33vw, 320px" />
             <span>{x.alt}</span>
           </button>
         ))}
