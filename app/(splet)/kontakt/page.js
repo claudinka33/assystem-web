@@ -7,7 +7,7 @@ import { site } from "@/lib/site";
 export const metadata = {
   title: "Kontakt",
   description:
-    "Kontakt AS system d.o.o.: telefon 03 800 70 00, info@as-system.si. Komercialisti po regijah, kontakti po oddelkih in lokaciji v Šmarju pri Jelšah in Bistrici ob Sotli.",
+    "Kontakt AS system d.o.o.: telefon +386 3 800 70 00, info@as-system.si. Komercialisti po regijah, kontakti po oddelkih in lokaciji v Šmarju pri Jelšah in Bistrici ob Sotli.",
   alternates: { canonical: "/kontakt" },
 };
 
