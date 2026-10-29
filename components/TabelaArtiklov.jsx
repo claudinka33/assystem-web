@@ -33,7 +33,7 @@ function VKosarico({ a, cena, izdelek, b2b }) {
     <span className="vk-w">
     <span className="vk">
       <input type="number" min="1" value={kol} onChange={(e) => setKol(Math.max(1, Number(e.target.value) || 1))} aria-label={vPak ? `Število pakiranj po ${cena.kos} kos` : "Količina"} />
-      <span className="vk-x">{vPak ? `× ${cena.kos} kos` : "kos"}</span>
+      <span className="vk-x">{vPak ? `× ${cena.kos} kos` : a.enota && a.enota !== "kos" ? a.enota : "kos"}</span>
       <button
         type="button"
         className={ok ? "on" : ""}

@@ -2981,3 +2981,8 @@ a.medij:hover { transform: translateY(-2px); border-color: var(--color-ink); bor
 /* zgornji pas: odjava */
 .util-odjava { display: inline; }
 .util-odjava button { background: none; border: 0; padding: 0; font: inherit; color: inherit; cursor: pointer; text-decoration: underline; }
+
+/* Košarica v tabeli: gumbi poravnani v vseh vrsticah (enota ima stalno širino) */
+@media (min-width: 701px) {
+  .izd-tab .vk-x { display: inline-block; min-width: 76px; }
+}
