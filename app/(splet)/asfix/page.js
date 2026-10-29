@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import { dostopPolice } from "@/lib/b2b";
+import ZaklenjenoB2B from "@/components/ZaklenjenoB2B";
 import IgraSidranje from "@/components/IgraSidranje";
 import ZnamkaHero from "@/components/ZnamkaHero";
 import DveZnamki from "@/components/DveZnamki";
@@ -73,6 +75,7 @@ const FOTO_ASFIX = Array.from({ length: 12 }, (_, i) => [FOTO_SIDRA[i], FOTO_MON
   .map((x) => (["kovanje-01", "montaza-01", "pakiranje-01", "skladisce-08"].some((n) => x.src.includes(n)) ? vel(x) : x));
 
 export default async function ASfix() {
+  const { dostop, prijavljen } = await dostopPolice();
   const izBaze = await pridobiIzdelkePoSlugih(Object.values(IZDELKI).map((x) => x.slug).filter(Boolean));
   const sl = (k) => (IZDELKI[k].slug && izBaze[IZDELKI[k].slug]?.slika) || IZDELKI[k].slika;
   const povezava = (k) => {
@@ -318,11 +321,14 @@ export default async function ASfix() {
             <h2>Polica ASfix — 1, 2 ali 4 metre</h2>
             <p>Polico prilagodimo trgovini. Večje postavitve do 20 m pripravimo po meri.</p>
           </div>
+          {!dostop ? (
+            <ZaklenjenoB2B naprej="/asfix" prijavljen={prijavljen} naslov="Police ASfix so na voljo B2B partnerjem" />
+          ) : (
           <div className="kats c3">
             {police.map((d) => (
               <div key={d.m} className="k">
                 <div className="im" style={{ height: 300, background: "#fff" }}>
-                  <Image src={d.slika} alt={`Polica ASfix ${d.m}`} fill sizes="(max-width: 700px) 100vw, 400px" style={{ objectFit: "contain", padding: 10 }} />
+                  <Image src={d.slika} alt={`Polica ASfix ${d.m}`} fill unoptimized sizes="(max-width: 700px) 100vw, 400px" style={{ objectFit: "contain", padding: 10 }} />
                 </div>
                 <div className="tx">
                   <h3>{d.m}</h3>
@@ -331,6 +337,7 @@ export default async function ASfix() {
               </div>
             ))}
           </div>
+          )}
           <div className="zn-gumbi" style={{ marginTop: 24 }}>
             <Link className="b b-r" href="/za-trgovce#povprasevanje">
               Želim polico ASfix →

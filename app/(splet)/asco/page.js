@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import { dostopPolice } from "@/lib/b2b";
+import ZaklenjenoB2B from "@/components/ZaklenjenoB2B";
 import ZnamkaHero from "@/components/ZnamkaHero";
 import DveZnamki from "@/components/DveZnamki";
 import PotiProdaje from "@/components/PotiProdaje";
@@ -77,7 +79,8 @@ const FOTO_ASCO = (() => {
   return out.map((x) => (["pakiranje-07", "skladisce-08", "ekipa-03", "skladisce-01"].some((n) => x.src.includes(n)) ? { ...x, vel: true } : x));
 })();
 
-export default function ASco() {
+export default async function ASco() {
+  const { dostop, prijavljen } = await dostopPolice();
   return (
     <>
       <ZnamkaHero
@@ -281,11 +284,14 @@ export default function ASco() {
             <h2>Polica ASco — 1, 2, 4 ali 6 metrov</h2>
             <p>Moduli se samo dodajajo. Zgoraj vrečke, spodaj škatle z večjim pakiranjem, na vsaki nalepki standard, dimenzija in količina.</p>
           </div>
+          {!dostop ? (
+            <ZaklenjenoB2B naprej="/asco" prijavljen={prijavljen} naslov="Police ASco so na voljo B2B partnerjem" />
+          ) : (
           <div className="kats">
             {police.map((d) => (
               <div key={d.m} className="k">
                 <div className="im" style={{ height: 260, background: "#fff" }}>
-                  <Image src={d.slika} alt={`Polica ASco ${d.m}`} fill sizes="(max-width: 700px) 100vw, 320px" style={{ objectFit: "contain", padding: 10 }} />
+                  <Image src={d.slika} alt={`Polica ASco ${d.m}`} fill unoptimized sizes="(max-width: 700px) 100vw, 320px" style={{ objectFit: "contain", padding: 10 }} />
                 </div>
                 <div className="tx">
                   <h3>{d.m}</h3>
@@ -294,6 +300,7 @@ export default function ASco() {
               </div>
             ))}
           </div>
+          )}
           <div className="zn-gumbi" style={{ marginTop: 24 }}>
             <Link className="b b-r" href="/za-trgovce#povprasevanje">
               Želim polico ASco →

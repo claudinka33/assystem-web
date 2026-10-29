@@ -3,6 +3,10 @@ import Link from "next/link";
 import ObrazecTrgovci from "@/components/ObrazecTrgovci";
 import { site } from "@/lib/site";
 import { ZNAMKE_INFO } from "@/lib/znamke";
+import { dostopPolice } from "@/lib/b2b";
+import ZaklenjenoB2B from "@/components/ZaklenjenoB2B";
+
+export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "Za trgovce — prodajni program in police",
@@ -33,7 +37,10 @@ const embalaza = [
   { znamka: "Silvermate", slike: [["/slike/silvermate/skatla-silvermate.png", "Škatla Silvermate", "8%"], ["/slike/silvermate/polica-1m.jpg", "Polica Silvermate 1 m", "4%"]], opis: "Lesni vijaki s križno in torx glavo, s celim ali delnim navojem — v profesionalni škatli z okencem in na polici 1 m." },
 ];
 
-export default function ZaTrgovce() {
+export default async function ZaTrgovce() {
+  const { dostop, prijavljen } = await dostopPolice();
+  const kajSlike = dostop ? KAJ_SLIKE : KAJ_SLIKE.map((s) => (s.includes("/trgovci/") ? "/slike/znamke/asfix-vrecka.jpg" : s));
+  const emb = dostop ? embalaza : embalaza.map((e) => ({ ...e, slike: e.slike.filter(([src]) => !src.includes("polica")) }));
   return (
     <>
       <section className="zn-hero antracit">
@@ -61,10 +68,11 @@ export default function ZaTrgovce() {
           </div>
           <div className="zn-slika trg-hero-im">
             <Image
-              src="/slike/trgovci/hero-police.jpg"
-              alt="Police ASco, ASfix in Silvermate v trgovini"
-              width={1997}
-              height={1100}
+              src={dostop ? "/slike/trgovci/hero-police.jpg" : "/slike/proizvodnja/hero-izdelki.png"}
+              alt={dostop ? "Police ASco, ASfix in Silvermate v trgovini" : "Izdelki ASfix in ASco"}
+              width={dostop ? 1997 : 1416}
+              height={dostop ? 1100 : 941}
+              unoptimized={dostop}
               priority
               sizes="(max-width: 1000px) 92vw, 640px"
               style={{ width: "100%", height: "auto" }}
@@ -83,7 +91,7 @@ export default function ZaTrgovce() {
             {kajDobite.map(([n, o], i) => (
               <div key={n} className="trg-kaj-k">
                 <div className="trg-kaj-im">
-                  <Image src={KAJ_SLIKE[i]} alt={n} fill sizes="(max-width: 700px) 50vw, 340px" style={{ objectFit: "contain" }} />
+                  <Image src={kajSlike[i]} alt={n} fill unoptimized={kajSlike[i].includes("/trgovci/")} sizes="(max-width: 700px) 50vw, 340px" style={{ objectFit: "contain" }} />
                   <span>0{i + 1}</span>
                 </div>
                 <b>{n}</b>
@@ -101,12 +109,15 @@ export default function ZaTrgovce() {
             <h2>Od enega do dvajset metrov</h2>
             <p>Postavitev prilagodimo trgovini. Spodaj so primeri police ASfix; ASco in kombinirane postavitve pripravimo enako.</p>
           </div>
+          {!dostop ? (
+            <ZaklenjenoB2B naprej="/za-trgovce" prijavljen={prijavljen} />
+          ) : (
           <div className="kats">
             {dolzine.map((d) => (
               <div key={d.m} className="k">
                 <div className="im" style={{ height: 240, background: d.slika ? "#fff" : undefined }}>
                   {d.slika ? (
-                    <Image src={d.slika} alt={`Polica ASfix ${d.m}`} fill sizes="(max-width: 700px) 50vw, 320px" style={{ objectFit: "contain", padding: 10 }} />
+                    <Image src={d.slika} alt={`Polica ASfix ${d.m}`} fill unoptimized sizes="(max-width: 700px) 50vw, 320px" style={{ objectFit: "contain", padding: 10 }} />
                   ) : (
                     <div className="trg-vec">
                       <b>do 20 m</b>
@@ -121,6 +132,7 @@ export default function ZaTrgovce() {
               </div>
             ))}
           </div>
+          )}
         </div>
       </section>
 
@@ -166,7 +178,7 @@ export default function ZaTrgovce() {
             <h2>Kako so znamke predstavljene na polici</h2>
           </div>
           <div className="trg-emb">
-            {embalaza.map((e) => {
+            {emb.map((e) => {
               const z = ZNAMKE_INFO[e.znamka];
               return (
                 <div key={e.znamka} className="trg-emb-k">
@@ -174,7 +186,7 @@ export default function ZaTrgovce() {
                   <div className={`trg-emb-slike${e.slike.length === 2 ? " dva" : ""}`}>
                     {e.slike.map(([src, alt, pad], i) => (
                       <div key={src} className={`trg-emb-sl${i === 0 && e.slike.length > 2 ? " glavna" : ""}`} title={alt}>
-                        <Image src={src} alt={alt} fill sizes={i === 0 ? "(max-width: 900px) 90vw, 420px" : "(max-width: 900px) 45vw, 210px"} style={{ objectFit: "contain", objectPosition: "center", padding: pad ?? (i === 0 ? "14px 18px" : 10), mixBlendMode: "multiply" }} />
+                        <Image src={src} alt={alt} fill sizes={i === 0 ? "(max-width: 900px) 90vw, 420px" : "(max-width: 900px) 45vw, 210px"} unoptimized={src.includes("polica")} style={{ objectFit: "contain", objectPosition: "center", padding: pad ?? (i === 0 ? "14px 18px" : 10), mixBlendMode: "multiply" }} />
                       </div>
                     ))}
                   </div>

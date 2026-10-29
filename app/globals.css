@@ -2986,3 +2986,13 @@ a.medij:hover { transform: translateY(-2px); border-color: var(--color-ink); bor
 @media (min-width: 701px) {
   .izd-tab .vk-x { display: inline-block; min-width: 76px; }
 }
+
+/* ---------- Zaklenjena vsebina za B2B (police) ---------- */
+.b2b-zaklep { display: flex; gap: 22px; align-items: flex-start; padding: 32px; border-radius: 14px; color: #fff; background: var(--color-ink) url("/vzorec-antracit.png") repeat; background-size: 600px auto; }
+.b2b-zaklep-ik { flex: none; width: 58px; height: 58px; border-radius: 50%; background: var(--color-red); display: grid; place-items: center; }
+.b2b-zaklep-tx span { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.7); }
+.b2b-zaklep-tx h3 { font-size: clamp(20px, 2.2vw, 28px); font-weight: 900; text-transform: uppercase; margin: 6px 0 0; line-height: 1.15; }
+.b2b-zaklep-tx p { color: rgba(255,255,255,.84); margin-top: 10px; max-width: 60ch; }
+.b2b-zaklep-tx .zn-gumbi { margin-top: 18px; }
+.b2b-zaklep-op { font-weight: 600; }
+@media (max-width: 620px) { .b2b-zaklep { flex-direction: column; padding: 22px; } }

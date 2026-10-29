@@ -190,16 +190,16 @@ export default async function Domov() {
               </div>
               <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
                 <Link className="b b-w" href="/za-trgovce">
-                  Police in pogoji →
+                  Police za B2B partnerje →
                 </Link>
               </div>
             </div>
             <div className="trg-slika">
               <Image
-                src="/slike/trgovci/asfix-polica-2m-bela.jpg"
-                alt="Prodajna polica ASfix, 2 m"
-                width={1092}
-                height={1120}
+                src="/slike/proizvodnja/hero-izdelki.png"
+                alt="Izdelki ASfix in ASco za trgovine"
+                width={1416}
+                height={941}
                 sizes="(max-width: 1000px) 100vw, 560px"
                 style={{ width: "100%", height: "auto" }}
               />
