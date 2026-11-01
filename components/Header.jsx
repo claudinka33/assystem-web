@@ -21,6 +21,12 @@ const jeziki = [];
 
 export default function Header({ kategorije = [], skrite = [] }) {
   const [odprt, setOdprt] = useState(false);
+  // Spustni meni, ki je bil pravkar kliknjen — skrit, dokler miška ne zapusti postavke.
+  const [zaprt, setZaprt] = useState(null);
+  const zapri = (n) => {
+    setZaprt(n);
+    if (typeof document !== "undefined") document.activeElement?.blur?.();
+  };
 
   return (
     <>
@@ -62,16 +68,16 @@ export default function Header({ kategorije = [], skrite = [] }) {
                   </Link>
                 );
               return (
-                <div key={el.naziv} className={`nav-sk${el.kategorije ? " kt" : " zn"}`}>
-                  <Link href={el.pot} className="nav-gl" aria-haspopup="true">
+                <div key={el.naziv} className={`nav-sk${el.kategorije ? " kt" : " zn"}`} onMouseLeave={() => zaprt === el.naziv && setZaprt(null)}>
+                  <Link href={el.pot} className="nav-gl" aria-haspopup="true" onClick={() => zapri(el.naziv)}>
                     {el.naziv} <i aria-hidden="true">▾</i>
                   </Link>
-                  <div className="nav-pod">
+                  <div className="nav-pod" style={zaprt === el.naziv ? { display: "none" } : undefined}>
                     {el.kategorije && (
                       <>
                         <div className="kt-mreza">
                           {pod.map((p) => (
-                            <Link key={p.pot} href={p.pot}>
+                            <Link key={p.pot} href={p.pot} onClick={() => zapri(el.naziv)}>
                               <span className={p.slika ? "kt-im" : "kt-im prazna"}>
                                 {p.slika && <img src={p.slika} alt="" loading="lazy" />}
                               </span>
@@ -82,13 +88,13 @@ export default function Header({ kategorije = [], skrite = [] }) {
                             </Link>
                           ))}
                         </div>
-                        <Link href={el.pot} className="kt-vse">
+                        <Link href={el.pot} className="kt-vse" onClick={() => zapri(el.naziv)}>
                           Celoten prodajni program →
                         </Link>
                       </>
                     )}
                     {!el.kategorije && pod.map((p) => (
-                      <Link key={p.pot} href={p.pot}>
+                      <Link key={p.pot} href={p.pot} onClick={() => zapri(el.naziv)}>
                         {p.logo ? (
                           <Image src={p.logo.logo} alt={p.naziv} width={Math.round((p.logo.w / p.logo.h) * 26)} height={26} style={{ height: 26, width: "auto" }} />
                         ) : (
