@@ -2996,3 +2996,9 @@ a.medij:hover { transform: translateY(-2px); border-color: var(--color-ink); bor
 .b2b-zaklep-tx .zn-gumbi { margin-top: 18px; }
 .b2b-zaklep-op { font-weight: 600; }
 @media (max-width: 620px) { .b2b-zaklep { flex-direction: column; padding: 22px; } }
+
+.igra-izbira { border: 1px solid var(--color-line); border-top: 3px solid var(--color-red); border-radius: 8px; padding: 12px 14px; background: #fff; display: grid; gap: 12px; }
+.igra-izbira .orodjarna-gumbi { flex-wrap: wrap; flex-direction: row !important; }
+.igra-izbira .orodjarna-gumbi button { padding: 8px 10px; }
+.igra-izbira-scenarij { margin: 0; font-size: 13.5px; color: var(--color-ink); background: var(--color-mist); padding: 8px 10px; border-radius: 6px; }
+.igra-potrdi { width: 100%; justify-content: center; }

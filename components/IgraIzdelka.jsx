@@ -2,8 +2,8 @@
 
 import IgraSidranje from "@/components/IgraSidranje";
 import IgraMontaza from "@/components/igre/IgraMontaza";
-import { turbo, uvs, gips, trak, afrkKlima } from "@/components/igre/konfiguracije";
-import { afrs, mq, kemijaBeton, kemijaVotla, kemija975, wc, bojler, umivalnik, cevnoStena, cevnoStrop, stiropor, din7504, kniping, din603, din571, maticniSpoj } from "@/components/igre/konfiguracije2";
+import { uvs, trak } from "@/components/igre/konfiguracije";
+import { turbo, gips, afrkKlima, afrs, mq, kemijaBeton, kemijaVotla, kemija975, wc, bojler, umivalnik, cevnoStena, cevnoStrop, stiropor, din7504, kniping, din603, din571, maticniSpoj } from "@/components/igre/konfiguracije2";
 
 /* Katera igra gre na katero stran izdelka (slug izdelka → igra). */
 const IGRE = {

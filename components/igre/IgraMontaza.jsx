@@ -39,6 +39,8 @@ export default function IgraMontaza({ cfg }) {
   const [izbire, setIzbire] = useState({});
   const [sporocilo, setSporocilo] = useState(null);
   const [napaka, setNapaka] = useState(false);
+  const [izbor, setIzbor] = useState({});      // potrjene izbire (premer, dolžina …)
+  const [osnutek, setOsnutek] = useState({});  // izbira, ki še ni potrjena
   const javljeno = useRef(false);
 
   const svgRef = useRef(null);
@@ -83,7 +85,9 @@ export default function IgraMontaza({ cfg }) {
 
   function najdiLuknjo(t) {
     let naj = -1, d0 = cfg.dosegZadetka ?? 110;
-    cfg.luknje.forEach((l, i) => {
+    const st = { nap, korak, koncano, izbire, izbor, napKorak: (li, j) => nap[li][j] };
+    cfg.luknje.forEach((l0, i) => {
+      const l = cfg.cilj?.(i, st) ?? l0;
       const d = Math.hypot(t.x - l.x, t.y - l.y);
       if (d < d0) { d0 = d; naj = i; }
     });
@@ -98,6 +102,8 @@ export default function IgraMontaza({ cfg }) {
     if (koncano) return;
 
     const izbrano = orodje ? cfg.orodja.find((o) => o.id === orodje) : null;
+
+    if (k.tip === "izbira") { povej("Najprej izberi v desnem stolpcu in potrdi izbiro.", true); return; }
 
     // skupni korak (postavi element)
     if (k.tip === "postavi") {
@@ -125,6 +131,11 @@ export default function IgraMontaza({ cfg }) {
       return;
     }
     if (nap[li][korak] >= 100) return;
+    if (k.preveriOrodje) {
+      const st = { nap, korak, koncano, izbire, izbor, napKorak: (a, b) => nap[a][b] };
+      const sp = k.preveriOrodje(izbrano.id, st);
+      if (sp) { povej(sp, true); return; }
+    }
 
     const l = cfg.luknje[li];
     const j = korak;
@@ -158,12 +169,25 @@ export default function IgraMontaza({ cfg }) {
     povej(o.izbrano ?? `${o.naziv} je v roki.`);
   }
 
+  function potrdiIzbiro() {
+    const manjka = k.skupine.find((g) => osnutek[g.kljuc] == null);
+    if (manjka) { povej(`Izberi še: ${manjka.naslov.toLowerCase()}.`, true); return; }
+    const st = { nap, korak, koncano, izbire, izbor, napKorak: (li, j) => nap[li][j] };
+    const napakaIzbire = k.preveri?.(osnutek, { ...izbor, ...osnutek }, st);
+    if (napakaIzbire) { povej(napakaIzbire, true); return; }
+    setIzbor((p) => ({ ...p, ...osnutek }));
+    setNap((p) => p.map((r) => r.map((v, j) => (j === korak ? 100 : v))));
+    setOsnutek({});
+    povej(typeof k.potrdilo === "function" ? k.potrdilo({ ...izbor, ...osnutek }) : (k.potrdilo ?? "Pravilna izbira."));
+  }
+
   function ponovi() {
+    setIzbor({}); setOsnutek({});
     ustavi(); setNap(zacetne()); setOrodje(null); setDelci([]); setIzbire({});
     setSporocilo(null); setNapaka(false); javljeno.current = false;
   }
 
-  const stanje = { nap, korak, koncano, izbire, napKorak: (li, j) => nap[li][j] };
+  const stanje = { nap, korak, koncano, izbire, izbor, napKorak: (li, j) => nap[li][j] };
 
   // položaj orodja — med delom se pripne na luknjo
   const izbrano = orodje ? cfg.orodja.find((o) => o.id === orodje) : null;
@@ -262,6 +286,23 @@ export default function IgraMontaza({ cfg }) {
         </div>
 
         <div className="orodjarna">
+          {!koncano && k.tip === "izbira" && (
+            <div className="igra-izbira">
+              {k.scenarij && <p className="igra-izbira-scenarij">{typeof k.scenarij === "function" ? k.scenarij(izbor) : k.scenarij}</p>}
+              {k.skupine.map((g) => (
+                <div key={g.kljuc} className="orodjarna-skupina">
+                  <h4>{g.naslov}</h4>
+                  <div className="orodjarna-gumbi">
+                    {(typeof g.moznosti === "function" ? g.moznosti({ ...izbor, ...osnutek }) : g.moznosti).map((m) => (
+                      <button key={String(m.v)} type="button" className={osnutek[g.kljuc] === m.v ? "izbran" : undefined}
+                        onClick={() => setOsnutek((p) => ({ ...p, [g.kljuc]: m.v }))}>{m.napis}</button>
+                    ))}
+                  </div>
+                </div>
+              ))}
+              <button type="button" className="b b-r igra-potrdi" onClick={potrdiIzbiro}>Potrdi izbiro</button>
+            </div>
+          )}
           <div className="orodjarna-skupina">
             <h4>Orodjarna</h4>
             <div className="orodjarna-gumbi">
