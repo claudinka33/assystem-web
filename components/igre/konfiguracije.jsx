@@ -73,24 +73,22 @@ export const turbo = {
   luknje: T.X.map((x) => ({ x, y: T.vrh })),
   smer: 0,
   orodja: [
-    ...svedri(6, [5, 6, 8], 2.2, T.L + 30, (d) => (d > 6
-      ? "Prevelika izvrtina — navoj Turbo vijaka ne prime. Vrtaj s svedrom Ø6."
-      : "Za Turbo vijak Ø7,5 vrtaj v zid s svedrom Ø6.")),
-    pihalka,
+    ...svedri(7, [6, 7, 8], 2.2, T.L + 30, (d) => (d > 7
+      ? "Prevelika izvrtina — navoj Turbo vijaka ne prime. V beton vrtaj s svedrom Ø7."
+      : "Za Turbo vijak v beton vrtaj s svedrom Ø7 (v votlo opeko Ø6,5).")),
+    { ...pihalka, napaka: "Pri Turbo vijaku luknje ne čistiš — privij ga kar takoj." },
     vijacnik,
     kladivo("Turbo vijaka ne zabijaš. Privij ga z vijačnikom — navoj se sam ureže v beton."),
   ],
   koraki: [
     { naziv: "Postavi okvir", tip: "postavi", navodilo: "Klikni na beton, da postaviš okenski okvir.", obmocje: (t) => t.y > 250, potrdilo: "Okvir je na mestu. Vrtaš kar skozi okvir." },
-    { naziv: "Izvrtaj luknje", orodje: "sveder6", nacin: "drzi", korak: 5, delci: "#b9b4a4", navodilo: "Drži miško nad rdečo oznako — vrtaj skozi okvir naravnost v beton." },
-    { naziv: "Izpihaj luknje", orodje: "pihalka", nacin: "drzi", korak: 8, delci: C.prah, navodilo: "Drži miško nad luknjo, dokler prah ne izgine.", preskok: "Luknja je še polna prahu. Prah zniža nosilnost — najprej izpihaj." },
+    { naziv: "Izvrtaj luknje", orodje: "sveder7", nacin: "drzi", korak: 5, delci: "#b9b4a4", navodilo: "Drži miško nad rdečo oznako — vrtaj skozi okvir naravnost v beton." },
     { naziv: "Privij vijaka", orodje: "vijacnik", nacin: "drzi", korak: 4, navodilo: "Drži miško nad vijakom, dokler glava ne nalega na okvir." },
   ],
   prijem(o, li, s) {
     const x = T.X[li];
     if (o.startsWith("sveder")) return { x, y: T.vrh + T.L * PROGRESS(s.nap[li][1]) };
-    if (o === "pihalka") return { x, y: T.vrh + 40 };
-    if (o === "vijacnik") return { x, y: T.vrh - T.vijak + T.vijak * PROGRESS(s.nap[li][3]) };
+    if (o === "vijacnik") return { x, y: T.vrh - T.vijak + T.vijak * PROGRESS(s.nap[li][2]) };
     return null;
   },
   narisi(s) {
@@ -112,8 +110,8 @@ export const turbo = {
             {s.nap.map((r, li) => {
               const x = T.X[li];
               const dno = T.vrh + T.L * PROGRESS(r[1]);
-              const q = r[3];
-              const pripravljen = s.korak === 3 || q > 0;
+              const q = r[2];
+              const pripravljen = s.korak === 2 || q > 0;
               const vrhVijaka = T.vrh - T.vijak + T.vijak * PROGRESS(q);
               return (
                 <g key={li}>
@@ -124,23 +122,17 @@ export const turbo = {
                       {dno > T.tla && <rect x={x - T.hw / 2} y={T.tla} width={T.hw} height={dno - T.tla} fill={C.luknja} />}
                     </>
                   )}
-                  {r[1] >= 100 && r[2] < 100 && (
-                    <>
-                      <Prah x={x} dno={T.tla + T.globina} sirina={T.hw} kolicina={100 - r[2]} />
-                      <ellipse cx={x} cy={T.vrh} rx={10 + (100 - r[2]) / 6} ry="6" fill="#cfc8b3" opacity={0.4 + (100 - r[2]) / 160} />
-                    </>
-                  )}
-                  {pripravljen && r[2] >= 100 && (
+                  {pripravljen && r[1] >= 100 && (
                     <g>
                       <NavojVijaka x={x} y1={vrhVijaka + 12} y2={vrhVijaka + T.vijak - 8} sirina={16} faza={q * 0.9} />
                       <polygon points={`${x - 4},${vrhVijaka + T.vijak - 8} ${x + 4},${vrhVijaka + T.vijak - 8} ${x},${vrhVijaka + T.vijak}`} fill={C.jeklo} stroke={C.ink} strokeWidth="1.3" />
                       <polygon points={`${x - 16},${vrhVijaka} ${x + 16},${vrhVijaka} ${x + 8},${vrhVijaka + 12} ${x - 8},${vrhVijaka + 12}`} fill={C.jekloS} stroke={C.ink} strokeWidth="1.5" strokeLinejoin="round" />
                     </g>
                   )}
-                  {li === 0 && r[1] >= 100 && q === 0 && s.korak < 3 && (
-                    <Napis x={x - 16} y={T.tla + 60} sidro="end">Ø6 mm</Napis>
+                  {li === 0 && r[1] >= 100 && q === 0 && s.korak < 2 && (
+                    <Napis x={x - 16} y={T.tla + 60} sidro="end">Ø7 mm</Napis>
                   )}
-                  {li === 0 && pripravljen && r[2] >= 100 && (
+                  {li === 0 && pripravljen && r[1] >= 100 && (
                     <Napis x={x - 30} y={T.vrh - 24} barva={C.ink} sidro="end">Turbo Ø7,5 · TX30</Napis>
                   )}
                   {q > 0 && li === 1 && (
@@ -160,8 +152,9 @@ export const turbo = {
   podatki: [
     ["Vijak", "Turbo Ø7,5 × 42–302 mm"],
     ["Glava", "ugreznjena, TX30"],
-    ["Okvir predvrtaj", "≈ Ø6,2 mm"],
-    ["Sveder v zid", "Ø6 mm — točen premer"],
+    ["Sveder v beton", "Ø7 mm"],
+    ["Sveder v votlo opeko", "Ø6,5 mm"],
+    ["Čiščenje luknje", "ni potrebno"],
     ["Privijanje", "udarni vijačnik"],
     ["Podlaga", "beton, opeka, zidaki"],
   ],
@@ -170,7 +163,7 @@ export const turbo = {
     napis: "PRITRJENO",
     kratko: "Okvir je pritrjen — brez vložka.",
     naslov: "Okvir je pritrjen brez vložka",
-    besedilo: "Vrtali ste skozi okvir, izpihali izvrtini in vijaka privili naravnost v beton. Kaljen navoj se sam ureže v steno izvrtine — vložek ni potreben, okvir pa ves čas ostane na mestu.",
+    besedilo: "Vrtali ste skozi okvir in vijaka privili naravnost v beton — luknje ni treba čistiti. Kaljen navoj se sam ureže v steno izvrtine — vložek ni potreben, okvir pa ves čas ostane na mestu.",
     povezave: [{ href: "/kontakt?vir=igra-turbo", label: "Zahtevaj ponudbo" }],
   },
 };
@@ -355,7 +348,7 @@ export const gips = {
     { naziv: "Nastavi vložka", orodje: "vlozek", nacin: "klik", navodilo: "Klikni na rdeči oznaki, da nastaviš vložka na ploščo." },
     { naziv: "Privij vložka", orodje: "vijacnik", nacin: "drzi", korak: 5, delci: "#eceeee", navodilo: "Drži miško nad vložkom — konica z rezili se sama zavrta v ploščo." },
     { naziv: "Prisloni nosilec", tip: "postavi", orodje: "element", navodilo: "Klikni v prizor, da prisloniš nosilec police.", potrdilo: "Nosilec je na mestu. Zdaj privij vijaka." },
-    { naziv: "Privij vijaka", orodje: "vijacnik", nacin: "drzi", korak: 5, navodilo: "Drži miško nad vijakom, dokler glava ne nalega na nosilec.", preskok: "Najprej prisloni nosilec police." },
+    { naziv: "Privij vijaka", orodje: "vijacnik", nacin: "drzi", korak: 5, navodilo: "Drži miško nad lesnim vijakom 4,5 × 30 — ne pretegni, da se mavčna plošča ne deformira.", preskok: "Najprej prisloni nosilec police." },
   ],
   prijem(o, li, s) {
     const x = G.X[li];
@@ -427,6 +420,9 @@ export const gips = {
   kicker: { x: 40, y: 34 },
   podatki: [
     ["Vložek", "13 × 32 mm, najlon"],
+    ["Vijak", "lesni vijak 4,5 × 30"],
+    ["Pozor", "ne pretegni — plošča se deformira"],
+    ["Dvojna plošča", "primerno tudi za dve plošči"],
     ["Plošča", "9,5–15 mm"],
     ["Vrtanje", "ni potrebno"],
     ["Privijanje", "izvijač ali vijačnik"],
@@ -572,26 +568,26 @@ function AfrkRisba({ y, glavaX, razpr = 0 }) {
 
 export const afrkKlima = {
   id: "afrk",
-  naslovPrizora: "AF-RK: konzola za klimo v zid",
+  naslovPrizora: "AF-RK: nosilec klime v zid",
   luknje: A.Y.map((y) => ({ x: A.usta, y })),
   smer: 90,
   kicker: { x: 360, y: 34 },
   dosegZadetka: 120,
   orodja: [
-    ...svedri(10, [8, 10, 12], 2, A.L + 30, (d) => `AF-RK 10 × 100 potrebuje izvrtino Ø10 — ${d < 10 ? "v premajhno ga ne vstaviš" : "v preveliki se tulec ne razpre"}.`),
+    ...svedri(10, [8, 10, 12], 2, A.L + 30, (d) => `AF-RK 10 × 100 potrebuje izvrtino Ø10 — ${d < 10 ? "v premajhno ga ne vstaviš" : "v preveliki se vložek ne razpre"}.`),
     pihalka,
     { id: "afrk", naziv: "AF-RK 10 × 100", risba: "roka", ikona: "vlozek", izbrano: "AF-RK je v roki. Klikni v izvrtino." },
     vijacnik,
-    { id: "enota", naziv: "Zunanja enota", risba: "roka", ikona: "enota", brezRotacije: true, izbrano: "Zunanja enota je v roki. Klikni na konzolo." },
-    kladivo("AF-RK ne zabijaš — privij vijak, da se tulec razpre v zidu."),
+    { id: "enota", naziv: "Zunanja enota", risba: "roka", ikona: "enota", brezRotacije: true, izbrano: "Zunanja enota je v roki. Klikni na nosilec." },
+    kladivo("AF-RK ne zabijaš — privij vijak, da se vložek razpre v zidu."),
   ],
   koraki: [
-    { naziv: "Prisloni konzolo", tip: "postavi", navodilo: "Klikni ob zid, da prisloniš konzolo.", obmocje: (t) => t.x > A.zid, potrdilo: "Konzola je poravnana. Vrtaš skozi luknje v konzoli." },
-    { naziv: "Izvrtaj", orodje: "sveder10", nacin: "drzi", korak: 5, delci: "#c9a08a", navodilo: "Drži miško ob rdeči oznaki — vrtaj skozi konzolo v zid." },
+    { naziv: "Prisloni nosilec", tip: "postavi", navodilo: "Klikni ob zid, da prisloniš nosilec klime.", obmocje: (t) => t.x > A.zid, potrdilo: "Nosilec je poravnan. Vrtaš skozi luknje v nosilcu — vložek gre skozi element." },
+    { naziv: "Izvrtaj", orodje: "sveder10", nacin: "drzi", korak: 5, delci: "#c9a08a", navodilo: "Drži miško ob rdeči oznaki — vrtaj skozi nosilec v zid." },
     { naziv: "Izpihaj", orodje: "pihalka", nacin: "drzi", korak: 8, delci: C.prah, navodilo: "Drži miško ob luknji, dokler prah ne izgine.", preskok: "Izvrtina je še polna prahu — najprej izpihaj." },
-    { naziv: "Vstavi AF-RK", orodje: "afrk", nacin: "klik", navodilo: "Klikni v vsako izvrtino — prirobnica nalega na konzolo." },
+    { naziv: "Vstavi AF-RK", orodje: "afrk", nacin: "klik", navodilo: "Klikni v vsako izvrtino — vložek potisni skozi nosilec, prirobnica naleže nanj." },
     { naziv: "Privij vijaka", orodje: "vijacnik", nacin: "drzi", korak: 4, navodilo: "Drži miško ob vijaku, dokler glava ne nalega." },
-    { naziv: "Postavi enoto", tip: "postavi", orodje: "enota", navodilo: "Klikni na konzolo, da postaviš zunanjo enoto.", obmocje: (t) => t.x > A.zid, potrdilo: "Zunanja enota stoji na konzoli.", preskok: "Najprej privij oba vijaka." },
+    { naziv: "Postavi enoto", tip: "postavi", orodje: "enota", navodilo: "Klikni na nosilec, da postaviš zunanjo enoto.", obmocje: (t) => t.x > A.zid, potrdilo: "Zunanja enota stoji na nosilcu.", preskok: "Najprej privij oba vijaka." },
   ],
   prijem(o, li, s) {
     const y = A.Y[li];
@@ -626,7 +622,7 @@ export const afrkKlima = {
         {!konzola && (
           <g>
             <rect x={A.zid} y="0" width={1200 - A.zid} height="600" fill={C.red} opacity="0.06" />
-            <GumbPostavi x={720} y={300} napis="PRISLONI KONZOLO" />
+            <GumbPostavi x={720} y={300} napis="PRISLONI NOSILEC" />
           </g>
         )}
         {konzola && (
@@ -637,7 +633,7 @@ export const afrkKlima = {
             <line x1={A.usta} y1="520" x2="760" y2="352" stroke={C.jeklo} strokeWidth="13" strokeLinecap="round" />
           </g>
         )}
-        {konzola && <Napis x={A.usta + 14} y={580} barva={C.ink} velikost={15}>KONZOLA</Napis>}
+        {konzola && <Napis x={A.usta + 14} y={580} barva={C.ink} velikost={15}>NOSILEC KLIME</Napis>}
 
         {enota && (
           <g>
@@ -679,7 +675,7 @@ export const afrkKlima = {
                 <g>
                   <Puscica x1={A.usta - A.tulec + 40} y1={y - 16} x2={A.usta - A.tulec + 40} y2={y - 42} />
                   <Puscica x1={A.usta - A.tulec + 40} y1={y + 16} x2={A.usta - A.tulec + 40} y2={y + 42} />
-                  <Napis x={A.usta - A.tulec + 54} y={y - 34}>tulec se razpre</Napis>
+                  <Napis x={A.usta - A.tulec + 54} y={y - 34}>vložek se razpre</Napis>
                 </g>
               )}
             </g>
@@ -694,15 +690,15 @@ export const afrkKlima = {
     ["Globina vrtanja", "h₁ = 70 mm"],
     ["Sidrna globina", "h_ef = 60 mm"],
     ["Prirobnica", "Ø18,5 mm"],
-    ["Pogon", "SW13 / TX40"],
+    ["Nastavek/ključ", "SW13 / TX40"],
     ["Podlage", "A–D: beton, opeka, zidaki, siporex"],
   ],
   banner: { x: 860, y: 520, sirina: 300 },
   konec: {
     napis: "PRITRJENO",
-    kratko: "Klima stoji na konzoli.",
-    naslov: "Konzola za klimo je pritrjena",
-    besedilo: "Konzolo ste prislonili na zid, vrtali skozi njene luknje, izvrtini izpihali in vstavili okvirna vložka AF-RK. Ko vijak privijete, se tulec razpre v zidu, velika prirobnica pa nalega na konzolo.",
+    kratko: "Klima stoji na nosilcu.",
+    naslov: "Nosilec klime je pritrjen",
+    besedilo: "Nosilec ste prislonili na zid, vrtali skozi njegove luknje, izvrtini izpihali in vložka AF-RK potisnili skozi nosilec. Ko vijak privijete, se vložek razpre v zidu, velika prirobnica pa nalega na nosilec.",
     povezave: [{ href: "/kontakt?vir=igra-afrk", label: "Zahtevaj ponudbo" }],
   },
 };
