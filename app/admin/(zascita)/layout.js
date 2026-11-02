@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { supabaseAdmin, trenutniAdmin } from "@/lib/supabase-server";
 import AdminMeni from "../AdminMeni";
 import NeStej from "../NeStej";
+import Obvestila from "../Obvestila";
 import "../admin.css";
 
 export const metadata = {
@@ -35,6 +36,7 @@ export default async function AdminLayout({ children }) {
   return (
     <div className="adm">
       <NeStej />
+      <Obvestila />
       <AdminMeni ime={admin.ime} stevci={{ narocila, b2b, povprasevanja }} dovoljenja={admin.dovoljenja} />
       <div className="adm-vsebina">{children}</div>
     </div>
