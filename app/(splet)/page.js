@@ -102,9 +102,6 @@ export default async function Domov() {
         </div>
       </section>
 
-      {/* ---------- Novosti in nasveti (blog) ---------- */}
-      <ClankiDomov />
-
       {/* ---------- Prednosti ---------- */}
       <div className="adv">
         <div className="w">
@@ -262,6 +259,9 @@ export default async function Domov() {
 
       {/* ---------- Zemljevid: iz Slovenije v svet ---------- */}
       <ZemljevidProdaje />
+
+      {/* ---------- Novosti in nasveti (blog) ---------- */}
+      <ClankiDomov />
 
       {/* ---------- Podjetje ---------- */}
       <section className="sec">
