@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { shraniNovico } from "@/lib/akcije/skupno";
 import NalozSliko from "@/app/admin/NalozSliko";
+import { VRSTE_CLANKOV } from "@/lib/vrste-clankov";
 
 export default function NovicaObrazec({ novica }) {
   const n = novica ?? {};
@@ -18,6 +19,16 @@ export default function NovicaObrazec({ novica }) {
         <div className="adm-polje">
           <label htmlFor="slug">Slug</label>
           <input id="slug" name="slug" type="text" defaultValue={n.slug ?? ""} pattern="[a-z0-9-]*" />
+        </div>
+        <div className="adm-polje">
+          <label htmlFor="vrsta">Vrsta članka</label>
+          <select id="vrsta" name="vrsta" defaultValue={n.vrsta ?? "aktualno"}>
+            {VRSTE_CLANKOV.map((v) => (
+              <option key={v.kljuc} value={v.kljuc}>
+                {v.naziv}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="adm-polje">
           <label htmlFor="objavljeno_dne">Datum objave</label>

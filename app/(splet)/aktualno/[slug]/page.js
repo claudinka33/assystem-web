@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { pridobiNovico } from "@/lib/podatki";
 import { datumSlo } from "@/lib/pomoc";
+import { nazivVrste } from "@/lib/vrste-clankov";
 
 export const revalidate = 60;
 
@@ -30,7 +31,9 @@ export default async function Novica({ params }) {
         </nav>
 
         <div className="st">
-          <span>{datumSlo(n.objavljeno_dne)}</span>
+          <span>
+            {nazivVrste(n.vrsta)} · {datumSlo(n.objavljeno_dne)}
+          </span>
           <h1>{n.naslov}</h1>
           {n.povzetek && <p>{n.povzetek}</p>}
         </div>
@@ -49,7 +52,7 @@ export default async function Novica({ params }) {
 
         <p style={{ marginTop: 32 }}>
           <Link className="more" href="/aktualno">
-            ← Vse novice
+            ← Vsi članki
           </Link>
         </p>
       </div>

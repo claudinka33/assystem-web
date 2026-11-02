@@ -1,60 +1,54 @@
-import Image from "next/image";
 import Link from "next/link";
 import NaslovStrani from "@/components/NaslovStrani";
 import VPripravi from "@/components/VPripravi";
+import BlogKartica from "@/components/BlogKartica";
 import { pridobiNovice } from "@/lib/podatki";
-import { datumSlo } from "@/lib/pomoc";
+import { VRSTE_CLANKOV } from "@/lib/vrste-clankov";
 
 export const revalidate = 60;
 
 export const metadata = {
-  title: "Aktualno",
-  description: "Novosti iz proizvodnje, novi izdelki in obvestila podjetja AS system.",
+  title: "Aktualno — novosti in nasveti",
+  description: "Novosti, nasveti za montažo in obvestila podjetja AS system.",
   alternates: { canonical: "/aktualno" },
 };
 
-export default async function Aktualno() {
-  const novice = await pridobiNovice();
+export default async function Aktualno({ searchParams }) {
+  const { vrsta } = (await searchParams) ?? {};
+  const izbrana = VRSTE_CLANKOV.some((v) => v.kljuc === vrsta) ? vrsta : null;
+  const clanki = await pridobiNovice(60, izbrana);
 
   return (
     <>
       <NaslovStrani
-        oznaka="Novice"
-        naslov="Aktualno"
-        opis="Novosti iz proizvodnje, novi izdelki in obvestila o poslovanju."
+        oznaka="Aktualno"
+        naslov="Novosti in nasveti"
+        opis="Novosti iz proizvodnje in programa, nasveti za pravilno montažo in obvestila podjetja."
       />
-      {novice.length === 0 ? (
-        <VPripravi kaj="Prvi zapisi bodo objavljeni v kratkem." />
-      ) : (
-        <section className="sec">
-          <div className="w">
-            <div className="kats">
-              {novice.map((n) => (
-                <Link key={n.slug} className="k" href={`/aktualno/${n.slug}`}>
-                  <div className={n.slika_url ? "im" : "im prazna"}>
-                    {n.slika_url && (
-                      <Image
-                        src={n.slika_url}
-                        alt={n.naslov}
-                        fill
-                        sizes="300px"
-                        style={{ objectFit: "cover" }}
-                      />
-                    )}
-                  </div>
-                  <div className="tx">
-                    <p style={{ color: "var(--color-red)", fontWeight: 700, marginBottom: 6 }}>
-                      {datumSlo(n.objavljeno_dne)}
-                    </p>
-                    <h2>{n.naslov}</h2>
-                    <p>{n.povzetek}</p>
-                  </div>
-                </Link>
+      <section className="sec">
+        <div className="w">
+          <nav className="blog-filtri" aria-label="Vrsta članka">
+            <Link href="/aktualno" className={!izbrana ? "on" : undefined}>
+              Vsi
+            </Link>
+            {VRSTE_CLANKOV.map((v) => (
+              <Link key={v.kljuc} href={`/aktualno?vrsta=${v.kljuc}`} className={izbrana === v.kljuc ? "on" : undefined}>
+                {v.naziv}
+              </Link>
+            ))}
+          </nav>
+
+          {clanki.length === 0 ? (
+            <VPripravi kaj="Prvi članki bodo objavljeni v kratkem." />
+          ) : (
+            <div className="blog-vsi">
+              {clanki.map((n) => (
+                <BlogKartica key={n.slug} n={n} />
               ))}
             </div>
-          </div>
-        </section>
-      )}
+          )}
+        </div>
+      </section>
     </>
   );
 }
