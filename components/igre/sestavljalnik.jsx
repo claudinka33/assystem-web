@@ -48,11 +48,27 @@ export function Vlozek({ x, vrh, L, d, barva = C.najlon, razpr = 0, prirobnica =
     </g>
   );
 }
-export function Vijak({ x, glava, L, d, navoj = "lesni", glavaTip = "plosca", faza = 0 }) {
+export function Vijak({ x, glava, L, d, navoj = "lesni", glavaTip = "plosca", faza = 0, razpr = 0 }) {
   // glava = zgornji rob glave; telo do glava + hv + L
   const hv = glavaH(glavaTip, d);
   const dno = glava + hv + L;
   const konica = navoj === "metricni" || navoj === "palica" ? 2 : navoj === "svedrast" ? d * 1.2 : d * 0.9;
+  if (navoj === "sidro") {
+    const r = d / 2, nv = Math.max(3, d * 0.55);
+    return (
+      <g>
+        <NavojVijaka x={x} y1={glava} y2={glava + hv + d * 3.5} sirina={d} korak={nv} faza={faza} />
+        <rect x={x - r} y={glava + hv + d * 3.5} width={d} height={Math.max(0, L - d * 3.5 - d * 2.4)} fill={C.jeklo} stroke={C.ink} strokeWidth="1.2" />
+        <rect x={x - r * 0.65} y={dno - d * 2.4} width={d * 0.65} height={d * 1.3} fill="#9aa0a5" stroke={C.ink} strokeWidth="1" />
+        <polygon points={`${x - r * 0.65},${dno - d * 1.1} ${x + r * 0.65},${dno - d * 1.1} ${x + r},${dno - d * 0.3} ${x},${dno} ${x - r},${dno - d * 0.3}`} fill={C.jekloS} stroke={C.ink} strokeWidth="1.1" />
+        {[-1, 1].map((sg) => <polygon key={sg} points={`${x + sg * r * 0.65},${dno - d * 2.5} ${x + sg * (r + razpr * 0.3)},${dno - d * 2.5} ${x + sg * (r + razpr)},${dno - d * 1.1} ${x + sg * r * 0.65},${dno - d * 1.1}`} fill="#c9d0d6" stroke={C.ink} strokeWidth="1" />)}
+        <rect x={x - d * 0.75} y={glava + d} width={d * 1.5} height={d * 0.8} rx="1.5" fill={C.jekloS} stroke={C.ink} strokeWidth="1.3" />
+        <line x1={x - d * 0.3} y1={glava + d} x2={x - d * 0.3} y2={glava + d * 1.8} stroke={C.ink} strokeWidth="0.9" />
+        <line x1={x + d * 0.3} y1={glava + d} x2={x + d * 0.3} y2={glava + d * 1.8} stroke={C.ink} strokeWidth="0.9" />
+        <rect x={x - d * 1.55} y={glava + d * 1.8} width={d * 3.1} height={d * 0.2} rx="1" fill="#d5d9dc" stroke={C.ink} strokeWidth="1" />
+      </g>
+    );
+  }
   return (
     <g>
       <NavojVijaka x={x} y1={glava + hv} y2={dno - konica} sirina={d} korak={navoj === "lesni" ? Math.max(4, d * 0.9) : Math.max(3, d * 0.55)} faza={faza} />
@@ -76,7 +92,7 @@ export function Vijak({ x, glava, L, d, navoj = "lesni", glavaTip = "plosca", fa
   );
 }
 export function glavaH(tip, d) {
-  return { plosca: Math.max(5, d * 0.55), ugrez: Math.max(5, d * 0.6), sestroba: Math.max(6, d * 0.7), prirobnica: Math.max(6, d * 0.7), goba: Math.max(10, d * 1.4), brez: 0 }[tip] ?? 0;
+  return { plosca: Math.max(5, d * 0.55), ugrez: Math.max(5, d * 0.6), sestroba: Math.max(6, d * 0.7), prirobnica: Math.max(6, d * 0.7), goba: Math.max(10, d * 1.4), sidro: d * 2, brez: 0 }[tip] ?? 0;
 }
 export function Hanger({ x, vrh, Lles, Lmet, d, faza }) {
   return (
@@ -167,7 +183,7 @@ export function sestavi(o) {
     if (mt.podlozka !== false) add("podlozka", { naziv: mt.podlozkaKorak ?? "Podložka", orodje: "podlozka", nacin: "klik", navodilo: mt.podlozkaNavodilo ?? "Klikni na vsak vijak, da nadeneš podložko." });
     add("matica", { naziv: mt.korak ?? "Zategni matico", orodje: "kljuc", nacin: "drzi", korak: 4, navodilo: mt.navodilo ?? "Nastavi ključ na matico in drži miško, dokler ni zategnjena." });
   }
-  if (o.dodatno) add("dodatno", o.dodatno);
+  (Array.isArray(o.dodatno) ? o.dodatno : o.dodatno ? [o.dodatno] : []).forEach((k, i) => add(i ? `dodatno${i + 1}` : "dodatno", k));
 
   const has = (k) => ix[k] != null;
   const pr = (s, li, k) => (has(k) ? P(s.nap[li][ix[k]]) : 1);
@@ -202,6 +218,7 @@ export function sestavi(o) {
     const x = X[li], g = geo(s), k = kljucKoraka(s);
     if (k === "vijak") return tr(x, vz.tip === "hanger" ? glavaVijaka(g, pr(s, li, "vijak")) : glavaVijaka(g, pr(s, li, "vijak")));
     if (k === "matica" || k === "podlozka") return tr(x, maticaY(s, li) + (mt.spodaj ? 18 : -14));
+    if (k?.startsWith("dodatno") && vz) return tr(x, glavaVijaka(g, 1) + (vz.glava === "sidro" ? g.d * 1.4 : 0));
     if (k === "masa" || k === "pihaj") return tr(x, -g.tPre);
     return tr(x, -g.tPre);
   }
@@ -230,7 +247,7 @@ export function sestavi(o) {
               {has("masa") && masa > 0 && (() => { const f = Math.min(1, 0.66 * masa + (masa >= 1 ? 0.34 * q : 0)); const w = o.vlozek?.mrezica ? g.vd - 4 : g.hd; return <rect x={x - w / 2} y={g.D - g.D * f} width={w} height={g.D * f} fill="#8e979f" opacity="0.92" />; })()}
               {vz && (nastavljen || q > 0) && (vz.tip === "hanger"
                 ? <Hanger x={x} vrh={glavaVijaka(g, q)} Lles={g.Lles} Lmet={g.Lmet} d={g.d} faza={q * 40} />
-                : <Vijak x={x} glava={glavaVijaka(g, q)} L={g.L} d={g.d} navoj={vz.navoj} glavaTip={vz.glava} faza={q * 40} />)}
+                : <Vijak x={x} glava={glavaVijaka(g, q)} L={g.L} d={g.d} navoj={vz.navoj} glavaTip={vz.glava} faza={q * 40} razpr={F(vz.razpr, { s, li, pr: (k) => pr(s, li, k) }) ?? 0} />)}
             </g>
           );
         })}
@@ -278,6 +295,7 @@ export function sestavi(o) {
       if (id === "pihalka") return tr(x, g.D * 0.35);
       if (id === "pistola") return tr(x, g.D * (1 - 0.66 * pr(s, li, "masa")));
       if (k === "vijak") return tr(x, glavaVijaka(g, pr(s, li, "vijak")));
+      if (k?.startsWith("dodatno") && vz && id === "kljuc") return tr(x, glavaVijaka(g, 1) + (vz.glava === "sidro" ? g.d * 1.4 : 0));
       if (id === "kljuc" && mt) return tr(x, maticaY(s, li) + (mt.spodaj ? (F(mt.d, g.I) * u) : -(F(mt.d, g.I) * u * 0.4)));
       return null;
     },
@@ -322,7 +340,7 @@ export function sestavi(o) {
             return <PodlagaZaslon key={i} tip={p.tip} x={x} y={y} w={w} h={h} rob={i === 0 ? (vod ? { x1: 0, y1: p0.y, x2: 1200, y2: p0.y } : { x1: p0.x, y1: 0, x2: p0.x, y2: 600 }) : null} />;
           })}
           <g transform={pos.g}>{narisiLokalno(s)}</g>
-          {!s.koncano && !prvi && naLuknji.includes(k) && X.map((x, li) => (s.nap[li][s.korak] < 100 ? <Tarca key={li} {...cilj(li, s)} /> : null))}
+          {!s.koncano && !prvi && (naLuknji.includes(k) || (k?.startsWith("dodatno") && koraki[s.korak]?.tip !== "postavi")) && X.map((x, li) => (s.nap[li][s.korak] < 100 ? <Tarca key={li} {...cilj(li, s)} /> : null))}
           {(o.napisi ?? []).map((n, i) => (typeof n === "function" ? <g key={i}>{n(s, tr, g)}</g> : <Napis key={i} x={n.x} y={n.y} barva={n.barva ?? C.ink} velikost={n.velikost ?? 17} sidro={n.sidro}>{n.t}</Napis>))}
           {has("vrtaj") && o.vrtanje.mera && s.nap[0][ix.vrtaj] >= 100 && s.korak <= (ix.vlozek ?? ix.masa ?? ix.vstavi ?? 99) && (() => {
             const a = tr(X[0] - g.hd / 2 - 22, 0), b = tr(X[0] - g.hd / 2 - 22, g.D);

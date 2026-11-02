@@ -398,3 +398,44 @@ export const maticniSpoj = sestavi({
   podatki: [["Vijak", "DIN 933 / DIN 931"], ["Podložka", "DIN 125"], ["Vzmetna podložka", "DIN 127B"], ["Matica", "DIN 934"], ["Dolžina", "spoj + podložke + matica + 2 navoja"], ["Namesto vzmetne", "samovarovalna matica DIN 985"]],
   konec: { napis: "PRITRJENO", kratko: "Spoj je zategnjen.", naslov: "Spoj po DIN je zategnjen", besedilo: "Premer ste izbrali po luknji, dolžino po debelini spoja s podložkami in matico. Namesto vzmetne podložke lahko uporabite samovarovalno matico DIN 985.", povezave: [ponudba("asco")] },
 });
+
+/* =================================================================
+   TX1 S ŠIROKO PODLOŽKO — lesena lega (špirovec) na betonski venec, nato streha
+   ================================================================= */
+const TX1 = { les: 120, izbire: { "10x210": { M: 10, L: 210, pod: "DIN 440" }, "16x250": { M: 16, L: 250, pod: "DIN 9021" }, "16x370": { M: 16, L: 370, pod: "DIN 9021" } } };
+const HNOM_TX1 = { 10: 60, 16: 100 };   // približno, po podatkih za TXH7 — potrdi pri tehnologu
+const tx1Sel = (I) => TX1.izbire[I.a ?? "16x250"];
+const tx1Beton = (I) => tx1Sel(I).L - TX1.les - tx1Sel(I).M - 5;   // del sidra v betonu
+export const tx1Siroka = sestavi({
+  id: "tx1", postavitev: "tla", u: 1.05, podlaga: "beton", naslov: "TX1 s široko podložko: lega na betonski venec",
+  luknje: [440, 760], doseg: 100,
+  element: { korak: "Položi lego", gumbNapis: "POLOŽI LESENO LEGO", gumb: { x: 600, y: 420 }, debelina: TX1.les, potrdilo: "Lega leži na vencu. Izberi sidro.",
+    risba: (s, g) => (<g><rect x="150" y={-g.tEl} width="900" height={g.tEl} fill="url(#v-les)" stroke={C.ink} strokeWidth="2" />
+      {s.koncano && <g>{[290, 600, 910].map((x) => <rect key={x} x={x - 40} y={-g.tEl - 96} width="80" height="96" fill="#ddb984" stroke={C.ink} strokeWidth="2" />)}
+        <rect x="110" y={-g.tEl - 116} width="980" height="20" fill="#c99a62" stroke={C.ink} strokeWidth="1.5" />
+        {Array.from({ length: 14 }, (_, i) => <path key={i} d={`M ${110 + i * 70} ${-g.tEl - 116} q 35 -34 70 0`} fill="none" stroke="#b5432c" strokeWidth="9" />)}</g>}</g>) },
+  izbire: [{ pred: "vrtaj", naziv: "Izberi sidro", scenarij: `Lesena lega (špirovec) je debela ${TX1.les} mm. Sidro gre skozi les v betonski venec; nad lego ostanejo podložka, matica in del navoja.`,
+    skupine: [izbor("a", "TX1 s široko podložko", Object.keys(TX1.izbire), (v) => `M${TX1.izbire[v].M} × ${TX1.izbire[v].L} · ${TX1.izbire[v].pod}`)],
+    preveri: (sel) => { const z = TX1.izbire[sel.a], b = tx1Beton(sel), h = HNOM_TX1[z.M];
+      if (b < h) return `M${z.M} × ${z.L} je prekratek: v betonu bi bil le ${b} mm, potrebnih je približno ${h} mm.`;
+      if (b > h + 80) return `M${z.M} × ${z.L} je za lego ${TX1.les} mm predolg — v betonu bi bil ${b} mm, vrtina pa ~${b + 10} mm globoka. Dolga sidra so za debelejše lege.`;
+      return null; },
+    potrdilo: (I) => `TX1 M${tx1Sel(I).M} × ${tx1Sel(I).L}: v betonu ~${tx1Beton(I)} mm. Vrtaj s svedrom Ø${tx1Sel(I).M} skozi les v beton.` }],
+  vrtanje: { svedri: [10, 12, 16, 18], pravi: (I) => tx1Sel(I).M, napaka: napacenSveder("sidro"), globina: (I) => tx1Beton(I) + 10, premer: (I) => tx1Sel(I).M,
+    mera: (I) => `Ø${tx1Sel(I).M} · v betonu ${tx1Beton(I) + 10} mm`, navodilo: "Drži miško nad rdečo oznako — vrtaj skozi les naravnost v beton." },
+  pihaj: { naziv: "Očisti izvrtino" },
+  vijak: { vstavi: "Vstavi sidro", vstaviNavodilo: "Klikni na luknjo — sidro potisni skozi les v izvrtino.", L: (I) => tx1Sel(I).L - 2 * tx1Sel(I).M, d: (I) => tx1Sel(I).M, navoj: "sidro", glava: "sidro",
+    vstop: (I) => tx1Sel(I).L - 2 * tx1Sel(I).M - TX1.les - 50, orodje: "kladivo", udarec: 34, korak: "Zabij sidro", navodilo: "Udarjaj s kladivom po koncu sidra, dokler široka podložka ne naleže na les.",
+    razpr: ({ pr }) => pr("dodatno") * 6 },
+  dodatno: [
+    { naziv: "Zategni matico", orodje: "kljuc", nacin: "drzi", korak: 5, navodilo: "Nastavi ključ na matico in drži — objemka se v betonu razpre.", preskok: "Najprej zabij sidro do podložke." },
+    { naziv: "Postavi streho", tip: "postavi", orodje: "streha", navodilo: "Klikni v prizor — na pritrjeno lego postavi špirovce in kritino.", potrdilo: "Streha je na legi.", preskok: "Najprej zategni obe matici." },
+  ],
+  orodja: [...svedri([10, 12, 16, 18]), OROD.pihalka, roka("vijak", "Sidro TX1", "Sidro TX1 je v roki. Klikni na luknjo v legi."), OROD.kladivo, OROD.kljuc,
+    { id: "streha", naziv: "Strešna konstrukcija", risba: "roka", ikona: "element", izbrano: "Špirovci in kritina so pripravljeni. Klikni v prizor." }, { ...OROD.vijacnik, napaka: "Sidro TX1 se zabije s kladivom, matica pa zategne s ključem." }],
+  vRoki: (k) => (k === "streha" ? <g><rect x="-80" y="-60" width="160" height="16" fill="#c99a62" stroke={C.ink} strokeWidth="1.5" /><path d="M -80 -60 q 40 -36 80 0 q 40 -36 80 0" fill="none" stroke="#b5432c" strokeWidth="8" /></g> : null),
+  oznaka: (I) => `TX1 M${tx1Sel(I).M} × ${tx1Sel(I).L}`,
+  napisi: [{ x: 24, y: 576, t: "BETONSKI VENEC", velikost: 18 }, { x: 160, y: 300 - TX1.les * 1.05 + 26, t: `LESENA LEGA (ŠPIROVEC) ${TX1.les} mm`, velikost: 15 }],
+  podatki: [["Sidro", "TX1 z veliko podložko DIN 9021 / DIN 440"], ["Certifikat", "ETA-17/0638"], ["Sveder", "enak premeru sidra"], ["Montaža", "skozi les naravnost v beton"], ["Izvrtina", "očisti in izpihaj"], ["Zategovanje", "ključ — objemka se razpre"]],
+  konec: { napis: "PRITRJENO", kratko: "Lega je pritrjena, streha je na njej.", naslov: "Lega je trdno na betonu", besedilo: "Sidro ste izbrali glede na debelino lege, vrtali skozi les v betonski venec, izvrtini očistili, sidri zabili do široke podložke in matici zategnili. Široka podložka razporedi pritisk na les, zato se matica ne vtisne v lego. Nato gre na lego strešna konstrukcija.", povezave: [ponudba("tx1")] },
+});

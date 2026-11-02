@@ -3,7 +3,7 @@
 import IgraSidranje from "@/components/IgraSidranje";
 import IgraMontaza from "@/components/igre/IgraMontaza";
 import { uvs, trak } from "@/components/igre/konfiguracije";
-import { turbo, gips, afrkKlima, afrs, mq, kemijaBeton, kemijaVotla, kemija975, wc, bojler, umivalnik, cevnoStena, cevnoStrop, stiropor, din7504, kniping, din603, din571, maticniSpoj } from "@/components/igre/konfiguracije2";
+import { turbo, gips, afrkKlima, afrs, mq, kemijaBeton, kemijaVotla, kemija975, wc, bojler, umivalnik, cevnoStena, cevnoStrop, stiropor, din7504, kniping, din603, din571, maticniSpoj, tx1Siroka } from "@/components/igre/konfiguracije2";
 
 /* Katera igra gre na katero stran izdelka (slug izdelka → igra). */
 const IGRE = {
@@ -12,6 +12,7 @@ const IGRE = {
     opis: "Šest korakov, kot gredo na gradbišču. Izberite sveder in sidro, izvrtajte, izpihajte luknje, zabijte sidra in jih zategnite.",
     Komponenta: IgraSidranje,
   },
+  "jekleno-sidro-tx1-siroka-podlozka": { naslov: "Pritrdite leseno lego na betonski venec", opis: "Izberite sidro TX1 glede na debelino lege, vrtajte skozi les v beton, očistite, zabijte sidri do široke podložke, zategnite matici in postavite streho.", cfg: tx1Siroka },
   "turbo-vijak-za-beton": {
     naslov: "Pritrdite okenski okvir v beton",
     opis: "Izberite pravi sveder, vrtajte skozi okvir in vijaka privijte naravnost v beton — brez vložka in brez čiščenja luknje.",
