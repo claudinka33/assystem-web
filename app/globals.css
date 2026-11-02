@@ -3043,3 +3043,24 @@ a.medij:hover { transform: translateY(-2px); border-color: var(--color-ink); bor
   .blog-stran .blog-kart { flex-direction: column; }
   .blog-stran .blog-sl { aspect-ratio: 16 / 9; min-height: 0; }
 }
+
+/* Blog: banner + vrsta kartic na domači strani */
+.blog-ban { position: relative; display: grid; grid-template-columns: 46% 1fr; min-height: 260px; max-height: 340px; background: var(--color-ink-2); color: #fff; border-radius: 12px; overflow: hidden; text-decoration: none; }
+.blog-ban.brez-slike { grid-template-columns: 1fr; min-height: 0; }
+.blog-ban::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: url("/vzorec-vijaki.png") center / cover no-repeat; opacity: .08; }
+.blog-ban-sl { position: relative; min-height: 260px; }
+.blog-ban-sl img { object-fit: cover; transition: transform .4s; }
+.blog-ban:hover .blog-ban-sl img { transform: scale(1.03); }
+.blog-ban-tx { position: relative; z-index: 1; padding: 32px 36px; display: flex; flex-direction: column; justify-content: center; gap: 12px; }
+.blog-ban-nad { display: flex; align-items: center; gap: 12px; font-size: 13px; color: rgba(255,255,255,.65); }
+.blog-ban-tx h3 { font-size: clamp(22px, 2.4vw, 30px); font-weight: 900; line-height: 1.2; color: #fff; }
+.blog-ban-tx p { color: rgba(255,255,255,.8); font-size: 15.5px; margin: 0; max-width: 60ch; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.blog-ban-gumb { align-self: flex-start; margin-top: 6px; background: var(--color-red); color: #fff; font-weight: 700; padding: 11px 20px; border-radius: 6px; }
+.blog-ban:hover .blog-ban-gumb { background: var(--color-red-2); }
+.blog-vrsta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 22px; }
+@media (max-width: 900px) {
+  .blog-ban { grid-template-columns: 1fr; max-height: none; }
+  .blog-ban-sl { min-height: 0; aspect-ratio: 16 / 9; }
+  .blog-ban-tx { padding: 22px 20px 24px; }
+  .blog-vrsta { grid-template-columns: 1fr; }
+}
