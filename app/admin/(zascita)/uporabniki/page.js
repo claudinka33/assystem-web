@@ -1,6 +1,6 @@
 import { supabaseAdmin } from "@/lib/supabase-server";
 import { zahtevajAdmina } from "@/lib/akcije/skupno";
-import { shraniDostop, izbrisiDostop } from "@/lib/akcije/uporabniki";
+import { shraniDostop, izbrisiDostop, ponovnoPosljiVabilo } from "@/lib/akcije/uporabniki";
 import { MODULI } from "@/lib/dovoljenja";
 
 export const dynamic = "force-dynamic";
@@ -71,7 +71,7 @@ export default async function Uporabniki() {
 
         <p style={{ marginTop: 0, opacity: 0.75 }}>
           Zaposleni se prijavijo na <b>assystem.si/admin/prijava</b> z gumbom <b>Prijava z Microsoft</b> (službeni račun).
-          Vidijo samo dele, ki jih odkljukaš.
+          Vidijo samo dele, ki jih odkljukaš. Ob dodajanju dobijo vabilo po mailu.
         </p>
 
         <section className="adm-panel" style={{ marginBottom: 24 }}>
@@ -100,10 +100,16 @@ export default async function Uporabniki() {
             </summary>
             <div style={{ paddingTop: 14 }}>
               <Obrazec d={d} />
-              <form action={izbrisiDostop} style={{ marginTop: 10 }}>
-                <input type="hidden" name="email" value={d.email} />
-                <button className="gumb siv" type="submit">Odstrani dostop</button>
-              </form>
+              <div style={{ display: "flex", gap: 10, marginTop: 10, flexWrap: "wrap" }}>
+                <form action={ponovnoPosljiVabilo}>
+                  <input type="hidden" name="email" value={d.email} />
+                  <button className="gumb siv" type="submit">Pošlji vabilo znova</button>
+                </form>
+                <form action={izbrisiDostop}>
+                  <input type="hidden" name="email" value={d.email} />
+                  <button className="gumb siv" type="submit">Odstrani dostop</button>
+                </form>
+              </div>
             </div>
           </details>
         ))}
