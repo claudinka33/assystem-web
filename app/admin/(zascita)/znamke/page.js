@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { izdelkiZPredlogi } from "@/lib/znamke-admin";
-import { nastaviZnamko, vpisiPredloge, preklopiZnamkoNaSpletu } from "@/lib/akcije/znamke-admin";
+import { nastaviZnamko, preklopiZnamkoNaSpletu } from "@/lib/akcije/znamke-admin";
 import { skriteZnamkeAdmin } from "@/lib/znamke-admin";
 import { ZNAMKE, ZNAMKE_INFO } from "@/lib/znamke";
 
@@ -14,10 +14,8 @@ export default async function ZnamkeIzdelkov({ searchParams }) {
 
   const nastrani = (i) => i.vpis ?? i.predlog;
   const brezVpisa = seznam.filter((i) => !i.vpis);
-  const razlike = seznam.filter((i) => i.vpis && i.vpis !== i.predlog);
   const vrstice =
     prikaz === "brez" ? brezVpisa
-    : prikaz === "razlike" ? razlike
     : ZNAMKE.includes(prikaz) ? seznam.filter((i) => nastrani(i) === prikaz)
     : seznam;
 
@@ -25,13 +23,6 @@ export default async function ZnamkeIzdelkov({ searchParams }) {
     <>
       <div className="adm-glava">
         <h1>Znamke izdelkov</h1>
-        {stolpec && brezVpisa.length > 0 && (
-          <form action={vpisiPredloge}>
-            <button className="gumb" type="submit">
-              Vpiši predloge ({brezVpisa.length})
-            </button>
-          </form>
-        )}
       </div>
 
       <div className="adm-telo">
@@ -68,17 +59,10 @@ export default async function ZnamkeIzdelkov({ searchParams }) {
           </div>
         </div>
 
-        <p style={{ color: "#6e767e", marginBottom: 14, maxWidth: 820 }}>
-          Pravilo predloga: šifra AS811/812/814/816 → Silvermate · slug »mungo-…« ali šifra M… → Mungo ·
-          šifra AF… → ASfix · kategorija Vijačno blago → ASco · ostalo → ASfix. Vpis v bazi ima vedno prednost.
-          »Vpiši predloge« vpiše predlog samo izdelkom brez vpisa; obstoječih vpisov ne spremeni.
-        </p>
-
         <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 18 }}>
           {[
             ["vse", `Vsi (${seznam.length})`],
-            ["brez", `Brez vpisa (${brezVpisa.length})`],
-            ["razlike", `Vpis ≠ predlog (${razlike.length})`],
+            ["brez", `Samodejno (${brezVpisa.length})`],
             ...ZNAMKE.map((z) => [z, `${ZNAMKE_INFO[z].ime} (${seznam.filter((i) => nastrani(i) === z).length})`]),
           ].map(([k, n]) => (
             <Link key={k} href={`/admin/znamke?prikaz=${k}`} className={`gumb mini ${prikaz === k ? "" : "siv"}`}>
@@ -93,14 +77,13 @@ export default async function ZnamkeIzdelkov({ searchParams }) {
               <th>Izdelek</th>
               <th>Kategorija</th>
               <th>Šifre</th>
-              <th style={{ width: 110 }}>Vpisano</th>
-              <th style={{ width: 110 }}>Predlog</th>
+              <th style={{ width: 140 }}>Znamka</th>
               <th style={{ width: 230 }}>Spremeni</th>
             </tr>
           </thead>
           <tbody>
             {vrstice.map((i) => (
-              <tr key={i.id} style={i.vpis && i.vpis !== i.predlog ? { background: "#fff6e5" } : undefined}>
+              <tr key={i.id}>
                 <td>
                   <Link href={`/admin/izdelki/${i.id}`}>
                     <b>{i.naziv}</b>
@@ -112,8 +95,10 @@ export default async function ZnamkeIzdelkov({ searchParams }) {
                   {i.sifre.slice(0, 3).join(", ")}
                   {i.sifre.length > 3 && ` … (+${i.sifre.length - 3})`}
                 </td>
-                <td>{i.vpis ? <b>{ZNAMKE_INFO[i.vpis].ime}</b> : <span style={{ color: "#9ba0a5" }}>—</span>}</td>
-                <td>{ZNAMKE_INFO[i.predlog].ime}</td>
+                <td>
+                  <b>{ZNAMKE_INFO[nastrani(i)]?.ime}</b>
+                  {!i.vpis && <span style={{ color: "#9ba0a5", fontSize: 12.5 }}> · samodejno</span>}
+                </td>
                 <td>
                   {stolpec && (
                     <form action={nastaviZnamko} style={{ display: "flex", gap: 6 }}>
