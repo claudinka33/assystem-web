@@ -1,4 +1,4 @@
-import { pridobiKategorije, pridobiNovice, skriteZnamke } from "@/lib/podatki";
+import { pridobiKategorije, pridobiNovice, pridobiVseIzdelke, skriteZnamke } from "@/lib/podatki";
 import { ZNAMKE_INFO } from "@/lib/znamke";
 import { site } from "@/lib/site";
 
@@ -16,6 +16,7 @@ export default async function sitemap() {
   const zdaj = new Date();
   const { seznam } = await pridobiKategorije();
   const novice = await pridobiNovice(50);
+  const izdelki = await pridobiVseIzdelke();
 
   return [
     ...strani.filter((p) => !skrite.includes(p)).map((p) => ({
@@ -29,6 +30,12 @@ export default async function sitemap() {
       lastModified: zdaj,
       changeFrequency: "monthly",
       priority: 0.8,
+    })),
+    ...izdelki.map((i) => ({
+      url: `${site.url}${i.href}`,
+      lastModified: zdaj,
+      changeFrequency: "monthly",
+      priority: 0.6,
     })),
     ...novice.map((n) => ({
       url: `${site.url}/aktualno/${n.slug}`,

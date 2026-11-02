@@ -14,7 +14,7 @@ export default async function SpletLayout({ children }) {
     <>
       <Header kategorije={kategorijeMeni} skrite={skrite} />
       <main>{children}</main>
-      <Footer />
+      <Footer kategorije={kategorijeMeni} />
       <Merjenje />
       <Sledenje />
     </>

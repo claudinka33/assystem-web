@@ -35,6 +35,7 @@ export const metadata = {
     title: "AS system — pritrdilna tehnika in vijačno blago",
     description:
       "Pritrdilna tehnika in vijačno blago ASfix, ASco in Silvermate. Od 1993, dobava v 19 držav.",
+    images: [{ url: "/hero-izdelki-2026.png", width: 1100, height: 1044, alt: "Pritrdila ASfix" }],
   },
   robots: { index: true, follow: true },
 };

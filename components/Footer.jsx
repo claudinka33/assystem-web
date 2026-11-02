@@ -4,7 +4,8 @@ import { PRAVNE } from "@/lib/pravno";
 import { kategorije, site } from "@/lib/site";
 import PrijavaNovice from "@/components/PrijavaNovice";
 
-export default function Footer() {
+export default function Footer({ kategorije: izBaze }) {
+  const seznam = izBaze?.length ? izBaze : kategorije;
   return (
     <>
     <PrijavaNovice />
@@ -27,7 +28,7 @@ export default function Footer() {
 
         <div>
           <b>Program</b>
-          {kategorije.slice(0, 5).map((k) => (
+          {seznam.slice(0, 5).map((k) => (
             <Link key={k.slug} href={`/program/${k.slug}`}>
               {k.naziv}
             </Link>
