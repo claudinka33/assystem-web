@@ -3002,3 +3002,30 @@ a.medij:hover { transform: translateY(-2px); border-color: var(--color-ink); bor
 .igra-izbira .orodjarna-gumbi button { padding: 8px 10px; }
 .igra-izbira-scenarij { margin: 0; font-size: 13.5px; color: var(--color-ink); background: var(--color-mist); padding: 8px 10px; border-radius: 6px; }
 .igra-potrdi { width: 100%; justify-content: center; }
+
+/* ---------- Aktualno: pas z zadnjo novico na vrhu domače strani ---------- */
+.akt-pas { position: relative; background: #2b2b2b; color: #fff; overflow: hidden; }
+.akt-pas::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: url("/vzorec-vijaki.png") center / cover no-repeat; opacity: .10;
+}
+.akt-pas-w { position: relative; display: flex; align-items: center; gap: 22px; padding-top: 18px; padding-bottom: 18px; }
+.akt-pas-sl { position: relative; flex: 0 0 150px; aspect-ratio: 16 / 10; border-radius: 8px; overflow: hidden; background: #3a3a3a; }
+.akt-pas-sl img { object-fit: cover; }
+.akt-pas-bes { flex: 1; min-width: 0; }
+.akt-pas-nad { display: flex; align-items: center; gap: 10px; font-size: 12.5px; color: rgba(255,255,255,.65); margin-bottom: 4px; }
+.akt-pas-oz { background: var(--color-red, #C8102E); color: #fff; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; font-size: 11px; padding: 3px 9px; border-radius: 4px; }
+.akt-pas-nas { display: block; color: #fff; font-weight: 700; font-size: 20px; line-height: 1.25; text-decoration: none; }
+.akt-pas-nas:hover { text-decoration: underline; }
+.akt-pas-bes p { margin: 4px 0 0; color: rgba(255,255,255,.78); font-size: 15px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.akt-pas-gumbi { display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
+.akt-pas-gumb { background: var(--color-red, #C8102E); color: #fff; font-weight: 700; padding: 11px 18px; border-radius: 6px; text-decoration: none; white-space: nowrap; }
+.akt-pas-gumb:hover { filter: brightness(1.08); }
+.akt-pas-vse { color: rgba(255,255,255,.8); font-size: 14px; text-decoration: underline; white-space: nowrap; }
+@media (max-width: 760px) {
+  .akt-pas-w { flex-wrap: wrap; gap: 12px; padding-top: 16px; padding-bottom: 16px; }
+  .akt-pas-sl { flex-basis: 96px; }
+  .akt-pas-bes { flex-basis: calc(100% - 110px); }
+  .akt-pas-nas { font-size: 17px; }
+  .akt-pas-gumbi { width: 100%; justify-content: space-between; }
+}

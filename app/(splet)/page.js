@@ -11,6 +11,7 @@ import ResitveObjekt from "@/components/ResitveObjekt";
 import { objekt, cone, vsiSlugi } from "@/lib/resitve";
 import { pridobiIzdelkePoSlugih } from "@/lib/podatki";
 import InstagramObjave from "@/components/InstagramObjave";
+import AktualnoPas from "@/components/AktualnoPas";
 
 export const revalidate = 60;
 
@@ -48,6 +49,8 @@ export default async function Domov() {
 
   return (
     <>
+      <AktualnoPas />
+
       {/* ---------- Hero ---------- */}
       <section className="hero">
         <div className="w">
