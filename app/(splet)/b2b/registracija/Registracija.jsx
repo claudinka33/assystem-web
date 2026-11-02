@@ -87,6 +87,9 @@ export default function Registracija() {
           <Link href="/splosni-pogoji" target="_blank">splošnimi pogoji poslovanja</Link> in z obdelavo podatkov po{" "}
           <Link href="/zasebnost" target="_blank">politiki zasebnosti</Link>.
         </label>
+        <label className="blag-pog" style={{ margin: 0 }}>
+          <input type="checkbox" name="novice" /> Želim prejemati e-novice AS system (novosti, akcije, nasveti). Odjava je mogoča kadarkoli.
+        </label>
         <button className="b b-r" type="submit" disabled={cakam}>{cakam ? "Pošiljam …" : "Registriraj podjetje"}</button>
       </div>
     </form>

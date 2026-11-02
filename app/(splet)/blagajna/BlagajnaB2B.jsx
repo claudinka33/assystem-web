@@ -74,7 +74,7 @@ export default function BlagajnaB2B({ kupec, dostave, prodajalne }) {
     setNapaka("");
     zacni(async () => {
       const r = await oddajNarocilo({
-        podatki: { ...f, dostava: dost, placilo: "racun", prodajalna: osebno ? "" : prodajalna, koda: koda?.koda ?? "", pogoji: f.pogoji === "on" },
+        podatki: { ...f, dostava: dost, placilo: "racun", prodajalna: osebno ? "" : prodajalna, koda: koda?.koda ?? "", pogoji: f.pogoji === "on", novice: f.novice === "on" },
         postavke: p.map((x) => ({ id: x.id, kolicina: x.kolicina })),
       });
       if (r?.napaka) return setNapaka(r.napaka);
@@ -183,6 +183,10 @@ export default function BlagajnaB2B({ kupec, dostave, prodajalne }) {
               <label className="bl-pog">
                 <input type="checkbox" name="pogoji" required />
                 <span>Strinjam se s <Link href="/splosni-pogoji" target="_blank">splošnimi pogoji poslovanja</Link>.</span>
+              </label>
+              <label className="bl-pog">
+                <input type="checkbox" name="novice" />
+                <span>Želim prejemati e-novice AS system (novosti, akcije, nasveti). Odjava je mogoča kadarkoli.</span>
               </label>
               {napaka && <div className="bl-nap">{napaka}</div>}
               <button className="trg-gumb" type="submit" disabled={cakam || brezCene.length > 0}>

@@ -1,74 +1,92 @@
 import Link from "next/link";
-import { Resend } from "resend";
+import { resendOdjemalec, vsiKontakti, vsePanoge } from "@/lib/enovice-resend";
+import { dodajKontakt, novaPanoga } from "@/lib/akcije/enovice-kontakti";
 import UvozKontaktov from "./UvozKontaktov";
+import SeznamKontaktov from "./SeznamKontaktov";
 
 export const dynamic = "force-dynamic";
 
-async function izResenda() {
-  const kljuc = process.env.RESEND_API_KEY;
-  if (!kljuc) return { napaka: "RESEND_API_KEY ni nastavljen.", segmenti: [], uvozi: [] };
-  const r = new Resend(kljuc);
-  const [s, u] = await Promise.all([
-    r.segments.list().catch((e) => ({ error: e })),
-    r.contacts.imports.list({ limit: 10 }).catch((e) => ({ error: e })),
-  ]);
-  return {
-    napaka: s.error?.message ?? null,
-    segmenti: s.data?.data ?? [],
-    uvozi: u.data?.data ?? [],
-  };
+async function podatki() {
+  try {
+    const r = resendOdjemalec();
+    const panoge = await vsePanoge(r);
+    const kontakti = await vsiKontakti(r);
+    // kdo je v kateri panogi
+    const clani = {};
+    for (const p of panoge) {
+      const vPanogi = await vsiKontakti(r, p.id);
+      for (const k of vPanogi) (clani[k.email] ??= []).push(p.id);
+    }
+    return {
+      panoge: panoge.map((p) => ({ id: p.id, ime: p.name })),
+      kontakti: kontakti.map((k) => ({
+        email: k.email,
+        ime: [k.first_name, k.last_name].filter(Boolean).join(" "),
+        odjavljen: !!k.unsubscribed,
+        dodan: k.created_at,
+        panoge: clani[k.email] ?? [],
+      })),
+    };
+  } catch (e) {
+    return { napaka: e.message, panoge: [], kontakti: [] };
+  }
 }
 
-const stanja = { queued: "v čakanju", in_progress: "v teku", completed: "končano", failed: "napaka" };
+const polje = { padding: "9px 11px", border: "1px solid #c6cace", borderRadius: 6, fontSize: 14 };
 
 export default async function KontaktiENovic() {
-  const { napaka, segmenti, uvozi } = await izResenda();
+  const { napaka, panoge, kontakti } = await podatki();
 
   return (
     <>
       <div className="adm-glava">
-        <h1>E-novice · kontakti</h1>
-        <Link className="gumb siv mini" href="/admin/e-novice">
-          ← Pošiljanje
+        <div>
+          <div className="adm-nad">E-novice</div>
+          <h1>Kontakti</h1>
+        </div>
+        <Link className="gumb siv" href="/admin/e-novice">
+          ← E-novice
         </Link>
       </div>
 
       <div className="adm-telo">
         {napaka && <div className="opozorilo">Resend: {napaka}</div>}
 
-        <UvozKontaktov segmenti={segmenti} />
+        {/* ---------- dodaj ---------- */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 16, marginBottom: 26 }}>
+          <form action={dodajKontakt} style={{ background: "#fff", border: "1px solid #e3e5e8", borderRadius: 10, padding: "16px 18px" }}>
+            <b style={{ display: "block", marginBottom: 10 }}>Dodaj kontakt</b>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+              <input name="email" type="email" required placeholder="e-naslov *" style={{ ...polje, gridColumn: "1 / -1" }} />
+              <input name="ime" placeholder="ime" style={polje} />
+              <input name="priimek" placeholder="priimek" style={polje} />
+            </div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "6px 14px", margin: "12px 0" }}>
+              {panoge.map((p) => (
+                <label key={p.id} style={{ display: "flex", gap: 6, alignItems: "center", fontSize: 14, fontWeight: 400 }}>
+                  <input type="checkbox" name="panoge" value={p.id} style={{ width: "auto", margin: 0 }} /> {p.ime}
+                </label>
+              ))}
+            </div>
+            <button className="gumb" type="submit">Dodaj kontakt</button>
+          </form>
 
-        {uvozi.length > 0 && (
-          <>
-            <h2 style={{ fontSize: 15, margin: "28px 0 10px" }}>Zadnji uvozi</h2>
-            <table className="adm-tab">
-              <thead>
-                <tr>
-                  <th>Začeto</th>
-                  <th>Stanje</th>
-                  <th>Skupaj</th>
-                  <th>Novi</th>
-                  <th>Posodobljeni</th>
-                  <th>Napake</th>
-                </tr>
-              </thead>
-              <tbody>
-                {uvozi.map((u) => (
-                  <tr key={u.id}>
-                    <td>{u.created_at ? new Date(u.created_at).toLocaleString("sl-SI", { timeZone: "Europe/Ljubljana" }) : ""}</td>
-                    <td>
-                      <span className={u.status === "completed" ? "znacka" : "znacka ne"}>{stanja[u.status] ?? u.status}</span>
-                    </td>
-                    <td>{u.counts?.total ?? ""}</td>
-                    <td>{u.counts?.created ?? ""}</td>
-                    <td>{u.counts?.updated ?? ""}</td>
-                    <td>{(u.counts?.failed ?? 0) + (u.counts?.skipped ?? 0) || ""}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </>
-        )}
+          <div style={{ background: "#fff", border: "1px solid #e3e5e8", borderRadius: 10, padding: "16px 18px" }}>
+            <b style={{ display: "block", marginBottom: 10 }}>Nova panoga</b>
+            <form action={novaPanoga} style={{ display: "flex", gap: 8 }}>
+              <input name="ime" required placeholder="npr. Krovci, Distributerji tujina" style={{ ...polje, flex: 1 }} />
+              <button className="gumb" type="submit">Dodaj</button>
+            </form>
+            <details style={{ marginTop: 16 }}>
+              <summary style={{ cursor: "pointer", fontWeight: 600 }}>Uvoz več kontaktov naenkrat (prilepi iz Excela)</summary>
+              <div style={{ marginTop: 12 }}>
+                <UvozKontaktov segmenti={panoge.map((p) => ({ id: p.id, name: p.ime }))} />
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <SeznamKontaktov kontakti={kontakti} panoge={panoge} />
       </div>
     </>
   );

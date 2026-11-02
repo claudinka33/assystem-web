@@ -63,7 +63,7 @@ export default function Blagajna({ dostave, placila = ["predracun", "povzetje"] 
     setNapaka("");
     zacni(async () => {
       const r = await oddajNarocilo({
-        podatki: { ...f, dostava: dost, placilo: plac, koda: koda?.koda ?? "", pogoji: f.pogoji === "on" },
+        podatki: { ...f, dostava: dost, placilo: plac, koda: koda?.koda ?? "", pogoji: f.pogoji === "on", novice: f.novice === "on" },
         postavke: p.map((x) => ({ id: x.id, kolicina: x.kolicina })),
       });
       if (r?.napaka) return setNapaka(r.napaka);
@@ -196,6 +196,10 @@ export default function Blagajna({ dostave, placila = ["predracun", "povzetje"] 
                   <Link href="/odstop-od-pogodbe" target="_blank">pravico do odstopa</Link> in{" "}
                   <Link href="/zasebnost" target="_blank">varstvom podatkov</Link>.
                 </span>
+              </label>
+              <label className="bl-pog">
+                <input type="checkbox" name="novice" />
+                <span>Želim prejemati e-novice AS system (novosti, akcije, nasveti). Odjava je mogoča kadarkoli.</span>
               </label>
               {napaka && <div className="bl-nap">{napaka}</div>}
               <button className="trg-gumb" type="submit" disabled={cakam}>
