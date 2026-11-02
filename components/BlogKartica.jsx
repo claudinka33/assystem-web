@@ -3,21 +3,29 @@ import Link from "next/link";
 import { datumSlo } from "@/lib/pomoc";
 import { nazivVrste } from "@/lib/vrste-clankov";
 
-export default function BlogKartica({ n, glavni = false }) {
+// Kartica članka v slogu »Kaj iščete?« (vrata): slika zgoraj, oznaka, naslov, rdeč gumb.
+export default function BlogKartica({ n }) {
+  const pot = `/aktualno/${n.slug}`;
   return (
-    <Link href={`/aktualno/${n.slug}`} className={`blog-kart${glavni ? " blog-glavni" : ""}`}>
-      <div className={`blog-sl${n.slika_url ? "" : " prazna"}`}>
-        {n.slika_url && (
-          <Image src={n.slika_url} alt={n.naslov} fill sizes={glavni ? "(max-width: 900px) 100vw, 760px" : "(max-width: 900px) 100vw, 360px"} />
-        )}
-        <span className="blog-oz">{nazivVrste(n.vrsta)}</span>
-      </div>
-      <div className="blog-tx">
-        {n.objavljeno_dne && <span className="blog-dat">{datumSlo(n.objavljeno_dne)}</span>}
-        <h3>{n.naslov}</h3>
+    <div className="vrata-k blog-tab">
+      <Link href={pot} className={`blog-tab-sl${n.slika_url ? "" : " prazna"}`} tabIndex={-1} aria-hidden="true">
+        {n.slika_url && <Image src={n.slika_url} alt="" fill sizes="(max-width: 620px) 100vw, (max-width: 1100px) 50vw, 300px" />}
+      </Link>
+      <div className="blog-tab-tx">
+        <em>
+          {nazivVrste(n.vrsta)}
+          {n.objavljeno_dne ? ` · ${datumSlo(n.objavljeno_dne)}` : ""}
+        </em>
+        <h3>
+          <Link href={pot}>{n.naslov}</Link>
+        </h3>
         {n.povzetek && <p>{n.povzetek}</p>}
-        <span className="blog-vec">Preberi članek →</span>
+        <div className="vrata-cta">
+          <Link className="b b-r" href={pot}>
+            Preberi →
+          </Link>
+        </div>
       </div>
-    </Link>
+    </div>
   );
 }

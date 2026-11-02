@@ -3004,63 +3004,18 @@ a.medij:hover { transform: translateY(-2px); border-color: var(--color-ink); bor
 .igra-potrdi { width: 100%; justify-content: center; }
 
 
-/* ---------- Blog: Novosti in nasveti ---------- */
-.blog-oz { display: inline-block; background: var(--color-red); color: #fff; font-size: 11px; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase; padding: 4px 10px; border-radius: 3px; }
-.blog-oz.svetla { background: #fff; color: var(--color-red); }
-.blog-dat { font-size: 13px; color: var(--color-muted-2); }
-.blog-mreza { display: grid; grid-template-columns: 1.6fr 1fr; gap: 24px; }
-.blog-stran { display: grid; gap: 24px; grid-template-rows: 1fr 1fr; }
-.blog-kart { display: flex; flex-direction: column; background: #fff; border: 1px solid var(--color-line); border-radius: 10px; overflow: hidden; color: inherit; text-decoration: none; transition: box-shadow .2s, transform .2s; }
-.blog-kart:hover { box-shadow: 0 14px 34px rgba(0,0,0,.10); transform: translateY(-2px); }
-.blog-kart:hover h3 { color: var(--color-red); }
-.blog-sl { position: relative; aspect-ratio: 16 / 9; background: var(--color-ink-2); overflow: hidden; }
-.blog-sl img { object-fit: cover; transition: transform .4s; }
-.blog-kart:hover .blog-sl img { transform: scale(1.03); }
-.blog-sl.prazna::before { content: ""; position: absolute; inset: 0; background: url("/vzorec-vijaki.png") center / cover no-repeat; opacity: .14; }
-.blog-sl .blog-oz { position: absolute; left: 14px; top: 14px; z-index: 1; }
-.blog-tx { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
-.blog-tx h3 { font-size: 18px; font-weight: 800; line-height: 1.3; transition: color .2s; }
-.blog-tx p { color: var(--color-muted); font-size: 15px; margin: 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-.blog-vec { margin-top: auto; padding-top: 6px; font-weight: 700; font-size: 14px; color: var(--color-red); }
-/* izpostavljen članek */
-.blog-glavni .blog-sl { aspect-ratio: 16 / 10; }
-.blog-glavni .blog-tx h3 { font-size: clamp(21px, 2.2vw, 28px); }
-/* manjša kartica ob strani: slika levo */
-.blog-stran .blog-kart { flex-direction: row; }
-.blog-stran .blog-sl { aspect-ratio: auto; flex: 0 0 42%; min-height: 150px; }
-.blog-stran .blog-tx h3 { font-size: 16.5px; }
-.blog-stran .blog-tx p { -webkit-line-clamp: 2; }
+/* ---------- Blog: tablice člankov (slog »vrata«) ---------- */
+.blog-tab { padding: 0; gap: 0; overflow: hidden; }
+.blog-tab-sl { position: relative; display: block; aspect-ratio: 16 / 10; background: var(--color-ink-2); overflow: hidden; }
+.blog-tab-sl img { object-fit: cover; transition: transform .4s; }
+.blog-tab:hover .blog-tab-sl img { transform: scale(1.04); }
+.blog-tab-sl.prazna::before { content: ""; position: absolute; inset: 0; background: url("/vzorec-vijaki.png") center / cover no-repeat; opacity: .14; }
+.blog-tab-tx { padding: 20px 22px 24px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.blog-tab-tx em { margin-top: 0; }
+.blog-tab-tx h3 a { color: inherit; text-decoration: none; }
+.blog-tab-tx h3 a:hover { color: var(--color-red); }
+.blog-tab-tx p { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 /* stran /aktualno */
 .blog-filtri { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
 .blog-filtri a { border: 1px solid var(--color-line); border-radius: 20px; padding: 7px 16px; font-size: 14px; font-weight: 600; color: var(--color-ink); text-decoration: none; background: #fff; }
 .blog-filtri a.on { background: var(--color-red); border-color: var(--color-red); color: #fff; }
-.blog-vsi { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 24px; }
-@media (max-width: 900px) {
-  .blog-mreza { grid-template-columns: 1fr; }
-  .blog-stran { grid-template-rows: none; }
-}
-@media (max-width: 560px) {
-  .blog-stran .blog-kart { flex-direction: column; }
-  .blog-stran .blog-sl { aspect-ratio: 16 / 9; min-height: 0; }
-}
-
-/* Blog: banner + vrsta kartic na domači strani */
-.blog-ban { position: relative; display: grid; grid-template-columns: 46% 1fr; min-height: 260px; max-height: 340px; background: var(--color-ink-2); color: #fff; border-radius: 12px; overflow: hidden; text-decoration: none; }
-.blog-ban.brez-slike { grid-template-columns: 1fr; min-height: 0; }
-.blog-ban::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: url("/vzorec-vijaki.png") center / cover no-repeat; opacity: .08; }
-.blog-ban-sl { position: relative; min-height: 260px; }
-.blog-ban-sl img { object-fit: cover; transition: transform .4s; }
-.blog-ban:hover .blog-ban-sl img { transform: scale(1.03); }
-.blog-ban-tx { position: relative; z-index: 1; padding: 32px 36px; display: flex; flex-direction: column; justify-content: center; gap: 12px; }
-.blog-ban-nad { display: flex; align-items: center; gap: 12px; font-size: 13px; color: rgba(255,255,255,.65); }
-.blog-ban-tx h3 { font-size: clamp(22px, 2.4vw, 30px); font-weight: 900; line-height: 1.2; color: #fff; }
-.blog-ban-tx p { color: rgba(255,255,255,.8); font-size: 15.5px; margin: 0; max-width: 60ch; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-.blog-ban-gumb { align-self: flex-start; margin-top: 6px; background: var(--color-red); color: #fff; font-weight: 700; padding: 11px 20px; border-radius: 6px; }
-.blog-ban:hover .blog-ban-gumb { background: var(--color-red-2); }
-.blog-vrsta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 22px; }
-@media (max-width: 900px) {
-  .blog-ban { grid-template-columns: 1fr; max-height: none; }
-  .blog-ban-sl { min-height: 0; aspect-ratio: 16 / 9; }
-  .blog-ban-tx { padding: 22px 20px 24px; }
-  .blog-vrsta { grid-template-columns: 1fr; }
-}

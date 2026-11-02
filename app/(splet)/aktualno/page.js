@@ -41,7 +41,7 @@ export default async function Aktualno({ searchParams }) {
           {clanki.length === 0 ? (
             <VPripravi kaj="Prvi članki bodo objavljeni v kratkem." />
           ) : (
-            <div className="blog-vsi">
+            <div className="vrata">
               {clanki.map((n) => (
                 <BlogKartica key={n.slug} n={n} />
               ))}
