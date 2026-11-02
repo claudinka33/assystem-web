@@ -178,39 +178,6 @@ export default async function Domov() {
         </div>
       </section>
 
-      {/* ---------- Za trgovce: police ---------- */}
-      <section className="sec trg-sec">
-        <div className="w">
-          <div className="qua" style={{ alignItems: "center" }}>
-            <div>
-              <div className="st">
-                <span>Za trgovce</span>
-                <h2>Polica, ki proda sama</h2>
-                <p>
-                  Sestavimo prodajni program in postavitev police za vašo trgovino — ASfix, ASco ali kombinacijo
-                  obeh. Postavitve od 1, 2, 4 in 6 metrov do 20 metrov.
-                </p>
-              </div>
-              <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-                <Link className="b b-w" href="/za-trgovce">
-                  Police za B2B partnerje →
-                </Link>
-              </div>
-            </div>
-            <div className="trg-slika">
-              <Image
-                src="/slike/proizvodnja/hero-izdelki.png"
-                alt="Izdelki ASfix in ASco za trgovine"
-                width={1416}
-                height={941}
-                sizes="(max-width: 1000px) 100vw, 560px"
-                style={{ width: "100%", height: "auto" }}
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ---------- Kako naročite ---------- */}
       <section className="sec grey">
         <div className="w">
