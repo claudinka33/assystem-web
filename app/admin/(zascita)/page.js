@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { supabaseAdmin, trenutniAdmin } from "@/lib/supabase-server";
 import { Ikona } from "../AdminMeni";
+import { imaDostop } from "@/lib/dovoljenja";
 
 export const dynamic = "force-dynamic";
 
@@ -40,8 +41,10 @@ function pozdrav() {
   return "Dober večer";
 }
 
-export default async function NadzornaPlosca() {
+export default async function NadzornaPlosca({ searchParams }) {
   const admin = await trenutniAdmin();
+  const sp = (await searchParams) ?? {};
+  const sme = (k) => imaDostop(admin, k);
 
   const [kategorij, izdelkov, artiklov, novihNarocil, b2bCaka, novihPovp, narocila, povprasevanja] = await Promise.all([
     prestej("kategorije"),
@@ -55,10 +58,10 @@ export default async function NadzornaPlosca() {
   ]);
 
   const caka = [
-    { n: novihNarocil, naziv: "novih naročil", pot: "/admin/narocila", ikona: "narocila" },
-    { n: b2bCaka, naziv: "B2B kupcev čaka odobritev", pot: "/admin/b2b", ikona: "b2b" },
-    { n: novihPovp, naziv: "novih povpraševanj", pot: "/admin/povprasevanja", ikona: "povprasevanja" },
-  ].filter((x) => x.n > 0);
+    { n: novihNarocil, naziv: "novih naročil", pot: "/admin/narocila", ikona: "narocila", k: "narocila" },
+    { n: b2bCaka, naziv: "B2B kupcev čaka odobritev", pot: "/admin/b2b", ikona: "b2b", k: "b2b" },
+    { n: novihPovp, naziv: "novih povpraševanj", pot: "/admin/povprasevanja", ikona: "povprasevanja", k: "povprasevanja" },
+  ].filter((x) => x.n > 0 && sme(x.k));
 
   const ime = (admin?.ime ?? "").split(" ")[0];
 
@@ -75,6 +78,9 @@ export default async function NadzornaPlosca() {
       </div>
 
       <div className="adm-telo">
+        {sp.ni_dostopa && (
+          <div className="opozorilo" style={{ marginBottom: 18 }}>Do tega dela administracije nimaš dostopa.</div>
+        )}
         {caka.length > 0 ? (
           <div className="adm-pozornost">
             <b>Čaka na vas</b>
@@ -85,43 +91,52 @@ export default async function NadzornaPlosca() {
             ))}
           </div>
         ) : (
-          <div className="adm-mirno">✓ Vse urejeno — ni novih naročil, povpraševanj ali B2B prijav.</div>
+          <div className="adm-mirno">✓ Vse urejeno — nič ne čaka nate.</div>
         )}
 
         <div className="adm-kartice">
+          {sme("kategorije") && (
           <Link href="/admin/kategorije" className="adm-kartica">
             <span className="ik"><Ikona ime="kategorije" size={20} /></span>
             <b>{kategorij}</b>
             <span>Kategorij</span>
           </Link>
+          )}
+          {sme("izdelki") && (
           <Link href="/admin/izdelki" className="adm-kartica">
             <span className="ik"><Ikona ime="izdelki" size={20} /></span>
             <b>{izdelkov}</b>
             <span>Izdelkov</span>
           </Link>
+          )}
+          {sme("sinhronizacija") && (
           <Link href="/admin/sinhronizacija" className="adm-kartica">
             <span className="ik"><Ikona ime="sinhro" size={20} /></span>
             <b>{artiklov.toLocaleString("sl-SI")}</b>
             <span>Artiklov s šifro</span>
           </Link>
+          )}
+          {sme("povprasevanja") && (
           <Link href="/admin/povprasevanja" className={`adm-kartica${novihPovp ? " vroca" : ""}`}>
             <span className="ik"><Ikona ime="povprasevanja" size={20} /></span>
             <b>{novihPovp}</b>
             <span>Novih povpraševanj</span>
           </Link>
+          )}
         </div>
 
         <h2 className="adm-naslov">Hitra dejanja</h2>
         <div className="adm-hitro">
-          <Link href="/admin/izdelki/nov"><Ikona ime="izdelki" /> Nov izdelek</Link>
-          <Link href="/admin/kategorije/nova"><Ikona ime="kategorije" /> Nova kategorija</Link>
-          <Link href="/admin/novice/nova"><Ikona ime="novice" /> Nova novica</Link>
-          <Link href="/admin/e-novice"><Ikona ime="mail" /> Pošlji e-novice</Link>
-          <Link href="/admin/delovna-mesta/novo"><Ikona ime="delo" /> Novo delovno mesto</Link>
-          <Link href="/admin/vsebine"><Ikona ime="besedila" /> Uredi besedila</Link>
+          {sme("izdelki") && <Link href="/admin/izdelki/nov"><Ikona ime="izdelki" /> Nov izdelek</Link>}
+          {sme("kategorije") && <Link href="/admin/kategorije/nova"><Ikona ime="kategorije" /> Nova kategorija</Link>}
+          {sme("novice") && <Link href="/admin/novice/nova"><Ikona ime="novice" /> Nova novica</Link>}
+          {sme("e-novice") && <Link href="/admin/e-novice"><Ikona ime="mail" /> Pošlji e-novice</Link>}
+          {sme("delovna-mesta") && <Link href="/admin/delovna-mesta/novo"><Ikona ime="delo" /> Novo delovno mesto</Link>}
+          {sme("vsebine") && <Link href="/admin/vsebine"><Ikona ime="besedila" /> Uredi besedila</Link>}
         </div>
 
         <div className="adm-dva">
+          {sme("narocila") && (
           <section className="adm-panel">
             <header>
               <h2>Zadnja naročila</h2>
@@ -146,7 +161,9 @@ export default async function NadzornaPlosca() {
               </ul>
             )}
           </section>
+          )}
 
+          {sme("povprasevanja") && (
           <section className="adm-panel">
             <header>
               <h2>Zadnja povpraševanja</h2>
@@ -168,6 +185,7 @@ export default async function NadzornaPlosca() {
               </ul>
             )}
           </section>
+          )}
         </div>
 
         {kategorij === 0 && (

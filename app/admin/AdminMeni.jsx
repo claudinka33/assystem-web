@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import Odjava from "./Odjava";
+import { kljucIzPoti, imaDostop } from "@/lib/dovoljenja";
 
 // Preproste črtne ikone (24×24, stroke = currentColor).
 const I = {
@@ -64,11 +65,12 @@ const MENI = [
     { naziv: "Prijave za delo", pot: "/admin/prijave", ikona: "prijave" },
   ]},
   { skupina: "Sistem", povezave: [
+    { naziv: "Uporabniki", pot: "/admin/uporabniki", ikona: "kontakti" },
     { naziv: "Nastavitve", pot: "/admin/nastavitve", ikona: "nastavitve" },
   ]},
 ];
 
-export default function AdminMeni({ ime, stevci = {} }) {
+export default function AdminMeni({ ime, stevci = {}, dovoljenja = null }) {
   const pot = usePathname();
   const [odprt, setOdprt] = useState(false);
 
@@ -102,7 +104,9 @@ export default function AdminMeni({ ime, stevci = {} }) {
           <Link href="/admin" className={pot === "/admin" ? "on" : ""}>
             <Ikona ime="plosca" /> Nadzorna plošča
           </Link>
-          {MENI.map((s) => (
+          {MENI.map((s) => ({ ...s, povezave: s.povezave.filter((p) => imaDostop({ dovoljenja }, kljucIzPoti(p.pot))) }))
+            .filter((s) => s.povezave.length > 0)
+            .map((s) => (
             <div key={s.skupina}>
               <div className="skupina">{s.skupina}</div>
               {s.povezave.map((p) => (

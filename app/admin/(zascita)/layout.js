@@ -35,7 +35,7 @@ export default async function AdminLayout({ children }) {
   return (
     <div className="adm">
       <NeStej />
-      <AdminMeni ime={admin.ime} stevci={{ narocila, b2b, povprasevanja }} />
+      <AdminMeni ime={admin.ime} stevci={{ narocila, b2b, povprasevanja }} dovoljenja={admin.dovoljenja} />
       <div className="adm-vsebina">{children}</div>
     </div>
   );
