@@ -3123,3 +3123,27 @@ a.medij:hover { transform: translateY(-2px); border-color: var(--color-ink); bor
 .ftr a.ftr-cms { display: inline; margin: 0; padding: 0; border: 0; font-size: 12px; color: var(--color-muted-2); font-weight: 400; }
 @media (max-width: 1000px) { .ftr .w { grid-template-columns: 1fr 1fr; gap: 36px; } }
 @media (max-width: 620px) { .ftr .w { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- Manjše pasice na podstraneh (nov. 2026) ---------- */
+.zn-hero .w { gap: 40px; padding-top: 24px; padding-bottom: 36px; }
+.zn-hero .drobtine { margin-bottom: 18px; }
+.zn-logo { width: clamp(180px, 19vw, 280px); max-height: 100px; }
+.zn-oznaka { margin-top: 18px; }
+.zn-hero h1 { font-size: clamp(26px, 2.7vw, 38px); }
+.zn-hero p { font-size: 15.5px; margin-top: 12px; }
+.zn-znacke { margin-top: 16px; }
+.zn-gumbi { margin-top: 20px; }
+.zn-hero .zn-slika { max-width: 520px; justify-self: center; width: 100%; }
+.zn-hero .zn-slika img { max-height: 400px; width: auto !important; height: auto !important; max-width: 100%; object-fit: contain; margin: 0 auto; display: block; }
+.zn-hero.zn-polica .w { padding-top: 22px; padding-bottom: 30px; }
+.zn-hero.zn-polica .zn-slika img { max-height: 440px; }
+.pr-hero-im { padding: 16px 0; }
+.trg-hero-im { max-width: 520px; }
+.kt-hero-foto { min-height: 300px; }
+.pgh { padding: 32px 0; }
+@media (max-width: 900px) {
+  .zn-hero .w { gap: 22px; padding-bottom: 30px; }
+  .zn-hero .zn-slika img { max-height: 300px; }
+  .zn-hero.zn-polica .zn-slika img { max-height: 340px; }
+  .kt-hero-foto { min-height: 220px; }
+}
