@@ -161,16 +161,17 @@ export default function ONas() {
               <a className="b b-o" href="#lokacije">Kje smo</a>
             </div>
           </div>
-          <div className="zn-slika">
+          <div className="zn-slika on-foto">
             <Image
-              src="/slike/o-nas/asfix-skatla.webp"
-              alt="Škatla ASfix iz lastne proizvodnje AS system"
-              width={1400}
-              height={1047}
+              src="/slike/as-system-smarje-2026.jpg"
+              alt="Sedež AS system v Šmarju pri Jelšah"
+              width={2000}
+              height={1125}
               priority
               sizes="(max-width: 1000px) 90vw, 620px"
               style={{ width: "100%", height: "auto" }}
             />
+            <span>Sedež v Šmarju pri Jelšah</span>
           </div>
         </div>
       </section>
