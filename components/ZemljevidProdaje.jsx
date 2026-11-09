@@ -73,7 +73,7 @@ export default function ZemljevidProdaje() {
           </h2>
           <p>
             Pritrdila iz naše proizvodnje v Šmarju pri Jelšah in Bistrici ob Sotli vgrajujejo monterji in izvajalci po Evropi in
-            drugod po svetu — pod znamko ASfix ali pod znamkami naših partnerjev.
+            drugod po svetu: pod znamko ASfix ali pod znamkami naših partnerjev.
           </p>
           <div className="zem-st">
             <div><b>{site.drzave}</b><span>držav, kamor dobavljamo</span></div>

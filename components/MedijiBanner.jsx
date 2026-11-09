@@ -35,7 +35,7 @@ export default function MedijiBanner({ video, letak, certifikat, temno = false }
             )}
           </span>
           <b>{letak.naziv ?? "Letak"}</b>
-          <em>Odpri PDF ↓</em>
+          <em>Odprite PDF ↓</em>
         </a>
       )}
       {certifikat && (
@@ -47,7 +47,7 @@ export default function MedijiBanner({ video, letak, certifikat, temno = false }
             <span className="eta-ce">CE</span>
           </span>
           <b>{certifikat.naslov ?? "Evropska tehnična ocena"}</b>
-          <em>{certifikat.opis ?? "Odpri dokument ↓"}</em>
+          <em>{certifikat.opis ?? "Odprite dokument ↓"}</em>
         </Link>
       )}
     </div>

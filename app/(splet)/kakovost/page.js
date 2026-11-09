@@ -36,7 +36,7 @@ const oznake = [
   ["CE", "Oznaka skladnosti", "Izdelek ustreza zahtevam evropske zakonodaje za gradbene proizvode. Oznaka je na vsaki embalaži."],
   ["DoP", "Izjava o lastnostih", "Dokument, ki ga izvajalec priloži dokumentaciji objekta. Za vsako sidro ga pripravimo sami."],
   ["ISO", "ISO 9001:2015", "Certificiran sistem vodenja kakovosti (Bureau Veritas). Postopki so zapisani, nadzorovani in ponovljivi."],
-  ["F120", "Ognjevarnost", "Nosilnost sidra je dokazana 120 minut v požaru — za zahtevne konstrukcijske vgradnje."],
+  ["F120", "Ognjevarnost", "Nosilnost sidra je dokazana 120 minut v požaru, za zahtevne konstrukcijske vgradnje."],
 ];
 
 const sidra = [
@@ -47,13 +47,13 @@ const sidra = [
 ];
 
 const kontrola = [
-  ["Vhodna kontrola", "Preverimo material in polizdelke ob prevzemu — žico, granulat, embalažo. Dobavitelje redno ocenjujemo skupaj z nabavo."],
-  ["Medfazna kontrola", "Med proizvodnjo merimo po planu kontrole — dimenzije, navoj in videz. Odstopanje ustavi serijo, preden nastane škart."],
+  ["Vhodna kontrola", "Preverimo material in polizdelke ob prevzemu, žico, granulat, embalažo. Dobavitelje redno ocenjujemo skupaj z nabavo."],
+  ["Medfazna kontrola", "Med proizvodnjo merimo po planu kontrole, dimenzije, navoj in videz. Odstopanje ustavi serijo, preden nastane škart."],
   ["Končna kontrola", "Pred pakiranjem preverimo izdelek, količino, etiketo in videz embalaže. Šele nato gre serija v skladišče."],
 ];
 
 const sistem = [
-  ["Sledljivost", "Vsaka serija ima svojo oznako LOT — od materiala, stroja in delovnega naloga do palete pri kupcu."],
+  ["Sledljivost", "Vsaka serija ima svojo oznako LOT, od materiala, stroja in delovnega naloga do palete pri kupcu."],
   ["Merilna oprema", "Kalibrirana merilna oprema in usposobljeni kontrolorji. Kontrolni zapisi so podlaga za tehnično dokumentacijo."],
   ["Neskladni izdelki", "Kontrola ima pravico ustaviti proizvodnjo ali odpremo. Za vsako odstopanje sledi korektivni ukrep."],
   ["Reklamacije", "Vsako reklamacijo obravnavamo z analizo vzroka in kupcu odgovorimo v dogovorjenem roku."],
@@ -77,7 +77,7 @@ export default async function Kakovost() {
             <p>
               Zato kakovost pri nas ni oddelek za papirje, ampak zadnja obramba
               pred tveganjem na gradbišču. Nosilna sidra imajo evropsko tehnično
-              oceno, oznako CE in izjavo o lastnostih — pripravljene za
+              oceno, oznako CE in izjavo o lastnostih, pripravljene za
               projektanta in nadzornika.
             </p>
             <ul className="zn-znacke">
@@ -125,7 +125,7 @@ export default async function Kakovost() {
             <h2>Dokazila, ki jih projekt zahteva</h2>
             <p>
               Nosilno sidro ni navaden vijak. Projektant in nadzornik zahtevata
-              dokazila — pri nas so pripravljena za vsako sidro.
+              dokazila: pri nas so pripravljena za vsako sidro.
             </p>
           </div>
           <div className="kk-oznake">
@@ -186,7 +186,7 @@ export default async function Kakovost() {
           <div className="st">
             <span>Kontrola v proizvodnji</span>
             <h2>Iz hiše ne gre nič, kar ni skladno</h2>
-            <p>Tri stopnje kontrole — od materiala, ki pride v hišo, do škatle, ki gre iz nje.</p>
+            <p>Tri stopnje kontrole: od materiala, ki pride v hišo, do škatle, ki gre iz nje.</p>
           </div>
           <ol className="kk-kontrola">
             {kontrola.map(([n, o]) => (
@@ -221,7 +221,7 @@ export default async function Kakovost() {
                 <h2>Zapisano, merjeno, sledljivo</h2>
                 <p>
                   Sistem vodenja kakovosti po ISO 9001:2015 velja za celotno pot
-                  izdelka — od razvoja in nabave do proizvodnje, pakiranja in
+                  izdelka: od razvoja in nabave do proizvodnje, pakiranja in
                   odpreme.
                 </p>
               </div>
@@ -308,7 +308,7 @@ export default async function Kakovost() {
         <div className="w">
           <div>
             <h2>Potrebujete dokumentacijo za projekt?</h2>
-            <p>Pošljite seznam izdelkov — pripravimo ETA, DoP in navodila za vgradnjo.</p>
+            <p>Pošljite seznam izdelkov: pripravimo ETA, DoP in navodila za vgradnjo.</p>
           </div>
           <Link className="b b-w" href="/kontakt?vir=kakovost">
             Zaprosite za dokumentacijo →

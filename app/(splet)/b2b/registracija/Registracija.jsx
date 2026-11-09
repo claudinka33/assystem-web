@@ -24,7 +24,7 @@ export default function Registracija() {
   if (stanje?.ok && stanje.obstojec)
     return (
       <div className="b2b-ok">
-        <b>Podjetje je dodano tvojemu obstoječemu računu.</b> Prijavi se na <Link href="/b2b">B2B prijavi</Link> z istim geslom —
+        <b>Podjetje je dodano vašemu obstoječemu računu.</b> Prijavite se na <Link href="/b2b">B2B prijavi</Link> z istim geslom,
         podatke podjetja preverimo v nekaj minutah.
       </div>
     );
@@ -32,7 +32,7 @@ export default function Registracija() {
     return (
       <div className="b2b-ok">
         <b>Skoraj končano.</b> Na <b>{stanje.email}</b> smo poslali povezavo za potrditev e-naslova. Klikni jo, nato se lahko prijaviš.
-        Če sporočila ni v nekaj minutah, preveri mapo z neželeno pošto.
+        Če sporočila ni v nekaj minutah, preverite mapo z neželeno pošto.
       </div>
     );
   return (
@@ -61,7 +61,7 @@ export default function Registracija() {
               {isce ? "Iščem …" : "Poišči"}
             </button>
           </span>
-          {iskanje?.najdeno && <small style={{ color: "#1a7f3c" }}>Podatki so izpolnjeni — preverite jih.</small>}
+          {iskanje?.najdeno && <small style={{ color: "#1a7f3c" }}>Podatki so izpolnjeni: preverite jih.</small>}
           {iskanje && !iskanje.najdeno && iskanje.napaka && <small style={{ color: "var(--color-red)" }}>{iskanje.napaka}</small>}
         </label>
         <label className="r2">Naziv podjetja *<input name="podjetje" required autoComplete="organization" {...polje("podjetje")} /></label>
@@ -69,7 +69,7 @@ export default function Registracija() {
         <label>Poštna številka<input name="posta" autoComplete="postal-code" {...polje("posta")} /></label>
         <label>Kraj<input name="kraj" autoComplete="address-level2" {...polje("kraj")} /></label>
         <label className="r2">
-          Poslovalnica (neobvezno — prazno = sedež)
+          Poslovalnica (neobvezno: prazno = sedež)
           <input name="poslovalnica" placeholder="npr. PE Celje, Mariborska 10" />
         </label>
         <label>Ime in priimek *<input name="ime" required autoComplete="name" /></label>
@@ -79,7 +79,7 @@ export default function Registracija() {
         <label>Ponovi geslo *<input name="geslo2" type="password" required minLength={8} autoComplete="new-password" /></label>
       </div>
       <p className="blag-op" style={{ margin: "10px 0 6px" }}>
-        Uporabite službeni e-naslov podjetja — če se ujema s podatki v našem sistemu, dostop odobrimo samodejno.
+        Uporabite službeni e-naslov podjetja: če se ujema s podatki v našem sistemu, dostop odobrimo samodejno.
       </p>
       <div className="reg-dno">
         <label className="blag-pog" style={{ margin: 0 }}>

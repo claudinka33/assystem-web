@@ -40,7 +40,7 @@ export default async function B2B({ searchParams }) {
               <li>pregled vseh spletnih naročil na enem mestu</li>
             </ul>
             <p style={{ marginTop: 18 }}>
-              Obstoječi partnerji dobijo dostop do svojih cen praviloma v nekaj minutah po potrditvi e-naslova, nove partnerje odobrimo v enem delovnem dnevu.
+              Obstoječi partnerji dobijo dostop do svojih cen praviloma v nekaj minutah po potrditvi e-naslova, nove partnerje odobrimo v najkrajšem možnem času.
             </p>
             <Link className="b b-r" href="/b2b/registracija" style={{ display: "inline-block", marginTop: 14 }}>Registracija podjetja</Link>
             <p style={{ fontSize: 14, marginTop: 18, color: "var(--color-muted)" }}>

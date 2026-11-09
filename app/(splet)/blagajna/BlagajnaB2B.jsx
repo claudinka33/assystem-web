@@ -128,9 +128,9 @@ export default function BlagajnaB2B({ kupec, dostave, prodajalne }) {
                   <label className="s6">
                     Naslov dostave
                     <select value={prodajalna} onChange={(e) => setProdajalna(e.target.value)} disabled={Boolean(kupec.prodajalna)}>
-                      {!kupec.prodajalna && <option value="">Sedež — {kupec.naslov}</option>}
+                      {!kupec.prodajalna && <option value="">Sedež: {kupec.naslov}</option>}
                       {prodajalne.filter((x) => !kupec.prodajalna || x.sifra === kupec.prodajalna).map((x) => (
-                        <option key={x.sifra} value={x.sifra}>{x.naziv2 || x.naziv} — {x.naslov}, {x.posta}</option>
+                        <option key={x.sifra} value={x.sifra}>{x.naziv2 || x.naziv}: {x.naslov}, {x.posta}</option>
                       ))}
                     </select>
                   </label>

@@ -3,12 +3,12 @@ import Link from "next/link";
 import { site } from "@/lib/site";
 import FotoGalerija from "@/components/FotoGalerija";
 import { FOTO_EKIPA, FOTO_SKLADISCE, FOTO_VIJAKI, FOTO_SIDRA, FOTO_MONTAZA, FOTO_ZEBLJI } from "@/lib/foto";
-import { KogaPoklicem, TerenKomercialisti, KontaktiOddelki, Lokacije } from "@/components/KontaktBloki";
+import { Lokacije } from "@/components/KontaktBloki";
 
 export const metadata = {
   title: "O nas",
   description:
-    "AS system d.o.o. — slovensko družinsko podjetje s področja pritrdilne tehnike od leta 1993. Lastna proizvodnja sider, zidnih vložkov in udarnih vijakov, dve lokaciji, kontakti po oddelkih.",
+    "AS system d.o.o.: slovensko družinsko podjetje s področja pritrdilne tehnike od leta 1993. Lastna proizvodnja sider, zidnih vložkov in udarnih vijakov, dve lokaciji v Sloveniji.",
   alternates: { canonical: "/o-nas" },
 };
 
@@ -30,14 +30,14 @@ const izdelki = [
   {
     naziv: "Udarni vijaki",
     oznaka: "PA6 · PE",
-    opis: "Vložek in vijak v enem — hitro pritrjevanje brez dodatnega orodja.",
+    opis: "Vložek in vijak v enem, hitro pritrjevanje brez dodatnega orodja.",
     slika: "/slike/o-nas/udarni-vodoravno.png",
     pot: "/program/klasicna-pritrdila",
   },
   {
     naziv: "Zidni vložki",
     oznaka: "PA6 · PE",
-    opis: "Najlonski vložki za polne in luknjaste podlage — od lažjih do zahtevnejših vgradenj.",
+    opis: "Najlonski vložki za polne in luknjaste podlage, od lažjih do zahtevnejših vgradenj.",
     slika: "/slike/asfix/mq.png",
     pot: "/program/klasicna-pritrdila",
   },
@@ -87,18 +87,18 @@ const zaloga = [
 const certifikati = [
   ["ETA", "Evropska tehnična ocena", "Tehnično ovrednotenje nosilnih pritrdilnih elementov."],
   ["CE", "Oznaka skladnosti", "Skladnost z evropskimi direktivami in izjave o lastnostih (DoP)."],
-  ["ISO", "ISO 9001:2015", "Certificiran sistem vodenja kakovosti — Bureau Veritas."],
-  ["F120", "Ognjevarnost", "120 minut — za zahtevne konstrukcijske vgradnje."],
+  ["ISO", "ISO 9001:2015", "Certificiran sistem vodenja kakovosti. Bureau Veritas."],
+  ["F120", "Ognjevarnost", "120 minut: za zahtevne konstrukcijske vgradnje."],
 ];
 
 const trgi = [
   {
     naziv: "Slovenija in Hrvaška",
-    opis: "Celotno vijačno blago in pritrdilna tehnika — kot proizvajalec in kot veletrgovec. Trgovine, specializirane trgovine in izvajalci.",
+    opis: "Celotno vijačno blago in pritrdilna tehnika, kot proizvajalec in kot veletrgovec. Trgovine, specializirane trgovine in izvajalci.",
   },
   {
     naziv: "Trgi bivše Jugoslavije",
-    opis: "Srbija, Bosna in Hercegovina, Severna Makedonija, Črna gora in Kosovo — lastne znamke prek lokalnih distributerjev.",
+    opis: "Srbija, Bosna in Hercegovina, Severna Makedonija, Črna gora in Kosovo, lastne znamke prek lokalnih distributerjev.",
   },
   {
     naziv: "Evropska unija in svet",
@@ -107,17 +107,17 @@ const trgi = [
 ];
 
 const zakaj = [
-  ["Dobava z zaloge", "Kratek dobavni rok iz Evrope — posel dobi tisti, ki dobavi jutri."],
+  ["Dobava z zaloge", "Kratek dobavni rok iz Evrope, posel dobi tisti, ki dobavi jutri."],
   ["ETA in CE", "Brez tega se v igro ne pride. Pri nas so papirji za nosilna sidra urejeni."],
-  ["Fleksibilno pakiranje", "Poljubna velikost pakiranja in embalaža kupca — česar uvozniki ne zmorejo."],
-  ["Prava cena", "Med azijskim uvozom in premium sistemi — natanko tam, kjer želimo biti."],
+  ["Fleksibilno pakiranje", "Poljubna velikost pakiranja in embalaža kupca, česar uvozniki ne zmorejo."],
+  ["Prava cena", "Med azijskim uvozom in premium sistemi, natanko tam, kjer želimo biti."],
 ];
 
 const pravila = [
   ["Kakovost pred hitrostjo", "Naši izdelki držijo strehe in konstrukcije. Če nekaj ni v redu, se ustavi in pove."],
   ["Dogovor je dogovor", "Rok, ki ga obljubimo kupcu, je zaveza. Če ga ne bomo zmogli, to povemo takoj."],
   ["Problem se pove takoj", "Napako je najceneje popraviti v prvi uri."],
-  ["Red in varnost", "Urejeno delovno mesto je pogoj za kakovost — v proizvodnji, skladišču in pisarni."],
+  ["Red in varnost", "Urejeno delovno mesto je pogoj za kakovost, v proizvodnji, skladišču in pisarni."],
   ["Kupec je razlog, da smo tu", "Vsako delovno mesto pri nas je plačano iz naročila kupca."],
 ];
 
@@ -144,11 +144,11 @@ export default function ONas() {
               <Link href="/">Domov</Link> / O nas
             </nav>
             <span className="zn-oznaka" style={{ marginTop: 0 }}>Podjetje</span>
-            <h1>Pritrdilna tehnika iz Slovenije — od leta 1993</h1>
+            <h1>Pritrdilna tehnika iz Slovenije: od leta 1993</h1>
             <p>
               AS system je slovensko družinsko podjetje z lastno proizvodnjo.
               Jeklena sidra, zidne vložke in udarne vijake razvijamo, izdelamo in
-              zapakiramo sami — v Šmarju pri Jelšah in Bistrici ob Sotli.
+              zapakiramo sami: v Šmarju pri Jelšah in Bistrici ob Sotli.
             </p>
             <ul className="zn-znacke">
               <li>Od 1993</li>
@@ -157,7 +157,7 @@ export default function ONas() {
               <li>ISO 9001</li>
             </ul>
             <div className="zn-gumbi">
-              <a className="b b-r" href="#kontakti">Kontakti</a>
+              <a className="b b-r" href="/kontakt#kontakti">Kontakti</a>
               <a className="b b-o" href="#lokacije">Kje smo</a>
             </div>
           </div>
@@ -184,14 +184,14 @@ export default function ONas() {
               <h2>Družinsko podjetje z lastno proizvodnjo</h2>
               <p>
                 AS system sta leta 1993 ustanovila Aleš in Cvetka Seidl. Ime
-                združuje priimek ustanovitelja in besedo »system« — sistematičen
+                združuje priimek ustanovitelja in besedo »system«, sistematičen
                 pristop k pritrjevanju je od prvega dne jedro tega, kar delamo.
                 Danes v podjetju delajo tudi njuni otroci, vsak na svojem
                 področju.
               </p>
               <p style={{ marginTop: 12 }}>
                 Smo proizvajalec in hkrati veletrgovec. Jeklena sidra, udarne
-                vijake, zidne vložke in perforiran trak izdelamo sami — ne uvažamo jih. Na
+                vijake, zidne vložke in perforiran trak izdelamo sami, ne uvažamo jih. Na
                 slovenskem trgu kupcu pokrijemo celoten program: od DIN vijakov,
                 matic in podložk do sider, vložkov in žebljev, pri enem
                 dobavitelju.
@@ -221,7 +221,7 @@ export default function ONas() {
             <span>Lastna proizvodnja</span>
             <h2>Kaj izdelamo sami</h2>
             <p>
-              Štiri skupine izdelkov so v celoti naše — od razvoja in postopka do
+              Štiri skupine izdelkov so v celoti naše, od razvoja in postopka do
               proizvodnje in pakiranja. Vse so na voljo tudi pod vašo blagovno
               znamko.
             </p>
@@ -241,7 +241,7 @@ export default function ONas() {
           <div className="on-dodatno">
             <div>
               <b>Vijaki po naročilu</b>
-              <p>Od leta 2015 izdelujemo vijake po risbi kupca — dimenzije od M3×4 do M16×180.</p>
+              <p>Od leta 2015 izdelujemo vijake po risbi kupca, dimenzije od M3×4 do M16×180.</p>
               <Link className="more" href="/vijaki-po-narocilu">Več →</Link>
             </div>
             <div>
@@ -251,7 +251,7 @@ export default function ONas() {
             </div>
             <div>
               <b>Veletrgovina</b>
-              <p>DIN vijaki, matice, podložke in navojne palice — pocinkano ter inox A2 in A4.</p>
+              <p>DIN vijaki, matice, podložke in navojne palice, pocinkano ter inox A2 in A4.</p>
               <Link className="more" href="/asco">Program ASco →</Link>
             </div>
           </div>
@@ -266,7 +266,7 @@ export default function ONas() {
             <h2>Proizvodno podjetje, ne trgovina s skladiščem</h2>
             <p>
               Stroji, orodja in ljudje, ki jih znajo voditi. Lastno pakiranje
-              pomeni, da kupcu ponudimo poljubno velikost pakiranja — tudi v
+              pomeni, da kupcu ponudimo poljubno velikost pakiranja, tudi v
               njegovi embalaži.
             </p>
           </div>
@@ -294,7 +294,7 @@ export default function ONas() {
           <div className="st">
             <span>Spoznajte nas</span>
             <h2>Ljudje in prostori za našimi izdelki</h2>
-            <p>Ekipa, ki odgovori na vaš klic, nastavi stroj in pripravi vaše naročilo. Tako je videti dan v AS systemu — kliknite sliko za povečavo.</p>
+            <p>Ekipa, ki odgovori na vaš klic, nastavi stroj in pripravi vaše naročilo. Tako je videti dan v AS systemu, kliknite sliko za povečavo.</p>
           </div>
           <FotoGalerija
             max={20}
@@ -376,7 +376,7 @@ export default function ONas() {
             <h2>Zanesljiva evropska alternativa</h2>
             <p>
               Ne posnemamo velikih koncernov. Smo hitrejši,
-              prilagodljivejši in dostopnejši — za kupce, ki iščejo izhod iz
+              prilagodljivejši in dostopnejši: za kupce, ki iščejo izhod iz
               odvisnosti od azijskih dobaviteljev.
             </p>
           </div>
@@ -397,7 +397,7 @@ export default function ONas() {
           <div className="st">
             <span>Kako delamo</span>
             <h2>Pet pravil hiše</h2>
-            <p>Veljajo za vse — od direktorja navzdol.</p>
+            <p>Veljajo za vse: od direktorja navzdol.</p>
           </div>
           <ol>
             {pravila.map(([n, o]) => (
@@ -410,16 +410,13 @@ export default function ONas() {
         </div>
       </section>
 
-      <KogaPoklicem />
-      <TerenKomercialisti />
-      <KontaktiOddelki />
       <Lokacije />
 
       <div className="cta">
         <div className="w">
           <div>
             <h2>Pišite nam</h2>
-            <p>Pošljite povpraševanje — odgovorimo v enem delovnem dnevu.</p>
+            <p>Pošljite povpraševanje in odgovorili vam bomo v najkrajšem možnem času.</p>
           </div>
           <Link className="b b-w" href="/kontakt?vir=o-nas">
             Povpraševanje →

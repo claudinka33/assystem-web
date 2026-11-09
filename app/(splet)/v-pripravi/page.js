@@ -20,7 +20,7 @@ export default async function VPripravi({ searchParams }) {
         <h1>Kmalu na tem mestu</h1>
         <p>
           Prenavljamo spletno stran podjetja {site.ime}. Do takrat smo dosegljivi
-          po telefonu in e-pošti — povpraševanja obdelujemo kot običajno.
+          po telefonu in e-pošti: povpraševanja obdelujemo kot običajno.
         </p>
 
         <dl className="zaklep-stik">

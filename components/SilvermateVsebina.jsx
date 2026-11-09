@@ -11,10 +11,10 @@ import { SILVERMATE_KATEGORIJA, SILVERMATE_IZDELKI, SILVERMATE_MEDIJI } from "@/
 
 // Lastnosti vijaka — po originalnem letaku Silvermate
 const lastnosti = [
-  { naziv: "Konica za hiter oprijem", opis: "Izjemno ostra konica in izboljšan navoj — vijak takoj prime v lesu.", slika: "/slike/silvermate/detajl-konica.jpg" },
-  { naziv: "Minimalni upor pri vijačenju", opis: "Rebra na steblu pri delnem navoju in kakovosten vosek — vijak gre v les z manj sile.", slika: "/slike/silvermate/detajl-navoj.jpg" },
+  { naziv: "Konica za hiter oprijem", opis: "Izjemno ostra konica in izboljšan navoj, vijak takoj prime v lesu.", slika: "/slike/silvermate/detajl-konica.jpg" },
+  { naziv: "Minimalni upor pri vijačenju", opis: "Rebra na steblu pri delnem navoju in kakovosten vosek, vijak gre v les z manj sile.", slika: "/slike/silvermate/detajl-navoj.jpg" },
   { naziv: "Majhno tveganje cepitve", opis: "Izboljšana rezalna rebra za čist zaključek brez poškodb lesa.", slika: "/slike/silvermate/detajl-rezilo.jpg" },
-  { naziv: "Zelo trpežen vijak", opis: "Najmočnejši vijak za iverne plošče v svojem razredu — za skoraj vse vrste lesa.", slika: "/slike/silvermate/detajl-glava.jpg" },
+  { naziv: "Zelo trpežen vijak", opis: "Najmočnejši vijak za iverne plošče v svojem razredu, za skoraj vse vrste lesa.", slika: "/slike/silvermate/detajl-glava.jpg" },
 ];
 
 // Program po premerih — po originalnem letaku (dolžine v mm)
@@ -28,9 +28,9 @@ const tabelaDim = [
 ];
 
 const izbira = [
-  ["Pozi ali Torx", "Torx prenese večji navor in manj zdrsava — za daljše vijake in trši les. Pozi je klasika za vsakdanje delo. Za cel program zadoščajo trije biti vsake vrste.", "/slike/silvermate/izbira-nastavek.jpg"],
-  ["Cel navoj", "Za spoje, kjer vijak drži po vsej dolžini — pritrjevanje plošč, letev in okovja.", "/slike/silvermate/izbira-cel-navoj-2.jpg"],
-  ["Delni navoj", "Gladki del pod glavo potegne dva kosa lesa skupaj — za konstrukcijske spoje in tramove.", "/slike/silvermate/izbira-delni-navoj-2.jpg"],
+  ["Pozi ali Torx", "Torx prenese večji navor in manj zdrsava, za daljše vijake in trši les. Pozi je klasika za vsakdanje delo. Za cel program zadoščajo trije biti vsake vrste.", "/slike/silvermate/izbira-nastavek.jpg"],
+  ["Cel navoj", "Za spoje, kjer vijak drži po vsej dolžini, pritrjevanje plošč, letev in okovja.", "/slike/silvermate/izbira-cel-navoj-2.jpg"],
+  ["Delni navoj", "Gladki del pod glavo potegne dva kosa lesa skupaj, za konstrukcijske spoje in tramove.", "/slike/silvermate/izbira-delni-navoj-2.jpg"],
 ];
 
 
@@ -90,8 +90,8 @@ export default function SilvermateVsebina({ tabela = false, glava = null, mediji
                   <th>Premer (mm)</th>
                   <th>Pozi</th>
                   <th>Torx</th>
-                  <th>Cel navoj — dolžina</th>
-                  <th>Delni navoj — dolžina</th>
+                  <th>Cel navoj: dolžina</th>
+                  <th>Delni navoj: dolžina</th>
                   <th>Kos v škatli</th>
                 </tr>
               </thead>
@@ -158,10 +158,10 @@ export default function SilvermateVsebina({ tabela = false, glava = null, mediji
                 </p>
               </div>
               <ul>
-                <li>Vse štiri izvedbe na eni polici — Pozi in Torx, cel in delni navoj.</li>
+                <li>Vse štiri izvedbe na eni polici. Pozi in Torx, cel in delni navoj.</li>
                 <li>Profesionalne škatle z okencem in pladnjem za lažji dostop, z jasno oznako dimenzije.</li>
                 <li>Asortiman sestavimo glede na vašo prodajo in ga dopolnjujemo.</li>
-                <li>Polico lahko postavite ob polici ASfix in ASco — vse za pritrjevanje na enem mestu.</li>
+                <li>Polico lahko postavite ob polici ASfix in ASco, vse za pritrjevanje na enem mestu.</li>
               </ul>
               <div className="zn-gumbi">
                 <Link className="b b-r" href="/za-trgovce#povprasevanje">
@@ -185,7 +185,7 @@ export default function SilvermateVsebina({ tabela = false, glava = null, mediji
                 <h2>{druga === "torx" ? "Raje Torx?" : "Raje križna glava (Pozi)?"}</h2>
                 <p>
                   {druga === "torx"
-                    ? "Torx prenese večji navor brez zdrsa — za daljše vijake in trši les. Enake dimenzije, cel ali delni navoj."
+                    ? "Torx prenese večji navor brez zdrsa, za daljše vijake in trši les. Enake dimenzije, cel ali delni navoj."
                     : "Pozi je klasika za vsakdanje delo z lesom in ploščami. Enake dimenzije, cel ali delni navoj."}
                 </p>
               </div>

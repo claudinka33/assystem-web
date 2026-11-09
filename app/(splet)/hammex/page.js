@@ -8,7 +8,7 @@ import { FOTO_ZEBLJI } from "@/lib/foto";
 import { pridobiIzdelkePoSlugih } from "@/lib/podatki";
 
 export const metadata = {
-  title: "HAMMEX — žeblji in žičniki",
+  title: "HAMMEX: žeblji in žičniki",
   description:
     "Žeblji pod znamko HAMMEX: gradbeni žičniki, lepenkarji (cinkani, aluminij, baker), strojni žičniki v traku za pnevmatske žebljalnike in kolarniki.",
   alternates: { canonical: "/hammex" },
@@ -33,7 +33,7 @@ const program = [
   },
   {
     naziv: "Strojni žičniki",
-    opis: "V traku za pnevmatske žebljalnike — za hitro in serijsko delo.",
+    opis: "V traku za pnevmatske žebljalnike, za hitro in serijsko delo.",
     slika: "/slike/zicniki/en-zicniki-strojni.jpg",
     pot: `${KAT}/zicniki-strojni`,
   },
@@ -53,7 +53,7 @@ const aduti = [
   },
   {
     naziv: "Pravi material za podlago",
-    opis: "Lepenkarji v treh izvedbah — cinkani, aluminijasti in bakreni — za vsako kritino in trak.",
+    opis: "Lepenkarji v treh izvedbah: cinkani, aluminijasti in bakreni, za vsako kritino in trak.",
     slika: "/slike/zicniki/lepenkar-baker.jpg",
   },
   {
@@ -70,8 +70,8 @@ const aduti = [
 
 const materiali = [
   { b: "Cinkani", s: "lepenkarji", p: "Osnovna izvedba za strešno lepenko in bitumenske trakove.", slika: "/slike/zicniki/en-lepenkar-cinkani.jpg" },
-  { b: "Aluminij", s: "lepenkarji", p: "Ne rjavi — za aluminijaste obrobe in izpostavljena mesta.", slika: "/slike/zicniki/en-lepenkar-aluminij.jpg" },
-  { b: "Baker", s: "lepenkarji", p: "Za bakrene kritine in obrobe — brez galvanske korozije.", slika: "/slike/zicniki/en-lepenkar-baker.jpg" },
+  { b: "Aluminij", s: "lepenkarji", p: "Ne rjavi: za aluminijaste obrobe in izpostavljena mesta.", slika: "/slike/zicniki/en-lepenkar-aluminij.jpg" },
+  { b: "Baker", s: "lepenkarji", p: "Za bakrene kritine in obrobe, brez galvanske korozije.", slika: "/slike/zicniki/en-lepenkar-baker.jpg" },
 ];
 
 export default async function Hammer() {
@@ -84,12 +84,12 @@ export default async function Hammer() {
         logo="/slike/znamke/hammex-logo.png"
         oznaka="Blagovna znamka · žeblji"
         naslov="Žeblji HAMMEX"
-        opis="Gradbeni žičniki, lepenkarji, strojni žičniki v traku in kolarniki — za ročno zabijanje in pnevmatske žebljalnike."
+        opis="Gradbeni žičniki, lepenkarji, strojni žičniki v traku in kolarniki, za ročno zabijanje in pnevmatske žebljalnike."
         znacke={["Professional nails", "Gradbeni · lepenkarji", "Strojni v traku", "Kolarniki"]}
         slika="/slike/zicniki/zicniki-skupna.jpg"
         slikaW={1376}
         slikaH={768}
-        slikaAlt="Žeblji HAMMEX — strojni žičniki v traku, gradbeni žičniki in lepenkarji"
+        slikaAlt="Žeblji HAMMEX: strojni žičniki v traku, gradbeni žičniki in lepenkarji"
         gumbi={[
           { href: KAT, naziv: "Žeblji v katalogu", cls: "b-r" },
           { href: "/kontakt?vir=hammex", naziv: "Povpraševanje →", cls: "b-d" },
@@ -105,7 +105,7 @@ export default async function Hammer() {
                 <h2>Naša znamka za žeblje</h2>
                 <p>
                   HAMMEX je blagovna znamka AS system za žeblje. Pod njo so gradbeni žičniki, lepenkarji,
-                  strojni žičniki v traku in kolarniki — za tesarje, krovce, gradbince in trgovine.
+                  strojni žičniki v traku in kolarniki, za tesarje, krovce, gradbince in trgovine.
                 </p>
                 <p style={{ marginTop: 12 }}>
                   Kjer ASfix pritrdi v beton in zid, ASco poveže kovino s kovino, HAMMEX poveže les z lesom
@@ -141,7 +141,7 @@ export default async function Hammer() {
             {program.map((x) => (
               <Link key={x.naziv} href={x.pot} className="k">
                 <div className="im" style={{ background: "#fff" }}>
-                  <Image src={izBaze[x.pot.split("/").pop()]?.slika || x.slika} alt={`HAMMEX — ${x.naziv}`} fill sizes="(max-width: 700px) 50vw, 300px" style={{ objectFit: "contain", padding: 12 }} />
+                  <Image src={izBaze[x.pot.split("/").pop()]?.slika || x.slika} alt={`HAMMEX: ${x.naziv}`} fill sizes="(max-width: 700px) 50vw, 300px" style={{ objectFit: "contain", padding: 12 }} />
                 </div>
                 <div className="tx">
                   <h3>{x.naziv}</h3>
@@ -196,7 +196,7 @@ export default async function Hammer() {
           <div className="st">
             <span>Lepenkarji</span>
             <h2>Material izberete po kritini</h2>
-            <p>Isti lepenkar v treh materialih — za vsako streho in obrobo.</p>
+            <p>Isti lepenkar v treh materialih, za vsako streho in obrobo.</p>
           </div>
           <div className="kats">
             {materiali.map((x) => (
@@ -224,7 +224,7 @@ export default async function Hammer() {
             <p>Pošljite povpraševanje in pripravimo predlog asortimana ter pogoje.</p>
           </div>
           <Link className="b b-w" href="/kontakt?vir=hammex">
-            Pošlji povpraševanje →
+            Pošljite povpraševanje →
           </Link>
         </div>
       </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { eur, zaokrozi, POSTNINA_RAZREDI } from "@/lib/cene";
+import { eur, zaokrozi, POSTNINA_RAZREDI, DDV } from "@/lib/cene";
 import { preveriKodo } from "@/lib/akcije/narocila";
 
 const BREZPLACNO_NAD = POSTNINA_RAZREDI[POSTNINA_RAZREDI.length - 1].do;
@@ -50,7 +50,7 @@ export function Zaupanje() {
   return (
     <>
       <ul className="trg-zaupanje">
-        <li><Ikona ime="scit" velikost={17} /> Varno plačilo — podatkov o kartici ne vidimo in ne hranimo</li>
+        <li><Ikona ime="scit" velikost={17} /> Varno plačilo: podatkov o kartici ne vidimo in ne hranimo</li>
         <li><Ikona ime="tovornjak" velikost={17} /> Odprema v 1–2 delovnih dneh s Pošto Slovenije</li>
         <li><Ikona ime="tovarna" velikost={17} /> Kupujete neposredno pri proizvajalcu, od 1993</li>
       </ul>
@@ -65,8 +65,9 @@ export function Zaupanje() {
 
 // Trak »še X € do brezplačne dostave«
 export function BrezplacnaDostava({ bruto }) {
-  const manjka = zaokrozi(BREZPLACNO_NAD - bruto);
-  const delez = Math.min(100, Math.round((bruto / BREZPLACNO_NAD) * 100));
+  const neto = bruto / (1 + DDV);
+  const manjka = zaokrozi(BREZPLACNO_NAD - neto);
+  const delez = Math.min(100, Math.round((neto / BREZPLACNO_NAD) * 100));
   if (manjka <= 0)
     return (
       <div className="trg-dost ok">
@@ -76,7 +77,7 @@ export function BrezplacnaDostava({ bruto }) {
     );
   return (
     <div className="trg-dost">
-      Še <b>{eur(manjka)}</b> do brezplačne dostave.
+      Še <b>{eur(manjka)}</b> brez DDV do brezplačne dostave.
       <div className="trg-dost-p"><i style={{ width: `${delez}%` }} /></div>
     </div>
   );
@@ -91,7 +92,7 @@ export function KodaPopust({ postavke, koda, setKoda }) {
   if (koda)
     return (
       <div className="trg-koda-ok">
-        <span>Koda <b>{koda.koda}</b> — {koda.opis}</span>
+        <span>Koda <b>{koda.koda}</b>: {koda.opis}</span>
         <button type="button" onClick={() => setKoda(null)}>odstrani</button>
       </div>
     );

@@ -10,14 +10,14 @@ export const revalidate = 60;
 export const metadata = {
   title: "Zaposlitev",
   description:
-    "Odprta delovna mesta v podjetju AS system d.o.o. — proizvodnja pritrdilne tehnike v Šmarju pri Jelšah in Bistrici ob Sotli. Oddajte prijavo prek spleta.",
+    "Odprta delovna mesta v podjetju AS system d.o.o., proizvodnja pritrdilne tehnike v Šmarju pri Jelšah in Bistrici ob Sotli. Oddajte prijavo prek spleta.",
   alternates: { canonical: "/zaposlitev" },
 };
 
 const razlogi = [
   ["Stabilno podjetje", "Družinsko podjetje s tridesetletno tradicijo in lastno proizvodnjo na dveh lokacijah."],
   ["Konkretno delo", "Izdelek, ki ga naredimo, se vidi in drži. Brez neskončnih sestankov in dolgih hierarhij."],
-  ["Znanje ostane doma", "Orodja, razvoj in proizvodnjo obvladujemo sami — tu se je mogoče veliko naučiti."],
+  ["Znanje ostane doma", "Orodja, razvoj in proizvodnjo obvladujemo sami, tu se je mogoče veliko naučiti."],
   ["Priložnost za mlade", "Podeljujemo kadrovske štipendije in omogočamo prakso z zaposlitvijo po šolanju."],
 ];
 
@@ -46,7 +46,7 @@ export default async function Zaposlitev() {
               <h2>{mesta.length > 0 ? `Trenutno iščemo ${mesta.length} sodelavcev` : "Trenutno ni odprtih mest"}</h2>
               <p>
                 Kliknite na delovno mesto za podroben opis nalog in pogojev. Prijavo
-                oddate kar prek spleta — z življenjepisom v prilogi.
+                oddate kar prek spleta: z življenjepisom v prilogi.
               </p>
             </div>
             <a className="more" href="#prijava">

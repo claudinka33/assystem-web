@@ -29,7 +29,7 @@ export default async function Katalogi() {
       <NaslovStrani
         oznaka="Gradiva"
         naslov="Katalogi in prenosi"
-        opis="Vsa dokumentacija na enem mestu — katalogi, letaki, certifikati in navodila."
+        opis="Vsa dokumentacija na enem mestu, katalogi, letaki, certifikati in navodila."
       />
 
       {vsi.length === 0 ? (
@@ -93,7 +93,7 @@ export default async function Katalogi() {
             <p>Napišite, kateri izdelek vas zanima, in ga pošljemo po e-pošti.</p>
           </div>
           <Link className="b b-w" href="/kontakt?vir=katalogi">
-            Pošlji povpraševanje →
+            Pošljite povpraševanje →
           </Link>
         </div>
       </div>

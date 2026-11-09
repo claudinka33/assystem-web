@@ -6,9 +6,9 @@ import { pridobiIzdelkePoSlugih } from "@/lib/podatki";
 export const revalidate = 300;
 
 export const metadata = {
-  title: "Rešitve — kje se uporabljajo pritrdila",
+  title: "Rešitve: kje se uporabljajo pritrdila",
   description:
-    "Interaktivni prikaz objekta: temelji, jeklena konstrukcija, skladišče, fasada, pisarne, sanitarije in ograja — kje se uporabljajo sidra, vložki in vijaki ASfix.",
+    "Interaktivni prikaz objekta: temelji, jeklena konstrukcija, skladišče, fasada, pisarne, sanitarije in ograja, kje se uporabljajo sidra, vložki in vijaki ASfix.",
   alternates: { canonical: "/resitve" },
 };
 
@@ -19,7 +19,7 @@ export default async function Resitve() {
       <NaslovStrani
         oznaka="Rešitve"
         naslov={objekt.naslov}
-        opis="Poiščite pritrdilo po mestu uporabe — od temeljev do sanitarij."
+        opis="Poiščite pritrdilo po mestu uporabe, od temeljev do sanitarij."
       />
       <section className="sec res-sec">
         <div className="w">

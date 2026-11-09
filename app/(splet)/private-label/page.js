@@ -6,7 +6,7 @@ import PotiProdaje from "@/components/PotiProdaje";
 import { site } from "@/lib/site";
 
 export const metadata = {
-  title: "Private label — pritrdila pod vašo blagovno znamko",
+  title: "Private label: pritrdila pod vašo blagovno znamko",
   description:
     "Montaža in pakiranje pod vašo blagovno znamko: v nevtralne bele škatle ali v embalažo z vašo celostno podobo. Private label za trgovske verige, distributerje in blagovne znamke.",
   alternates: { canonical: "/private-label" },
@@ -28,17 +28,17 @@ const izdelki = [
 ];
 
 const embalaza = [
-  { naziv: "Bela škatla z vašo nalepko", opis: "Najhitrejša pot na trg — na belo škatlo nalepimo nalepko z vašim logotipom, šifro in EAN kodo.", slika: "/slike/pl-nalepka.jpg" },
+  { naziv: "Bela škatla z vašo nalepko", opis: "Najhitrejša pot na trg: na belo škatlo nalepimo nalepko z vašim logotipom, šifro in EAN kodo.", slika: "/slike/pl-nalepka.jpg" },
   { naziv: "Škatla z vašim dizajnom", opis: "Pošljemo vam mrežo škatle, vi pripravite dizajn, mi poskrbimo za tisk in pakiranje.", slika: "/slike/pl-dizajn.jpg" },
   { naziv: "Vrečka z vašo podobo", opis: "Z izveskom za perforirano steno v trgovini.", slika: "/slike/vrecka-your-brand.jpg" },
 ];
 
 const koraki = [
   ["Izbira izdelkov", "Iz našega programa izberete izdelke in dimenzije. Svetujemo, kaj se na vašem trgu prodaja."],
-  ["Vaša embalaža", "Bela škatla z vašo nalepko ali vaš dizajn — pošljemo vam mrežo škatle za pripravo dizajna."],
-  ["Potrditev vzorca", "Pred serijo potrdite vzorec embalaže in označevanje — EAN, šifre, opozorila, ETA."],
+  ["Vaša embalaža", "Bela škatla z vašo nalepko ali vaš dizajn, pošljemo vam mrežo škatle za pripravo dizajna."],
+  ["Potrditev vzorca", "Pred serijo potrdite vzorec embalaže in označevanje. EAN, šifre, opozorila, ETA."],
   ["Proizvodnja in pakiranje", "Izdelamo v lastni proizvodnji in avtomatsko zapakiramo v vašo embalažo."],
-  ["Paletna dobava", "Odprema iz visokoregalnega skladišča v Šmarju pri Jelšah — doma in v tujino."],
+  ["Paletna dobava", "Odprema iz visokoregalnega skladišča v Šmarju pri Jelšah, doma in v tujino."],
   ["Ponovna naročila", "Embalaža in šifre ostanejo shranjene, zato je vsako naslednje naročilo hitro."],
 ];
 
@@ -55,7 +55,7 @@ export default function PrivateLabel() {
             <span className="zn-oznaka" style={{ marginTop: 0 }}>Private label</span>
             <h1>Vaša znamka. Naša proizvodnja.</h1>
             <p>
-              Sidra, udarne vijake in vložke iz naše proizvodnje zapakiramo pod vašo blagovno znamko — v nevtralne
+              Sidra, udarne vijake in vložke iz naše proizvodnje zapakiramo pod vašo blagovno znamko, v nevtralne
               bele škatle ali v embalažo z vašo celostno podobo. Za trgovske verige, distributerje in blagovne znamke.
             </p>
             <ul className="zn-znacke">
@@ -102,7 +102,7 @@ export default function PrivateLabel() {
             <span>Kaj to pomeni</span>
             <h2>Isti izdelek, vaša škatla</h2>
             <p>
-              Izdelek je preverjen in v redni proizvodnji. Zamenjamo samo embalažo — kakovost, dokumentacija in roki
+              Izdelek je preverjen in v redni proizvodnji. Zamenjamo samo embalažo, kakovost, dokumentacija in roki
               ostanejo naši.
             </p>
           </div>
@@ -214,13 +214,13 @@ export default function PrivateLabel() {
               <div className="st">
                 <span>Povpraševanje</span>
                 <h2>Povejte, kaj bi prodajali</h2>
-                <p>Trije kratki koraki — pripravimo predlog asortimana, embalaže in ponudbo.</p>
+                <p>Trije kratki koraki: pripravimo predlog asortimana, embalaže in ponudbo.</p>
               </div>
               <div className="ot-kontakt">
                 <span>Raje pokličete?</span>
                 <a href={`tel:${site.telefonRaw}`}>{site.telefon}</a>
                 <a href={`mailto:${site.email}`}>{site.email}</a>
-                <small>Odgovorimo v enem delovnem dnevu.</small>
+                <small>Odgovorimo v najkrajšem možnem času.</small>
               </div>
             </div>
             <ObrazecPrivateLabel />

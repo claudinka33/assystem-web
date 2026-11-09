@@ -16,23 +16,34 @@ import ClankiDomov from "@/components/ClankiDomov";
 export const revalidate = 60;
 
 export const metadata = {
-  title: "AS system — pritrdilna tehnika in vijačno blago",
+  title: "AS system: pritrdilna tehnika in vijačno blago",
   description:
     "Pritrdilna tehnika ASfix, vijačno blago ASco, lesni vijaki Silvermate in žeblji HAMMEX. Dobava iz zaloge, police za trgovce, private label in vijaki po naročilu.",
   alternates: { canonical: "/" },
 };
 
 const prednosti = [
-  ["Dobava iz zaloge", "Osnovni asortiman odpremimo takoj"],
-  ["Ocena ETA", "Nosilna sidra z evropsko tehnično oceno"],
-  ["Količinski popusti", "Cene glede na pakiranje in odjem"],
-  ["Tehnična podpora", "Svetujemo, katero pritrdilo je pravo"],
+  ["Lastna proizvodnja", "Sidra, vložki in vijaki iz Slovenije"],
+  ["Dobava iz zaloge", "Osnovni program odpremimo takoj"],
+  ["Certifikati ETA in CE", "Za nosilna sidra"],
+  ["Tehnična podpora", "Svetujemo pri izbiri pritrdila"],
+];
+
+// Izdelki iz lastne proizvodnje (Šmarje pri Jelšah in Bistrica ob Sotli)
+const lastniIzdelki = [
+  "Jeklena sidra",
+  "Zidni vložki",
+  "Vložki za mavčne plošče",
+  "Udarni vijaki",
+  "Turbo vijaki",
+  "Perforiran trak",
+  "Vijaki po risbi",
 ];
 
 const koraki = [
-  ["Poiščite izdelek", "Po šifri, EAN kodi ali nazivu. Pri vsakem izdelku so dimenzije, pakiranja, zaloga in cena."],
-  ["Dodajte v košarico", "Izberite pakiranja in količine ter oddajte naročilo — plačilo po predračunu ali po povzetju."],
-  ["Prevzem ali dostava", "Pošljemo s Pošto Slovenije (nad 100 € brezplačno) ali prevzamete osebno v Šmarju."],
+  ["Poiščite izdelek", "Po šifri, EAN kodi ali nazivu. Pri izdelku so dimenzije, pakiranja, zaloga in cena."],
+  ["Dodajte v košarico", "Izberite pakiranje in količino. Plačate po predračunu ali po povzetju."],
+  ["Prevzem ali dostava", "Pošljemo s Pošto Slovenije, nad 100 € brez DDV brezplačno. Lahko tudi prevzamete osebno v Šmarju pri Jelšah."],
 ];
 
 const certifikati = [
@@ -64,7 +75,7 @@ export default async function Domov() {
                 b,
                 "domov.hero.besedilo",
                 "besedilo",
-                "Jeklena sidra, zidni vložki, udarni vijaki, kemična sidra in vijačno blago iz zaloge — nosilna sidra z evropsko tehnično oceno ETA. Za trgovine, izvajalce in distributerje."
+                "Jeklena sidra, zidni vložki, udarni vijaki, kemična sidra in vijačno blago iz zaloge. Za trgovine, izvajalce in distributerje."
               )}
             </p>
 
@@ -82,8 +93,8 @@ export default async function Domov() {
               <Link className="b b-w" href="/program">
                 Prodajni program
               </Link>
-              <Link className="b b-o" href="/b2b">
-                B2B za podjetja
+              <Link className="b b-o" href="/kontakt">
+                Kontaktirajte nas
               </Link>
             </div>
           </div>
@@ -91,7 +102,7 @@ export default async function Domov() {
           <div className="hero-im">
             <Image
               src="/hero-izdelki-2026.png"
-              alt="Pritrdila ASfix — jekleno sidro TXH7, zidni vložki, kemično sidro EASF TOP, udarni vijaki, vrečka in škatla"
+              alt="Pritrdila ASfix: jekleno sidro TXH7, zidni vložki, kemično sidro EASF TOP, udarni vijaki, vrečka in škatla"
               width={1100}
               height={1044}
               priority
@@ -117,8 +128,39 @@ export default async function Domov() {
         </div>
       </div>
 
-      {/* ---------- Kaj iščete: štiri publike ---------- */}
+      {/* ---------- Kaj iščete: pet poti ---------- */}
       <Vrata />
+
+      {/* ---------- Podjetje ---------- */}
+      <section className="sec">
+        <div className="w">
+          <div className="qua lok-qua">
+            <div>
+              <div className="st">
+                <span>Lastna proizvodnja</span>
+                <h2>{v(b, "domov.zmogljivosti.naslov", "naslov", "Izdelano v Sloveniji")}</h2>
+                <p>
+                  {v(
+                    b,
+                    "domov.zmogljivosti.besedilo",
+                    "besedilo",
+                    "V Šmarju pri Jelšah in Bistrici ob Sotli s hladnim kovanjem in brizganjem plastike izdelujemo pritrdila, ki jih prodajamo pod znamko ASfix. Montaža in pakiranje potekata pri nas, tudi za druge blagovne znamke. Naši lastni izdelki:"
+                  )}
+                </p>
+              </div>
+              <ul className="lastni">
+                {lastniIzdelki.map((x) => (
+                  <li key={x}>{x}</li>
+                ))}
+              </ul>
+              <Link className="more" href="/proizvodnja">
+                Proizvodnja in razvoj →
+              </Link>
+            </div>
+            <LokacijiDomov />
+          </div>
+        </div>
+      </section>
 
       {/* ---------- Naše znamke ---------- */}
       <DveZnamki />
@@ -135,7 +177,7 @@ export default async function Domov() {
                   b,
                   "domov.program.besedilo",
                   "besedilo",
-                  "Beton, opeka, votlaki, mavčne plošče, izolacija, streha in inštalacije — izberite skupino in poglejte dimenzije, pakiranja in dokumentacijo."
+                  "Beton, opeka, votlaki, mavčne plošče, izolacija, streha in inštalacije, izberite skupino in poglejte dimenzije, pakiranja in dokumentacijo."
                 )}
               </p>
             </div>
@@ -181,13 +223,13 @@ export default async function Domov() {
         <div className="w">
           <div className="st">
             <span>Naročanje</span>
-            <h2>{v(b, "domov.narocilo.naslov", "naslov", "Do izdelka v treh korakih")}</h2>
+            <h2>{v(b, "domov.narocilo.naslov", "naslov", "Do naročila v treh korakih")}</h2>
             <p>
               {v(
                 b,
                 "domov.narocilo.besedilo",
                 "besedilo",
-                "Spletna trgovina je odprta za podjetja in posameznike. Za večje količine in posebne cene nam pošljite povpraševanje — odgovorimo v enem delovnem dnevu."
+                "Spletna trgovina je odprta za podjetja in posameznike. Za večje količine pripravimo ponudbo s količinskim popustom. Pošljite povpraševanje in odgovorili vam bomo v najkrajšem možnem času."
               )}
             </p>
           </div>
@@ -204,10 +246,10 @@ export default async function Domov() {
 
           <div style={{ marginTop: 26, display: "flex", gap: 12, flexWrap: "wrap" }}>
             <Link className="b b-r" href="/program">
-              Poglej program
+              Oglejte si program
             </Link>
             <Link className="b b-d" href="/kontakt?vir=cenik">
-              Zahtevaj cenik
+              Pošljite povpraševanje
             </Link>
           </div>
         </div>
@@ -230,14 +272,14 @@ export default async function Domov() {
               <div className="st">
                 <span>Kakovost</span>
                 <h2>
-                  {v(b, "domov.kakovost.naslov", "naslov", "Je kakovost pomembna? Za nas je najpomembnejša")}
+                  {v(b, "domov.kakovost.naslov", "naslov", "Kakovost z dokazili")}
                 </h2>
                 <p>
                   {v(
                     b,
                     "domov.kakovost.besedilo",
                     "besedilo",
-                    "Nosilna sidra imajo evropsko tehnično oceno ETA in izjavo o lastnostih. Dokumentacijo za izbrani izdelek vam pošljemo na zahtevo."
+                    "Nosilna sidra imajo evropsko tehnično oceno ETA, oznako CE in izjavo o lastnostih. Dokumente za izdelek najdete pri izdelku ali vam jih pošljemo."
                   )}
                 </p>
               </div>
@@ -263,32 +305,6 @@ export default async function Domov() {
       {/* ---------- Novosti in nasveti (blog) ---------- */}
       <ClankiDomov />
 
-      {/* ---------- Podjetje ---------- */}
-      <section className="sec">
-        <div className="w">
-          <div className="qua lok-qua">
-            <div>
-              <div className="st">
-                <span>{site.ime}</span>
-                <h2>{v(b, "domov.zmogljivosti.naslov", "naslov", "Proizvodnja in storitve")}</h2>
-                <p>
-                  {v(
-                    b,
-                    "domov.zmogljivosti.besedilo",
-                    "besedilo",
-                    "Na dveh lokacijah v Sloveniji izdelujemo jeklena sidra, brizgamo plastiko za zidne vložke in vložke za mavčne plošče ter proizvajamo udarne vijake, žičnike in vijake po naročilu. Montaža in pakiranje potekata pri nas — tudi za druge blagovne znamke."
-                  )}
-                </p>
-              </div>
-              <Link className="more" href="/proizvodnja">
-                Proizvodnja in razvoj →
-              </Link>
-            </div>
-            <LokacijiDomov />
-          </div>
-        </div>
-      </section>
-
       {/* ---------- Instagram ---------- */}
       <InstagramObjave />
 
@@ -302,7 +318,7 @@ export default async function Domov() {
                 b,
                 "domov.cta.besedilo",
                 "besedilo",
-                "Izdelek razvijemo, proizvedemo in zapakiramo v vašo embalažo. Private label za evropske znamke."
+                "Izdelke zapakiramo v vašo embalažo in pod vašo blagovno znamko."
               )}
             </p>
           </div>

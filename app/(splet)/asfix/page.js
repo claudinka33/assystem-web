@@ -13,17 +13,17 @@ import { pridobiIzdelkePoSlugih } from "@/lib/podatki";
 export const revalidate = 300;
 
 export const metadata = {
-  title: "ASfix — blagovna znamka",
+  title: "ASfix: blagovna znamka",
   description:
     "ASfix je blagovna znamka pritrdilne tehnike podjetja AS system: jeklena sidra, zidni vložki, udarni in Turbo vijaki, vložki za mavčne plošče in kemična sidra.",
   alternates: { canonical: "/asfix" },
 };
 
 const aduti = [
-  ["Znan izvor", "ASfix je slovenska znamka podjetja AS system. Za vsak izdelek pod to znamko odgovarjamo mi — od kakovosti do dokumentacije."],
+  ["Znan izvor", "ASfix je slovenska znamka podjetja AS system. Za vsak izdelek pod to znamko odgovarjamo mi, od kakovosti do dokumentacije."],
   ["Evropska dokazila", "Nosilna sidra imajo oceno ETA in izjavo o lastnostih. Trgovec lahko izdelek zagovarja pred zahtevnim kupcem."],
   ["Embalaža, ki proda", "Vrečka z izveskom, škatla z jasno šifro in dimenzijo, paletna enota za centre. V treh sekundah je jasno, kaj je notri."],
-  ["Dobava iz zaloge", "Osnovni asortiman je v visokoregalnem skladišču v Šmarju. Brez čakanja na uvoz."],
+  ["Dobava iz zaloge", "Osnovni asortiman je v visokoregalnem skladišču v Šmarju pri Jelšah. Brez čakanja na uvoz."],
 ];
 
 // Izdelki ASfix — kartica vodi na stran izdelka (če je v katalogu), sicer na kategorijo.
@@ -31,12 +31,12 @@ const aduti = [
 const IZDELKI = {
   txh7: { naziv: "Jekleno sidro TXH7", opis: "Nosilno sidro za beton, z oceno ETA.", slika: "/slike/asfix/txh7.png", slug: "jekleno-sidro-txh7", skupina: "pritrdila-za-beton" },
   tx1: { naziv: "Jekleno sidro TX1", opis: "S široko podložko za les in pločevino.", slika: "/slike/asfix/tx1.png", slug: "jekleno-sidro-tx1-siroka-podlozka", skupina: "pritrdila-za-beton" },
-  turbo: { naziv: "Turbo vijak za beton", opis: "Privijete neposredno v beton — brez vložka.", slika: "/slike/asfix/turbo.png", slug: "turbo-vijak-za-beton", skupina: "pritrdila-za-beton" },
+  turbo: { naziv: "Turbo vijak za beton", opis: "Privijete neposredno v beton: brez vložka.", slika: "/slike/asfix/turbo.png", slug: "turbo-vijak-za-beton", skupina: "pritrdila-za-beton" },
   mq: { naziv: "Najlonski zidni vložek", opis: "Za beton, polno in votlo opeko.", slika: "/slike/asfix/mq.png", slug: "zidni-vlozek-mq", skupina: "klasicna-pritrdila" },
   udarni: { naziv: "Udarni vijak", opis: "Hitra montaža brez privijanja.", slika: "/slike/asfix/udarni.png", slug: "udarni-vijak-nylon", skupina: "klasicna-pritrdila" },
   afrk: { naziv: "Univerzalni vijak z vložkom", opis: "Dolg vložek z vijakom za okvirje in late.", slika: "/slike/asfix/afrk.png", slug: "univerzalni-vijak-z-vlozkom-af-rk", skupina: "pritrdila-za-v-votle-stene" },
   gips: { naziv: "Vložek za mavčne plošče", opis: "Samorezni vložek za suhomontažo.", slika: "/slike/asfix/gips.png", slug: "vlozek-za-gips-plasticni", skupina: "pritrdila-za-suhomontazo" },
-  gipsKov: { naziv: "Kovinski vložek za gips", opis: "Se za ploščo razpre — za težje predmete.", slika: "/slike/asfix/gips-kov.png", slug: "vlozek-za-gips-kovinski", skupina: "pritrdila-za-suhomontazo" },
+  gipsKov: { naziv: "Kovinski vložek za gips", opis: "Se za ploščo razpre: za težje predmete.", slika: "/slike/asfix/gips-kov.png", slug: "vlozek-za-gips-kovinski", skupina: "pritrdila-za-suhomontazo" },
   stiropor: { naziv: "Vložek za stiropor", opis: "Za pritrjevanje v toplotno izolacijo.", slika: "/slike/asfix/stiropor.png", slug: "vlozek-za-stiropor", skupina: "pritrdila-za-v-izolacijo" },
   easf: { naziv: "Kemično sidro EASF", opis: "Za največje obremenitve v betonu.", slika: "/slike/asfix/easf.png", slug: "kemicno-sidro-easf-top", skupina: "kemicna-pritrditev" },
   pesf: { naziv: "Kemično sidro PESF", opis: "Za opeko in votle podlage, z mrežico.", slika: "/slike/asfix/pesf.png", slug: "kemicno-sidro-pesf-top", skupina: "kemicna-pritrditev" },
@@ -55,7 +55,7 @@ const podlage = [
 ];
 
 const embalaza = [
-  { naziv: "Vrečka z izveskom", opis: "Za perforirano steno — manjše količine za končnega kupca.", slika: "/slike/asfix/vrecka-rdeca.png" },
+  { naziv: "Vrečka z izveskom", opis: "Za perforirano steno: manjše količine za končnega kupca.", slika: "/slike/asfix/vrecka-rdeca.png" },
   { naziv: "Stoječa vrečka", opis: "Večje pakiranje udarnih vijakov in vložkov za mojstre.", slika: "/slike/asfix/vrecka-hammer.png" },
   { naziv: "Škatla ASfix", opis: "Jasna šifra in dimenzija na čelu, enoten dizajn na polici.", slika: "/slike/asfix/afr41.png" },
   { naziv: "Private label", opis: "Ista škatla v nevtralni beli izvedbi ali z vašo znamko.", slika: "/slike/asfix/afr41-pl.png", href: "/private-label" },
@@ -63,7 +63,7 @@ const embalaza = [
 
 const police = [
   { m: "1 m", opis: "Glavne dimenzije za manjše trgovine in pulte.", slika: "/slike/trgovci/asfix-polica-1m-bela.jpg" },
-  { m: "2 m", opis: "Vse dimenzije — najpogostejša izbira.", slika: "/slike/trgovci/asfix-polica-2m-bela.jpg" },
+  { m: "2 m", opis: "Vse dimenzije: najpogostejša izbira.", slika: "/slike/trgovci/asfix-polica-2m-bela.jpg" },
   { m: "4 m", opis: "Več zaloge vseh dimenzij za gradbene centre.", slika: "/slike/trgovci/asfix-polica-4m-bela.jpg" },
 ];
 
@@ -91,7 +91,7 @@ export default async function ASfix() {
         logo="/slike/znamke/asfix-logo-negativ.png"
         oznaka="Blagovna znamka · pritrdilna tehnika"
         naslov="Pritrdila, ki jih trgovec lahko zagovarja"
-        opis="Jeklena sidra, zidni vložki, vložki za mavčne plošče, udarni in Turbo vijaki, kemične mase in pritrdila za inštalacije — v embalaži, pripravljeni za polico."
+        opis="Jeklena sidra, zidni vložki, vložki za mavčne plošče, udarni in Turbo vijaki, kemične mase in pritrdila za inštalacije, v embalaži, pripravljeni za polico."
         znacke={["Slovenska znamka", "ETA", "Iz zaloge"]}
         slika="/slike/stojala/asfix-stojalo.jpg"
         slikaW={893}
@@ -116,7 +116,7 @@ export default async function ASfix() {
                   ko AS system ostaja znamka podjetja in razvojnega partnerja.
                 </p>
                 <p style={{ marginTop: 12 }}>
-                  Program pokriva pritrdila za beton, opeko, votlake, mavčne plošče, izolacijo in inštalacije — od
+                  Program pokriva pritrdila za beton, opeko, votlake, mavčne plošče, izolacijo in inštalacije, od
                   enega vijaka do paletne enote.
                 </p>
               </div>
@@ -127,7 +127,7 @@ export default async function ASfix() {
             <div>
               <Image
                 src="/hero-izdelki-2026.png"
-                alt="Program ASfix — jeklena sidra, zidni vložki, kemično sidro, udarni vijaki"
+                alt="Program ASfix: jeklena sidra, zidni vložki, kemično sidro, udarni vijaki"
                 width={1100}
                 height={1044}
                 sizes="(max-width: 1000px) 100vw, 620px"
@@ -167,7 +167,7 @@ export default async function ASfix() {
             {Object.entries(IZDELKI).filter(([, x]) => !x.brezMreze).map(([k, x]) => (
               <Link key={k} href={povezava(k)} className="k">
                 <div className="im" style={{ background: "#fff" }}>
-                  <Image src={sl(k)} alt={`ASfix — ${x.naziv}`} fill sizes="(max-width: 700px) 50vw, 300px" style={{ objectFit: "contain", padding: 14 }} />
+                  <Image src={sl(k)} alt={`ASfix: ${x.naziv}`} fill sizes="(max-width: 700px) 50vw, 300px" style={{ objectFit: "contain", padding: 14 }} />
                 </div>
                 <div className="tx">
                   <h3>{x.naziv}</h3>
@@ -265,7 +265,7 @@ export default async function ASfix() {
             <span>Embalaža</span>
             <h2>Ena znamka, več pakiranj</h2>
             <p>
-              Isti izdelek pakiramo v različne formate, ker ima vsaka prodajna pot svoje zahteve — od nekaj kosov
+              Isti izdelek pakiramo v različne formate, ker ima vsaka prodajna pot svoje zahteve, od nekaj kosov
               do palete.
             </p>
           </div>
@@ -318,7 +318,7 @@ export default async function ASfix() {
         <div className="w">
           <div className="st">
             <span>Za trgovce</span>
-            <h2>Polica ASfix — 1, 2 ali 4 metre</h2>
+            <h2>Polica ASfix: 1, 2 ali 4 metre</h2>
             <p>Polico prilagodimo trgovini. Večje postavitve do 20 m pripravimo po meri.</p>
           </div>
           {!dostop ? (
@@ -373,7 +373,7 @@ export default async function ASfix() {
             <p>Pošljite povpraševanje in pripravimo predlog asortimana ter pogoje.</p>
           </div>
           <Link className="b b-w" href="/kontakt?vir=asfix">
-            Pošlji povpraševanje →
+            Pošljite povpraševanje →
           </Link>
         </div>
       </div>

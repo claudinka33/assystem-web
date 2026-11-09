@@ -6,7 +6,7 @@ import { VELJA_OD, IRPS_SEZNAM, eur0 } from "@/lib/pravno";
 
 export const metadata = {
   title: "Splošni pogoji poslovanja",
-  description: "Splošni pogoji nakupa v spletni trgovini AS system d.o.o. — naročilo, cene, plačilo, dostava, odstop, reklamacije in reševanje sporov.",
+  description: "Splošni pogoji nakupa v spletni trgovini AS system d.o.o., naročilo, cene, plačilo, dostava, odstop, reklamacije in reševanje sporov.",
   alternates: { canonical: "/splosni-pogoji" },
 };
 
@@ -111,7 +111,7 @@ export default function SplosniPogoji() {
       <h2>12. Varstvo osebnih podatkov</h2>
       <p>
         Podatke kupcev uporabljamo samo za izvedbo naročila in zakonske obveznosti. Več na strani{" "}
-        <Link href="/zasebnost">Varstvo osebnih podatkov</Link>.
+        <Link href="/zasebnost">Politika zasebnosti</Link>.
       </p>
 
       <h2>13. Pritožbe in reševanje sporov</h2>

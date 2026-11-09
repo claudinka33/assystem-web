@@ -16,7 +16,7 @@ export default function ObrazecPovprasevanje({ vir = "kontakt", izdelek, naslov,
     return (
       <div className="obr-uspeh">
         <h3>Sporočilo je poslano</h3>
-        <p>Hvala. Odgovorimo v enem delovnem dnevu, običajno prej.</p>
+        <p>Hvala. Odgovorili vam bomo v najkrajšem možnem času.</p>
       </div>
     );
   }
@@ -101,7 +101,7 @@ export default function ObrazecPovprasevanje({ vir = "kontakt", izdelek, naslov,
       </div>
 
       <button className="b b-r" type="submit" disabled={caka}>
-        {caka ? "Pošiljam…" : "Pošlji povpraševanje"}
+        {caka ? "Pošiljam…" : "Pošljite povpraševanje"}
       </button>
 
       <p className="obr-drobno">

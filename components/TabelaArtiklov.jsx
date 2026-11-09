@@ -62,7 +62,7 @@ function VKosarico({ a, cena, izdelek, b2b }) {
           setOk(true);
           setTimeout(() => setOk(false), 1500);
         }}
-        aria-label="Dodaj v košarico"
+        aria-label="V košarico"
       >
         {ok ? "✓" : "V košarico"}
       </button>
@@ -180,7 +180,7 @@ function Legenda({ vnosi, artikli, izbrani, izberi }) {
   return (
     <div className="izd-emb">
       {filtri.length > 0 && (
-        <p className="izd-mali">{samoPak ? "Pakiranje" : "Izberite"} — klikni za prikaz artiklov, ponoven klik prikaže vse</p>
+        <p className="izd-mali">{samoPak ? "Pakiranje" : "Izberite"}: kliknite za prikaz artiklov, ponoven klik prikaže vse</p>
       )}
       <div className="izd-emb-k">
         {filtri.length > 0 && (

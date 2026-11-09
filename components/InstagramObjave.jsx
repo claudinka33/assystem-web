@@ -27,8 +27,8 @@ export default async function InstagramObjave() {
         <div className="st row">
           <div>
             <span>Instagram · @assystem.si</span>
-            <h2>Iz našega dela</h2>
-            <p>Novi izdelki, montaže na terenu in utrinki iz proizvodnje v Šmarju in Bistrici ob Sotli.</p>
+            <h2>Utrinki AS systema</h2>
+            <p>Novi izdelki, montaže na terenu in utrinki iz proizvodnje v Šmarju pri Jelšah in Bistrici ob Sotli.</p>
           </div>
           <a className="b b-r ig-sledi" href={PROFIL} target="_blank" rel="noreferrer">
             <IgIkona /> Sledite nam

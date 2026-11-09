@@ -165,10 +165,10 @@ export function sestavi(o) {
     vzemi: o.vrtanje.vzemi ?? "Vzemi iz orodjarne pravi sveder.", navodilo: o.vrtanje.navodilo ?? "Drži miško nad rdečo oznako, dokler luknja ni izvrtana.",
     preveriOrodje: o.vrtanje.pravi ? (id, s) => { const d = Number(id.replace("sveder", "")); const prav = F(o.vrtanje.pravi, s.izbor); return d === prav ? null : (o.vrtanje.napaka?.(d, prav, s.izbor) ?? `Za to izbiro potrebuješ sveder Ø${String(prav).replace(".", ",")}.`); } : undefined,
   });
-  if (o.pihaj) add("pihaj", { naziv: o.pihaj.naziv ?? "Očisti luknjo", orodje: "pihalka", nacin: "drzi", korak: 7, delci: C.prah, navodilo: o.pihaj.navodilo ?? "Drži miško nad luknjo, dokler prah ne izgine.", preskok: "Luknja je še polna prahu — najprej jo očisti." });
+  if (o.pihaj) add("pihaj", { naziv: o.pihaj.naziv ?? "Očisti luknjo", orodje: "pihalka", nacin: "drzi", korak: 7, delci: C.prah, navodilo: o.pihaj.navodilo ?? "Drži miško nad luknjo, dokler prah ne izgine.", preskok: "Luknja je še polna prahu, najprej jo očisti." });
   izbiraPred("vlozek");
   if (o.vlozek) add("vlozek", { naziv: o.vlozek.korak ?? "Vstavi vložek", orodje: "vlozek", nacin: "klik", navodilo: o.vlozek.navodilo ?? "Klikni v vsako luknjo." });
-  if (o.masa) add("masa", { naziv: "Napolni z maso", orodje: "pistola", nacin: "drzi", korak: 5, navodilo: o.masa.navodilo ?? "Drži miško nad luknjo — masa naj napolni dve tretjini luknje, od dna navzgor.", preskok: "Najprej napolni luknjo s kemično maso." });
+  if (o.masa) add("masa", { naziv: "Napolni z maso", orodje: "pistola", nacin: "drzi", korak: 5, navodilo: o.masa.navodilo ?? "Drži miško nad luknjo: masa naj napolni dve tretjini luknje, od dna navzgor.", preskok: "Najprej napolni luknjo s kemično maso." });
   if (el?.potem && el.predVijakom) add("element", { naziv: el.korak ?? "Prisloni element", tip: "postavi", orodje: "element", navodilo: el.navodilo ?? "Klikni v prizor.", potrdilo: el.potrdilo, preskok: "Najprej pripravi pritrdila." });
   izbiraPred("vijak");
   const vz = o.vijak;

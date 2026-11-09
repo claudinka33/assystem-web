@@ -3057,3 +3057,69 @@ a.medij:hover { transform: translateY(-2px); border-color: var(--color-ink); bor
 
 /* oznaka vrste članka */
 .blog-oz { display: inline-block; background: var(--color-red); color: #fff; font-size: 11px; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase; padding: 4px 10px; border-radius: 3px; line-height: 1.4; }
+
+/* ---------- Popravki po pregledu (nov. 2026) ---------- */
+/* Hero: manjša slika, besedilo ostane berljivo pri ožjem oknu */
+.hero .w { grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); min-height: 440px; }
+.hero h1 { font-size: clamp(36px, 3.9vw, 54px); }
+.hero p { font-size: clamp(16px, 1.25vw, 18px); }
+.hero-im { max-width: 500px; justify-self: center; width: 100%; }
+@media (max-width: 1000px) {
+  .hero-im { max-width: 380px; }
+}
+@media (max-width: 620px) {
+  .hero h1 { font-size: 30px; }
+}
+
+/* Pet vstopnih poti */
+.vrata { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; }
+.vrata-k { padding: 24px 20px; }
+.vrata-k h3 { font-size: 17px; }
+@media (max-width: 1200px) { .vrata { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 760px) { .vrata { grid-template-columns: minmax(0, 1fr); } }
+
+/* Koraki naročanja: izrazitejše številke */
+.koraki b { color: var(--color-red); }
+
+/* Lastni izdelki */
+.lastni { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 22px; padding: 0; }
+.lastni li { background: #fff; border: 1px solid var(--color-line); border-left: 3px solid var(--color-red); padding: 7px 12px; font-size: 13.5px; font-weight: 700; }
+
+/* Piškotki: izbira kategorij in plavajoča ikona */
+.piskotki { align-items: flex-end; }
+.piskotki-izbira { display: grid; gap: 10px; margin-top: 14px; }
+.piskotki-izbira label { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: var(--color-muted); cursor: pointer; }
+.piskotki-izbira input { margin-top: 3px; accent-color: var(--color-ink); width: 16px; height: 16px; flex: none; }
+.piskotki-izbira b { display: inline; color: var(--color-ink); font-size: 13px; margin-right: 6px; }
+.piskotki .b-d { background: #fff; }
+.piskotki .b-d:hover { background: var(--color-ink); color: #fff; }
+.piskotki-ikona {
+  position: fixed; left: 16px; bottom: 16px; z-index: 55;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--color-ink); color: #fff; border: 2px solid #fff;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.25);
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+}
+.piskotki-ikona:hover { background: var(--color-red); }
+@media print { .piskotki-ikona { display: none !important; } }
+
+/* Noga */
+.ftr .w { grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px; }
+.ftr-podjetje .logo-belo { margin-bottom: 22px; }
+.ftr-naslov { color: #fff; line-height: 1.6; margin-bottom: 14px; }
+.ftr a.ftr-tel { color: #fff; font-size: 18px; font-weight: 700; padding: 2px 0; }
+.ftr a.ftr-mail { color: #fff; padding: 2px 0; }
+.ftr-cas { margin-top: 6px; font-size: 13px; }
+.ftr-druzbena { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 16px; }
+.ftr-druzbena a { display: inline-block; padding: 0; font-size: 13px; text-decoration: underline; text-underline-offset: 3px; }
+.ftr a.ftr-vec { color: var(--color-red-2); font-weight: 600; margin-top: 6px; }
+.fb .w { flex-direction: column; gap: 14px; align-items: stretch; }
+.ftr-pravno { display: flex; flex-wrap: wrap; gap: 6px 20px; font-size: 13px; }
+.ftr-pravno a { display: inline; padding: 0; }
+.ftr-piskotki { background: none; border: 0; padding: 0; color: inherit; font: inherit; font-size: 13px; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.ftr-piskotki:hover { color: #fff; }
+.fb-spodaj { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; font-size: 12.5px; }
+.fb-desno { display: flex; align-items: center; gap: 18px; }
+.ftr a.ftr-cms { display: inline; margin: 0; padding: 0; border: 0; font-size: 12px; color: var(--color-muted-2); font-weight: 400; }
+@media (max-width: 1000px) { .ftr .w { grid-template-columns: 1fr 1fr; gap: 36px; } }
+@media (max-width: 620px) { .ftr .w { grid-template-columns: minmax(0, 1fr); } }

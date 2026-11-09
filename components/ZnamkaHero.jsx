@@ -3,7 +3,7 @@ import Link from "next/link";
 
 /* --------------------------------------------------------------
    Skupna glava strani blagovne znamke (ASfix, ASco).
-   Enaka postavitev za obe znamki — razlikujeta se podlaga
+   Enaka postavitev za obe znamki, razlikujeta se podlaga
    (ASfix rdeča, ASco antracit), logotip in fotografija embalaže.
    Logotip: na rdeči bela različica, na antracitu negativ (CGP 2026).
    -------------------------------------------------------------- */

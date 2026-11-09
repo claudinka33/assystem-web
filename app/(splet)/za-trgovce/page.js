@@ -9,14 +9,14 @@ import ZaklenjenoB2B from "@/components/ZaklenjenoB2B";
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Za trgovce — prodajni program in police",
+  title: "Za trgovce: prodajni program in police",
   description:
     "Sestava prodajnega programa in postavitev polic ASfix in ASco za trgovine: 1, 2, 4 in 6 metrov ter večje postavitve do 20 metrov.",
   alternates: { canonical: "/za-trgovce" },
 };
 
 const kajDobite = [
-  ["Sestava programa", "Izberemo izdelke in dimenzije, ki se pri vas prodajajo — glede na kupce in velikost trgovine."],
+  ["Sestava programa", "Izberemo izdelke in dimenzije, ki se pri vas prodajajo, glede na kupce in velikost trgovine."],
   ["Postavitev police", "Planogram za vašo širino police, s cenovnimi letvicami in tablo, ki kupcu pove, kaj je za kaj."],
   ["Embalaža za polico", "Vrečke z izveskom za perforirano steno in škatle z jasno šifro in dimenzijo na čelu."],
   ["Dopolnjevanje", "Osnovni asortiman je na zalogi. Polico dopolnjujemo po vaši prodaji."],
@@ -24,7 +24,7 @@ const kajDobite = [
 
 const dolzine = [
   { m: "1 m", opis: "Glavne dimenzije za manjše trgovine in pulte.", slika: "/slike/trgovci/asfix-polica-1m-bela.jpg", w: 808, h: 1400 },
-  { m: "2 m", opis: "Vse dimenzije — najpogostejša izbira.", slika: "/slike/trgovci/asfix-polica-2m-bela.jpg", w: 1092, h: 1120 },
+  { m: "2 m", opis: "Vse dimenzije: najpogostejša izbira.", slika: "/slike/trgovci/asfix-polica-2m-bela.jpg", w: 1092, h: 1120 },
   { m: "4 m", opis: "Več zaloge vseh dimenzij za gradbene centre.", slika: "/slike/trgovci/asfix-polica-4m-bela.jpg", w: 1400, h: 752 },
   { m: "6 m – 20 m", opis: "Večje postavitve po meri trgovine, tudi kombinacija ASfix in ASco.", slika: null },
 ];
@@ -33,8 +33,8 @@ const KAJ_SLIKE = ["/slike/proizvodnja/hero-izdelki.png", "/slike/trgovci/asfix-
 
 const embalaza = [
   { znamka: "ASfix", slike: [["/slike/znamke/asfix-afr41-sredina.png", "Škatla ASfix", "6% 8%"], ["/slike/znamke/asfix-vrecka.jpg", "Rdeča vrečka ASfix"], ["/slike/asfix-paleta-txm2.jpg", "Paleta škatel ASfix"]], opis: "Škatle v enotnem dizajnu, vrečke z izveskom za perforirano steno in cele palete za večje trgovine." },
-  { znamka: "ASco", slike: [["/slike/znamke/asco-skatla-sredina.png", "Rjava škatla ASco", "12% 22%"], ["/slike/znamke/asco-vrecka-znb.jpg", "Modra vrečka ASco"], ["/slike/znamke/asco-vrecka-inox.jpg", "Zelena vrečka ASco"]], opis: "Modre vrečke za pocinkano (ZnB), zelene za INOX — na polici se ne zamenjata. Rjave škatle za večje količine." },
-  { znamka: "Silvermate", slike: [["/slike/silvermate/skatla-silvermate.png", "Škatla Silvermate", "8%"], ["/slike/silvermate/polica-1m.jpg", "Polica Silvermate 1 m", "4%"]], opis: "Lesni vijaki s križno in torx glavo, s celim ali delnim navojem — v profesionalni škatli z okencem in na polici 1 m." },
+  { znamka: "ASco", slike: [["/slike/znamke/asco-skatla-sredina.png", "Rjava škatla ASco", "12% 22%"], ["/slike/znamke/asco-vrecka-znb.jpg", "Modra vrečka ASco"], ["/slike/znamke/asco-vrecka-inox.jpg", "Zelena vrečka ASco"]], opis: "Modre vrečke za pocinkano (ZnB), zelene za INOX, na polici se ne zamenjata. Rjave škatle za večje količine." },
+  { znamka: "Silvermate", slike: [["/slike/silvermate/skatla-silvermate.png", "Škatla Silvermate", "8%"], ["/slike/silvermate/polica-1m.jpg", "Polica Silvermate 1 m", "4%"]], opis: "Lesni vijaki s križno in torx glavo, s celim ali delnim navojem, v profesionalni škatli z okencem in na polici 1 m." },
 ];
 
 export default async function ZaTrgovce() {
@@ -52,7 +52,7 @@ export default async function ZaTrgovce() {
             <span className="zn-oznaka" style={{ marginTop: 0 }}>Za trgovce</span>
             <h1>Polica, ki proda sama</h1>
             <p>
-              Sestavimo prodajni program in postavitev police za vašo trgovino — ASfix, ASco, Silvermate ali
+              Sestavimo prodajni program in postavitev police za vašo trgovino, ASfix, ASco, Silvermate ali
               kombinacijo, od 1 do 20 metrov. Vi prodajate, mi skrbimo za polico.
             </p>
             <ul className="zn-znacke">
@@ -154,8 +154,8 @@ export default async function ZaTrgovce() {
                 <span>ASco</span>
                 <h2>Polica in stojalo za vijake</h2>
                 <p>
-                  Kovinski in lesni vijaki v modrih (ZnB) in zelenih (INOX) vrečkah. Police 1, 2, 4 in 6 m — pocinkano
-                  in nerjavno sta vedno na ločenih modulih — ali samostoječe stojalo s tremi stranicami.
+                  Kovinski in lesni vijaki v modrih (ZnB) in zelenih (INOX) vrečkah. Police 1, 2, 4 in 6 m, pocinkano
+                  in nerjavno sta vedno na ločenih modulih, ali samostoječe stojalo s tremi stranicami.
                 </p>
               </div>
               <div className="zn-gumbi">
@@ -208,7 +208,7 @@ export default async function ZaTrgovce() {
               <div className="st">
                 <span>Povpraševanje</span>
                 <h2>Predlog police za vašo trgovino</h2>
-                <p>Trije kratki koraki — mi pripravimo predlog programa, postavitev police in pogoje sodelovanja.</p>
+                <p>Trije kratki koraki: mi pripravimo predlog programa, postavitev police in pogoje sodelovanja.</p>
               </div>
               <ol className="ot-potek">
                 <li><b>Izberete program in prostor</b><span>Brez šifer in tehničnih podatkov.</span></li>
@@ -219,7 +219,7 @@ export default async function ZaTrgovce() {
                 <span>Raje pokličete?</span>
                 <a href={`tel:${site.telefonRaw}`}>{site.telefon}</a>
                 <a href={`mailto:${site.email}`}>{site.email}</a>
-                <small>Odgovorimo v enem delovnem dnevu.</small>
+                <small>Odgovorimo v najkrajšem možnem času.</small>
               </div>
             </div>
             <ObrazecTrgovci />

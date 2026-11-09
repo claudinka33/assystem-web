@@ -62,7 +62,7 @@ function Beton({ od, visina, x = 0, sirina = 1200 }) {
 }
 
 /* =================================================================
-   TURBO VIJAK — okenski okvir naravnost v beton
+   TURBO VIJAK: okenski okvir naravnost v beton
    ================================================================= */
 const T = { tla: 370, vrh: 300, X: [430, 770], hw: 14, globina: 150, vijak: 200 };
 T.L = T.tla - T.vrh + T.globina;
@@ -74,15 +74,15 @@ export const turbo = {
   smer: 0,
   orodja: [
     ...svedri(7, [6, 7, 8], 2.2, T.L + 30, (d) => (d > 7
-      ? "Prevelika izvrtina — navoj Turbo vijaka ne prime. V beton vrtaj s svedrom Ø7."
+      ? "Prevelika izvrtina: navoj Turbo vijaka ne prime. V beton vrtaj s svedrom Ø7."
       : "Za Turbo vijak v beton vrtaj s svedrom Ø7 (v votlo opeko Ø6,5).")),
-    { ...pihalka, napaka: "Pri Turbo vijaku luknje ne čistiš — privij ga kar takoj." },
+    { ...pihalka, napaka: "Pri Turbo vijaku luknje ne čistiš, privij ga kar takoj." },
     vijacnik,
-    kladivo("Turbo vijaka ne zabijaš. Privij ga z vijačnikom — navoj se sam ureže v beton."),
+    kladivo("Turbo vijaka ne zabijaš. Privij ga z vijačnikom, navoj se sam ureže v beton."),
   ],
   koraki: [
     { naziv: "Postavi okvir", tip: "postavi", navodilo: "Klikni na beton, da postaviš okenski okvir.", obmocje: (t) => t.y > 250, potrdilo: "Okvir je na mestu. Vrtaš kar skozi okvir." },
-    { naziv: "Izvrtaj luknje", orodje: "sveder7", nacin: "drzi", korak: 5, delci: "#b9b4a4", navodilo: "Drži miško nad rdečo oznako — vrtaj skozi okvir naravnost v beton." },
+    { naziv: "Izvrtaj luknje", orodje: "sveder7", nacin: "drzi", korak: 5, delci: "#b9b4a4", navodilo: "Drži miško nad rdečo oznako, vrtaj skozi okvir naravnost v beton." },
     { naziv: "Privij vijaka", orodje: "vijacnik", nacin: "drzi", korak: 4, navodilo: "Drži miško nad vijakom, dokler glava ne nalega na okvir." },
   ],
   prijem(o, li, s) {
@@ -161,15 +161,15 @@ export const turbo = {
   banner: { sirina: 280 },
   konec: {
     napis: "PRITRJENO",
-    kratko: "Okvir je pritrjen — brez vložka.",
+    kratko: "Okvir je pritrjen: brez vložka.",
     naslov: "Okvir je pritrjen brez vložka",
-    besedilo: "Vrtali ste skozi okvir in vijaka privili naravnost v beton — luknje ni treba čistiti. Kaljen navoj se sam ureže v steno izvrtine — vložek ni potreben, okvir pa ves čas ostane na mestu.",
-    povezave: [{ href: "/kontakt?vir=igra-turbo", label: "Zahtevaj ponudbo" }],
+    besedilo: "Vrtali ste skozi okvir in vijaka privili naravnost v beton, luknje ni treba čistiti. Kaljen navoj se sam ureže v steno izvrtine, vložek ni potreben, okvir pa ves čas ostane na mestu.",
+    povezave: [{ href: "/kontakt?vir=igra-turbo", label: "Zahtevajte ponudbo" }],
   },
 };
 
 /* =================================================================
-   UDARNI VIJAK UVS — kovinski UD profil za mavčne plošče na beton
+   UDARNI VIJAK UVS: kovinski UD profil za mavčne plošče na beton
    ================================================================= */
 const U = { tla: 420, vrh: 412, X: [440, 760], K: 3.5, hw: 21, globina: 45 * 3.5, vlozek: 40 * 3.5, ven: 34 };
 U.L = U.tla - U.vrh + U.globina;
@@ -229,9 +229,9 @@ function luknjeUvs(s, { X, vrh, tla, L, iVrt, iVstavi, iZabij, lesTla }) {
 const uvsOrodje = { id: "uvs", naziv: "UVS 6 × 40", risba: "roka", ikona: "vlozek", izbrano: "UVS je v roki. Klikni v izvrtino." };
 const uvsVRoki = () => <g transform={`translate(0 ${-U.vlozek})`}><UvsRisba x={0} vrh={0} glava={-U.ven} /></g>;
 const uvsSvedri = (dolzina) => svedri(6, [5, 6, 8], U.K, dolzina, (d) => (d < 6
-  ? "Premajhna izvrtina — UVS 6 ne gre v luknjo. Vrtaj s svedrom Ø6."
-  : "Prevelika izvrtina — vložek se ne razpre in ne drži. Vrtaj s svedrom Ø6."));
-const uvsNapacenVijacnik = { ...vijacnik, napaka: "UVS ne privijaš — vijak zabiješ s kladivom, glava se ugrezne v ovratnik vložka." };
+  ? "Premajhna izvrtina: UVS 6 ne gre v luknjo. Vrtaj s svedrom Ø6."
+  : "Prevelika izvrtina: vložek se ne razpre in ne drži. Vrtaj s svedrom Ø6."));
+const uvsNapacenVijacnik = { ...vijacnik, napaka: "UVS ne privijaš: vijak zabiješ s kladivom, glava se ugrezne v ovratnik vložka." };
 
 export const uvs = {
   id: "uvs",
@@ -241,8 +241,8 @@ export const uvs = {
   orodja: [...uvsSvedri(U.L + 30), uvsOrodje, kladivo(), uvsNapacenVijacnik],
   koraki: [
     { naziv: "Postavi profil", tip: "postavi", navodilo: "Klikni na beton, da postaviš kovinski profil za mavčne plošče.", obmocje: (t) => t.y > 300, potrdilo: "Profil je na mestu. Vrtaš kar skozi luknje v profilu." },
-    { naziv: "Izvrtaj luknje", orodje: "sveder6", nacin: "drzi", korak: 5, delci: "#b9b4a4", navodilo: "Drži miško nad rdečo oznako — vrtaj skozi profil v beton." },
-    { naziv: "Vstavi UVS", orodje: "uvs", nacin: "klik", navodilo: "Klikni v vsako izvrtino — ovratnik nalega na profil.", preskok: "Najprej vstavi udarni vijak v izvrtino." },
+    { naziv: "Izvrtaj luknje", orodje: "sveder6", nacin: "drzi", korak: 5, delci: "#b9b4a4", navodilo: "Drži miško nad rdečo oznako, vrtaj skozi profil v beton." },
+    { naziv: "Vstavi UVS", orodje: "uvs", nacin: "klik", navodilo: "Klikni v vsako izvrtino: ovratnik nalega na profil.", preskok: "Najprej vstavi udarni vijak v izvrtino." },
     { naziv: "Zabij vijaka", orodje: "kladivo", nacin: "udarci", korak: 25, navodilo: "Vsak klik je en udarec. Štirje udarci na vijak." },
   ],
   prijem(o, li, s) {
@@ -291,12 +291,12 @@ export const uvs = {
     napis: "PRITRJENO",
     kratko: "Profil je pritrjen.",
     naslov: "Profil je pritrjen",
-    besedilo: "Izvrtali ste skozi profil, vstavili udarna vijaka in ju zabili s kladivom. Vijak razpre vložek v izvrtini, glava pa se ugrezne v ovratnik — brez privijanja, zato je montaža profilov za mavčne plošče hitra tudi v seriji.",
-    povezave: [{ href: "/kontakt?vir=igra-uvs", label: "Zahtevaj ponudbo" }],
+    besedilo: "Izvrtali ste skozi profil, vstavili udarna vijaka in ju zabili s kladivom. Vijak razpre vložek v izvrtini, glava pa se ugrezne v ovratnik, brez privijanja, zato je montaža profilov za mavčne plošče hitra tudi v seriji.",
+    povezave: [{ href: "/kontakt?vir=igra-uvs", label: "Zahtevajte ponudbo" }],
   },
 };
 /* =================================================================
-   VLOŽEK ZA MAVČNE PLOŠČE — plastičen, samovrezni
+   VLOŽEK ZA MAVČNE PLOŠČE: plastičen, samovrezni
    ================================================================= */
 const G = { vrh: 330, plosca: 38, X: [450, 750], dolz: 99, element: 18, vijak: 110 };
 
@@ -341,14 +341,14 @@ export const gips = {
     { id: "vlozek", naziv: "Vložek", risba: "roka", ikona: "vlozek", izbrano: "Vložek je v roki. Klikni na rdečo oznako." },
     vijacnik,
     { id: "element", naziv: "Nosilec police", risba: "roka", ikona: "element", brezRotacije: true, izbrano: "Nosilec je v roki. Klikni v prizor, da ga prisloniš." },
-    { ...sveder(14, 120), napaka: "Za ta vložek ne vrtaš — konica z rezili se sama zavrta v mavčno ploščo." },
-    kladivo("Plastičnega vložka ne zabijaš — mavec bi se zdrobil. Privij ga z vijačnikom."),
+    { ...sveder(14, 120), napaka: "Za ta vložek ne vrtaš, konica z rezili se sama zavrta v mavčno ploščo." },
+    kladivo("Plastičnega vložka ne zabijaš: mavec bi se zdrobil. Privij ga z vijačnikom."),
   ],
   koraki: [
     { naziv: "Nastavi vložka", orodje: "vlozek", nacin: "klik", navodilo: "Klikni na rdeči oznaki, da nastaviš vložka na ploščo." },
-    { naziv: "Privij vložka", orodje: "vijacnik", nacin: "drzi", korak: 5, delci: "#eceeee", navodilo: "Drži miško nad vložkom — konica z rezili se sama zavrta v ploščo." },
+    { naziv: "Privij vložka", orodje: "vijacnik", nacin: "drzi", korak: 5, delci: "#eceeee", navodilo: "Drži miško nad vložkom: konica z rezili se sama zavrta v ploščo." },
     { naziv: "Prisloni nosilec", tip: "postavi", orodje: "element", navodilo: "Klikni v prizor, da prisloniš nosilec police.", potrdilo: "Nosilec je na mestu. Zdaj privij vijaka." },
-    { naziv: "Privij vijaka", orodje: "vijacnik", nacin: "drzi", korak: 5, navodilo: "Drži miško nad lesnim vijakom 4,5 × 30 — ne pretegni, da se mavčna plošča ne deformira.", preskok: "Najprej prisloni nosilec police." },
+    { naziv: "Privij vijaka", orodje: "vijacnik", nacin: "drzi", korak: 5, navodilo: "Drži miško nad lesnim vijakom 4,5 × 30, ne pretegni, da se mavčna plošča ne deformira.", preskok: "Najprej prisloni nosilec police." },
   ],
   prijem(o, li, s) {
     const x = G.X[li];
@@ -421,7 +421,7 @@ export const gips = {
   podatki: [
     ["Vložek", "13 × 32 mm, najlon"],
     ["Vijak", "lesni vijak 4,5 × 30"],
-    ["Pozor", "ne pretegni — plošča se deformira"],
+    ["Pozor", "ne pretegni: plošča se deformira"],
     ["Dvojna plošča", "primerno tudi za dve plošči"],
     ["Plošča", "9,5–15 mm"],
     ["Vrtanje", "ni potrebno"],
@@ -433,13 +433,13 @@ export const gips = {
     napis: "PRITRJENO",
     kratko: "Nosilec je pritrjen.",
     naslov: "Nosilec je pritrjen",
-    besedilo: "Vložka ste privili naravnost v mavčno ploščo — brez vrtanja. Široke lopatice navoja se urežejo v mavec in obremenitev razporedijo na večjo površino plošče. Primerno za slike, ogledala, svetila in lahke police.",
-    povezave: [{ href: "/kontakt?vir=igra-gips", label: "Zahtevaj ponudbo" }],
+    besedilo: "Vložka ste privili naravnost v mavčno ploščo, brez vrtanja. Široke lopatice navoja se urežejo v mavec in obremenitev razporedijo na večjo površino plošče. Primerno za slike, ogledala, svetila in lahke police.",
+    povezave: [{ href: "/kontakt?vir=igra-gips", label: "Zahtevajte ponudbo" }],
   },
 };
 
 /* =================================================================
-   PERFORIRAN TRAK — kabli po tleh, trak čez, UVS v beton
+   PERFORIRAN TRAK: kabli po tleh, trak čez, UVS v beton
    ================================================================= */
 const P = { tla: 420, X: [470, 730], debelina: 4 };
 P.vrh = P.tla - P.debelina;
@@ -454,7 +454,7 @@ export const trak = {
   smer: 0,
   orodja: [
     { id: "trak12", naziv: "Trak 12 mm", risba: "roka", ikona: "trak", brezRotacije: true, izbrano: "Trak 12 mm je v roki. Klikni na kable, da jih prekriješ." },
-    { id: "trak17", naziv: "Trak 17 mm", risba: "roka", ikona: "trak", brezRotacije: true, izbrano: "Trak 17 mm je v roki — širši trak prenese večjo obremenitev. Klikni na kable." },
+    { id: "trak17", naziv: "Trak 17 mm", risba: "roka", ikona: "trak", brezRotacije: true, izbrano: "Trak 17 mm je v roki, širši trak prenese večjo obremenitev. Klikni na kable." },
     ...uvsSvedri(P.L + 30),
     uvsOrodje,
     kladivo(),
@@ -463,7 +463,7 @@ export const trak = {
   koraki: [
     { naziv: "Položi kable", tip: "postavi", navodilo: "Klikni na tla, da položiš kable.", obmocje: (t) => t.y > 300, potrdilo: "Kabli so na tleh. Zdaj jih prekrij s trakom." },
     { naziv: "Prekrij s trakom", tip: "postavi", orodje: ["trak12", "trak17"], vzemi: "Vzemi perforiran trak 12 ali 17 mm.", navodilo: "Klikni na kable, da jih prekriješ s perforiranim trakom.", obmocje: (t) => Math.abs(t.x - 600) < 160 && t.y > 260, potrdilo: "Trak je čez kable. Vrtaj skozi luknje v traku." },
-    { naziv: "Izvrtaj luknji", orodje: "sveder6", nacin: "drzi", korak: 5, delci: "#b9b4a4", navodilo: "Drži miško nad rdečo oznako — vrtaj skozi trak v beton.", preskok: "Najprej prekrij kable s trakom." },
+    { naziv: "Izvrtaj luknji", orodje: "sveder6", nacin: "drzi", korak: 5, delci: "#b9b4a4", navodilo: "Drži miško nad rdečo oznako, vrtaj skozi trak v beton.", preskok: "Najprej prekrij kable s trakom." },
     { naziv: "Vstavi UVS", orodje: "uvs", nacin: "klik", navodilo: "Klikni v vsako izvrtino." },
     { naziv: "Zabij vijaka", orodje: "kladivo", nacin: "udarci", korak: 25, navodilo: "Vsak klik je en udarec. Štirje udarci na vijak." },
   ],
@@ -538,13 +538,13 @@ export const trak = {
     naslov: "Kabli so pritrjeni",
     besedilo: "Kable ste prekrili s perforiranim trakom, vrtali skozi luknje v traku in trak pritrdili z udarnima vijakoma UVS, ki ju samo zabijete s kladivom. Pocinkan trak je na voljo v širini 12 mm in 17 mm, pakiranje 10 m.",
     povezave: [
-      { href: "/program/pritrdila-za-suhomontazo/udarni-vijak-nylon", label: "Poglej udarni vijak UVS" },
-      { href: "/kontakt?vir=igra-trak", label: "Zahtevaj ponudbo" },
+      { href: "/program/pritrdila-za-suhomontazo/udarni-vijak-nylon", label: "Poglejte udarni vijak UVS" },
+      { href: "/kontakt?vir=igra-trak", label: "Zahtevajte ponudbo" },
     ],
   },
 };
 /* =================================================================
-   AF-RK — konzola za zunanjo enoto klime v zid
+   AF-RK: konzola za zunanjo enoto klime v zid
    ================================================================= */
 const A = { zid: 300, plosca: 16, Y: [190, 460], hw: 22, globina: 140, tulec: 130, ven: 30 };
 A.usta = A.zid + A.plosca;
@@ -574,18 +574,18 @@ export const afrkKlima = {
   kicker: { x: 360, y: 34 },
   dosegZadetka: 120,
   orodja: [
-    ...svedri(10, [8, 10, 12], 2, A.L + 30, (d) => `AF-RK 10 × 100 potrebuje izvrtino Ø10 — ${d < 10 ? "v premajhno ga ne vstaviš" : "v preveliki se vložek ne razpre"}.`),
+    ...svedri(10, [8, 10, 12], 2, A.L + 30, (d) => `AF-RK 10 × 100 potrebuje izvrtino Ø10, ${d < 10 ? "v premajhno ga ne vstaviš" : "v preveliki se vložek ne razpre"}.`),
     pihalka,
     { id: "afrk", naziv: "AF-RK 10 × 100", risba: "roka", ikona: "vlozek", izbrano: "AF-RK je v roki. Klikni v izvrtino." },
     vijacnik,
     { id: "enota", naziv: "Zunanja enota", risba: "roka", ikona: "enota", brezRotacije: true, izbrano: "Zunanja enota je v roki. Klikni na nosilec." },
-    kladivo("AF-RK ne zabijaš — privij vijak, da se vložek razpre v zidu."),
+    kladivo("AF-RK ne zabijaš: privij vijak, da se vložek razpre v zidu."),
   ],
   koraki: [
-    { naziv: "Prisloni nosilec", tip: "postavi", navodilo: "Klikni ob zid, da prisloniš nosilec klime.", obmocje: (t) => t.x > A.zid, potrdilo: "Nosilec je poravnan. Vrtaš skozi luknje v nosilcu — vložek gre skozi element." },
-    { naziv: "Izvrtaj", orodje: "sveder10", nacin: "drzi", korak: 5, delci: "#c9a08a", navodilo: "Drži miško ob rdeči oznaki — vrtaj skozi nosilec v zid." },
-    { naziv: "Izpihaj", orodje: "pihalka", nacin: "drzi", korak: 8, delci: C.prah, navodilo: "Drži miško ob luknji, dokler prah ne izgine.", preskok: "Izvrtina je še polna prahu — najprej izpihaj." },
-    { naziv: "Vstavi AF-RK", orodje: "afrk", nacin: "klik", navodilo: "Klikni v vsako izvrtino — vložek potisni skozi nosilec, prirobnica naleže nanj." },
+    { naziv: "Prisloni nosilec", tip: "postavi", navodilo: "Klikni ob zid, da prisloniš nosilec klime.", obmocje: (t) => t.x > A.zid, potrdilo: "Nosilec je poravnan. Vrtaš skozi luknje v nosilcu, vložek gre skozi element." },
+    { naziv: "Izvrtaj", orodje: "sveder10", nacin: "drzi", korak: 5, delci: "#c9a08a", navodilo: "Drži miško ob rdeči oznaki, vrtaj skozi nosilec v zid." },
+    { naziv: "Izpihaj", orodje: "pihalka", nacin: "drzi", korak: 8, delci: C.prah, navodilo: "Drži miško ob luknji, dokler prah ne izgine.", preskok: "Izvrtina je še polna prahu, najprej izpihaj." },
+    { naziv: "Vstavi AF-RK", orodje: "afrk", nacin: "klik", navodilo: "Klikni v vsako izvrtino: vložek potisni skozi nosilec, prirobnica naleže nanj." },
     { naziv: "Privij vijaka", orodje: "vijacnik", nacin: "drzi", korak: 4, navodilo: "Drži miško ob vijaku, dokler glava ne nalega." },
     { naziv: "Postavi enoto", tip: "postavi", orodje: "enota", navodilo: "Klikni na nosilec, da postaviš zunanjo enoto.", obmocje: (t) => t.x > A.zid, potrdilo: "Zunanja enota stoji na nosilcu.", preskok: "Najprej privij oba vijaka." },
   ],
@@ -699,6 +699,6 @@ export const afrkKlima = {
     kratko: "Klima stoji na nosilcu.",
     naslov: "Nosilec klime je pritrjen",
     besedilo: "Nosilec ste prislonili na zid, vrtali skozi njegove luknje, izvrtini izpihali in vložka AF-RK potisnili skozi nosilec. Ko vijak privijete, se vložek razpre v zidu, velika prirobnica pa nalega na nosilec.",
-    povezave: [{ href: "/kontakt?vir=igra-afrk", label: "Zahtevaj ponudbo" }],
+    povezave: [{ href: "/kontakt?vir=igra-afrk", label: "Zahtevajte ponudbo" }],
   },
 };

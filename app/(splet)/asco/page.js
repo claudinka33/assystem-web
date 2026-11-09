@@ -9,7 +9,7 @@ import FotoGalerija from "@/components/FotoGalerija";
 import { FOTO_PAKIRANJE, FOTO_EKIPA, FOTO_SKLADISCE } from "@/lib/foto";
 
 export const metadata = {
-  title: "ASco — standardno vijačno blago po DIN in ISO",
+  title: "ASco: standardno vijačno blago po DIN in ISO",
   description:
     "Vijaki, matice in podložke po DIN in ISO pod znamko ASco: pocinkano, črno in nerjavno jeklo A2/A4, v škatlah za podjetja in vrečkah za trgovine.",
   alternates: { canonical: "/asco" },
@@ -24,10 +24,10 @@ const aduti = [
 ];
 
 const police = [
-  { m: "1 m", opis: "Vstopni modul — pocinkano in INOX na enem metru.", slika: "/slike/trgovci/asco-polica-1m-bela.jpg" },
+  { m: "1 m", opis: "Vstopni modul: pocinkano in INOX na enem metru.", slika: "/slike/trgovci/asco-polica-1m-bela.jpg" },
   { m: "2 m", opis: "DIN vijačno blago ZnB in modul z INOX programom.", slika: "/slike/trgovci/asco-polica-2m-bela.jpg" },
-  { m: "4 m", opis: "Vsaka skupina svoj modul — DIN, lesni vijaki, INOX.", slika: "/slike/trgovci/asco-polica-4m-bela.jpg" },
-  { m: "6 m", opis: "Celoten program z več zaloge — 4 m ZnB, 2 m INOX.", slika: "/slike/trgovci/asco-polica-6m-bela.jpg" },
+  { m: "4 m", opis: "Vsaka skupina svoj modul: DIN, lesni vijaki, INOX.", slika: "/slike/trgovci/asco-polica-4m-bela.jpg" },
+  { m: "6 m", opis: "Celoten program z več zaloge, 4 m ZnB, 2 m INOX.", slika: "/slike/trgovci/asco-polica-6m-bela.jpg" },
 ];
 
 const skupine = [
@@ -65,7 +65,7 @@ const pakiranja = [
   {
     naziv: "Zelena vrečka",
     kolicina: "INOX · za trgovine",
-    opis: "Nerjavni vijaki v enaki vrečki — zelena barva kupcu takoj pove, da gre za INOX.",
+    opis: "Nerjavni vijaki v enaki vrečki, zelena barva kupcu takoj pove, da gre za INOX.",
     slika: "/slike/znamke/asco-vrecka-inox.jpg",
   },
 ];
@@ -89,7 +89,7 @@ export default async function ASco() {
         logo="/slike/znamke/asco-logo-negativ.png"
         oznaka="Blagovna znamka · vijačno blago"
         naslov="Vijaki, matice in podložke po DIN in ISO standardih"
-        opis="Vijačno blago po DIN in ISO standardih iz zaloge — pocinkano, črno in nerjavno, v škatlah za podjetja in vrečkah za trgovine."
+        opis="Vijačno blago po DIN in ISO standardih iz zaloge, pocinkano, črno in nerjavno, v škatlah za podjetja in vrečkah za trgovine."
         znacke={["DIN · ISO standardi", "ZnB", "INOX A2 / A4"]}
         slika="/slike/stojala/asco-stojalo.jpg"
         slikaW={893}
@@ -231,7 +231,7 @@ export default async function ASco() {
               </div>
               <h3>Rinfuza</h3>
               <span className="embalaza-kolicina">večje količine</span>
-              <p>Za industrijo in serijsko montažo — količina in pakiranje po dogovoru.</p>
+              <p>Za industrijo in serijsko montažo, količina in pakiranje po dogovoru.</p>
             </div>
           </div>
         </div>
@@ -260,9 +260,9 @@ export default async function ASco() {
                 </p>
               </div>
               <ul>
-                <li>Zavzame malo prostora — ob pultu ali na koncu regala.</li>
+                <li>Zavzame malo prostora: ob pultu ali na koncu regala.</li>
                 <li>Asortiman sestavimo glede na vašo prodajo in ga dopolnjujemo.</li>
-                <li>Postavi se ob polico ASfix — sidra in vijaki na enem mestu.</li>
+                <li>Postavi se ob polico ASfix, sidra in vijaki na enem mestu.</li>
               </ul>
               <div className="zn-gumbi">
                 <Link className="b b-r" href="/kontakt?vir=asco-stojalo">
@@ -281,7 +281,7 @@ export default async function ASco() {
         <div className="w">
           <div className="st">
             <span>Za trgovce</span>
-            <h2>Polica ASco — 1, 2, 4 ali 6 metrov</h2>
+            <h2>Polica ASco: 1, 2, 4 ali 6 metrov</h2>
             <p>Moduli se samo dodajajo. Zgoraj vrečke, spodaj škatle z večjim pakiranjem, na vsaki nalepki standard, dimenzija in količina.</p>
           </div>
           {!dostop ? (
@@ -317,7 +317,7 @@ export default async function ASco() {
           <div className="st">
             <span>Pakiranje in zaloga</span>
             <h2>Od skladišča do vaše police</h2>
-            <p>Vijačno blago pakiramo v vrečke z EAN kodo na lastni liniji in ga hranimo v skladišču v Šmarju pri Jelšah — pripravljeno za takojšnjo odpremo.</p>
+            <p>Vijačno blago pakiramo v vrečke z EAN kodo na lastni liniji in ga hranimo v skladišču v Šmarju pri Jelšah, pripravljeno za takojšnjo odpremo.</p>
           </div>
           <FotoGalerija
             kolaz
@@ -338,7 +338,7 @@ export default async function ASco() {
             <p>Pošljite povpraševanje in pripravimo predlog asortimana ter pogoje.</p>
           </div>
           <Link className="b b-w" href="/kontakt?vir=asco">
-            Pošlji povpraševanje →
+            Pošljite povpraševanje →
           </Link>
         </div>
       </div>

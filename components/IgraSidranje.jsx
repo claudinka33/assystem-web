@@ -5,7 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { dogodek } from "@/lib/dogodki";
 
 /* --------------------------------------------------------------
-   Vaja sidranja — prerez v slogu montažnih videov ASfix.
+   Vaja sidranja: prerez v slogu montažnih videov ASfix.
    Cel prizor je en SVG (1200 × 660). Sidro, luknja in mere so
    narisani v merilu: K točk prizora = 1 mm.
    -------------------------------------------------------------- */
@@ -219,7 +219,7 @@ export default function IgraSidranje() {
 
   const KORAKI = [
     ["Postavi ograjo", "Klikni na betonsko škarpo."],
-    ["Izvrtaj luknje", orodje?.tip === "sveder" ? "Sveder je v roki. Postavi ga nad rdečo oznako in drži miško." : "Vzemi sveder — premer mora ustrezati sidru."],
+    ["Izvrtaj luknje", orodje?.tip === "sveder" ? "Sveder je v roki. Postavi ga nad rdečo oznako in drži miško." : "Vzemi sveder: premer mora ustrezati sidru."],
     ["Izpihaj luknje", orodje?.tip === "pihalka" ? "Drži miško nad luknjo, dokler prah ne izgine." : "Vzemi pihalko."],
     ["Vstavi sidra", orodje?.tip === "sidro" ? "Klikni v vsako izpihano luknjo." : "Izberi sidro TXH7."],
     ["Zabij sidra", orodje?.tip === "kladivo" ? "Vsak klik je en udarec. Štirje udarci na sidro." : "Vzemi kladivo."],
@@ -291,7 +291,7 @@ export default function IgraSidranje() {
       if (l.globina >= 100) return;
       const drugi = luknje.find((x) => x.premer && x.premer !== orodje.premer);
       if (drugi) {
-        povej(`Obe luknji vrtaj z istim svedrom — začel si z Ø${drugi.premer}.`, true);
+        povej(`Obe luknji vrtaj z istim svedrom, začel si z Ø${drugi.premer}.`, true);
         return;
       }
       setAktivna(l.id);
@@ -325,7 +325,7 @@ export default function IgraSidranje() {
 
     if (orodje.tip === "sidro") {
       if (l.globina < 100) { povej("V neizvrtano luknjo sidra ni mogoče vstaviti.", true); return; }
-      if (l.prah > 0) { povej("Luknja je še polna prahu. Prah zniža nosilnost — najprej izpihaj.", true); return; }
+      if (l.prah > 0) { povej("Luknja je še polna prahu. Prah zniža nosilnost, najprej izpihaj.", true); return; }
       if (l.sidro) return;
       posodobi(l.id, () => ({ sidro: orodje.id }));
       return;
@@ -685,11 +685,11 @@ export default function IgraSidranje() {
           <p>
             Obe sidri sta izvrtani s pravim svedrom, izpihani, zabiti do
             plošče in zategnjeni s predpisanim momentom. Prav izpih izvrtine je korak, ki ga na gradbišču
-            največkrat izpustijo — in prav ta najbolj zniža nosilnost pritrditve.
+            največkrat izpustijo: in prav ta najbolj zniža nosilnost pritrditve.
           </p>
           <div className="igra-konec-gumbi">
-            <Link className="b b-r" href="/program/pritrdila-za-beton">Poglej sidra TXH7</Link>
-            <Link className="b b-d" href="/kontakt?vir=igra">Zahtevaj ponudbo</Link>
+            <Link className="b b-r" href="/program/pritrdila-za-beton">Poglejte sidra TXH7</Link>
+            <Link className="b b-d" href="/kontakt?vir=igra">Zahtevajte ponudbo</Link>
             <button type="button" className="b b-d" onClick={ponovi}>Poskusi znova</button>
           </div>
         </div>

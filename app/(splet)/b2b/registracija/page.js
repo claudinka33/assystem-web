@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Registracija from "./Registracija";
 
-export const metadata = { title: "Registracija podjetja — B2B", robots: { index: false } };
+export const metadata = { title: "Registracija podjetja: B2B", robots: { index: false } };
 
 export default function Stran() {
   return (

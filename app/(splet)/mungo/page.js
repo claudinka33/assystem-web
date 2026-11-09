@@ -11,7 +11,7 @@ import { MUNGO_VIDEI } from "@/lib/videi";
 export const revalidate = 300;
 
 export const metadata = {
-  title: "Mungo — vložki, sidra in kemične mase",
+  title: "Mungo: vložki, sidra in kemične mase",
   description:
     "Mungo v prodajnem programu AS system: najlonski vložki iz poliamida PA 6, okvirni vložki, kovinska sidra z evropsko tehnično oceno in kemične mase za beton, opeko in votle stene.",
   alternates: { canonical: "/mungo" },
@@ -33,11 +33,11 @@ const zakaj = [
   },
   {
     naziv: "Evropske tehnične ocene",
-    opis: "Kovinska sidra, okvirni vložki in kemične mase z evropsko tehnično oceno (ETA) — tudi za razpokan beton, požar in potresne obremenitve.",
+    opis: "Kovinska sidra, okvirni vložki in kemične mase z evropsko tehnično oceno (ETA), tudi za razpokan beton, požar in potresne obremenitve.",
   },
   {
     naziv: "Za vsako podlago",
-    opis: "Beton, polna in votla opeka, porobeton, mavčne plošče in votle stene — za vsako podlago pravi vložek ali sidro.",
+    opis: "Beton, polna in votla opeka, porobeton, mavčne plošče in votle stene, za vsako podlago pravi vložek ali sidro.",
   },
   {
     naziv: "Preverjena kakovost",
@@ -69,7 +69,7 @@ export default async function Mungo() {
         logo="/slike/znamke/mungo-logo-2026.png"
         oznaka="Blagovna znamka · pritrdilna tehnika"
         naslov="Vložki, sidra in kemične mase Mungo"
-        opis="Najlonski vložki iz poliamida PA 6, okvirni vložki, kovinska sidra z evropsko tehnično oceno in kemične mase — za beton, opeko, porobeton in votle stene."
+        opis="Najlonski vložki iz poliamida PA 6, okvirni vložki, kovinska sidra z evropsko tehnično oceno in kemične mase, za beton, opeko, porobeton in votle stene."
         znacke={["Najlon PA 6", "ETA", "Kovinska sidra", "Kemične mase"]}
         slika="/slike/stojala/mungo-stojalo.jpg"
         slikaW={893}
@@ -87,7 +87,7 @@ export default async function Mungo() {
           <div className="st">
             <span>Program</span>
             <h2>Kaj pokriva znamka Mungo</h2>
-            <p>Štiri skupine izdelkov — od lahkih vložkov do nosilnih sidranj v beton.</p>
+            <p>Štiri skupine izdelkov: od lahkih vložkov do nosilnih sidranj v beton.</p>
           </div>
           <div className="kats">
             {druzine.map((d) => (
@@ -110,7 +110,7 @@ export default async function Mungo() {
           <div className="st">
             <span>Video navodila</span>
             <h2>Mungo v praksi</h2>
-            <p>Kratki videi vgradnje — kliknite video za predvajanje, pod njim je povezava na izdelek z vsemi dimenzijami.</p>
+            <p>Kratki videi vgradnje: kliknite video za predvajanje, pod njim je povezava na izdelek z vsemi dimenzijami.</p>
           </div>
           <div className="mungo-videi">
             {MUNGO_VIDEI.map((v) => (
@@ -183,7 +183,7 @@ export default async function Mungo() {
               <h2>Za največje obremenitve</h2>
               <p>
                 Vinilestrske, epoksidne in hibridne mase Mungo za sidranje v beton in zidove, tudi z mrežico za votle
-                podlage — z evropsko tehnično oceno za razpokan in nerazpokan beton ter naknadno vgrajeno armaturo.
+                podlage: z evropsko tehnično oceno za razpokan in nerazpokan beton ter naknadno vgrajeno armaturo.
               </p>
             </div>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
@@ -204,10 +204,10 @@ export default async function Mungo() {
         <div className="w">
           <div>
             <h2>Iščete pravi vložek ali sidro?</h2>
-            <p>Opišite podlago in obremenitev — svetujemo, kateri izdelek je pravi.</p>
+            <p>Opišite podlago in obremenitev: svetujemo, kateri izdelek je pravi.</p>
           </div>
           <Link className="b b-w" href="/kontakt?vir=mungo">
-            Pošlji povpraševanje →
+            Pošljite povpraševanje →
           </Link>
         </div>
       </div>

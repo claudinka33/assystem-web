@@ -55,7 +55,7 @@ export default function ObrazecTrgovci() {
       <div className="obr-uspeh ot-uspeh">
         <span className="ot-kljukica">✓</span>
         <h3>Hvala, povpraševanje je poslano</h3>
-        <p>Pripravimo predlog police in vas pokličemo ali vam pišemo v enem delovnem dnevu.</p>
+        <p>Pripravimo predlog police in vas pokličemo ali vam pišemo.</p>
       </div>
     );
   }
@@ -106,7 +106,7 @@ export default function ObrazecTrgovci() {
       {/* Korak 2 */}
       <fieldset className="ot-korak" hidden={korak !== 2}>
         <legend>Koliko prostora imate?</legend>
-        <p className="ot-pomoc">Približno je dovolj — postavitev prilagodimo.</p>
+        <p className="ot-pomoc">Približno je dovolj: postavitev prilagodimo.</p>
         <div className="ot-izbire ot-3">
           {PROSTOR.map((p) => (
             <button
@@ -172,7 +172,7 @@ export default function ObrazecTrgovci() {
             ← Nazaj
           </button>
           <button className="b b-r" type="submit" disabled={caka}>
-            {caka ? "Pošiljam…" : "Pošlji povpraševanje"}
+            {caka ? "Pošiljam…" : "Pošljite povpraševanje"}
           </button>
         </div>
         <p className="obr-drobno">Brez obveznosti. Podatke uporabimo samo za odgovor na vaše povpraševanje.</p>

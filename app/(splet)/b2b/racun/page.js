@@ -56,15 +56,15 @@ export default async function Racun({ searchParams }) {
         {potrjeno && <div className="b2b-ok" style={{ marginTop: 12 }}>E-naslov je potrjen.</div>}
         {geslo && <div className="b2b-ok" style={{ marginTop: 12 }}>Novo geslo je shranjeno.</div>}
         {k.status === "preverjanje" && (
-          <div className="b2b-info" style={{ marginTop: 12 }}>Podatke podjetja preverjamo v našem sistemu. To traja nekaj minut — osveži stran. Do takrat vidiš navadne cene.</div>
+          <div className="b2b-info" style={{ marginTop: 12 }}>Podatke podjetja preverjamo v našem sistemu. To traja nekaj minut, nato osvežite stran. Do takrat vidite redne cene.</div>
         )}
         {k.status === "caka_odobritev" && (
           <div className="b2b-info" style={{ marginTop: 12 }}>
-            Registracija čaka na odobritev. Odobrimo jo praviloma v enem delovnem dnevu in te obvestimo po e-pošti. Za hitrejšo odobritev pokliči{" "}
+            Registracija čaka na odobritev. Ko jo odobrimo, vas obvestimo po e-pošti. Za hitrejšo odobritev pokličite{" "}
             <a href={`tel:${site.telefonRaw}`}>{site.telefon}</a>.
           </div>
         )}
-        {k.status === "zavrnjen" && <div className="b2b-info" style={{ marginTop: 12 }}>B2B dostop ni odobren. Za podrobnosti nas pokliči na {site.telefon}.</div>}
+        {k.status === "zavrnjen" && <div className="b2b-info" style={{ marginTop: 12 }}>B2B dostop ni odobren. Za podrobnosti nas pokličite na {site.telefon}.</div>}
         {aktiven && k.ustavljena_prodaja && <div className="b2b-info" style={{ marginTop: 12 }}>Spletno naročanje je trenutno ustavljeno. Pokliči nas na {site.telefon}.</div>}
 
         <div className="rac-pod">

@@ -18,7 +18,7 @@ export default function PrijavaNovice() {
       <div className="w">
         <div className="enov-besedilo">
           <h2 id="enov-naslov">Prijava na e-novice</h2>
-          <p>Novi izdelki, akcijske cene in novosti iz naše proizvodnje — največ enkrat mesečno.</p>
+          <p>Novi izdelki, akcijske cene in novosti iz naše proizvodnje, največ enkrat mesečno.</p>
         </div>
 
         {stanje?.stanje === "ok" ? (
@@ -46,7 +46,7 @@ export default function PrijavaNovice() {
               <input type="checkbox" name="privolitev" required />
               <span>
                 Strinjam se s prejemanjem e-novic AS system. Odjava je mogoča kadar koli prek povezave v vsakem sporočilu.{" "}
-                <Link href="/zasebnost">Varstvo podatkov</Link>
+                <Link href="/zasebnost">Politika zasebnosti</Link>
               </span>
             </label>
             {stanje?.stanje === "napaka" && <p className="enov-napaka" role="alert">{stanje.sporocilo}</p>}

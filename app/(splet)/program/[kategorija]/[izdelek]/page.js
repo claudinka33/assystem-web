@@ -68,12 +68,12 @@ export default async function StranIzdelka({ params }) {
   const dokEta = dokumenti.find((d) => d.tip === "eta" || d.tip === "certifikat" || d.tip === "dop");
   const mediji =
     i.znamka === "Silvermate"
-      ? { ...SILVERMATE_MEDIJI, ...(dokEta ? { certifikat: { ...SILVERMATE_MEDIJI.certifikat, url: dokEta.datoteka_url, opis: "Odpri PDF ↓" } } : {}) }
+      ? { ...SILVERMATE_MEDIJI, ...(dokEta ? { certifikat: { ...SILVERMATE_MEDIJI.certifikat, url: dokEta.datoteka_url, opis: "Odprite PDF ↓" } } : {}) }
       : {
           video: i.videi?.[0] ?? VIDEI_IZDELKOV[izdelek] ?? null,
           letak: dokLetak ? { url: dokLetak.datoteka_url, naziv: dokLetak.naziv } : null,
           certifikat: dokEta
-            ? { oznaka: i.eta_stevilka ?? oznakeTipov[dokEta.tip] ?? "ETA", url: dokEta.datoteka_url, naslov: dokEta.naziv, opis: "Odpri PDF ↓" }
+            ? { oznaka: i.eta_stevilka ?? oznakeTipov[dokEta.tip] ?? "ETA", url: dokEta.datoteka_url, naslov: dokEta.naziv, opis: "Odprite PDF ↓" }
             : i.eta_stevilka
               ? { oznaka: i.eta_stevilka, url: `/kontakt?izdelek=${encodeURIComponent(i.eta_stevilka + " " + i.naziv)}&vir=certifikat`, opis: "Pošljemo na zahtevo →" }
               : null,
@@ -121,7 +121,7 @@ export default async function StranIzdelka({ params }) {
             )}
 
             <Link className="b b-r" href={povprasevanje} style={{ display: "block", textAlign: "center" }}>
-              Pošlji povpraševanje
+              Pošljite povpraševanje
             </Link>
 
             {dokumenti.length > 0 && (

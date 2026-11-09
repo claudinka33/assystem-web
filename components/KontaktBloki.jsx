@@ -49,7 +49,7 @@ export function Stik({ p, svetlo }) {
 )}
 {nic && (
   <li className="on-kmalu">
-    Kontakt v pripravi — do takrat{" "}
+    Kontakt v pripravi: do takrat{" "}
     <a href={`tel:${site.telefonRaw}`}>{site.telefon}</a> ·{" "}
     <a href={`mailto:${site.email}`}>{site.email}</a>
   </li>
@@ -217,7 +217,7 @@ export function Lokacije({ siva = false, naslov = "Dve lokaciji" }) {
                 </a>
               </div>
               <iframe
-                title={`Zemljevid — ${l.naziv}`}
+                title={`Zemljevid: ${l.naziv}`}
                 src={`https://www.google.com/maps?q=${encodeURIComponent(l.zemljevid)}&z=15&output=embed`}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"

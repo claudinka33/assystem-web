@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Pozabljeno from "./Pozabljeno";
 
-export const metadata = { title: "Pozabljeno geslo — B2B", robots: { index: false } };
+export const metadata = { title: "Pozabljeno geslo: B2B", robots: { index: false } };
 
 export default function Stran() {
   return (

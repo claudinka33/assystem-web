@@ -1,39 +1,46 @@
 import Link from "next/link";
 
-/* Kaj iščete? — štiri vstopna vrata za štiri publike (B2C, B2B, trgovci, partnerji). */
+/* Kaj iščete? Pet vstopnih poti: B2C, B2B, trgovci, private label, vijaki po risbi. */
 const VRATA = [
   {
     st: "01",
-    kdo: "Kupujem zase",
-    naslov: "Pravo pritrdilo za moj projekt",
-    opis: "Poiščite izdelek po podlagi ali šifri in ga kupite brez registracije.",
+    kdo: "Za domačo rabo",
+    naslov: "Pritrdilo za vaš projekt",
+    opis: "Poiščite izdelek po šifri ali podlagi in ga naročite brez registracije.",
     cta: "Izdelki",
     pot: "/program",
   },
   {
     st: "02",
-    kdo: "Podjetje ali izvajalec",
-    naslov: "Poslovne cene in naročanje",
-    opis: "B2B prijava s cenami po dogovoru, zgodovino naročil in plačilom po računu.",
+    kdo: "Podjetja in izvajalci",
+    naslov: "Poslovni nakup",
+    opis: "Vaše cene, pregled naročil in plačilo na račun z dogovorjenim rokom plačila.",
     cta: "B2B prijava",
     pot: "/b2b",
   },
   {
     st: "03",
-    kdo: "Trgovec",
-    naslov: "Program in police za trgovino",
-    opis: "Sestavimo prodajni program in postavitev police — od 1 do 20 metrov.",
+    kdo: "Trgovine",
+    naslov: "Program in police",
+    opis: "Sestavimo prodajni program in postavitev police od 1 do 20 metrov.",
     cta: "Za trgovce",
     pot: "/za-trgovce",
   },
   {
     st: "04",
-    kdo: "Partner ali blagovna znamka",
-    naslov: "Pod vašo znamko ali po vaši risbi",
-    opis: "Pakiranje pod vašo blagovno znamko in izdelava vijakov po tehnični dokumentaciji.",
-    cta: "Za partnerje",
+    kdo: "Blagovne znamke",
+    naslov: "Private label",
+    opis: "Naše izdelke zapakiramo v vašo embalažo in pod vašo znamko.",
+    cta: "Private label",
     pot: "/private-label",
-    dodatno: { naziv: "Vijaki po naročilu", pot: "/vijaki-po-narocilu" },
+  },
+  {
+    st: "05",
+    kdo: "Industrija",
+    naslov: "Vijaki po vaši risbi",
+    opis: "Izdelamo vijake po vaši risbi ali tehnični dokumentaciji.",
+    cta: "Vijaki po naročilu",
+    pot: "/vijaki-po-narocilu",
   },
 ];
 

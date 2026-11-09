@@ -28,7 +28,7 @@ export default async function DveZnamki({ trenutna, siv = true }) {
           <span>Naše znamke</span>
           <h2>{STEVNIK[vidne.length] ?? "Naše znamke"}, en dobavitelj</h2>
           <p>
-            Pritrdilna tehnika, vijačno blago, lesni vijaki in žeblji pod znamkami, ki jih poznate — vse z enim naročilom,
+            Pritrdilna tehnika, vijačno blago, lesni vijaki in žeblji pod znamkami, ki jih poznate, vse z enim naročilom,
             eno dobavo in enim računom.
           </p>
         </div>

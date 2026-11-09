@@ -16,7 +16,7 @@ export default function ZaklenjenoB2B({ naprej = "/za-trgovce", naslov = "Police
             "Postavitve polic, planograme in embalažo za trgovine smo razvili sami, zato jih pokažemo samo trgovcem z B2B dostopom. Prijavite se ali registrirajte podjetje."}
         </p>
         {prijavljen ? (
-          <p className="b2b-zaklep-op">Vaš B2B dostop še ni aktiven — ko ga odobrimo, bodo police vidne tukaj.</p>
+          <p className="b2b-zaklep-op">Vaš B2B dostop še ni aktiven, ko ga odobrimo, bodo police vidne tukaj.</p>
         ) : (
           <div className="zn-gumbi">
             <Link className="b b-r" href={`/b2b?naprej=${nap}`}>B2B prijava</Link>

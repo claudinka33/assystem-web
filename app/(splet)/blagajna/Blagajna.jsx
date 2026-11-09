@@ -137,7 +137,7 @@ export default function Blagajna({ dostave, placila = ["predracun", "povzetje"] 
                   );
                 })}
               </div>
-              {!osebno && <p className="bl-opomba">Poštnina: do 50 € 10 €, do 100 € 5 €, nad 100 € brezplačno.</p>}
+              {!osebno && <p className="bl-opomba">Poštnina: do 50 € 10 €, do 100 € 5 €, nad 100 € brezplačno (vrednost blaga brez DDV).</p>}
             </div>
           </section>
 
@@ -194,7 +194,7 @@ export default function Blagajna({ dostave, placila = ["predracun", "povzetje"] 
                 <span>
                   Strinjam se s <Link href="/splosni-pogoji" target="_blank">splošnimi pogoji</Link>, seznanjen/-a sem s{" "}
                   <Link href="/odstop-od-pogodbe" target="_blank">pravico do odstopa</Link> in{" "}
-                  <Link href="/zasebnost" target="_blank">varstvom podatkov</Link>.
+                  <Link href="/zasebnost" target="_blank">politiko zasebnosti</Link>.
                 </span>
               </label>
               <label className="bl-pog">

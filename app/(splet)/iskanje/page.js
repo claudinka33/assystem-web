@@ -46,7 +46,7 @@ export default async function Iskanje({ searchParams }) {
               <h2>Ni zadetkov</h2>
               <p>
                 Poskusite s krajšim nizom ali samo z delom šifre. Če izdelka ne
-                najdete, nam pišite — večino programa imamo tudi izven spletnega
+                najdete, nam pišite: večino programa imamo tudi izven spletnega
                 kataloga.
               </p>
               <Link className="more" href="/kontakt?vir=iskanje" style={{ display: "inline-block", marginTop: 14 }}>

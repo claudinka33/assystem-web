@@ -19,7 +19,7 @@ const TIPI = [
     slika: "/slike/znamke/asfix-afr41.png",
     naziv: "Škatla AFA / AFR",
     kolicina: "50 – 200 kos",
-    opis: "Deset velikosti v enotnem dizajnu — AFA za avtomatsko, AFR za ročno pakiranje. Šifra, dimenzija in število kosov na čelni ploskvi. Za večje odjeme tri škatle v transportnem kartonu, kartoni na paleti.",
+    opis: "Deset velikosti v enotnem dizajnu. AFA za avtomatsko, AFR za ročno pakiranje. Šifra, dimenzija in število kosov na čelni ploskvi. Za večje odjeme tri škatle v transportnem kartonu, kartoni na paleti.",
   },
   {
     slika: "/slike/znamke/asfix-afr41-private-label.png",
@@ -32,7 +32,7 @@ const TIPI = [
 const ETIKETA = [
   ["Šifra in EAN", "Enolična oznaka za naročanje in blagajno."],
   ["Dimenzija v velikem tisku", "Berljiva z razdalje, brez iskanja drobnega tiska."],
-  ["Piktogrami podlage", "Beton, opeka, votlak, mavčna plošča — brez jezikovne ovire."],
+  ["Piktogrami podlage", "Beton, opeka, votlak, mavčna plošča, brez jezikovne ovire."],
   ["Število kosov", "Jasno na sprednji strani, ne samo na hrbtni."],
 ];
 

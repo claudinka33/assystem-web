@@ -37,7 +37,7 @@ export default function ObrazecPrivateLabel() {
       <div className="obr-uspeh ot-uspeh">
         <span className="ot-kljukica">✓</span>
         <h3>Hvala, povpraševanje je poslano</h3>
-        <p>Pripravimo predlog asortimana, embalaže in ponudbo. Odgovorimo v enem delovnem dnevu.</p>
+        <p>Pripravimo predlog asortimana, embalaže in ponudbo ter vam odgovorimo v najkrajšem možnem času.</p>
       </div>
     );
   }
@@ -155,7 +155,7 @@ export default function ObrazecPrivateLabel() {
             ← Nazaj
           </button>
           <button className="b b-r" type="submit" disabled={caka}>
-            {caka ? "Pošiljam…" : "Pošlji povpraševanje"}
+            {caka ? "Pošiljam…" : "Pošljite povpraševanje"}
           </button>
         </div>
         <p className="obr-drobno">Brez obveznosti. Podatke uporabimo samo za odgovor na vaše povpraševanje.</p>

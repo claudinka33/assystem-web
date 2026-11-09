@@ -7,7 +7,7 @@ import FotoGalerija from "@/components/FotoGalerija";
 import { FOTO_VPN, FOTO_KOVANJE, FOTO_KAKOVOST } from "@/lib/foto";
 
 export const metadata = {
-  title: "Vijaki po naročilu — po vaši risbi",
+  title: "Vijaki po naročilu: po vaši risbi",
   description:
     "Posebni vijaki po risbi ali tehnični dokumentaciji, od M3 do M16, za elektro, lesno, gradbeno in splošno industrijo. Lastna proizvodnja od leta 2015.",
   alternates: { canonical: "/vijaki-po-narocilu" },
@@ -24,7 +24,7 @@ const koraki = [
   ["Risba ali vzorec", "Pošljete risbo, tehnično dokumentacijo ali vzorec vijaka ter letno količino."],
   ["Pregled in ponudba", "Tehnolog preveri izvedljivost, material in površinsko zaščito. Pripravimo ponudbo z rokom."],
   ["Orodje in vzorci", "Sledita izdelava orodja in potrditev vzorcev. Vzorce preverite pri sebi."],
-  ["Serijska proizvodnja", "Po potrditvi vzorcev izdelamo serijo — hladno preoblikovanje in valjanje navoja."],
+  ["Serijska proizvodnja", "Po potrditvi vzorcev izdelamo serijo, hladno preoblikovanje in valjanje navoja."],
   ["Kontrola kakovosti", "Dimenzijska kontrola med proizvodnjo in na koncu, z zapisom za vsako serijo."],
   ["Dobava", "Pakiranje po dogovoru in dobava na vaš naslov ali po dogovorjeni dinamiki odpoklicev."],
 ];
@@ -54,7 +54,7 @@ export default function VijakiPoNarocilu() {
             <h2>Vijak, ki ga ni v katalogu</h2>
             <p>
               Kadar standardni vijak ne ustreza, ga izdelamo po vaši risbi: posebna glava, dolžina, navoj,
-              material ali zaščita. Vijaki po naročilu niso standardni DIN vijaki — vsak je narejen za
+              material ali zaščita. Vijaki po naročilu niso standardni DIN vijaki, vsak je narejen za
               konkreten izdelek naročnika.
             </p>
           </div>
@@ -150,7 +150,7 @@ export default function VijakiPoNarocilu() {
             </div>
             <ObrazecPovprasevanje
               vir="vijaki-po-narocilu"
-              naslov="Povpraševanje — vijak po risbi"
+              naslov="Povpraševanje: vijak po risbi"
               dodatnaPolja={[
                 { oznaka: "Letna količina", namig: "npr. 100.000 kosov" },
                 { oznaka: "Material", moznosti: ["jeklo za hladno preoblikovanje", "borovo jeklo (kaljeno)", "nerjavno jeklo", "po risbi / ne vem"] },

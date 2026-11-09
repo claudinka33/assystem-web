@@ -29,7 +29,7 @@ export default function Kosarica() {
         <div className="trg-prazno">
           <Ikona ime="vozicek" velikost={40} />
           <h2>Košarica je prazna</h2>
-          <p>Izberite izdelke v prodajnem programu — dodate jih z gumbom »V košarico« pri vsakem artiklu.</p>
+          <p>Izberite izdelke v prodajnem programu, dodate jih z gumbom »V košarico« pri vsakem artiklu.</p>
           <Link className="b b-r" href="/program">Na prodajni program</Link>
         </div>
       </>
@@ -99,7 +99,7 @@ export default function Kosarica() {
             </div>
           </div>
           {brezCene.length > 0 && (
-            <div className="bl-nap">Artiklov {brezCene.map((x) => x.sifra).join(", ")} ni mogoče naročiti prek spleta — odstranite jih ali nas pokličite.</div>
+            <div className="bl-nap">Artiklov {brezCene.map((x) => x.sifra).join(", ")} ni mogoče naročiti prek spleta, odstranite jih ali nas pokličite.</div>
           )}
         </div>
 

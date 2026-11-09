@@ -45,7 +45,7 @@ export default function GalerijaIzdelka({ slike, naziv }) {
               type="button"
               className={!zunanja && n === izbrana ? "on" : ""}
               onClick={() => { setIzbrana(n); setZunanja(null); }}
-              aria-label={`${naziv} — slika ${n + 1}`}
+              aria-label={`${naziv}: slika ${n + 1}`}
             >
               <Image src={s} alt="" fill sizes="80px" style={{ objectFit: "contain", padding: 4 }} />
               {oznakaIz(s) && <span className="izd-oznaka">{oznakaIz(s)}</span>}

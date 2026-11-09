@@ -9,7 +9,7 @@ import { SILVERMATE_KATEGORIJA, SILVERMATE_IZDELKI } from "@/lib/silvermate";
 export const revalidate = 300;
 
 export const metadata = {
-  title: "Silvermate — lesni vijaki",
+  title: "Silvermate: lesni vijaki",
   description:
     "Lesni vijaki Silvermate z oceno ETA-18/0284: Pozi ali Torx, cel ali delni navoj, od 3,0 × 16 do 6,0 × 200 mm. AS811, AS812, AS814 in AS816.",
   alternates: { canonical: "/silvermate" },
@@ -35,7 +35,7 @@ export default async function Silvermate() {
         logo="/slike/znamke/silvermate-logo-negativ.png"
         oznaka="Blagovna znamka · lesni vijaki"
         naslov="Lesni vijaki Silvermate"
-        opis="Vijaki za les in iverne plošče z evropsko tehnično oceno — Pozi ali Torx, s celim ali delnim navojem, od 3,0 × 16 do 6,0 × 200 mm."
+        opis="Vijaki za les in iverne plošče z evropsko tehnično oceno. Pozi ali Torx, s celim ali delnim navojem, od 3,0 × 16 do 6,0 × 200 mm."
         znacke={["ETA-18/0284", "CE", "Pozi · Torx", "Cel · delni navoj"]}
         slika="/slike/stojala/silvermate-stojalo.jpg"
         slikaW={893}
@@ -53,13 +53,13 @@ export default async function Silvermate() {
           <div className="st">
             <span>Program</span>
             <h2>Štiri izvedbe lesnih vijakov</h2>
-            <p>Kliknite izvedbo za vse dimenzije, zalogo in cene. Pozi in Torx imata vsak svojo stran — v tabeli izberete cel ali delni navoj.</p>
+            <p>Kliknite izvedbo za vse dimenzije, zalogo in cene. Pozi in Torx imata vsak svojo stran, v tabeli izberete cel ali delni navoj.</p>
           </div>
           <div className="kats">
             {vijaki.map((x) => (
               <Link key={x.sifra} href={povezava(x)} className="k">
                 <div className="im">
-                  <Image src={x.slika} alt={`Silvermate ${x.sifra} — ${x.naziv}, ${x.navoj}`} fill sizes="(max-width: 700px) 50vw, 340px" style={{ objectFit: "contain", padding: 8 }} />
+                  <Image src={x.slika} alt={`Silvermate ${x.sifra}: ${x.naziv}, ${x.navoj}`} fill sizes="(max-width: 700px) 50vw, 340px" style={{ objectFit: "contain", padding: 8 }} />
                 </div>
                 <div className="tx">
                   <p style={{ color: "var(--color-red)", fontWeight: 800 }}>{x.sifra}</p>
@@ -91,7 +91,7 @@ export default async function Silvermate() {
             <p>Pripravimo predlog asortimana, pakiranja in pogoje.</p>
           </div>
           <Link className="b b-w" href="/kontakt?vir=silvermate">
-            Pošlji povpraševanje →
+            Pošljite povpraševanje →
           </Link>
         </div>
       </div>

@@ -8,7 +8,7 @@ import { VRSTE_CLANKOV } from "@/lib/vrste-clankov";
 export const revalidate = 60;
 
 export const metadata = {
-  title: "Aktualno — novosti in nasveti",
+  title: "Aktualno: novosti in nasveti",
   description: "Novosti, nasveti za montažo in obvestila podjetja AS system.",
   alternates: { canonical: "/aktualno" },
 };

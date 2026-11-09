@@ -20,7 +20,7 @@ export default async function Preklic({ searchParams }) {
         {st && <PonovnoPlacaj stevilka={st} />}
         <p style={{ marginTop: 18 }}>
           Lahko nas tudi pokličete na <a href={`tel:${site.telefonRaw}`}>{site.telefon}</a> ali pišete na{" "}
-          <a href={`mailto:${site.emailProdaja}`}>{site.emailProdaja}</a> — naročilo uredimo s plačilom po predračunu.
+          <a href={`mailto:${site.emailProdaja}`}>{site.emailProdaja}</a>: naročilo uredimo s plačilom po predračunu.
         </p>
         <Link href="/kosarica" style={{ color: "var(--color-red)", display: "inline-block", marginTop: 16 }}>Nazaj v košarico</Link>
       </div>

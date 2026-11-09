@@ -125,8 +125,8 @@ export default async function Novica({ params }) {
 
             <div className="clanek-box">
               <h3>E-novice</h3>
-              <p>Novosti, akcije in nasveti za montažo — največ enkrat mesečno.</p>
-              <a className="clanek-povezava" href="#enov-naslov">Prijavi se na e-novice ↓</a>
+              <p>Novosti, akcije in nasveti za montažo, največ enkrat mesečno.</p>
+              <a className="clanek-povezava" href="#enov-naslov">Prijavite se na e-novice ↓</a>
             </div>
 
             <div className="clanek-box">

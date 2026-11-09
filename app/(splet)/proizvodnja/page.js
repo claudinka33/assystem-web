@@ -29,7 +29,7 @@ const izdelki = [
   {
     naziv: "Udarni vijaki",
     oznaka: "PA6 · PE",
-    opis: "Vijak in vložek, sestavljena na naših montažnih linijah — pripravljena za hitro vgradnjo.",
+    opis: "Vijak in vložek, sestavljena na naših montažnih linijah, pripravljena za hitro vgradnjo.",
     slika: "/slike/o-nas/udarni-vodoravno.png",
     pot: "/program/klasicna-pritrdila",
   },
@@ -50,12 +50,12 @@ const izdelki = [
 ];
 
 const koraki = [
-  ["Razvoj in tehnologija", "Postopek, material in tolerance določimo sami. Pripravimo tehnično dokumentacijo — ETA, CE in izjave o lastnostih (DoP).", "razvoj"],
+  ["Razvoj in tehnologija", "Postopek, material in tolerance določimo sami. Pripravimo tehnično dokumentacijo, ETA, CE in izjave o lastnostih (DoP).", "razvoj"],
   ["Hladno kovanje", "Iz jeklene žice na večstopenjskih stiskalnicah nastanejo telesa sider in vijakov. Material ohrani strukturo, nosilnost je ponovljiva.", "kovanje"],
-  ["Valjanje navojev", "Navoj se valja, ne reže — vlakna materiala ostanejo nepretrgana, navoj je trdnejši.", "navoj"],
+  ["Valjanje navojev", "Navoj se valja, ne reže, vlakna materiala ostanejo nepretrgana, navoj je trdnejši.", "navoj"],
   ["Brizganje plastike", "Najlonski vložki in tulci iz poliamida (PA6) in polietilena (PE).", "brizganje"],
   ["Kontrola kakovosti", "Vhodna, medfazna in končna kontrola. Vsaka serija je sledljiva od materiala do palete.", "kontrola"],
-  ["Montaža in pakiranje", "Avtomatsko sestavljanje kompletov in pakiranje v vrečke ali škatle — tudi v embalažo kupca.", "montaza"],
+  ["Montaža in pakiranje", "Avtomatsko sestavljanje kompletov in pakiranje v vrečke ali škatle, tudi v embalažo kupca.", "montaza"],
   ["Skladišče in odprema", "Visokoregalno skladišče v Šmarju pri Jelšah. Osnovni asortiment odpremimo takoj.", "odprema"],
 ];
 
@@ -168,7 +168,7 @@ const lokacije = [
 ];
 
 const pakiranje = [
-  ["Vrečke z izveskom", "Za police trgovin — od malih do velikih vrečk."],
+  ["Vrečke z izveskom", "Za police trgovin: od malih do velikih vrečk."],
   ["Škatle", "Družina škatel ASfix za avtomatsko in ročno pakiranje."],
   ["Embalaža kupca", "Vaša znamka, vaša etiketa, vaša EAN koda."],
   ["Poljubna količina", "Velikost pakiranja prilagodimo kupcu in prodajnemu mestu."],
@@ -179,8 +179,8 @@ const galerija = [
   ["/slike/embalaza/AFR41.png", "Škatla ASfix"],
   ["/slike/embalaza/AFR81.png", "Dolga škatla za sidra"],
   ["/slike/skatla-private-label.jpg", "Škatla pod vašo znamko"],
-  ["/slike/embalaza/ASco_vrecka_modra.png", "Vrečka ASco — ZnB"],
-  ["/slike/embalaza/ASco_vrecka_zelena.png", "Vrečka ASco — INOX"],
+  ["/slike/embalaza/ASco_vrecka_modra.png", "Vrečka ASco: ZnB"],
+  ["/slike/embalaza/ASco_vrecka_zelena.png", "Vrečka ASco: INOX"],
   ["/slike/proizvodnja/transportna-skatla.webp", "Transportna škatla"],
   ["/slike/proizvodnja/paleta-asfix.jpg", "Paletna enota"],
 ];
@@ -189,7 +189,7 @@ const kakovost = [
   ["ISO 9001:2015", "Certificiran sistem vodenja kakovosti (Bureau Veritas)."],
   ["ETA · CE · DoP", "Evropska tehnična ocena in izjave o lastnostih za nosilna sidra."],
   ["F120", "Ognjevarnost 120 minut za zahtevne konstrukcijske vgradnje."],
-  ["Sledljivost", "Vsaka serija ima LOT — od materiala do palete."],
+  ["Sledljivost", "Vsaka serija ima LOT: od materiala do palete."],
 ];
 
 export default function Proizvodnja() {
@@ -203,10 +203,10 @@ export default function Proizvodnja() {
               <Link href="/">Domov</Link> / Proizvodnja
             </nav>
             <span className="zn-oznaka" style={{ marginTop: 0 }}>Proizvodnja in razvoj</span>
-            <h1>Od žice do police — pod eno streho</h1>
+            <h1>Od žice do police: pod eno streho</h1>
             <p>
               Jeklena sidra, udarne vijake, zidne vložke in perforiran trak
-              izdelamo sami — na dveh lokacijah v Sloveniji. Ne uvažamo jih in
+              izdelamo sami: na dveh lokacijah v Sloveniji. Ne uvažamo jih in
               ne kupujemo polizdelkov, zato lahko dimenzijo, material ali
               pakiranje prilagodimo brez čakanja na dobavno verigo.
             </p>
@@ -254,7 +254,7 @@ export default function Proizvodnja() {
             <span>Lastna proizvodnja</span>
             <h2>Kaj izdelamo sami</h2>
             <p>
-              Štiri skupine izdelkov so v celoti naše — od postopka do pakiranja.
+              Štiri skupine izdelkov so v celoti naše, od postopka do pakiranja.
               Vse so na voljo pod znamko ASfix ali pod vašo blagovno znamko.
             </p>
           </div>
@@ -279,7 +279,7 @@ export default function Proizvodnja() {
           <div className="st">
             <span>Proces</span>
             <h2>Pot izdelka</h2>
-            <p>Vsak korak je v naših rokah — zato vemo, kaj je v vsaki škatli.</p>
+            <p>Vsak korak je v naših rokah, zato vemo, kaj je v vsaki škatli.</p>
           </div>
           <ol className="pr-koraki">
             {koraki.map(([n, o, ik]) => (
@@ -301,7 +301,7 @@ export default function Proizvodnja() {
           <div className="st">
             <span>Pogled v proizvodnjo</span>
             <h2>Tako nastajajo naši izdelki</h2>
-            <p>Fotografije iz naših obratov — kliknite sliko za povečavo.</p>
+            <p>Fotografije iz naših obratov: kliknite sliko za povečavo.</p>
           </div>
           <FotoGalerija
             skupine={[
@@ -326,7 +326,7 @@ export default function Proizvodnja() {
           <div className="st">
             <span>Strojni park</span>
             <h2>Proizvodno podjetje, ne trgovina s skladiščem</h2>
-            <p>Trenutno stanje strojnega parka — stroji in ljudje, ki jih znajo voditi.</p>
+            <p>Trenutno stanje strojnega parka: stroji in ljudje, ki jih znajo voditi.</p>
           </div>
           <div className="on-stroji-g">
             {stroji.map((g) => (
@@ -386,7 +386,7 @@ export default function Proizvodnja() {
                 <p>
                   Lastno pakiranje je eden naših najmočnejših argumentov. Kupcu
                   ponudimo poljubno velikost pakiranja in pakiranje v njegovo
-                  embalažo — česar uvozniki ne zmorejo.
+                  embalažo: česar uvozniki ne zmorejo.
                 </p>
               </div>
               <div className="on-zakaj" style={{ gridTemplateColumns: "repeat(2, minmax(0, 1fr))" }}>
@@ -398,7 +398,7 @@ export default function Proizvodnja() {
                 ))}
               </div>
               <div style={{ marginTop: 22 }}>
-                <Link className="more" href="/private-label">Private label — pakiranje pod vašo znamko →</Link>
+                <Link className="more" href="/private-label">Private label: pakiranje pod vašo znamko →</Link>
               </div>
             </div>
             <div className="pr-gal">
@@ -424,7 +424,7 @@ export default function Proizvodnja() {
                 <span>Zadnji korak</span>
                 <h2>Na polici trgovca</h2>
                 <p>
-                  Iz montaže gre blago naravnost na polico — pripravljeno za
+                  Iz montaže gre blago naravnost na polico, pripravljeno za
                   prodajo, brez prepakiranja. Trgovcem pripravimo police od 1
                   do 4 metrov.
                 </p>
@@ -432,7 +432,7 @@ export default function Proizvodnja() {
               <ul className="pr-polica-tocke">
                 <li>
                   <b>Prodajna tabla »V kaj pritrjuješ?«</b>
-                  <span>Kupec najprej izbere podlago, nato pritrdilo — manj vprašanj na blagajni.</span>
+                  <span>Kupec najprej izbere podlago, nato pritrdilo, manj vprašanj na blagajni.</span>
                 </li>
                 <li>
                   <b>Vrečke z izveskom</b>
@@ -470,7 +470,7 @@ export default function Proizvodnja() {
               <h2>Vijaki po naročilu</h2>
               <p>
                 Po vaši risbi ali tehnični dokumentaciji izdelamo vijake, ki niso
-                del standardnega kataloga — za elektro, lesno, gradbeno in
+                del standardnega kataloga: za elektro, lesno, gradbeno in
                 splošno industrijo. Poskrbimo za izdelavo orodja in potrditev
                 vzorcev, nato za serijsko proizvodnjo.
               </p>
@@ -483,7 +483,7 @@ export default function Proizvodnja() {
               href="/vijaki-po-narocilu"
               gumb="Vijaki po naročilu →"
               koraki={[
-                { naslov: "Risba", podnaslov: "Korak 1", opis: "Vaša risba ali tehnična dokumentacija — preverimo izvedljivost in material.", slika: "/slike/foto/vpn-risba.jpg", alt: "Tehnična risba vijaka" },
+                { naslov: "Risba", podnaslov: "Korak 1", opis: "Vaša risba ali tehnična dokumentacija, preverimo izvedljivost in material.", slika: "/slike/foto/vpn-risba.jpg", alt: "Tehnična risba vijaka" },
                 { naslov: "Orodje in vzorci", podnaslov: "Korak 2", opis: "Izdelava orodja in potrditev vzorcev pred serijo.", slika: "/slike/foto/proizvodnja-09.jpg", alt: "Prvi kosi iz novega orodja" },
                 { naslov: "Serija", podnaslov: "Korak 3", opis: "Serijska proizvodnja s hladnim kovanjem in valjanjem navojev.", slika: "/slike/foto/proizvodnja-13.jpg", alt: "Serijsko izdelani vijaki" },
                 { naslov: "Kontrola in dostava", podnaslov: "Korak 4", opis: "Kontrola mer in navojev, pakiranje in dostava.", slika: "/slike/foto/kakovost-04.jpg", alt: "Optična kontrola mer vijaka" },
@@ -529,7 +529,7 @@ export default function Proizvodnja() {
               gumb="Več o kakovosti →"
               koraki={[
                 { naslov: "Nosilnost", podnaslov: "Preizkus", opis: "Preizkus izvlečne sile sider v betonu.", slika: "/slike/foto/kakovost-03.jpg", alt: "Sidro med preizkusom nosilnosti" },
-                { naslov: "Mere", podnaslov: "Optična kontrola", opis: "Optično merjenje profila in navoja — brez dotika.", slika: "/slike/foto/kakovost-04.jpg", alt: "Optično merjenje vijaka" },
+                { naslov: "Mere", podnaslov: "Optična kontrola", opis: "Optično merjenje profila in navoja, brez dotika.", slika: "/slike/foto/kakovost-04.jpg", alt: "Optično merjenje vijaka" },
                 { naslov: "Ob stroju", podnaslov: "Medfazna kontrola", opis: "Kontrola mer med serijo, neposredno ob stroju.", slika: "/slike/foto/proizvodnja-11.jpg", alt: "Kontrola mer s kljunastim merilom ob stroju" },
               ]}
             />
@@ -555,7 +555,7 @@ export default function Proizvodnja() {
             <p>Pošljite risbo ali vzorec in pripravimo predlog izvedbe.</p>
           </div>
           <Link className="b b-w" href="/kontakt?vir=proizvodnja">
-            Pošlji povpraševanje →
+            Pošljite povpraševanje →
           </Link>
         </div>
       </div>

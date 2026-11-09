@@ -7,14 +7,14 @@ export const POTI = [
     pot: "/asfix",
     oznaka: "Blagovna znamka",
     naziv: "ASfix",
-    opis: "Pritrdilna tehnika v embalaži za polico — sidra, vložki, udarni vijaki in kemična sidra.",
+    opis: "Pritrdilna tehnika v embalaži za polico, sidra, vložki, udarni vijaki in kemična sidra.",
     slika: "/slike/poti/asfix.jpg",
   },
   {
     pot: "/asco",
     oznaka: "Blagovna znamka",
     naziv: "ASco",
-    opis: "Standardno vijačno blago po DIN in ISO — vijaki, matice in podložke, pocinkano in inox.",
+    opis: "Standardno vijačno blago po DIN in ISO, vijaki, matice in podložke, pocinkano in inox.",
     slika: "/slike/poti/asco.jpg",
   },
   {

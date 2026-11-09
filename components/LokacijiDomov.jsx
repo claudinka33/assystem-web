@@ -35,7 +35,7 @@ export default function LokacijiDomov() {
 
   return (
     <div className="lok-d" onMouseEnter={() => setPavza(true)} onMouseLeave={() => setPavza(false)}>
-      <Link href="/proizvodnja#lokacije" className="lok-d-foto" aria-label={`${LOKACIJE[i].kraj} — več o lokaciji`}>
+      <Link href="/proizvodnja#lokacije" className="lok-d-foto" aria-label={`${LOKACIJE[i].kraj}: več o lokaciji`}>
         {LOKACIJE.map((l, k) => (
           <div key={l.kraj} className={`lok-d-sl${k === i ? " on" : ""}`}>
             <Image src={l.slika} alt={`AS system ${l.kraj}`} fill sizes="(max-width: 1000px) 100vw, 60vw" quality={90} priority={k === 0} />

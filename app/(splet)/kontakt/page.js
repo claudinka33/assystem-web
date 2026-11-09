@@ -1,13 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import ObrazecPovprasevanje from "@/components/ObrazecPovprasevanje";
-import { KogaPoklicem, TerenKomercialisti, KontaktiOddelki, Lokacije } from "@/components/KontaktBloki";
+import { KontaktiOddelki, Lokacije } from "@/components/KontaktBloki";
 import { site } from "@/lib/site";
 
 export const metadata = {
   title: "Kontakt",
   description:
-    "Kontakt AS system d.o.o.: telefon +386 3 800 70 00, info@as-system.si. Komercialisti po regijah, kontakti po oddelkih in lokaciji v Šmarju pri Jelšah in Bistrici ob Sotli.",
+    "Kontakt AS system d.o.o.: telefon +386 3 800 70 00, info@as-system.si. Kontakti po oddelkih in lokaciji v Šmarju pri Jelšah in Bistrici ob Sotli.",
   alternates: { canonical: "/kontakt" },
 };
 
@@ -37,7 +37,7 @@ export default async function Kontakt({ searchParams }) {
             <h1>Pišite nam ali pokličite</h1>
             <p>
               Pošljite dimenzije, količino ali samo fotografijo vgradnje.
-              Odgovorimo v enem delovnem dnevu — običajno prej.
+              Odgovorimo v najkrajšem možnem času.
             </p>
             <div className="kt-hitro">
               <a href={`tel:${site.telefonRaw}`}>
@@ -75,7 +75,7 @@ export default async function Kontakt({ searchParams }) {
             <div className="kt-obrazec">
               <div className="st">
                 <span>Povpraševanje</span>
-                <h2>{izdelek ? `Povpraševanje — ${izdelek}` : "Pošljite povpraševanje"}</h2>
+                <h2>{izdelek ? `Povpraševanje: ${izdelek}` : "Pošljite povpraševanje"}</h2>
               </div>
               <ObrazecPovprasevanje vir={vir} izdelek={izdelek} />
             </div>
@@ -84,10 +84,10 @@ export default async function Kontakt({ searchParams }) {
               <div className="kt-kartica temna">
                 <small>Hitro do prave osebe</small>
                 <ul className="kt-usmeri">
-                  <li><b>Trgovci</b><a href="#teren">komercialist v vaši regiji →</a></li>
-                  <li><b>Distributerji</b><a href="#koga">Špela Sedminek →</a></li>
-                  <li><b>Vijaki po naročilu</b><a href="#koga">Špela Sedminek →</a></li>
-                  <li><b>Private label</b><a href="#koga">Manja Part · Špela Sedminek →</a></li>
+                  <li><b>Prodaja v Sloveniji in na Hrvaškem</b><a href="#kontakti">Manja Part →</a></li>
+                  <li><b>Izvoz in distributerji</b><a href="#kontakti">Špela Sedminek →</a></li>
+                  <li><b>Vijaki po naročilu</b><a href="#kontakti">Špela Sedminek →</a></li>
+                  <li><b>Private label</b><a href="#kontakti">Manja Part · Špela Sedminek →</a></li>
                   <li><b>Reklamacije</b><Link href="/reklamacije">prijava reklamacije →</Link></li>
                 </ul>
               </div>
@@ -112,8 +112,6 @@ export default async function Kontakt({ searchParams }) {
         </div>
       </section>
 
-      <KogaPoklicem />
-      <TerenKomercialisti />
       <KontaktiOddelki />
       <Lokacije />
     </>
