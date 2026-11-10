@@ -1,3 +1,4 @@
+import { slikaMesta } from "@/lib/slike-zaposlitev";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -61,11 +62,9 @@ export default async function DelovnoMesto({ params }) {
         <div className="w">
           <div className="qua" style={{ alignItems: "flex-start" }}>
             <div>
-              {m.slika_url && (
-                <div style={{ position: "relative", aspectRatio: "16 / 10", marginBottom: 28 }}>
-                  <Image src={m.slika_url} alt={m.naziv} fill sizes="620px" style={{ objectFit: "cover" }} />
-                </div>
-              )}
+              <div style={{ position: "relative", aspectRatio: "16 / 10", marginBottom: 28 }}>
+                <Image src={m.slika_url || slikaMesta(m)} alt={m.naziv} fill sizes="620px" style={{ objectFit: "cover" }} />
+              </div>
 
               {m.opis &&
                 m.opis

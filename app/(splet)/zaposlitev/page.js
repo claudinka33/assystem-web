@@ -1,3 +1,4 @@
+import { slikaMesta } from "@/lib/slike-zaposlitev";
 import Image from "next/image";
 import Link from "next/link";
 import NaslovStrani from "@/components/NaslovStrani";
@@ -21,6 +22,14 @@ const razlogi = [
   ["Priložnost za mlade", "Podeljujemo kadrovske štipendije in omogočamo prakso z zaposlitvijo po šolanju."],
 ];
 
+function sodelavce(n) {
+  const d = n % 100;
+  if (d === 1) return "sodelavca";
+  if (d === 2) return "sodelavca";
+  if (d === 3 || d === 4) return "sodelavce";
+  return "sodelavcev";
+}
+
 export default async function Zaposlitev() {
   const [mesta, b] = await Promise.all([pridobiDelovnaMesta(), pridobiVsebine("zaposlitev")]);
 
@@ -28,12 +37,12 @@ export default async function Zaposlitev() {
     <>
       <NaslovStrani
         oznaka="Kariera"
-        naslov={v(b, "zaposlitev.uvod.naslov", "naslov", "Pridružite se nam")}
+        naslov={v(b, "zaposlitev.uvod.naslov", "naslov", "Pridružite se ekipi AS system")}
         opis={v(
           b,
           "zaposlitev.uvod.besedilo",
           "besedilo",
-          "Strast, predanost, dobri medsebojni odnosi in delovni izzivi. S temi besedami zaposleni opišejo delo v AS systemu."
+          "V AS systemu že več kot 30 let razvijamo in izdelujemo kakovostne kovinske izdelke ter gradimo dolgoročne odnose s kupci doma in v tujini. Verjamemo, da so zaposleni ključ do uspeha, zato ustvarjamo varno delovno okolje, spodbujamo strokovni razvoj in cenimo odgovornost, sodelovanje ter dobre ideje. Če iščete stabilno zaposlitev v uspešnem slovenskem podjetju, vas vabimo, da se pridružite naši ekipi."
         )}
       />
 
@@ -43,7 +52,7 @@ export default async function Zaposlitev() {
           <div className="st row">
             <div>
               <span>Odprta mesta</span>
-              <h2>{mesta.length > 0 ? `Trenutno iščemo ${mesta.length} sodelavcev` : "Trenutno ni odprtih mest"}</h2>
+              <h2>{mesta.length > 0 ? `Trenutno iščemo ${mesta.length} ${sodelavce(mesta.length)}` : "Trenutno ni odprtih mest"}</h2>
               <p>
                 Kliknite na delovno mesto za podroben opis nalog in pogojev. Prijavo
                 oddate kar prek spleta: z življenjepisom v prilogi.
@@ -56,12 +65,14 @@ export default async function Zaposlitev() {
 
           {mesta.length > 0 ? (
             <div className="kats">
-              {mesta.map((m) => (
+              {mesta.map((m) => {
+                const slika = m.slika_url || slikaMesta(m);
+                return (
                 <Link key={m.id} className="k" href={`/zaposlitev/${m.slug}`}>
-                  <div className={m.slika_url ? "im" : "im prazna"}>
-                    {m.slika_url && (
+                  <div className={slika ? "im" : "im prazna"}>
+                    {slika && (
                       <Image
-                        src={m.slika_url}
+                        src={slika}
                         alt={m.naziv}
                         fill
                         sizes="300px"
@@ -77,7 +88,8 @@ export default async function Zaposlitev() {
                     {m.kratek_opis && <p style={{ marginTop: 8 }}>{m.kratek_opis}</p>}
                   </div>
                 </Link>
-              ))}
+                );
+              })}
             </div>
           ) : (
             <div className="priprava">
