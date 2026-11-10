@@ -70,8 +70,8 @@ export default function Zasebnost() {
           <tr>
             <td className="mk-gl">Prijave na delovna mesta</td>
             <td data-l="Podatki">podatki iz prijave in življenjepis</td>
-            <td data-l="Pravna podlaga">ukrepi pred sklenitvijo pogodbe (6(1)(b) GDPR), za hrambo za prihodnje razpise privolitev (6(1)(a) GDPR)</td>
-            <td data-l="Hramba">do konca izbirnega postopka, s privolitvijo največ 1 leto</td>
+            <td data-l="Pravna podlaga">privolitev ob oddaji prijave (6(1)(a) GDPR)</td>
+            <td data-l="Hramba">1 leto od oddaje prijave oziroma do preklica privolitve</td>
           </tr>
           <tr>
             <td className="mk-gl">E-novice za nove prijavljene</td>
@@ -103,10 +103,10 @@ export default function Zasebnost() {
 
       <h2>5. Prijave na delovna mesta</h2>
       <p>
-        Prijave in življenjepise uporabimo samo za izbirni postopek, za katerega ste se prijavili. Dostop do njih imajo
-        kadrovska služba, direktor in vodja oddelka, za katerega iščemo sodelavca. Po zaključku postopka prijavo izbrišemo,
-        razen če privolite, da jo hranimo za prihodnje razpise. V tem primeru jo hranimo največ 1 leto oziroma do preklica
-        privolitve.
+        Ob oddaji prijave na delovno mesto potrdite, da se strinjate z obdelavo podatkov in življenjepisa za izbirni
+        postopek ter z njihovo hrambo 1 leto za prihodnje razpise. Dostop do prijav imajo kadrovska služba, direktor in
+        vodja oddelka, za katerega iščemo sodelavca. Po 1 letu prijavo izbrišemo. Privolitev lahko kadar koli prekličete
+        na sara.jagodic@as-system.si, takrat prijavo izbrišemo prej.
       </p>
 
       <h2>6. E-novice in razvrščanje po panogi</h2>

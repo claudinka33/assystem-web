@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useActionState, useEffect } from "react";
 import { dogodek } from "@/lib/dogodki";
 import { posljiPrijavo } from "@/lib/akcije/obrazci";
@@ -76,13 +77,18 @@ export default function ObrazecPrijava({ delovnaMesta = [], izbrano }) {
         <textarea id="sporocilo" name="sporocilo" rows={5} />
       </div>
 
+      <label className="obr-privolitev">
+        <input type="checkbox" name="privolitev" required />
+        <span>
+          Strinjam se, da AS system d.o.o. moje podatke in življenjepis uporabi za izbirni postopek in jih hrani 1 leto
+          za prihodnje razpise. Privolitev lahko kadar koli prekličem na sara.jagodic@as-system.si.{" "}
+          <Link href="/zasebnost">Politika zasebnosti</Link>
+        </span>
+      </label>
+
       <button className="b b-r" type="submit" disabled={caka}>
         {caka ? "Pošiljam…" : "Oddaj prijavo"}
       </button>
-
-      <p className="obr-drobno">
-        Podatke hranimo eno leto in jih uporabimo samo za izbirni postopek.
-      </p>
     </form>
   );
 }
