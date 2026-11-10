@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Zemljevid from "@/components/Zemljevid";
 import { site } from "@/lib/site";
 import { oddelki, kogaPoklicem, teren, poisci, telRaw } from "@/lib/kontakti";
 
@@ -216,13 +217,7 @@ export function Lokacije({ siva = false, naslov = "Dve lokaciji" }) {
                   Navodila za pot →
                 </a>
               </div>
-              <iframe
-                title={`Zemljevid: ${l.naziv}`}
-                src={`https://www.google.com/maps?q=${encodeURIComponent(l.zemljevid)}&z=15&output=embed`}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                allowFullScreen
-              />
+              <Zemljevid naslov={l.naziv} poizvedba={l.zemljevid} />
             </div>
           ))}
         </div>
