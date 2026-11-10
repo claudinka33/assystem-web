@@ -11,10 +11,10 @@ import { SILVERMATE_KATEGORIJA, SILVERMATE_IZDELKI, SILVERMATE_MEDIJI } from "@/
 
 // Lastnosti vijaka — po originalnem letaku Silvermate
 const lastnosti = [
-  { naziv: "Konica za hiter oprijem", opis: "Izjemno ostra konica in izboljšan navoj, vijak takoj prime v lesu.", slika: "/slike/silvermate/detajl-konica.jpg" },
-  { naziv: "Minimalni upor pri vijačenju", opis: "Rebra na steblu pri delnem navoju in kakovosten vosek, vijak gre v les z manj sile.", slika: "/slike/silvermate/detajl-navoj.jpg" },
-  { naziv: "Majhno tveganje cepitve", opis: "Izboljšana rezalna rebra za čist zaključek brez poškodb lesa.", slika: "/slike/silvermate/detajl-rezilo.jpg" },
-  { naziv: "Zelo trpežen vijak", opis: "Najmočnejši vijak za iverne plošče v svojem razredu, za skoraj vse vrste lesa.", slika: "/slike/silvermate/detajl-glava.jpg" },
+  { naziv: "Konica za hiter oprijem", opis: "Izjemno ostra konica in izboljšan navoj, vijak takoj prime v lesu.", slika: "/slike/silvermate/detajl-konica-v2.jpg" },
+  { naziv: "Minimalni upor pri vijačenju", opis: "Rebra na steblu pri delnem navoju in kakovosten vosek, vijak gre v les z manj sile.", slika: "/slike/silvermate/detajl-navoj-v2.jpg" },
+  { naziv: "Majhno tveganje cepitve", opis: "Izboljšana rezalna rebra za čist zaključek brez poškodb lesa.", slika: "/slike/silvermate/detajl-rezilo-v2.jpg" },
+  { naziv: "Zelo trpežen vijak", opis: "Najmočnejši vijak za iverne plošče v svojem razredu, za skoraj vse vrste lesa.", slika: "/slike/silvermate/detajl-glava-v2.jpg" },
 ];
 
 // Program po premerih — po originalnem letaku (dolžine v mm)
