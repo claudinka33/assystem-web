@@ -11,10 +11,10 @@ import { SILVERMATE_KATEGORIJA, SILVERMATE_IZDELKI, SILVERMATE_MEDIJI } from "@/
 
 // Lastnosti vijaka — po originalnem letaku Silvermate
 const lastnosti = [
-  { naziv: "Konica za hiter oprijem", opis: "Izjemno ostra konica in izboljšan navoj, vijak takoj prime v lesu.", slika: "/slike/silvermate/detajl-konica-v2.jpg" },
-  { naziv: "Minimalni upor pri vijačenju", opis: "Rebra na steblu pri delnem navoju in kakovosten vosek, vijak gre v les z manj sile.", slika: "/slike/silvermate/detajl-navoj-v2.jpg" },
-  { naziv: "Majhno tveganje cepitve", opis: "Izboljšana rezalna rebra za čist zaključek brez poškodb lesa.", slika: "/slike/silvermate/detajl-rezilo-v2.jpg" },
-  { naziv: "Zelo trpežen vijak", opis: "Najmočnejši vijak za iverne plošče v svojem razredu, za skoraj vse vrste lesa.", slika: "/slike/silvermate/detajl-glava-v2.jpg" },
+  { naziv: "Konica za hiter oprijem", opis: "Vijak prime v les že v prvih obratih, z majhnim pritiskom.", slika: "/slike/silvermate/detajl-konica-v2.jpg" },
+  { naziv: "Lažje vijačenje", opis: "Optimalen korak navoja za vsako dolžino. Pri daljših vijakih Ø 5,0 in 6,0 je upor do 30 % manjši.", slika: "/slike/silvermate/detajl-navoj-v2.jpg" },
+  { naziv: "Majhno tveganje cepitve", opis: "Rezkalni navoj pri konici ne razkolje lesa, tudi blizu roba deske ali letve.", slika: "/slike/silvermate/detajl-rezilo-v2.jpg" },
+  { naziv: "Manj loma", opis: "Ojačani premeri 4,0, 4,5 in 5,0 se tudi pri velikem navoru redkeje odlomijo.", slika: "/slike/silvermate/detajl-glava-v2.jpg" },
 ];
 
 // Program po premerih — po originalnem letaku (dolžine v mm)
@@ -80,7 +80,7 @@ export default function SilvermateVsebina({ tabela = false, glava = null, mediji
             <h2>Dimenzije in nastavki</h2>
             <p>
               Pocinkani vijaki, izdelani tudi v izvedbi brez kroma VI. Z oznako CE in evropsko tehnično oceno
-              ETA-18/0284. Pakirani v profesionalni škatli z okencem in pladnjem za lažji dostop.
+              ETA-18/0284. Pakirani v profesionalni škatli s pladnjem za lažji dostop.
             </p>
           </div>
           <div className="sm-tab-ovoj">
@@ -159,7 +159,7 @@ export default function SilvermateVsebina({ tabela = false, glava = null, mediji
               </div>
               <ul>
                 <li>Vse štiri izvedbe na eni polici. Pozi in Torx, cel in delni navoj.</li>
-                <li>Profesionalne škatle z okencem in pladnjem za lažji dostop, z jasno oznako dimenzije.</li>
+                <li>Profesionalne škatle s pladnjem za lažji dostop, z jasno oznako dimenzije.</li>
                 <li>Asortiman sestavimo glede na vašo prodajo in ga dopolnjujemo.</li>
                 <li>Polico lahko postavite ob polici ASfix in ASco, vse za pritrjevanje na enem mestu.</li>
               </ul>

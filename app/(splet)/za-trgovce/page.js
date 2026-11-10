@@ -34,7 +34,7 @@ const KAJ_SLIKE = ["/slike/proizvodnja/hero-izdelki.png", "/slike/trgovci/asfix-
 const embalaza = [
   { znamka: "ASfix", slike: [["/slike/znamke/asfix-afr41-sredina.png", "Škatla ASfix", "6% 8%"], ["/slike/znamke/asfix-vrecka.jpg", "Rdeča vrečka ASfix"], ["/slike/asfix-paleta-txm2.jpg", "Paleta škatel ASfix"]], opis: "Škatle v enotnem dizajnu, vrečke z izveskom za perforirano steno in cele palete za večje trgovine." },
   { znamka: "ASco", slike: [["/slike/znamke/asco-skatla-sredina.png", "Rjava škatla ASco", "12% 22%"], ["/slike/znamke/asco-vrecka-znb.jpg", "Modra vrečka ASco"], ["/slike/znamke/asco-vrecka-inox.jpg", "Zelena vrečka ASco"]], opis: "Modre vrečke za pocinkano (ZnB), zelene za INOX, na polici se ne zamenjata. Rjave škatle za večje količine." },
-  { znamka: "Silvermate", slike: [["/slike/silvermate/skatla-silvermate.png", "Škatla Silvermate", "8%"], ["/slike/silvermate/polica-1m.jpg", "Polica Silvermate 1 m", "4%"]], opis: "Lesni vijaki s križno in torx glavo, s celim ali delnim navojem, v profesionalni škatli z okencem in na polici 1 m." },
+  { znamka: "Silvermate", slike: [["/slike/silvermate/skatla-silvermate.png", "Škatla Silvermate", "8%"], ["/slike/silvermate/polica-1m.jpg", "Polica Silvermate 1 m", "4%"]], opis: "Lesni vijaki s križno in torx glavo, s celim ali delnim navojem, v profesionalni škatli in na polici 1 m." },
 ];
 
 export default async function ZaTrgovce() {
