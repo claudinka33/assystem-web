@@ -103,14 +103,14 @@ export default function IgraMontaza({ cfg }) {
 
     const izbrano = orodje ? cfg.orodja.find((o) => o.id === orodje) : null;
 
-    if (k.tip === "izbira") { povej("Najprej izberi v desnem stolpcu in potrdi izbiro.", true); return; }
+    if (k.tip === "izbira") { povej("Najprej izberite v desnem stolpcu in potrdite izbiro.", true); return; }
 
     // skupni korak (postavi element)
     if (k.tip === "postavi") {
-      if (k.orodje && !izbrano) { povej(`Vzemi iz orodjarne: ${imeOrodja(k.orodje)}.`, true); return; }
+      if (k.orodje && !izbrano) { povej(`Vzemite iz orodjarne: ${imeOrodja(k.orodje)}.`, true); return; }
       if (izbrano?.napaka) { povej(izbrano.napaka, true); return; }
       if (k.orodje && !ustreza(k, izbrano.id)) {
-        povej(`Zdaj potrebuješ: ${imeOrodja(k.orodje)}.`, true);
+        povej(`Zdaj potrebujete: ${imeOrodja(k.orodje)}.`, true);
         return;
       }
       if (k.obmocje && !k.obmocje(t)) return;
@@ -122,7 +122,7 @@ export default function IgraMontaza({ cfg }) {
 
     const li = najdiLuknjo(t);
     if (li < 0) return;
-    if (!izbrano) { povej("Najprej vzemi orodje iz orodjarne.", true); return; }
+    if (!izbrano) { povej("Najprej vzemite orodje iz orodjarne.", true); return; }
     if (izbrano.napaka) { povej(izbrano.napaka, true); return; }
 
     if (!ustreza(k, izbrano.id)) {
@@ -171,7 +171,7 @@ export default function IgraMontaza({ cfg }) {
 
   function potrdiIzbiro() {
     const manjka = k.skupine.find((g) => osnutek[g.kljuc] == null);
-    if (manjka) { povej(`Izberi še: ${manjka.naslov.toLowerCase()}.`, true); return; }
+    if (manjka) { povej(`Izberite še: ${manjka.naslov.toLowerCase()}.`, true); return; }
     const st = { nap, korak, koncano, izbire, izbor, napKorak: (li, j) => nap[li][j] };
     const napakaIzbire = k.preveri?.(osnutek, { ...izbor, ...osnutek }, st);
     if (napakaIzbire) { povej(napakaIzbire, true); return; }
@@ -199,7 +199,7 @@ export default function IgraMontaza({ cfg }) {
   const rot = izbrano?.brezRotacije ? 0 : (cfg.smer ?? 0);
 
   let navodilo = k.navodilo;
-  if (k.orodje && !ustreza(k, orodje) && !koncano) navodilo = k.vzemi ?? `Vzemi iz orodjarne: ${imeOrodja(k.orodje)}.`;
+  if (k.orodje && !ustreza(k, orodje) && !koncano) navodilo = k.vzemi ?? `Vzemite iz orodjarne: ${imeOrodja(k.orodje)}.`;
   if (koncano) navodilo = cfg.konec?.kratko ?? "Pritrjeno.";
 
   const kick = cfg.kicker ?? {};
@@ -300,7 +300,7 @@ export default function IgraMontaza({ cfg }) {
                   </div>
                 </div>
               ))}
-              <button type="button" className="b b-r igra-potrdi" onClick={potrdiIzbiro}>Potrdi izbiro</button>
+              <button type="button" className="b b-r igra-potrdite" onClick={potrdiIzbiro}>Potrdite izbiro</button>
             </div>
           )}
           <div className="orodjarna-skupina">
@@ -335,12 +335,12 @@ export default function IgraMontaza({ cfg }) {
             {(cfg.konec.povezave ?? []).map((p, i) => (
               <Link key={p.href} className={`b ${i === 0 ? "b-r" : "b-d"}`} href={p.href}>{p.label}</Link>
             ))}
-            <button type="button" className="b b-d" onClick={ponovi}>Poskusi znova</button>
+            <button type="button" className="b b-d" onClick={ponovi}>Poskusite znova</button>
           </div>
         </div>
       )}
 
-      {!koncano && <button type="button" className="igra-ponovi" onClick={ponovi}>Začni znova</button>}
+      {!koncano && <button type="button" className="igra-ponovi" onClick={ponovi}>Začnite znova</button>}
     </div>
   );
 }

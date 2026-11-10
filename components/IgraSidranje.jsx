@@ -218,12 +218,12 @@ export default function IgraSidranje() {
   const korak = !ograja ? 0 : !vseIzvrtane ? 1 : !vseIzpihane ? 2 : !vseSidra ? 3 : !vseZabite ? 4 : !vseZategnjene ? 5 : 6;
 
   const KORAKI = [
-    ["Postavi ograjo", "Klikni na betonsko škarpo."],
-    ["Izvrtaj luknje", orodje?.tip === "sveder" ? "Sveder je v roki. Postavi ga nad rdečo oznako in drži miško." : "Vzemi sveder: premer mora ustrezati sidru."],
-    ["Izpihaj luknje", orodje?.tip === "pihalka" ? "Drži miško nad luknjo, dokler prah ne izgine." : "Vzemi pihalko."],
-    ["Vstavi sidra", orodje?.tip === "sidro" ? "Klikni v vsako izpihano luknjo." : "Izberi sidro TXH7."],
-    ["Zabij sidra", orodje?.tip === "kladivo" ? "Vsak klik je en udarec. Štirje udarci na sidro." : "Vzemi kladivo."],
-    ["Zategni matice", orodje?.tip === "kljuc" ? "Drži miško nad matico, dokler ni zategnjena." : "Vzemi viličasti ključ."],
+    ["Postavite ograjo", "Kliknite na betonsko škarpo."],
+    ["Izvrtajte luknje", orodje?.tip === "sveder" ? "Sveder je v roki. Postavite ga nad rdečo oznako in držite miško." : "Vzemite sveder: premer mora ustrezati sidru."],
+    ["Izpihajte luknje", orodje?.tip === "pihalka" ? "Držite miško nad luknjo, dokler prah ne izgine." : "Vzemite pihalko."],
+    ["Vstavite sidra", orodje?.tip === "sidro" ? "Kliknite v vsako izpihano luknjo." : "Izberite sidro TXH7."],
+    ["Zabijte sidra", orodje?.tip === "kladivo" ? "Vsak klik je en udarec. Štirje udarci na sidro." : "Vzemite kladivo."],
+    ["Zategnite matice", orodje?.tip === "kljuc" ? "Držite miško nad matico, dokler ni zategnjena." : "Vzemite viličasti ključ."],
     ["Končano", "Ograja je pritrjena."],
   ];
 
@@ -278,20 +278,20 @@ export default function IgraSidranje() {
     if (!ograja) {
       if (t.y > S.tla) {
         setOgraja(true);
-        povej("Steber stoji na škarpi. Vzemi sveder iz orodjarne.");
+        povej("Steber stoji na škarpi. Vzemite sveder iz orodjarne.");
       }
       return;
     }
 
     const l = najdiLuknjo(t);
     if (!l) return;
-    if (!orodje) { povej("Najprej vzemi orodje iz orodjarne.", true); return; }
+    if (!orodje) { povej("Najprej vzemite orodje iz orodjarne.", true); return; }
 
     if (orodje.tip === "sveder") {
       if (l.globina >= 100) return;
       const drugi = luknje.find((x) => x.premer && x.premer !== orodje.premer);
       if (drugi) {
-        povej(`Obe luknji vrtaj z istim svedrom, začel si z Ø${drugi.premer}.`, true);
+        povej(`Obe luknji vrtajte z istim svedrom, začeli ste z Ø${drugi.premer}.`, true);
         return;
       }
       setAktivna(l.id);
@@ -325,7 +325,7 @@ export default function IgraSidranje() {
 
     if (orodje.tip === "sidro") {
       if (l.globina < 100) { povej("V neizvrtano luknjo sidra ni mogoče vstaviti.", true); return; }
-      if (l.prah > 0) { povej("Luknja je še polna prahu. Prah zniža nosilnost, najprej izpihaj.", true); return; }
+      if (l.prah > 0) { povej("Luknja je še polna prahu. Prah zniža nosilnost, najprej izpihajte.", true); return; }
       if (l.sidro) return;
       posodobi(l.id, () => ({ sidro: orodje.id }));
       return;
@@ -359,7 +359,7 @@ export default function IgraSidranje() {
     const vrtano = luknje.find((l) => l.premer)?.premer;
     if (vrtano && s.premer !== vrtano) {
       povej(
-        `Sidro ${s.naziv} zahteva izvrtino Ø${s.premer}, ti pa si vrtal z Ø${vrtano}. ` +
+        `Sidro ${s.naziv} zahteva izvrtino Ø${s.premer}, vi pa ste vrtali z Ø${vrtano}. ` +
           (s.premer > vrtano
             ? "V premajhno izvrtino sidra ni mogoče vstaviti."
             : "V preveliki izvrtini se objemka ne razpre in sidro ne zagrabi betona."),
@@ -368,7 +368,7 @@ export default function IgraSidranje() {
       return;
     }
     setOrodje({ tip: "sidro", id: s.id, premer: s.premer });
-    povej(`${s.naziv} je v roki. Klikni v izpihano luknjo.`);
+    povej(`${s.naziv} je v roki. Kliknite v izpihano luknjo.`);
   }
 
   function ponovi() {
@@ -458,7 +458,7 @@ export default function IgraSidranje() {
                 <rect x="0" y={S.tla} width={S.w} height={S.h - S.tla} fill={C.red} opacity="0.08" />
                 <rect x="460" y={S.tla + 110} width="280" height="56" rx="28" fill={C.red} />
                 <text x="600" y={S.tla + 145} textAnchor="middle" fill="#fff" fontSize="18" fontWeight="800" letterSpacing="1.5">
-                  POSTAVI OGRAJO
+                  Postavite OGRAJO
                 </text>
               </g>
             )}
@@ -620,7 +620,7 @@ export default function IgraSidranje() {
                 <rect x="40" y="30" width="336" height="64" rx="32" fill={C.red} />
                 <circle cx="72" cy="62" r="22" fill="#fff" />
                 <path d="M61 62 L69 70 L84 54" fill="none" stroke={C.red} strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
-                <text x="108" y="72" fill="#fff" fontSize="28" fontWeight="800" letterSpacing="1">OGRAJA DRŽI</text>
+                <text x="108" y="72" fill="#fff" fontSize="28" fontWeight="800" letterSpacing="1">OGRAJA Držite</text>
               </g>
             )}
           </g>
@@ -649,7 +649,7 @@ export default function IgraSidranje() {
           <h4>Orodje</h4>
           <div className="orodjarna-gumbi">
             <button type="button" className={orodje?.tip === "pihalka" ? "izbran" : undefined}
-              onClick={() => { setOrodje({ tip: "pihalka" }); povej("Pihalka je v roki. Drži miško nad luknjo."); }}>
+              onClick={() => { setOrodje({ tip: "pihalka" }); povej("Pihalka je v roki. Držite miško nad luknjo."); }}>
               <i className="ik-pihalka" />Pihalka
             </button>
             <button type="button" className={orodje?.tip === "kladivo" ? "izbran" : undefined}
@@ -657,7 +657,7 @@ export default function IgraSidranje() {
               <i className="ik-kladivo" />Kladivo
             </button>
             <button type="button" className={orodje?.tip === "kljuc" ? "izbran" : undefined}
-              onClick={() => { setOrodje({ tip: "kljuc" }); povej("Ključ je v roki. Drži miško nad matico."); }}>
+              onClick={() => { setOrodje({ tip: "kljuc" }); povej("Ključ je v roki. Držite miško nad matico."); }}>
               <i className="ik-kljuc" />Ključ
             </button>
           </div>
@@ -690,13 +690,13 @@ export default function IgraSidranje() {
           <div className="igra-konec-gumbi">
             <Link className="b b-r" href="/program/pritrdila-za-beton">Poglejte sidra TXH7</Link>
             <Link className="b b-d" href="/kontakt?vir=igra">Zahtevajte ponudbo</Link>
-            <button type="button" className="b b-d" onClick={ponovi}>Poskusi znova</button>
+            <button type="button" className="b b-d" onClick={ponovi}>Poskusite znova</button>
           </div>
         </div>
       )}
 
       {korak !== 6 && (
-        <button type="button" className="igra-ponovi" onClick={ponovi}>Začni znova</button>
+        <button type="button" className="igra-ponovi" onClick={ponovi}>Začnite znova</button>
       )}
     </div>
   );

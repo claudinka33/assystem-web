@@ -15,13 +15,13 @@ const POSTAVITVE = {
 };
 
 export const OROD = {
-  sveder: (d) => ({ id: `sveder${d}`, naziv: `Sveder Ø${String(d).replace(".", ",")}`, risba: "sveder", ikona: "sveder", oznaka: `Ø${String(d).replace(".", ",")}`, sirina: 6 + d * 1.2, dolzina: 240, izbrano: `V vrtalnik je vpet sveder Ø${String(d).replace(".", ",")}. Drži miško nad rdečo oznako.` }),
-  pihalka: { id: "pihalka", naziv: "Pihalka", risba: "pihalka", izbrano: "Pihalka je v roki. Drži miško nad luknjo." },
-  krtacka: { id: "krtacka", naziv: "Krtača", risba: "roka", ikona: "sveder", izbrano: "Krtača je v roki. Drži miško nad luknjo." },
-  vijacnik: { id: "vijacnik", naziv: "Vijačnik", risba: "vijacnik", izbrano: "Akumulatorski vijačnik je v roki. Nastavi ga na glavo vijaka in drži miško." },
+  sveder: (d) => ({ id: `sveder${d}`, naziv: `Sveder Ø${String(d).replace(".", ",")}`, risba: "sveder", ikona: "sveder", oznaka: `Ø${String(d).replace(".", ",")}`, sirina: 6 + d * 1.2, dolzina: 240, izbrano: `V vrtalnik je vpet sveder Ø${String(d).replace(".", ",")}. Držite miško nad rdečo oznako.` }),
+  pihalka: { id: "pihalka", naziv: "Pihalka", risba: "pihalka", izbrano: "Pihalka je v roki. Držite miško nad luknjo." },
+  krtacka: { id: "krtacka", naziv: "Krtača", risba: "roka", ikona: "sveder", izbrano: "Krtača je v roki. Držite miško nad luknjo." },
+  vijacnik: { id: "vijacnik", naziv: "Vijačnik", risba: "vijacnik", izbrano: "Akumulatorski vijačnik je v roki. Nastavite ga na glavo vijaka in držite miško." },
   kladivo: { id: "kladivo", naziv: "Kladivo", risba: "kladivo", izbrano: "Kladivo je v roki. Vsak klik je en udarec." },
-  kljuc: { id: "kljuc", naziv: "Ključ", risba: "roka", ikona: "kljuc", izbrano: "Ključ je v roki. Nastavi ga na matico ali glavo in drži miško." },
-  pistola: { id: "pistola", naziv: "Pištola z maso", risba: "roka", ikona: "element", izbrano: "Pištola s kartušo je v roki. Drži miško nad luknjo." },
+  kljuc: { id: "kljuc", naziv: "Ključ", risba: "roka", ikona: "kljuc", izbrano: "Ključ je v roki. Nastavite ga na matico ali glavo in držite miško." },
+  pistola: { id: "pistola", naziv: "Pištola z maso", risba: "roka", ikona: "element", izbrano: "Pištola s kartušo je v roki. Držite miško nad luknjo." },
   zaga: { id: "zaga", naziv: "Žaga", risba: "roka", ikona: "kljuc", izbrano: "Žaga je v roki." },
 };
 
@@ -153,35 +153,35 @@ export function sestavi(o) {
   const koraki = [];
   const ix = {};
   const add = (kljuc, k) => { ix[kljuc] = koraki.length; koraki.push({ ...k, kljuc }); };
-  const izbiraPred = (kljuc) => (o.izbire ?? []).filter((z) => z.pred === kljuc).forEach((z, i) => add(`izbira-${kljuc}-${i}`, { tip: "izbira", naziv: z.naziv, navodilo: z.navodilo ?? "Izberi v desnem stolpcu in potrdi izbiro.", scenarij: z.scenarij, skupine: z.skupine, preveri: z.preveri, potrdilo: z.potrdilo }));
+  const izbiraPred = (kljuc) => (o.izbire ?? []).filter((z) => z.pred === kljuc).forEach((z, i) => add(`izbira-${kljuc}-${i}`, { tip: "izbira", naziv: z.naziv, navodilo: z.navodilo ?? "Izberite v desnem stolpcu in potrdite izbiro.", scenarij: z.scenarij, skupine: z.skupine, preveri: z.preveri, potrdilo: z.potrdilo }));
 
   const el = o.element;
   const elPrej = el && !el.potem;
   izbiraPred("zacetek");
-  if (elPrej) add("element", { naziv: el.korak ?? "Postavi element", tip: "postavi", navodilo: el.navodilo ?? "Klikni v prizor.", potrdilo: el.potrdilo });
+  if (elPrej) add("element", { naziv: el.korak ?? "Postavite element", tip: "postavi", navodilo: el.navodilo ?? "Kliknite v prizor.", potrdilo: el.potrdilo });
   izbiraPred("vrtaj");
   if (o.vrtanje) add("vrtaj", {
-    naziv: o.vrtanje.naziv ?? "Izvrtaj", orodje: o.vrtanje.svedri ? o.vrtanje.svedri.map((d) => `sveder${d}`) : "sveder", nacin: "drzi", korak: 4, delci: o.vrtanje.delci ?? "#b9b4a4",
-    vzemi: o.vrtanje.vzemi ?? "Vzemi iz orodjarne pravi sveder.", navodilo: o.vrtanje.navodilo ?? "Drži miško nad rdečo oznako, dokler luknja ni izvrtana.",
-    preveriOrodje: o.vrtanje.pravi ? (id, s) => { const d = Number(id.replace("sveder", "")); const prav = F(o.vrtanje.pravi, s.izbor); return d === prav ? null : (o.vrtanje.napaka?.(d, prav, s.izbor) ?? `Za to izbiro potrebuješ sveder Ø${String(prav).replace(".", ",")}.`); } : undefined,
+    naziv: o.vrtanje.naziv ?? "Izvrtajte", orodje: o.vrtanje.svedri ? o.vrtanje.svedri.map((d) => `sveder${d}`) : "sveder", nacin: "drzi", korak: 4, delci: o.vrtanje.delci ?? "#b9b4a4",
+    vzemi: o.vrtanje.vzemi ?? "Vzemite iz orodjarne pravi sveder.", navodilo: o.vrtanje.navodilo ?? "Držite miško nad rdečo oznako, dokler luknja ni izvrtana.",
+    preveriOrodje: o.vrtanje.pravi ? (id, s) => { const d = Number(id.replace("sveder", "")); const prav = F(o.vrtanje.pravi, s.izbor); return d === prav ? null : (o.vrtanje.napaka?.(d, prav, s.izbor) ?? `Za to izbiro potrebujete sveder Ø${String(prav).replace(".", ",")}.`); } : undefined,
   });
-  if (o.pihaj) add("pihaj", { naziv: o.pihaj.naziv ?? "Očisti luknjo", orodje: "pihalka", nacin: "drzi", korak: 7, delci: C.prah, navodilo: o.pihaj.navodilo ?? "Drži miško nad luknjo, dokler prah ne izgine.", preskok: "Luknja je še polna prahu, najprej jo očisti." });
+  if (o.pihaj) add("pihaj", { naziv: o.pihaj.naziv ?? "Očistite luknjo", orodje: "pihalka", nacin: "drzi", korak: 7, delci: C.prah, navodilo: o.pihaj.navodilo ?? "Držite miško nad luknjo, dokler prah ne izgine.", preskok: "Luknja je še polna prahu, najprej jo očistite." });
   izbiraPred("vlozek");
-  if (o.vlozek) add("vlozek", { naziv: o.vlozek.korak ?? "Vstavi vložek", orodje: "vlozek", nacin: "klik", navodilo: o.vlozek.navodilo ?? "Klikni v vsako luknjo." });
-  if (o.masa) add("masa", { naziv: "Napolni z maso", orodje: "pistola", nacin: "drzi", korak: 5, navodilo: o.masa.navodilo ?? "Drži miško nad luknjo: masa naj napolni dve tretjini luknje, od dna navzgor.", preskok: "Najprej napolni luknjo s kemično maso." });
-  if (el?.potem && el.predVijakom) add("element", { naziv: el.korak ?? "Prisloni element", tip: "postavi", orodje: "element", navodilo: el.navodilo ?? "Klikni v prizor.", potrdilo: el.potrdilo, preskok: "Najprej pripravi pritrdila." });
+  if (o.vlozek) add("vlozek", { naziv: o.vlozek.korak ?? "Vstavite vložek", orodje: "vlozek", nacin: "klik", navodilo: o.vlozek.navodilo ?? "Kliknite v vsako luknjo." });
+  if (o.masa) add("masa", { naziv: "Napolnite z maso", orodje: "pistola", nacin: "drzi", korak: 5, navodilo: o.masa.navodilo ?? "Držite miško nad luknjo: masa naj napolnite dve tretjini luknje, od dna navzgor.", preskok: "Najprej napolnite luknjo s kemično maso." });
+  if (el?.potem && el.predVijakom) add("element", { naziv: el.korak ?? "Prislonite element", tip: "postavi", orodje: "element", navodilo: el.navodilo ?? "Kliknite v prizor.", potrdilo: el.potrdilo, preskok: "Najprej pripravite pritrdila." });
   izbiraPred("vijak");
   const vz = o.vijak;
   if (vz) {
-    if (!vz.brezVstavi) add("vstavi", { naziv: vz.vstavi ?? "Nastavi vijak", orodje: vz.orodjeVstavi ?? "vijak", nacin: "klik", navodilo: vz.vstaviNavodilo ?? "Klikni na rdečo oznako, da nastaviš vijak.", preskok: vz.preskok });
-    if (!vz.brezPrivijanja) add("vijak", { naziv: vz.korak ?? "Privij", orodje: vz.orodje ?? "vijacnik", nacin: vz.orodje === "kladivo" ? "udarci" : "drzi", korak: vz.orodje === "kladivo" ? (vz.udarec ?? 34) : (vz.hitrost ?? 3), navodilo: vz.navodilo ?? "Nastavi orodje na glavo vijaka in drži miško, dokler glava ne naleže.", preskok: vz.preskok });
+    if (!vz.brezVstavi) add("vstavi", { naziv: vz.vstavi ?? "Nastavite vijak", orodje: vz.orodjeVstavi ?? "vijak", nacin: "klik", navodilo: vz.vstaviNavodilo ?? "Kliknite na rdečo oznako, da nastavite vijak.", preskok: vz.preskok });
+    if (!vz.brezPrivijanja) add("vijak", { naziv: vz.korak ?? "Privijte", orodje: vz.orodje ?? "vijacnik", nacin: vz.orodje === "kladivo" ? "udarci" : "drzi", korak: vz.orodje === "kladivo" ? (vz.udarec ?? 34) : (vz.hitrost ?? 3), navodilo: vz.navodilo ?? "Nastavite orodje na glavo vijaka in držite miško, dokler glava ne naleže.", preskok: vz.preskok });
   }
-  if (el?.potem && !el.predVijakom) add("element", { naziv: el.korak ?? "Namesti element", tip: "postavi", orodje: "element", navodilo: el.navodilo ?? "Klikni v prizor.", potrdilo: el.potrdilo, preskok: "Najprej pripravi pritrdila." });
+  if (el?.potem && !el.predVijakom) add("element", { naziv: el.korak ?? "Namestite element", tip: "postavi", orodje: "element", navodilo: el.navodilo ?? "Kliknite v prizor.", potrdilo: el.potrdilo, preskok: "Najprej pripravite pritrdila." });
   izbiraPred("matica");
   const mt = o.matica;
   if (mt) {
-    if (mt.podlozka !== false) add("podlozka", { naziv: mt.podlozkaKorak ?? "Podložka", orodje: "podlozka", nacin: "klik", navodilo: mt.podlozkaNavodilo ?? "Klikni na vsak vijak, da nadeneš podložko." });
-    add("matica", { naziv: mt.korak ?? "Zategni matico", orodje: "kljuc", nacin: "drzi", korak: 4, navodilo: mt.navodilo ?? "Nastavi ključ na matico in drži miško, dokler ni zategnjena." });
+    if (mt.podlozka !== false) add("podlozka", { naziv: mt.podlozkaKorak ?? "Podložka", orodje: "podlozka", nacin: "klik", navodilo: mt.podlozkaNavodilo ?? "Kliknite na vsak vijak, da nadenete podložko." });
+    add("matica", { naziv: mt.korak ?? "Zategnite matico", orodje: "kljuc", nacin: "drzi", korak: 4, navodilo: mt.navodilo ?? "Nastavite ključ na matico in držite miško, dokler ni zategnjena." });
   }
   (Array.isArray(o.dodatno) ? o.dodatno : o.dodatno ? [o.dodatno] : []).forEach((k, i) => add(i ? `dodatno${i + 1}` : "dodatno", k));
 
@@ -347,7 +347,7 @@ export function sestavi(o) {
             return <Mera x1={a.x} y1={a.y} x2={b.x} y2={b.y} napis={F(o.vrtanje.mera, g.I)} stran={-1} />;
           })()}
           {o.oznaka && (vz?.brezVstavi ? done(s, 0, "vlozek") : done(s, 0, "vstavi")) && (() => { const p = tr(X[0], -g.tEl); return <Napis x={p.x + (o.postavitev === "stena" ? 30 : 34)} y={p.y + (o.postavitev === "stena" ? -30 : -46)} barva={C.ink}>{F(o.oznaka, g.I)}</Napis>; })()}
-          {prvi && <Gumb {...(el.gumb ?? { x: 800, y: 460 })} napis={el.gumbNapis ?? "POSTAVI"} />}
+          {prvi && <Gumb {...(el.gumb ?? { x: 800, y: 460 })} napis={el.gumbNapis ?? "Postavite"} />}
           {o.nad?.(s, tr, g)}
         </g>
       );

@@ -9,16 +9,16 @@ const PROGRESS = (v) => v / 100;
 /* ---------- skupni deli ---------- */
 const sveder = (sirina, dolzina) => ({
   id: "sveder", naziv: "Vrtalnik", risba: "sveder", ikona: "sveder", sirina, dolzina,
-  izbrano: "Vrtalnik je v roki. Drži miško nad rdečo oznako.",
+  izbrano: "Vrtalnik je v roki. Držite miško nad rdečo oznako.",
 });
 /** Izbira svedrov: pravi premer + napačni z razlago */
 const svedri = (prav, mozni, pxNaMm, dolzina, napaka) => mozni.map((d) => ({
   id: `sveder${d}`, naziv: `Sveder Ø${d}`, risba: "sveder", ikona: "sveder", oznaka: `Ø${d}`,
   sirina: d * pxNaMm, dolzina,
-  ...(d === prav ? { izbrano: `V vrtalnik je vpet sveder Ø${d}. Drži miško nad rdečo oznako.` } : { napaka: napaka(d) }),
+  ...(d === prav ? { izbrano: `V vrtalnik je vpet sveder Ø${d}. Držite miško nad rdečo oznako.` } : { napaka: napaka(d) }),
 }));
-const pihalka = { id: "pihalka", naziv: "Pihalka", risba: "pihalka", izbrano: "Pihalka je v roki. Drži miško nad luknjo." };
-const vijacnik = { id: "vijacnik", naziv: "Vijačnik", risba: "vijacnik", izbrano: "Akumulatorski vijačnik je v roki. Drži miško nad vijakom." };
+const pihalka = { id: "pihalka", naziv: "Pihalka", risba: "pihalka", izbrano: "Pihalka je v roki. Držite miško nad luknjo." };
+const vijacnik = { id: "vijacnik", naziv: "Vijačnik", risba: "vijacnik", izbrano: "Akumulatorski vijačnik je v roki. Držite miško nad vijakom." };
 const kladivo = (napaka) => ({ id: "kladivo", naziv: "Kladivo", risba: "kladivo", ...(napaka ? { napaka } : { izbrano: "Kladivo je v roki. Vsak klik je en udarec." }) });
 
 function Tarca({ x, y }) {
@@ -74,16 +74,16 @@ export const turbo = {
   smer: 0,
   orodja: [
     ...svedri(7, [6, 7, 8], 2.2, T.L + 30, (d) => (d > 7
-      ? "Prevelika izvrtina: navoj Turbo vijaka ne prime. V beton vrtaj s svedrom Ø7."
-      : "Za Turbo vijak v beton vrtaj s svedrom Ø7 (v votlo opeko Ø6,5).")),
-    { ...pihalka, napaka: "Pri Turbo vijaku luknje ne čistiš, privij ga kar takoj." },
+      ? "Prevelika izvrtina: navoj Turbo vijaka ne prime. V beton vrtajte s svedrom Ø7."
+      : "Za Turbo vijak v beton vrtajte s svedrom Ø7 (v votlo opeko Ø6,5).")),
+    { ...pihalka, napaka: "Pri Turbo vijaku luknje ne čistite, privijte ga kar takoj." },
     vijacnik,
-    kladivo("Turbo vijaka ne zabijaš. Privij ga z vijačnikom, navoj se sam ureže v beton."),
+    kladivo("Turbo vijaka ne zabijate. Privijte ga z vijačnikom, navoj se sam ureže v beton."),
   ],
   koraki: [
-    { naziv: "Postavi okvir", tip: "postavi", navodilo: "Klikni na beton, da postaviš okenski okvir.", obmocje: (t) => t.y > 250, potrdilo: "Okvir je na mestu. Vrtaš kar skozi okvir." },
-    { naziv: "Izvrtaj luknje", orodje: "sveder7", nacin: "drzi", korak: 5, delci: "#b9b4a4", navodilo: "Drži miško nad rdečo oznako, vrtaj skozi okvir naravnost v beton." },
-    { naziv: "Privij vijaka", orodje: "vijacnik", nacin: "drzi", korak: 4, navodilo: "Drži miško nad vijakom, dokler glava ne nalega na okvir." },
+    { naziv: "Postavite okvir", tip: "postavi", navodilo: "Kliknite na beton, da postavite okenski okvir.", obmocje: (t) => t.y > 250, potrdilo: "Okvir je na mestu. Vrtate kar skozi okvir." },
+    { naziv: "Izvrtajte luknje", orodje: "sveder7", nacin: "drzi", korak: 5, delci: "#b9b4a4", navodilo: "Držite miško nad rdečo oznako, vrtajte skozi okvir naravnost v beton." },
+    { naziv: "Privijte vijaka", orodje: "vijacnik", nacin: "drzi", korak: 4, navodilo: "Držite miško nad vijakom, dokler glava ne nalega na okvir." },
   ],
   prijem(o, li, s) {
     const x = T.X[li];
@@ -100,7 +100,7 @@ export const turbo = {
         {!postavljen && (
           <g>
             <rect x="0" y={T.tla} width="1200" height="230" fill={C.red} opacity="0.08" />
-            <GumbPostavi x={600} y={T.tla + 90} napis="POSTAVI OKVIR" />
+            <GumbPostavi x={600} y={T.tla + 90} napis="Postavite OKVIR" />
           </g>
         )}
         {postavljen && (
@@ -226,12 +226,12 @@ function luknjeUvs(s, { X, vrh, tla, L, iVrt, iVstavi, iZabij, lesTla }) {
   });
 }
 
-const uvsOrodje = { id: "uvs", naziv: "UVS 6 × 40", risba: "roka", ikona: "vlozek", izbrano: "UVS je v roki. Klikni v izvrtino." };
+const uvsOrodje = { id: "uvs", naziv: "UVS 6 × 40", risba: "roka", ikona: "vlozek", izbrano: "UVS je v roki. Kliknite v izvrtino." };
 const uvsVRoki = () => <g transform={`translate(0 ${-U.vlozek})`}><UvsRisba x={0} vrh={0} glava={-U.ven} /></g>;
 const uvsSvedri = (dolzina) => svedri(6, [5, 6, 8], U.K, dolzina, (d) => (d < 6
-  ? "Premajhna izvrtina: UVS 6 ne gre v luknjo. Vrtaj s svedrom Ø6."
-  : "Prevelika izvrtina: vložek se ne razpre in ne drži. Vrtaj s svedrom Ø6."));
-const uvsNapacenVijacnik = { ...vijacnik, napaka: "UVS ne privijaš: vijak zabiješ s kladivom, glava se ugrezne v ovratnik vložka." };
+  ? "Premajhna izvrtina: UVS 6 ne gre v luknjo. Vrtajte s svedrom Ø6."
+  : "Prevelika izvrtina: vložek se ne razpre in ne drži. Vrtajte s svedrom Ø6."));
+const uvsNapacenVijacnik = { ...vijacnik, napaka: "UVS ne privijate: vijak zabijete s kladivom, glava se ugrezne v ovratnik vložka." };
 
 export const uvs = {
   id: "uvs",
@@ -240,10 +240,10 @@ export const uvs = {
   smer: 0,
   orodja: [...uvsSvedri(U.L + 30), uvsOrodje, kladivo(), uvsNapacenVijacnik],
   koraki: [
-    { naziv: "Postavi profil", tip: "postavi", navodilo: "Klikni na beton, da postaviš kovinski profil za mavčne plošče.", obmocje: (t) => t.y > 300, potrdilo: "Profil je na mestu. Vrtaš kar skozi luknje v profilu." },
-    { naziv: "Izvrtaj luknje", orodje: "sveder6", nacin: "drzi", korak: 5, delci: "#b9b4a4", navodilo: "Drži miško nad rdečo oznako, vrtaj skozi profil v beton." },
-    { naziv: "Vstavi UVS", orodje: "uvs", nacin: "klik", navodilo: "Klikni v vsako izvrtino: ovratnik nalega na profil.", preskok: "Najprej vstavi udarni vijak v izvrtino." },
-    { naziv: "Zabij vijaka", orodje: "kladivo", nacin: "udarci", korak: 25, navodilo: "Vsak klik je en udarec. Štirje udarci na vijak." },
+    { naziv: "Postavite profil", tip: "postavi", navodilo: "Kliknite na beton, da postavite kovinski profil za mavčne plošče.", obmocje: (t) => t.y > 300, potrdilo: "Profil je na mestu. Vrtate kar skozi luknje v profilu." },
+    { naziv: "Izvrtajte luknje", orodje: "sveder6", nacin: "drzi", korak: 5, delci: "#b9b4a4", navodilo: "Držite miško nad rdečo oznako, vrtajte skozi profil v beton." },
+    { naziv: "Vstavite UVS", orodje: "uvs", nacin: "klik", navodilo: "Kliknite v vsako izvrtino: ovratnik nalega na profil.", preskok: "Najprej vstavite udarni vijak v izvrtino." },
+    { naziv: "Zabijte vijaka", orodje: "kladivo", nacin: "udarci", korak: 25, navodilo: "Vsak klik je en udarec. Štirje udarci na vijak." },
   ],
   prijem(o, li, s) {
     const x = U.X[li];
@@ -261,7 +261,7 @@ export const uvs = {
         {!postavljen && (
           <g>
             <rect x="0" y={U.tla} width="1200" height="180" fill={C.red} opacity="0.08" />
-            <GumbPostavi x={600} y={U.tla + 60} napis="POSTAVI PROFIL" />
+            <GumbPostavi x={600} y={U.tla + 60} napis="Postavite PROFIL" />
           </g>
         )}
         {postavljen && (
@@ -284,7 +284,7 @@ export const uvs = {
     ["Globina vrtanja", "h₁ ≥ 45 mm"],
     ["Debelina elementa", "t_fix do 10 mm"],
     ["Najpogosteje", "6 × 40 in 6 × 60"],
-    ["Pred vstavljanjem", "izvrtino izpihaj"],
+    ["Pred vstavljanjem", "izvrtino izpihajte"],
   ],
   banner: { x: 860, y: 30, sirina: 280 },
   konec: {
@@ -338,17 +338,17 @@ export const gips = {
   luknje: G.X.map((x) => ({ x, y: G.vrh })),
   smer: 0,
   orodja: [
-    { id: "vlozek", naziv: "Vložek", risba: "roka", ikona: "vlozek", izbrano: "Vložek je v roki. Klikni na rdečo oznako." },
+    { id: "vlozek", naziv: "Vložek", risba: "roka", ikona: "vlozek", izbrano: "Vložek je v roki. Kliknite na rdečo oznako." },
     vijacnik,
-    { id: "element", naziv: "Nosilec police", risba: "roka", ikona: "element", brezRotacije: true, izbrano: "Nosilec je v roki. Klikni v prizor, da ga prisloniš." },
-    { ...sveder(14, 120), napaka: "Za ta vložek ne vrtaš, konica z rezili se sama zavrta v mavčno ploščo." },
-    kladivo("Plastičnega vložka ne zabijaš: mavec bi se zdrobil. Privij ga z vijačnikom."),
+    { id: "element", naziv: "Nosilec police", risba: "roka", ikona: "element", brezRotacije: true, izbrano: "Nosilec je v roki. Kliknite v prizor, da ga prislonite." },
+    { ...sveder(14, 120), napaka: "Za ta vložek ne vrtate, konica z rezili se sama zavrta v mavčno ploščo." },
+    kladivo("Plastičnega vložka ne zabijate: mavec bi se zdrobil. Privijte ga z vijačnikom."),
   ],
   koraki: [
-    { naziv: "Nastavi vložka", orodje: "vlozek", nacin: "klik", navodilo: "Klikni na rdeči oznaki, da nastaviš vložka na ploščo." },
-    { naziv: "Privij vložka", orodje: "vijacnik", nacin: "drzi", korak: 5, delci: "#eceeee", navodilo: "Drži miško nad vložkom: konica z rezili se sama zavrta v ploščo." },
-    { naziv: "Prisloni nosilec", tip: "postavi", orodje: "element", navodilo: "Klikni v prizor, da prisloniš nosilec police.", potrdilo: "Nosilec je na mestu. Zdaj privij vijaka." },
-    { naziv: "Privij vijaka", orodje: "vijacnik", nacin: "drzi", korak: 5, navodilo: "Drži miško nad lesnim vijakom 4,5 × 30, ne pretegni, da se mavčna plošča ne deformira.", preskok: "Najprej prisloni nosilec police." },
+    { naziv: "Nastavite vložka", orodje: "vlozek", nacin: "klik", navodilo: "Kliknite na rdeči oznaki, da nastavite vložka na ploščo." },
+    { naziv: "Privijte vložka", orodje: "vijacnik", nacin: "drzi", korak: 5, delci: "#eceeee", navodilo: "Držite miško nad vložkom: konica z rezili se sama zavrta v ploščo." },
+    { naziv: "Prislonite nosilec", tip: "postavi", orodje: "element", navodilo: "Kliknite v prizor, da prislonite nosilec police.", potrdilo: "Nosilec je na mestu. Zdaj privijte vijaka." },
+    { naziv: "Privijte vijaka", orodje: "vijacnik", nacin: "drzi", korak: 5, navodilo: "Držite miško nad lesnim vijakom 4,5 × 30, ne pretegnite, da se mavčna plošča ne deformira.", preskok: "Najprej prislonite nosilec police." },
   ],
   prijem(o, li, s) {
     const x = G.X[li];
@@ -421,7 +421,7 @@ export const gips = {
   podatki: [
     ["Vložek", "13 × 32 mm, najlon"],
     ["Vijak", "lesni vijak 4,5 × 30"],
-    ["Pozor", "ne pretegni: plošča se deformira"],
+    ["Pozor", "ne pretegnite: plošča se deformira"],
     ["Dvojna plošča", "primerno tudi za dve plošči"],
     ["Plošča", "9,5–15 mm"],
     ["Vrtanje", "ni potrebno"],
@@ -453,19 +453,19 @@ export const trak = {
   luknje: P.X.map((x) => ({ x, y: P.vrh })),
   smer: 0,
   orodja: [
-    { id: "trak12", naziv: "Trak 12 mm", risba: "roka", ikona: "trak", brezRotacije: true, izbrano: "Trak 12 mm je v roki. Klikni na kable, da jih prekriješ." },
-    { id: "trak17", naziv: "Trak 17 mm", risba: "roka", ikona: "trak", brezRotacije: true, izbrano: "Trak 17 mm je v roki, širši trak prenese večjo obremenitev. Klikni na kable." },
+    { id: "trak12", naziv: "Trak 12 mm", risba: "roka", ikona: "trak", brezRotacije: true, izbrano: "Trak 12 mm je v roki. Kliknite na kable, da jih prekrijete." },
+    { id: "trak17", naziv: "Trak 17 mm", risba: "roka", ikona: "trak", brezRotacije: true, izbrano: "Trak 17 mm je v roki, širši trak prenese večjo obremenitev. Kliknite na kable." },
     ...uvsSvedri(P.L + 30),
     uvsOrodje,
     kladivo(),
     uvsNapacenVijacnik,
   ],
   koraki: [
-    { naziv: "Položi kable", tip: "postavi", navodilo: "Klikni na tla, da položiš kable.", obmocje: (t) => t.y > 300, potrdilo: "Kabli so na tleh. Zdaj jih prekrij s trakom." },
-    { naziv: "Prekrij s trakom", tip: "postavi", orodje: ["trak12", "trak17"], vzemi: "Vzemi perforiran trak 12 ali 17 mm.", navodilo: "Klikni na kable, da jih prekriješ s perforiranim trakom.", obmocje: (t) => Math.abs(t.x - 600) < 160 && t.y > 260, potrdilo: "Trak je čez kable. Vrtaj skozi luknje v traku." },
-    { naziv: "Izvrtaj luknji", orodje: "sveder6", nacin: "drzi", korak: 5, delci: "#b9b4a4", navodilo: "Drži miško nad rdečo oznako, vrtaj skozi trak v beton.", preskok: "Najprej prekrij kable s trakom." },
-    { naziv: "Vstavi UVS", orodje: "uvs", nacin: "klik", navodilo: "Klikni v vsako izvrtino." },
-    { naziv: "Zabij vijaka", orodje: "kladivo", nacin: "udarci", korak: 25, navodilo: "Vsak klik je en udarec. Štirje udarci na vijak." },
+    { naziv: "Položite kable", tip: "postavi", navodilo: "Kliknite na tla, da položite kable.", obmocje: (t) => t.y > 300, potrdilo: "Kabli so na tleh. Zdaj jih prekrijte s trakom." },
+    { naziv: "Prekrijte s trakom", tip: "postavi", orodje: ["trak12", "trak17"], vzemi: "Vzemite perforiran trak 12 ali 17 mm.", navodilo: "Kliknite na kable, da jih prekrijete s perforiranim trakom.", obmocje: (t) => Math.abs(t.x - 600) < 160 && t.y > 260, potrdilo: "Trak je čez kable. Vrtajte skozi luknje v traku." },
+    { naziv: "Izvrtajte luknji", orodje: "sveder6", nacin: "drzi", korak: 5, delci: "#b9b4a4", navodilo: "Držite miško nad rdečo oznako, vrtajte skozi trak v beton.", preskok: "Najprej prekrijte kable s trakom." },
+    { naziv: "Vstavite UVS", orodje: "uvs", nacin: "klik", navodilo: "Kliknite v vsako izvrtino." },
+    { naziv: "Zabijte vijaka", orodje: "kladivo", nacin: "udarci", korak: 25, navodilo: "Vsak klik je en udarec. Štirje udarci na vijak." },
   ],
   prijem(o, li, s) {
     const x = P.X[li];
@@ -494,7 +494,7 @@ export const trak = {
         {!kabli && (
           <g>
             <rect x="0" y={P.tla} width="1200" height="180" fill={C.red} opacity="0.08" />
-            <GumbPostavi x={600} y={P.tla + 60} napis="POLOŽI KABLE" />
+            <GumbPostavi x={600} y={P.tla + 60} napis="Položite KABLE" />
           </g>
         )}
         {kabli && (
@@ -574,20 +574,20 @@ export const afrkKlima = {
   kicker: { x: 360, y: 34 },
   dosegZadetka: 120,
   orodja: [
-    ...svedri(10, [8, 10, 12], 2, A.L + 30, (d) => `AF-RK 10 × 100 potrebuje izvrtino Ø10, ${d < 10 ? "v premajhno ga ne vstaviš" : "v preveliki se vložek ne razpre"}.`),
+    ...svedri(10, [8, 10, 12], 2, A.L + 30, (d) => `AF-RK 10 × 100 potrebuje izvrtino Ø10, ${d < 10 ? "v premajhno ga ne vstavite" : "v preveliki se vložek ne razpre"}.`),
     pihalka,
-    { id: "afrk", naziv: "AF-RK 10 × 100", risba: "roka", ikona: "vlozek", izbrano: "AF-RK je v roki. Klikni v izvrtino." },
+    { id: "afrk", naziv: "AF-RK 10 × 100", risba: "roka", ikona: "vlozek", izbrano: "AF-RK je v roki. Kliknite v izvrtino." },
     vijacnik,
-    { id: "enota", naziv: "Zunanja enota", risba: "roka", ikona: "enota", brezRotacije: true, izbrano: "Zunanja enota je v roki. Klikni na nosilec." },
-    kladivo("AF-RK ne zabijaš: privij vijak, da se vložek razpre v zidu."),
+    { id: "enota", naziv: "Zunanja enota", risba: "roka", ikona: "enota", brezRotacije: true, izbrano: "Zunanja enota je v roki. Kliknite na nosilec." },
+    kladivo("AF-RK ne zabijate: privijte vijak, da se vložek razpre v zidu."),
   ],
   koraki: [
-    { naziv: "Prisloni nosilec", tip: "postavi", navodilo: "Klikni ob zid, da prisloniš nosilec klime.", obmocje: (t) => t.x > A.zid, potrdilo: "Nosilec je poravnan. Vrtaš skozi luknje v nosilcu, vložek gre skozi element." },
-    { naziv: "Izvrtaj", orodje: "sveder10", nacin: "drzi", korak: 5, delci: "#c9a08a", navodilo: "Drži miško ob rdeči oznaki, vrtaj skozi nosilec v zid." },
-    { naziv: "Izpihaj", orodje: "pihalka", nacin: "drzi", korak: 8, delci: C.prah, navodilo: "Drži miško ob luknji, dokler prah ne izgine.", preskok: "Izvrtina je še polna prahu, najprej izpihaj." },
-    { naziv: "Vstavi AF-RK", orodje: "afrk", nacin: "klik", navodilo: "Klikni v vsako izvrtino: vložek potisni skozi nosilec, prirobnica naleže nanj." },
-    { naziv: "Privij vijaka", orodje: "vijacnik", nacin: "drzi", korak: 4, navodilo: "Drži miško ob vijaku, dokler glava ne nalega." },
-    { naziv: "Postavi enoto", tip: "postavi", orodje: "enota", navodilo: "Klikni na nosilec, da postaviš zunanjo enoto.", obmocje: (t) => t.x > A.zid, potrdilo: "Zunanja enota stoji na nosilcu.", preskok: "Najprej privij oba vijaka." },
+    { naziv: "Prislonite nosilec", tip: "postavi", navodilo: "Kliknite ob zid, da prislonite nosilec klime.", obmocje: (t) => t.x > A.zid, potrdilo: "Nosilec je poravnan. Vrtate skozi luknje v nosilcu, vložek gre skozi element." },
+    { naziv: "Izvrtajte", orodje: "sveder10", nacin: "drzi", korak: 5, delci: "#c9a08a", navodilo: "Držite miško ob rdeči oznaki, vrtajte skozi nosilec v zid." },
+    { naziv: "Izpihajte", orodje: "pihalka", nacin: "drzi", korak: 8, delci: C.prah, navodilo: "Držite miško ob luknji, dokler prah ne izgine.", preskok: "Izvrtina je še polna prahu, najprej izpihajte." },
+    { naziv: "Vstavite AF-RK", orodje: "afrk", nacin: "klik", navodilo: "Kliknite v vsako izvrtino: vložek potisnite skozi nosilec, prirobnica naleže nanj." },
+    { naziv: "Privijte vijaka", orodje: "vijacnik", nacin: "drzi", korak: 4, navodilo: "Držite miško ob vijaku, dokler glava ne nalega." },
+    { naziv: "Postavite enoto", tip: "postavi", orodje: "enota", navodilo: "Kliknite na nosilec, da postavite zunanjo enoto.", obmocje: (t) => t.x > A.zid, potrdilo: "Zunanja enota stoji na nosilcu.", preskok: "Najprej privijte oba vijaka." },
   ],
   prijem(o, li, s) {
     const y = A.Y[li];
@@ -622,7 +622,7 @@ export const afrkKlima = {
         {!konzola && (
           <g>
             <rect x={A.zid} y="0" width={1200 - A.zid} height="600" fill={C.red} opacity="0.06" />
-            <GumbPostavi x={720} y={300} napis="PRISLONI NOSILEC" />
+            <GumbPostavi x={720} y={300} napis="Prislonite NOSILEC" />
           </g>
         )}
         {konzola && (
