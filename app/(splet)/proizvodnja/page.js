@@ -425,8 +425,9 @@ export default function Proizvodnja() {
                 <h2>Na polici trgovca</h2>
                 <p>
                   Iz montaže gre blago naravnost na polico, pripravljeno za
-                  prodajo, brez prepakiranja. Trgovcem pripravimo police od 1
-                  do 4 metrov.
+                  prodajo, brez prepakiranja. Police sestavimo iz standardnih
+                  modulov (1, 2, 4 in 6 m) v postavitve do 20 metrov. Po
+                  želji pripravimo tudi posamezno polico za vašo trgovino.
                 </p>
               </div>
               <ul className="pr-polica-tocke">

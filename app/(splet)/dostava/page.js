@@ -5,7 +5,7 @@ import { VELJA_OD, eur0 } from "@/lib/pravno";
 
 export const metadata = {
   title: "Dostava in pošiljanje",
-  description: "Dostava s Pošto Slovenije, brezplačna dostava nad 100 €, osebni prevzem v Šmarju pri Jelšah.",
+  description: "Dostava s Pošto Slovenije, brezplačna dostava nad 100 € brez DDV, osebni prevzem v Šmarju pri Jelšah.",
   alternates: { canonical: "/dostava" },
 };
 
@@ -21,7 +21,7 @@ export default function Dostava() {
         <tbody>
           <tr>
             <td><b>Pošta Slovenije</b></td>
-            <td>do 50 €: 10 €<br />50–100 €: 5 €<br />nad {eur0(t.brezplacnoNad)}: brezplačno</td>
+            <td>do 50 €: 10 €<br />50–100 €: 5 €<br />nad {eur0(t.brezplacnoNad)}: brezplačno<br /><small>(vrednost blaga brez DDV)</small></td>
             <td>Dostava na naslov v Sloveniji. Mogoče je plačilo po povzetju (doplačilo 1,50 €).</td>
           </tr>
           <tr>
@@ -32,7 +32,7 @@ export default function Dostava() {
         </tbody>
       </table>
       <p>
-        Poštnina je pred oddajo naročila prikazana na blagajni. Meja za brezplačno dostavo velja za vrednost blaga z DDV v enem naročilu. Za zelo težka naročila (nad
+        Poštnina je pred oddajo naročila prikazana na blagajni. Razredi poštnine in meja za brezplačno dostavo veljajo za vrednost blaga brez DDV v enem naročilu. Za zelo težka naročila (nad
         30 kg) vas pred odpremo kontaktiramo glede načina dostave.
       </p>
 

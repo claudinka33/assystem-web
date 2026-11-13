@@ -25,7 +25,7 @@ const MOMENT = { 8: 23, 10: 45, 12: 65 }; // moment zatezanja
 const SIDRA = [
   { id: "8x75", naziv: "TXH7 M8×75", premer: 8, dolzina: 75, opis: "Nadstreški, lažje konzole" },
   { id: "10x90", naziv: "TXH7 M10×90", premer: 10, dolzina: 90, opis: "Ograje, konzole, strojne noge", top: true },
-  { id: "12x120", naziv: "TXH7 M12×120", premer: 12, dolzina: 120, opis: "Nosilci, težke obremenitve" },
+  { id: "12x125", naziv: "TXH7 M12×125", premer: 12, dolzina: 125, opis: "Nosilci, težke obremenitve" },
 ];
 
 const C = { red: "#CB2026", ink: "#3F4140", dark: "#1B1E21", jeklo: "#B4BABF", jekloS: "#D5D9DC", luknja: "#2A2D30" };

@@ -1,3 +1,4 @@
+import { stevilo, najdenih, ZADETEK } from "@/lib/sklanjanje";
 import Image from "next/image";
 import ZnamkaZnak from "@/components/ZnamkaZnak";
 import Link from "next/link";
@@ -22,7 +23,7 @@ export default async function Iskanje({ searchParams }) {
         naslov={niz ? `Rezultati za „${niz}“` : "Iskanje"}
         opis={
           niz
-            ? `Najdenih ${skupaj} zadetkov med izdelki in šiframi artiklov.`
+            ? `${najdenih(skupaj)} med izdelki in šiframi artiklov.`
             : "Vpišite šifro artikla, EAN kodo ali naziv izdelka."
         }
       />
@@ -59,7 +60,7 @@ export default async function Iskanje({ searchParams }) {
             <>
               <div className="st">
                 <span>Izdelki</span>
-                <h2>{izdelki.length} zadetkov</h2>
+                <h2>{stevilo(izdelki.length, ZADETEK)}</h2>
               </div>
               <div className="kats" style={{ marginBottom: 50 }}>
                 {izdelki.map((i) => (
@@ -94,7 +95,7 @@ export default async function Iskanje({ searchParams }) {
             <>
               <div className="st">
                 <span>Artikli</span>
-                <h2>{artikli.length} zadetkov po šifri</h2>
+                <h2>{stevilo(artikli.length, ZADETEK)} po šifri</h2>
               </div>
               <div style={{ overflowX: "auto" }}>
                 <table className="adm-tab" style={{ minWidth: 640 }}>
@@ -120,7 +121,7 @@ export default async function Iskanje({ searchParams }) {
                           {a.izdelki?.slug && (
                             <Link
                               className="more"
-                              href={`/program/${a.izdelki.kategorije?.slug ?? "program"}/${a.izdelki.slug}`}
+                              href={`/program/${a.izdelki.kategorije?.slug ?? "program"}/${a.izdelki.slug}?sifra=${encodeURIComponent(a.sifra)}`}
                             >
                               Odpri →
                             </Link>

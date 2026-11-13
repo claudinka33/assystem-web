@@ -168,7 +168,13 @@ export default function BlagajnaB2B({ kupec, dostave, prodajalne }) {
                 {p.map((x) => (
                   <div key={x.id}>
                     <span>{x.kolicina}×</span>
-                    <span title={`${x.naziv} ${x.dimenzija ?? ""}`}>{x.naziv} {x.dimenzija}</span>
+                    <span title={`${x.naziv} ${x.dimenzija ?? ""}`}>
+                      {x.naziv} {x.dimenzija}
+                      <small className="bl-pak">
+                        {x.sifra}
+                        {x.kos > 1 ? ` · ${x.kolicina} × pakiranje ${x.kos} kos = ${(x.kolicina * x.kos).toLocaleString("sl-SI")} kos` : ` · ${x.kolicina} kos`}
+                      </small>
+                    </span>
                     <b>{cena(x) ? eur(zaokrozi(cena(x).neto * x.kolicina)) : "—"}</b>
                   </div>
                 ))}

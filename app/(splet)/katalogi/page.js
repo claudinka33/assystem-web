@@ -1,3 +1,4 @@
+import { stevilo, DOKUMENT } from "@/lib/sklanjanje";
 import Link from "next/link";
 import NaslovStrani from "@/components/NaslovStrani";
 import { pridobiDokumente } from "@/lib/podatki";
@@ -7,7 +8,7 @@ export const revalidate = 60;
 export const metadata = {
   title: "Katalogi in prenosi",
   description:
-    "Katalogi, letaki, tehnični listi, evropske tehnične ocene ETA in izjave o lastnostih za pritrdila ASfix.",
+    "Dokumentacija za pritrdila ASfix: evropske tehnične ocene ETA, letaki in druga gradiva za prenos ali na zahtevo.",
   alternates: { canonical: "/katalogi" },
 };
 
@@ -23,13 +24,19 @@ const skupine = [
 
 export default async function Katalogi() {
   const vsi = await pridobiDokumente();
+  // Opis našteje samo skupine, ki dejansko imajo dokumente
+  const prisotne = skupine.filter(([tip]) => vsi.some((d) => d.tip === tip)).map(([, n]) => n.toLowerCase());
+  const opisStrani =
+    prisotne.length > 0
+      ? `Za prenos: ${prisotne.join(", ")}. Ostalo dokumentacijo (izjave o lastnostih, navodila) pošljemo na zahtevo.`
+      : "Dokumentacijo za konkreten izdelek pošljemo na zahtevo.";
 
   return (
     <>
       <NaslovStrani
         oznaka="Gradiva"
         naslov="Katalogi in prenosi"
-        opis="Vsa dokumentacija na enem mestu, katalogi, letaki, certifikati in navodila."
+        opis={opisStrani}
       />
 
       {vsi.length === 0 ? (
@@ -56,7 +63,7 @@ export default async function Katalogi() {
             <section key={tip} className={i % 2 === 1 ? "sec grey" : "sec"}>
               <div className="w">
                 <div className="st">
-                  <span>{dokumenti.length} dokumentov</span>
+                  <span>{stevilo(dokumenti.length, DOKUMENT)}</span>
                   <h2>{naslov}</h2>
                   <p>{opis}</p>
                 </div>

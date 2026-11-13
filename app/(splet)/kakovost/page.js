@@ -166,7 +166,7 @@ export default async function Kakovost() {
                 <div key={s.izdelek} className="kk-vrsta">
                   <b>{s.izdelek}</b>
                   <span className="kk-eta">{s.eta}</span>
-                  <span>{s.dop}</span>
+                  <span>{s.dop ? `${s.dop} (na zahtevo)` : "—"}</span>
                   <Link
                     className="kk-zahtevaj"
                     href={`/kontakt?izdelek=${encodeURIComponent(`${s.eta} ${s.izdelek}`)}&vir=certifikat`}

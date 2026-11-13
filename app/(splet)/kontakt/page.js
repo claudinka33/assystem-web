@@ -77,7 +77,7 @@ export default async function Kontakt({ searchParams }) {
                 <span>Povpraševanje</span>
                 <h2>{izdelek ? `Povpraševanje: ${izdelek}` : "Pošljite povpraševanje"}</h2>
               </div>
-              <ObrazecPovprasevanje vir={vir} izdelek={izdelek} />
+              <ObrazecPovprasevanje vir={vir} izdelek={izdelek} priloga="Fotografija ali risba (neobvezno)" />
             </div>
 
             <aside className="kt-podatki">

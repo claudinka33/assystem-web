@@ -130,7 +130,7 @@ export default function Blagajna({ dostave, placila = ["predracun", "povzetje"] 
                       <span className="ik"><Ikona ime={x.koda === "osebno" ? "trgovina" : "tovornjak"} /></span>
                       <span>
                         <b>{x.koda === "osebno" ? "Osebni prevzem" : x.naziv}</b>
-                        <small>{x.koda === "osebno" ? "Šmarje pri Jelšah, pon–pet 7–15" : "Dostava naslednji delovni dan"}</small>
+                        <small>{x.koda === "osebno" ? "Šmarje pri Jelšah, pon–pet 7–15" : "Odprema v 1–2 delovnih dneh"}</small>
                       </span>
                       <span className={`cena${cena === 0 ? " zast" : ""}`}>{cena === 0 ? "brezplačno" : eur(cena)}</span>
                     </label>
@@ -177,7 +177,13 @@ export default function Blagajna({ dostave, placila = ["predracun", "povzetje"] 
                 {p.map((x) => (
                   <div key={x.id}>
                     <span>{x.kolicina}×</span>
-                    <span title={`${x.naziv} ${x.dimenzija ?? ""}`}>{x.naziv} {x.dimenzija}</span>
+                    <span title={`${x.naziv} ${x.dimenzija ?? ""}`}>
+                      {x.naziv} {x.dimenzija}
+                      <small className="bl-pak">
+                        {x.sifra}
+                        {x.kos > 1 ? ` · ${x.kolicina} × pakiranje ${x.kos} kos = ${(x.kolicina * x.kos).toLocaleString("sl-SI")} kos` : ` · ${x.kolicina} kos`}
+                      </small>
+                    </span>
                     <b>{eur(zaokrozi(x.cenaBruto * x.kolicina))}</b>
                   </div>
                 ))}

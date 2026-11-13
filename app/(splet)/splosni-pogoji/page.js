@@ -84,7 +84,7 @@ export default function SplosniPogoji() {
       <h2>8. Dostava</h2>
       <p>
         Pošiljke dostavlja Pošta Slovenije, mogoč je tudi osebni prevzem v Šmarju pri Jelšah. Poštnina je odvisna od
-        vrednosti blaga z DDV: {t.razredi}. Osebni prevzem je brezplačen. Vse o rokih in prevzemu je na
+        vrednosti blaga brez DDV: {t.razredi}. Osebni prevzem je brezplačen. Vse o rokih in prevzemu je na
         strani <Link href="/dostava">Dostava in pošiljanje</Link>.
       </p>
 

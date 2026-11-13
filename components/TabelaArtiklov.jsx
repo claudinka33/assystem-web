@@ -13,8 +13,13 @@ const KORAK = 80;
 
 // Ko artikla ni na zalogi, roka dobave ne poznamo -> kupec ga z enim klikom vpraša prek obrazca.
 function Zaloga({ vrednost, sifra, izdelek }) {
-  if (vrednost === null || vrednost === undefined) return "—";
-  if (vrednost > 0) return <span style={{ color: "#1a7f3c", fontWeight: 700 }}>Na zalogi</span>;
+  if (vrednost > 0)
+    return (
+      <span className="zal-da">
+        <b style={{ color: "#1a7f3c" }}>Na zalogi</b>
+        <small>Odprema v 1–2 delovnih dneh</small>
+      </span>
+    );
   const kaj = encodeURIComponent(`${izdelek?.naziv ?? ""} ${sifra ?? ""}`.trim());
   return (
     <span className="zal-ni">
@@ -239,6 +244,19 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
   const [iskanje, setIskanje] = useState("");
   const [izbrani, setIzbrani] = useState({});
   const [prikazano, setPrikazano] = useState(KORAK);
+  const [oznacena, setOznacena] = useState(null);
+
+  // Iz iskanja (?sifra=...) predizberemo točno najdeni artikel in se pomaknemo do njega
+  useEffect(() => {
+    const sif = new URLSearchParams(window.location.search).get("sifra");
+    if (!sif || !vhodni.some((a) => a.sifra === sif)) return;
+    setIskanje(sif);
+    setOznacena(sif);
+    const t = setTimeout(() => {
+      document.getElementById(`art-${sif}`)?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 300);
+    return () => clearTimeout(t);
+  }, [vhodni]);
 
   // Legenda: najprej posebnosti izdelka (npr. škatla AFR41), nato privzeta pakiranja
   const vnosiLegende = useMemo(() => {
@@ -399,7 +417,7 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
           </thead>
           <tbody>
             {prikaz.map((a) => (
-              <tr key={a.id}>
+              <tr key={a.id} id={`art-${a.sifra}`} className={oznacena === a.sifra ? "art-izbran" : undefined}>
                 <td className="mk-gl">
                   <span className="izd-sif">{a.sifra}</span>
                   {a.dimenzija && <span className="mk-dim">{a.dimenzija}</span>}

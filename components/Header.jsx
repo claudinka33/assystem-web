@@ -114,6 +114,13 @@ export default function Header({ kategorije = [], skrite = [] }) {
             <button type="submit" aria-label="Išči">→</button>
           </form>
 
+          <Link href="/iskanje" className="isci-ikona" aria-label="Iskanje izdelkov">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+              <circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" strokeWidth="2" />
+              <line x1="15.5" y1="15.5" x2="21" y2="21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+          </Link>
+
           <KosaricaGumb />
 
           <a className="tel" href={`tel:${site.telefonRaw}`}>
@@ -136,6 +143,10 @@ export default function Header({ kategorije = [], skrite = [] }) {
         {odprt && (
           <nav className="mobmeni">
             <div className="w">
+              <form action="/iskanje" className="mob-isci" onSubmit={() => setOdprt(false)}>
+                <input name="q" type="search" placeholder="Išči po šifri, EAN ali nazivu…" aria-label="Iskanje izdelkov" />
+                <button type="submit" aria-label="Išči">→</button>
+              </form>
               {navigacija.map((el) => {
                 const pod = podPostavke(el, kategorije, skrite);
                 if (!pod.length)

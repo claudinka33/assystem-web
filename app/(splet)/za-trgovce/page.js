@@ -53,7 +53,8 @@ export default async function ZaTrgovce() {
             <h1>Polica, ki proda sama</h1>
             <p>
               Sestavimo prodajni program in postavitev police za vašo trgovino, ASfix, ASco, Silvermate ali
-              kombinacijo, od 1 do 20 metrov. Vi prodajate, mi skrbimo za polico.
+              kombinacijo. Police sestavimo iz standardnih modulov (1, 2, 4 in 6 m) v postavitve do 20 metrov, po želji pa
+              pripravimo tudi posamezno polico. Vi prodajate, mi skrbimo za polico.
             </p>
             <ul className="zn-znacke">
               <li>Police 1 – 20 m</li>
