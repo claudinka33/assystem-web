@@ -3420,10 +3420,10 @@ tr.art-izbran > td { background: #fff4d6 !important; }
 .rok-uspeh { display: grid; gap: 10px; justify-items: start; }
 @media (max-width: 480px) { .rok-dva { grid-template-columns: 1fr; } }
 
-.b2bp-glava { display: flex; flex-wrap: wrap; gap: 6px 22px; padding: 8px 2px 10px; font-size: 12.5px; }
-.b2bp-glava em { display: block; font-style: normal; font-size: 9.5px; text-transform: uppercase; letter-spacing: .5px; color: #8a8f94; }
-.b2bp-glava small { color: #8a8f94; }
-.b2bp-pod { display: block; color: #8a8f94; font-size: 11px; }
+.b2bp-rgl { display: flex; flex-wrap: wrap; gap: 6px 22px; padding: 8px 2px 10px; font-size: 12.5px; }
+.b2bp-rgl em { display: block; font-style: normal; font-size: 9.5px; text-transform: uppercase; letter-spacing: .5px; color: #8a8f94; }
+.b2bp-rgl small { color: #8a8f94; }
+.b2bp-kpod { display: block; color: #8a8f94; font-size: 11px; }
 .b2bp-en { color: #8a8f94; font-size: 10.5px; }
 .b2bp-post tfoot td { border-top: 1px solid #eceef1; background: #fafbfc; }
 

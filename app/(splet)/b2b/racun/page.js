@@ -160,7 +160,7 @@ async function Racun({ searchParams }) {
                         const prihranek = Math.max(0, vpcSkupaj - Number(r.neto || 0));
                         return (
                           <>
-                            <div className="b2bp-glava">
+                            <div className="b2bp-rgl">
                               {g.datum_dobave && <div><em>Dobava</em>{cas(g.datum_dobave)}</div>}
                               {g.narocilo && <div><em>Vaše naročilo</em>{g.narocilo}{g.datum_narocila ? <small> · {cas(g.datum_narocila)}</small> : null}</div>}
                               {g.valuta && <div><em>Rok plačila</em>{cas(g.valuta)}{g.rok_placila ? <small> · {g.rok_placila} dni</small> : null}</div>}
@@ -184,7 +184,7 @@ async function Racun({ searchParams }) {
                                   return (
                                     <tr key={i}>
                                       <td>{v.sifra}</td><td>{String(v.naziv || "—").replace(/\n/g, " ")}</td>
-                                      <td className="d"><b>{kol.glavno}</b>{kol.dodatek && <small className="b2bp-pod">{kol.dodatek}</small>}</td>
+                                      <td className="d"><b>{kol.glavno}</b>{kol.dodatek && <small className="b2bp-kpod">{kol.dodatek}</small>}</td>
                                       <td className="d">{Number(v.prodajna_cena) ? eur(Number(v.prodajna_cena)) : "—"}{en && <small className="b2bp-en"> / {en}</small>}</td>
                                       <td className="d">{Number(v.rabat) ? `${v.rabat} %` : ""}{Number(v.rabat2) ? ` + ${v.rabat2} %` : ""}</td>
                                       <td className="d">{eur(Number(v.cena))}{en && <small className="b2bp-en"> / {en}</small>}</td>
