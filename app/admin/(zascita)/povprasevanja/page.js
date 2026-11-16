@@ -1,6 +1,7 @@
 import { supabaseAdmin, trenutniAdmin } from "@/lib/supabase-server";
 import { spremeniStatusPovprasevanja } from "@/lib/akcije/skupno";
 import OdgovorPovprasevanju from "@/components/admin/OdgovorPovprasevanju";
+import { stevilo, STRANKA, NOVO } from "@/lib/sklanjanje";
 import OdpriPoHashu from "@/components/admin/OdpriPoHashu";
 
 export const dynamic = "force-dynamic";
@@ -224,8 +225,8 @@ export default async function Povprasevanja() {
       <div className="adm-glava">
         <h1>Povpraševanja</h1>
         <span style={{ fontSize: 13, color: "#6e767e" }}>
-          {nove.length > 0 ? `${nove.length} novih · ` : ""}
-          {vse.length} strank
+          {nove.length > 0 ? `${stevilo(nove.length, NOVO)} · ` : ""}
+          {stevilo(vse.length, STRANKA)}
         </span>
       </div>
 
