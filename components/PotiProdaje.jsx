@@ -25,10 +25,10 @@ export const POTI = [
     slika: "/slike/poti/private-label.jpg",
   },
   {
-    pot: "/vijaki-po-narocilu",
-    oznaka: "Po vaši risbi",
-    naziv: "Vijaki po naročilu",
-    opis: "Posebni vijaki po risbi ali tehnični dokumentaciji, v serijah za industrijo.",
+    pot: "/bespoke",
+    oznaka: "Po vaši skici",
+    naziv: "Bespoke",
+    opis: "Izdelava po meri: vijaki po vaši risbi ter sidra, vložki in udarni vijaki v vaši izvedbi.",
     slika: "/slike/poti/vijaki-po-narocilu.jpg",
   },
 ];

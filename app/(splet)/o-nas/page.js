@@ -242,9 +242,9 @@ function ONas() {
           </div>
           <div className="on-dodatno">
             <div>
-              <b>Vijaki po naročilu</b>
+              <b>Bespoke: izdelava po meri</b>
               <p>Od leta 2015 izdelujemo vijake po risbi kupca, dimenzije od M3×4 do M16×180.</p>
-              <Link className="more" href="/vijaki-po-narocilu">Več →</Link>
+              <Link className="more" href="/bespoke">Več →</Link>
             </div>
             <div>
               <b>Private label</b>

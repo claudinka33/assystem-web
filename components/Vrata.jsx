@@ -36,11 +36,11 @@ const VRATA = [
   },
   {
     st: "05",
-    kdo: "Industrija",
-    naslov: "Vijaki po vaši risbi",
-    opis: "Izdelamo vijake po vaši risbi ali tehnični dokumentaciji.",
-    cta: "Vijaki po naročilu",
-    pot: "/vijaki-po-narocilu",
+    kdo: "Bespoke",
+    naslov: "Izdelava po meri",
+    opis: "Prinesite skico ali risbo: vijake in naše izdelke izdelamo po vaših merah.",
+    cta: "Bespoke",
+    pot: "/bespoke",
   },
 ];
 

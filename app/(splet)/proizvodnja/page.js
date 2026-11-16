@@ -222,7 +222,7 @@ function Proizvodnja() {
             </ul>
             <div className="zn-gumbi">
               <a className="b b-r" href="#izdelki">Kaj izdelamo</a>
-              <Link className="b b-o" href="/kontakt?vir=proizvodnja">Povpraševanje</Link>
+              <Link className="b b-o" href="/bespoke#povprasevanje">Povpraševanje</Link>
               <a className="b-video" href="https://www.youtube.com/watch?v=vmdeYdyWzGE" target="_blank" rel="noopener noreferrer">
                 <span aria-hidden="true" />
                 Cel video z zvokom
@@ -464,22 +464,23 @@ function Proizvodnja() {
         <div className="w">
           <div className="pr-vpn">
             <div className="st" style={{ marginBottom: 0 }}>
-              <span>Od leta 2015</span>
-              <h2>Vijaki po naročilu</h2>
+              <span>Bespoke manufacturing</span>
+              <h2>Izdelava po meri</h2>
               <p>
-                Po vaši risbi ali tehnični dokumentaciji izdelamo vijake, ki niso
-                del standardnega kataloga: za elektro, lesno, gradbeno in
-                splošno industrijo. Poskrbimo za izdelavo orodja in potrditev
-                vzorcev, nato za serijsko proizvodnjo.
+                Prinesite skico ali risbo. Izdelamo vijake, ki niso del
+                standardnega kataloga, ter naša sidra, udarne vijake in vložke
+                v vaši izvedbi: za elektro, lesno, gradbeno in splošno
+                industrijo. Poskrbimo za izdelavo orodja in potrditev vzorcev,
+                nato za serijsko proizvodnjo.
               </p>
-              <Link className="b b-r" href="/vijaki-po-narocilu" style={{ marginTop: 22 }}>
-                Vijaki po naročilu →
+              <Link className="b b-r" href="/bespoke" style={{ marginTop: 22 }}>
+                Bespoke: pošljite skico →
               </Link>
             </div>
             <div>
             <KorakiSlike
-              href="/vijaki-po-narocilu"
-              gumb="Vijaki po naročilu →"
+              href="/bespoke"
+              gumb="Bespoke →"
               koraki={[
                 { naslov: "Risba", podnaslov: "Korak 1", opis: "Vaša risba ali tehnična dokumentacija, preverimo izvedljivost in material.", slika: "/slike/foto/vpn-risba.jpg", alt: "Tehnična risba vijaka" },
                 { naslov: "Orodje in vzorci", podnaslov: "Korak 2", opis: "Izdelava orodja in potrditev vzorcev pred serijo.", slika: "/slike/foto/proizvodnja-09.jpg", alt: "Prvi kosi iz novega orodja" },
@@ -552,8 +553,8 @@ function Proizvodnja() {
             <h2>Potrebujete izdelek po meri?</h2>
             <p>Pošljite risbo ali vzorec in pripravimo predlog izvedbe.</p>
           </div>
-          <Link className="b b-w" href="/kontakt?vir=proizvodnja">
-            Pošljite povpraševanje →
+          <Link className="b b-w" href="/bespoke#povprasevanje">
+            Pošljite skico →
           </Link>
         </div>
       </div>

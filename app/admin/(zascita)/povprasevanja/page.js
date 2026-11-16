@@ -18,6 +18,8 @@ const VIRI = {
   certifikat: "Certifikat",
   "private-label": "Private label",
   "vijaki-po-narocilu": "Vijaki po naročilu",
+  bespoke: "Bespoke (po meri)",
+  proizvodnja: "Proizvodnja",
   trgovci: "Za trgovce",
 };
 

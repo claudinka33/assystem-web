@@ -9,7 +9,12 @@ const nextConfig = {
   // Obrazci s prilogami (risbe, življenjepisi). Vercel sprejme največ 4,5 MB na zahtevo.
   // Znamka žebljev se je preimenovala HAMMER → HAMMEX
   async redirects() {
-    return [{ source: "/hammer", destination: "/hammex", permanent: true }];
+    return [
+      { source: "/hammer", destination: "/hammex", permanent: true },
+      // Vijaki po naročilu so zdaj del strani Bespoke (izdelava po meri)
+      { source: "/vijaki-po-narocilu", destination: "/bespoke", permanent: true },
+      { source: "/:jezik(en|de)/vijaki-po-narocilu", destination: "/:jezik/bespoke", permanent: true },
+    ];
   },
   experimental: {
     serverActions: { bodySizeLimit: "4.5mb" },

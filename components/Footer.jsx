@@ -64,7 +64,7 @@ export default function Footer({ kategorije: izBaze }) {
             <Link href="/b2b">B2B za podjetja</Link>
             <Link href="/za-trgovce">Za trgovce</Link>
             <Link href="/private-label">Private label</Link>
-            <Link href="/vijaki-po-narocilu">Vijaki po naročilu</Link>
+            <Link href="/bespoke">Bespoke: izdelava po meri</Link>
             <Link href="/distributerji">Postanite distributer</Link>
             <Link href="/katalogi">Katalogi in prenosi</Link>
           </div>

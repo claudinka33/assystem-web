@@ -12,11 +12,12 @@ import { objekt, cone, vsiSlugi } from "@/lib/resitve";
 import { pridobiIzdelkePoSlugih } from "@/lib/podatki";
 import InstagramObjave from "@/components/InstagramObjave";
 import ClankiDomov from "@/components/ClankiDomov";
-import VideoOzadje from "@/components/VideoOzadje";
+import HeroBannerji from "@/components/HeroBannerji";
 import { prevedenaStran, prevediMetadata, jezik } from "@/lib/i18n/streznik";
 
 // Predstavitveni video podjetja (cel, z zvokom)
 const VIDEO_SL = "https://www.youtube.com/watch?v=vmdeYdyWzGE";
+const VIDEO_EN = "https://www.youtube.com/watch?v=uiRXMJviMv8";
 
 export const revalidate = 60;
 
@@ -65,50 +66,60 @@ async function Domov() {
 
   return (
     <>
-      {/* ---------- Hero: video iz lastne proizvodnje ---------- */}
-      <section className="hero hero-video">
-        <VideoOzadje src="/videi/proizvodnja-hero.mp4" poster="/slike/proizvodnja/hero-video-poster.jpg" />
-        <div className="vid-tema" aria-hidden="true" />
-        <div className="w">
-          <div>
-            <span className="kick">
-              {v(b, "domov.hero.oznaka", "naslov", "Pritrdilna tehnika in vijaki")}
-            </span>
-            <h1>
-              {v(b, "domov.hero.naslov", "naslov", "Vse za pritrjevanje. Iz zaloge.")}
-            </h1>
-            <p>
-              {v(
-                b,
-                "domov.hero.besedilo",
-                "besedilo",
-                "Jeklena sidra, zidni vložki, udarni vijaki, kemična sidra in vijačno blago iz zaloge. Za trgovine, izvajalce in distributerje."
-              )}
-            </p>
-
-            <div className="acts">
-              <Link className="b b-w" href="/program">
-                Prodajni program
-              </Link>
-              <Link className="b b-o" href="/proizvodnja">
-                Naša proizvodnja
-              </Link>
-              <a
-                className="b-video"
-                href={VIDEO_SL}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span aria-hidden="true" />
-                Poglej predstavitveni video
-              </a>
-            </div>
-          </div>
-        </div>
-        <div className="vid-oznaka" aria-hidden="true">
-          Lastna proizvodnja · Šmarje pri Jelšah in Bistrica ob Sotli
-        </div>
-      </section>
+      {/* ---------- Glava: trije bannerji, menjava na 5 s ---------- */}
+      <HeroBannerji
+        bannerji={[
+          {
+            tip: "video",
+            video: "/videi/proizvodnja-hero.mp4",
+            poster: "/slike/proizvodnja/hero-video-poster.jpg",
+            oznaka: "Bespoke manufacturing",
+            naslov: "Iz zaloge ali po vaši meri.",
+            besedilo:
+              "Prinesite skico ali risbo. Sidra, udarni vijaki, vložki in vijaki iz lastne proizvodnje: standardno ali izdelano po vaših merah.",
+            gumbi: [
+              { naziv: "Pošljite skico", pot: "/bespoke#povprasevanje", slog: "bel" },
+              { naziv: "Lastna proizvodnja", pot: "/proizvodnja", slog: "obroba" },
+              { naziv: "Poglej predstavitveni video", pot: jezikStrani === "sl" ? VIDEO_SL : VIDEO_EN, slog: "video" },
+            ],
+            opomba: "Lastna proizvodnja · Šmarje pri Jelšah in Bistrica ob Sotli",
+          },
+          {
+            tip: "slika",
+            slika: "/slike/znamke/asfix-afr41-sredina.png",
+            sirina: 1001,
+            visina: 662,
+            alt: "Škatla ASfix",
+            oznaka: "Za podjetja · B2B",
+            naslov: "Vaše cene. Naročilo v nekaj klikih.",
+            besedilo:
+              "Registrirajte podjetje in naročajte po svojem ceniku: pregled naročil in računov, plačilo na račun z dogovorjenim rokom plačila.",
+            gumbi: [
+              { naziv: "B2B registracija", pot: "/b2b/registracija", slog: "bel" },
+              { naziv: "Prijava", pot: "/b2b", slog: "obroba" },
+            ],
+          },
+          {
+            tip: "slika",
+            slika: "/hero-izdelki-2026.png",
+            sirina: 1100,
+            visina: 1044,
+            alt: "Pritrdila ASfix: jekleno sidro TXH7, zidni vložki, kemično sidro EASF TOP, udarni vijaki, vrečka in škatla",
+            oznaka: v(b, "domov.hero.oznaka", "naslov", "Pritrdilna tehnika in vijaki"),
+            naslov: v(b, "domov.hero.naslov", "naslov", "Vse za pritrjevanje. Iz zaloge."),
+            besedilo: v(
+              b,
+              "domov.hero.besedilo",
+              "besedilo",
+              "Jeklena sidra, zidni vložki, udarni vijaki, kemična sidra in vijačno blago iz zaloge. Za trgovine, izvajalce in distributerje."
+            ),
+            gumbi: [
+              { naziv: "Prodajni program", pot: "/program", slog: "bel" },
+              { naziv: "Kontaktirajte nas", pot: "/kontakt", slog: "obroba" },
+            ],
+          },
+        ]}
+      />
 
       {/* ---------- Prednosti ---------- */}
       <div className="adv">

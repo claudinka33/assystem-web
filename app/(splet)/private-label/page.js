@@ -128,7 +128,7 @@ function PrivateLabel() {
           </div>
           <p className="pl-opomba">
             Iščete vijak po svoji risbi? To je drug postopek —{" "}
-            <Link href="/vijaki-po-narocilu">vijaki po naročilu →</Link>
+            <Link href="/bespoke">vijaki po naročilu →</Link>
           </p>
         </div>
       </section>
