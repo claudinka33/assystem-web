@@ -3,7 +3,7 @@ import { supabaseAdmin } from "@/lib/supabase-server";
 import { Suspense } from "react";
 import IskalnikBaze from "./IskalnikBaze";
 import { REGIJE, RAZVRSTI, filtrRegije } from "@/lib/baza-regije";
-import { KontaktObrazec, UvozBaze, UskladiGumb, Vrstica, IzkljuciDomeno } from "./Deli";
+import { KontaktObrazec, UvozBaze, UskladiGumb, Vrstica } from "./Deli";
 
 export const dynamic = "force-dynamic";
 
@@ -20,8 +20,6 @@ export default async function Baza({ searchParams }) {
       </div>
     );
 
-  const { data: izk } = await sb.from("nastavitve").select("vrednost").eq("kljuc", "baza_izkljucene_domene").maybeSingle();
-  const izkljucene = String(izk?.vrednost ?? "").split(",").map((x) => x.trim()).filter(Boolean);
 
   // števci panog
   const stej = (fn) => fn(sb.from("baza_kontakti").select("email", { count: "exact", head: true })).then((r) => r.count ?? 0);
@@ -111,10 +109,6 @@ export default async function Baza({ searchParams }) {
               <details className="bz-dodaj">
                 <summary className="gumb">+ Dodaj kontakt</summary>
                 <div className="bz-pop"><KontaktObrazec panoge={panoge ?? []} /></div>
-              </details>
-              <details className="bz-dodaj">
-                <summary className="gumb siv">Izbriši domeno</summary>
-                <div className="bz-pop"><IzkljuciDomeno domene={izkljucene} /></div>
               </details>
               <details className="bz-dodaj">
                 <summary className="gumb siv">Uvoz iz Excela</summary>
