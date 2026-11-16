@@ -1014,3 +1014,20 @@ details.adm-obr { padding: 8px 12px; }
 .bz-sort i { font-style: normal; color: #b4b9be; font-size: 9px; }
 .bz-sort:hover, .bz-sort.on { color: var(--a-red); }
 .bz-sort.on i { color: var(--a-red); }
+
+/* Poslana sporočila */
+.ps-tab { background: #fff; border: 1px solid var(--a-line); border-radius: 6px; overflow: hidden; }
+.ps-vr { display: grid; grid-template-columns: 130px minmax(200px, 1.3fr) minmax(220px, 2fr) 140px 60px; gap: 10px; align-items: center; padding: 6px 12px; font-size: 12.5px; border-top: 1px solid var(--a-line); }
+.ps-gl { border-top: 0; background: #f6f7f8; font-size: 10.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #6e7276; }
+.ps-vr[hidden] { display: none; }
+.ps-st { font-style: normal; display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; font-weight: 600; }
+.ps-st::before { content: ""; width: 8px; height: 8px; border-radius: 50%; }
+.ps-st.ok { color: #1a7f3c; } .ps-st.ok::before { background: #22b04b; }
+.ps-st.caka { color: #8a5a00; } .ps-st.caka::before { background: #e2a33a; }
+.ps-st.ne { color: var(--a-red); } .ps-st.ne::before { background: var(--a-red); }
+.ps-glava { background: #fff; border: 1px solid var(--a-line); border-radius: 6px; padding: 10px 14px; font-size: 13px; display: grid; gap: 4px; margin-bottom: 12px; }
+.ps-glava span { display: inline-block; width: 90px; color: #6e7276; font-size: 11.5px; }
+.ps-okno { width: 100%; min-height: 70vh; border: 1px solid var(--a-line); border-radius: 6px; background: #fff; }
+.ps-tekst { background: #fff; border: 1px solid var(--a-line); border-radius: 6px; padding: 14px; white-space: pre-wrap; }
+.adm-ok { background: #e9f7ee; border: 1px solid #b7e2c4; color: #1a5f30; padding: 10px 14px; border-radius: 6px; margin-bottom: 14px; font-size: 13px; }
+@media (max-width: 760px) { .ps-vr { grid-template-columns: 1fr 1fr; } .ps-gl { display: none; } }

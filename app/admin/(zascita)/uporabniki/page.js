@@ -2,6 +2,8 @@ import { supabaseAdmin } from "@/lib/supabase-server";
 import { zahtevajAdmina } from "@/lib/akcije/skupno";
 import { shraniDostop, izbrisiDostop, ponovnoPosljiVabilo } from "@/lib/akcije/uporabniki";
 import { MODULI } from "@/lib/dovoljenja";
+import Link from "next/link";
+import { poslanaSporocila, poslanoSporocilo, STANJA } from "@/lib/resend-poslano";
 
 export const dynamic = "force-dynamic";
 
@@ -48,8 +50,28 @@ function Obrazec({ d }) {
   );
 }
 
-export default async function Uporabniki() {
+const cas = (d) => new Date(d).toLocaleString("sl-SI", { timeZone: "Europe/Ljubljana", day: "numeric", month: "numeric", hour: "2-digit", minute: "2-digit" });
+const Stanje = ({ e }) => {
+  const [st, cl] = STANJA[e] ?? [e, "caka"];
+  return <i className={`ps-st ${cl}`}>{st}</i>;
+};
+
+export default async function Uporabniki({ searchParams }) {
   await zahtevajAdmina();
+  const { vabilo = "", ok = "", id = "", napaka = "" } = await searchParams;
+  let poslano = null;
+  if (id) {
+    await new Promise((r) => setTimeout(r, 1500));
+    poslano = await poslanoSporocilo(id).catch(() => null);
+  }
+  // zadnja vabila po zaposlenih (iz Resenda)
+  const vabila = {};
+  try {
+    const { sporocila } = await poslanaSporocila({ strani: 1 });
+    for (const m of sporocila)
+      if (String(m.subject).startsWith("Dostop do administracije"))
+        for (const t of m.to ?? []) vabila[t.toLowerCase()] ??= m;
+  } catch {}
   const sb = supabaseAdmin();
   const [{ data: polni }, { data: dostopi, error }] = await Promise.all([
     sb.from("admin_uporabniki").select("id, ime, email").order("ime"),
@@ -65,6 +87,14 @@ export default async function Uporabniki() {
         </div>
       </div>
       <div className="adm-telo">
+        {vabilo && ok === "1" && (
+          <div className="adm-ok">
+            ✓ Vabilo je poslano na <b>{vabilo}</b>
+            {poslano && <> · stanje: <Stanje e={poslano.last_event} /></>}
+            {id && <> · <Link href={`/admin/poslano/${id}`}>poglej mail</Link></>}
+          </div>
+        )}
+        {vabilo && ok === "0" && <div className="opozorilo">Vabilo na {vabilo} NI bilo poslano{napaka ? `: ${napaka}` : ""}.</div>}
         {error && (
           <div className="opozorilo">Tabela admin_dostopi še ne obstaja — v Supabase zaženi SQL iz sql/49-admin-dostopi.sql.</div>
         )}
@@ -97,6 +127,13 @@ export default async function Uporabniki() {
               <small style={{ opacity: 0.6 }}>{d.email}</small>
               <span className="znacka ne">{d.dovoljenja?.length ?? 0} delov</span>
               {!d.aktiven && <span className="znacka novo">izklopljen</span>}
+              {vabila[d.email] ? (
+                <small style={{ display: "inline-flex", gap: 6, alignItems: "center" }}>
+                  vabilo {cas(vabila[d.email].created_at)} <Stanje e={vabila[d.email].last_event} />
+                </small>
+              ) : (
+                <small style={{ opacity: 0.5 }}>vabilo: ni podatka</small>
+              )}
             </summary>
             <div style={{ paddingTop: 14 }}>
               <Obrazec d={d} />
