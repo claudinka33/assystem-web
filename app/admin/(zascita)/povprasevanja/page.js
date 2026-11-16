@@ -36,6 +36,26 @@ function zadevaZa(p) {
   return (p.vir ?? "").startsWith("rok-dobave") ? `Rok dobave${izd ? `: ${izd}` : ""}` : `Vaše povpraševanje${izd ? `: ${izd}` : ""}`;
 }
 
+// Odgovori, poslani preden se je shranjevalo besedilo, so zapisani samo v opombi:
+// »16. 11. 2026, 12:17:35: odgovoril/a Claudia Seidl (priloge: racun.pdf)«
+function izOpombe(opomba) {
+  const out = [];
+  for (const v of String(opomba ?? "").split("\n")) {
+    const m = v.trim().match(/^(\d{1,2})\.\s?(\d{1,2})\.\s?(\d{4}),?\s(\d{1,2}):(\d{2})(?::(\d{2}))?:\sodgovoril\/a\s([^(]+?)(?:\s\(priloge:\s(.+)\))?$/);
+    if (!m) continue;
+    const [, d, mo, l, h, mi, se, od, pr] = m;
+    const cas = new Date(`${l}-${mo.padStart(2, "0")}-${d.padStart(2, "0")}T${h.padStart(2, "0")}:${mi}:${se ?? "00"}+01:00`).toISOString();
+    out.push({
+      cas,
+      od: od.trim(),
+      zadeva: null,
+      besedilo: "Besedilo tega odgovora ni shranjeno (poslano pred uvedbo zgodovine).",
+      priloge: pr ? pr.split(", ").map((naziv) => ({ naziv })) : [],
+    });
+  }
+  return out;
+}
+
 // Vsa povpraševanja iste stranke (po e-naslovu) so ena nit: vprašanja in naši odgovori po času.
 function niti(seznam) {
   const po = new Map();
@@ -51,7 +71,7 @@ function niti(seznam) {
       const dogodki = [];
       for (const p of povp) {
         dogodki.push({ tip: "vprasanje", cas: p.ustvarjeno, p });
-        for (const o of p.odgovori ?? []) dogodki.push({ tip: "odgovor", cas: o.cas, o });
+        for (const o of p.odgovori?.length ? p.odgovori : izOpombe(p.opomba)) dogodki.push({ tip: "odgovor", cas: o.cas, o });
       }
       dogodki.sort((a, b) => new Date(a.cas) - new Date(b.cas));
       const zadnjiCas = dogodki.length ? dogodki[dogodki.length - 1].cas : zadnje.ustvarjeno;
