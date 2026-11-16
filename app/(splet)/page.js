@@ -134,8 +134,8 @@ async function Domov() {
           <div className="qua lok-qua">
             <div>
               <div className="st">
-                <span>Lastna proizvodnja</span>
-                <h2>{v(b, "domov.zmogljivosti.naslov", "naslov", "Izdelano v Sloveniji")}</h2>
+                <span>Izdelano v Sloveniji · EU</span>
+                <h2>Lastna proizvodnja</h2>
                 <p>
                   {v(
                     b,
