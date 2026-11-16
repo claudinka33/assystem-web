@@ -1,7 +1,7 @@
 import Blagajna from "./Blagajna";
 import BlagajnaB2B from "./BlagajnaB2B";
 import { pridobiDostave, pridobiPlacila } from "@/lib/akcije/narocila";
-import { trenutniB2B, jeAktiven, prodajalneKupca } from "@/lib/b2b";
+import { trenutniB2B, jeAktiven, prodajalneKupca, jeTestniB2B } from "@/lib/b2b";
 import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
 const metadataSl = { title: "Blagajna", robots: { index: false } };
@@ -30,7 +30,7 @@ async function Stran() {
               email: k.email,
               telefon: k.telefon,
               rok: k.rok_placila,
-              ustavljena: k.ustavljena_prodaja,
+              ustavljena: k.ustavljena_prodaja && !jeTestniB2B(k),
             }}
           />
         ) : (
