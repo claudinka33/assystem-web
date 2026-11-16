@@ -26,7 +26,7 @@ function Registracija() {
     return (
       <div className="b2b-ok">
         <b>Podjetje je dodano vašemu obstoječemu računu.</b> Prijavite se na <Link href="/b2b">B2B prijavi</Link> z istim geslom,
-        podatke podjetja preverimo v nekaj minutah.
+        dostop po pregledu odobrimo ročno (praviloma v 1 delovnem dnevu) in vas obvestimo po e-pošti.
       </div>
     );
   if (stanje?.ok)

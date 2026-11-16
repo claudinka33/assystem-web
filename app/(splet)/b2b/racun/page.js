@@ -82,7 +82,7 @@ async function Racun({ searchParams }) {
 
         {potrjeno && <div className="b2bp-obv ok">E-naslov je potrjen.</div>}
         {geslo && <div className="b2bp-obv ok">Novo geslo je shranjeno.</div>}
-        {k.status === "preverjanje" && <div className="b2bp-obv">Podatke podjetja preverjamo v našem sistemu. To traja nekaj minut, nato osvežite stran. Do takrat vidite redne cene.</div>}
+        {k.status === "preverjanje" && <div className="b2bp-obv">Vašo prijavo pregledujemo. Dostop do vaših cen odobrimo ročno, praviloma v 1 delovnem dnevu — obvestimo vas po e-pošti. Do takrat vidite redne cene.</div>}
         {k.status === "caka_odobritev" && (
           <div className="b2bp-obv">
             Registracija čaka na odobritev. Ko jo odobrimo, vas obvestimo po e-pošti. Za hitrejšo odobritev pokličite <a href={`tel:${site.telefonRaw}`}>{site.telefon}</a>.
