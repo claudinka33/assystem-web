@@ -1,0 +1,140 @@
+import Link from "next/link";
+import { supabaseAdmin } from "@/lib/supabase-server";
+import { KontaktObrazec, UvozBaze, UskladiGumb, Vrstica } from "./Deli";
+
+export const dynamic = "force-dynamic";
+
+const NA_STRAN = 100;
+const VIRI = ["Vasco", "e-novice", "Resend (e-novice)", "povpraševanje", "pop-up", "B2B registracija", "naročilo B2B", "spletno naročilo", "uvoz", "ročno"];
+
+export default async function Baza({ searchParams }) {
+  const { q = "", p = "", vir = "", stran = "1", stanje = "" } = await searchParams;
+  const sb = supabaseAdmin();
+  const { data: panoge, error } = await sb.from("baza_panoge").select("sifra, ime").order("vrstni_red");
+  if (error)
+    return (
+      <div className="adm-telo">
+        <div className="opozorilo">Baza še ni pripravljena — v Supabase (assystem-web) zaženi SQL »52-baza-kontaktov.sql«.</div>
+      </div>
+    );
+
+  // števci panog
+  const stej = (fn) => fn(sb.from("baza_kontakti").select("email", { count: "exact", head: true })).then((r) => r.count ?? 0);
+  const [vsi, nerazvrsceni, odjavljeni, ...poPanogah] = await Promise.all([
+    stej((x) => x),
+    stej((x) => x.eq("panoge", "{}")),
+    stej((x) => x.eq("odjavljen", true)),
+    ...(panoge ?? []).map((pa) => stej((x) => x.contains("panoge", [pa.sifra]))),
+  ]);
+  const stevec = Object.fromEntries((panoge ?? []).map((pa, i) => [pa.sifra, poPanogah[i]]));
+  const imePanoge = Object.fromEntries((panoge ?? []).map((pa) => [pa.sifra, pa.ime]));
+
+  // seznam
+  const st = Math.max(1, Number(stran) || 1);
+  let poiz = sb.from("baza_kontakti").select("*", { count: "exact" });
+  if (p === "nerazvrsceni") poiz = poiz.eq("panoge", "{}");
+  else if (Number(p)) poiz = poiz.contains("panoge", [Number(p)]);
+  if (vir) poiz = poiz.eq("vir", vir);
+  if (stanje === "odjavljeni") poiz = poiz.eq("odjavljen", true);
+  if (stanje === "soglasje") poiz = poiz.eq("soglasje", true);
+  const iskanje = q.trim().replace(/[,()%]/g, " ").trim();
+  if (iskanje) {
+    const v = `%${iskanje}%`;
+    poiz = poiz.or(`email.ilike.${v},ime.ilike.${v},podjetje.ilike.${v},davcna.ilike.${v},telefon.ilike.${v},opomba.ilike.${v}`);
+  }
+  const { data: kontakti, count } = await poiz
+    .order(p === "nerazvrsceni" ? "ustvarjeno" : "email", { ascending: p !== "nerazvrsceni" })
+    .range((st - 1) * NA_STRAN, st * NA_STRAN - 1);
+  const strani = Math.max(1, Math.ceil((count ?? 0) / NA_STRAN));
+  const url = (spr) => {
+    const o = { q, p, vir, stanje, stran: "1", ...spr };
+    const sp = new URLSearchParams();
+    for (const k of ["q", "p", "vir", "stanje"]) if (o[k]) sp.set(k, o[k]);
+    if (o.stran !== "1") sp.set("stran", o.stran);
+    return `/admin/baza${sp.toString() ? `?${sp}` : ""}`;
+  };
+  const izbranaPanoga = p === "nerazvrsceni" ? "Nerazvrščeni" : Number(p) ? imePanoge[Number(p)] : "Vsi kontakti";
+
+  return (
+    <>
+      <div className="adm-glava">
+        <div>
+          <div className="adm-nad">Mailing</div>
+          <h1>Baza kontaktov</h1>
+        </div>
+        <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+          <a className="gumb siv" href={`/admin/baza/izvoz?${new URLSearchParams({ q, p, vir, stanje })}`}>Izvoz CSV</a>
+          <UskladiGumb />
+        </div>
+      </div>
+
+      <div className="adm-telo siroko">
+        <div className="bz">
+          <aside className="bz-panoge">
+            <Link href={url({ p: "" })} className={!p ? "on" : ""}><span>Vsi kontakti</span><em>{vsi}</em></Link>
+            <Link href={url({ p: "nerazvrsceni" })} className={`bz-nerazv${p === "nerazvrsceni" ? " on" : ""}`}><span>⚑ Nerazvrščeni</span><em>{nerazvrsceni}</em></Link>
+            <div className="bz-loc">Panoge</div>
+            {(panoge ?? []).map((pa) => (
+              <Link key={pa.sifra} href={url({ p: String(pa.sifra) })} className={Number(p) === pa.sifra ? "on" : ""}>
+                <span>{pa.ime}</span><em>{stevec[pa.sifra]}</em>
+              </Link>
+            ))}
+            <div className="bz-loc">Stanje</div>
+            <Link href={url({ stanje: stanje === "odjavljeni" ? "" : "odjavljeni" })} className={stanje === "odjavljeni" ? "on" : ""}><span>Odjavljeni</span><em>{odjavljeni}</em></Link>
+            <Link href={url({ stanje: stanje === "soglasje" ? "" : "soglasje" })} className={stanje === "soglasje" ? "on" : ""}><span>S soglasjem (e-novice)</span></Link>
+          </aside>
+
+          <section className="bz-glavno">
+            <div className="bz-orodja">
+              <form action="/admin/baza" className="bz-isk">
+                {p && <input type="hidden" name="p" value={p} />}
+                {stanje && <input type="hidden" name="stanje" value={stanje} />}
+                <input type="search" name="q" defaultValue={q} placeholder="Išči po e-naslovu, imenu, podjetju, davčni, telefonu …" />
+                <select name="vir" defaultValue={vir}>
+                  <option value="">Vsi viri</option>
+                  {VIRI.map((v) => <option key={v} value={v}>{v}</option>)}
+                </select>
+                <button className="gumb siv" type="submit">Išči</button>
+              </form>
+              <details className="bz-dodaj">
+                <summary className="gumb">+ Dodaj kontakt</summary>
+                <div className="bz-pop"><KontaktObrazec panoge={panoge ?? []} /></div>
+              </details>
+              <details className="bz-dodaj">
+                <summary className="gumb siv">Uvoz iz Excela</summary>
+                <div className="bz-pop"><UvozBaze panoge={panoge ?? []} privzeta={Number(p) || ""} /></div>
+              </details>
+            </div>
+
+            <div className="bz-naslov">
+              <b>{izbranaPanoga}</b> <span className="siv">{count ?? 0} kontaktov{q ? ` · iskanje »${q}«` : ""}{vir ? ` · vir ${vir}` : ""}</span>
+              {p === "nerazvrsceni" && <span className="bz-namig">Pri vsakem kontaktu izberi panogo — kontakt se takoj premakne.</span>}
+            </div>
+
+            <div className="bz-tab">
+              <div className="bz-vr bz-gl">
+                <span>E-naslov</span><span>Ime / podjetje</span><span>Panoga</span><span>Vir</span><span>Dodan</span><span>Stanje</span><span></span>
+              </div>
+              {(kontakti ?? []).length === 0 && <p className="bz-prazno">Ni kontaktov.</p>}
+              {(kontakti ?? []).map((k) => (
+                <Vrstica key={k.email} k={k} panoge={panoge ?? []} />
+              ))}
+            </div>
+
+            {strani > 1 && (
+              <div className="bz-strani">
+                {st > 1 && <Link className="gumb siv mini" href={url({ stran: String(st - 1) })}>← Prejšnja</Link>}
+                <span className="siv">Stran {st} / {strani}</span>
+                {st < strani && <Link className="gumb siv mini" href={url({ stran: String(st + 1) })}>Naslednja →</Link>}
+              </div>
+            )}
+            <p className="adm-namig">
+              Mailing pošiljaš v »E-novice (mailing)« — izberi segment »Baza · &lt;panoga&gt;«. Pred pošiljanjem klikni »Uskladi z Resend«, da so segmenti sveži.
+              Kontakti brez soglasja so poslovni partnerji (Vasco, povpraševanja, naročila) — vsak mailing mora imeti povezavo za odjavo.
+            </p>
+          </section>
+        </div>
+      </div>
+    </>
+  );
+}
