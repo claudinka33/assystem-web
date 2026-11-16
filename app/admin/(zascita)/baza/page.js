@@ -2,6 +2,7 @@ import Link from "next/link";
 import { supabaseAdmin } from "@/lib/supabase-server";
 import { Suspense } from "react";
 import IskalnikBaze from "./IskalnikBaze";
+import { REGIJE, RAZVRSTI, filtrRegije } from "@/lib/baza-regije";
 import { KontaktObrazec, UvozBaze, UskladiGumb, Vrstica, IzkljuciDomeno } from "./Deli";
 
 export const dynamic = "force-dynamic";
@@ -9,7 +10,7 @@ export const dynamic = "force-dynamic";
 const NA_STRAN = 100;
 
 export default async function Baza({ searchParams }) {
-  const { q = "", p = "", vir = "", stran = "1", stanje = "" } = await searchParams;
+  const { q = "", p = "", vir = "", stran = "1", stanje = "", regija = "", red = "" } = await searchParams;
   const sb = supabaseAdmin();
   const { data: panoge, error } = await sb.from("baza_panoge").select("sifra, ime").order("vrstni_red");
   if (error)
@@ -30,6 +31,7 @@ export default async function Baza({ searchParams }) {
     stej((x) => x.eq("odjavljen", true)),
     ...(panoge ?? []).map((pa) => stej((x) => x.contains("panoge", [pa.sifra]))),
   ]);
+  const poRegijah = await Promise.all(REGIJE.map(([r]) => stej((x) => filtrRegije(x, r))));
   const stevec = Object.fromEntries((panoge ?? []).map((pa, i) => [pa.sifra, poPanogah[i]]));
   const imePanoge = Object.fromEntries((panoge ?? []).map((pa) => [pa.sifra, pa.ime]));
 
@@ -41,13 +43,18 @@ export default async function Baza({ searchParams }) {
   if (vir) poiz = poiz.eq("vir", vir);
   if (stanje === "odjavljeni") poiz = poiz.eq("odjavljen", true);
   if (stanje === "soglasje") poiz = poiz.eq("soglasje", true);
+  poiz = filtrRegije(poiz, regija);
   const iskanje = q.trim().replace(/[,()%]/g, " ").trim();
   if (iskanje) {
     const v = `%${iskanje}%`;
     poiz = poiz.or(`email.ilike.${v},ime.ilike.${v},podjetje.ilike.${v},poslovalnica.ilike.${v},kraj.ilike.${v},davcna.ilike.${v},telefon.ilike.${v},opomba.ilike.${v}`);
   }
+  const padajoce = red.startsWith("-");
+  const kljucRed = RAZVRSTI[red.replace(/^-/, "")] ? red.replace(/^-/, "") : p === "nerazvrsceni" ? "dodan" : "email";
+  const narascajoce = red ? !padajoce : kljucRed !== "dodan";
+  poiz = poiz.order(RAZVRSTI[kljucRed][0], { ascending: narascajoce, nullsFirst: false });
+  if (kljucRed !== "email") poiz = poiz.order("email");
   const { data: kontakti, count } = await poiz
-    .order(p === "nerazvrsceni" ? "ustvarjeno" : "email", { ascending: p !== "nerazvrsceni" })
     .range((st - 1) * NA_STRAN, st * NA_STRAN - 1);
   const partnerji = [...new Set((kontakti ?? []).map((k) => k.vasco_partner).filter(Boolean))];
   const { data: pes } = partnerji.length
@@ -56,9 +63,9 @@ export default async function Baza({ searchParams }) {
   const peZa = (partner) => (pes ?? []).filter((x) => x.vasco_partner === partner);
   const strani = Math.max(1, Math.ceil((count ?? 0) / NA_STRAN));
   const url = (spr) => {
-    const o = { q, p, vir, stanje, stran: "1", ...spr };
+    const o = { q, p, vir, stanje, regija, red, stran: "1", ...spr };
     const sp = new URLSearchParams();
-    for (const k of ["q", "p", "vir", "stanje"]) if (o[k]) sp.set(k, o[k]);
+    for (const k of ["q", "p", "vir", "stanje", "regija", "red"]) if (o[k]) sp.set(k, o[k]);
     if (o.stran !== "1") sp.set("stran", o.stran);
     return `/admin/baza${sp.toString() ? `?${sp}` : ""}`;
   };
@@ -72,7 +79,7 @@ export default async function Baza({ searchParams }) {
           <h1>Baza kontaktov</h1>
         </div>
         <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-          <a className="gumb siv" href={`/admin/baza/izvoz?${new URLSearchParams({ q, p, vir, stanje })}`}>Izvoz CSV</a>
+          <a className="gumb siv" href={`/admin/baza/izvoz?${new URLSearchParams({ q, p, vir, stanje, regija, red })}`}>Izvoz CSV</a>
           <UskladiGumb />
         </div>
       </div>
@@ -91,6 +98,10 @@ export default async function Baza({ searchParams }) {
             <div className="bz-loc">Stanje</div>
             <Link href={url({ stanje: stanje === "odjavljeni" ? "" : "odjavljeni" })} className={stanje === "odjavljeni" ? "on" : ""}><span>Odjavljeni</span><em>{odjavljeni}</em></Link>
             <Link href={url({ stanje: stanje === "soglasje" ? "" : "soglasje" })} className={stanje === "soglasje" ? "on" : ""}><span>S soglasjem (e-novice)</span></Link>
+            <div className="bz-loc">Regija</div>
+            {REGIJE.map(([r, ime], i) => (
+              <Link key={r} href={url({ regija: regija === r ? "" : r })} className={regija === r ? "on" : ""}><span>{ime}</span><em>{poRegijah[i]}</em></Link>
+            ))}
           </aside>
 
           <section className="bz-glavno">
@@ -111,13 +122,21 @@ export default async function Baza({ searchParams }) {
             </div>
 
             <div className="bz-naslov">
-              <b>{izbranaPanoga}</b> <span className="siv">{count ?? 0} kontaktov{q ? ` · iskanje »${q}«` : ""}{vir ? ` · vir ${vir}` : ""}</span>
+              <b>{izbranaPanoga}</b> <span className="siv">{count ?? 0} kontaktov{q ? ` · iskanje »${q}«` : ""}{vir ? ` · vir ${vir}` : ""}{regija ? ` · ${REGIJE.find((x) => x[0] === regija)?.[1] ?? ""}` : ""}</span>
               {p === "nerazvrsceni" && <span className="bz-namig">Pri vsakem kontaktu izberi panogo — kontakt se takoj premakne.</span>}
             </div>
 
             <div className="bz-tab">
               <div className="bz-vr bz-gl">
-                <span>E-naslov</span><span>Ime in priimek</span><span>Podjetje</span><span>Poslovalnica / kraj</span><span>Panoga</span><span>Stanje</span><span></span>
+                {["email", "ime", "podjetje", "kraj", "panoga", "stanje"].map((k) => {
+                  const akt = kljucRed === k;
+                  return (
+                    <Link key={k} href={url({ red: akt && narascajoce ? `-${k}` : k })} className={`bz-sort${akt ? " on" : ""}`} title="Razvrsti">
+                      {RAZVRSTI[k][1]} <i>{akt ? (narascajoce ? "▲" : "▼") : "↕"}</i>
+                    </Link>
+                  );
+                })}
+                <Link href={url({ red: kljucRed === "dodan" && !narascajoce ? "dodan" : "-dodan" })} className={`bz-sort${kljucRed === "dodan" ? " on" : ""}`} title="Razvrsti po datumu dodajanja">Novi <i>{kljucRed === "dodan" ? (narascajoce ? "▲" : "▼") : "↕"}</i></Link>
               </div>
               {(kontakti ?? []).length === 0 && <p className="bz-prazno">Ni kontaktov.</p>}
               {(kontakti ?? []).map((k) => (

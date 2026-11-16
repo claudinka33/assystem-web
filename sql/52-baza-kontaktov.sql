@@ -58,3 +58,6 @@ alter table baza_kontakti enable row level security;
 -- (dodano) več podatkov o kontaktu: poslovalnica in kraj
 alter table baza_kontakti add column if not exists poslovalnica text;
 alter table baza_kontakti add column if not exists kraj text;
+
+-- (dodano) poštna številka za filter po regijah
+alter table baza_kontakti add column if not exists posta text;

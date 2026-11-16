@@ -72,6 +72,7 @@ export function KontaktObrazec({ panoge, k = null, poslovalnice = [] }) {
   const [stanje, akcija, caka] = useActionState(shraniKontakt, null);
   const [pe, setPe] = useState(k?.poslovalnica ?? "");
   const [kraj, setKraj] = useState(k?.kraj ?? "");
+  const [posta, setPosta] = useState(k?.posta ?? "");
   const obstaja = !pe || poslovalnice.some((x) => peIme(x) === pe);
   return (
     <form action={akcija} className="bz-obr" autoComplete="off">
@@ -92,7 +93,7 @@ export function KontaktObrazec({ panoge, k = null, poslovalnice = [] }) {
                 const v = e.target.value;
                 setPe(v);
                 const x = poslovalnice.find((y) => peIme(y) === v);
-                if (x) setKraj(peKraj(x));
+                if (x) { setKraj(peKraj(x)); setPosta(x.posta ?? ""); }
               }}
             >
               <option value="">— sedež / brez poslovalnice —</option>
@@ -105,6 +106,7 @@ export function KontaktObrazec({ panoge, k = null, poslovalnice = [] }) {
             <input name="poslovalnica" value={pe} onChange={(e) => setPe(e.target.value)} autoComplete="off" />
           )}
         </div>
+        <div className="adm-polje"><label>Pošta (npr. 3240 Šmarje pri Jelšah)</label><input name="posta" value={posta} onChange={(e) => setPosta(e.target.value)} autoComplete="off" /></div>
         <div className="adm-polje"><label>Kraj</label><input name="kraj" value={kraj} onChange={(e) => setKraj(e.target.value)} autoComplete="off" /></div>
         <div className="adm-polje s3"><label>Opomba</label><input name="opomba" defaultValue={k?.opomba ?? ""} /></div>
       </div>
