@@ -108,6 +108,12 @@ for (const f of [...odjemalske, ...libDatoteke]) {
   });
 }
 
+const neovite = odjemalske.filter((f) => !f.includes(`${path.sep}admin${path.sep}`) && !fs.readFileSync(f, "utf8").includes("prevedeno("));
+if (neovite.length) {
+  console.warn("[i18n-zberi] POZOR: te komponente niso ovite s prevedeno() in se na /en, /de ne prevedejo:");
+  neovite.forEach((f) => console.warn("   " + path.relative(koren, f)));
+}
+
 const seznam = [...nizi].sort((a, b) => a.localeCompare(b, "sl"));
 const prej = fs.existsSync(izhod) ? fs.readFileSync(izhod, "utf8") : "";
 const novo = JSON.stringify(seznam, null, 0).replace(/","/g, '",\n"') + "\n";

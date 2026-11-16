@@ -4,10 +4,11 @@ import { useEffect, useState } from "react";
 import { mojKontaktB2B, vprasajZaRok } from "@/lib/akcije/obrazci";
 import { imaSejo } from "@/lib/b2b-klient";
 import { dogodek } from "@/lib/dogodki";
+import { prevedeno } from "@/lib/i18n/odjemalec";
 
 // Okence »Vprašaj za rok«: sporočilo je že napisano, kupec samo pošlje.
 // Prijavljen B2B kupec ne vpisuje ničesar, ostali vpišejo e-naslov za odgovor.
-export default function VprasajZaRok({ sifra, naziv, dimenzija }) {
+function VprasajZaRok({ sifra, naziv, dimenzija }) {
   const [odprto, setOdprto] = useState(false);
   const [b2b, setB2b] = useState(undefined); // undefined = preverjam, null = ni prijave
   const [email, setEmail] = useState("");
@@ -111,3 +112,5 @@ export default function VprasajZaRok({ sifra, naziv, dimenzija }) {
     </>
   );
 }
+
+export default prevedeno(VprasajZaRok);
