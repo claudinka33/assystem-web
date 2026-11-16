@@ -60,20 +60,25 @@ function B2BPovezava() {
     mojStatus().then(setS).catch(() => {});
   }, []);
   useB2BKosarica(s?.id);
-  return (
-    <>
-      <Link href={s ? "/b2b/racun" : "/b2b"} className="b2b-link">
-        {s ? `B2B: ${s.podjetje}` : "B2B prijava"}
+  if (!s)
+    return (
+      <Link href="/b2b" className="b2b-link">
+        B2B prijava
       </Link>
-      {s && (
-        <>
-          {" · "}
-          <form action={odjava} className="util-odjava">
-            <button type="submit">Odjava</button>
-          </form>
-        </>
-      )}
-    </>
+    );
+  return (
+    <span className="b2b-prijavljen">
+      <span className="b2b-pik" aria-hidden="true" />
+      <span className="b2b-kdo">
+        Prijavljeni: <b translate="no">{s.podjetje}</b>
+      </span>
+      <Link href="/b2b/racun" className="b2b-profil">
+        Moj profil
+      </Link>
+      <form action={odjava} className="util-odjava">
+        <button type="submit">Odjava</button>
+      </form>
+    </span>
   );
 }
 
