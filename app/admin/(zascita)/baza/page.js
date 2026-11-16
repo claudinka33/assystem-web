@@ -5,7 +5,6 @@ import { KontaktObrazec, UvozBaze, UskladiGumb, Vrstica, IzkljuciDomeno } from "
 export const dynamic = "force-dynamic";
 
 const NA_STRAN = 100;
-const VIRI = ["Vasco", "e-novice", "Resend (e-novice)", "povpraševanje", "pop-up", "B2B registracija", "naročilo B2B", "spletno naročilo", "uvoz", "ročno"];
 
 export default async function Baza({ searchParams }) {
   const { q = "", p = "", vir = "", stran = "1", stanje = "" } = await searchParams;
@@ -43,7 +42,7 @@ export default async function Baza({ searchParams }) {
   const iskanje = q.trim().replace(/[,()%]/g, " ").trim();
   if (iskanje) {
     const v = `%${iskanje}%`;
-    poiz = poiz.or(`email.ilike.${v},ime.ilike.${v},podjetje.ilike.${v},davcna.ilike.${v},telefon.ilike.${v},opomba.ilike.${v}`);
+    poiz = poiz.or(`email.ilike.${v},ime.ilike.${v},podjetje.ilike.${v},poslovalnica.ilike.${v},kraj.ilike.${v},davcna.ilike.${v},telefon.ilike.${v},opomba.ilike.${v}`);
   }
   const { data: kontakti, count } = await poiz
     .order(p === "nerazvrsceni" ? "ustvarjeno" : "email", { ascending: p !== "nerazvrsceni" })
@@ -92,11 +91,7 @@ export default async function Baza({ searchParams }) {
               <form action="/admin/baza" className="bz-isk">
                 {p && <input type="hidden" name="p" value={p} />}
                 {stanje && <input type="hidden" name="stanje" value={stanje} />}
-                <input type="search" name="q" defaultValue={q} placeholder="Išči po e-naslovu, imenu, podjetju, davčni, telefonu …" />
-                <select name="vir" defaultValue={vir}>
-                  <option value="">Vsi viri</option>
-                  {VIRI.map((v) => <option key={v} value={v}>{v}</option>)}
-                </select>
+                <input type="search" name="q" defaultValue={q} placeholder="Išči po e-naslovu, imenu, podjetju, poslovalnici, kraju, davčni, telefonu …" />
                 <button className="gumb siv" type="submit">Išči</button>
               </form>
               <details className="bz-dodaj">
@@ -120,7 +115,7 @@ export default async function Baza({ searchParams }) {
 
             <div className="bz-tab">
               <div className="bz-vr bz-gl">
-                <span>E-naslov</span><span>Ime / podjetje</span><span>Panoga</span><span>Vir</span><span>Dodan</span><span>Stanje</span><span></span>
+                <span>E-naslov</span><span>Ime in priimek</span><span>Podjetje</span><span>Poslovalnica / kraj</span><span>Panoga</span><span>Stanje</span><span></span>
               </div>
               {(kontakti ?? []).length === 0 && <p className="bz-prazno">Ni kontaktov.</p>}
               {(kontakti ?? []).map((k) => (

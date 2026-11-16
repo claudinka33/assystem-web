@@ -1,38 +1,66 @@
 "use client";
 
-import { useActionState, useState, useTransition } from "react";
+import { useActionState, useEffect, useRef, useState, useTransition } from "react";
 import { nastaviPanoge, shraniKontakt, uvoziVBazo, uskladiZResend, preklopiOdjavo, izbrisiKontaktIzBaze, izkljuciDomeno, odstraniIzkljucitev } from "@/lib/akcije/baza";
 import IzbrisiGumb from "../../IzbrisiGumb";
 
-// Hitra izbira (ene) panoge — kontakt se takoj shrani.
+const norm = (x) => String(x ?? "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+// Hitra izbira panoge z iskalnikom — kontakt se takoj shrani.
 export function PanogaIzbira({ email, panoge, izbrane }) {
-  const [vrednost, setVrednost] = useState(izbrane.length > 1 ? "__vec" : String(izbrane[0] ?? ""));
+  const ime = Object.fromEntries(panoge.map((p) => [p.sifra, p.ime]));
+  const [trenutne, setTrenutne] = useState(izbrane);
+  const [odprto, setOdprto] = useState(false);
+  const [q, setQ] = useState("");
   const [caka, zacni] = useTransition();
   const [ok, setOk] = useState(null);
-  const ime = Object.fromEntries(panoge.map((p) => [p.sifra, p.ime]));
+  const ref = useRef(null);
+  useEffect(() => {
+    if (!odprto) return;
+    const zunaj = (e) => ref.current && !ref.current.contains(e.target) && setOdprto(false);
+    document.addEventListener("mousedown", zunaj);
+    return () => document.removeEventListener("mousedown", zunaj);
+  }, [odprto]);
+  const izberi = (sif) => {
+    const nove = sif == null ? [] : [sif];
+    setTrenutne(nove);
+    setOdprto(false);
+    setQ("");
+    zacni(async () => {
+      const r = await nastaviPanoge(email, nove);
+      setOk(r?.ok ? "✓" : "✗");
+      setTimeout(() => setOk(null), 1500);
+    });
+  };
+  const seznam = panoge.filter((p) => !q || norm(p.ime).includes(norm(q)));
+  const oznaka = trenutne.length === 0 ? "— nerazvrščen —" : trenutne.map((s) => ime[s]).join(", ");
   return (
-    <span className="bz-pan">
-      <select
-        value={vrednost}
-        disabled={caka}
-        className={!vrednost ? "prazno" : ""}
-        onChange={(e) => {
-          const v = e.target.value;
-          if (v === "__vec") return;
-          setVrednost(v);
-          zacni(async () => {
-            const r = await nastaviPanoge(email, v ? [Number(v)] : []);
-            setOk(r?.ok ? "✓" : "✗");
-            setTimeout(() => setOk(null), 1500);
-          });
-        }}
-        title={izbrane.map((s) => ime[s]).join(", ")}
-      >
-        <option value="">— nerazvrščen —</option>
-        {izbrane.length > 1 && <option value="__vec">{izbrane.length} panoge: {izbrane.map((s) => ime[s]).join(", ")}</option>}
-        {panoge.map((p) => <option key={p.sifra} value={p.sifra}>{p.ime}</option>)}
-      </select>
+    <span className="bz-pan" ref={ref}>
+      <button type="button" className={`bz-pan-gumb${trenutne.length ? "" : " prazno"}`} disabled={caka} onClick={() => setOdprto(!odprto)} title={oznaka}>
+        <span>{oznaka}</span><i>▾</i>
+      </button>
       {ok && <b className={ok === "✓" ? "bz-ok" : "bz-ne"}>{ok}</b>}
+      {odprto && (
+        <div className="bz-pan-meni">
+          <input
+            autoFocus
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            placeholder="Išči panogo …"
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && seznam[0]) { e.preventDefault(); izberi(seznam[0].sifra); }
+              if (e.key === "Escape") setOdprto(false);
+            }}
+          />
+          <div className="bz-pan-seznam">
+            {!q && <button type="button" className="neraz" onClick={() => izberi(null)}>— nerazvrščen —</button>}
+            {seznam.map((p) => (
+              <button key={p.sifra} type="button" className={trenutne.includes(p.sifra) ? "on" : ""} onClick={() => izberi(p.sifra)}>{p.ime}</button>
+            ))}
+            {seznam.length === 0 && <span className="siv" style={{ padding: 6 }}>Ni zadetkov</span>}
+          </div>
+        </div>
+      )}
     </span>
   );
 }
@@ -48,6 +76,8 @@ export function KontaktObrazec({ panoge, k = null }) {
         <div className="adm-polje"><label>Podjetje</label><input name="podjetje" defaultValue={k?.podjetje ?? ""} /></div>
         <div className="adm-polje"><label>Davčna</label><input name="davcna" defaultValue={k?.davcna ?? ""} /></div>
         <div className="adm-polje"><label>Telefon</label><input name="telefon" defaultValue={k?.telefon ?? ""} /></div>
+        <div className="adm-polje"><label>Poslovalnica</label><input name="poslovalnica" defaultValue={k?.poslovalnica ?? ""} /></div>
+        <div className="adm-polje"><label>Kraj</label><input name="kraj" defaultValue={k?.kraj ?? ""} /></div>
         <div className="adm-polje s3"><label>Opomba</label><input name="opomba" defaultValue={k?.opomba ?? ""} /></div>
       </div>
       <div className="bz-cb">
@@ -131,24 +161,25 @@ const datum = (d) => (d ? new Date(d).toLocaleDateString("sl-SI") : "");
 export function Vrstica({ k, panoge }) {
   const [odprto, setOdprto] = useState(false);
   return (
-    <div className={`bz-k${odprto ? " odprt" : ""}`}>
+    <div className={`bz-k${odprto ? " odprt" : ""}${k.odjavljen ? " odj" : ""}`}>
       <div className="bz-vr">
         <span className="bz-mail" title={k.email}>{k.email}</span>
-        <span className="ell" data-l="Ime">
-          {k.ime || <span className="siv">—</span>}
-          {k.podjetje && <span className="siv"> · {k.podjetje}</span>}
-          {k.davcna && <span className="siv"> · SI{k.davcna}</span>}
+        <span className="ell" data-l="Oseba">{k.ime || <span className="siv">—</span>}{k.telefon && <span className="siv"> · {k.telefon}</span>}</span>
+        <span className="ell" data-l="Podjetje" title={k.podjetje ?? ""}>{k.podjetje || <span className="siv">—</span>}{k.davcna && <span className="siv"> · SI{k.davcna}</span>}</span>
+        <span className="ell" data-l="Poslovalnica" title={[k.poslovalnica, k.kraj].filter(Boolean).join(", ")}>
+          {k.poslovalnica || k.kraj ? <>{k.poslovalnica}{k.poslovalnica && k.kraj ? ", " : ""}<span className="siv">{k.kraj}</span></> : <span className="siv">—</span>}
         </span>
         <span data-l="Panoga"><PanogaIzbira email={k.email} panoge={panoge} izbrane={k.panoge ?? []} /></span>
-        <span className="siv" data-l="Vir">{k.vir}</span>
-        <span className="siv" data-l="Dodan">{datum(k.ustvarjeno)}</span>
-        <span data-l="Stanje">
-          {k.odjavljen ? <i className="znacka ne">odjavljen</i> : k.soglasje ? <i className="znacka da">soglasje</i> : <i className="znacka ne">brez soglasja</i>}
+        <span data-l="Stanje" title={`Vir: ${k.vir} · dodan ${datum(k.ustvarjeno)}${k.soglasje ? " · soglasje za e-novice" : ""}`}>
+          {k.odjavljen ? <i className="bz-luc rdeca">Odjavljen</i> : <i className="bz-luc zelena">Aktiven</i>}
         </span>
         <button type="button" className="bz-uredi" onClick={() => setOdprto(!odprto)}>{odprto ? "Zapri ▴" : "Uredi ▾"}</button>
       </div>
       {odprto && (
         <div className="bz-det">
+          <p className="siv" style={{ margin: "0 0 6px", fontSize: 11.5 }}>
+            Vir: <b>{k.vir}</b> · dodan {datum(k.ustvarjeno)}{k.vasco_partner ? ` · Vasco partner ${k.vasco_partner}` : ""} · {k.soglasje ? "soglasje za e-novice" : "brez izrecnega soglasja (poslovni kontakt)"}
+          </p>
           <KontaktObrazec panoge={panoge} k={k} />
           <div className="bz-det-noga">
             <OdjavaGumb email={k.email} odjavljen={k.odjavljen} />

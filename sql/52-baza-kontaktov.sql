@@ -54,3 +54,7 @@ create table if not exists baza_kontakti (
 create index if not exists baza_kontakti_panoge on baza_kontakti using gin (panoge);
 create index if not exists baza_kontakti_vir on baza_kontakti (vir);
 alter table baza_kontakti enable row level security;
+
+-- (dodano) več podatkov o kontaktu: poslovalnica in kraj
+alter table baza_kontakti add column if not exists poslovalnica text;
+alter table baza_kontakti add column if not exists kraj text;
