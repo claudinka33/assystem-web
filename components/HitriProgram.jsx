@@ -49,7 +49,7 @@ function HitriProgram({ drevo, trenutni }) {
   useEffect(() => {
     let odpri = false;
     try {
-      odpri = localStorage.getItem(KLJUC) === "1" && window.innerWidth > 900;
+      odpri = localStorage.getItem(KLJUC) !== "0" && window.innerWidth > 1100; // privzeto odprto na računalniku
     } catch {}
     if (!odpri) return;
     const t = setTimeout(() => setOdprto(true), 0);
