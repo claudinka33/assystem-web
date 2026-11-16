@@ -51,7 +51,7 @@ async function Racun({ searchParams }) {
   const mojaPoslovalnica = k.prodajalna ? prodajalne.find((p) => p.sifra === k.prodajalna) : null;
   const imePoslovalnice = Object.fromEntries(prodajalne.map((p) => [p.sifra, p.naziv2 || p.naziv]));
   const naslovPodjetja = k.vasco_naslov ? `${k.vasco_naslov}, ${k.vasco_posta ?? ""}` : `${k.naslov ?? ""}, ${k.posta ?? ""} ${k.kraj ?? ""}`;
-  const tab = zavihek === "narocila" || !imaRacune ? "narocila" : zavihek === "racuni" ? "racuni" : "racuni";
+  const tab = zavihek === "racuni" && imaRacune ? "racuni" : "narocila";
   const povezava = (z, p = filterPe && !k.prodajalna ? filterPe : null) => `/b2b/racun?zavihek=${z}${p ? `&pe=${p}` : ""}`;
 
   const vsotaNeto = racuni.reduce((s, r) => s + Number(r.neto || 0), 0);
@@ -104,10 +104,10 @@ async function Racun({ searchParams }) {
 
         <div className="b2bp-zav">
           <nav>
+            <Link href={povezava("narocila")} className={tab === "narocila" ? "on" : ""}>Spletna naročila <i>{(narocila ?? []).length}</i></Link>
             {imaRacune && (
               <Link href={povezava("racuni")} className={tab === "racuni" ? "on" : ""}>Računi <i>{racuni.length}</i></Link>
             )}
-            <Link href={povezava("narocila")} className={tab === "narocila" ? "on" : ""}>Spletna naročila <i>{(narocila ?? []).length}</i></Link>
           </nav>
           {!k.prodajalna && prodajalne.length > 0 && aktiven && (
             <div className="b2bp-pe">
