@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState, useState, useTransition } from "react";
-import { nastaviPanoge, shraniKontakt, uvoziVBazo, uskladiZResend, preklopiOdjavo, izbrisiKontaktIzBaze } from "@/lib/akcije/baza";
+import { nastaviPanoge, shraniKontakt, uvoziVBazo, uskladiZResend, preklopiOdjavo, izbrisiKontaktIzBaze, izkljuciDomeno, odstraniIzkljucitev } from "@/lib/akcije/baza";
 import IzbrisiGumb from "../../IzbrisiGumb";
 
 // Hitra izbira (ene) panoge — kontakt se takoj shrani.
@@ -159,5 +159,41 @@ export function Vrstica({ k, panoge }) {
         </div>
       )}
     </div>
+  );
+}
+
+export function IzkljuciDomeno({ domene }) {
+  const [stanje, akcija, caka] = useActionState(izkljuciDomeno, null);
+  const [, zacni] = useTransition();
+  return (
+    <form
+      action={akcija}
+      className="bz-obr"
+      onSubmit={(e) => {
+        const d = new FormData(e.currentTarget).get("domena");
+        if (!window.confirm(`Izbrišem VSE kontakte z domeno »${d}« in jih ne uvažam več?`)) e.preventDefault();
+      }}
+    >
+      <div className="adm-polje">
+        <label>Domena podjetja, ki ne obstaja več (izbriše vse kontakte z njo in jih ne uvaža več)</label>
+        <input name="domena" placeholder="npr. mtehnika.si" required />
+      </div>
+      <div style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 8 }}>
+        <button className="gumb" type="submit" disabled={caka}>{caka ? "Brišem …" : "Izbriši domeno"}</button>
+        {stanje?.napaka && <span className="bz-ne">{stanje.napaka}</span>}
+        {stanje?.ok && <span className="bz-ok">✓ {stanje.sporocilo}</span>}
+      </div>
+      {domene.length > 0 && (
+        <div className="bz-cb">
+          <span className="siv">Izključene:</span>
+          {domene.map((d) => (
+            <span key={d} className="znacka ne">
+              {d}{" "}
+              <button type="button" style={{ border: 0, background: "none", cursor: "pointer", color: "#cb2026" }} title="Spet dovoli" onClick={() => zacni(() => odstraniIzkljucitev(d))}>×</button>
+            </span>
+          ))}
+        </div>
+      )}
+    </form>
   );
 }
