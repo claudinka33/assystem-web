@@ -79,6 +79,7 @@ export default async function Baza({ searchParams }) {
           <h1>Baza kontaktov</h1>
         </div>
         <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+          <a className="gumb siv" href={`/admin/baza/izvoz?${new URLSearchParams({ q, p, vir, stanje, regija, red, format: "xlsx" })}`}>Izvoz Excel</a>
           <a className="gumb siv" href={`/admin/baza/izvoz?${new URLSearchParams({ q, p, vir, stanje, regija, red })}`}>Izvoz CSV</a>
           <UskladiGumb />
         </div>
