@@ -1,4 +1,4 @@
-import { supabaseAdmin } from "@/lib/supabase-server";
+import { supabaseAdmin, trenutniAdmin } from "@/lib/supabase-server";
 import { spremeniStatusPovprasevanja } from "@/lib/akcije/skupno";
 import OdgovorPovprasevanju from "@/components/admin/OdgovorPovprasevanju";
 
@@ -6,20 +6,37 @@ export const dynamic = "force-dynamic";
 
 const statusi = ["novo", "v obdelavi", "zaključeno"];
 
-// Predlog odgovora: zadeva in citat vprašanja
-function predlog(p) {
-  const izd = (p.izdelki ?? []).filter((x) => !x.datoteka).map((x) => `${x.naziv}${x.sifra ? ` (${x.sifra})` : ""}`).join(", ");
-  const zadeva = (p.vir ?? "").startsWith("rok-dobave") ? `Rok dobave${izd ? `: ${izd}` : ""}` : `Vaše povpraševanje${izd ? `: ${izd}` : ""}`;
-  const citat = (p.sporocilo ?? "").split("\n").map((v) => `> ${v}`).join("\n");
-  return { zadeva, besedilo: `Pozdravljeni,\n\n\n\nLep pozdrav\n\n\n${citat}` };
+const VIRI = {
+  "rok-dobave-b2b": "Rok dobave · B2B",
+  "rok-dobave": "Rok dobave",
+  kontakt: "Kontakt",
+  katalogi: "Gradiva",
+  certifikat: "Certifikat",
+  "private-label": "Private label",
+  "vijaki-po-narocilu": "Vijaki po naročilu",
+  trgovci: "Za trgovce",
+};
+
+const cas = (d) =>
+  new Date(d).toLocaleString("sl-SI", { day: "numeric", month: "numeric", year: "numeric", hour: "2-digit", minute: "2-digit", timeZone: "Europe/Ljubljana" });
+
+const zacetnice = (s) =>
+  String(s ?? "?")
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((x) => x[0])
+    .join("")
+    .toUpperCase();
+
+function zadevaZa(p) {
+  const izd = (p.izdelki ?? []).filter((x) => !x.datoteka).map((x) => x.naziv).join(", ");
+  return (p.vir ?? "").startsWith("rok-dobave") ? `Rok dobave${izd ? `: ${izd}` : ""}` : `Vaše povpraševanje${izd ? `: ${izd}` : ""}`;
 }
 
 export default async function Povprasevanja() {
-  const { data } = await supabaseAdmin()
-    .from("povprasevanja")
-    .select("*")
-    .order("ustvarjeno", { ascending: false })
-    .limit(200);
+  const admin = await trenutniAdmin();
+  const { data } = await supabaseAdmin().from("povprasevanja").select("*").order("ustvarjeno", { ascending: false }).limit(200);
 
   const seznam = data ?? [];
   // Povezave do priloženih risb (zasebna shramba, povezava velja 1 uro)
@@ -31,81 +48,93 @@ export default async function Povprasevanja() {
       }
     }
   }
+  const novih = seznam.filter((p) => p.status === "novo").length;
 
   return (
     <>
       <div className="adm-glava">
         <h1>Povpraševanja</h1>
-        <span style={{ fontSize: 13, color: "#6e767e" }}>{seznam.length} zapisov</span>
+        <span style={{ fontSize: 13, color: "#6e767e" }}>
+          {novih > 0 ? `${novih} novih · ` : ""}
+          {seznam.length} skupaj
+        </span>
       </div>
 
       <div className="adm-telo">
         {seznam.length === 0 ? (
-          <div className="opozorilo">
-            Povpraševanj še ni. Prikazala se bodo, ko bo kontaktni obrazec v živo.
-          </div>
+          <div className="opozorilo">Povpraševanj še ni.</div>
         ) : (
-          seznam.map((p) => (
-            <div key={p.id} id={`p-${p.id}`} className="adm-obr adm-povp" style={{ marginBottom: 14 }}>
-              <div style={{ display: "flex", justifyContent: "space-between", gap: 16 }}>
-                <div>
-                  <b style={{ fontSize: 14 }}>{p.ime}</b>
-                  {p.podjetje && <span style={{ color: "#6e767e" }}> · {p.podjetje}</span>}
-                  <div style={{ fontSize: 12.5, color: "#6e767e", marginTop: 4 }}>
-                    <a href={`mailto:${p.email}`} style={{ color: "#c8102e" }}>
-                      {p.email}
-                    </a>
-                    {p.telefon && ` · ${p.telefon}`} · vir: {p.vir}
+          seznam.map((p) => {
+            const izdelki = (p.izdelki ?? []).filter((x) => !x.datoteka);
+            const priloge = (p.izdelki ?? []).filter((x) => x.datoteka);
+            return (
+              <article key={p.id} id={`p-${p.id}`} className={`povp${p.status === "novo" ? " povp-novo" : ""}`}>
+                <header className="povp-glava">
+                  <span className="povp-av">{zacetnice(p.podjetje || p.ime)}</span>
+                  <div className="povp-kdo">
+                    <b>{p.podjetje || p.ime}</b>
+                    <span>
+                      {p.ime && p.ime !== p.podjetje ? `${p.ime} · ` : ""}
+                      <a href={`mailto:${p.email}`}>{p.email}</a>
+                      {p.telefon ? ` · ${p.telefon}` : ""}
+                    </span>
                   </div>
-                </div>
-                <span className={p.status === "novo" ? "znacka novo" : "znacka ne"}>{p.status}</span>
-              </div>
+                  <div className="povp-meta">
+                    <span className="povp-vir">{VIRI[p.vir] ?? p.vir}</span>
+                    <span className={`povp-st st-${(p.status ?? "").replace(/\s/g, "-")}`}>{p.status}</span>
+                    <time>{cas(p.ustvarjeno)}</time>
+                  </div>
+                </header>
 
-              {(p.izdelki ?? []).length > 0 && (
-                <div style={{ marginTop: 10, fontSize: 13, display: "flex", gap: 12, flexWrap: "wrap" }}>
-                  {p.izdelki.map((x, i) =>
-                    x.url ? (
-                      <a key={i} href={x.url} target="_blank" rel="noreferrer" style={{ color: "#c8102e", fontWeight: 600 }}>
+                {(izdelki.length > 0 || priloge.length > 0) && (
+                  <div className="povp-izd">
+                    {izdelki.map((x, i) => (
+                      <span key={i} className="povp-cip">
+                        {x.naziv}
+                        {x.sifra && <small>{x.sifra}</small>}
+                      </span>
+                    ))}
+                    {priloge.map((x, i) => (
+                      <a key={i} className="povp-cip povp-pril" href={x.url ?? "#"} target="_blank" rel="noreferrer">
                         📎 {x.naziv}
                       </a>
-                    ) : (
-                      <span key={i}>
-                        Izdelek: <b>{x.naziv}</b>
-                        {x.sifra ? ` (${x.sifra})` : ""}
-                      </span>
-                    )
-                  )}
-                </div>
-              )}
-
-              {p.sporocilo && (
-                <p style={{ marginTop: 14, fontSize: 13, whiteSpace: "pre-wrap" }}>{p.sporocilo}</p>
-              )}
-
-              <OdgovorPovprasevanju id={p.id} email={p.email} {...predlog(p)} />
-
-              <form action={spremeniStatusPovprasevanja} style={{ marginTop: 16, display: "flex", gap: 10, alignItems: "flex-end" }}>
-                <input type="hidden" name="id" value={p.id} />
-                <div className="adm-polje" style={{ marginBottom: 0, width: 170 }}>
-                  <label>Status</label>
-                  <select name="status" defaultValue={p.status}>
-                    {statusi.map((s) => (
-                      <option key={s} value={s}>
-                        {s}
-                      </option>
                     ))}
-                  </select>
-                </div>
-                <div className="adm-polje" style={{ marginBottom: 0, flex: 1 }}>
-                  <label>Interna opomba</label>
-                  <textarea name="opomba" rows={Math.min(4, Math.max(1, (p.opomba ?? "").split("\n").length))} defaultValue={p.opomba ?? ""} />
-                </div>
-                <button className="gumb" type="submit">
-                  Shrani
-                </button>
-              </form>
-            </div>
-          ))
+                  </div>
+                )}
+
+                {p.sporocilo && <blockquote className="povp-sp">{p.sporocilo}</blockquote>}
+
+                <OdgovorPovprasevanju
+                  id={p.id}
+                  email={p.email}
+                  zadeva={zadevaZa(p)}
+                  od={admin?.ime || admin?.email || "AS system"}
+                  odEmail={admin?.email ?? ""}
+                />
+
+                <form action={spremeniStatusPovprasevanja} className="povp-noga">
+                  <input type="hidden" name="id" value={p.id} />
+                  <label>
+                    Status
+                    <select name="status" defaultValue={p.status}>
+                      {statusi.map((s) => (
+                        <option key={s} value={s}>
+                          {s}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                  <label className="povp-op">
+                    Interna opomba
+                    <textarea name="opomba" rows={Math.min(4, Math.max(1, (p.opomba ?? "").split("\n").length))} defaultValue={p.opomba ?? ""} placeholder="Vidijo jo samo zaposleni" />
+                  </label>
+                  <button className="gumb siv" type="submit">
+                    Shrani
+                  </button>
+                </form>
+              </article>
+            );
+          })
         )}
       </div>
     </>
