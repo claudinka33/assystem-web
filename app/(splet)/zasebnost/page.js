@@ -47,7 +47,7 @@ export default function Zasebnost() {
             <td className="mk-gl">Spletno naročilo, dostava in račun</td>
             <td data-l="Podatki">ime in priimek, naslov, e-naslov, telefon, podjetje in davčna številka, naročeni izdelki, način plačila</td>
             <td data-l="Pravna podlaga">pogodba (6(1)(b) GDPR)</td>
-            <td data-l="Hramba">do izteka jamstva in zastaralnih rokov</td>
+            <td data-l="Hramba">5 let po izvedbi naročila</td>
           </tr>
           <tr>
             <td className="mk-gl">Računovodstvo in davki</td>
@@ -65,7 +65,7 @@ export default function Zasebnost() {
             <td className="mk-gl">Povpraševanja in obrazci</td>
             <td data-l="Podatki">ime, e-naslov, telefon, podjetje, vsebina sporočila, priponke</td>
             <td data-l="Pravna podlaga">ukrepi pred sklenitvijo pogodbe in zakoniti interes (6(1)(b) in (f) GDPR)</td>
-            <td data-l="Hramba">2 leti od zadnjega stika</td>
+            <td data-l="Hramba">5 let od zadnjega stika</td>
           </tr>
           <tr>
             <td className="mk-gl">Prijave na delovna mesta</td>
@@ -121,7 +121,15 @@ export default function Zasebnost() {
         Razvrščanju lahko kadar koli ugovarjate.
       </p>
 
-      <h2>7. Komu podatke posredujemo</h2>
+      <h2>7. Videonadzor</h2>
+      <p>
+        Na lokacijah v Šmarju pri Jelšah (Obrtniška ulica 14) in v Hrastju ob Bistrici (Hrastje ob Bistrici 2a) izvajamo videonadzor za
+        varovanje ljudi in premoženja. Pravna podlaga je zakoniti interes (6(1)(f) GDPR) in ZVOP-2. Posnetke hranimo
+        1 mesec, nato se samodejno izbrišejo, razen če so potrebni kot dokaz v postopku. Dostop imajo samo pooblaščene
+        osebe. Območja pod videonadzorom so označena z obvestili.
+      </p>
+
+      <h2>8. Komu podatke posredujemo</h2>
       <p>Podatke posredujemo samo, kadar je to potrebno za namen iz točke 4:</p>
       <ul>
         <li><b>Pošta Slovenije d.o.o.</b>: ime, naslov in telefon za dostavo pošiljke.</li>
@@ -135,7 +143,7 @@ export default function Zasebnost() {
         <li>Državni organi, kadar to zahteva zakon.</li>
       </ul>
 
-      <h2>8. Prenos podatkov izven EGP</h2>
+      <h2>9. Prenos podatkov izven EGP</h2>
       <p>
         Nekateri ponudniki imajo sedež izven Evropskega gospodarskega prostora, zato se lahko podatki prenesejo v tretje
         države. Prenos poteka samo z ustreznimi varovalkami po poglavju V GDPR:
@@ -191,7 +199,7 @@ export default function Zasebnost() {
       </table>
       <p>Podatke za Google Analytics in Meta Pixel prenesemo samo, če piškotkom privolite.</p>
 
-      <h2>9. Piškotki in upravljanje privolitev</h2>
+      <h2>10. Piškotki in upravljanje privolitev</h2>
       <table className="mob-kartice">
         <thead>
           <tr><th>Piškotek</th><th>Vrsta</th><th>Namen</th><th>Trajanje</th></tr>
@@ -236,7 +244,7 @@ export default function Zasebnost() {
         na dnu strani.
       </p>
 
-      <h2>10. Vaše pravice</h2>
+      <h2>11. Vaše pravice</h2>
       <p>Kadar koli lahko zahtevate:</p>
       <ul>
         <li>dostop do svojih podatkov in kopijo podatkov (člen 15 GDPR),</li>
@@ -248,17 +256,17 @@ export default function Zasebnost() {
         <li>preklic privolitve, ne da bi to vplivalo na zakonitost obdelave pred preklicem (člen 7(3)).</li>
       </ul>
       <p>
-        Zahtevo pošljite pooblaščeni osebi na sara.jagodic@as-system.si. Odgovorimo brezplačno, najkasneje v enem mesecu.
-        Pri zahtevnih zahtevah lahko rok podaljšamo za največ dva meseca, o čemer vas obvestimo.
+        Zahtevo pošljite pooblaščeni osebi na sara.jagodic@as-system.si ali pisno na sedež družbe. Odgovorimo brezplačno,
+        praviloma v petih delovnih dneh, najkasneje pa v enem mesecu.
       </p>
 
-      <h2>11. Pritožba</h2>
+      <h2>12. Pritožba</h2>
       <p>
         Če menite, da podatke obdelujemo nezakonito, lahko vložite pritožbo pri Informacijskem pooblaščencu RS, Dunajska
         cesta 22, 1000 Ljubljana, <a href="https://www.ip-rs.si" target="_blank" rel="noreferrer">www.ip-rs.si</a>.
       </p>
 
-      <h2>12. Spremembe</h2>
+      <h2>13. Spremembe</h2>
       <p>
         Politiko zasebnosti po potrebi posodobimo. Veljavna različica je vedno objavljena na tej strani. Glej tudi{" "}
         <Link href="/splosni-pogoji">Splošne pogoje poslovanja</Link>.
