@@ -864,3 +864,63 @@ details.adm-obr { padding: 8px 12px; }
 .kat-razpri svg { transition: transform .15s; }
 .kat-razpri.on { background: var(--a-antracit); color: #fff; border-color: var(--a-antracit); }
 .kat-razpri.on svg { transform: rotate(90deg); }
+
+/* ---------- celotna širina + B2B kupci (seznam za 100+ podjetij) ---------- */
+.adm-telo { max-width: none; }
+.adm-telo .adm-obr { max-width: 1400px; }
+.b2ba-isk { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 10px; position: sticky; top: 0; z-index: 15; background: var(--a-bg); padding: 6px 0; }
+.b2ba-isk input[type="search"] { flex: 1 1 340px; max-width: 560px; }
+.b2ba-filtri { display: flex; flex-wrap: wrap; gap: 4px; }
+.b2ba-filtri button { border: 1px solid var(--a-line); background: #fff; border-radius: 4px; font: inherit; font-size: 12px; padding: 3px 9px; cursor: pointer; color: #3f4140; }
+.b2ba-filtri button em { font-style: normal; color: var(--a-muted); margin-left: 3px; font-size: 11px; }
+.b2ba-filtri button.on { background: var(--a-antracit); border-color: var(--a-antracit); color: #fff; }
+.b2ba-filtri button.on em { color: #c4c8cc; }
+.b2ba { background: #fff; border: 1px solid var(--a-line); border-radius: var(--a-r); overflow: hidden; }
+.b2ba-vr { display: grid; grid-template-columns: minmax(200px, 2.2fr) 110px 90px minmax(160px, 2fr) 54px 44px 110px 100px 130px; gap: 10px; align-items: center; padding: 6px 12px; font-size: 12.5px; }
+.b2ba-gl { background: var(--a-soft); border-bottom: 1px solid var(--a-line); font-size: 10px; font-weight: 600; letter-spacing: .6px; text-transform: uppercase; color: var(--a-muted); }
+.b2ba-vr .c { text-align: center; }
+.b2ba .siv { color: var(--a-muted); }
+.b2ba .ell { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.b2ba-podj { border-bottom: 1px solid #e8ebef; }
+.b2ba-podj > summary { list-style: none; cursor: pointer; }
+.b2ba-podj > summary::-webkit-details-marker { display: none; }
+.b2ba-podj > summary:hover { background: #f3f6f9; }
+.b2ba-podj[open] > summary { background: #eef2f6; box-shadow: inset 3px 0 0 var(--a-red); }
+.b2ba-podj > summary .ime { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.b2ba-podj > summary i { font-style: normal; }
+.b2ba-ust { font-style: normal; margin-left: 6px; font-size: 10px; font-weight: 700; color: var(--a-red); text-transform: uppercase; }
+.b2ba-rd { color: var(--a-red); font-style: normal; }
+.b2ba-det { padding: 8px 12px 12px 18px; background: #fafbfc; border-top: 1px solid #e8ebef; }
+.b2ba-det-gl { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; flex-wrap: wrap; font-size: 12px; margin-bottom: 8px; }
+.b2ba-det-gl > .siv { flex: 1 1 400px; }
+.b2ba-gumbi { display: flex; gap: 6px; flex-wrap: wrap; align-items: flex-start; }
+.b2ba-upor { background: #fff; border: 1px solid #e3e6e9; border-radius: 5px; }
+.b2ba-u { border-top: 1px solid #eef0f2; }
+.b2ba-u:first-child { border-top: 0; }
+.b2ba-u > summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: minmax(220px, 2fr) minmax(160px, 1.4fr) 110px 120px 60px; gap: 10px; align-items: center; padding: 6px 10px; font-size: 12.5px; }
+.b2ba-u > summary::-webkit-details-marker { display: none; }
+.b2ba-u > summary:hover { background: #f6f8fa; }
+.b2ba-u > summary .ime { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.b2ba-u > summary i { font-style: normal; justify-self: start; }
+.b2ba-uredi { color: var(--a-red); font-size: 11.5px; text-align: right; }
+.b2ba-u-tel { padding: 6px 10px 10px; border-top: 1px dashed #e3e6e9; }
+.b2ba-polja { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 0 10px; }
+.b2ba-polja .s2 { grid-column: span 2; }
+.b2ba-polja .s3 { grid-column: 1 / -1; }
+.b2ba-akcije { display: flex; gap: 6px; flex-wrap: wrap; }
+.b2ba-brisi { display: flex; justify-content: flex-end; align-items: center; gap: 4px; font-size: 11px; color: var(--a-muted); margin-top: 6px; }
+.b2ba-prazno { padding: 14px; margin: 0; color: var(--a-muted); }
+@media (max-width: 1100px) {
+  .b2ba-gl { display: none; }
+  .b2ba-vr { grid-template-columns: 1fr 1fr; gap: 2px 12px; }
+  .b2ba-vr .ime { grid-column: 1 / -1; }
+  .b2ba-vr .c { text-align: left; }
+  .b2ba-vr [data-l]::before { content: attr(data-l) ": "; color: #9ba0a5; font-size: 11px; }
+  .b2ba-u > summary { grid-template-columns: 1fr auto; }
+  .b2ba-u > summary .ime { grid-column: 1 / -1; white-space: normal; }
+  .b2ba-polja .s2 { grid-column: auto; }
+}
+@media (max-width: 600px) {
+  .b2ba-vr { grid-template-columns: 1fr; }
+  .b2ba-isk input[type="search"] { flex-basis: 100%; }
+}
