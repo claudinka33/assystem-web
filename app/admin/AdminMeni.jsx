@@ -52,6 +52,7 @@ const MENI = [
     { naziv: "B2B kupci", pot: "/admin/b2b", ikona: "b2b", stevec: "b2b" },
     { naziv: "Kode za popust", pot: "/admin/popusti", ikona: "popust" },
     { naziv: "Povpraševanja", pot: "/admin/povprasevanja", ikona: "povprasevanja", stevec: "povprasevanja" },
+    { naziv: "Pop-up", pot: "/admin/popup", ikona: "povprasevanja" },
   ]},
   { skupina: "Vsebina", povezave: [
     { naziv: "Besedila na strani", pot: "/admin/vsebine", ikona: "besedila" },

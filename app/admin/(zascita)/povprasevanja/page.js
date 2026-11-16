@@ -1,3 +1,4 @@
+import KljukicaZakljuceno from "./KljukicaZakljuceno";
 import { virPovprasevanja } from "@/lib/viri-povprasevanj";
 import { supabaseAdmin, trenutniAdmin } from "@/lib/supabase-server";
 import { spremeniStatusPovprasevanja } from "@/lib/akcije/skupno";
@@ -194,6 +195,7 @@ function Nit({ n, admin, odprta }) {
         </span>
       </div>
       <div className="povp-meta">
+        <KljukicaZakljuceno ids={n.povp.map((p) => p.id)} zakljuceno={n.povp.every((p) => p.status === "zaključeno")} />
         {n.povp.length > 1 && <span className="povp-vir">{n.povp.length} povpraševanj</span>}
         {n.odgovorov > 0 && <span className="povp-vir">{n.odgovorov} odgovorov</span>}
         <span className={`povp-st st-${(z.status ?? "").replace(/\s/g, "-")}`}>{n.novo ? "novo" : z.status}</span>

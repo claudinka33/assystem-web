@@ -6,10 +6,15 @@ import { useActionState, useEffect, useState } from "react";
 import { oddajPopupB2B } from "@/lib/akcije/obrazci";
 import { prevedeno } from "@/lib/i18n/odjemalec";
 
+import { PRIVZETO_POPUP } from "@/lib/popup";
+
 const KLJUC = "as_popup_b2b"; // "zaprto:<čas>" ali "oddano"
-const ZAKASNITEV = 15000; // 15 s na strani
-const PREMOR_DNI = 7; // po zaprtju se 7 dni ne pokaže
-const BREZ = ["/blagajna", "/kosarica", "/b2b", "/v-pripravi", "/zaposlitev"];
+
+// **besedilo** -> krepko
+const krepko = (s) =>
+  String(s ?? "")
+    .split(/(\*\*[^*]+\*\*)/)
+    .map((d, i) => (d.startsWith("**") && d.endsWith("**") ? <b key={i}>{d.slice(2, -2)}</b> : d));
 
 const beri = () => {
   try {
@@ -24,12 +29,20 @@ const pisi = (v) => {
   } catch {}
 };
 
-function PopupB2B() {
+function PopupB2B({ n = PRIVZETO_POPUP }) {
   const pot = usePathname() || "/";
+  const ZAKASNITEV = Number(n.zakasnitev ?? 15) * 1000;
+  const PREMOR_DNI = Number(n.premor ?? 7);
+  const BREZ = n.brezStrani ?? [];
   const [odprt, setOdprt] = useState(false);
   const [stanje, oddaj, poteka] = useActionState(oddajPopupB2B, null);
 
   useEffect(() => {
+    if (typeof window !== "undefined" && new URLSearchParams(window.location.search).get("popup") === "1") {
+      const t0 = setTimeout(() => setOdprt(true), 300); // predogled iz administracije
+      return () => clearTimeout(t0);
+    }
+    if (!n.vklopljen) return;
     if (BREZ.some((p) => pot === p || pot.startsWith(p + "/"))) return;
     if (/(^|;\s*)sb-b2b-auth-token/.test(document.cookie)) return; // že B2B kupec
     const v = beri();
@@ -37,7 +50,7 @@ function PopupB2B() {
     if (v.startsWith("zaprto:") && Date.now() - Number(v.slice(7)) < PREMOR_DNI * 86400000) return;
     const t = setTimeout(() => setOdprt(true), ZAKASNITEV);
     return () => clearTimeout(t);
-  }, [pot]);
+  }, [pot]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (stanje?.stanje === "ok") pisi("oddano");
@@ -63,30 +76,25 @@ function PopupB2B() {
       <div className="popb2b">
         <button type="button" className="popb2b-x" onClick={zapri} aria-label="Zapri">×</button>
         <div className="popb2b-levo" aria-hidden="true">
-          <span className="popb2b-znacka">B2B</span>
-          <b>Cene za podjetja</b>
+          {n.znacka && <span className="popb2b-znacka">{n.znacka}</span>}
+          <b>{n.naslovLevo}</b>
           <ul>
-            <li>Ponudba v 1–2 delovnih dneh</li>
-            <li>Posebne cene in rabati</li>
-            <li>Plačilo na račun</li>
-            <li>Lastna proizvodnja od 1993</li>
+            {(n.alineje ?? []).map((x, i) => <li key={i}>{x}</li>)}
           </ul>
         </div>
         <div className="popb2b-desno">
           {ok ? (
             <div className="popb2b-hvala">
               <div className="popb2b-kljukica">✓</div>
-              <h2 id="popb2b-naslov">Hvala! Prejeli smo vaš kontakt.</h2>
-              <p>V 1–2 delovnih dneh vas kontaktiramo in pripravimo ponudbo za vaše podjetje.</p>
+              <h2 id="popb2b-naslov">{n.hvalaNaslov}</h2>
+              <p>{n.hvalaBesedilo}</p>
               <button type="button" className="popb2b-gumb" onClick={() => setOdprt(false)}>Nadaljuj na strani</button>
             </div>
           ) : (
             <>
-              <p className="popb2b-nad">Pritrdilna tehnika ASfix · vijačno blago ASco</p>
-              <h2 id="popb2b-naslov">Kupujete za podjetje?</h2>
-              <p className="popb2b-opis">
-                Pustite kontakt — v <b>1–2 delovnih dneh</b> vas pokličemo in pripravimo <b>ponudbo s cenami za vaše podjetje</b>.
-              </p>
+              {n.nadnaslov && <p className="popb2b-nad">{n.nadnaslov}</p>}
+              <h2 id="popb2b-naslov">{n.naslov}</h2>
+              <p className="popb2b-opis">{krepko(n.opis)}</p>
               <form action={oddaj}>
                 <input type="text" name="polje_za_robote" tabIndex={-1} autoComplete="off" style={{ position: "absolute", left: -9999 }} aria-hidden="true" />
                 <input type="hidden" name="stran" value={pot} />
@@ -100,7 +108,7 @@ function PopupB2B() {
                   <span>Pošiljajte mi tudi akcije in novosti za podjetja (odjava kadarkoli).</span>
                 </label>
                 {stanje?.stanje === "napaka" && <p className="popb2b-napaka">{stanje.sporocilo}</p>}
-                <button className="popb2b-gumb" type="submit" disabled={poteka}>{poteka ? "Pošiljam …" : "Pošljite mi ponudbo"}</button>
+                <button className="popb2b-gumb" type="submit" disabled={poteka}>{poteka ? "Pošiljam …" : n.gumb}</button>
                 <p className="popb2b-mali">
                   Podatke uporabimo samo za pripravo ponudbe. <Link href="/zasebnost">Politika zasebnosti</Link>
                   {" · "}Že imate B2B račun? <Link href="/b2b" onClick={zapri}>Prijava</Link>
