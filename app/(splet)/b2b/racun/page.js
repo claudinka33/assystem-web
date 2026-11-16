@@ -35,7 +35,7 @@ export default async function Racun({ searchParams }) {
   const imaRacune = aktiven && (await racuniVklopljeni(k.vasco_partner));
   let rq = null;
   if (imaRacune) {
-    rq = sb.from("b2b_racuni").select("leto, stevilka, prodajalna, datum, neto, znesek, odprto, postavke").eq("vasco_partner", k.vasco_partner).order("datum", { ascending: false }).order("stevilka", { ascending: false }).limit(1000);
+    rq = sb.from("b2b_racuni").select("leto, stevilka, prodajalna, datum, neto, znesek, odprto, postavke, glava").eq("vasco_partner", k.vasco_partner).order("datum", { ascending: false }).order("stevilka", { ascending: false }).limit(1000);
     if (filterPe) rq = rq.eq("prodajalna", filterPe);
   }
 
@@ -150,23 +150,60 @@ export default async function Racun({ searchParams }) {
                       </span>
                     </summary>
                     <div className="b2bp-post">
-                      <table>
-                        <thead><tr><th>Šifra</th><th>Artikel</th><th className="d">Količina</th><th className="d">Cena brez DDV</th><th className="d">Rabat</th><th className="d">Vrednost brez DDV</th></tr></thead>
-                        <tbody>
-                          {(r.postavke ?? []).map((v, i) => {
-                            const kol = kolicinaZaPrikaz(v.kolicina, v.enota);
-                            return (
-                            <tr key={i}>
-                              <td>{v.sifra}</td><td>{String(v.naziv || "—").replace(/\n/g, " ")}</td>
-                              <td className="d"><b>{kol.glavno}</b>{kol.dodatek && <small style={{ display: "block", color: "#8a8f94", fontSize: 11 }}>{kol.dodatek}</small>}</td>
-                              <td className="d">{eur(Number(v.cena))}{enotaVasco(v.enota) && <small style={{ color: "#8a8f94" }}> / {enotaVasco(v.enota)}</small>}</td>
-                              <td className="d">{Number(v.rabat) ? `${v.rabat} %` : ""}</td>
-                              <td className="d"><b>{eur(Number(v.vrednost))}</b></td>
-                            </tr>
-                            );
-                          })}
-                        </tbody>
-                      </table>
+                      {(() => {
+                        const g = r.glava || {};
+                        const danes = new Date().toISOString().slice(0, 10);
+                        const dni = g.valuta ? Math.round((new Date(g.valuta) - new Date(danes)) / 86400000) : null;
+                        const odprt = Number(r.odprto) > 0.004;
+                        const vpcSkupaj = (r.postavke ?? []).reduce((s, v) => s + (Number(v.prodajna_cena) || Number(v.cena) || 0) * Number(v.kolicina || 0), 0);
+                        const prihranek = Math.max(0, vpcSkupaj - Number(r.neto || 0));
+                        return (
+                          <>
+                            <div className="b2bp-glava">
+                              {g.datum_dobave && <div><em>Dobava</em>{cas(g.datum_dobave)}</div>}
+                              {g.narocilo && <div><em>Vaše naročilo</em>{g.narocilo}{g.datum_narocila ? <small> · {cas(g.datum_narocila)}</small> : null}</div>}
+                              {g.valuta && <div><em>Rok plačila</em>{cas(g.valuta)}{g.rok_placila ? <small> · {g.rok_placila} dni</small> : null}</div>}
+                              <div>
+                                <em>Stanje</em>
+                                {odprt ? (
+                                  <b style={{ color: dni != null && dni < 0 ? "#c8102e" : "#b26a00" }}>
+                                    odprto {eur(Number(r.odprto))}{dni != null ? (dni < 0 ? ` · zamuda ${-dni} dni` : dni === 0 ? " · zapade danes" : ` · zapade čez ${dni} dni`) : ""}
+                                  </b>
+                                ) : <b style={{ color: "#1a7f3c" }}>plačano</b>}
+                              </div>
+                              {g.komercialist && <div><em>Komercialist</em>{g.komercialist}</div>}
+                            </div>
+                            <table>
+                              <thead><tr><th>Šifra</th><th>Artikel</th><th className="d">Količina</th><th className="d">VPC</th><th className="d">Rabat</th><th className="d">Vaša cena</th><th className="d">Cena / kos</th><th className="d">DDV</th><th className="d">Vrednost brez DDV</th></tr></thead>
+                              <tbody>
+                                {(r.postavke ?? []).map((v, i) => {
+                                  const kol = kolicinaZaPrikaz(v.kolicina, v.enota);
+                                  const en = enotaVasco(v.enota);
+                                  const kosov = kol.kosov;
+                                  return (
+                                    <tr key={i}>
+                                      <td>{v.sifra}</td><td>{String(v.naziv || "—").replace(/\n/g, " ")}</td>
+                                      <td className="d"><b>{kol.glavno}</b>{kol.dodatek && <small className="b2bp-pod">{kol.dodatek}</small>}</td>
+                                      <td className="d">{Number(v.prodajna_cena) ? eur(Number(v.prodajna_cena)) : "—"}{en && <small className="b2bp-en"> / {en}</small>}</td>
+                                      <td className="d">{Number(v.rabat) ? `${v.rabat} %` : ""}{Number(v.rabat2) ? ` + ${v.rabat2} %` : ""}</td>
+                                      <td className="d">{eur(Number(v.cena))}{en && <small className="b2bp-en"> / {en}</small>}</td>
+                                      <td className="d">{kosov ? new Intl.NumberFormat("sl-SI", { style: "currency", currency: "EUR", maximumFractionDigits: 4 }).format(Number(v.vrednost) / kosov) : "—"}</td>
+                                      <td className="d">{v.ddv != null ? `${String(v.ddv).replace(".", ",")} %` : ""}</td>
+                                      <td className="d"><b>{eur(Number(v.vrednost))}</b></td>
+                                    </tr>
+                                  );
+                                })}
+                              </tbody>
+                              <tfoot>
+                                <tr><td colSpan={8} className="d">Skupaj brez DDV</td><td className="d"><b>{eur(Number(r.neto))}</b></td></tr>
+                                <tr><td colSpan={8} className="d">DDV</td><td className="d">{eur(Number(r.znesek) - Number(r.neto))}</td></tr>
+                                <tr><td colSpan={8} className="d"><b>Za plačilo</b></td><td className="d"><b>{eur(Number(r.znesek))}</b></td></tr>
+                                {prihranek > 0.01 && <tr><td colSpan={8} className="d" style={{ color: "#1a7f3c" }}>Vaš prihranek z rabatom (brez DDV)</td><td className="d" style={{ color: "#1a7f3c" }}><b>{eur(prihranek)}</b></td></tr>}
+                              </tfoot>
+                            </table>
+                          </>
+                        );
+                      })()}
                     </div>
                   </details>
                 ))}
