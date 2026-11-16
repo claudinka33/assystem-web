@@ -10,9 +10,9 @@ const norm = (x) => String(x ?? "").toLowerCase().normalize("NFD").replace(/[̀-
 
 export default async function Poslano({ searchParams }) {
   const { po = "" } = await searchParams;
-  let sporocila = [], vec = false, napaka = null;
+  let sporocila = [], naslednji = null, napaka = null;
   try {
-    ({ sporocila, vec } = await poslanaSporocila({ after: po || null }));
+    ({ sporocila, naslednji } = await poslanaSporocila({ after: po || null }));
   } catch (e) {
     napaka = e.message;
   }
@@ -26,7 +26,7 @@ export default async function Poslano({ searchParams }) {
       </div>
       <div className="adm-telo siroko">
         <p className="adm-namig" style={{ marginTop: 0 }}>
-          Vsi maili, ki jih pošlje spletna stran (B2B registracije in odobritve, potrdila naročil, povpraševanja, vabila zaposlenim …).
+          Vsi maili, ki jih pošlje spletna stran assystem.si (B2B registracije in odobritve, potrdila naročil, povpraševanja, vabila zaposlenim …).
           Mailingi (e-novice) imajo statistiko po prejemnikih v »E-novice«.
         </p>
         {napaka && <div className="opozorilo">Resend: {napaka}</div>}
@@ -49,7 +49,7 @@ export default async function Poslano({ searchParams }) {
         </div>
         <div className="bz-strani">
           {po && <Link className="gumb siv mini" href="/admin/poslano">← Najnovejša</Link>}
-          {vec && <Link className="gumb siv mini" href={`/admin/poslano?po=${sporocila[sporocila.length - 1].id}`}>Starejša →</Link>}
+          {naslednji && <Link className="gumb siv mini" href={`/admin/poslano?po=${naslednji}`}>Starejša →</Link>}
         </div>
       </div>
     </>

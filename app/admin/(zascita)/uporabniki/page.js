@@ -67,7 +67,7 @@ export default async function Uporabniki({ searchParams }) {
   // zadnja vabila po zaposlenih (iz Resenda)
   const vabila = {};
   try {
-    const { sporocila } = await poslanaSporocila({ strani: 1 });
+    const { sporocila } = await poslanaSporocila({ strani: 2, cilj: 50 });
     for (const m of sporocila)
       if (String(m.subject).startsWith("Dostop do administracije"))
         for (const t of m.to ?? []) vabila[t.toLowerCase()] ??= m;
