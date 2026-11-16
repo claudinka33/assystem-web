@@ -13,10 +13,12 @@ const OZNAKE = { caka: "čaka", "v teku": "v teku", koncano: "končano", napaka:
 
 export default async function Sinhronizacija() {
   const sb = supabaseAdmin();
-  const [zah, dnevnik, novi] = await Promise.all([
+  const [zah, dnevnik, novi, razpr] = await Promise.all([
     sb.from("vasco_sync_zahteve").select("*").order("id", { ascending: false }).limit(5),
     sb.from("vasco_sync_log").select("*").order("id", { ascending: false }).limit(15),
     sb.from("vasco_novi_artikli").select("*").eq("status", "nov").order("skupina").order("sifra").limit(300),
+    // Razprodaja: artikli, ki jih ne naročamo več (SQL 53).
+    sb.from("artikli_razprodaja_stanje").select("id, sifra, naziv, dimenzija, zaloga, din, izdelek_id").eq("objavljeno", true).order("din").order("sifra").limit(500),
   ]);
 
   if (zah.error || dnevnik.error) {
@@ -33,6 +35,7 @@ export default async function Sinhronizacija() {
   const odprta = zahteve.find((z) => z.status === "caka" || z.status === "v teku");
   const zadnja = (dnevnik.data ?? [])[0];
   const seznamNovih = novi.data ?? [];
+  const razprodaja = razpr.error ? null : razpr.data ?? [];
 
   return (
     <>
@@ -130,6 +133,33 @@ export default async function Sinhronizacija() {
               ))}
             </tbody>
           </table>
+        )}
+
+        {razprodaja && (
+          <>
+            <h2 style={{ fontSize: 14, margin: "28px 0 6px" }}>Razprodaja ({razprodaja.length} še na spletu)</h2>
+            <p style={{ fontSize: 12.5, color: "#6e767e", margin: "0 0 10px" }}>
+              Teh artiklov ne naročamo več. Ostanejo na spletu, dokler je
+              zaloga; ko pade na 0, se artikel ob sinhronizaciji sam skrije (in izdelek, če mu ne ostane noben artikel).
+            </p>
+            {razprodaja.length > 0 && (
+              <table className="adm-tab">
+                <thead>
+                  <tr><th>DIN</th><th>Šifra</th><th>Naziv</th><th>Zaloga</th></tr>
+                </thead>
+                <tbody>
+                  {razprodaja.map((r) => (
+                    <tr key={r.id}>
+                      <td>{r.din}</td>
+                      <td><a href={`/admin/izdelki/${r.izdelek_id}`}><b>{r.sifra}</b></a></td>
+                      <td>{r.naziv}<div style={{ fontSize: 11.5, color: "#6e767e" }}>{r.dimenzija}</div></td>
+                      <td>{r.zaloga ?? "—"}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </>
         )}
       </div>
     </>
