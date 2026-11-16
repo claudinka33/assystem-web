@@ -381,20 +381,33 @@ export const din571 = sestavi({
 const TSP = 10;
 export const maticniSpoj = sestavi({
   id: "maticni", postavitev: "tla", u: 4.2, naslov: "Spoj po DIN: vijak, podložke, matica",
-  podlage: [{ tip: "jeklo", od: 0, do: TSP }, { tip: "jeklo", od: TSP, do: 2 * TSP }],
+  podlage: [],
   luknje: [500, 700],
-  risbaPod: () => <g>{[500, 700].map((x) => <rect key={x} x={x - 23} y="0" width="46" height={2 * TSP * 4.2} fill="#fff" />)}</g>,
+  // dve ločeni plošči (preklopni spoj): zgornja sega levo, spodnja desno, prekrivata se pri luknjah
+  risbaPod: () => {
+    const h = TSP * 4.2;
+    return (
+      <g>
+        <rect x="70" y="0" width="840" height={h} rx="3" fill="#c3c9ce" stroke={C.ink} strokeWidth="2" />
+        <rect x="290" y={h} width="840" height={h} rx="3" fill="#8f989f" stroke={C.ink} strokeWidth="2" />
+        <line x1="290" y1={h} x2="910" y2={h} stroke={C.ink} strokeWidth="3" />
+        {[500, 700].map((x) => <g key={x}><rect x={x - 23} y="-1" width="46" height={h + 1} fill="#fff" stroke={C.ink} strokeWidth="1" /><rect x={x - 23} y={h} width="46" height={h + 1} fill="#fff" stroke={C.ink} strokeWidth="1" /></g>)}
+        <Napis x={90} y={h / 2 + 6} barva={C.ink} velikost={14}>PLOŠČA 1 · 10 mm</Napis>
+        <Napis x={1110} y={h * 1.5 + 6} barva={C.ink} velikost={14} sidro="end">PLOŠČA 2 · 10 mm</Napis>
+      </g>
+    );
+  },
   izbire: [{ pred: "vijak", naziv: "Izberite vijak", scenarij: `Dve jekleni plošči po ${TSP} mm z luknjama Ø11. Zgoraj podložka DIN 125, spodaj podložka DIN 125, vzmetna podložka DIN 127B in matica DIN 934.`,
     skupine: [izbor("M", "Premer DIN 933", [8, 10, 12], (v) => `M${v}`), izbor("L", "Dolžina", [30, 35, 40, 50], (v) => `${v} mm`)],
     preveri: (sel) => { if (sel.M === 12) return "M12 ne gre skozi luknjo Ø11."; if (sel.M === 8) return "M8 je za luknjo Ø11 premajhen, za luknjo Ø11 je vijak M10."; const pot = 2 * TSP + 2 + 2 + 2.5 + 8 + 2; return sel.L < pot ? `${sel.L} mm je prekratko: plošči ${2 * TSP} + podložki 4 + vzmetna 2,5 + matica 8 + 2 navoja = ${pot} mm.` : sel.L > pot + 12 ? `${sel.L} mm je predolgo: vijak bi štrlel čez matico.` : null; },
     potrdilo: (I) => `DIN 933 M10 × ${I.L}.` }],
   vijak: { vstavi: "Vstavite vijak s podložko", brezPrivijanja: true, L: (I) => I.L ?? 40, d: 10, navoj: "metricni", glava: "sestroba", koncnaGlava: -2 - 7, vstaviNavodilo: "Kliknite v luknjo: vijak DIN 933 s podložko DIN 125 vstavite skozi obe plošči." },
   matica: { d: 10, spodaj: true, vzmetna: true, naY: () => 2 * TSP, podlozkaKorak: "Podložki 125 + 127B", podlozkaNavodilo: "Kliknite pod vijak: nadenite podložko DIN 125 in vzmetno podložko DIN 127B.", korak: "Zategnite matico DIN 934", navodilo: "Nastavite ključ na matico in držite." },
-  risbaNad: (s) => (s.korak >= 2 || s.koncano ? <g>{[500, 700].map((x) => <rect key={x} x={x - 20} y={-2 * 4.2} width="40" height={2 * 4.2} fill="#d5d9dc" stroke={C.ink} strokeWidth="1" />)}</g> : null),
+  risbaNad: (s) => (s.korak >= 2 || s.koncano ? <g>{[500, 700].map((x) => <rect key={x} x={x - 42} y={-2 * 4.2} width="84" height={2 * 4.2} fill="#d5d9dc" stroke={C.ink} strokeWidth="1" />)}</g> : null),
   orodja: [roka("vijak", "DIN 933 + DIN 125", "Vijak s podložko je v roki. Kliknite v luknjo."), roka("podlozka", "Podložki 125 + 127B", "Podložki sta v roki. Kliknite pod vijak.", "element"), OROD.kljuc],
   oznaka: (I) => `DIN 933 M10 × ${I.L}`,
   doseg: 130,
-  napisi: [{ x: 28, y: 300 + 2 * TSP * 4.2 + 26, t: "DVE JEKLENI PLOŠČI 2 × 10 mm", velikost: 14 }],
+  napisi: [{ x: 790, y: 300 + 2 * TSP * 4.2 + 30, t: "DVE LOČENI JEKLENI PLOŠČI, SKUPAJ 20 mm", velikost: 14 }],
   podatki: [["Vijak", "DIN 933 / DIN 931"], ["Podložka", "DIN 125"], ["Vzmetna podložka", "DIN 127B"], ["Matica", "DIN 934"], ["Dolžina", "spoj + podložke + matica + 2 navoja"], ["Namesto vzmetne", "samovarovalna matica DIN 985"]],
   konec: { napis: "PRITRJENO", kratko: "Spoj je zategnjen.", naslov: "Spoj po DIN je zategnjen", besedilo: "Premer ste izbrali po luknji, dolžino po debelini spoja s podložkami in matico. Namesto vzmetne podložke lahko uporabite samovarovalno matico DIN 985.", povezave: [ponudba("asco")] },
 });

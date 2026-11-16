@@ -235,8 +235,9 @@ export function sestavi(o) {
           const dno = -g.tPre + (g.tPre + g.D) * vrt;
           const pih = pr(s, li, "pihaj");
           const masa = pr(s, li, "masa");
-          const q = pr(s, li, "vijak");
           const nastavljen = vz?.brezVstavi ? done(s, li, "vlozek") : has("vstavi") && done(s, li, "vstavi");
+          // brez koraka privijanja je vijak na končnem mestu šele, ko je vstavljen
+          const q = has("vijak") ? pr(s, li, "vijak") : (nastavljen ? 1 : 0);
           return (
             <g key={li}>
               {has("vrtaj") && vrt > 0 && <rect x={x - g.hd / 2} y={-g.tPre} width={g.hd} height={dno + g.tPre} fill={C.luknja} />}
