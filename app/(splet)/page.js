@@ -1,7 +1,7 @@
 import ZemljevidProdaje from "@/components/ZemljevidProdaje";
 import Image from "next/image";
 import Link from "next/link";
-import LokacijiDomov from "@/components/LokacijiDomov";
+import VideoPredstavitev from "@/components/VideoPredstavitev";
 import { pridobiKategorije } from "@/lib/podatki";
 import { pridobiVsebine, v } from "@/lib/vsebine";
 import { site } from "@/lib/site";
@@ -13,7 +13,7 @@ import { pridobiIzdelkePoSlugih } from "@/lib/podatki";
 import InstagramObjave from "@/components/InstagramObjave";
 import ClankiDomov from "@/components/ClankiDomov";
 import VideoOzadje from "@/components/VideoOzadje";
-import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
+import { prevedenaStran, prevediMetadata, jezik } from "@/lib/i18n/streznik";
 
 // Predstavitveni video podjetja (cel, z zvokom)
 const VIDEO_SL = "https://www.youtube.com/watch?v=vmdeYdyWzGE";
@@ -36,13 +36,12 @@ const prednosti = [
 
 // Izdelki iz lastne proizvodnje (Šmarje pri Jelšah in Bistrica ob Sotli)
 const lastniIzdelki = [
-  "Jeklena sidra",
-  "Zidni vložki",
-  "Vložki za mavčne plošče",
-  "Udarni vijaki",
-  "Turbo vijaki",
-  "Perforiran trak",
-  "Vijaki po risbi",
+  { naziv: "Jekleno sidro TXH7", opis: "Z oceno ETA", slika: "/slike/asfix/txh7.png", pot: "/program/pritrdila-za-beton/jekleno-sidro-txh7" },
+  { naziv: "Jekleno sidro TX1", opis: "Z oceno ETA", slika: "/slike/asfix/tx1.png", pot: "/program/pritrdila-za-beton/jekleno-sidro-tx1-siroka-podlozka" },
+  { naziv: "TX1 s široko podložko DIN 9021", opis: "Z oceno ETA", slika: "/slike/AF_TX1_9021_dolgo.jpeg", pot: "/program/pritrdila-za-beton/jekleno-sidro-tx1-siroka-podlozka" },
+  { naziv: "Udarni vijak UVS", opis: "Vložek in vijak v enem", slika: "/slike/AF_UVS_Nylon_png.jpeg", pot: "/program/pritrdila-za-suhomontazo/udarni-vijak-nylon" },
+  { naziv: "Zidni vložek AS.MQ", opis: "Najlon PA6", slika: "/slike/asfix/mq.png", pot: "/program/zidni-vlozki/zidni-vlozek-mq" },
+  { naziv: "Perforiran trak", opis: "12 mm in 17 mm", slika: "/slike/asfix/trak.png", pot: "/program/pritrdila-za-suhomontazo/perforiran-trak" },
 ];
 
 const koraki = [
@@ -61,6 +60,7 @@ const certifikati = [
 async function Domov() {
   const { seznam: kategorije } = await pridobiKategorije();
   const b = await pridobiVsebine("domov");
+  const jezikStrani = await jezik();
   const izdelkiResitev = await pridobiIzdelkePoSlugih(vsiSlugi());
 
   return (
@@ -145,16 +145,26 @@ async function Domov() {
                   )}
                 </p>
               </div>
-              <ul className="lastni">
+              <div className="lastni-izd">
                 {lastniIzdelki.map((x) => (
-                  <li key={x}>{x}</li>
+                  <Link key={x.naziv} href={x.pot} className="lastni-k">
+                    <span className="lastni-im">
+                      <Image src={x.slika} alt={x.naziv} fill sizes="(max-width: 620px) 45vw, 180px" style={{ objectFit: "contain" }} />
+                    </span>
+                    <b>{x.naziv}</b>
+                    <small>{x.opis}</small>
+                  </Link>
                 ))}
-              </ul>
+              </div>
               <Link className="more" href="/proizvodnja">
                 Proizvodnja in razvoj →
               </Link>
             </div>
-            <LokacijiDomov />
+            <VideoPredstavitev
+              src={jezikStrani === "sl" ? "/videi/predstavitev-sl.mp4" : "/videi/predstavitev-en.mp4"}
+              poster="/slike/proizvodnja/hero-video-poster.jpg"
+              naslov="Predstavitveni video AS system"
+            />
           </div>
         </div>
       </section>
