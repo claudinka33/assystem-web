@@ -65,10 +65,16 @@ export function PanogaIzbira({ email, panoge, izbrane }) {
   );
 }
 
-export function KontaktObrazec({ panoge, k = null }) {
+const peIme = (x) => (x.naziv2 || x.naziv || "").trim();
+const peKraj = (x) => String(x.posta ?? "").replace(/^[A-Z]{0,2}-?\d{3,6}\s*/, "").trim();
+
+export function KontaktObrazec({ panoge, k = null, poslovalnice = [] }) {
   const [stanje, akcija, caka] = useActionState(shraniKontakt, null);
+  const [pe, setPe] = useState(k?.poslovalnica ?? "");
+  const [kraj, setKraj] = useState(k?.kraj ?? "");
+  const obstaja = !pe || poslovalnice.some((x) => peIme(x) === pe);
   return (
-    <form action={akcija} className="bz-obr">
+    <form action={akcija} className="bz-obr" autoComplete="off">
       {k && <input type="hidden" name="prejsnji" value={k.email} />}
       <div className="bz-polja">
         <div className="adm-polje s2"><label>E-naslov *</label><input name="email" type="email" required defaultValue={k?.email ?? ""} /></div>
@@ -76,8 +82,30 @@ export function KontaktObrazec({ panoge, k = null }) {
         <div className="adm-polje"><label>Podjetje</label><input name="podjetje" defaultValue={k?.podjetje ?? ""} /></div>
         <div className="adm-polje"><label>Davčna</label><input name="davcna" defaultValue={k?.davcna ?? ""} /></div>
         <div className="adm-polje"><label>Telefon</label><input name="telefon" defaultValue={k?.telefon ?? ""} /></div>
-        <div className="adm-polje"><label>Poslovalnica</label><input name="poslovalnica" defaultValue={k?.poslovalnica ?? ""} /></div>
-        <div className="adm-polje"><label>Kraj</label><input name="kraj" defaultValue={k?.kraj ?? ""} /></div>
+        <div className="adm-polje">
+          <label>Poslovalnica{poslovalnice.length ? ` (${poslovalnice.length} iz Vasca)` : ""}</label>
+          {poslovalnice.length ? (
+            <select
+              name="poslovalnica"
+              value={pe}
+              onChange={(e) => {
+                const v = e.target.value;
+                setPe(v);
+                const x = poslovalnice.find((y) => peIme(y) === v);
+                if (x) setKraj(peKraj(x));
+              }}
+            >
+              <option value="">— sedež / brez poslovalnice —</option>
+              {!obstaja && <option value={pe}>{pe}</option>}
+              {poslovalnice.map((x) => (
+                <option key={x.sifra} value={peIme(x)}>{peIme(x)}{peKraj(x) ? ` · ${peKraj(x)}` : ""}</option>
+              ))}
+            </select>
+          ) : (
+            <input name="poslovalnica" value={pe} onChange={(e) => setPe(e.target.value)} autoComplete="off" />
+          )}
+        </div>
+        <div className="adm-polje"><label>Kraj</label><input name="kraj" value={kraj} onChange={(e) => setKraj(e.target.value)} autoComplete="off" /></div>
         <div className="adm-polje s3"><label>Opomba</label><input name="opomba" defaultValue={k?.opomba ?? ""} /></div>
       </div>
       <div className="bz-cb">
@@ -158,7 +186,7 @@ export function OdjavaGumb({ email, odjavljen }) {
 const datum = (d) => (d ? new Date(d).toLocaleDateString("sl-SI") : "");
 
 // Ena vrstica baze: hitra izbira panoge + »Uredi« odpre obrazec pod vrstico.
-export function Vrstica({ k, panoge }) {
+export function Vrstica({ k, panoge, poslovalnice = [] }) {
   const [odprto, setOdprto] = useState(false);
   return (
     <div className={`bz-k${odprto ? " odprt" : ""}${k.odjavljen ? " odj" : ""}`}>
@@ -180,7 +208,7 @@ export function Vrstica({ k, panoge }) {
           <p className="siv" style={{ margin: "0 0 6px", fontSize: 11.5 }}>
             Vir: <b>{k.vir}</b> · dodan {datum(k.ustvarjeno)}{k.vasco_partner ? ` · Vasco partner ${k.vasco_partner}` : ""} · {k.soglasje ? "soglasje za e-novice" : "brez izrecnega soglasja (poslovni kontakt)"}
           </p>
-          <KontaktObrazec panoge={panoge} k={k} />
+          <KontaktObrazec panoge={panoge} k={k} poslovalnice={poslovalnice} />
           <div className="bz-det-noga">
             <OdjavaGumb email={k.email} odjavljen={k.odjavljen} />
             <span style={{ flex: 1 }} />

@@ -47,6 +47,11 @@ export default async function Baza({ searchParams }) {
   const { data: kontakti, count } = await poiz
     .order(p === "nerazvrsceni" ? "ustvarjeno" : "email", { ascending: p !== "nerazvrsceni" })
     .range((st - 1) * NA_STRAN, st * NA_STRAN - 1);
+  const partnerji = [...new Set((kontakti ?? []).map((k) => k.vasco_partner).filter(Boolean))];
+  const { data: pes } = partnerji.length
+    ? await sb.from("b2b_prodajalne").select("vasco_partner, sifra, naziv, naziv2, naslov, posta").in("vasco_partner", partnerji).order("naziv2")
+    : { data: [] };
+  const peZa = (partner) => (pes ?? []).filter((x) => x.vasco_partner === partner);
   const strani = Math.max(1, Math.ceil((count ?? 0) / NA_STRAN));
   const url = (spr) => {
     const o = { q, p, vir, stanje, stran: "1", ...spr };
@@ -119,7 +124,7 @@ export default async function Baza({ searchParams }) {
               </div>
               {(kontakti ?? []).length === 0 && <p className="bz-prazno">Ni kontaktov.</p>}
               {(kontakti ?? []).map((k) => (
-                <Vrstica key={k.email} k={k} panoge={panoge ?? []} />
+                <Vrstica key={k.email} k={k} panoge={panoge ?? []} poslovalnice={peZa(k.vasco_partner)} />
               ))}
             </div>
 
