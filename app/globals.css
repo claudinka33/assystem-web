@@ -3282,3 +3282,48 @@ tr.art-izbran > td { background: #fff4d6 !important; }
   .b2bp-vr .d { text-align: left; }
   .b2bp-vr span[data-l]::before { content: attr(data-l) ": "; color: #9ba0a5; font-size: 11px; }
 }
+
+/* ---------- košarica (kompaktna tabela čez celo širino) ---------- */
+.ksb { font-size: 13px; }
+.ksb-w { max-width: 1680px; margin: 0 auto; padding: 0 clamp(12px, 2.4vw, 32px); }
+.ksb-glava h1 { font-size: clamp(18px, 1.8vw, 22px); }
+.ksb-mreza { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 16px; align-items: start; }
+.ksb-tab { background: #fff; border: 1px solid #dde1e6; border-radius: 6px; overflow: hidden; }
+.ksb-vr { display: grid; grid-template-columns: 48px minmax(180px, 2.2fr) minmax(90px, .9fr) 150px minmax(90px, .8fr) minmax(110px, .9fr) minmax(90px, .8fr) minmax(100px, .9fr) 26px; gap: 10px; align-items: center; padding: 8px 12px; border-top: 1px solid #eceef1; }
+.ksb-tab.b2c .ksb-vr { grid-template-columns: 48px minmax(180px, 2.4fr) minmax(90px, .9fr) 150px minmax(110px, .9fr) minmax(90px, .8fr) minmax(100px, .9fr) 26px; }
+.ksb-vr-gl { border-top: 0; background: #f5f6f8; font-size: 9.5px; font-weight: 700; letter-spacing: .7px; text-transform: uppercase; color: #6e7276; padding-top: 7px; padding-bottom: 7px; }
+.ksb-vr .d { text-align: right; }
+.ksb-sl { width: 48px; height: 48px; border: 1px solid #eceef1; border-radius: 4px; display: grid; place-items: center; background: #fff; overflow: hidden; color: #9ba0a5; }
+.ksb-sl img { width: 100%; height: 100%; object-fit: contain; }
+.ksb-ime { min-width: 0; line-height: 1.35; }
+.ksb-ime a, .ksb-ime > b { font-weight: 600; color: var(--color-ink-2); font-size: 13px; }
+.ksb-ime a:hover { color: var(--color-red); }
+.ksb-dim { font-weight: 800; color: var(--color-ink-2); }
+.ksb-ime p { margin: 2px 0 0; font-size: 11.5px; color: #6e7276; overflow-wrap: anywhere; }
+.ksb-ime em { font-style: normal; color: #9ba0a5; }
+.ksb-pak, .ksb-kol { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.ksb-pak b { font-size: 12.5px; font-weight: 600; }
+.ksb-pak span, .ksb-kol > span { font-size: 11px; color: #6e7276; }
+.ksb-kol .ks-st { transform: scale(.88); transform-origin: left center; }
+.ksb-redna { color: #9ba0a5; }
+.ksb-siv { color: #6e7276; }
+.ksb-pop { display: inline-block; margin-left: 6px; font-style: normal; font-size: 10.5px; font-weight: 700; color: #fff; background: var(--color-red); padding: 1px 5px; border-radius: 3px; vertical-align: 1px; }
+.ksb-vred { font-weight: 800; font-size: 13.5px; color: var(--color-ink-2); }
+.ksb-noga { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; padding: 9px 12px; border-top: 1px solid #eceef1; font-size: 12px; background: #fafbfc; }
+.ksb-noga a { font-weight: 600; }
+.ksb-noga span { color: #6e7276; }
+.ksb-pov .trg-v { font-size: 13px; }
+.ksb-prih b, .ksb-prih span { color: #1a7f3c; }
+@media (max-width: 1200px) {
+  .ksb-mreza { grid-template-columns: 1fr; }
+}
+@media (max-width: 900px) {
+  .ksb-vr-gl { display: none; }
+  .ksb-vr, .ksb-tab.b2c .ksb-vr { grid-template-columns: 48px 1fr 1fr 26px; gap: 6px 10px; }
+  .ksb-vr > .ksb-ime { grid-column: 2 / 4; }
+  .ksb-vr > .ks-x { grid-column: 4; grid-row: 1; }
+  .ksb-vr > [data-l] { grid-column: span 1; text-align: left; }
+  .ksb-vr > .ksb-pak, .ksb-vr > .ksb-kol { grid-column: 2 / 4; }
+  .ksb-vr > [data-l].d { display: flex; justify-content: space-between; grid-column: 2 / 4; }
+  .ksb-vr > [data-l].d::before { content: attr(data-l); color: #9ba0a5; font-size: 11px; }
+}

@@ -4,8 +4,8 @@ export const metadata = { title: "Košarica", robots: { index: false } };
 
 export default function Stran() {
   return (
-    <section className="trg">
-      <div className="w">
+    <section className="trg ksb">
+      <div className="ksb-w">
         <Kosarica />
       </div>
     </section>
