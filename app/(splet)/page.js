@@ -12,6 +12,10 @@ import { objekt, cone, vsiSlugi } from "@/lib/resitve";
 import { pridobiIzdelkePoSlugih } from "@/lib/podatki";
 import InstagramObjave from "@/components/InstagramObjave";
 import ClankiDomov from "@/components/ClankiDomov";
+import VideoOzadje from "@/components/VideoOzadje";
+
+// Predstavitveni video podjetja (cel, z zvokom)
+const VIDEO_SL = "https://www.youtube.com/watch?v=vmdeYdyWzGE";
 
 export const revalidate = 60;
 
@@ -60,8 +64,10 @@ export default async function Domov() {
 
   return (
     <>
-      {/* ---------- Hero ---------- */}
-      <section className="hero">
+      {/* ---------- Hero: video iz lastne proizvodnje ---------- */}
+      <section className="hero hero-video">
+        <VideoOzadje src="/videi/proizvodnja-hero.mp4" poster="/slike/proizvodnja/hero-video-poster.jpg" />
+        <div className="vid-tema" aria-hidden="true" />
         <div className="w">
           <div>
             <span className="kick">
@@ -93,23 +99,23 @@ export default async function Domov() {
               <Link className="b b-w" href="/program">
                 Prodajni program
               </Link>
-              <Link className="b b-o" href="/kontakt">
-                Kontaktirajte nas
+              <Link className="b b-o" href="/proizvodnja">
+                Naša proizvodnja
               </Link>
+              <a
+                className="b-video"
+                href={VIDEO_SL}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span aria-hidden="true" />
+                Poglej predstavitveni video
+              </a>
             </div>
           </div>
-
-          <div className="hero-im">
-            <Image
-              src="/hero-izdelki-2026.png"
-              alt="Pritrdila ASfix: jekleno sidro TXH7, zidni vložki, kemično sidro EASF TOP, udarni vijaki, vrečka in škatla"
-              width={1100}
-              height={1044}
-              priority
-              sizes="(max-width: 1000px) 100vw, 640px"
-              style={{ width: "100%", height: "auto" }}
-            />
-          </div>
+        </div>
+        <div className="vid-oznaka" aria-hidden="true">
+          Lastna proizvodnja · Šmarje pri Jelšah in Bistrica ob Sotli
         </div>
       </section>
 

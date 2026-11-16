@@ -5,6 +5,19 @@ import { site } from "@/lib/site";
 import { ZNAMKE_INFO } from "@/lib/znamke";
 import { dostopPolice } from "@/lib/b2b";
 import ZaklenjenoB2B from "@/components/ZaklenjenoB2B";
+import MenjavaSlik from "@/components/MenjavaSlik";
+
+// Glava: artikli iz B2B ponudbe, menjajo se vsaki 2 s
+const IZDELKI_HERO = [
+  { src: "/slike/asfix/txh7.png", naziv: "Jekleno sidro TXH7" },
+  { src: "/slike/asfix/udarni.png", naziv: "Udarni vijak" },
+  { src: "/slike/asfix/mq.png", naziv: "Zidni vložek MQ" },
+  { src: "/slike/asfix/turbo.png", naziv: "Turbo vijak" },
+  { src: "/slike/asfix/gips.png", naziv: "Vložek za mavčne plošče" },
+  { src: "/slike/asfix/trak.png", naziv: "Perforiran trak" },
+  { src: "/slike/asfix/afr41.png", naziv: "Škatla ASfix" },
+  { src: "/slike/asfix/vrecka-rdeca.png", naziv: "Vrečka ASfix" },
+];
 
 export const dynamic = "force-dynamic";
 
@@ -67,17 +80,8 @@ export default async function ZaTrgovce() {
               <a className="b b-o" href="#dolzine">Dolžine polic</a>
             </div>
           </div>
-          <div className="zn-slika trg-hero-im">
-            <Image
-              src={dostop ? "/slike/trgovci/hero-police.jpg" : "/slike/proizvodnja/hero-izdelki.png"}
-              alt={dostop ? "Police ASco, ASfix in Silvermate v trgovini" : "Izdelki ASfix in ASco"}
-              width={dostop ? 1997 : 1416}
-              height={dostop ? 1100 : 941}
-              unoptimized={dostop}
-              priority
-              sizes="(max-width: 1000px) 92vw, 640px"
-              style={{ width: "100%", height: "auto" }}
-            />
+          <div className="trg-hero-menjava">
+            <MenjavaSlik slike={IZDELKI_HERO} />
           </div>
         </div>
       </section>

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import KorakiSlike from "@/components/KorakiSlike";
 import FotoGalerija from "@/components/FotoGalerija";
+import VideoOzadje from "@/components/VideoOzadje";
 import { FOTO_KOVANJE, FOTO_PLASTIKA, FOTO_ORODJARNA, FOTO_KAKOVOST, FOTO_VPN, FOTO_SIDRA, FOTO_VIJAKI, FOTO_PLASTIKA_2, FOTO_MONTAZA, FOTO_PAKIRANJE, FOTO_ZEBLJI, FOTO_SKLADISCE } from "@/lib/foto";
 
 export const metadata = {
@@ -195,8 +196,10 @@ const kakovost = [
 export default function Proizvodnja() {
   return (
     <>
-      {/* Glava */}
-      <section className="zn-hero antracit">
+      {/* Glava: video iz proizvodnje */}
+      <section className="zn-hero antracit zn-video">
+        <VideoOzadje src="/videi/proizvodnja-hero.mp4" poster="/slike/proizvodnja/hero-video-poster.jpg" />
+        <div className="vid-tema" aria-hidden="true" />
         <div className="w">
           <div>
             <nav className="drobtine">
@@ -219,18 +222,11 @@ export default function Proizvodnja() {
             <div className="zn-gumbi">
               <a className="b b-r" href="#izdelki">Kaj izdelamo</a>
               <Link className="b b-o" href="/kontakt?vir=proizvodnja">Povpraševanje</Link>
+              <a className="b-video" href="https://www.youtube.com/watch?v=vmdeYdyWzGE" target="_blank" rel="noopener noreferrer">
+                <span aria-hidden="true" />
+                Cel video z zvokom
+              </a>
             </div>
-          </div>
-          <div className="zn-slika pr-hero-im" style={{ maxWidth: 640, justifySelf: "center" }}>
-            <Image
-              src="/slike/proizvodnja/hero-izdelki.png"
-              alt="Jekleno sidro, zidni vložek, udarni vijak in perforiran trak iz lastne proizvodnje"
-              width={1416}
-              height={941}
-              priority
-              sizes="(max-width: 1000px) 90vw, 560px"
-              style={{ width: "100%", height: "auto" }}
-            />
           </div>
         </div>
       </section>
