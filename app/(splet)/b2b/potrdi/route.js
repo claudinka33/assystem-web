@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { supabaseServer } from "@/lib/supabase-server";
+import { supabaseB2B } from "@/lib/supabase-server";
 
 // Povezava iz e-sporočila: potrditev e-naslova (signup/email) ali ponastavitev gesla (recovery) ali povabilo (invite).
 export async function GET(request) {
@@ -9,7 +9,7 @@ export async function GET(request) {
   const type = tipi[url.searchParams.get("type")] ?? "email";
   const nov = url.searchParams.get("nov") === "1";
   if (token_hash) {
-    const sb = await supabaseServer();
+    const sb = await supabaseB2B();
     let { error } = await sb.auth.verifyOtp({ token_hash, type });
     if (error && type === "email") ({ error } = await sb.auth.verifyOtp({ token_hash, type: "signup" }));
     if (!error) {

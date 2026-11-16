@@ -4,6 +4,11 @@ import { createClient } from "@supabase/supabase-js";
 import { poisciAdmina } from "./lib/admin-dostop";
 import { kljucIzPoti, imaDostop } from "./lib/dovoljenja";
 
+// B2B seja ima svoj piškotek (ločen od admin seje) — glej lib/supabase-server.js.
+const B2B_PISKOTEK = "sb-b2b-auth-token";
+const jeB2BPiskotek = (n) => n.startsWith(B2B_PISKOTEK);
+const jeAdminPiskotek = (n) => n.startsWith("sb-") && n.includes("auth-token") && !jeB2BPiskotek(n);
+
 // Ime piškotka, ki pove, da je obiskovalec vpisal geslo.
 const PISKOTEK = "as_vstop";
 
@@ -23,21 +28,36 @@ function zeton(geslo) {
 // Slike polic za trgovce — samo za aktivne B2B kupce in admine.
 const ZASCITENE_SLIKE = ["/slike/trgovci/", "/slike/silvermate/polica-"];
 
+async function uporabnikIzPiskotka(request, piskotek) {
+  const sb = createServerClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_KEY, {
+    ...(piskotek ? { cookieOptions: { name: piskotek } } : {}),
+    cookies: { getAll: () => request.cookies.getAll(), setAll: () => {} },
+  });
+  const { data: { user } } = await sb.auth.getUser();
+  return user;
+}
+
 async function imaDostopDoPolic(request) {
-  const imaSejo = request.cookies.getAll().some((c) => c.name.startsWith("sb-") && c.name.includes("auth-token"));
-  if (!imaSejo) return false;
+  const imena = request.cookies.getAll().map((c) => c.name);
+  const b2b = imena.some(jeB2BPiskotek);
+  const adm = imena.some(jeAdminPiskotek);
+  if (!b2b && !adm) return false;
   try {
-    const sb = createServerClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_KEY, {
-      cookies: { getAll: () => request.cookies.getAll(), setAll: () => {} },
-    });
-    const { data: { user } } = await sb.auth.getUser();
-    if (!user) return false;
-    const admin = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SECRET_KEY, {
+    const servis = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SECRET_KEY, {
       auth: { persistSession: false, autoRefreshToken: false },
     });
-    const { data: k } = await admin.from("b2b_kupci").select("status, vasco_partner").eq("user_id", user.id).maybeSingle();
-    if (k && k.status === "aktiven" && k.vasco_partner) return true;
-    return Boolean(await poisciAdmina(admin, user));
+    if (b2b) {
+      const user = await uporabnikIzPiskotka(request, B2B_PISKOTEK);
+      if (user) {
+        const { data: k } = await servis.from("b2b_kupci").select("status, vasco_partner").eq("user_id", user.id).maybeSingle();
+        if (k && k.status === "aktiven" && k.vasco_partner) return true;
+      }
+    }
+    if (adm) {
+      const user = await uporabnikIzPiskotka(request, null);
+      if (user && (await poisciAdmina(servis, user))) return true;
+    }
+    return false;
   } catch {
     return false;
   }
@@ -71,7 +91,25 @@ export async function proxy(request) {
   // ---------- osvezitev seje (admin in prijavljeni B2B kupci) ----------
   let response = NextResponse.next({ request });
 
-  const imaSejo = request.cookies.getAll().some((c) => c.name.startsWith("sb-") && c.name.includes("auth-token"));
+  const imena = request.cookies.getAll().map((c) => c.name);
+
+  // B2B seja (ločen piškotek) — samo osvežitev žetona
+  if (imena.some(jeB2BPiskotek) && !pathname.startsWith("/api/") && !pathname.startsWith("/admin")) {
+    const b2b = createServerClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_KEY, {
+      cookieOptions: { name: B2B_PISKOTEK },
+      cookies: {
+        getAll: () => request.cookies.getAll(),
+        setAll: (list) => {
+          list.forEach(({ name, value }) => request.cookies.set(name, value));
+          response = NextResponse.next({ request });
+          list.forEach(({ name, value, options }) => response.cookies.set(name, value, options));
+        },
+      },
+    });
+    await b2b.auth.getUser();
+  }
+
+  const imaSejo = imena.some(jeAdminPiskotek);
   if (pathname.startsWith("/admin") || (imaSejo && !pathname.startsWith("/api/"))) {
     const supabase = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -81,7 +119,9 @@ export async function proxy(request) {
           getAll: () => request.cookies.getAll(),
           setAll: (list) => {
             list.forEach(({ name, value }) => request.cookies.set(name, value));
+            const prej = response.cookies.getAll(); // ohrani morebitne osvežene B2B piškotke
             response = NextResponse.next({ request });
+            prej.forEach((c) => response.cookies.set(c));
             list.forEach(({ name, value, options }) =>
               response.cookies.set(name, value, options)
             );
