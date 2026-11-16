@@ -414,6 +414,7 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
         <table className="mob-kartice">
           <thead>
             <tr>
+              {imaPakiranje && <th>Pakiranje</th>}
               <th>Šifra</th>
               <th className="izd-ean">EAN</th>
               <th>Naziv</th>
@@ -432,12 +433,26 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
                 <th>Cena z DDV</th>
               )}
               <th></th>
-              {imaPakiranje && <th>Pakiranje</th>}
             </tr>
           </thead>
           <tbody>
             {prikaz.map((a) => (
               <tr key={a.id} id={`art-${a.sifra}`} className={oznacena === a.sifra ? "art-izbran" : undefined}>
+                {imaPakiranje && (
+                  <td data-l="Pakiranje">
+                    {(() => {
+                      const pv = (a.lastnosti ?? {}).Pakiranje;
+                      const ik = ikonaPakiranja(pv, a.lastnosti, ascoIzdelek, izdelek?.znamka);
+                      const besedilo = pv === "osnovno" ? "škatla" : pv ?? "—";
+                      return (
+                        <span className="pak-ik">
+                          {ik && <img src={ik} alt="" width={30} height={30} loading="lazy" />}
+                          {besedilo}
+                        </span>
+                      );
+                    })()}
+                  </td>
+                )}
                 <td className="mk-gl">
                   <span className="izd-sif">{a.sifra}</span>
                   {a.dimenzija && <span className="mk-dim">{a.dimenzija}</span>}
@@ -469,21 +484,6 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
                 <td className="mk-cela">
                   <VKosarico a={a} cena={cenaZa(a)} izdelek={izdelek} b2b={b2b} />
                 </td>
-                {imaPakiranje && (
-                  <td data-l="Pakiranje">
-                    {(() => {
-                      const pv = (a.lastnosti ?? {}).Pakiranje;
-                      const ik = ikonaPakiranja(pv, a.lastnosti, ascoIzdelek, izdelek?.znamka);
-                      const besedilo = pv === "osnovno" ? "škatla" : pv ?? "—";
-                      return (
-                        <span className="pak-ik">
-                          {ik && <img src={ik} alt="" width={30} height={30} loading="lazy" />}
-                          {besedilo}
-                        </span>
-                      );
-                    })()}
-                  </td>
-                )}
               </tr>
             ))}
             {prikaz.length === 0 && (
