@@ -1,5 +1,5 @@
 import { supabaseAdmin } from "@/lib/supabase-server";
-import { adminB2B, izbrisiB2B } from "@/lib/akcije/b2b";
+import { adminB2B, izbrisiB2B, preklopiRacuneB2B } from "@/lib/akcije/b2b";
 import IzbrisiGumb from "../../IzbrisiGumb";
 import { B2B_STATUSI } from "@/lib/b2b";
 import Osvezi from "../../Osvezi";
@@ -30,6 +30,8 @@ export default async function B2BKupci({ searchParams }) {
   const { data: vseProdajalne } = partnerji.length
     ? await supabaseAdmin().from("b2b_prodajalne").select("vasco_partner, sifra, naziv, naziv2, naslov, posta").in("vasco_partner", partnerji).order("naziv2")
     : { data: [] };
+  const { data: racVkl } = partnerji.length ? await supabaseAdmin().from("b2b_racuni_partnerji").select("vasco_partner, zadnji_prenos_ob").in("vasco_partner", partnerji) : { data: [] };
+  const racuniPartnerja = Object.fromEntries((racVkl ?? []).map((x) => [String(x.vasco_partner), x]));
   const prodajalnePartnerja = {};
   for (const x of vseProdajalne ?? []) (prodajalnePartnerja[x.vasco_partner] ??= []).push(x);
   const imeProdajalne = (partner, sifra) => {
@@ -56,7 +58,11 @@ export default async function B2BKupci({ searchParams }) {
           </div>
         )}
         {izbrisano && <div className="uspeh">B2B uporabnik {izbrisano} je izbrisan. Njegova naročila ostanejo v seznamu naročil.</div>}
-        {shranjeno && <div className="opozorilo" style={{ marginBottom: 12, borderColor: "#1a7f3c", color: "#1a7f3c" }}>Spremembe shranjene.</div>}
+        {shranjeno && (
+          <div className="uspeh">
+            {{ odobreno: "✓ Uporabnik je odobren — poslovalnica in podatki so shranjeni. Kupec dobi mail, ko je dostop aktiven.", zavrnjeno: "Registracija je zavrnjena.", "racuni-vklop": "✓ Računi vklopljeni — prenesejo se ob naslednji sinhronizaciji (do 20 min).", "racuni-izklop": "Računi izklopljeni — kupec jih ne vidi več." }[shranjeno] ?? "✓ Spremembe shranjene."}
+          </div>
+        )}
         <NovB2B />
         {kupci.length === 0 && <div className="opozorilo">Ni še registracij.</div>}
         {skupine.map((uporabniki) => {
@@ -72,6 +78,15 @@ export default async function B2BKupci({ searchParams }) {
                   {pr.length ? ` · ${pr.length} poslovalnic` : ""}
                 </span>
                 <span style={{ flex: 1 }} />
+                {g.vasco_partner && (
+                  <form action={preklopiRacuneB2B} style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+                    <input type="hidden" name="partner" value={g.vasco_partner} />
+                    <input type="hidden" name="vklopi" value={racuniPartnerja[String(g.vasco_partner)] ? "0" : "1"} />
+                    <button className={racuniPartnerja[String(g.vasco_partner)] ? "gumb mini" : "gumb siv mini"} type="submit" title="Kupec vidi letošnje račune iz Vasca (po poslovalnicah) z izpisom PDF">
+                      {racuniPartnerja[String(g.vasco_partner)] ? "✓ Računi v B2B" : "Vklopi račune v B2B"}
+                    </button>
+                  </form>
+                )}
                 <NovB2B zacetnaDavcna={g.davcna} oznaka="+ Dodaj uporabnika" siv />
               </div>
               <p style={{ fontSize: 12.5, margin: "8px 0 10px", color: "#4a5056" }}>
@@ -182,7 +197,7 @@ export default async function B2BKupci({ searchParams }) {
                     </div>
                     <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
                       <button className="gumb" type="submit" name="akcija" value="shrani">Shrani spremembe</button>
-                      {k.status !== "aktiven" && <button className="gumb" type="submit" name="akcija" value="odobri">Odobri</button>}
+                      {k.status !== "aktiven" && <button className="gumb" type="submit" name="akcija" value="odobri">Shrani in odobri</button>}
                       <button className="gumb siv" type="submit" name="akcija" value="preveri">Preveri v Vascu</button>
                       {k.status !== "zavrnjen" && <button className="gumb siv" type="submit" name="akcija" value="povabilo">Pošlji povabilo za geslo</button>}
                       {k.status !== "zavrnjen" && <button className="gumb siv" type="submit" name="akcija" value="zavrni">Zavrni</button>}

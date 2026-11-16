@@ -3221,3 +3221,64 @@ tr.art-izbran > td { background: #fff4d6 !important; }
   .popb2b-vrsta { grid-template-columns: 1fr; }
   .popb2b-x { color: #fff; }
 }
+
+/* ---------- B2B račun (kompakten, čez celo širino, v slogu administracije) ---------- */
+.b2bp { padding: 16px 0 40px; background: #f4f5f7; font-family: "Inter", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif; font-size: 13px; line-height: 1.45; color: #23262a; }
+.b2bp-w { max-width: 1680px; margin: 0 auto; padding: 0 clamp(12px, 2.4vw, 32px); }
+.b2bp-glava { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
+.b2bp-ime span { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--color-red); }
+.b2bp-ime h1 { margin: 0; font-size: clamp(16px, 1.6vw, 20px); font-weight: 700; line-height: 1.2; font-family: inherit; text-transform: none; letter-spacing: -.1px; }
+.b2bp-gumbi { display: flex; gap: 6px; flex-wrap: wrap; }
+.b2bp-g { display: inline-flex; align-items: center; height: 30px; padding: 0 12px; border: 1px solid #cfd4da; background: #fff; color: #3f4140; font: inherit; font-size: 12.5px; font-weight: 600; border-radius: 4px; cursor: pointer; text-decoration: none; white-space: nowrap; }
+.b2bp-g:hover { border-color: #3f4140; }
+.b2bp-g.rdec { background: var(--color-red); border-color: var(--color-red); color: #fff; }
+.b2bp-g.rdec:hover { background: #a91a1f; }
+.b2bp-obv { background: #fff; border: 1px solid #e3e6e9; border-left: 3px solid var(--color-red); border-radius: 4px; padding: 7px 11px; margin-bottom: 8px; font-size: 12.5px; }
+.b2bp-obv.ok { border-left-color: #1a7f3c; background: #f1faf4; }
+.b2bp-pod { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; background: #dde1e6; border: 1px solid #dde1e6; border-radius: 6px; overflow: hidden; }
+.b2bp-pod > div { background: #fff; padding: 8px 12px; display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.b2bp-pod > .s2 { grid-column: span 2; }
+.b2bp-pod em { font-style: normal; font-size: 9.5px; letter-spacing: .7px; text-transform: uppercase; color: #6e7276; font-weight: 700; }
+.b2bp-pod b { font-size: 13px; font-weight: 600; overflow-wrap: anywhere; }
+.b2bp-pod span { color: #6e7276; font-size: 11.5px; overflow-wrap: anywhere; }
+.b2bp-zav { display: flex; justify-content: space-between; align-items: flex-end; gap: 10px; flex-wrap: wrap; margin: 16px 0 8px; border-bottom: 1px solid #dde1e6; }
+.b2bp-zav nav { display: flex; gap: 2px; }
+.b2bp-zav nav a { padding: 7px 12px; font-size: 12.5px; font-weight: 600; color: #6e7276; border-bottom: 2px solid transparent; margin-bottom: -1px; text-decoration: none; }
+.b2bp-zav nav a i { font-style: normal; font-weight: 500; font-size: 11px; background: #e9ecef; color: #3f4140; padding: 0 6px; border-radius: 8px; margin-left: 4px; }
+.b2bp-zav nav a.on { color: #23262a; border-bottom-color: var(--color-red); }
+.b2bp-pe { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; padding-bottom: 6px; font-size: 11.5px; }
+.b2bp-pe span { color: #6e7276; margin-right: 2px; }
+.b2bp-pe a { padding: 2px 8px; border: 1px solid #dde1e6; background: #fff; border-radius: 3px; color: #3f4140; text-decoration: none; }
+.b2bp-pe a.on { background: #3f4140; color: #fff; border-color: #3f4140; }
+.b2bp-kpi { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 8px; margin-bottom: 8px; }
+.b2bp-kpi > div { background: #fff; border: 1px solid #dde1e6; border-radius: 6px; padding: 8px 12px; }
+.b2bp-kpi em { display: block; font-style: normal; font-size: 9.5px; letter-spacing: .7px; text-transform: uppercase; color: #6e7276; font-weight: 700; }
+.b2bp-kpi b { font-size: 18px; font-weight: 700; }
+.b2bp-kpi .odprto b { color: #b26a00; }
+.b2bp-tab { background: #fff; border: 1px solid #dde1e6; border-radius: 6px; overflow: hidden; }
+.b2bp-tab > details { border-top: 1px solid #eceef1; }
+.b2bp-tab > details > summary { list-style: none; cursor: pointer; }
+.b2bp-tab > details > summary::-webkit-details-marker { display: none; }
+.b2bp-tab > details > summary:hover, .b2bp-tab > details[open] > summary { background: #f3f6f9; }
+.b2bp-vr { display: grid; gap: 10px; align-items: center; padding: 6px 12px; font-size: 12.5px; }
+.b2bp-vr.rac { grid-template-columns: 110px 90px minmax(120px, 1.6fr) 60px 110px 110px 150px 50px; }
+.b2bp-vr.nar { grid-template-columns: 130px 90px minmax(100px, 1fr) minmax(120px, 1.4fr) minmax(100px, 1fr) 100px 100px 110px; }
+.b2bp-vr .d, .b2bp-post .d { text-align: right; }
+.b2bp-vr-gl { background: #f5f6f8; font-size: 9.5px; font-weight: 700; letter-spacing: .7px; text-transform: uppercase; color: #6e7276; }
+.b2bp-st { font-style: normal; color: #fff; font-size: 10.5px; font-weight: 600; padding: 1px 7px; border-radius: 3px; white-space: nowrap; }
+.b2bp-pdf { display: inline-block; font-size: 10.5px; font-weight: 700; color: var(--color-red); border: 1px solid #f3c6c8; background: #fff6f6; padding: 1px 7px; border-radius: 3px; text-decoration: none; }
+.b2bp-pdf:hover { background: var(--color-red); color: #fff; }
+.b2bp-post { padding: 4px 12px 12px 24px; background: #fafbfc; overflow-x: auto; }
+.b2bp-post table { width: 100%; border-collapse: collapse; font-size: 12px; background: #fff; border: 1px solid #eceef1; }
+.b2bp-post th { text-align: left; font-size: 9.5px; text-transform: uppercase; letter-spacing: .5px; color: #6e7276; padding: 5px 8px; background: #f5f6f8; white-space: nowrap; }
+.b2bp-post td { padding: 4px 8px; border-top: 1px solid #f0f2f4; }
+.b2bp-post p { font-size: 12px; margin: 6px 0 0; color: #6e7276; }
+.b2bp-prazno { color: #6e7276; background: #fff; border: 1px dashed #cfd4da; border-radius: 6px; padding: 14px; margin: 0; }
+.b2bp-noga { font-size: 11.5px; color: #9ba0a5; margin: 10px 0 0; }
+@media (max-width: 900px) {
+  .b2bp-pod > .s2 { grid-column: auto; }
+  .b2bp-vr-gl { display: none; }
+  .b2bp-vr.rac, .b2bp-vr.nar { grid-template-columns: 1fr 1fr; gap: 3px 12px; }
+  .b2bp-vr .d { text-align: left; }
+  .b2bp-vr span[data-l]::before { content: attr(data-l) ": "; color: #9ba0a5; font-size: 11px; }
+}
