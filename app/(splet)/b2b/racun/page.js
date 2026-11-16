@@ -155,7 +155,7 @@ export default async function Racun({ searchParams }) {
                         <tbody>
                           {(r.postavke ?? []).map((v, i) => (
                             <tr key={i}>
-                              <td>{v.sifra}</td><td>{v.naziv || "—"}</td>
+                              <td>{v.sifra}</td><td>{String(v.naziv || "—").replace(/\n/g, " ")}</td>
                               <td className="d">{v.kolicina} {enotaVasco(v.enota)}</td>
                               <td className="d">{eur(Number(v.cena))}</td>
                               <td className="d">{Number(v.rabat) ? `${v.rabat} %` : ""}</td>

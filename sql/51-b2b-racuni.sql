@@ -25,3 +25,6 @@ create table if not exists b2b_racuni (
 );
 create index if not exists b2b_racuni_partner on b2b_racuni (vasco_partner, prodajalna, datum desc);
 alter table b2b_racuni enable row level security;
+
+-- (dodano) podatki glave računa za izpis v obliki Vascovega računa (valuta, rok plačila, naročilo, komercialist ...)
+alter table b2b_racuni add column if not exists glava jsonb not null default '{}'::jsonb;
