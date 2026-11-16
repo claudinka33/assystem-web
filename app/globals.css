@@ -3426,3 +3426,11 @@ tr.art-izbran > td { background: #fff4d6 !important; }
 .b2bp-pod { display: block; color: #8a8f94; font-size: 11px; }
 .b2bp-en { color: #8a8f94; font-size: 10.5px; }
 .b2bp-post tfoot td { border-top: 1px solid #eceef1; background: #fafbfc; }
+
+/* preklop jezika (SL · EN · DE) */
+.jeziki { display: inline-flex; gap: 10px; }
+.util .lang .jeziki a { margin: 0; }
+.mob-jeziki { padding: 14px 0 4px; }
+.mob-jeziki .jeziki { gap: 18px; }
+.mob-jeziki .jeziki a { font-weight: 700; color: var(--color-muted); }
+.mob-jeziki .jeziki a.on { color: var(--color-red); }

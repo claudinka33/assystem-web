@@ -7,10 +7,11 @@ import KarticeIzdelkov from "@/components/KarticeIzdelkov";
 import YouTubeVideo from "@/components/YouTubeVideo";
 import { pridobiIzdelkeZnamke, skriteZnamke } from "@/lib/podatki";
 import { MUNGO_VIDEI } from "@/lib/videi";
+import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
 export const revalidate = 300;
 
-export const metadata = {
+const metadataSl = {
   title: "Mungo: vložki, sidra in kemične mase",
   description:
     "Mungo v prodajnem programu AS system: najlonski vložki iz poliamida PA 6, okvirni vložki, kovinska sidra z evropsko tehnično oceno in kemične mase za beton, opeko in votle stene.",
@@ -52,7 +53,7 @@ const druzine = [
   { naziv: "Kemične mase", opis: "Vinilestrske, epoksidne in hibridne mase za največje obremenitve, z mrežico za votle podlage.", slika: "/slike/Mungo_MAN.jpeg", href: "/program/kemicna-pritrditev" },
 ];
 
-export default async function Mungo() {
+async function Mungo() {
   // Znamka izklopljena v Admin → Znamke → stran ne obstaja (404).
   if ((await skriteZnamke()).includes("MUNGO")) notFound();
   const izdelki = await pridobiIzdelkeZnamke("MUNGO");
@@ -213,4 +214,10 @@ export default async function Mungo() {
       </div>
     </>
   );
+}
+
+export default prevedenaStran(Mungo);
+
+export async function generateMetadata() {
+  return prevediMetadata(metadataSl);
 }

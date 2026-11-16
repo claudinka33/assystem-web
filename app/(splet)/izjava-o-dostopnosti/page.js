@@ -1,14 +1,15 @@
 import PravnaStran from "@/components/PravnaStran";
 import { site } from "@/lib/site";
 import { VELJA_OD } from "@/lib/pravno";
+import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
-export const metadata = {
+const metadataSl = {
   title: "Izjava o dostopnosti",
   description: "Izjava o dostopnosti spletne strani in spletne trgovine assystem.si.",
   alternates: { canonical: "/izjava-o-dostopnosti" },
 };
 
-export default function Dostopnost() {
+function Dostopnost() {
   return (
     <PravnaStran pot="/izjava-o-dostopnosti" naslov="Izjava o dostopnosti" opis="Želimo, da stran lahko uporablja vsak." veljaOd={VELJA_OD}>
       <p>
@@ -48,4 +49,10 @@ export default function Dostopnost() {
       </p>
     </PravnaStran>
   );
+}
+
+export default prevedenaStran(Dostopnost);
+
+export async function generateMetadata() {
+  return prevediMetadata(metadataSl);
 }

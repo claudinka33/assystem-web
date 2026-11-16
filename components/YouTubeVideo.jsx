@@ -1,11 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { prevedeno } from "@/lib/i18n/odjemalec";
 
 /* YouTube video, ki se naloži šele ob kliku (youtube-nocookie).
    Do klika ni piškotkov YouTuba in stran ostane hitra. */
 // samodejno: video se takoj predvaja v tišini (brez zvoka) in se ponavlja.
-export default function YouTubeVideo({ id, naslov, samodejno = false }) {
+function YouTubeVideo({ id, naslov, samodejno = false }) {
   const [igra, setIgra] = useState(samodejno);
   return (
     <div className="yt">
@@ -31,3 +32,5 @@ export default function YouTubeVideo({ id, naslov, samodejno = false }) {
     </div>
   );
 }
+
+export default prevedeno(YouTubeVideo);

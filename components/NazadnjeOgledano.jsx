@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import KarticeIzdelkov from "@/components/KarticeIzdelkov";
+import { prevedeno } from "@/lib/i18n/odjemalec";
 
 // Izdelki, ki jih je obiskovalec že odprl. Shranjeno samo v njegovem brskalniku.
 const KLJUC = "as_nazadnje_ogledano";
@@ -17,7 +18,7 @@ function preberi() {
   }
 }
 
-export default function NazadnjeOgledano({ trenutni }) {
+function NazadnjeOgledano({ trenutni }) {
   const [seznam, setSeznam] = useState([]);
   const slug = trenutni?.slug;
 
@@ -34,3 +35,5 @@ export default function NazadnjeOgledano({ trenutni }) {
 
   return <KarticeIzdelkov oznaka="Vaš ogled" naslov="Nazadnje ogledano" izdelki={seznam} />;
 }
+
+export default prevedeno(NazadnjeOgledano);

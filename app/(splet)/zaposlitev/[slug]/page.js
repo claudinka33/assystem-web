@@ -5,10 +5,11 @@ import { notFound } from "next/navigation";
 import ObrazecPrijava from "@/components/ObrazecPrijava";
 import { pridobiDelovnoMesto } from "@/lib/podatki";
 import { datumSlo } from "@/lib/pomoc";
+import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
 export const revalidate = 60;
 
-export async function generateMetadata({ params }) {
+async function generateMetadataSl({ params }) {
   const { slug } = await params;
   const m = await pridobiDelovnoMesto(slug);
   if (!m) return {};
@@ -38,7 +39,7 @@ function Seznam({ naslov, postavke }) {
   );
 }
 
-export default async function DelovnoMesto({ params }) {
+async function DelovnoMesto({ params }) {
   const { slug } = await params;
   const m = await pridobiDelovnoMesto(slug);
   if (!m) notFound();
@@ -108,4 +109,10 @@ export default async function DelovnoMesto({ params }) {
       </section>
     </>
   );
+}
+
+export default prevedenaStran(DelovnoMesto);
+
+export async function generateMetadata(props) {
+  return prevediMetadata(await generateMetadataSl(props));
 }

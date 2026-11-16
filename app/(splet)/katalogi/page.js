@@ -2,10 +2,11 @@ import { stevilo, DOKUMENT } from "@/lib/sklanjanje";
 import Link from "next/link";
 import NaslovStrani from "@/components/NaslovStrani";
 import { pridobiDokumente } from "@/lib/podatki";
+import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
 export const revalidate = 60;
 
-export const metadata = {
+const metadataSl = {
   title: "Katalogi in prenosi",
   description:
     "Dokumentacija za pritrdila ASfix: evropske tehnične ocene ETA, letaki in druga gradiva za prenos ali na zahtevo.",
@@ -22,7 +23,7 @@ const skupine = [
   ["risba", "Tehnične risbe", "Dimenzijske risbe izdelkov."],
 ];
 
-export default async function Katalogi() {
+async function Katalogi() {
   const vsi = await pridobiDokumente();
   // Opis našteje samo skupine, ki dejansko imajo dokumente
   const prisotne = skupine.filter(([tip]) => vsi.some((d) => d.tip === tip)).map(([, n]) => n.toLowerCase());
@@ -106,4 +107,10 @@ export default async function Katalogi() {
       </div>
     </>
   );
+}
+
+export default prevedenaStran(Katalogi);
+
+export async function generateMetadata() {
+  return prevediMetadata(metadataSl);
 }

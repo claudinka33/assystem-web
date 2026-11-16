@@ -4,8 +4,9 @@ import KorakiSlike from "@/components/KorakiSlike";
 import FotoGalerija from "@/components/FotoGalerija";
 import VideoOzadje from "@/components/VideoOzadje";
 import { FOTO_KOVANJE, FOTO_PLASTIKA, FOTO_ORODJARNA, FOTO_KAKOVOST, FOTO_VPN, FOTO_SIDRA, FOTO_VIJAKI, FOTO_PLASTIKA_2, FOTO_MONTAZA, FOTO_PAKIRANJE, FOTO_ZEBLJI, FOTO_SKLADISCE } from "@/lib/foto";
+import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
-export const metadata = {
+const metadataSl = {
   title: "Proizvodnja in razvoj",
   description:
     "Lastna proizvodnja AS system: jeklena sidra, udarni vijaki, zidni vložki in perforiran trak. Hladno kovanje, valjanje navojev, brizganje plastike, avtomatska montaža in pakiranje na dveh lokacijah v Sloveniji.",
@@ -193,7 +194,7 @@ const kakovost = [
   ["Sledljivost", "Vsaka serija ima LOT: od materiala do palete."],
 ];
 
-export default function Proizvodnja() {
+function Proizvodnja() {
   return (
     <>
       {/* Glava: video iz proizvodnje */}
@@ -558,4 +559,10 @@ export default function Proizvodnja() {
       </div>
     </>
   );
+}
+
+export default prevedenaStran(Proizvodnja);
+
+export async function generateMetadata() {
+  return prevediMetadata(metadataSl);
 }

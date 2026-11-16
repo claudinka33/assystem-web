@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { prevedeno } from "@/lib/i18n/odjemalec";
 
 /* Lastni MP4 video (brez YouTuba): vedno v polni kakovosti, brez tujih logotipov.
    samodejno: predvaja se takoj, brez zvoka in v zanki (pravilo brskalnikov za autoplay). */
-export default function Mp4Video({ src, poster, naslov, samodejno = true }) {
+function Mp4Video({ src, poster, naslov, samodejno = true }) {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -34,3 +35,5 @@ export default function Mp4Video({ src, poster, naslov, samodejno = true }) {
     </div>
   );
 }
+
+export default prevedeno(Mp4Video);

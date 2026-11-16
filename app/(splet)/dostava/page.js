@@ -2,14 +2,15 @@ import Link from "next/link";
 import PravnaStran from "@/components/PravnaStran";
 import { site } from "@/lib/site";
 import { VELJA_OD, eur0 } from "@/lib/pravno";
+import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
-export const metadata = {
+const metadataSl = {
   title: "Dostava in pošiljanje",
   description: "Dostava s Pošto Slovenije, brezplačna dostava nad 100 € brez DDV, osebni prevzem v Šmarju pri Jelšah.",
   alternates: { canonical: "/dostava" },
 };
 
-export default function Dostava() {
+function Dostava() {
   const t = site.trgovina;
   return (
     <PravnaStran pot="/dostava" naslov="Dostava in pošiljanje" opis={`Brezplačna dostava za naročila nad ${eur0(t.brezplacnoNad)}.`} veljaOd={VELJA_OD}>
@@ -63,4 +64,10 @@ export default function Dostava() {
       </p>
     </PravnaStran>
   );
+}
+
+export default prevedenaStran(Dostava);
+
+export async function generateMetadata() {
+  return prevediMetadata(metadataSl);
 }

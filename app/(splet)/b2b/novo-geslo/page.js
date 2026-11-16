@@ -1,8 +1,9 @@
 import NovoGeslo from "./NovoGeslo";
+import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
-export const metadata = { title: "Novo geslo: B2B", robots: { index: false } };
+const metadataSl = { title: "Novo geslo: B2B", robots: { index: false } };
 
-export default async function Stran({ searchParams }) {
+async function Stran({ searchParams }) {
   const { nov } = await searchParams;
   return (
     <section className="sec">
@@ -15,4 +16,10 @@ export default async function Stran({ searchParams }) {
       </div>
     </section>
   );
+}
+
+export default prevedenaStran(Stran);
+
+export async function generateMetadata() {
+  return prevediMetadata(metadataSl);
 }

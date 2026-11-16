@@ -2,8 +2,9 @@
 
 import { useState, useTransition } from "react";
 import { ponovnoPlacaj } from "@/lib/akcije/narocila";
+import { prevedeno } from "@/lib/i18n/odjemalec";
 
-export default function PonovnoPlacaj({ stevilka }) {
+function PonovnoPlacaj({ stevilka }) {
   const [napaka, setNapaka] = useState("");
   const [cakam, zacni] = useTransition();
   return (
@@ -27,3 +28,5 @@ export default function PonovnoPlacaj({ stevilka }) {
     </div>
   );
 }
+
+export default prevedeno(PonovnoPlacaj);

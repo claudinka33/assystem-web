@@ -2,9 +2,10 @@
 
 import { useEffect } from "react";
 import { dogodekKoJePripravljeno } from "@/lib/dogodki";
+import { prevedeno } from "@/lib/i18n/odjemalec";
 
 // Nakup v GA4 (purchase) in Meta Pixlu (Purchase) — samo enkrat na naročilo.
-export default function Konverzija({ stevilka, znesek }) {
+function Konverzija({ stevilka, znesek }) {
   useEffect(() => {
     const kljuc = `as_nakup_${stevilka}`;
     try {
@@ -15,3 +16,5 @@ export default function Konverzija({ stevilka, znesek }) {
   }, [stevilka, znesek]);
   return null;
 }
+
+export default prevedeno(Konverzija);

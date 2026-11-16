@@ -3,14 +3,15 @@ import PravnaStran from "@/components/PravnaStran";
 import PodatkiPodjetja from "@/components/PodatkiPodjetja";
 import { site } from "@/lib/site";
 import { VELJA_OD, IRPS_SEZNAM, eur0 } from "@/lib/pravno";
+import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
-export const metadata = {
+const metadataSl = {
   title: "Splošni pogoji poslovanja",
   description: "Splošni pogoji nakupa v spletni trgovini AS system d.o.o., naročilo, cene, plačilo, dostava, odstop, reklamacije in reševanje sporov.",
   alternates: { canonical: "/splosni-pogoji" },
 };
 
-export default function SplosniPogoji() {
+function SplosniPogoji() {
   const t = site.trgovina;
   return (
     <PravnaStran pot="/splosni-pogoji" naslov="Splošni pogoji poslovanja" opis="Pogoji nakupa v spletni trgovini assystem.si." veljaOd={VELJA_OD}>
@@ -136,4 +137,10 @@ export default function SplosniPogoji() {
       </p>
     </PravnaStran>
   );
+}
+
+export default prevedenaStran(SplosniPogoji);
+
+export async function generateMetadata() {
+  return prevediMetadata(metadataSl);
 }

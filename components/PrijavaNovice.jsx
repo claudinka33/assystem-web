@@ -5,9 +5,10 @@ import { usePathname } from "next/navigation";
 import { useActionState, useEffect } from "react";
 import { dogodek } from "@/lib/dogodki";
 import { prijavaNaNovice } from "@/lib/akcije/enovice";
+import { prevedeno } from "@/lib/i18n/odjemalec";
 
 // Rdeči pas z vzorcem vijakov nad nogo — prijava na e-novice (Resend Contacts).
-export default function PrijavaNovice() {
+function PrijavaNovice() {
   const pot = usePathname();
   const [stanje, akcija, caka] = useActionState(prijavaNaNovice, null);
 
@@ -61,3 +62,5 @@ export default function PrijavaNovice() {
     </section>
   );
 }
+
+export default prevedeno(PrijavaNovice);

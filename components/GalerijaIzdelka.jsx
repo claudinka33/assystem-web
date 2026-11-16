@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { prevedeno } from "@/lib/i18n/odjemalec";
 
 // Glavna slika izdelka + sličice. Klik na sličico zamenja glavno sliko.
 function oznakaIz(url) {
@@ -10,7 +11,7 @@ function oznakaIz(url) {
   return zadnji && zadnji !== ime && zadnji.length <= 6 ? zadnji : "";
 }
 
-export default function GalerijaIzdelka({ slike, naziv }) {
+function GalerijaIzdelka({ slike, naziv }) {
   const [izbrana, setIzbrana] = useState(0);
   const [zunanja, setZunanja] = useState(null);
   // Filter v tabeli (npr. material) lahko zamenja glavno sliko
@@ -56,3 +57,5 @@ export default function GalerijaIzdelka({ slike, naziv }) {
     </>
   );
 }
+
+export default prevedeno(GalerijaIzdelka);

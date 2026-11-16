@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { prevedeno, useJezik } from "@/lib/i18n/odjemalec";
 
 // Domača stran: Šmarje in Bistrica — velika fotografija (cela, 16:9), zavihka,
 // samodejno menjavanje, počasen zoom, ob prehodu miške se ustavi.
@@ -23,7 +24,8 @@ const LOKACIJE = [
 
 const CAS = 6000;
 
-export default function LokacijiDomov() {
+function LokacijiDomov() {
+  const { t } = useJezik();
   const [i, setI] = useState(0);
   const [pavza, setPavza] = useState(false);
 
@@ -35,7 +37,7 @@ export default function LokacijiDomov() {
 
   return (
     <div className="lok-d" onMouseEnter={() => setPavza(true)} onMouseLeave={() => setPavza(false)}>
-      <Link href="/proizvodnja#lokacije" className="lok-d-foto" aria-label={`${LOKACIJE[i].kraj}: več o lokaciji`}>
+      <Link href="/proizvodnja#lokacije" className="lok-d-foto" aria-label={`${LOKACIJE[i].kraj}: ${t("več o lokaciji")}`}>
         {LOKACIJE.map((l, k) => (
           <div key={l.kraj} className={`lok-d-sl${k === i ? " on" : ""}`}>
             <Image src={l.slika} alt={`AS system ${l.kraj}`} fill sizes="(max-width: 1000px) 100vw, 60vw" quality={90} priority={k === 0} />
@@ -71,3 +73,5 @@ export default function LokacijiDomov() {
     </div>
   );
 }
+
+export default prevedeno(LokacijiDomov);

@@ -3,10 +3,11 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { prevedeno } from "@/lib/i18n/odjemalec";
 
 // Velika slika 16:9 + zavihki pod njo; samodejno menjavanje, ustavi se ob miški.
 // koraki: [{ naslov, podnaslov, opis, slika, alt }]
-export default function KorakiSlike({ koraki, href, gumb = "Oglejte si →", cas = 5000 }) {
+function KorakiSlike({ koraki, href, gumb = "Oglejte si →", cas = 5000 }) {
   const [i, setI] = useState(0);
   const [pavza, setPavza] = useState(false);
 
@@ -56,3 +57,5 @@ export default function KorakiSlike({ koraki, href, gumb = "Oglejte si →", cas
     </div>
   );
 }
+
+export default prevedeno(KorakiSlike);

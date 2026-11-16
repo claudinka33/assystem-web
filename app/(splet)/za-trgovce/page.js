@@ -6,6 +6,7 @@ import { ZNAMKE_INFO } from "@/lib/znamke";
 import { dostopPolice } from "@/lib/b2b";
 import ZaklenjenoB2B from "@/components/ZaklenjenoB2B";
 import MenjavaSlik from "@/components/MenjavaSlik";
+import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
 // Glava: artikli iz B2B ponudbe, menjajo se vsaki 2 s
 const IZDELKI_HERO = [
@@ -21,7 +22,7 @@ const IZDELKI_HERO = [
 
 export const dynamic = "force-dynamic";
 
-export const metadata = {
+const metadataSl = {
   title: "Za trgovce: prodajni program in police",
   description:
     "Sestava prodajnega programa in postavitev polic ASfix in ASco za trgovine: 1, 2, 4 in 6 metrov ter večje postavitve do 20 metrov.",
@@ -50,7 +51,7 @@ const embalaza = [
   { znamka: "Silvermate", slike: [["/slike/silvermate/skatla-silvermate.png", "Škatla Silvermate", "8%"], ["/slike/silvermate/polica-1m.jpg", "Polica Silvermate 1 m", "4%"]], opis: "Lesni vijaki s križno in torx glavo, s celim ali delnim navojem, v profesionalni škatli in na polici 1 m." },
 ];
 
-export default async function ZaTrgovce() {
+async function ZaTrgovce() {
   const { dostop, prijavljen } = await dostopPolice();
   const kajSlike = dostop ? KAJ_SLIKE : KAJ_SLIKE.map((s) => (s.includes("/trgovci/") ? "/slike/znamke/asfix-vrecka.jpg" : s));
   const emb = dostop ? embalaza : embalaza.map((e) => ({ ...e, slike: e.slike.filter(([src]) => !src.includes("polica")) }));
@@ -233,4 +234,10 @@ export default async function ZaTrgovce() {
       </section>
     </>
   );
+}
+
+export default prevedenaStran(ZaTrgovce);
+
+export async function generateMetadata() {
+  return prevediMetadata(metadataSl);
 }

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useActionState, useEffect, useState } from "react";
 import { oddajPopupB2B } from "@/lib/akcije/obrazci";
+import { prevedeno } from "@/lib/i18n/odjemalec";
 
 const KLJUC = "as_popup_b2b"; // "zaprto:<čas>" ali "oddano"
 const ZAKASNITEV = 15000; // 15 s na strani
@@ -23,7 +24,7 @@ const pisi = (v) => {
   } catch {}
 };
 
-export default function PopupB2B() {
+function PopupB2B() {
   const pot = usePathname() || "/";
   const [odprt, setOdprt] = useState(false);
   const [stanje, oddaj, poteka] = useActionState(oddajPopupB2B, null);
@@ -112,3 +113,5 @@ export default function PopupB2B() {
     </div>
   );
 }
+
+export default prevedeno(PopupB2B);

@@ -7,6 +7,7 @@ import { dodaj } from "@/lib/kosarica";
 import { dogodek } from "@/lib/dogodki";
 import { useB2BCene } from "@/lib/b2b-klient";
 import VprasajZaRok from "@/components/VprasajZaRok";
+import { prevedeno } from "@/lib/i18n/odjemalec";
 
 // Tabela artiklov na strani izdelka: iskanje, filtri po lastnostih
 // (material, trdnost, pakiranje ...) in postopen prikaz pri dolgih seznamih.
@@ -244,7 +245,7 @@ function Legenda({ vnosi, artikli, izbrani, izberi }) {
   );
 }
 
-export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicni, embalaza = [], izdelek = null, slikeVrednosti = null }) {
+function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicni, embalaza = [], izdelek = null, slikeVrednosti = null }) {
   const artikli = useMemo(
     () =>
       [...vhodni].sort((a, b) => {
@@ -504,3 +505,5 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
     </>
   );
 }
+
+export default prevedeno(TabelaArtiklov);

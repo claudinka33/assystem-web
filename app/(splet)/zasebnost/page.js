@@ -2,15 +2,16 @@ import Link from "next/link";
 import PravnaStran from "@/components/PravnaStran";
 import { site } from "@/lib/site";
 import { VELJA_OD } from "@/lib/pravno";
+import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
-export const metadata = {
+const metadataSl = {
   title: "Politika zasebnosti",
   description: "Kako AS system d.o.o. ravna z osebnimi podatki kupcev, poslovnih partnerjev in obiskovalcev spletne strani.",
   alternates: { canonical: "/zasebnost" },
   robots: { index: true, follow: true },
 };
 
-export default function Zasebnost() {
+function Zasebnost() {
   const p = site.podjetje;
   return (
     <PravnaStran pot="/zasebnost" naslov="Politika zasebnosti" opis="Kako ravnamo z osebnimi podatki, ki nam jih zaupate." veljaOd={VELJA_OD}>
@@ -273,4 +274,10 @@ export default function Zasebnost() {
       </p>
     </PravnaStran>
   );
+}
+
+export default prevedenaStran(Zasebnost);
+
+export async function generateMetadata() {
+  return prevediMetadata(metadataSl);
 }

@@ -4,6 +4,7 @@ import IgraSidranje from "@/components/IgraSidranje";
 import IgraMontaza from "@/components/igre/IgraMontaza";
 import { uvs, trak } from "@/components/igre/konfiguracije";
 import { turbo, gips, afrkKlima, afrs, mq, kemijaBeton, kemijaVotla, kemija975, wc, bojler, umivalnik, cevnoStena, cevnoStrop, stiropor, din7504, kniping, din603, din571, maticniSpoj, tx1Siroka } from "@/components/igre/konfiguracije2";
+import { prevedeno } from "@/lib/i18n/odjemalec";
 
 /* Katera igra gre na katero stran izdelka (slug izdelka → igra). */
 const IGRE = {
@@ -70,7 +71,7 @@ export function imaIgro(slug) {
   return Boolean(IGRE[slug]);
 }
 
-export default function IgraIzdelka({ slug }) {
+function IgraIzdelka({ slug }) {
   const igra = IGRE[slug];
   if (!igra) return null;
   const { Komponenta } = igra;
@@ -85,3 +86,5 @@ export default function IgraIzdelka({ slug }) {
     </section>
   );
 }
+
+export default prevedeno(IgraIzdelka);

@@ -5,10 +5,11 @@ import { pridobiNovico, pridobiNovice } from "@/lib/podatki";
 import { datumSlo } from "@/lib/pomoc";
 import { nazivVrste } from "@/lib/vrste-clankov";
 import { site } from "@/lib/site";
+import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
 export const revalidate = 60;
 
-export async function generateMetadata({ params }) {
+async function generateMetadataSl({ params }) {
   const { slug } = await params;
   const n = await pridobiNovico(slug);
   if (!n) return {};
@@ -59,7 +60,7 @@ function Vsebina({ besedilo }) {
   );
 }
 
-export default async function Novica({ params }) {
+async function Novica({ params }) {
   const { slug } = await params;
   const n = await pridobiNovico(slug);
   if (!n) notFound();
@@ -142,4 +143,10 @@ export default async function Novica({ params }) {
       </div>
     </article>
   );
+}
+
+export default prevedenaStran(Novica);
+
+export async function generateMetadata(props) {
+  return prevediMetadata(await generateMetadataSl(props));
 }

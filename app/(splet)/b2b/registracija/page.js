@@ -1,9 +1,10 @@
 import Link from "next/link";
 import Registracija from "./Registracija";
+import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
-export const metadata = { title: "Registracija podjetja: B2B", robots: { index: false } };
+const metadataSl = { title: "Registracija podjetja: B2B", robots: { index: false } };
 
-export default function Stran() {
+function Stran() {
   return (
     <section className="sec reg-sec">
       <div className="w" style={{ maxWidth: 1100 }}>
@@ -18,4 +19,10 @@ export default function Stran() {
       </div>
     </section>
   );
+}
+
+export default prevedenaStran(Stran);
+
+export async function generateMetadata() {
+  return prevediMetadata(metadataSl);
 }

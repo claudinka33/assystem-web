@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { dogodek } from "@/lib/dogodki";
 import { C, Vzorci, Sveder, Vijacnik, Pihalka, Kladivo } from "./orodje";
+import { prevedeno } from "@/lib/i18n/odjemalec";
 
 /* --------------------------------------------------------------
    Splošna montažna igra. Vsak izdelek poda konfiguracijo:
@@ -25,7 +26,7 @@ function izmetZa(smer) {
   return () => ({ dx: (Math.random() - 0.5) * 160, dy: -30 - Math.random() * 100 });
 }
 
-export default function IgraMontaza({ cfg }) {
+function IgraMontaza({ cfg }) {
   const H = cfg.visina ?? 600;
   const m = cfg.koraki.length;
   const zacetne = () => cfg.luknje.map(() => Array(m).fill(0));
@@ -344,3 +345,5 @@ export default function IgraMontaza({ cfg }) {
     </div>
   );
 }
+
+export default prevedeno(IgraMontaza);

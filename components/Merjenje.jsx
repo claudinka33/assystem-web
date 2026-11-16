@@ -2,6 +2,7 @@
 
 import Script from "next/script";
 import { useEffect, useState } from "react";
+import { prevedeno } from "@/lib/i18n/odjemalec";
 
 const KLJUC = "as_privolitev";
 const GA = process.env.NEXT_PUBLIC_GA_ID;
@@ -27,7 +28,7 @@ function preberi() {
 
 // Merilni skripti se naložijo šele po privolitvi (GDPR, ZEKom-2).
 // Gumbi so enako poudarjeni, da noben ne namiguje na »sprejmi vse«.
-export default function Merjenje() {
+function Merjenje() {
   const [izbira, setIzbira] = useState(undefined); // undefined = še ne vemo, null = ni odločitve
   const [odprto, setOdprto] = useState(false);
   const [nastavitve, setNastavitve] = useState(false);
@@ -175,3 +176,5 @@ export default function Merjenje() {
     </>
   );
 }
+
+export default prevedeno(Merjenje);

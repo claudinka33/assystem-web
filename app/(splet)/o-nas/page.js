@@ -4,8 +4,9 @@ import { site } from "@/lib/site";
 import FotoGalerija from "@/components/FotoGalerija";
 import { FOTO_EKIPA, FOTO_SKLADISCE, FOTO_VIJAKI, FOTO_SIDRA, FOTO_MONTAZA, FOTO_ZEBLJI } from "@/lib/foto";
 import { Lokacije } from "@/components/KontaktBloki";
+import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
-export const metadata = {
+const metadataSl = {
   title: "O nas",
   description:
     "AS system d.o.o.: slovensko družinsko podjetje s področja pritrdilne tehnike od leta 1993. Lastna proizvodnja sider, zidnih vložkov in udarnih vijakov, dve lokaciji v Sloveniji.",
@@ -133,7 +134,7 @@ const FOTO_O_NAS = prepleti(
   [FOTO_ZEBLJI[0], FOTO_ZEBLJI[8], FOTO_MONTAZA[5], FOTO_VIJAKI[7]],
 );
 
-export default function ONas() {
+function ONas() {
   return (
     <>
       {/* Glava */}
@@ -426,4 +427,10 @@ export default function ONas() {
       </div>
     </>
   );
+}
+
+export default prevedenaStran(ONas);
+
+export async function generateMetadata() {
+  return prevediMetadata(metadataSl);
 }

@@ -13,6 +13,7 @@ import SilvermateVsebina from "@/components/SilvermateVsebina";
 import { SILVERMATE_IZDELKI, SILVERMATE_MEDIJI } from "@/lib/silvermate";
 import MedijiBanner from "@/components/MedijiBanner";
 import { VIDEI_IZDELKOV } from "@/lib/videi";
+import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
 export const revalidate = 60;
 
@@ -26,7 +27,7 @@ const oznakeTipov = {
   risba: "Risba",
 };
 
-export async function generateMetadata({ params }) {
+async function generateMetadataSl({ params }) {
   const { kategorija, izdelek } = await params;
   const i = await pridobiIzdelek(izdelek);
   if (!i) return {};
@@ -54,7 +55,7 @@ function razdeliLastnosti(artikli) {
   return { skupne, stolpci };
 }
 
-export default async function StranIzdelka({ params }) {
+async function StranIzdelka({ params }) {
   const { kategorija, izdelek } = await params;
   const i = await pridobiIzdelek(izdelek);
   if (!i) notFound();
@@ -230,4 +231,10 @@ export default async function StranIzdelka({ params }) {
     </section>
     </>
   );
+}
+
+export default prevedenaStran(StranIzdelka);
+
+export async function generateMetadata(props) {
+  return prevediMetadata(await generateMetadataSl(props));
 }

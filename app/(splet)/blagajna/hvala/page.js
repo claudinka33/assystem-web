@@ -5,11 +5,12 @@ import { supabaseAdmin } from "@/lib/supabase-server";
 import { stripePreveriSejo } from "@/lib/placila";
 import { oznaciPlacano } from "@/lib/narocila-potrdila";
 import Konverzija from "./Konverzija";
+import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
-export const metadata = { title: "Hvala za naročilo", robots: { index: false } };
+const metadataSl = { title: "Hvala za naročilo", robots: { index: false } };
 export const dynamic = "force-dynamic";
 
-export default async function Hvala({ searchParams }) {
+async function Hvala({ searchParams }) {
   const { st, sid } = await searchParams;
   const sb = supabaseAdmin();
   let { data: n } = await sb
@@ -95,4 +96,10 @@ export default async function Hvala({ searchParams }) {
       </div>
     </section>
   );
+}
+
+export default prevedenaStran(Hvala);
+
+export async function generateMetadata() {
+  return prevediMetadata(metadataSl);
 }

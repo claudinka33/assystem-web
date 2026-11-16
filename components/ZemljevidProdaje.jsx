@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { site } from "@/lib/site";
+import { prevedeno } from "@/lib/i18n/odjemalec";
 
 // Zemljevid »Iz Slovenije v svet« — slog novih škatel ASfix.
 // Ko obiskovalec pridrsa do zemljevida, iz Šmarja poletijo letala: za sabo rišejo sled,
@@ -29,7 +30,7 @@ const POLETI = [
 // letalo, usmerjeno v smer +x (animateMotion ga obrne po poti)
 const LETALO = "M7 0 L2 -1.3 L-1 -6 L-2.6 -6 L-0.8 -1.3 L-4.6 -1.1 L-6 -3 L-7 -3 L-6.2 0 L-7 3 L-6 3 L-4.6 1.1 L-0.8 1.3 L-2.6 6 L-1 6 L2 1.3 Z";
 
-export default function ZemljevidProdaje() {
+function ZemljevidProdaje() {
   const ref = useRef(null);
   const [stanje, setStanje] = useState("caka"); // caka | leti | koncano
 
@@ -122,3 +123,5 @@ export default function ZemljevidProdaje() {
     </section>
   );
 }
+
+export default prevedeno(ZemljevidProdaje);

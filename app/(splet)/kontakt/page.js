@@ -3,8 +3,9 @@ import Link from "next/link";
 import ObrazecPovprasevanje from "@/components/ObrazecPovprasevanje";
 import { KontaktiOddelki, Lokacije } from "@/components/KontaktBloki";
 import { site } from "@/lib/site";
+import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
-export const metadata = {
+const metadataSl = {
   title: "Kontakt",
   description:
     "Kontakt AS system d.o.o.: telefon +386 3 800 70 00, info@as-system.si. Kontakti po oddelkih in lokaciji v Šmarju pri Jelšah in Bistrici ob Sotli.",
@@ -18,7 +19,7 @@ const druzbena = [
   ["TikTok", site.druzbena.tiktok],
 ];
 
-export default async function Kontakt({ searchParams }) {
+async function Kontakt({ searchParams }) {
   const params = await searchParams;
   const izdelek = params?.izdelek ?? null;
   const vir = params?.vir ?? (izdelek ? "izdelek" : "kontakt");
@@ -116,4 +117,10 @@ export default async function Kontakt({ searchParams }) {
       <Lokacije />
     </>
   );
+}
+
+export default prevedenaStran(Kontakt);
+
+export async function generateMetadata() {
+  return prevediMetadata(metadataSl);
 }

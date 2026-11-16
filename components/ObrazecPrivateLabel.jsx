@@ -3,6 +3,7 @@
 import { useActionState, useEffect, useState } from "react";
 import { dogodek } from "@/lib/dogodki";
 import { posljiPovprasevanje } from "@/lib/akcije/obrazci";
+import { prevedeno } from "@/lib/i18n/odjemalec";
 
 // Vodeno povpraševanje private label v treh korakih: izdelki → embalaža in količina → kontakt.
 const IZDELKI = [
@@ -21,7 +22,7 @@ const EMBALAZA = [
 ];
 const KOLICINE = ["do 10.000 kos/leto", "10.000 – 100.000", "nad 100.000", "Še ne vem"];
 
-export default function ObrazecPrivateLabel() {
+function ObrazecPrivateLabel() {
   const [stanje, akcija, caka] = useActionState(posljiPovprasevanje, null);
   const [korak, setKorak] = useState(1);
   const [izdelki, setIzdelki] = useState([]);
@@ -163,3 +164,5 @@ export default function ObrazecPrivateLabel() {
     </form>
   );
 }
+
+export default prevedeno(ObrazecPrivateLabel);

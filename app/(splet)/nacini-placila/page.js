@@ -2,14 +2,15 @@ import Link from "next/link";
 import PravnaStran from "@/components/PravnaStran";
 import { site } from "@/lib/site";
 import { VELJA_OD } from "@/lib/pravno";
+import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
-export const metadata = {
+const metadataSl = {
   title: "Načini plačila",
   description: "Plačilo s kartico, PayPal, po predračunu ali po povzetju v spletni trgovini AS system.",
   alternates: { canonical: "/nacini-placila" },
 };
 
-export default function NaciniPlacila() {
+function NaciniPlacila() {
   return (
     <PravnaStran pot="/nacini-placila" naslov="Načini plačila" opis="Kako plačate naročilo v spletni trgovini." veljaOd={VELJA_OD}>
       <h2>Plačilo po predračunu</h2>
@@ -53,4 +54,10 @@ export default function NaciniPlacila() {
       </p>
     </PravnaStran>
   );
+}
+
+export default prevedenaStran(NaciniPlacila);
+
+export async function generateMetadata() {
+  return prevediMetadata(metadataSl);
 }

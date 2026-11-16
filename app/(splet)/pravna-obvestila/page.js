@@ -1,14 +1,15 @@
 import PravnaStran from "@/components/PravnaStran";
 import PodatkiPodjetja from "@/components/PodatkiPodjetja";
 import { VELJA_OD } from "@/lib/pravno";
+import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
-export const metadata = {
+const metadataSl = {
   title: "Podatki o podjetju in pravna obvestila",
   description: "Identifikacijski podatki podjetja AS system d.o.o. in pravna obvestila spletne strani.",
   alternates: { canonical: "/pravna-obvestila" },
 };
 
-export default function PravnaObvestila() {
+function PravnaObvestila() {
   return (
     <PravnaStran pot="/pravna-obvestila" naslov="Podatki o podjetju" opis="Identifikacijski podatki in pravna obvestila." veljaOd={VELJA_OD}>
       <h2>Podatki o podjetju</h2>
@@ -32,4 +33,10 @@ export default function PravnaObvestila() {
       </p>
     </PravnaStran>
   );
+}
+
+export default prevedenaStran(PravnaObvestila);
+
+export async function generateMetadata() {
+  return prevediMetadata(metadataSl);
 }

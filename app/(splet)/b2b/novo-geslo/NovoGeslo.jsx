@@ -2,8 +2,9 @@
 
 import { useActionState } from "react";
 import { novoGeslo } from "@/lib/akcije/b2b";
+import { prevedeno } from "@/lib/i18n/odjemalec";
 
-export default function NovoGeslo() {
+function NovoGeslo() {
   const [stanje, akcija, cakam] = useActionState(novoGeslo, null);
   return (
     <form action={akcija} className="b2b-obr">
@@ -14,3 +15,5 @@ export default function NovoGeslo() {
     </form>
   );
 }
+
+export default prevedeno(NovoGeslo);

@@ -2,8 +2,9 @@
 
 import { useActionState } from "react";
 import { pozabljenoGeslo } from "@/lib/akcije/b2b";
+import { prevedeno } from "@/lib/i18n/odjemalec";
 
-export default function Pozabljeno() {
+function Pozabljeno() {
   const [stanje, akcija, cakam] = useActionState(pozabljenoGeslo, null);
   if (stanje?.ok)
     return <div className="b2b-ok">Če je e-naslov registriran, smo nanj poslali povezavo za novo geslo. Povezava velja 1 uro.</div>;
@@ -15,3 +16,5 @@ export default function Pozabljeno() {
     </form>
   );
 }
+
+export default prevedeno(Pozabljeno);

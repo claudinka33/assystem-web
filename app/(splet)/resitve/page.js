@@ -2,17 +2,18 @@ import NaslovStrani from "@/components/NaslovStrani";
 import ResitveObjekt from "@/components/ResitveObjekt";
 import { objekt, cone, vsiSlugi } from "@/lib/resitve";
 import { pridobiIzdelkePoSlugih } from "@/lib/podatki";
+import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
 export const revalidate = 300;
 
-export const metadata = {
+const metadataSl = {
   title: "Rešitve: kje se uporabljajo pritrdila",
   description:
     "Interaktivni prikaz objekta: temelji, jeklena konstrukcija, skladišče, fasada, pisarne, sanitarije in ograja, kje se uporabljajo sidra, vložki in vijaki ASfix.",
   alternates: { canonical: "/resitve" },
 };
 
-export default async function Resitve() {
+async function Resitve() {
   const izdelki = await pridobiIzdelkePoSlugih(vsiSlugi());
   return (
     <>
@@ -28,4 +29,10 @@ export default async function Resitve() {
       </section>
     </>
   );
+}
+
+export default prevedenaStran(Resitve);
+
+export async function generateMetadata() {
+  return prevediMetadata(metadataSl);
 }

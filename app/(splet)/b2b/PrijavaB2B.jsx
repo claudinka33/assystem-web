@@ -2,8 +2,9 @@
 
 import { useActionState } from "react";
 import { prijava } from "@/lib/akcije/b2b";
+import { prevedeno } from "@/lib/i18n/odjemalec";
 
-export default function PrijavaB2B({ naprej }) {
+function PrijavaB2B({ naprej }) {
   const [stanje, akcija, cakam] = useActionState(prijava, null);
   return (
     <form action={akcija} className="b2b-obr">
@@ -15,3 +16,5 @@ export default function PrijavaB2B({ naprej }) {
     </form>
   );
 }
+
+export default prevedeno(PrijavaB2B);

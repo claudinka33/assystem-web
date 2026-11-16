@@ -2,14 +2,15 @@ import Link from "next/link";
 import PravnaStran from "@/components/PravnaStran";
 import { site } from "@/lib/site";
 import { VELJA_OD } from "@/lib/pravno";
+import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
-export const metadata = {
+const metadataSl = {
   title: "Odstop od pogodbe in vračilo",
   description: "Pravica potrošnika do odstopa od pogodbe v 14 dneh, postopek vračila in obrazec za odstop.",
   alternates: { canonical: "/odstop-od-pogodbe" },
 };
 
-export default function Odstop() {
+function Odstop() {
   const p = site.podjetje;
   return (
     <PravnaStran pot="/odstop-od-pogodbe" naslov="Odstop od pogodbe in vračilo" opis="Blago lahko vrnete v 14 dneh brez navedbe razloga." veljaOd={VELJA_OD}>
@@ -84,4 +85,10 @@ export default function Odstop() {
       </p>
     </PravnaStran>
   );
+}
+
+export default prevedenaStran(Odstop);
+
+export async function generateMetadata() {
+  return prevediMetadata(metadataSl);
 }

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { mojStatus, naloziKosarico, shraniKosarico, odjava } from "@/lib/akcije/b2b";
 import { zamenjaj, beriKosarico, poslusaj, izprazni } from "@/lib/kosarica";
+import { prevedeno } from "@/lib/i18n/odjemalec";
 
 const LASTNIK = "as_kosarica_lastnik";
 const lsBeri = (k) => {
@@ -52,7 +53,7 @@ function useB2BKosarica(id) {
 import { imaSejo } from "@/lib/b2b-klient";
 
 // V zgornjem pasu: "B2B prijava" ali ime podjetja prijavljenega kupca.
-export default function B2BPovezava() {
+function B2BPovezava() {
   const [s, setS] = useState(null);
   useEffect(() => {
     if (!imaSejo()) return;
@@ -75,3 +76,5 @@ export default function B2BPovezava() {
     </>
   );
 }
+
+export default prevedeno(B2BPovezava);

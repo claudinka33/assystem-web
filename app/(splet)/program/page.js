@@ -2,17 +2,18 @@ import Image from "next/image";
 import Link from "next/link";
 import NaslovStrani from "@/components/NaslovStrani";
 import { pridobiKategorije } from "@/lib/podatki";
+import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
 export const revalidate = 60;
 
-export const metadata = {
+const metadataSl = {
   title: "Prodajni program",
   description:
     "Pritrdila za beton, vijačno blago, zidni vložki, kemična pritrditev in pritrdila za izolacijo iz programa ASfix.",
   alternates: { canonical: "/program" },
 };
 
-export default async function Program() {
+async function Program() {
   const { seznam } = await pridobiKategorije();
 
   return (
@@ -49,4 +50,10 @@ export default async function Program() {
       </section>
     </>
   );
+}
+
+export default prevedenaStran(Program);
+
+export async function generateMetadata() {
+  return prevediMetadata(metadataSl);
 }

@@ -1,8 +1,9 @@
 import Kosarica from "./Kosarica";
+import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
-export const metadata = { title: "Košarica", robots: { index: false } };
+const metadataSl = { title: "Košarica", robots: { index: false } };
 
-export default function Stran() {
+function Stran() {
   return (
     <section className="trg ksb">
       <div className="ksb-w">
@@ -10,4 +11,10 @@ export default function Stran() {
       </div>
     </section>
   );
+}
+
+export default prevedenaStran(Stran);
+
+export async function generateMetadata() {
+  return prevediMetadata(metadataSl);
 }

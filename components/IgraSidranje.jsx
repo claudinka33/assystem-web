@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { dogodek } from "@/lib/dogodki";
+import { prevedeno } from "@/lib/i18n/odjemalec";
 
 /* --------------------------------------------------------------
    Vaja sidranja: prerez v slogu montažnih videov ASfix.
@@ -193,7 +194,7 @@ function Mera({ x, y1, y2, napis, strani = 1 }) {
   );
 }
 
-export default function IgraSidranje() {
+function IgraSidranje() {
   const [luknje, setLuknje] = useState(zacetne);
   const [ograja, setOgraja] = useState(false);
   const [orodje, setOrodje] = useState(null);
@@ -701,3 +702,5 @@ export default function IgraSidranje() {
     </div>
   );
 }
+
+export default prevedeno(IgraSidranje);

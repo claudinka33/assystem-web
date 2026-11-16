@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/i18n-zberi.mjs",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "prevodi:zberi": "node scripts/i18n-zberi.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.5",

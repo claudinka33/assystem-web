@@ -13,13 +13,14 @@ import { pridobiIzdelkePoSlugih } from "@/lib/podatki";
 import InstagramObjave from "@/components/InstagramObjave";
 import ClankiDomov from "@/components/ClankiDomov";
 import VideoOzadje from "@/components/VideoOzadje";
+import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
 // Predstavitveni video podjetja (cel, z zvokom)
 const VIDEO_SL = "https://www.youtube.com/watch?v=vmdeYdyWzGE";
 
 export const revalidate = 60;
 
-export const metadata = {
+const metadataSl = {
   title: "AS system: pritrdilna tehnika in vijačno blago",
   description:
     "Pritrdilna tehnika ASfix, vijačno blago ASco, lesni vijaki Silvermate in žeblji HAMMEX. Dobava iz zaloge, police za trgovce, private label in vijaki po naročilu.",
@@ -57,7 +58,7 @@ const certifikati = [
   ["ISO 9001", "Sistem vodenja kakovosti"],
 ];
 
-export default async function Domov() {
+async function Domov() {
   const { seznam: kategorije } = await pridobiKategorije();
   const b = await pridobiVsebine("domov");
   const izdelkiResitev = await pridobiIzdelkePoSlugih(vsiSlugi());
@@ -344,4 +345,10 @@ export default async function Domov() {
       </div>
     </>
   );
+}
+
+export default prevedenaStran(Domov);
+
+export async function generateMetadata() {
+  return prevediMetadata(metadataSl);
 }

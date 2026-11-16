@@ -2,11 +2,12 @@ import Blagajna from "./Blagajna";
 import BlagajnaB2B from "./BlagajnaB2B";
 import { pridobiDostave, pridobiPlacila } from "@/lib/akcije/narocila";
 import { trenutniB2B, jeAktiven, prodajalneKupca } from "@/lib/b2b";
+import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
-export const metadata = { title: "Blagajna", robots: { index: false } };
+const metadataSl = { title: "Blagajna", robots: { index: false } };
 export const dynamic = "force-dynamic";
 
-export default async function Stran() {
+async function Stran() {
   const k = await trenutniB2B();
   const b2b = jeAktiven(k);
   const [dostave, placila, prodajalne] = await Promise.all([
@@ -38,4 +39,10 @@ export default async function Stran() {
       </div>
     </section>
   );
+}
+
+export default prevedenaStran(Stran);
+
+export async function generateMetadata() {
+  return prevediMetadata(metadataSl);
 }

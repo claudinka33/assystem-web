@@ -3,15 +3,16 @@ import { redirect } from "next/navigation";
 import { trenutniB2B } from "@/lib/b2b";
 import { site } from "@/lib/site";
 import PrijavaB2B from "./PrijavaB2B";
+import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
-export const metadata = {
+const metadataSl = {
   title: "B2B prijava za podjetja",
   description: "Spletna trgovina AS system za podjetja: vaše cene, naročanje na račun in pregled naročil.",
   robots: { index: true, follow: true },
 };
 export const dynamic = "force-dynamic";
 
-export default async function B2B({ searchParams }) {
+async function B2B({ searchParams }) {
   const { napaka, naprej } = await searchParams;
   if (await trenutniB2B()) redirect(naprej && naprej.startsWith("/") ? naprej : "/b2b/racun");
   return (
@@ -51,4 +52,10 @@ export default async function B2B({ searchParams }) {
       </div>
     </section>
   );
+}
+
+export default prevedenaStran(B2B);
+
+export async function generateMetadata() {
+  return prevediMetadata(metadataSl);
 }

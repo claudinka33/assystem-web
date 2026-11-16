@@ -7,8 +7,9 @@ import { useKosarica, nastaviKolicino, odstrani } from "@/lib/kosarica";
 import { eur, zaokrozi, DDV } from "@/lib/cene";
 import { useB2BCene } from "@/lib/b2b-klient";
 import { Ikona, Koraki, Zaupanje, BrezplacnaDostava } from "@/components/trgovina/Deli";
+import { prevedeno } from "@/lib/i18n/odjemalec";
 
-export default function Kosarica() {
+function Kosarica() {
   const p = useKosarica();
   const b2b = useB2BCene(p.map((x) => x.id));
   // slika izdelka za artikle, ki so bili dodani brez slike
@@ -162,3 +163,5 @@ export default function Kosarica() {
     </>
   );
 }
+
+export default prevedeno(Kosarica);

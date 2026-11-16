@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { prevedeno } from "@/lib/i18n/odjemalec";
 
 /* Slike, ki se same menjajo (privzeto vsaki 2 s), z imenom in pikicami.
    slike: [{ src, naziv }] */
-export default function MenjavaSlik({ slike, interval = 2000, className = "" }) {
+function MenjavaSlik({ slike, interval = 2000, className = "" }) {
   const [i, setI] = useState(0);
 
   useEffect(() => {
@@ -50,3 +51,5 @@ export default function MenjavaSlik({ slike, interval = 2000, className = "" }) 
     </div>
   );
 }
+
+export default prevedeno(MenjavaSlik);

@@ -4,13 +4,14 @@ import ZnamkaZnak from "@/components/ZnamkaZnak";
 import Link from "next/link";
 import NaslovStrani from "@/components/NaslovStrani";
 import { isci } from "@/lib/podatki";
+import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
-export const metadata = {
+const metadataSl = {
   title: "Iskanje",
   robots: { index: false, follow: true },
 };
 
-export default async function Iskanje({ searchParams }) {
+async function Iskanje({ searchParams }) {
   const params = await searchParams;
   const niz = (params?.q ?? "").trim();
   const { izdelki, artikli } = await isci(niz);
@@ -138,4 +139,10 @@ export default async function Iskanje({ searchParams }) {
       </section>
     </>
   );
+}
+
+export default prevedenaStran(Iskanje);
+
+export async function generateMetadata() {
+  return prevediMetadata(metadataSl);
 }

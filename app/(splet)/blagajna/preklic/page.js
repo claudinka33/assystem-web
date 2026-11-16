@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { site } from "@/lib/site";
 import PonovnoPlacaj from "./PonovnoPlacaj";
+import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
-export const metadata = { title: "Plačilo ni bilo izvedeno", robots: { index: false } };
+const metadataSl = { title: "Plačilo ni bilo izvedeno", robots: { index: false } };
 
-export default async function Preklic({ searchParams }) {
+async function Preklic({ searchParams }) {
   const { st, napaka } = await searchParams;
   return (
     <section className="sec">
@@ -26,4 +27,10 @@ export default async function Preklic({ searchParams }) {
       </div>
     </section>
   );
+}
+
+export default prevedenaStran(Preklic);
+
+export async function generateMetadata() {
+  return prevediMetadata(metadataSl);
 }

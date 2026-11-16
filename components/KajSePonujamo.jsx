@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import KarticeIzdelkov from "@/components/KarticeIzdelkov";
+import { prevedeno } from "@/lib/i18n/odjemalec";
 
 // "Kaj vse še ponujamo": ob vsakem obisku drugačen izbor izdelkov iz drugih skupin.
 // Iz vsake skupine najprej po en izdelek, da stranka vidi širino programa.
@@ -35,7 +36,7 @@ function izberi(izdelki) {
   return out;
 }
 
-export default function KajSePonujamo({ izdelki }) {
+function KajSePonujamo({ izdelki }) {
   const [izbor, setIzbor] = useState([]);
 
   useEffect(() => {
@@ -53,3 +54,5 @@ export default function KajSePonujamo({ izdelki }) {
     />
   );
 }
+
+export default prevedeno(KajSePonujamo);

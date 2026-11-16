@@ -4,8 +4,9 @@ import KorakiSlike from "@/components/KorakiSlike";
 import ObrazecPrivateLabel from "@/components/ObrazecPrivateLabel";
 import PotiProdaje from "@/components/PotiProdaje";
 import { site } from "@/lib/site";
+import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
-export const metadata = {
+const metadataSl = {
   title: "Private label: pritrdila pod vašo blagovno znamko",
   description:
     "Montaža in pakiranje pod vašo blagovno znamko: v nevtralne bele škatle ali v embalažo z vašo celostno podobo. Private label za trgovske verige, distributerje in blagovne znamke.",
@@ -42,7 +43,7 @@ const koraki = [
   ["Ponovna naročila", "Embalaža in šifre ostanejo shranjene, zato je vsako naslednje naročilo hitro."],
 ];
 
-export default function PrivateLabel() {
+function PrivateLabel() {
   return (
     <>
       {/* Glava */}
@@ -231,4 +232,10 @@ export default function PrivateLabel() {
       <PotiProdaje izpusti="/private-label" />
     </>
   );
+}
+
+export default prevedenaStran(PrivateLabel);
+
+export async function generateMetadata() {
+  return prevediMetadata(metadataSl);
 }

@@ -2,10 +2,11 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
+import { prevedeno } from "@/lib/i18n/odjemalec";
 
 // Galerija fotografij iz proizvodnje: zavihki (skupine), mozaik, povečava ob kliku.
 // skupine: [{ naziv, slike: [{ src, alt, w, h }] }]
-export default function FotoGalerija({ skupine, max = 12, kolaz = false }) {
+function FotoGalerija({ skupine, max = 12, kolaz = false }) {
   const [s, setS] = useState(0);
   const [odprta, setOdprta] = useState(null);
   const [vse, setVse] = useState(false);
@@ -72,3 +73,5 @@ export default function FotoGalerija({ skupine, max = 12, kolaz = false }) {
     </div>
   );
 }
+
+export default prevedeno(FotoGalerija);

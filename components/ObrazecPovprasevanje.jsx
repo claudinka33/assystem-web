@@ -3,8 +3,9 @@
 import { useActionState, useEffect } from "react";
 import { dogodek } from "@/lib/dogodki";
 import { posljiPovprasevanje } from "@/lib/akcije/obrazci";
+import { prevedeno } from "@/lib/i18n/odjemalec";
 
-export default function ObrazecPovprasevanje({ vir = "kontakt", izdelek, naslov, dodatnaPolja = [], priloga = null, namig }) {
+function ObrazecPovprasevanje({ vir = "kontakt", izdelek, naslov, dodatnaPolja = [], priloga = null, namig }) {
   const [stanje, akcija, caka] = useActionState(posljiPovprasevanje, null);
 
   // Konverzija za Google Analytics in Meta Pixel.
@@ -110,3 +111,5 @@ export default function ObrazecPovprasevanje({ vir = "kontakt", izdelek, naslov,
     </form>
   );
 }
+
+export default prevedeno(ObrazecPovprasevanje);

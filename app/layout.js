@@ -1,6 +1,7 @@
 import { Poppins } from "next/font/google";
 import { site } from "@/lib/site";
 import "./globals.css";
+import { jezik, prevediMetadata } from "@/lib/i18n/streznik";
 
 // Poppins je edina pisava celostne podobe (CGP str. 07).
 const poppins = Poppins({
@@ -10,7 +11,7 @@ const poppins = Poppins({
   display: "swap",
 });
 
-export const metadata = {
+const metadataSl = {
   metadataBase: new URL(site.url),
   title: {
     default: "AS system — pritrdilna tehnika ASfix",
@@ -44,9 +45,14 @@ export const viewport = { themeColor: "#3f4140" };
 
 // Korenska postavitev je namenoma prazna: javna stran dobi glavo in nogo
 // v app/(splet)/layout.js, administracija pa ima svojo postavitev.
-export default function RootLayout({ children }) {
+export async function generateMetadata() {
+  return prevediMetadata(metadataSl);
+}
+
+export default async function RootLayout({ children }) {
+  const j = await jezik();
   return (
-    <html lang="sl" className={poppins.variable}>
+    <html lang={j} className={poppins.variable}>
       <body>{children}</body>
     </html>
   );

@@ -4,8 +4,9 @@ import Link from "next/link";
 import { useActionState, useEffect } from "react";
 import { dogodek } from "@/lib/dogodki";
 import { posljiPrijavo } from "@/lib/akcije/obrazci";
+import { prevedeno } from "@/lib/i18n/odjemalec";
 
-export default function ObrazecPrijava({ delovnaMesta = [], izbrano }) {
+function ObrazecPrijava({ delovnaMesta = [], izbrano }) {
   const [stanje, akcija, caka] = useActionState(posljiPrijavo, null);
 
   // Konverzija za Google Analytics in Meta Pixel.
@@ -92,3 +93,5 @@ export default function ObrazecPrijava({ delovnaMesta = [], izbrano }) {
     </form>
   );
 }
+
+export default prevedeno(ObrazecPrijava);

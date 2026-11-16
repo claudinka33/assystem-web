@@ -64,7 +64,29 @@ async function imaDostopDoPolic(request) {
 }
 
 export async function proxy(request) {
-  const { pathname } = request.nextUrl;
+  // ---------- jezik: /en/... in /de/... sta prevedeni različici slovenske strani ----------
+  const izvirnaPot = request.nextUrl.pathname;
+  const ujemanje = izvirnaPot.match(/^\/(en|de)(\/|$)/);
+  const jezikZahteve = ujemanje ? ujemanje[1] : null;
+  const pathname = jezikZahteve ? izvirnaPot.slice(3) || "/" : izvirnaPot;
+
+  // Nadaljuj na stran; pri /en in /de prepiši pot brez predpone in povej jezik (glava x-jezik).
+  const nadaljuj = () => {
+    const h = new Headers(request.headers);
+    h.delete("x-jezik");
+    if (!jezikZahteve) return NextResponse.next({ request: { headers: h } });
+    h.set("x-jezik", jezikZahteve);
+    const url = request.nextUrl.clone();
+    url.pathname = pathname;
+    return NextResponse.rewrite(url, { request: { headers: h } });
+  };
+
+  // Administracija in API nimata jezikovnih različic.
+  if (jezikZahteve && (pathname.startsWith("/admin") || pathname.startsWith("/api/"))) {
+    const cilj = request.nextUrl.clone();
+    cilj.pathname = pathname;
+    return NextResponse.redirect(cilj);
+  }
 
   // ---------- slike polic samo za B2B ----------
   if (ZASCITENE_SLIKE.some((p) => pathname.startsWith(p)) && !(await imaDostopDoPolic(request))) {
@@ -84,12 +106,15 @@ export async function proxy(request) {
       const cilj = request.nextUrl.clone();
       cilj.pathname = "/v-pripravi";
       cilj.search = "";
-      return NextResponse.rewrite(cilj);
+      const h = new Headers(request.headers);
+      h.delete("x-jezik");
+      if (jezikZahteve) h.set("x-jezik", jezikZahteve);
+      return NextResponse.rewrite(cilj, { request: { headers: h } });
     }
   }
 
   // ---------- osvezitev seje (admin in prijavljeni B2B kupci) ----------
-  let response = NextResponse.next({ request });
+  let response = nadaljuj();
 
   const imena = request.cookies.getAll().map((c) => c.name);
 
@@ -101,7 +126,7 @@ export async function proxy(request) {
         getAll: () => request.cookies.getAll(),
         setAll: (list) => {
           list.forEach(({ name, value }) => request.cookies.set(name, value));
-          response = NextResponse.next({ request });
+          response = nadaljuj();
           list.forEach(({ name, value, options }) => response.cookies.set(name, value, options));
         },
       },
@@ -120,7 +145,7 @@ export async function proxy(request) {
           setAll: (list) => {
             list.forEach(({ name, value }) => request.cookies.set(name, value));
             const prej = response.cookies.getAll(); // ohrani morebitne osvežene B2B piškotke
-            response = NextResponse.next({ request });
+            response = nadaljuj();
             prej.forEach((c) => response.cookies.set(c));
             list.forEach(({ name, value, options }) =>
               response.cookies.set(name, value, options)

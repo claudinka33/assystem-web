@@ -4,10 +4,11 @@ import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { ogledStrani } from "@/lib/sledenje";
 import { dogodek } from "@/lib/dogodki";
+import { prevedeno } from "@/lib/i18n/odjemalec";
 
 // Lastna statistika obiska (brez piškotkov) — vsak ogled strani gre v administracijo.
 // Dodatno šteje prenose PDF (katalogi, letaki, ETA/DoP) in klike na e-pošto/telefon.
-export default function Sledenje() {
+function Sledenje() {
   const pot = usePathname();
 
   useEffect(() => {
@@ -32,3 +33,5 @@ export default function Sledenje() {
 
   return null;
 }
+
+export default prevedeno(Sledenje);

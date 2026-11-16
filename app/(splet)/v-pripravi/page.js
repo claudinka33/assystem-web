@@ -1,13 +1,14 @@
 import Image from "next/image";
 import { site } from "@/lib/site";
+import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
-export const metadata = {
+const metadataSl = {
   title: "Spletna stran je v prenovi",
   description: "Spletna stran AS system je v prenovi. Dosegljivi smo po telefonu in e-pošti.",
   robots: { index: false, follow: false },
 };
 
-export default async function VPripravi({ searchParams }) {
+async function VPripravi({ searchParams }) {
   const params = await searchParams;
   const napaka = params?.napaka;
 
@@ -55,4 +56,10 @@ export default async function VPripravi({ searchParams }) {
       </div>
     </div>
   );
+}
+
+export default prevedenaStran(VPripravi);
+
+export async function generateMetadata() {
+  return prevediMetadata(metadataSl);
 }

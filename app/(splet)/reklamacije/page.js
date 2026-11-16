@@ -2,14 +2,15 @@ import Link from "next/link";
 import PravnaStran from "@/components/PravnaStran";
 import { site } from "@/lib/site";
 import { VELJA_OD } from "@/lib/pravno";
+import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
-export const metadata = {
+const metadataSl = {
   title: "Reklamacije in jamstvo",
   description: "Jamstvo za skladnost blaga, uveljavljanje reklamacij in pritožb pri AS system d.o.o.",
   alternates: { canonical: "/reklamacije" },
 };
 
-export default function Reklamacije() {
+function Reklamacije() {
   return (
     <PravnaStran pot="/reklamacije" naslov="Reklamacije in jamstvo" opis="Kaj storite, če z izdelkom ni vse v redu." veljaOd={VELJA_OD}>
       <h2>Jamstvo za skladnost blaga</h2>
@@ -60,4 +61,10 @@ export default function Reklamacije() {
       </p>
     </PravnaStran>
   );
+}
+
+export default prevedenaStran(Reklamacije);
+
+export async function generateMetadata() {
+  return prevediMetadata(metadataSl);
 }

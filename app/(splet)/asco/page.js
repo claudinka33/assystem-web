@@ -7,8 +7,9 @@ import DveZnamki from "@/components/DveZnamki";
 import PotiProdaje from "@/components/PotiProdaje";
 import FotoGalerija from "@/components/FotoGalerija";
 import { FOTO_PAKIRANJE, FOTO_EKIPA, FOTO_SKLADISCE } from "@/lib/foto";
+import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
-export const metadata = {
+const metadataSl = {
   title: "ASco: standardno vijačno blago po DIN in ISO",
   description:
     "Vijaki, matice in podložke po DIN in ISO pod znamko ASco: pocinkano, črno in nerjavno jeklo A2/A4, v škatlah za podjetja in vrečkah za trgovine.",
@@ -79,7 +80,7 @@ const FOTO_ASCO = (() => {
   return out.map((x) => (["pakiranje-07", "skladisce-08", "ekipa-03", "skladisce-01"].some((n) => x.src.includes(n)) ? { ...x, vel: true } : x));
 })();
 
-export default async function ASco() {
+async function ASco() {
   const { dostop, prijavljen } = await dostopPolice();
   return (
     <>
@@ -345,4 +346,10 @@ export default async function ASco() {
       <PotiProdaje izpusti="/asco" />
     </>
   );
+}
+
+export default prevedenaStran(ASco);
+
+export async function generateMetadata() {
+  return prevediMetadata(metadataSl);
 }

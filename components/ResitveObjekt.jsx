@@ -3,9 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { prevedeno } from "@/lib/i18n/odjemalec";
 
 // Interaktivni objekt: pregled → cona (detajl) → plus → kartica izdelkov.
-export default function ResitveObjekt({ objekt, cone, izdelki, kompaktno = false }) {
+function ResitveObjekt({ objekt, cone, izdelki, kompaktno = false }) {
   const [cona, setCona] = useState(null); // id izbrane cone
   const [poudarjena, setPoudarjena] = useState(null); // cona pod miško
   const [plus, setPlus] = useState(null); // indeks odprtega plusa
@@ -266,3 +267,5 @@ export default function ResitveObjekt({ objekt, cone, izdelki, kompaktno = false
     </div>
   );
 }
+
+export default prevedeno(ResitveObjekt);

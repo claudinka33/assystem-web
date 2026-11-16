@@ -4,10 +4,11 @@ import { FOTO_KAKOVOST } from "@/lib/foto";
 import Link from "next/link";
 import { pridobiDokumente } from "@/lib/podatki";
 import { poisci, telRaw } from "@/lib/kontakti";
+import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
 export const revalidate = 60;
 
-export const metadata = {
+const metadataSl = {
   title: "Kakovost in certifikati",
   description:
     "ISO 9001:2015, evropske tehnične ocene ETA, oznaka CE in izjave o lastnostih (DoP) za sidra ASfix. Vhodna, medfazna in končna kontrola ter sledljivost vsake serije.",
@@ -59,7 +60,7 @@ const sistem = [
   ["Reklamacije", "Vsako reklamacijo obravnavamo z analizo vzroka in kupcu odgovorimo v dogovorjenem roku."],
 ];
 
-export default async function Kakovost() {
+async function Kakovost() {
   const dokumenti = await pridobiDokumente();
   const kakovostnik = poisci("Mitja Babič");
 
@@ -317,4 +318,10 @@ export default async function Kakovost() {
       </div>
     </>
   );
+}
+
+export default prevedenaStran(Kakovost);
+
+export async function generateMetadata() {
+  return prevediMetadata(metadataSl);
 }

@@ -1,9 +1,10 @@
 import Link from "next/link";
 import Pozabljeno from "./Pozabljeno";
+import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
-export const metadata = { title: "Pozabljeno geslo: B2B", robots: { index: false } };
+const metadataSl = { title: "Pozabljeno geslo: B2B", robots: { index: false } };
 
-export default function Stran() {
+function Stran() {
   return (
     <section className="sec">
       <div className="w" style={{ maxWidth: 520 }}>
@@ -15,4 +16,10 @@ export default function Stran() {
       </div>
     </section>
   );
+}
+
+export default prevedenaStran(Stran);
+
+export async function generateMetadata() {
+  return prevediMetadata(metadataSl);
 }

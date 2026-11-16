@@ -5,14 +5,15 @@ import { odjava } from "@/lib/akcije/b2b";
 import { supabaseAdmin } from "@/lib/supabase-server";
 import { eur } from "@/lib/cene";
 import { site } from "@/lib/site";
+import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
-export const metadata = { title: "Moj B2B račun", robots: { index: false } };
+const metadataSl = { title: "Moj B2B račun", robots: { index: false } };
 export const dynamic = "force-dynamic";
 
 const cas = (t) => (t ? new Date(t).toLocaleDateString("sl-SI", { timeZone: "Europe/Ljubljana" }) : "");
 const STATUS_BARVA = { novo: "#b26a00", potrjeno: "#1d6fb8", "v pripravi": "#1d6fb8", odposlano: "#1a7f3c", zaključeno: "#6e767e", preklicano: "#cb2026" };
 
-export default async function Racun({ searchParams }) {
+async function Racun({ searchParams }) {
   const { potrjeno, geslo, zavihek, pe } = await searchParams;
   const k = await trenutniB2B();
   if (!k) redirect("/b2b?naprej=/b2b/racun");
@@ -251,4 +252,10 @@ export default async function Racun({ searchParams }) {
       </div>
     </section>
   );
+}
+
+export default prevedenaStran(Racun);
+
+export async function generateMetadata() {
+  return prevediMetadata(metadataSl);
 }

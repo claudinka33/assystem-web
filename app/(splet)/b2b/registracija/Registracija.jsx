@@ -4,8 +4,9 @@ import Link from "next/link";
 import { useActionState, useEffect, useState, useTransition } from "react";
 import { dogodek } from "@/lib/dogodki";
 import { registracija, poisciPodjetjeJavno } from "@/lib/akcije/b2b";
+import { prevedeno } from "@/lib/i18n/odjemalec";
 
-export default function Registracija() {
+function Registracija() {
   const [stanje, akcija, cakam] = useActionState(registracija, null);
   const [davcna, setDavcna] = useState("");
   const [podj, setPodj] = useState({ podjetje: "", naslov: "", posta: "", kraj: "" });
@@ -95,3 +96,5 @@ export default function Registracija() {
     </form>
   );
 }
+
+export default prevedeno(Registracija);

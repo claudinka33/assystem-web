@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { prevedeno } from "@/lib/i18n/odjemalec";
 
 /* Video v ozadju glave: lasten MP4 (brez YouTuba), predvaja se takoj,
    brez zvoka in v zanki. Ob »zmanjšanem gibanju« ostane samo slika (poster). */
-export default function VideoOzadje({ src, poster, className = "" }) {
+function VideoOzadje({ src, poster, className = "" }) {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -36,3 +37,5 @@ export default function VideoOzadje({ src, poster, className = "" }) {
     />
   );
 }
+
+export default prevedeno(VideoOzadje);

@@ -9,10 +9,11 @@ import PotiProdaje from "@/components/PotiProdaje";
 import FotoGalerija from "@/components/FotoGalerija";
 import { FOTO_SIDRA, FOTO_MONTAZA, FOTO_PAKIRANJE, FOTO_SKLADISCE } from "@/lib/foto";
 import { pridobiIzdelkePoSlugih } from "@/lib/podatki";
+import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
 export const revalidate = 300;
 
-export const metadata = {
+const metadataSl = {
   title: "ASfix: blagovna znamka",
   description:
     "ASfix je blagovna znamka pritrdilne tehnike podjetja AS system: jeklena sidra, zidni vložki, udarni in Turbo vijaki, vložki za mavčne plošče in kemična sidra.",
@@ -74,7 +75,7 @@ const FOTO_ASFIX = Array.from({ length: 12 }, (_, i) => [FOTO_SIDRA[i], FOTO_MON
   .filter(Boolean)
   .map((x) => (["kovanje-01", "montaza-01", "pakiranje-01", "skladisce-08"].some((n) => x.src.includes(n)) ? vel(x) : x));
 
-export default async function ASfix() {
+async function ASfix() {
   const { dostop, prijavljen } = await dostopPolice();
   const izBaze = await pridobiIzdelkePoSlugih(Object.values(IZDELKI).map((x) => x.slug).filter(Boolean));
   const sl = (k) => (IZDELKI[k].slug && izBaze[IZDELKI[k].slug]?.slika) || IZDELKI[k].slika;
@@ -380,4 +381,10 @@ export default async function ASfix() {
       <PotiProdaje izpusti="/asfix" />
     </>
   );
+}
+
+export default prevedenaStran(ASfix);
+
+export async function generateMetadata() {
+  return prevediMetadata(metadataSl);
 }

@@ -8,6 +8,7 @@ import { oddajNarocilo } from "@/lib/akcije/narocila";
 import { eur, zaokrozi, izracunajPostnino, DDV, DOPLACILO_POVZETJE } from "@/lib/cene";
 import { dogodekKoJePripravljeno } from "@/lib/dogodki";
 import { Ikona, Koraki, Zaupanje, KodaPopust } from "@/components/trgovina/Deli";
+import { prevedeno } from "@/lib/i18n/odjemalec";
 
 const PLACILA = [
   { k: "kartica", n: "Plačilna kartica", o: "Visa, Mastercard, Maestro, Amex, Apple Pay, Google Pay", ik: "kartica" },
@@ -16,7 +17,7 @@ const PLACILA = [
   { k: "povzetje", n: "Po povzetju", o: "Plačate ob prevzemu paketa, doplačilo 1,50 €", ik: "denar" },
 ];
 
-export default function Blagajna({ dostave, placila = ["predracun", "povzetje"] }) {
+function Blagajna({ dostave, placila = ["predracun", "povzetje"] }) {
   const p = useKosarica();
   const router = useRouter();
   const [napaka, setNapaka] = useState("");
@@ -220,3 +221,5 @@ export default function Blagajna({ dostave, placila = ["predracun", "povzetje"] 
     </>
   );
 }
+
+export default prevedeno(Blagajna);

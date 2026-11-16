@@ -1,8 +1,9 @@
 import Link from "next/link";
 import VideoOzadje from "@/components/VideoOzadje";
 import ObrazecPovprasevanje from "@/components/ObrazecPovprasevanje";
+import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
-export const metadata = {
+const metadataSl = {
   title: "Postanite distributer",
   description:
     "Iščemo distributerje pritrdilne tehnike ASfix v EXYU, DACH, Skandinaviji, Baltiku in Vzhodni Evropi.",
@@ -16,7 +17,7 @@ const razlogi = [
   ["Zaščita trga", "Distributerju zagotovimo jasne pogoje sodelovanja na dogovorjenem območju."],
 ];
 
-export default function Distributerji() {
+function Distributerji() {
   return (
     <>
       <section className="zn-hero antracit">
@@ -89,4 +90,10 @@ export default function Distributerji() {
       </section>
     </>
   );
+}
+
+export default prevedenaStran(Distributerji);
+
+export async function generateMetadata() {
+  return prevediMetadata(metadataSl);
 }

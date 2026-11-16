@@ -2,11 +2,14 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { navigacija, site } from "@/lib/site";
 import KosaricaGumb from "@/components/KosaricaGumb";
 import B2BPovezava from "@/components/B2BPovezava";
 import { ZNAMKE, ZNAMKE_INFO } from "@/lib/znamke";
+import { JEZIKI, IMENA_JEZIKOV, brezJezika, potZJezikom } from "@/lib/i18n/skupno";
+import { prevedeno } from "@/lib/i18n/odjemalec";
 
 // Postavke spustnega seznama: znamke z logotipi ali navadne povezave.
 const podPostavke = (el, kategorije = [], skrite = []) =>
@@ -16,10 +19,25 @@ const podPostavke = (el, kategorije = [], skrite = []) =>
     ? ZNAMKE.filter((z) => !skrite.includes(z)).map((z) => ({ naziv: ZNAMKE_INFO[z].ime, pot: ZNAMKE_INFO[z].pot, opis: ZNAMKE_INFO[z].opis, logo: ZNAMKE_INFO[z].znak ?? ZNAMKE_INFO[z] }))
     : el.pod ?? [];
 
-// Jeziki se prikažejo, ko bodo prevodi strani pripravljeni (npr. ["SI", "EN", "DE", "HR"]).
-const jeziki = [];
+// Preklop jezika: polna povezava (ne Link), da se ob menjavi naloži cela stran v novem jeziku.
+function Jeziki({ jezik }) {
+  const [pot, setPot] = useState("/");
+  const brskalnik = usePathname(); // posodobi ob vsakem premiku po strani
+  useEffect(() => {
+    setPot(brezJezika(window.location.pathname) + window.location.search);
+  }, [brskalnik]);
+  return (
+    <span className="jeziki" translate="no">
+      {JEZIKI.map((j) => (
+        <a key={j} href={j === "sl" ? pot : potZJezikom(pot, j)} hrefLang={j} lang={j} className={j === jezik ? "on" : undefined} aria-current={j === jezik ? "true" : undefined}>
+          {IMENA_JEZIKOV[j]}
+        </a>
+      ))}
+    </span>
+  );
+}
 
-export default function Header({ kategorije = [], skrite = [] }) {
+function Header({ kategorije = [], skrite = [], jezik = "sl" }) {
   const [odprt, setOdprt] = useState(false);
   // Spustni meni, ki je bil pravkar kliknjen — skrit, dokler miška ne zapusti postavke.
   const [zaprt, setZaprt] = useState(null);
@@ -36,12 +54,8 @@ export default function Header({ kategorije = [], skrite = [] }) {
           <span>{site.ime} · proizvajalec pritrdilne tehnike od {site.ustanovljeno}</span>
           <span className="lang">
             <B2BPovezava /> · <Link href="/katalogi">Katalogi</Link> · <Link href="/zaposlitev">Zaposlitev</Link>
-            {jeziki.length > 1 && " | "}
-            {jeziki.length > 1 && jeziki.map((j) => (
-              <a key={j} href="#" className={j === "SI" ? "on" : undefined}>
-                {j}
-              </a>
-            ))}
+            {" | "}
+            <Jeziki jezik={jezik} />
           </span>
         </div>
       </div>
@@ -167,6 +181,9 @@ export default function Header({ kategorije = [], skrite = [] }) {
                 );
               })}
               <Link href="/b2b" onClick={() => setOdprt(false)}>B2B prijava za podjetja</Link>
+              <div className="mob-jeziki">
+                <Jeziki jezik={jezik} />
+              </div>
               <a href={`tel:${site.telefonRaw}`} style={{ color: "var(--color-red)" }}>
                 {site.telefon}
               </a>
@@ -177,3 +194,5 @@ export default function Header({ kategorije = [], skrite = [] }) {
     </>
   );
 }
+
+export default prevedeno(Header);

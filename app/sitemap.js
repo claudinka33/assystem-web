@@ -18,7 +18,7 @@ export default async function sitemap() {
   const novice = await pridobiNovice(50);
   const izdelki = await pridobiVseIzdelke();
 
-  return [
+  const vnosi = [
     ...strani.filter((p) => !skrite.includes(p)).map((p) => ({
       url: `${site.url}${p}`,
       lastModified: zdaj,
@@ -44,4 +44,15 @@ export default async function sitemap() {
       priority: 0.5,
     })),
   ];
+
+  // Vsaka stran ima tudi angleško (/en) in nemško (/de) različico.
+  return vnosi.map((v) => {
+    const pot = v.url.slice(site.url.length) || "";
+    return {
+      ...v,
+      alternates: {
+        languages: { sl: v.url, en: `${site.url}/en${pot}`, de: `${site.url}/de${pot}` },
+      },
+    };
+  });
 }

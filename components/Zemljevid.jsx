@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { prevedeno } from "@/lib/i18n/odjemalec";
 
 /* Google zemljevid se naloži šele ob kliku, da brez privolitve
    ne pošiljamo podatkov Googlu (GDPR, ZEKom-2). */
-export default function Zemljevid({ naslov, poizvedba }) {
+function Zemljevid({ naslov, poizvedba }) {
   const [odprt, setOdprt] = useState(false);
   if (odprt) {
     return (
@@ -26,3 +27,5 @@ export default function Zemljevid({ naslov, poizvedba }) {
     </div>
   );
 }
+
+export default prevedeno(Zemljevid);

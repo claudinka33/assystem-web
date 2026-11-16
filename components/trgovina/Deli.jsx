@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import { eur, zaokrozi, POSTNINA_RAZREDI, DDV } from "@/lib/cene";
 import { preveriKodo } from "@/lib/akcije/narocila";
+import { prevedeno } from "@/lib/i18n/odjemalec";
 
 const BREZPLACNO_NAD = POSTNINA_RAZREDI[POSTNINA_RAZREDI.length - 1].do;
 
@@ -20,7 +21,7 @@ const pot = {
   tovarna: "M3 21V10l6 3V9l6 3V5h4v16zM7 17h2M12 17h2",
   vozicek: "M3 4h2l2.4 11.2a1 1 0 0 0 1 .8h9.7a1 1 0 0 0 1-.8L21 8H6M9 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM18 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2z",
 };
-export function Ikona({ ime, velikost = 20 }) {
+function Ikona({ ime, velikost = 20 }) {
   return (
     <svg width={velikost} height={velikost} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <path d={pot[ime]} />
@@ -28,7 +29,7 @@ export function Ikona({ ime, velikost = 20 }) {
   );
 }
 
-export function Koraki({ korak }) {
+function Koraki({ korak }) {
   const k = [
     ["Košarica", 1],
     ["Podatki in plačilo", 2],
@@ -46,7 +47,7 @@ export function Koraki({ korak }) {
   );
 }
 
-export function Zaupanje() {
+function Zaupanje() {
   return (
     <>
       <ul className="trg-zaupanje">
@@ -64,7 +65,7 @@ export function Zaupanje() {
 }
 
 // Trak »še X € do brezplačne dostave«
-export function BrezplacnaDostava({ bruto }) {
+function BrezplacnaDostava({ bruto }) {
   const neto = bruto / (1 + DDV);
   const manjka = zaokrozi(BREZPLACNO_NAD - neto);
   const delez = Math.min(100, Math.round((neto / BREZPLACNO_NAD) * 100));
@@ -84,7 +85,7 @@ export function BrezplacnaDostava({ bruto }) {
 }
 
 // Polje za kodo: predogled na strežniku; uporabljena koda gre z naročilom (strežnik jo ponovno preveri).
-export function KodaPopust({ postavke, koda, setKoda }) {
+function KodaPopust({ postavke, koda, setKoda }) {
   const [odprto, setOdprto] = useState(false);
   const [vnos, setVnos] = useState("");
   const [napaka, setNapaka] = useState("");
@@ -132,3 +133,14 @@ export function KodaPopust({ postavke, koda, setKoda }) {
     </>
   );
 }
+
+const IkonaPreveden = prevedeno(Ikona);
+export { IkonaPreveden as Ikona };
+const KorakiPreveden = prevedeno(Koraki);
+export { KorakiPreveden as Koraki };
+const ZaupanjePreveden = prevedeno(Zaupanje);
+export { ZaupanjePreveden as Zaupanje };
+const BrezplacnaDostavaPreveden = prevedeno(BrezplacnaDostava);
+export { BrezplacnaDostavaPreveden as BrezplacnaDostava };
+const KodaPopustPreveden = prevedeno(KodaPopust);
+export { KodaPopustPreveden as KodaPopust };

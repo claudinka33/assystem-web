@@ -1,10 +1,11 @@
 "use client";
 import { useEffect, useRef } from "react";
+import { prevedeno } from "@/lib/i18n/odjemalec";
 
 /* Ena ploščica Instagram objave. Video se predvaja sam (brez zvoka, v zanki),
    ko je ploščica na zaslonu; ko gre z zaslona, se ustavi. Prenese se šele,
    ko je viden. Pri »manj gibanja« v sistemu se predvaja samo ob prehodu z miško. */
-export default function IgPloscica({ o }) {
+function IgPloscica({ o }) {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -50,3 +51,5 @@ export default function IgPloscica({ o }) {
     </a>
   );
 }
+
+export default prevedeno(IgPloscica);

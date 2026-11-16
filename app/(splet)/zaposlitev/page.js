@@ -5,10 +5,11 @@ import NaslovStrani from "@/components/NaslovStrani";
 import ObrazecPrijava from "@/components/ObrazecPrijava";
 import { pridobiDelovnaMesta } from "@/lib/podatki";
 import { pridobiVsebine, v } from "@/lib/vsebine";
+import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
 export const revalidate = 60;
 
-export const metadata = {
+const metadataSl = {
   title: "Zaposlitev",
   description:
     "Odprta delovna mesta v podjetju AS system d.o.o., proizvodnja pritrdilne tehnike v Šmarju pri Jelšah in Bistrici ob Sotli. Oddajte prijavo prek spleta.",
@@ -30,7 +31,7 @@ function sodelavce(n) {
   return "sodelavcev";
 }
 
-export default async function Zaposlitev() {
+async function Zaposlitev() {
   const [mesta, b] = await Promise.all([pridobiDelovnaMesta(), pridobiVsebine("zaposlitev")]);
 
   return (
@@ -169,4 +170,10 @@ export default async function Zaposlitev() {
       </section>
     </>
   );
+}
+
+export default prevedenaStran(Zaposlitev);
+
+export async function generateMetadata() {
+  return prevediMetadata(metadataSl);
 }

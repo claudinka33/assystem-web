@@ -5,8 +5,9 @@ import PotiProdaje from "@/components/PotiProdaje";
 import KorakiSlike from "@/components/KorakiSlike";
 import FotoGalerija from "@/components/FotoGalerija";
 import { FOTO_VPN, FOTO_KOVANJE, FOTO_KAKOVOST } from "@/lib/foto";
+import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
-export const metadata = {
+const metadataSl = {
   title: "Vijaki po naročilu: po vaši risbi",
   description:
     "Posebni vijaki po risbi ali tehnični dokumentaciji, od M3 do M16, za elektro, lesno, gradbeno in splošno industrijo. Lastna proizvodnja od leta 2015.",
@@ -36,7 +37,7 @@ const panoge = [
   ["Splošna industrija", "sestavni deli po risbi naročnika"],
 ];
 
-export default function VijakiPoNarocilu() {
+function VijakiPoNarocilu() {
   return (
     <>
       <NaslovStrani
@@ -167,4 +168,10 @@ export default function VijakiPoNarocilu() {
       <PotiProdaje izpusti="/vijaki-po-narocilu" />
     </>
   );
+}
+
+export default prevedenaStran(VijakiPoNarocilu);
+
+export async function generateMetadata() {
+  return prevediMetadata(metadataSl);
 }

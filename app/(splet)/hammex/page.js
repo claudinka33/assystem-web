@@ -6,8 +6,9 @@ import PotiProdaje from "@/components/PotiProdaje";
 import FotoGalerija from "@/components/FotoGalerija";
 import { FOTO_ZEBLJI } from "@/lib/foto";
 import { pridobiIzdelkePoSlugih } from "@/lib/podatki";
+import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
-export const metadata = {
+const metadataSl = {
   title: "HAMMEX: žeblji in žičniki",
   description:
     "Žeblji pod znamko HAMMEX: gradbeni žičniki, lepenkarji (cinkani, aluminij, baker), strojni žičniki v traku za pnevmatske žebljalnike in kolarniki.",
@@ -74,7 +75,7 @@ const materiali = [
   { b: "Baker", s: "lepenkarji", p: "Za bakrene kritine in obrobe, brez galvanske korozije.", slika: "/slike/zicniki/en-lepenkar-baker.jpg" },
 ];
 
-export default async function Hammer() {
+async function Hammer() {
   const izBaze = await pridobiIzdelkePoSlugih(program.map((x) => x.pot.split("/").pop()));
   return (
     <>
@@ -231,4 +232,10 @@ export default async function Hammer() {
       <PotiProdaje izpusti="/hammex" />
     </>
   );
+}
+
+export default prevedenaStran(Hammer);
+
+export async function generateMetadata() {
+  return prevediMetadata(metadataSl);
 }

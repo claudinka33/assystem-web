@@ -12,10 +12,11 @@ import {
 } from "@/lib/podatki";
 import { kategorije as rezervne } from "@/lib/site";
 import { ZNAMKE, ZNAMKE_INFO, normZnamka } from "@/lib/znamke";
+import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
 export const revalidate = 60;
 
-export async function generateMetadata({ params }) {
+async function generateMetadataSl({ params }) {
   const { kategorija } = await params;
   const k = await pridobiKategorijo(kategorija);
   const r = rezervne.find((x) => x.slug === kategorija);
@@ -30,7 +31,7 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default async function Kategorija({ params, searchParams }) {
+async function Kategorija({ params, searchParams }) {
   const { kategorija } = await params;
   const izbrana = normZnamka((await searchParams)?.znamka);
   const k = await pridobiKategorijo(kategorija);
@@ -137,4 +138,10 @@ export default async function Kategorija({ params, searchParams }) {
       )}
     </>
   );
+}
+
+export default prevedenaStran(Kategorija);
+
+export async function generateMetadata(props) {
+  return prevediMetadata(await generateMetadataSl(props));
 }

@@ -9,9 +9,10 @@ import { eur, zaokrozi, izracunajPostnino, DDV } from "@/lib/cene";
 import { useB2BCene } from "@/lib/b2b-klient";
 import { dogodekKoJePripravljeno } from "@/lib/dogodki";
 import { Ikona, Koraki, KodaPopust } from "@/components/trgovina/Deli";
+import { prevedeno } from "@/lib/i18n/odjemalec";
 
 // Blagajna za prijavljenega B2B kupca: cene po ceniku, plačilo na račun, dostava na sedež ali poslovalnico.
-export default function BlagajnaB2B({ kupec, dostave, prodajalne }) {
+function BlagajnaB2B({ kupec, dostave, prodajalne }) {
   const p = useKosarica();
   const b2b = useB2BCene(p.map((x) => x.id));
   const router = useRouter();
@@ -205,3 +206,5 @@ export default function BlagajnaB2B({ kupec, dostave, prodajalne }) {
     </>
   );
 }
+
+export default prevedeno(BlagajnaB2B);

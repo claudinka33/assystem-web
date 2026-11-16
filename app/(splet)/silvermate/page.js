@@ -5,10 +5,11 @@ import DveZnamki from "@/components/DveZnamki";
 import SilvermateVsebina from "@/components/SilvermateVsebina";
 import { pridobiIzdelkePoSlugih } from "@/lib/podatki";
 import { SILVERMATE_KATEGORIJA, SILVERMATE_IZDELKI } from "@/lib/silvermate";
+import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
 export const revalidate = 300;
 
-export const metadata = {
+const metadataSl = {
   title: "Silvermate: lesni vijaki",
   description:
     "Lesni vijaki Silvermate z oceno ETA-18/0284: Pozi ali Torx, cel ali delni navoj, od 3,0 × 16 do 6,0 × 200 mm. AS811, AS812, AS814 in AS816.",
@@ -22,7 +23,7 @@ const vijaki = [
   { sifra: "AS816", naziv: "Lesni vijak, Torx", navoj: "delni navoj", glava: "torx", slika: "/slike/silvermate/AS816.jpg" },
 ];
 
-export default async function Silvermate() {
+async function Silvermate() {
   const izBaze = await pridobiIzdelkePoSlugih(Object.values(SILVERMATE_IZDELKI).map((x) => x.slug));
   const vKatalogu = Object.values(izBaze).some((x) => x.href);
   const katalog = vKatalogu ? `/program/${SILVERMATE_KATEGORIJA.slug}` : "/iskanje?q=AS81";
@@ -97,4 +98,10 @@ export default async function Silvermate() {
       </div>
     </>
   );
+}
+
+export default prevedenaStran(Silvermate);
+
+export async function generateMetadata() {
+  return prevediMetadata(metadataSl);
 }
