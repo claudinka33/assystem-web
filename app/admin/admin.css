@@ -1037,3 +1037,7 @@ details.adm-obr { padding: 8px 12px; }
 .nad-povezava:hover { background: #f7f8f9; }
 .adm-povp { scroll-margin-top: 90px; }
 .adm-povp:target { outline: 2px solid #c8102e; outline-offset: 2px; }
+.odg-forma { margin-top: 16px; padding: 16px; background: #f7f8f9; border: 1px solid #e3e5e8; }
+.odg-za { font-size: 13px; margin-bottom: 10px; color: var(--a-muted); }
+.odg-za b { color: #1f2328; }
+.odg-forma textarea { width: 100%; font: inherit; font-size: 13.5px; }

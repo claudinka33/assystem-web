@@ -1,17 +1,17 @@
 import { supabaseAdmin } from "@/lib/supabase-server";
 import { spremeniStatusPovprasevanja } from "@/lib/akcije/skupno";
+import OdgovorPovprasevanju from "@/components/admin/OdgovorPovprasevanju";
 
 export const dynamic = "force-dynamic";
 
 const statusi = ["novo", "v obdelavi", "zaključeno"];
 
-// »Odgovori« odpre e-pošto z naslovom in citatom vprašanja
-function odgovor(p) {
+// Predlog odgovora: zadeva in citat vprašanja
+function predlog(p) {
   const izd = (p.izdelki ?? []).filter((x) => !x.datoteka).map((x) => `${x.naziv}${x.sifra ? ` (${x.sifra})` : ""}`).join(", ");
-  const tema = (p.vir ?? "").startsWith("rok-dobave") ? `Rok dobave${izd ? `: ${izd}` : ""}` : `Vaše povpraševanje${izd ? `: ${izd}` : ""}`;
+  const zadeva = (p.vir ?? "").startsWith("rok-dobave") ? `Rok dobave${izd ? `: ${izd}` : ""}` : `Vaše povpraševanje${izd ? `: ${izd}` : ""}`;
   const citat = (p.sporocilo ?? "").split("\n").map((v) => `> ${v}`).join("\n");
-  const telo = `Pozdravljeni,\n\n\n\nLep pozdrav,\nAS system d.o.o.\n\n${citat}`;
-  return `mailto:${p.email}?subject=${encodeURIComponent(tema)}&body=${encodeURIComponent(telo)}`;
+  return { zadeva, besedilo: `Pozdravljeni,\n\n\n\nLep pozdrav\n\n\n${citat}` };
 }
 
 export default async function Povprasevanja() {
@@ -58,12 +58,7 @@ export default async function Povprasevanja() {
                     {p.telefon && ` · ${p.telefon}`} · vir: {p.vir}
                   </div>
                 </div>
-                <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-                  <a className="gumb" href={odgovor(p)}>
-                    Odgovori
-                  </a>
-                  <span className={p.status === "novo" ? "znacka novo" : "znacka ne"}>{p.status}</span>
-                </div>
+                <span className={p.status === "novo" ? "znacka novo" : "znacka ne"}>{p.status}</span>
               </div>
 
               {(p.izdelki ?? []).length > 0 && (
@@ -87,6 +82,8 @@ export default async function Povprasevanja() {
                 <p style={{ marginTop: 14, fontSize: 13, whiteSpace: "pre-wrap" }}>{p.sporocilo}</p>
               )}
 
+              <OdgovorPovprasevanju id={p.id} email={p.email} {...predlog(p)} />
+
               <form action={spremeniStatusPovprasevanja} style={{ marginTop: 16, display: "flex", gap: 10, alignItems: "flex-end" }}>
                 <input type="hidden" name="id" value={p.id} />
                 <div className="adm-polje" style={{ marginBottom: 0, width: 170 }}>
@@ -101,7 +98,7 @@ export default async function Povprasevanja() {
                 </div>
                 <div className="adm-polje" style={{ marginBottom: 0, flex: 1 }}>
                   <label>Interna opomba</label>
-                  <input type="text" name="opomba" defaultValue={p.opomba ?? ""} />
+                  <textarea name="opomba" rows={Math.min(4, Math.max(1, (p.opomba ?? "").split("\n").length))} defaultValue={p.opomba ?? ""} />
                 </div>
                 <button className="gumb" type="submit">
                   Shrani
