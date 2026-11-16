@@ -103,8 +103,7 @@ export default async function ZnamkeIzdelkov({ searchParams }) {
                   {stolpec && (
                     <form action={nastaviZnamko} style={{ display: "flex", gap: 6 }}>
                       <input type="hidden" name="id" value={i.id} />
-                      <select name="znamka" defaultValue={i.vpis ?? ""}>
-                        <option value="">samodejno</option>
+                      <select name="znamka" defaultValue={i.vpis ?? i.predlog}>
                         {ZNAMKE.map((z) => (
                           <option key={z} value={z}>
                             {ZNAMKE_INFO[z].ime}
