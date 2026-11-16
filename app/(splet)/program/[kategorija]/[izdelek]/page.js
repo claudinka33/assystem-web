@@ -132,30 +132,6 @@ async function StranIzdelka({ params }) {
           <aside className="izd-levo">
             <GalerijaIzdelka slike={slike} naziv={i.naziv} />
 
-            {i.prednosti?.length > 0 && (
-              <ul className="izd-pred">
-                {i.prednosti.map((p) => (
-                  <li key={p}>
-                    <span>✓</span>
-                    {p}
-                  </li>
-                ))}
-              </ul>
-            )}
-
-
-            {dokumenti.length > 0 && (
-              <div className="izd-dok">
-                <p className="izd-mali">Dokumentacija</p>
-                {dokumenti.map((d) => (
-                  <a key={d.id} href={d.datoteka_url} target="_blank" rel="noreferrer">
-                    <b>{oznakeTipov[d.tip] ?? d.tip}</b>
-                    <span>{d.naziv}</span>
-                    <em>PDF · {d.jezik?.toUpperCase()}</em>
-                  </a>
-                ))}
-              </div>
-            )}
           </aside>
 
           {/* Desno: naslov, lastnosti, tabela, opis */}
@@ -186,6 +162,31 @@ async function StranIzdelka({ params }) {
               <Link className="b b-r" href={povprasevanje}>Pošljite povpraševanje</Link>
               {artikli.length > 0 && <a className="b b-o" href="#artikli">Dimenzije in cene ↓</a>}
             </div>
+
+            {i.prednosti?.length > 0 && (
+              <ul className="izd-pred">
+                {i.prednosti.map((p) => (
+                  <li key={p}>
+                    <span>✓</span>
+                    {p}
+                  </li>
+                ))}
+              </ul>
+            )}
+
+
+            {dokumenti.length > 0 && (
+              <div className="izd-dok">
+                <p className="izd-mali">Dokumentacija</p>
+                {dokumenti.map((d) => (
+                  <a key={d.id} href={d.datoteka_url} target="_blank" rel="noreferrer">
+                    <b>{oznakeTipov[d.tip] ?? d.tip}</b>
+                    <span>{d.naziv}</span>
+                    <em>PDF · {d.jezik?.toUpperCase()}</em>
+                  </a>
+                ))}
+              </div>
+            )}
 
           </div>
         </div>

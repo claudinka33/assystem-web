@@ -3551,3 +3551,42 @@ a.b2b-profil:hover { background: #a50d26; }
   .hp-stolpec { display: none; }
   .hp-zavihek { display: block; }
 }
+/* Stran izdelka: majhen vrh (slika 190 px, prednosti in dokumenti desno), tabela takoj vidna */
+.izd-okvir .izd-grid { grid-template-columns: 190px minmax(0, 1fr); gap: 24px; }
+.izd-okvir .izd-levo { gap: 8px; }
+.izd-okvir .izd-mini { gap: 5px; }
+.izd-okvir .izd-h1 { font-size: clamp(20px, 1.8vw, 26px); margin-top: 2px; }
+.izd-okvir .izd-kratko { margin-top: 6px; font-size: 14.5px; }
+.izd-okvir .izd-oznake { margin-top: 10px; }
+.izd-okvir .izd-hitro { margin-top: 10px; }
+.izd-okvir .izd-hitro .b { padding: 9px 16px; font-size: 13px; }
+.izd-okvir .izd-desno .izd-pred { display: flex; flex-wrap: wrap; gap: 4px 18px; margin-top: 12px; font-size: 13.5px; }
+.izd-okvir .izd-desno .izd-dok { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.izd-okvir .izd-desno .izd-dok .izd-mali { flex-basis: 100%; margin-bottom: 0; }
+.izd-okvir .izd-desno .izd-dok a { display: inline-flex; gap: 8px; padding: 6px 10px; font-size: 12.5px; }
+.izd-okvir .izd-tab-siroka { margin-top: 18px; }
+.izd-okvir .izd-tab-gl h2 { font-size: 17px; }
+@media (max-width: 700px) {
+  .izd-okvir .izd-grid { grid-template-columns: 120px minmax(0, 1fr); gap: 14px; }
+  .izd-okvir .izd-mini { display: none; }
+}
+/* Banner B2B: prikaz portala namesto slike škatle */
+.b2bz { justify-self: end; width: min(100%, 520px); background: #fff; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35); transform: rotate(-2deg); color: #1b1e21; font-size: 14px; }
+.b2bz-vrh { display: flex; align-items: center; gap: 6px; padding: 9px 12px; background: #2b2f33; }
+.b2bz-vrh i { width: 9px; height: 9px; border-radius: 50%; background: #5a6067; }
+.b2bz-vrh i:first-child { background: var(--color-red); }
+.b2bz-vrh span { margin-left: 8px; color: #c9cdd1; font-size: 11.5px; letter-spacing: 0.5px; }
+.b2bz-tel { padding: 18px 20px 20px; display: grid; gap: 8px; }
+.b2bz-gl { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 3px solid var(--color-red); padding-bottom: 8px; }
+.b2bz-gl b { font-size: 18px; font-weight: 900; text-transform: uppercase; }
+.b2bz-gl em { font-style: normal; color: var(--color-muted); font-size: 12.5px; }
+.b2bz-isci { border: 1px solid #d5d9dd; padding: 9px 12px; color: #8a9097; font-size: 13px; }
+.b2bz-vr { display: grid; grid-template-columns: 1fr auto 56px 28px; gap: 12px; align-items: center; padding: 9px 0; border-bottom: 1px solid #eef0f2; }
+.b2bz-vr span:nth-child(2) { color: var(--color-muted); font-size: 12.5px; }
+.b2bz-vr b { color: var(--color-red); font-weight: 800; text-align: right; }
+.b2bz-vr i { font-style: normal; width: 28px; height: 28px; display: grid; place-items: center; background: var(--color-red); color: #fff; font-weight: 800; }
+.b2bz-spodaj { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-top: 4px; font-size: 12.5px; }
+.b2bz-spodaj span:first-child { color: #1f8a4c; font-weight: 700; }
+.b2bz-spodaj span:last-child { color: var(--color-muted); }
+@media (max-width: 1000px) { .b2bz { justify-self: center; transform: none; margin-top: 10px; } }
+@media (max-width: 620px) { .b2bz { display: none; } }

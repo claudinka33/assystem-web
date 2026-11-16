@@ -74,9 +74,9 @@ async function Domov() {
             video: "/videi/proizvodnja-hero.mp4",
             poster: "/slike/proizvodnja/hero-video-poster.jpg",
             oznaka: "Bespoke manufacturing",
-            naslov: "Iz zaloge ali po vaši meri.",
+            naslov: "Vaša skica. Naš izdelek.",
             besedilo:
-              "Prinesite skico ali risbo. Sidra, udarni vijaki, vložki in vijaki iz lastne proizvodnje: standardno ali izdelano po vaših merah.",
+              "Sidra, udarni vijaki, zidni vložki in vijaki po vaši risbi, v vaši izvedbi in vaši embalaži. Iz lastne proizvodnje v Sloveniji.",
             gumbi: [
               { naziv: "Pošljite skico", pot: "/bespoke#povprasevanje", slog: "bel" },
               { naziv: "Lastna proizvodnja", pot: "/proizvodnja", slog: "obroba" },
@@ -85,15 +85,11 @@ async function Domov() {
             opomba: "Lastna proizvodnja · Šmarje pri Jelšah in Bistrica ob Sotli",
           },
           {
-            tip: "slika",
-            slika: "/slike/znamke/asfix-afr41-sredina.png",
-            sirina: 1001,
-            visina: 662,
-            alt: "Škatla ASfix",
-            oznaka: "Za podjetja · B2B",
-            naslov: "Vaše cene. Naročilo v nekaj klikih.",
+            tip: "b2b",
+            oznaka: "B2B portal za podjetja",
+            naslov: "Naročajte po svojih cenah.",
             besedilo:
-              "Registrirajte podjetje in naročajte po svojem ceniku: pregled naročil in računov, plačilo na račun z dogovorjenim rokom plačila.",
+              "Vaš cenik, hitro naročanje po šifri ter pregled naročil in računov na enem mestu. Plačilo na račun z dogovorjenim rokom.",
             gumbi: [
               { naziv: "B2B registracija", pot: "/b2b/registracija", slog: "bel" },
               { naziv: "Prijava", pot: "/b2b", slog: "obroba" },
@@ -105,14 +101,10 @@ async function Domov() {
             sirina: 1100,
             visina: 1044,
             alt: "Pritrdila ASfix: jekleno sidro TXH7, zidni vložki, kemično sidro EASF TOP, udarni vijaki, vrečka in škatla",
-            oznaka: v(b, "domov.hero.oznaka", "naslov", "Pritrdilna tehnika in vijaki"),
-            naslov: v(b, "domov.hero.naslov", "naslov", "Vse za pritrjevanje. Iz zaloge."),
-            besedilo: v(
-              b,
-              "domov.hero.besedilo",
-              "besedilo",
-              "Jeklena sidra, zidni vložki, udarni vijaki, kemična sidra in vijačno blago iz zaloge. Za trgovine, izvajalce in distributerje."
-            ),
+            oznaka: "Prodajni program ASfix",
+            naslov: "Od sidra do vijaka. Takoj iz zaloge.",
+            besedilo:
+              "Jeklena sidra, zidni vložki, udarni vijaki, kemična sidra in vijačno blago. Za trgovine, izvajalce in distributerje.",
             gumbi: [
               { naziv: "Prodajni program", pot: "/program", slog: "bel" },
               { naziv: "Kontaktirajte nas", pot: "/kontakt", slog: "obroba" },

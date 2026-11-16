@@ -10,6 +10,42 @@ const CAS = 5000; // menjava bannerja na 5 s
 
 /* Glava domače strani: bannerji, ki se menjajo vsakih 5 s.
    bannerji: [{ tip: "video" | "slika", oznaka, naslov, besedilo, gumbi: [{ naziv, pot, slog, zunanja }], video, poster, slika, alt, opomba }] */
+/* Prikaz B2B portala: cenik podjetja, hitro naročanje, status naročila */
+function B2bZaslon() {
+  const vrstice = [
+    ["Jekleno sidro TXH7 10x90", "1.200 kos", "−22 %"],
+    ["Udarni vijak 6x60", "5.000 kos", "−18 %"],
+    ["Zidni vložek MQ 8x40", "10.000 kos", "−25 %"],
+  ];
+  return (
+    <div className="b2bz" aria-hidden="true">
+      <div className="b2bz-vrh">
+        <i /><i /><i />
+        <span>B2B portal · assystem.si</span>
+      </div>
+      <div className="b2bz-tel">
+        <div className="b2bz-gl">
+          <b>Vaš cenik</b>
+          <em>Podjetje d.o.o.</em>
+        </div>
+        <div className="b2bz-isci">Hitro naročilo po šifri …</div>
+        {vrstice.map(([n, k, p]) => (
+          <div className="b2bz-vr" key={n}>
+            <span>{n}</span>
+            <span>{k}</span>
+            <b>{p}</b>
+            <i>+</i>
+          </div>
+        ))}
+        <div className="b2bz-spodaj">
+          <span>✓ Naročilo odpremljeno</span>
+          <span>Plačilo na račun · 30 dni</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function HeroBannerji({ bannerji = [] }) {
   const [i, setI] = useState(0);
   const [pavza, setPavza] = useState(false);
@@ -70,6 +106,7 @@ function HeroBannerji({ bannerji = [] }) {
                   </div>
                 )}
               </div>
+              {b.tip === "b2b" && <B2bZaslon />}
               {b.tip === "slika" && b.slika && (
                 <div className="hero-im">
                   <Image
