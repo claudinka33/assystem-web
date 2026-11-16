@@ -92,7 +92,7 @@ function Raven({ zacetni, render, onShrani, razred }) {
   );
 }
 
-function Vrstica({ k, stIzdelkov, podrejenih, otrok, rocaj, puscici, mesto }) {
+function Vrstica({ k, stIzdelkov, podrejenih, otrok, rocaj, puscici, mesto, odprto, preklopi }) {
   return (
     <div className={`kat-vrstica${otrok ? " otrok" : ""}${k.objavljeno ? "" : " skrita"}`}>
       {rocaj}
@@ -103,7 +103,17 @@ function Vrstica({ k, stIzdelkov, podrejenih, otrok, rocaj, puscici, mesto }) {
         <small>/{k.slug}</small>
       </Link>
       <span className="kat-meta">
-        {podrejenih > 0 && <span>{podrejenih} podkat.</span>}
+        {podrejenih > 0 &&
+          (preklopi ? (
+            <button type="button" className={`kat-razpri${odprto ? " on" : ""}`} onClick={preklopi} aria-expanded={odprto} title={odprto ? "Skrij podkategorije" : "Pokaži podkategorije"}>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="m9 6 6 6-6 6" />
+              </svg>
+              {podrejenih} podkat.
+            </button>
+          ) : (
+            <span>{podrejenih} podkat.</span>
+          ))}
         <span className={stIzdelkov ? "" : "nic"}>{stIzdelkov} izdelkov</span>
       </span>
       <span className={k.objavljeno ? "znacka da" : "znacka ne"}>{k.objavljeno ? "Objavljeno" : "Skrito"}</span>
@@ -128,6 +138,14 @@ export default function KategorijeDrevo({ glavne, otroci, stIzd }) {
   const [stanje, setStanje] = useState(null); // null | "shranjujem" | "ok" | napaka
   const [, zacni] = useTransition();
   const casovnik = useRef(null);
+  const [odprte, setOdprte] = useState(() => new Set()); // podkategorije so privzeto zaprte
+  const preklopi = (id) =>
+    setOdprte((s) => {
+      const n = new Set(s);
+      if (n.has(id)) n.delete(id);
+      else n.add(id);
+      return n;
+    });
 
   function shrani(ids) {
     setStanje("shranjujem");
@@ -156,8 +174,8 @@ export default function KategorijeDrevo({ glavne, otroci, stIzd }) {
           const izd = (stIzd[k.id] ?? 0) + pod.reduce((s, p) => s + (stIzd[p.id] ?? 0), 0);
           return (
             <section className="kat-skupina">
-              <Vrstica k={k} stIzdelkov={izd} podrejenih={pod.length} {...r} />
-              {pod.length > 0 && (
+              <Vrstica k={k} stIzdelkov={izd} podrejenih={pod.length} odprto={odprte.has(k.id)} preklopi={() => preklopi(k.id)} {...r} />
+              {pod.length > 0 && odprte.has(k.id) && (
                 <Raven
                   zacetni={pod}
                   onShrani={shrani}

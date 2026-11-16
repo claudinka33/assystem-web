@@ -859,3 +859,8 @@ details.adm-obr { padding: 8px 12px; }
 .adm h1, .adm h2, .adm h3, .adm h4 { font-family: inherit; letter-spacing: -.1px; }
 .adm h2 { font-size: 15px; }
 .adm h3 { font-size: 13.5px; }
+.kat-razpri { display: inline-flex; align-items: center; gap: 4px; border: 1px solid var(--a-line); background: #fff; color: var(--a-ink); font: inherit; font-size: 12px; padding: 2px 8px; border-radius: 4px; cursor: pointer; }
+.kat-razpri:hover { border-color: var(--a-antracit); }
+.kat-razpri svg { transition: transform .15s; }
+.kat-razpri.on { background: var(--a-antracit); color: #fff; border-color: var(--a-antracit); }
+.kat-razpri.on svg { transform: rotate(90deg); }
