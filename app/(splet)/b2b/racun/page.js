@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import OsnutekGumbi from "./OsnutekGumbi";
 import { trenutniB2B, prodajalneKupca, B2B_STATUSI, jeAktiven, racuniVklopljeni, enotaVasco, kolicinaZaPrikaz } from "@/lib/b2b";
 import { odjava } from "@/lib/akcije/b2b";
 import { supabaseAdmin } from "@/lib/supabase-server";
@@ -40,23 +41,29 @@ async function Racun({ searchParams }) {
     if (filterPe) rq = rq.eq("prodajalna", filterPe);
   }
 
-  const [prodajalne, { data: narocila }, { data: sodelavci }, racRes] = await Promise.all([
+  const [prodajalne, { data: narocila }, { data: sodelavci }, racRes, { data: kos }] = await Promise.all([
     prodajalneKupca(k.vasco_partner),
     poizvedba,
     sb.from("b2b_kupci").select("id, ime").eq("davcna", k.davcna),
     rq ?? Promise.resolve({ data: [] }),
+    sb.from("b2b_kosarice").select("postavke, posodobljeno").eq("kupec_id", k.id).maybeSingle(),
   ]);
+  // Osnutek = shranjena košarica (velja 3 dni od zadnje spremembe)
+  const osnutekVelja = kos?.posodobljeno ? new Date(new Date(kos.posodobljeno).getTime() + 3 * 86400000) : null;
+  const osnutek = osnutekVelja && osnutekVelja > new Date() && Array.isArray(kos.postavke) ? kos.postavke : [];
+  const osnutekNeto = osnutek.reduce((s, x) => s + Number(x.cenaNeto || 0) * Number(x.kolicina || 0), 0);
   const racuni = racRes?.data ?? [];
   const imeKupca = Object.fromEntries((sodelavci ?? []).map((x) => [x.id, x.ime]));
   const mojaPoslovalnica = k.prodajalna ? prodajalne.find((p) => p.sifra === k.prodajalna) : null;
   const imePoslovalnice = Object.fromEntries(prodajalne.map((p) => [p.sifra, p.naziv2 || p.naziv]));
   const naslovPodjetja = k.vasco_naslov ? `${k.vasco_naslov}, ${k.vasco_posta ?? ""}` : `${k.naslov ?? ""}, ${k.posta ?? ""} ${k.kraj ?? ""}`;
-  const tab = zavihek === "racuni" && imaRacune ? "racuni" : "narocila";
+  const tab = zavihek === "racuni" && imaRacune ? "racuni" : zavihek === "osnutek" ? "osnutek" : "narocila";
   const povezava = (z, p = filterPe && !k.prodajalna ? filterPe : null) => `/b2b/racun?zavihek=${z}${p ? `&pe=${p}` : ""}`;
 
   const vsotaNeto = racuni.reduce((s, r) => s + Number(r.neto || 0), 0);
   const vsotaOdprto = racuni.reduce((s, r) => s + Number(r.odprto || 0), 0);
   const leto = new Date().getFullYear();
+  const cas2 = (d) => d.toLocaleString("sl-SI", { timeZone: "Europe/Ljubljana", day: "numeric", month: "numeric", year: "numeric", hour: "2-digit", minute: "2-digit" });
 
   return (
     <section className="b2bp">
@@ -105,6 +112,7 @@ async function Racun({ searchParams }) {
         <div className="b2bp-zav">
           <nav>
             <Link href={povezava("narocila")} className={tab === "narocila" ? "on" : ""}>Spletna naročila <i>{(narocila ?? []).length}</i></Link>
+            <Link href={povezava("osnutek")} className={`${tab === "osnutek" ? "on" : ""}${osnutek.length ? " b2bp-osn-zav" : ""}`}>Osnutek <i>{osnutek.length}</i></Link>
             {imaRacune && (
               <Link href={povezava("racuni")} className={tab === "racuni" ? "on" : ""}>Računi <i>{racuni.length}</i></Link>
             )}
@@ -120,7 +128,42 @@ async function Racun({ searchParams }) {
           )}
         </div>
 
-        {tab === "racuni" ? (
+        {osnutek.length > 0 && tab !== "osnutek" && (
+          <div className="b2bp-osn-pas">
+            <span>📝 Imate <b>nedokončano naročilo</b> ({osnutek.length} postavk, {eur(osnutekNeto)} brez DDV). Shranjeno je do {cas2(osnutekVelja)}.</span>
+            <Link href={povezava("osnutek")}>Odpri osnutek →</Link>
+          </div>
+        )}
+
+        {tab === "osnutek" ? (
+          osnutek.length === 0 ? (
+            <p className="b2bp-prazno">Ni shranjenega osnutka. Kar dodate v košarico, se samodejno shrani kot osnutek za 3 dni — lahko nadaljujete kasneje, tudi na drugi napravi.</p>
+          ) : (
+            <div className="b2bp-osn">
+              <p className="b2bp-osn-info">
+                Shranjeno {cas2(new Date(kos.posodobljeno))} · <b>velja do {cas2(osnutekVelja)}</b>. Po 3 dneh brez sprememb se osnutek samodejno izbriše.
+              </p>
+              <div className="b2bp-post" style={{ padding: 0, background: "none" }}>
+                <table>
+                  <thead><tr><th>Šifra</th><th>Artikel</th><th className="d">Količina</th><th className="d">Cena brez DDV</th><th className="d">Vrednost brez DDV</th></tr></thead>
+                  <tbody>
+                    {osnutek.map((x, i) => (
+                      <tr key={i}>
+                        <td>{x.sifra}</td>
+                        <td>{x.pot ? <Link href={x.pot}>{x.naziv}</Link> : x.naziv} {x.dimenzija ? <b>{x.dimenzija}</b> : null}</td>
+                        <td className="d"><b>{(Number(x.kolicina) * (Number(x.kos) || 1)).toLocaleString("sl-SI")} kos</b>{Number(x.kos) > 1 && <small className="b2bp-kpod">{x.kolicina} × {x.kos} kos</small>}</td>
+                        <td className="d">{x.cenaNeto != null ? eur(Number(x.cenaNeto)) : "—"}{Number(x.kos) > 1 && <small className="b2bp-en"> / {x.kos} kos</small>}</td>
+                        <td className="d"><b>{eur(Number(x.cenaNeto || 0) * Number(x.kolicina || 0))}</b></td>
+                      </tr>
+                    ))}
+                  </tbody>
+                  <tfoot><tr><td colSpan={4} className="d">Skupaj brez DDV</td><td className="d"><b>{eur(osnutekNeto)}</b></td></tr></tfoot>
+                </table>
+              </div>
+              <OsnutekGumbi />
+            </div>
+          )
+        ) : tab === "racuni" ? (
           <>
             <div className="b2bp-kpi">
               <div><em>Računi {leto}</em><b>{racuni.length}</b></div>
