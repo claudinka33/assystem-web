@@ -1,3 +1,4 @@
+import { virPovprasevanja, SKUPINE_VIROV } from "@/lib/viri-povprasevanj";
 import Link from "next/link";
 import { supabaseAdmin, trenutniAdmin } from "@/lib/supabase-server";
 import { Ikona } from "../AdminMeni";
@@ -54,8 +55,17 @@ export default async function NadzornaPlosca({ searchParams }) {
     prestej("b2b_kupci", ["status", "caka_odobritev"]),
     prestej("povprasevanja", ["status", "novo"]),
     zadnji("narocila", "id, stevilka, kontakt_ime, skupaj, status, ustvarjeno", "id"),
-    zadnji("povprasevanja", "id, ime, podjetje, status, ustvarjeno", "ustvarjeno"),
+    zadnji("povprasevanja", "id, ime, podjetje, status, ustvarjeno, vir", "ustvarjeno", 8),
   ]);
+
+  // statistika virov povpraševanj (zadnjih 30 dni)
+  let viri30 = [];
+  try {
+    const { data } = await supabaseAdmin().from("povprasevanja").select("vir").gte("ustvarjeno", new Date(Date.now() - 30 * 86400000).toISOString()).limit(5000);
+    viri30 = data ?? [];
+  } catch {}
+  const poSkupinah = Object.fromEntries(SKUPINE_VIROV.map(([k]) => [k, 0]));
+  for (const x of viri30) poSkupinah[virPovprasevanja(x.vir).skupina]++;
 
   const caka = [
     { n: novihNarocil, naziv: "novih naročil", pot: "/admin/narocila", ikona: "narocila", k: "narocila" },
@@ -169,6 +179,12 @@ export default async function NadzornaPlosca({ searchParams }) {
               <h2>Zadnja povpraševanja</h2>
               <Link href="/admin/povprasevanja">Vsa →</Link>
             </header>
+            <div className="nad-viri">
+              <span className="siv">Zadnjih 30 dni:</span>
+              {SKUPINE_VIROV.map(([k, ime]) => (
+                <span key={k} className={`nad-vir ${k}`}>{ime} <b>{poSkupinah[k]}</b></span>
+              ))}
+            </div>
             {povprasevanja.length === 0 ? (
               <p className="prazno">Povpraševanj še ni.</p>
             ) : (
@@ -180,6 +196,7 @@ export default async function NadzornaPlosca({ searchParams }) {
                         <b>{p.ime}</b>
                         <small>{p.podjetje ? `${p.podjetje} · ` : ""}{cas(p.ustvarjeno)}</small>
                       </div>
+                      <span className={`nad-vir ${virPovprasevanja(p.vir).skupina}`} style={{ marginLeft: "auto", marginRight: 8 }}>{virPovprasevanja(p.vir).oznaka}</span>
                       <span className={p.status === "novo" ? "znacka novo" : "znacka ne"}>{p.status}</span>
                     </Link>
                   </li>

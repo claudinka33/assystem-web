@@ -3190,8 +3190,9 @@ tr.art-izbran > td { background: #fff4d6 !important; }
 .popb2b-levo { background: var(--color-red) url("/vzorec-rdeca.png") center / 420px repeat; color: #fff; padding: 30px 24px; display: flex; flex-direction: column; gap: 14px; }
 .popb2b-znacka { align-self: flex-start; background: #fff; color: var(--color-red); font-weight: 800; font-size: 13px; letter-spacing: 1.5px; padding: 4px 10px; border-radius: 3px; }
 .popb2b-levo b { font-size: 24px; line-height: 1.15; font-weight: 800; }
-.popb2b-levo ul { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 9px; font-size: 14px; }
-.popb2b-levo li::before { content: "✓"; font-weight: 800; margin-right: 8px; }
+.popb2b-levo ul { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 8px; font-size: 12px; }
+.popb2b-levo li { white-space: nowrap; }
+.popb2b-levo li::before { content: "✓"; font-weight: 800; margin-right: 6px; }
 .popb2b-desno { padding: 30px 30px 22px; }
 .popb2b-nad { font-size: 11.5px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--color-red); font-weight: 700; margin: 0 0 6px; }
 .popb2b h2 { font-size: 26px; line-height: 1.15; margin: 0 0 8px; color: var(--color-ink); }

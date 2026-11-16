@@ -1,3 +1,4 @@
+import { virPovprasevanja } from "@/lib/viri-povprasevanj";
 import { supabaseAdmin, trenutniAdmin } from "@/lib/supabase-server";
 import { spremeniStatusPovprasevanja } from "@/lib/akcije/skupno";
 import OdgovorPovprasevanju from "@/components/admin/OdgovorPovprasevanju";
@@ -87,7 +88,7 @@ function Vprasanje({ p }) {
     <li className={`tl tl-vpr${p.status === "novo" ? " tl-novo" : ""}`}>
       <div className="tl-glava">
         <b>Vprašanje stranke</b>
-        <span className="povp-vir">{VIRI[p.vir] ?? p.vir}</span>
+        <span className={`povp-vir nad-vir ${virPovprasevanja(p.vir).skupina}`}>{virPovprasevanja(p.vir).oznaka}</span>
         {p.status === "novo" && <span className="povp-st st-novo">novo</span>}
         <time>{cas(p.ustvarjeno)}</time>
       </div>
