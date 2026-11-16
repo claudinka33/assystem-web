@@ -6,13 +6,14 @@ import { cenaArtikla, eur } from "@/lib/cene";
 import { dodaj } from "@/lib/kosarica";
 import { dogodek } from "@/lib/dogodki";
 import { useB2BCene } from "@/lib/b2b-klient";
+import VprasajZaRok from "@/components/VprasajZaRok";
 
 // Tabela artiklov na strani izdelka: iskanje, filtri po lastnostih
 // (material, trdnost, pakiranje ...) in postopen prikaz pri dolgih seznamih.
 const KORAK = 80;
 
 // Ko artikla ni na zalogi, roka dobave ne poznamo -> kupec ga z enim klikom vpraša prek obrazca.
-function Zaloga({ vrednost, sifra, izdelek }) {
+function Zaloga({ vrednost, sifra, izdelek, dimenzija }) {
   if (vrednost > 0)
     return (
       <span className="zal-da">
@@ -20,11 +21,10 @@ function Zaloga({ vrednost, sifra, izdelek }) {
         <small>Odprema v 1–2 delovnih dneh</small>
       </span>
     );
-  const kaj = encodeURIComponent(`${izdelek?.naziv ?? ""} ${sifra ?? ""}`.trim());
   return (
     <span className="zal-ni">
       <b>Po naročilu</b>
-      <a href={`/kontakt?izdelek=${kaj}&vir=rok-dobave`}>Vprašaj za rok →</a>
+      <VprasajZaRok sifra={sifra} naziv={izdelek?.naziv} dimenzija={dimenzija} />
     </span>
   );
 }
@@ -445,9 +445,8 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
                       const ik = ikonaPakiranja(pv, a.lastnosti, ascoIzdelek, izdelek?.znamka);
                       const besedilo = pv === "osnovno" ? "škatla" : pv ?? "—";
                       return (
-                        <span className="pak-ik">
-                          {ik && <img src={ik} alt="" width={30} height={30} loading="lazy" />}
-                          {besedilo}
+                        <span className="pak-ik" title={besedilo}>
+                          {ik ? <img src={ik} alt={besedilo} width={40} height={40} loading="lazy" /> : besedilo}
                         </span>
                       );
                     })()}
@@ -465,7 +464,7 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
                 ))}
                 <td data-l="Kos v pak.">{pakiranje(a)}</td>
                 <td data-l="Zaloga">
-                  <Zaloga vrednost={a.zaloga} sifra={a.sifra} izdelek={izdelek} />
+                  <Zaloga vrednost={a.zaloga} sifra={a.sifra} izdelek={izdelek} dimenzija={a.dimenzija} />
                 </td>
                 {b2b ? (
                   <>

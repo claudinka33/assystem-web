@@ -3401,4 +3401,21 @@ tr.art-izbran > td { background: #fff4d6 !important; }
 .isci-pas h2 { font-size: clamp(24px, 2.6vw, 32px); font-weight: 800; text-transform: uppercase; margin-top: 4px; }
 .isci-pas .hero-isci { margin-top: 0; flex: 1 1 420px; max-width: 640px; border: 2px solid #fff; }
 .pak-ik { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
-.pak-ik img { width: 30px; height: 30px; object-fit: contain; border-radius: 3px; flex: none; }
+.pak-ik img { width: 40px; height: 40px; object-fit: contain; border-radius: 3px; flex: none; }
+/* Okence »Vprašaj za rok« */
+.rok-gumb { background: none; border: 0; padding: 0; font: inherit; font-size: 12.5px; font-weight: 700; color: var(--color-red); cursor: pointer; text-align: left; }
+.rok-gumb:hover { text-decoration: underline; }
+.rok-ozadje { position: fixed; inset: 0; z-index: 200; background: rgba(20, 22, 24, 0.55); display: flex; align-items: center; justify-content: center; padding: 16px; }
+.rok-okno { position: relative; background: #fff; width: 100%; max-width: 460px; padding: 26px 24px 22px; box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3); max-height: calc(100vh - 32px); overflow: auto; text-align: left; white-space: normal; }
+.rok-okno h3 { font-size: 20px; text-transform: uppercase; margin: 0 0 4px; }
+.rok-art { font-weight: 700; color: var(--color-ink); margin: 0 0 16px; }
+.rok-art span { color: var(--color-muted); font-weight: 400; }
+.rok-zapri { position: absolute; top: 8px; right: 12px; background: none; border: 0; font-size: 28px; line-height: 1; cursor: pointer; color: var(--color-muted); }
+.rok-okno form { display: grid; gap: 12px; }
+.rok-okno label { display: grid; gap: 5px; font-size: 13px; font-weight: 600; color: var(--color-ink); }
+.rok-okno input, .rok-okno textarea { font: inherit; font-size: 14px; font-weight: 400; border: 1px solid var(--color-line); padding: 10px 12px; width: 100%; }
+.rok-dva { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.rok-kdo { background: #f4f5f6; padding: 10px 12px; font-size: 13.5px; margin: 0; }
+.rok-drobno { font-size: 12px; color: var(--color-muted); margin: 0; }
+.rok-uspeh { display: grid; gap: 10px; justify-items: start; }
+@media (max-width: 480px) { .rok-dva { grid-template-columns: 1fr; } }
