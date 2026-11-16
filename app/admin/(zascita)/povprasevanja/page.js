@@ -1,6 +1,7 @@
 import { supabaseAdmin, trenutniAdmin } from "@/lib/supabase-server";
 import { spremeniStatusPovprasevanja } from "@/lib/akcije/skupno";
 import OdgovorPovprasevanju from "@/components/admin/OdgovorPovprasevanju";
+import OdpriPoHashu from "@/components/admin/OdpriPoHashu";
 
 export const dynamic = "force-dynamic";
 
@@ -34,41 +35,11 @@ function zadevaZa(p) {
   return (p.vir ?? "").startsWith("rok-dobave") ? `Rok dobave${izd ? `: ${izd}` : ""}` : `Vaše povpraševanje${izd ? `: ${izd}` : ""}`;
 }
 
-export default async function Povprasevanja() {
-  const admin = await trenutniAdmin();
-  const { data } = await supabaseAdmin().from("povprasevanja").select("*").order("ustvarjeno", { ascending: false }).limit(200);
-
-  const seznam = data ?? [];
-  // Povezave do priloženih risb (zasebna shramba, povezava velja 1 uro)
-  for (const p of seznam) {
-    for (const x of p.izdelki ?? []) {
-      if (x?.datoteka) {
-        const { data: u } = await supabaseAdmin().storage.from("prijave").createSignedUrl(x.datoteka, 3600);
-        x.url = u?.signedUrl ?? null;
-      }
-    }
-  }
-  const novih = seznam.filter((p) => p.status === "novo").length;
-
-  return (
-    <>
-      <div className="adm-glava">
-        <h1>Povpraševanja</h1>
-        <span style={{ fontSize: 13, color: "#6e767e" }}>
-          {novih > 0 ? `${novih} novih · ` : ""}
-          {seznam.length} skupaj
-        </span>
-      </div>
-
-      <div className="adm-telo">
-        {seznam.length === 0 ? (
-          <div className="opozorilo">Povpraševanj še ni.</div>
-        ) : (
-          seznam.map((p) => {
+function Kartica({ p, admin }) {
             const izdelki = (p.izdelki ?? []).filter((x) => !x.datoteka);
             const priloge = (p.izdelki ?? []).filter((x) => x.datoteka);
             return (
-              <article key={p.id} id={`p-${p.id}`} className={`povp${p.status === "novo" ? " povp-novo" : ""}`}>
+              <article id={p.status === "novo" ? `p-${p.id}` : undefined} className={`povp${p.status === "novo" ? " povp-novo" : ""}`}>
                 <header className="povp-glava">
                   <span className="povp-av">{zacetnice(p.podjetje || p.ime)}</span>
                   <div className="povp-kdo">
@@ -134,7 +105,69 @@ export default async function Povprasevanja() {
                 </form>
               </article>
             );
-          })
+}
+
+function Vrstica({ p, admin }) {
+  const izd = (p.izdelki ?? []).filter((x) => !x.datoteka).map((x) => x.naziv).join(", ");
+  return (
+    <details id={`p-${p.id}`} className="povp-vrsta">
+      <summary>
+        <span className="povp-av mali">{zacetnice(p.podjetje || p.ime)}</span>
+        <b className="pv-kdo">{p.podjetje || p.ime}</b>
+        <span className="pv-izd">{izd || (p.sporocilo ?? "").slice(0, 80)}</span>
+        <span className="povp-vir">{VIRI[p.vir] ?? p.vir}</span>
+        <span className={`povp-st st-${(p.status ?? "").replace(/\s/g, "-")}`}>{p.status}</span>
+        <time>{cas(p.ustvarjeno)}</time>
+      </summary>
+      <Kartica p={p} admin={admin} />
+    </details>
+  );
+}
+
+export default async function Povprasevanja() {
+  const admin = await trenutniAdmin();
+  const { data } = await supabaseAdmin().from("povprasevanja").select("*").order("ustvarjeno", { ascending: false }).limit(200);
+
+  const seznam = data ?? [];
+  // Povezave do priloženih risb (zasebna shramba, povezava velja 1 uro)
+  for (const p of seznam) {
+    for (const x of p.izdelki ?? []) {
+      if (x?.datoteka) {
+        const { data: u } = await supabaseAdmin().storage.from("prijave").createSignedUrl(x.datoteka, 3600);
+        x.url = u?.signedUrl ?? null;
+      }
+    }
+  }
+  const novih = seznam.filter((p) => p.status === "novo").length;
+
+  return (
+    <>
+      <div className="adm-glava">
+        <h1>Povpraševanja</h1>
+        <span style={{ fontSize: 13, color: "#6e767e" }}>
+          {novih > 0 ? `${novih} novih · ` : ""}
+          {seznam.length} skupaj
+        </span>
+      </div>
+
+      <div className="adm-telo">
+        <OdpriPoHashu />
+        {seznam.length === 0 ? (
+          <div className="opozorilo">Povpraševanj še ni.</div>
+        ) : (
+          <>
+            {seznam.filter((p) => p.status === "novo").map((p) => (
+              <Kartica key={p.id} p={p} admin={admin} />
+            ))}
+            {seznam.some((p) => p.status !== "novo") && (
+              <section className="povp-arhiv">
+                <h2>Odgovorjena in zaključena</h2>
+                {seznam.filter((p) => p.status !== "novo").map((p) => (
+                  <Vrstica key={p.id} p={p} admin={admin} />
+                ))}
+              </section>
+            )}
+          </>
         )}
       </div>
     </>
