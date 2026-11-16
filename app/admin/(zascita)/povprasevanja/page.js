@@ -107,6 +107,18 @@ function Vprasanje({ p }) {
           ))}
         </div>
       )}
+      {(p.email || p.telefon) && (
+        <div className="povp-kontakt">
+          {p.podjetje && <span><em>Podjetje</em><b>{p.podjetje}</b></span>}
+          {p.ime && p.ime !== p.podjetje && p.ime !== p.email && <span><em>Ime</em><b>{p.ime}</b></span>}
+          {p.email && <span><em>E-naslov</em><a href={`mailto:${p.email}`}>{p.email}</a></span>}
+          {p.telefon ? <span><em>Telefon</em><a href={`tel:${String(p.telefon).replace(/[^\d+]/g, "")}`}>{p.telefon}</a></span> : <span><em>Telefon</em><i className="siv">ni vpisan</i></span>}
+          <span className="povp-kontakt-gumbi">
+            {p.telefon && <a className="gumb siv mini" href={`tel:${String(p.telefon).replace(/[^\d+]/g, "")}`}>📞 Pokliči</a>}
+            {p.email && <a className="gumb siv mini" href={`mailto:${p.email}?subject=${encodeURIComponent("Ponudba AS system")}`}>✉️ Pošlji mail</a>}
+          </span>
+        </div>
+      )}
       {p.sporocilo && <div className="povp-sp">{p.sporocilo}</div>}
     </li>
   );

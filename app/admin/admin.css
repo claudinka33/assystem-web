@@ -1148,3 +1148,9 @@ details.adm-obr { padding: 8px 12px; }
 .nad-vir.popup { background: #fde8eb; color: #b10e29; }
 .nad-vir.izdelek { background: #e6f0fb; color: #1f5ea8; }
 .nad-vir.obrazec { background: #e8f6ec; color: #1a7f3c; }
+
+.povp-kontakt { display: flex; flex-wrap: wrap; gap: 6px 22px; align-items: flex-end; margin: 6px 0 8px; padding: 8px 12px; background: #fff; border: 1px solid var(--a-line); border-radius: 6px; font-size: 13px; }
+.povp-kontakt em { display: block; font-style: normal; font-size: 10px; text-transform: uppercase; letter-spacing: .5px; color: #8a8f94; }
+.povp-kontakt a { color: var(--a-red); font-weight: 600; }
+.povp-kontakt-gumbi { margin-left: auto; display: flex; gap: 6px; }
+.povp-kontakt-gumbi a.gumb { color: inherit; text-decoration: none; }
