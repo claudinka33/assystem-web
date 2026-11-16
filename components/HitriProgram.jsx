@@ -1,11 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 import { prevedeno, useJezik } from "@/lib/i18n/odjemalec";
 
 const norm = (x) => String(x ?? "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
-const KLJUC = "as_hitri_program";
 
 function vsebuje(v, href) {
   return v.izdelki.some((i) => i.href === href) || v.otroci.some((o) => vsebuje(o, href));
@@ -41,51 +40,41 @@ function Vozel({ v, trenutni, q, globina }) {
   );
 }
 
-// Plavajoč seznam vseh kategorij in izdelkov na strani izdelka (hiter skok na naslednji izdelek).
-function HitriProgram({ drevo, trenutni }) {
-  const { pot } = useJezik();
-  const [odprto, setOdprto] = useState(false);
+function Seznam({ drevo, trenutni, pot, zapri }) {
   const [q, setQ] = useState("");
-  useEffect(() => {
-    let odpri = false;
-    try {
-      odpri = localStorage.getItem(KLJUC) !== "0" && window.innerWidth > 1100; // privzeto odprto na računalniku
-    } catch {}
-    if (!odpri) return;
-    const t = setTimeout(() => setOdprto(true), 0);
-    return () => clearTimeout(t);
-  }, []);
-  const preklopi = (v) => {
-    setOdprto(v);
-    try {
-      localStorage.setItem(KLJUC, v ? "1" : "0");
-    } catch {}
-  };
-  const tr = useMemo(() => {
-    // trenutna pot brez jezikovne predpone
-    return String(trenutni || "");
-  }, [trenutni]);
   const nq = norm(q.trim());
   return (
     <>
-      {!odprto && (
-        <button type="button" className="hp-zavihek" onClick={() => preklopi(true)} title="Prodajni program">
-          <span>☰</span> Prodajni program
-        </button>
-      )}
+      <div className="hp-glava">
+        <b>Prodajni program</b>
+        {zapri && <button type="button" onClick={zapri} aria-label="Zapri">✕</button>}
+      </div>
+      <input className="hp-isk" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Išči izdelek …" />
+      <ul className="hp-drevo">
+        {drevo.map((v) => (
+          <Vozel key={v.slug} v={v} trenutni={trenutni} q={nq} globina={0} />
+        ))}
+      </ul>
+      <Link href={pot("/program")} className="hp-vse">Vse kategorije →</Link>
+    </>
+  );
+}
+
+// Levi stolpec strani izdelka (računalnik) + izvlečni seznam na telefonu/tablici.
+function HitriProgram({ drevo, trenutni }) {
+  const { pot } = useJezik();
+  const [odprto, setOdprto] = useState(false);
+  return (
+    <>
+      <div className="hp-stolpec">
+        <Seznam drevo={drevo} trenutni={trenutni} pot={pot} />
+      </div>
+      <button type="button" className="hp-zavihek" onClick={() => setOdprto(true)} title="Prodajni program">
+        <span>☰</span> Prodajni program
+      </button>
       {odprto && (
         <aside className="hp-panel" aria-label="Prodajni program">
-          <div className="hp-glava">
-            <b>Prodajni program</b>
-            <button type="button" onClick={() => preklopi(false)} aria-label="Zapri">✕</button>
-          </div>
-          <input className="hp-isk" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Išči izdelek …" />
-          <ul className="hp-drevo">
-            {drevo.map((v) => (
-              <Vozel key={v.slug} v={v} trenutni={tr} q={nq} globina={0} />
-            ))}
-          </ul>
-          <Link href={pot("/program")} className="hp-vse">Vse kategorije →</Link>
+          <Seznam drevo={drevo} trenutni={trenutni} pot={pot} zapri={() => setOdprto(false)} />
         </aside>
       )}
     </>

@@ -113,9 +113,14 @@ async function StranIzdelka({ params }) {
 
   return (
     <>
-    {drevo.length > 0 && <HitriProgram drevo={drevo} trenutni={trenutnaPot} />}
     <section className="izd">
-      <div className="w izd-w">
+      <div className={`w izd-w${drevo.length > 0 ? " izd-okvir" : ""}`}>
+        {drevo.length > 0 && (
+          <aside className="izd-program">
+            <HitriProgram drevo={drevo} trenutni={trenutnaPot} />
+          </aside>
+        )}
+        <div className="izd-glavno">
         <nav className="drobtine">
           <Link href="/">Domov</Link> / <Link href="/program">Program</Link> /{" "}
           <Link href={`/program/${kategorija}`}>{i.kategorije?.naziv ?? "Kategorija"}</Link> /{" "}
@@ -138,9 +143,6 @@ async function StranIzdelka({ params }) {
               </ul>
             )}
 
-            <Link className="b b-r" href={povprasevanje} style={{ display: "block", textAlign: "center" }}>
-              Pošljite povpraševanje
-            </Link>
 
             {dokumenti.length > 0 && (
               <div className="izd-dok">
@@ -180,15 +182,17 @@ async function StranIzdelka({ params }) {
               </div>
             )}
 
-            {/* Video in certifikat takoj pod naslovom — vidno brez skrolanja */}
-            <MedijiBanner {...mediji} />
+            <div className="izd-hitro">
+              <Link className="b b-r" href={povprasevanje}>Pošljite povpraševanje</Link>
+              {artikli.length > 0 && <a className="b b-o" href="#artikli">Dimenzije in cene ↓</a>}
+            </div>
 
           </div>
         </div>
 
         {/* Tabela in opis čez celo širino */}
     {artikli.length > 0 && (
-      <div className="izd-tab izd-tab-siroka">
+      <div className="izd-tab izd-tab-siroka" id="artikli">
         <div className="izd-tab-gl">
           <h2>Dimenzije in šifre</h2>
           {(prejsnji || naslednji) && (
@@ -204,6 +208,9 @@ async function StranIzdelka({ params }) {
         </p>
       </div>
     )}
+
+    {/* Video in certifikat pod tabelo */}
+    <div className="izd-mediji-spodaj"><MedijiBanner {...mediji} /></div>
 
     {(i.opis || i.tehnicni_opis || i.uporaba?.length > 0) && (
       <div className="izd-opis">
@@ -237,6 +244,7 @@ async function StranIzdelka({ params }) {
     )}
 
         <IgraIzdelka slug={izdelek} />
+        </div>
       </div>
     </section>
 

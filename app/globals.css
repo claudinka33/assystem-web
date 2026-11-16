@@ -3473,7 +3473,7 @@ a.b2b-profil:hover { background: #a50d26; }
 .izd-sosedi { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; }
 .izd-sosedi a { font-size: 12.5px; font-weight: 600; padding: 5px 10px; border: 1px solid #d4d8dd; color: #2b2f33; text-decoration: none; white-space: nowrap; }
 .izd-sosedi a:hover { border-color: #c8102e; color: #c8102e; }
-@media (min-width: 1101px) { body:has(.hp-panel) { padding-left: 300px; } }
+
 
 @media (min-width: 1500px) { body:has(.hp-panel) .izd, body:has(.hp-panel) .izd-tab-siroka { margin-left: 300px; } }
 
@@ -3531,3 +3531,23 @@ a.b2b-profil:hover { background: #a50d26; }
 .bs-k h3 { font-size: 17px; font-weight: 800; text-transform: uppercase; }
 .bs-k p { margin-top: 8px; color: var(--color-muted); font-size: 14.5px; }
 @media (max-width: 900px) { .bs-kaj { grid-template-columns: minmax(0, 1fr); } }
+/* Stran izdelka: levi stolpec Prodajni program + kompakten vrh, tabela prej */
+.izd-okvir { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 28px; align-items: start; }
+.izd-program { position: sticky; top: 96px; max-height: calc(100vh - 110px); }
+.hp-stolpec { display: flex; flex-direction: column; max-height: calc(100vh - 110px); background: #fff; border: 1px solid #e3e6ea; }
+.hp-stolpec .hp-glava { padding: 9px 12px; font-size: 13px; }
+.hp-stolpec .hp-drevo { flex: 1; min-height: 0; }
+.izd-okvir .izd-grid { grid-template-columns: 280px minmax(0, 1fr); gap: 28px; }
+.izd-okvir .izd-levo { position: static; }
+.izd-hitro { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+.izd-hitro .b { padding: 11px 20px; }
+.b.b-o { background: #fff; border: 1px solid #2b2f33; color: #2b2f33; }
+.izd-mediji-spodaj { margin: 26px 0 8px; }
+.izd-mediji-spodaj:empty { display: none; }
+.hp-zavihek { display: none; }
+@media (max-width: 1100px) {
+  .izd-okvir { grid-template-columns: 1fr; }
+  .izd-program { position: static; max-height: none; }
+  .hp-stolpec { display: none; }
+  .hp-zavihek { display: block; }
+}
