@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { trenutniB2B, prodajalneKupca, B2B_STATUSI, jeAktiven, racuniVklopljeni, enotaVasco } from "@/lib/b2b";
+import { trenutniB2B, prodajalneKupca, B2B_STATUSI, jeAktiven, racuniVklopljeni, enotaVasco, kolicinaZaPrikaz } from "@/lib/b2b";
 import { odjava } from "@/lib/akcije/b2b";
 import { supabaseAdmin } from "@/lib/supabase-server";
 import { eur } from "@/lib/cene";
@@ -153,15 +153,18 @@ export default async function Racun({ searchParams }) {
                       <table>
                         <thead><tr><th>Šifra</th><th>Artikel</th><th className="d">Količina</th><th className="d">Cena brez DDV</th><th className="d">Rabat</th><th className="d">Vrednost brez DDV</th></tr></thead>
                         <tbody>
-                          {(r.postavke ?? []).map((v, i) => (
+                          {(r.postavke ?? []).map((v, i) => {
+                            const kol = kolicinaZaPrikaz(v.kolicina, v.enota);
+                            return (
                             <tr key={i}>
                               <td>{v.sifra}</td><td>{String(v.naziv || "—").replace(/\n/g, " ")}</td>
-                              <td className="d">{v.kolicina} {enotaVasco(v.enota)}</td>
-                              <td className="d">{eur(Number(v.cena))}</td>
+                              <td className="d"><b>{kol.glavno}</b>{kol.dodatek && <small style={{ display: "block", color: "#8a8f94", fontSize: 11 }}>{kol.dodatek}</small>}</td>
+                              <td className="d">{eur(Number(v.cena))}{enotaVasco(v.enota) && <small style={{ color: "#8a8f94" }}> / {enotaVasco(v.enota)}</small>}</td>
                               <td className="d">{Number(v.rabat) ? `${v.rabat} %` : ""}</td>
                               <td className="d"><b>{eur(Number(v.vrednost))}</b></td>
                             </tr>
-                          ))}
+                            );
+                          })}
                         </tbody>
                       </table>
                     </div>
