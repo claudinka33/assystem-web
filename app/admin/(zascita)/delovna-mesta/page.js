@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { supabaseAdmin } from "@/lib/supabase-server";
 import { izbrisiDelovnoMesto } from "@/lib/akcije/skupno";
+import IzbrisiGumb from "../../IzbrisiGumb";
+import StikaloSplet from "./StikaloSplet";
 
 export const dynamic = "force-dynamic";
 
@@ -35,8 +37,8 @@ export default async function DelovnaMesta() {
                 <th style={{ width: 200 }}>Lokacija</th>
                 <th style={{ width: 120 }}>Vrsta</th>
                 <th style={{ width: 70 }}>Red</th>
-                <th style={{ width: 100 }}>Stanje</th>
-                <th style={{ width: 150 }}></th>
+                <th style={{ width: 130 }}>Na spletni strani</th>
+                <th style={{ width: 110 }}></th>
               </tr>
             </thead>
             <tbody>
@@ -50,20 +52,13 @@ export default async function DelovnaMesta() {
                   <td style={{ color: "#6e7276" }}>{m.vrsta ?? "—"}</td>
                   <td>{m.vrstni_red}</td>
                   <td>
-                    <span className={m.aktivno ? "znacka da" : "znacka ne"}>
-                      {m.aktivno ? "Odprto" : "Zaprto"}
-                    </span>
+                    <StikaloSplet id={m.id} vidno={m.aktivno} />
                   </td>
                   <td style={{ textAlign: "right" }}>
                     <Link className="gumb siv mini" href={`/admin/delovna-mesta/${m.id}`}>
                       Uredi
                     </Link>{" "}
-                    <form action={izbrisiDelovnoMesto} style={{ display: "inline" }}>
-                      <input type="hidden" name="id" value={m.id} />
-                      <button className="gumb siv mini" type="submit">
-                        Izbriši
-                      </button>
-                    </form>
+                    <IzbrisiGumb action={izbrisiDelovnoMesto} id={m.id} ime={m.naziv} />
                   </td>
                 </tr>
               ))}
