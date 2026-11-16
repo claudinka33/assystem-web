@@ -279,7 +279,7 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
 
   // Legenda: najprej posebnosti izdelka (npr. škatla AFR41), nato privzeta pakiranja
   const vnosiLegende = useMemo(() => {
-    const asco = (izdelek?.pot ?? "").startsWith("/program/vijacno-blago");
+    const asco = izdelek?.znamka === "ASco" || (izdelek?.pot ?? "").startsWith("/program/vijacno-blago");
     // Vrednosti lastnosti s slikami (npr. material cinkani / aluminij / baker)
     const izVrednosti = [];
     if (slikeVrednosti) {
@@ -349,7 +349,7 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
     });
   }, [artikli, izbrani, iskanje]);
 
-  const ascoIzdelek = (izdelek?.pot ?? "").startsWith("/program/vijacno-blago");
+  const ascoIzdelek = izdelek?.znamka === "ASco" || (izdelek?.pot ?? "").startsWith("/program/vijacno-blago");
   const ostali = stolpci.filter((k) => k !== "Pakiranje");
   const imaPakiranje = stolpci.includes("Pakiranje");
   const dolg = artikli.length > 20;
