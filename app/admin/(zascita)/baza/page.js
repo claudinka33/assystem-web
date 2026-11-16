@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { supabaseAdmin } from "@/lib/supabase-server";
+import { Suspense } from "react";
+import IskalnikBaze from "./IskalnikBaze";
 import { KontaktObrazec, UvozBaze, UskladiGumb, Vrstica, IzkljuciDomeno } from "./Deli";
 
 export const dynamic = "force-dynamic";
@@ -93,12 +95,7 @@ export default async function Baza({ searchParams }) {
 
           <section className="bz-glavno">
             <div className="bz-orodja">
-              <form action="/admin/baza" className="bz-isk">
-                {p && <input type="hidden" name="p" value={p} />}
-                {stanje && <input type="hidden" name="stanje" value={stanje} />}
-                <input type="search" name="q" defaultValue={q} placeholder="Išči po e-naslovu, imenu, podjetju, poslovalnici, kraju, davčni, telefonu …" />
-                <button className="gumb siv" type="submit">Išči</button>
-              </form>
+              <Suspense><IskalnikBaze q={q} /></Suspense>
               <details className="bz-dodaj">
                 <summary className="gumb">+ Dodaj kontakt</summary>
                 <div className="bz-pop"><KontaktObrazec panoge={panoge ?? []} /></div>
