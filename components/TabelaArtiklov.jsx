@@ -157,6 +157,25 @@ function privzetaEmbalaza(asco, znamka) {
   ];
 }
 
+// Majhna ikona embalaže v stolpcu »Pakiranje«: takoj se vidi, ali je vrečka ali škatla.
+// ASco: bela vrečka (INOX A2/A4: zelena), rjava ASco škatla. ASfix: rdeča vrečka, škatla AFR41 (ali navedena AFR).
+function ikonaPakiranja(vrednost, lastnosti, asco, znamka) {
+  if (!vrednost || znamka === "Silvermate" || znamka === "MUNGO") return null;
+  const v = String(vrednost).toLowerCase();
+  const D = "/slike/embalaza/ikone/";
+  if (v.startsWith("vrečka")) {
+    if (!asco) return D + "asfix-vrecka-rdeca.jpg";
+    const mat = `${lastnosti?.Material ?? ""}`.toUpperCase();
+    return /A2|A4|INOX/.test(mat) ? D + "asco-vrecka-zelena.jpg" : D + "asco-vrecka-bela.jpg";
+  }
+  if (v.startsWith("škatla") || v === "osnovno") {
+    if (asco) return D + "asco-skatla.jpg";
+    const afr = v.match(/afr(51|71|81)/);
+    return D + (afr ? `asfix-afr${afr[1]}.jpg` : "asfix-afr41.jpg");
+  }
+  return null;
+}
+
 // Pri pakiranju ločimo samo škatlo in vrečko — "škatla AFR41", "škatla AFR51" ... štejejo kot "škatla".
 function skupina(k, v) {
   if (k === "Pakiranje" && typeof v === "string" && v.startsWith("škatla")) return "škatla";
@@ -330,6 +349,7 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
     });
   }, [artikli, izbrani, iskanje]);
 
+  const ascoIzdelek = (izdelek?.pot ?? "").startsWith("/program/vijacno-blago");
   const ostali = stolpci.filter((k) => k !== "Pakiranje");
   const imaPakiranje = stolpci.includes("Pakiranje");
   const dolg = artikli.length > 20;
@@ -449,7 +469,21 @@ export default function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicn
                 <td className="mk-cela">
                   <VKosarico a={a} cena={cenaZa(a)} izdelek={izdelek} b2b={b2b} />
                 </td>
-                {imaPakiranje && <td data-l="Pakiranje">{(a.lastnosti ?? {}).Pakiranje ?? "—"}</td>}
+                {imaPakiranje && (
+                  <td data-l="Pakiranje">
+                    {(() => {
+                      const pv = (a.lastnosti ?? {}).Pakiranje;
+                      const ik = ikonaPakiranja(pv, a.lastnosti, ascoIzdelek, izdelek?.znamka);
+                      const besedilo = pv === "osnovno" ? "škatla" : pv ?? "—";
+                      return (
+                        <span className="pak-ik">
+                          {ik && <img src={ik} alt="" width={30} height={30} loading="lazy" />}
+                          {besedilo}
+                        </span>
+                      );
+                    })()}
+                  </td>
+                )}
               </tr>
             ))}
             {prikaz.length === 0 && (

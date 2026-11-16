@@ -3400,3 +3400,5 @@ tr.art-izbran > td { background: #fff4d6 !important; }
 .isci-pas span { font-size: 12px; font-weight: 800; letter-spacing: 2.2px; text-transform: uppercase; color: rgba(255, 255, 255, 0.7); }
 .isci-pas h2 { font-size: clamp(24px, 2.6vw, 32px); font-weight: 800; text-transform: uppercase; margin-top: 4px; }
 .isci-pas .hero-isci { margin-top: 0; flex: 1 1 420px; max-width: 640px; border: 2px solid #fff; }
+.pak-ik { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+.pak-ik img { width: 30px; height: 30px; object-fit: contain; border-radius: 3px; flex: none; }
