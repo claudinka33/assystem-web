@@ -158,7 +158,7 @@ function privzetaEmbalaza(asco, znamka) {
 }
 
 // Majhna ikona embalaže v stolpcu »Pakiranje«: takoj se vidi, ali je vrečka ali škatla.
-// ASco: bela vrečka (INOX A2/A4: zelena), rjava ASco škatla. ASfix: rdeča vrečka, škatla AFR41 (ali navedena AFR).
+// ASco: modra vrečka ZnB (INOX A2/A4: zelena), rjava ASco škatla. ASfix: rdeča vrečka, škatla AFR41 (ali navedena AFR).
 function ikonaPakiranja(vrednost, lastnosti, asco, znamka) {
   if (!vrednost || znamka === "Silvermate" || znamka === "MUNGO") return null;
   const v = String(vrednost).toLowerCase();
@@ -166,7 +166,7 @@ function ikonaPakiranja(vrednost, lastnosti, asco, znamka) {
   if (v.startsWith("vrečka")) {
     if (!asco) return D + "asfix-vrecka-rdeca.jpg";
     const mat = `${lastnosti?.Material ?? ""}`.toUpperCase();
-    return /A2|A4|INOX/.test(mat) ? D + "asco-vrecka-zelena.jpg" : D + "asco-vrecka-bela.jpg";
+    return /A2|A4|INOX/.test(mat) ? D + "asco-vrecka-zelena.jpg" : D + "asco-vrecka-modra.jpg";
   }
   if (v.startsWith("škatla") || v === "osnovno") {
     if (asco) return D + "asco-skatla.jpg";
