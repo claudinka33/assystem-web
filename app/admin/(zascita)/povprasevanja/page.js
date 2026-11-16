@@ -27,7 +27,7 @@ export default async function Povprasevanja() {
     <>
       <div className="adm-glava">
         <h1>Povpraševanja</h1>
-        <span style={{ fontSize: 14, color: "#6e767e" }}>{seznam.length} zapisov</span>
+        <span style={{ fontSize: 13, color: "#6e767e" }}>{seznam.length} zapisov</span>
       </div>
 
       <div className="adm-telo">
@@ -40,9 +40,9 @@ export default async function Povprasevanja() {
             <div key={p.id} className="adm-obr" style={{ marginBottom: 14 }}>
               <div style={{ display: "flex", justifyContent: "space-between", gap: 16 }}>
                 <div>
-                  <b style={{ fontSize: 16 }}>{p.ime}</b>
+                  <b style={{ fontSize: 14 }}>{p.ime}</b>
                   {p.podjetje && <span style={{ color: "#6e767e" }}> · {p.podjetje}</span>}
-                  <div style={{ fontSize: 13.5, color: "#6e767e", marginTop: 4 }}>
+                  <div style={{ fontSize: 12.5, color: "#6e767e", marginTop: 4 }}>
                     <a href={`mailto:${p.email}`} style={{ color: "#c8102e" }}>
                       {p.email}
                     </a>
@@ -53,7 +53,7 @@ export default async function Povprasevanja() {
               </div>
 
               {(p.izdelki ?? []).length > 0 && (
-                <div style={{ marginTop: 10, fontSize: 14, display: "flex", gap: 12, flexWrap: "wrap" }}>
+                <div style={{ marginTop: 10, fontSize: 13, display: "flex", gap: 12, flexWrap: "wrap" }}>
                   {p.izdelki.map((x, i) =>
                     x.url ? (
                       <a key={i} href={x.url} target="_blank" rel="noreferrer" style={{ color: "#c8102e", fontWeight: 600 }}>
@@ -70,7 +70,7 @@ export default async function Povprasevanja() {
               )}
 
               {p.sporocilo && (
-                <p style={{ marginTop: 14, fontSize: 14.5, whiteSpace: "pre-wrap" }}>{p.sporocilo}</p>
+                <p style={{ marginTop: 14, fontSize: 13, whiteSpace: "pre-wrap" }}>{p.sporocilo}</p>
               )}
 
               <form action={spremeniStatusPovprasevanja} style={{ marginTop: 16, display: "flex", gap: 10, alignItems: "flex-end" }}>

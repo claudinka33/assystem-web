@@ -47,7 +47,7 @@ export default async function Sinhronizacija() {
       </div>
 
       <div className="adm-telo">
-        <p style={{ fontSize: 14, color: "#6e767e", marginTop: 0 }}>
+        <p style={{ fontSize: 13, color: "#6e767e", marginTop: 0 }}>
           Samodejno ob 2:30, 10:00 in 13:00. Posodobi zalogo in cene vseh artiklov na spletu. Ročna sinhronizacija se začne v
           največ 2 minutah in traja okoli minuto.
           {zadnja && (
@@ -60,7 +60,7 @@ export default async function Sinhronizacija() {
 
         {zahteve.length > 0 && (
           <>
-            <h2 style={{ fontSize: 16, margin: "24px 0 10px" }}>Ročne zahteve</h2>
+            <h2 style={{ fontSize: 14, margin: "24px 0 10px" }}>Ročne zahteve</h2>
             <table className="adm-tab">
               <thead>
                 <tr><th>Zahteval</th><th>Čas</th><th>Status</th><th>Rezultat</th></tr>
@@ -71,7 +71,7 @@ export default async function Sinhronizacija() {
                     <td>{z.zahteval}</td>
                     <td>{cas(z.ustvarjeno)}</td>
                     <td><span className={z.status === "koncano" ? "znacka da" : z.status === "napaka" ? "znacka novo" : "znacka ne"}>{OZNAKE[z.status] ?? z.status}</span></td>
-                    <td style={{ fontSize: 13 }}>{z.sporocilo ?? ""}</td>
+                    <td style={{ fontSize: 12 }}>{z.sporocilo ?? ""}</td>
                   </tr>
                 ))}
               </tbody>
@@ -79,7 +79,7 @@ export default async function Sinhronizacija() {
           </>
         )}
 
-        <h2 style={{ fontSize: 16, margin: "28px 0 10px" }}>Dnevnik</h2>
+        <h2 style={{ fontSize: 14, margin: "28px 0 10px" }}>Dnevnik</h2>
         {(dnevnik.data ?? []).length === 0 ? (
           <div className="opozorilo">Sinhronizacija se še ni izvedla.</div>
         ) : (
@@ -95,15 +95,15 @@ export default async function Sinhronizacija() {
                   <td>{d.posodobljenih ?? "—"}</td>
                   <td>{d.ni_v_vascu ?? "—"}</td>
                   <td>{d.novih_kandidatov ?? "—"}</td>
-                  <td style={{ color: "#cb2026", fontSize: 13 }}>{d.napaka ?? ""}</td>
+                  <td style={{ color: "#cb2026", fontSize: 12 }}>{d.napaka ?? ""}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         )}
 
-        <h2 style={{ fontSize: 16, margin: "28px 0 6px" }}>Novi artikli v Vascu ({seznamNovih.length})</h2>
-        <p style={{ fontSize: 13.5, color: "#6e767e", margin: "0 0 10px" }}>
+        <h2 style={{ fontSize: 14, margin: "28px 0 6px" }}>Novi artikli v Vascu ({seznamNovih.length})</h2>
+        <p style={{ fontSize: 12.5, color: "#6e767e", margin: "0 0 10px" }}>
           Artikli s ceno iz skupin, ki jih že imamo na spletu, a jih na spletu še ni. Nič se ne objavi samodejno — sporoči jih
           Claudu za dodajanje ali jih označi »ignoriraj«.
         </p>
@@ -116,7 +116,7 @@ export default async function Sinhronizacija() {
               {seznamNovih.map((n) => (
                 <tr key={n.sifra}>
                   <td><b>{n.sifra}</b></td>
-                  <td>{n.naziv}<div style={{ fontSize: 12.5, color: "#6e767e" }}>{n.naziv2}</div></td>
+                  <td>{n.naziv}<div style={{ fontSize: 11.5, color: "#6e767e" }}>{n.naziv2}</div></td>
                   <td>{n.skupina}</td>
                   <td>{n.zaloga ?? "—"}</td>
                   <td>

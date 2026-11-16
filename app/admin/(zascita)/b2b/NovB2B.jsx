@@ -81,12 +81,12 @@ function Obrazec({ zacetnaDavcna, zapri, znova }) {
               {isce ? "Iščem …" : "Poišči podjetje"}
             </button>
           </div>
-          {iskanje?.napaka && <p style={{ color: "#cb2026", fontSize: 13, margin: "8px 0 0" }}>{iskanje.napaka}</p>}
+          {iskanje?.napaka && <p style={{ color: "#cb2026", fontSize: 12, margin: "8px 0 0" }}>{iskanje.napaka}</p>}
           {iskanje?.najdeno && iskanje.vir !== "obstojece" && (
-            <p style={{ color: "#2e7d32", fontSize: 13, margin: "8px 0 0" }}>Najdeno v registru FURS/VIES — preveri podatke.</p>
+            <p style={{ color: "#2e7d32", fontSize: 12, margin: "8px 0 0" }}>Najdeno v registru FURS/VIES — preveri podatke.</p>
           )}
           {iskanje?.vir === "obstojece" && (
-            <div style={{ background: "#fff7e6", border: "1px solid #f0d199", padding: "8px 12px", fontSize: 13, marginTop: 8 }}>
+            <div style={{ background: "#fff7e6", border: "1px solid #f0d199", padding: "8px 12px", fontSize: 12, marginTop: 8 }}>
               <b>Podjetje že ima B2B dostop</b> — dodajaš novega uporabnika istega podjetja
               {iskanje.aktiven ? " (povezan z Vascom, nov uporabnik bo takoj aktiven)" : ""}.
               <br />
@@ -155,7 +155,7 @@ function Obrazec({ zacetnaDavcna, zapri, znova }) {
           </div>
 
           <button className="gumb" type="submit" disabled={cakam}>{cakam ? "Pošiljam …" : "Ustvari in pošlji povabilo"}</button>
-          <p style={{ fontSize: 13, color: "#6e767e", margin: "10px 0 0" }}>
+          <p style={{ fontSize: 12, color: "#6e767e", margin: "10px 0 0" }}>
             Kupec dobi e-sporočilo s povezavo: potrdi e-naslov in si sam nastavi geslo. Šifre partnerja ni treba vpisati — as-terminal partnerja v Vascu poišče po davčni. Vpiši jo le, če je v Vascu podjetje pod drugo šifro.
           </p>
         </form>

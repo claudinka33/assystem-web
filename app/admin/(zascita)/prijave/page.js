@@ -28,7 +28,7 @@ export default async function Prijave() {
     <>
       <div className="adm-glava">
         <h1>Prijave za zaposlitev</h1>
-        <span style={{ fontSize: 14, color: "#6e7276" }}>{seznam.length} zapisov</span>
+        <span style={{ fontSize: 13, color: "#6e7276" }}>{seznam.length} zapisov</span>
       </div>
 
       <div className="adm-telo">
@@ -51,12 +51,12 @@ export default async function Prijave() {
                   <td>
                     <b>{p.ime}</b>
                     {p.sporocilo && (
-                      <div style={{ fontSize: 12.5, color: "#6e7276", marginTop: 4, maxWidth: 420 }}>
+                      <div style={{ fontSize: 11.5, color: "#6e7276", marginTop: 4, maxWidth: 420 }}>
                         {p.sporocilo}
                       </div>
                     )}
                   </td>
-                  <td style={{ fontSize: 13.5 }}>
+                  <td style={{ fontSize: 12.5 }}>
                     <a href={`mailto:${p.email}`} style={{ color: "#cb2026" }}>
                       {p.email}
                     </a>

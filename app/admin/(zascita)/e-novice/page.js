@@ -16,7 +16,7 @@ function Kpi({ stevilka, naziv, pod }) {
   return (
     <div style={{ ...okvir, padding: "16px 18px" }}>
       <div style={{ fontSize: 28, fontWeight: 800, lineHeight: 1.1 }}>{stevilka}</div>
-      <div style={{ fontSize: 13.5, fontWeight: 600, marginTop: 4 }}>{naziv}</div>
+      <div style={{ fontSize: 12.5, fontWeight: 600, marginTop: 4 }}>{naziv}</div>
       {pod && <div style={{ fontSize: 12, color: sivo, marginTop: 2 }}>{pod}</div>}
     </div>
   );
@@ -27,7 +27,7 @@ function Delez({ n, od, barva }) {
   if (n == null) return <span style={{ color: "#9aa0a6" }}>–</span>;
   return (
     <div style={{ minWidth: 120 }}>
-      <div style={{ display: "flex", justifyContent: "space-between", fontSize: 13 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12 }}>
         <b>{n}</b>
         <span style={{ color: sivo }}>{p != null ? `${p} %` : ""}</span>
       </div>
@@ -41,7 +41,7 @@ function Delez({ n, od, barva }) {
 function Naslov({ children, desno }) {
   return (
     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", margin: "30px 0 12px", gap: 12 }}>
-      <h2 style={{ fontSize: 17, fontWeight: 800, margin: 0 }}>{children}</h2>
+      <h2 style={{ fontSize: 15, fontWeight: 800, margin: 0 }}>{children}</h2>
       {desno}
     </div>
   );
@@ -120,7 +120,7 @@ export default async function ENovice() {
         {/* ---------- čaka ---------- */}
         <Naslov>Čaka na pošiljanje</Naslov>
         {caka.length === 0 ? (
-          <div style={{ ...okvir, padding: "18px 20px", color: sivo, fontSize: 14 }}>
+          <div style={{ ...okvir, padding: "18px 20px", color: sivo, fontSize: 13 }}>
             Nič ne čaka. Začni z gumbom <b>+ Nova kampanja</b> ali uporabi predlogo spodaj.
           </div>
         ) : (
@@ -136,7 +136,7 @@ export default async function ENovice() {
                   <Link href={`/admin/e-novice/${k.id}`} style={{ fontWeight: 700 }}>
                     {k.zadeva || k.naziv || <em style={{ color: "#9aa0a6" }}>(brez zadeve)</em>}
                   </Link>
-                  <div style={{ fontSize: 12.5, color: sivo }}>
+                  <div style={{ fontSize: 11.5, color: sivo }}>
                     {k.segment_ime ? `Komu: ${k.segment_ime}` : "Prejemniki še niso izbrani"} · spremenjeno {cas(k.posodobljeno)}
                     {k.ustvaril ? ` · ${k.ustvaril}` : ""}
                   </div>
@@ -155,9 +155,9 @@ export default async function ENovice() {
         )}
 
         {/* ---------- poslane ---------- */}
-        <Naslov desno={<span style={{ fontSize: 12.5, color: sivo }}>Klikni kampanjo za analizo</span>}>Poslane kampanje</Naslov>
+        <Naslov desno={<span style={{ fontSize: 11.5, color: sivo }}>Klikni kampanjo za analizo</span>}>Poslane kampanje</Naslov>
         {poslane.length === 0 ? (
-          <div style={{ ...okvir, padding: "18px 20px", color: sivo, fontSize: 14 }}>Še ni poslanih kampanj.</div>
+          <div style={{ ...okvir, padding: "18px 20px", color: sivo, fontSize: 13 }}>Še ni poslanih kampanj.</div>
         ) : (
           <table className="adm-tab">
             <thead>
@@ -184,7 +184,7 @@ export default async function ENovice() {
                       {k.naziv && k.naziv !== k.zadeva && <div style={{ fontSize: 12, color: sivo }}>{k.naziv}</div>}
                     </td>
                     <td>{k.segment_ime || "–"}</td>
-                    <td style={{ whiteSpace: "nowrap", fontSize: 13 }}>{cas(k.poslano_ob)}</td>
+                    <td style={{ whiteSpace: "nowrap", fontSize: 12 }}>{cas(k.poslano_ob)}</td>
                     <td style={{ fontWeight: 700 }}>{d ?? "–"}</td>
                     <td><Delez n={s.odprli} od={d} barva="#1f7a3f" /></td>
                     <td><Delez n={s.kliknili} od={d} barva="#C8102E" /></td>
@@ -210,7 +210,7 @@ export default async function ENovice() {
         {/* ---------- predloge ---------- */}
         <Naslov>Predloge</Naslov>
         {predloge.length === 0 ? (
-          <div style={{ ...okvir, padding: "18px 20px", color: sivo, fontSize: 14 }}>
+          <div style={{ ...okvir, padding: "18px 20px", color: sivo, fontSize: 13 }}>
             Ni predlog. V urejevalniku kampanje klikni »Shrani kot predlogo«.
           </div>
         ) : (
@@ -219,7 +219,7 @@ export default async function ENovice() {
               <div key={k.id} style={{ ...okvir, padding: "14px 16px", display: "flex", flexDirection: "column", gap: 10 }}>
                 <div>
                   <b>{k.naziv || k.zadeva || "Predloga"}</b>
-                  {k.zadeva && k.naziv && <div style={{ fontSize: 12.5, color: sivo }}>{k.zadeva}</div>}
+                  {k.zadeva && k.naziv && <div style={{ fontSize: 11.5, color: sivo }}>{k.zadeva}</div>}
                 </div>
                 <div style={{ display: "flex", gap: 6, marginTop: "auto" }}>
                   <form action={podvojiKampanjo}>

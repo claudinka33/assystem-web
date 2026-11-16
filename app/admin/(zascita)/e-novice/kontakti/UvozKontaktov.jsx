@@ -4,7 +4,7 @@ import { useActionState, useMemo, useState } from "react";
 import { uvoziKontakte } from "@/lib/akcije/enovice-kontakti";
 
 const EMAIL = /[A-Z0-9._%+'-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi;
-const polje = { width: "100%", padding: "8px 10px", border: "1px solid #c6cace", fontSize: 13 };
+const polje = { width: "100%", padding: "8px 10px", border: "1px solid #c6cace", fontSize: 12 };
 
 export default function UvozKontaktov({ segmenti }) {
   const [besedilo, setBesedilo] = useState("");
@@ -16,7 +16,7 @@ export default function UvozKontaktov({ segmenti }) {
   return (
     <form action={akcija} className="adm-obr" style={{ maxWidth: 720, padding: 18 }}>
       {stanje && (
-        <div className={stanje.stanje === "ok" ? "uspeh" : "opozorilo"} style={{ fontSize: 15 }}>
+        <div className={stanje.stanje === "ok" ? "uspeh" : "opozorilo"} style={{ fontSize: 13.5 }}>
           {stanje.stanje === "ok" ? "✓ " : ""}
           {stanje.sporocilo}
         </div>
@@ -30,7 +30,7 @@ export default function UvozKontaktov({ segmenti }) {
           value={besedilo}
           onChange={(e) => setBesedilo(e.target.value)}
           placeholder={"En kontakt na vrstico – lahko kar kopiraš iz Excela ali maila:\njanez@firma.si\nJanez Novak <janez@firma.si>\nJanez Novak; janez@firma.si"}
-          style={{ minHeight: 180, fontSize: 13 }}
+          style={{ minHeight: 180, fontSize: 12 }}
         />
         <p className="namig">
           Najdenih e-naslovov: <b>{naslovi.length}</b>

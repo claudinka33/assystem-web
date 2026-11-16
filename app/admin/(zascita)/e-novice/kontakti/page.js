@@ -32,7 +32,7 @@ async function podatki() {
   }
 }
 
-const polje = { padding: "9px 11px", border: "1px solid #c6cace", borderRadius: 6, fontSize: 14 };
+const polje = { padding: "9px 11px", border: "1px solid #c6cace", borderRadius: 6, fontSize: 13 };
 
 export default async function KontaktiENovic() {
   const { napaka, panoge, kontakti } = await podatki();
@@ -63,7 +63,7 @@ export default async function KontaktiENovic() {
             </div>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "6px 14px", margin: "12px 0" }}>
               {panoge.map((p) => (
-                <label key={p.id} style={{ display: "flex", gap: 6, alignItems: "center", fontSize: 14, fontWeight: 400 }}>
+                <label key={p.id} style={{ display: "flex", gap: 6, alignItems: "center", fontSize: 13, fontWeight: 400 }}>
                   <input type="checkbox" name="panoge" value={p.id} style={{ width: "auto", margin: 0 }} /> {p.ime}
                 </label>
               ))}

@@ -8,7 +8,7 @@ import { iskanjeIzdelkovZaMail } from "@/lib/akcije/enovice-kampanje";
 // Urejevalnik e-novic iz blokov: povleci blok iz palete v seznam, razvrsti z
 // vlečenjem, klikni za urejanje. Izbran blok je obrobljen tudi v predogledu.
 
-const vnos = { width: "100%", padding: "7px 9px", border: "1px solid #c6cace", borderRadius: 6, fontSize: 13, font: "inherit", background: "#fff" };
+const vnos = { width: "100%", padding: "7px 9px", border: "1px solid #c6cace", borderRadius: 6, fontSize: 12, font: "inherit", background: "#fff" };
 const oznaka = { display: "block", fontSize: 12, fontWeight: 600, margin: "0 0 4px", color: "#3f4140" };
 const malGumb = {
   border: "1px solid #dde0e2",
@@ -17,7 +17,7 @@ const malGumb = {
   width: 26,
   height: 26,
   cursor: "pointer",
-  fontSize: 13,
+  fontSize: 12,
   lineHeight: "24px",
   padding: 0,
   color: "#3f4140",
@@ -133,7 +133,7 @@ function IzKataloga({ onIzberi }) {
               onIzberi(i);
               setOdprt(false);
             }}
-            style={{ display: "flex", gap: 8, alignItems: "center", width: "100%", textAlign: "left", border: 0, background: "transparent", padding: "5px 4px", cursor: "pointer", borderRadius: 4, fontSize: 13 }}
+            style={{ display: "flex", gap: 8, alignItems: "center", width: "100%", textAlign: "left", border: 0, background: "transparent", padding: "5px 4px", cursor: "pointer", borderRadius: 4, fontSize: 12 }}
           >
             <span style={{ width: 34, height: 26, background: "#eef0f1", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
               {i.slika && <img src={i.slika} alt="" style={{ maxWidth: "100%", maxHeight: "100%" }} />}
@@ -352,7 +352,7 @@ export default function BlokUrejevalnik({ vsebina, onChange, izbran, setIzbran }
                 title="Klikni za dodajanje ali povleci v seznam"
                 style={{ border: "1px solid #dde0e2", borderRadius: 6, padding: "7px 9px", cursor: "grab", background: "#fff", userSelect: "none" }}
               >
-                <div style={{ fontSize: 12.5, fontWeight: 600 }}>{d.ime}</div>
+                <div style={{ fontSize: 11.5, fontWeight: 600 }}>{d.ime}</div>
                 <div style={{ fontSize: 11, color: "#6e767e", lineHeight: 1.3 }}>{d.opis}</div>
               </div>
             ))}
@@ -370,7 +370,7 @@ export default function BlokUrejevalnik({ vsebina, onChange, izbran, setIzbran }
                 setCilj(0);
               }
             }}
-            style={{ border: "2px dashed #ccd0d4", borderRadius: 8, padding: 24, textAlign: "center", color: "#6e767e", fontSize: 13 }}
+            style={{ border: "2px dashed #ccd0d4", borderRadius: 8, padding: 24, textAlign: "center", color: "#6e767e", fontSize: 12 }}
           >
             Povleci blok sem
           </div>
@@ -406,7 +406,7 @@ export default function BlokUrejevalnik({ vsebina, onChange, izbran, setIzbran }
                       setCilj(null);
                     }}
                     title="Povleci za premik"
-                    style={{ cursor: "grab", color: "#9aa0a6", padding: "0 4px", fontSize: 16, userSelect: "none" }}
+                    style={{ cursor: "grab", color: "#9aa0a6", padding: "0 4px", fontSize: 14, userSelect: "none" }}
                   >
                     ⠿
                   </span>
@@ -415,7 +415,7 @@ export default function BlokUrejevalnik({ vsebina, onChange, izbran, setIzbran }
                     onClick={() => setIzbran(odprt ? null : b.id)}
                     style={{ flex: 1, minWidth: 0, textAlign: "left", border: 0, background: "transparent", cursor: "pointer", padding: 0 }}
                   >
-                    <div style={{ fontSize: 13, fontWeight: 600, color: "#3f4140" }}>{d?.ime ?? b.tip}</div>
+                    <div style={{ fontSize: 12, fontWeight: 600, color: "#3f4140" }}>{d?.ime ?? b.tip}</div>
                     <div style={{ fontSize: 11.5, color: "#6e767e", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{povzetek(b)}</div>
                   </button>
                   <button type="button" style={malGumb} onClick={() => i > 0 && premakni(i, i - 1)} title="Gor" disabled={i === 0}>
@@ -448,7 +448,7 @@ export default function BlokUrejevalnik({ vsebina, onChange, izbran, setIzbran }
       {/* noga */}
       <div style={{ border: "1px dashed #dde0e2", borderRadius: 7, padding: "8px 10px", marginTop: 4, display: "flex", alignItems: "center", gap: 8 }}>
         <div style={{ flex: 1 }}>
-          <div style={{ fontSize: 13, fontWeight: 600, color: "#3f4140" }}>Noga (samodejno)</div>
+          <div style={{ fontSize: 12, fontWeight: 600, color: "#3f4140" }}>Noga (samodejno)</div>
           <div style={{ fontSize: 11.5, color: "#6e767e" }}>Podatki podjetja + odjava</div>
         </div>
         <select

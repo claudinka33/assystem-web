@@ -15,13 +15,13 @@ import BlokUrejevalnik from "./BlokUrejevalnik";
 const korak = { fontSize: 12, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", color: "#6e767e", margin: "0 0 8px" };
 const blok = { borderTop: "1px solid #e4e6e8", paddingTop: 14, marginTop: 14 };
 const vrsta = { display: "flex", gap: 8, alignItems: "center" };
-const vnos = { width: "100%", padding: "8px 10px", border: "1px solid #c6cace", borderRadius: 6, fontSize: 13, font: "inherit" };
+const vnos = { width: "100%", padding: "8px 10px", border: "1px solid #c6cace", borderRadius: 6, fontSize: 12, font: "inherit" };
 const PRAZEN = "<div style='font-family:sans-serif;color:#9aa0a6;display:flex;height:90vh;align-items:center;justify-content:center'>Predogled maila</div>";
 
 function Sporocilo({ s }) {
   if (!s) return null;
   return (
-    <div className={s.stanje === "ok" ? "uspeh" : "opozorilo"} style={{ margin: "8px 0", padding: "8px 12px", fontSize: 13 }}>
+    <div className={s.stanje === "ok" ? "uspeh" : "opozorilo"} style={{ margin: "8px 0", padding: "8px 12px", fontSize: 12 }}>
       {s.sporocilo}
     </div>
   );
@@ -243,7 +243,7 @@ export default function KampanjaUrejevalnik({ kampanja, segmenti, privzetiPosilj
           style={{
             border: 0,
             padding: "5px 12px",
-            fontSize: 12.5,
+            fontSize: 11.5,
             fontWeight: 600,
             cursor: "pointer",
             background: nacin === k ? "#3f4140" : "#fff",
@@ -277,7 +277,7 @@ export default function KampanjaUrejevalnik({ kampanja, segmenti, privzetiPosilj
         </div>
 
         <div style={{ ...vrsta, justifyContent: "space-between", marginBottom: 8 }}>
-          <span style={{ fontSize: 13, fontWeight: 600 }}>{nacin === "bloki" ? "Sestavi mail" : "HTML koda *"}</span>
+          <span style={{ fontSize: 12, fontWeight: 600 }}>{nacin === "bloki" ? "Sestavi mail" : "HTML koda *"}</span>
           {preklop}
         </div>
 
@@ -301,7 +301,7 @@ export default function KampanjaUrejevalnik({ kampanja, segmenti, privzetiPosilj
           </div>
         )}
 
-        <details style={{ fontSize: 13, margin: "12px 0 4px" }}>
+        <details style={{ fontSize: 12, margin: "12px 0 4px" }}>
           <summary style={{ cursor: "pointer", color: "#6e767e" }}>Več možnosti</summary>
           {!jePredloga && (
             <div className="adm-polje" style={{ marginTop: 10 }}>
@@ -352,7 +352,7 @@ export default function KampanjaUrejevalnik({ kampanja, segmenti, privzetiPosilj
                 ))}
               </select>
 
-              <div style={{ display: "flex", gap: 14, fontSize: 13, marginBottom: 8 }}>
+              <div style={{ display: "flex", gap: 14, fontSize: 12, marginBottom: 8 }}>
                 <label style={vrsta}>
                   <input type="radio" name="kdaj" checked={kdaj === "zdaj"} onChange={() => setKdaj("zdaj")} />
                   Pošlji zdaj
@@ -366,7 +366,7 @@ export default function KampanjaUrejevalnik({ kampanja, segmenti, privzetiPosilj
                 <input type="datetime-local" value={cas} onChange={(e) => setCas(e.target.value)} style={{ ...vnos, marginBottom: 10 }} />
               )}
 
-              <label style={{ ...vrsta, fontSize: 13, marginBottom: 10 }}>
+              <label style={{ ...vrsta, fontSize: 12, marginBottom: 10 }}>
                 <input type="checkbox" checked={potrjeno} onChange={(e) => setPotrjeno(e.target.checked)} />
                 Test je pregledan – pošlji vsem
               </label>

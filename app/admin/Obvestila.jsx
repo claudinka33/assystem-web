@@ -99,7 +99,7 @@ export default function Obvestila() {
         padding: "14px 20px",
         borderRadius: 10,
         fontWeight: 600,
-        fontSize: 15,
+        fontSize: 13.5,
         boxShadow: "0 8px 28px rgba(0,0,0,.25)",
         display: "flex",
         alignItems: "center",

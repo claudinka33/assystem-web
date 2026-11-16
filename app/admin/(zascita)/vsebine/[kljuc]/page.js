@@ -20,7 +20,7 @@ export default async function UrediVsebino({ params }) {
     <>
       <div className="adm-glava">
         <h1>Uredi besedilo</h1>
-        <span style={{ fontSize: 13, color: "#6e7276" }}>{data.kljuc}</span>
+        <span style={{ fontSize: 12, color: "#6e7276" }}>{data.kljuc}</span>
       </div>
 
       <div className="adm-telo">

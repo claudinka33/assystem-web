@@ -19,7 +19,7 @@ export default function UvozArtiklov({ izdelekId }) {
         <textarea
           id="podatki"
           name="podatki"
-          style={{ minHeight: 160, fontFamily: "ui-monospace, monospace", fontSize: 13 }}
+          style={{ minHeight: 160, fontFamily: "ui-monospace, monospace", fontSize: 12 }}
           placeholder="TXH7-0860	TXH7 ZnB M8x60	M8 x 60	3830000000001	100	1,25	250	42"
         />
         <p className="namig">

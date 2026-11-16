@@ -34,7 +34,7 @@ export default async function Prijava({ searchParams }) {
           <>
             {sp.napaka === "ms" && <div className="opozorilo">Prijava z Microsoft ni uspela. Poskusi znova.</div>}
             <MicrosoftGumb />
-            <p style={{ textAlign: "center", fontSize: 13, opacity: 0.6, margin: "18px 0 10px" }}>ali z e-naslovom in geslom</p>
+            <p style={{ textAlign: "center", fontSize: 12, opacity: 0.6, margin: "18px 0 10px" }}>ali z e-naslovom in geslom</p>
             <PrijavaObrazec />
           </>
         )}

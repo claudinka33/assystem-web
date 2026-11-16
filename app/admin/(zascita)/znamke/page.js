@@ -49,7 +49,7 @@ export default async function ZnamkeIzdelkov({ searchParams }) {
                   <input type="hidden" name="znamka" value={z} />
                   <input type="hidden" name="akcija" value={off ? "vklopi" : "izklopi"} />
                   <b>{ZNAMKE_INFO[z].ime}</b>
-                  <span style={{ fontSize: 12.5, color: off ? "#CB2026" : "#1e7a3c" }}>{off ? "● izklopljena" : "● na spletu"}</span>
+                  <span style={{ fontSize: 11.5, color: off ? "#CB2026" : "#1e7a3c" }}>{off ? "● izklopljena" : "● na spletu"}</span>
                   <button className={`gumb mini${off ? "" : " siv"}`} type="submit">
                     {off ? "Vklopi" : "Izklopi"}
                   </button>
@@ -91,13 +91,13 @@ export default async function ZnamkeIzdelkov({ searchParams }) {
                   {!i.objavljeno && <span style={{ color: "#9ba0a5" }}> · skrit</span>}
                 </td>
                 <td>{i.kategorija}</td>
-                <td style={{ color: "#6e767e", fontSize: 12.5 }}>
+                <td style={{ color: "#6e767e", fontSize: 11.5 }}>
                   {i.sifre.slice(0, 3).join(", ")}
                   {i.sifre.length > 3 && ` … (+${i.sifre.length - 3})`}
                 </td>
                 <td>
                   <b>{ZNAMKE_INFO[nastrani(i)]?.ime}</b>
-                  {!i.vpis && <span style={{ color: "#9ba0a5", fontSize: 12.5 }}> · samodejno</span>}
+                  {!i.vpis && <span style={{ color: "#9ba0a5", fontSize: 11.5 }}> · samodejno</span>}
                 </td>
                 <td>
                   {stolpec && (

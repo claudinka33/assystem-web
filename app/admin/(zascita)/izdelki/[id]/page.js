@@ -143,7 +143,7 @@ export default async function UrediIzdelek({ params }) {
                     <td><b>{a.sifra}</b></td>
                     <td>{a.naziv}</td>
                     <td>{a.dimenzija ?? "—"}</td>
-                    <td style={{ color: "#6e7276", fontSize: 13 }}>{a.ean ?? "—"}</td>
+                    <td style={{ color: "#6e7276", fontSize: 12 }}>{a.ean ?? "—"}</td>
                     <td style={{ textAlign: "right" }}>{a.pakiranje ?? "—"}</td>
                     <td style={{ textAlign: "right" }}>{a.cena_mpc ?? "—"}</td>
                     <td style={{ textAlign: "right" }}>{a.zaloga ?? "—"}</td>

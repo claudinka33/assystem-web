@@ -39,7 +39,7 @@ export default async function Gradiva({ searchParams }) {
 
       <div className="adm-telo">
         <form className="adm-obr" action={shraniGradivo} style={{ maxWidth: "none", marginBottom: 24 }}>
-          <h2 style={{ fontSize: 16, margin: "0 0 16px" }}>Dodaj dokument</h2>
+          <h2 style={{ fontSize: 14, margin: "0 0 16px" }}>Dodaj dokument</h2>
           <NalozSliko ime="datoteka_url" oznaka="PDF datoteka *" vedro="dokumenti" />
           <div className="adm-vrsta-3">
             <div className="adm-polje">

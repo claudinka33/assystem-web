@@ -28,7 +28,7 @@ export function OsveziStatistiko({ id, samodejno, statistikaOb }) {
   }, [samodejno]);
 
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap", fontSize: 12.5, color: "#6e767e" }}>
+    <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap", fontSize: 11.5, color: "#6e767e" }}>
       <button type="button" className="gumb siv mini" onClick={osvezi} disabled={caka}>
         {caka ? "Osvežujem …" : "↻ Osveži statistiko"}
       </button>
@@ -69,7 +69,7 @@ export function PonovnoNeodprtim({ id, stevilo }) {
         {caka ? "Pripravljam …" : `Pošlji ponovno neodprtim${stevilo ? ` (${stevilo})` : ""}`}
       </button>
       {napaka && (
-        <div className="opozorilo" style={{ margin: "8px 0", padding: "8px 12px", fontSize: 13 }}>
+        <div className="opozorilo" style={{ margin: "8px 0", padding: "8px 12px", fontSize: 12 }}>
           {napaka}
         </div>
       )}
@@ -103,7 +103,7 @@ export function IstimPrejemnikom({ id, stevilo }) {
         {caka ? "Pripravljam …" : `Nov mailing istim prejemnikom${stevilo ? ` (${stevilo})` : ""}`}
       </button>
       {napaka && (
-        <div className="opozorilo" style={{ margin: "8px 0", padding: "8px 12px", fontSize: 13 }}>
+        <div className="opozorilo" style={{ margin: "8px 0", padding: "8px 12px", fontSize: 12 }}>
           {napaka}
         </div>
       )}

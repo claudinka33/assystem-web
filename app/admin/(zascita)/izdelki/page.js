@@ -44,7 +44,7 @@ export default async function Izdelki() {
                   <td>{i.slika_url ? <img src={i.slika_url} alt="" /> : <span style={{ color: "#ccd2d8" }}>—</span>}</td>
                   <td>
                     <b>{i.naziv}</b>
-                    <div style={{ fontSize: 12.5, color: "#6e767e" }}>{i.slug}</div>
+                    <div style={{ fontSize: 11.5, color: "#6e767e" }}>{i.slug}</div>
                   </td>
                   <td style={{ color: "#6e767e" }}>{i.kategorije?.naziv ?? "—"}</td>
                   <td>{i.artikli?.length ?? 0}</td>

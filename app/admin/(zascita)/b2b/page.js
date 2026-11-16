@@ -1,5 +1,6 @@
 import { supabaseAdmin } from "@/lib/supabase-server";
-import { adminB2B } from "@/lib/akcije/b2b";
+import { adminB2B, izbrisiB2B } from "@/lib/akcije/b2b";
+import IzbrisiGumb from "../../IzbrisiGumb";
 import { B2B_STATUSI } from "@/lib/b2b";
 import Osvezi from "../../Osvezi";
 import NovB2B from "./NovB2B";
@@ -10,7 +11,7 @@ const cas = (t) => (t ? new Date(t).toLocaleString("sl-SI", { timeZone: "Europe/
 const VRSTNI_RED = ["caka_odobritev", "preverjanje", "aktiven", "zavrnjen"];
 
 export default async function B2BKupci({ searchParams }) {
-  const { napaka, shranjeno, poslano } = await searchParams;
+  const { napaka, shranjeno, poslano, izbrisano } = await searchParams;
   const { data, error } = await supabaseAdmin().from("b2b_kupci").select("*").order("ustvarjeno", { ascending: false }).limit(500);
   if (error)
     return (
@@ -41,10 +42,10 @@ export default async function B2BKupci({ searchParams }) {
       <Osvezi aktivno={kupci.some((k) => k.status === "preverjanje")} />
       <div className="adm-glava">
         <h1>B2B kupci</h1>
-        <span style={{ fontSize: 14, color: "#6e767e" }}>{skupine.length} podjetij · {kupci.length} uporabnikov · {caka} čaka na odobritev</span>
+        <span style={{ fontSize: 13, color: "#6e767e" }}>{skupine.length} podjetij · {kupci.length} uporabnikov · {caka} čaka na odobritev</span>
       </div>
       <div className="adm-telo">
-        <p style={{ fontSize: 14, color: "#6e767e", marginTop: 0 }}>
+        <p style={{ fontSize: 13, color: "#6e767e", marginTop: 0 }}>
           as-terminal vsaki 2 minuti poišče partnerja v Vascu po davčni. Če se e-naslov ali domena ujema s partnerjem, se kupec aktivira
           sam. Ostale odobri tukaj — pri novem podjetju ga najprej odpri v Vascu in vpiši šifro partnerja. Z »+ Nov B2B kupec« lahko podjetje odpreš sam: vpiši davčno, poišči podatke, dodaj kontakt — kupec dobi mail za potrditev in geslo.
         </p>
@@ -54,6 +55,7 @@ export default async function B2BKupci({ searchParams }) {
             ✓ Povabilo za potrditev in geslo je poslano na <b>{poslano}</b>.
           </div>
         )}
+        {izbrisano && <div className="uspeh">B2B uporabnik {izbrisano} je izbrisan. Njegova naročila ostanejo v seznamu naročil.</div>}
         {shranjeno && <div className="opozorilo" style={{ marginBottom: 12, borderColor: "#1a7f3c", color: "#1a7f3c" }}>Spremembe shranjene.</div>}
         <NovB2B />
         {kupci.length === 0 && <div className="opozorilo">Ni še registracij.</div>}
@@ -63,16 +65,16 @@ export default async function B2BKupci({ searchParams }) {
           return (
             <div key={g.davcna} className="adm-obr" style={{ marginBottom: 16 }}>
               <div style={{ display: "flex", gap: 14, alignItems: "baseline", flexWrap: "wrap" }}>
-                <b style={{ fontSize: 17 }}>{g.vasco_naziv || g.podjetje}</b>
-                <span style={{ color: "#6e767e", fontSize: 13 }}>SI{g.davcna}</span>
-                <span style={{ color: "#6e767e", fontSize: 13 }}>
+                <b style={{ fontSize: 15 }}>{g.vasco_naziv || g.podjetje}</b>
+                <span style={{ color: "#6e767e", fontSize: 12 }}>SI{g.davcna}</span>
+                <span style={{ color: "#6e767e", fontSize: 12 }}>
                   {uporabniki.length} {uporabniki.length === 1 ? "uporabnik" : uporabniki.length === 2 ? "uporabnika" : uporabniki.length < 5 ? "uporabniki" : "uporabnikov"}
                   {pr.length ? ` · ${pr.length} poslovalnic` : ""}
                 </span>
                 <span style={{ flex: 1 }} />
                 <NovB2B zacetnaDavcna={g.davcna} oznaka="+ Dodaj uporabnika" siv />
               </div>
-              <p style={{ fontSize: 13.5, margin: "8px 0 10px", color: "#4a5056" }}>
+              <p style={{ fontSize: 12.5, margin: "8px 0 10px", color: "#4a5056" }}>
                 Vasco:{" "}
                 {g.vasco_partner ? (
                   <b>{g.vasco_partner} — {g.vasco_naziv} ({g.vasco_naslov}, {g.vasco_posta})</b>
@@ -90,7 +92,7 @@ export default async function B2BKupci({ searchParams }) {
                     <span style={{ flex: 1, minWidth: 240 }}>
                       <b>{k.ime}</b> · {k.email}
                     </span>
-                    <span style={{ fontSize: 13, color: "#6e767e" }}>
+                    <span style={{ fontSize: 12, color: "#6e767e" }}>
                       {k.prodajalna
                         ? `📍 ${imeProdajalne(k.vasco_partner, k.prodajalna)}`
                         : k.poslovalnica_vnos
@@ -102,8 +104,17 @@ export default async function B2BKupci({ searchParams }) {
                     </span>
                     <span style={{ fontSize: 12, color: "#cb2026" }}>Uredi ▾</span>
                   </summary>
-                  <div style={{ marginTop: 10, fontSize: 14 }}>
-                    <p style={{ margin: "0 0 10px", color: "#6e767e", fontSize: 13 }}>
+                  <div style={{ float: "right", marginTop: 6, display: "flex", alignItems: "center", gap: 4, fontSize: 11.5, color: "#6e767e" }}>
+                    Izbriši uporabnika
+                    <IzbrisiGumb
+                      action={izbrisiB2B}
+                      id={k.id}
+                      ime={`${k.ime} (${k.email})`}
+                      opozorilo="B2B dostop tega uporabnika bo izbrisan. Naročila ostanejo, košarica se izprazni. Tega ni mogoče razveljaviti."
+                    />
+                  </div>
+                  <div style={{ marginTop: 10, fontSize: 13 }}>
+                    <p style={{ margin: "0 0 10px", color: "#6e767e", fontSize: 12 }}>
                       Registracija: {cas(k.ustvarjeno)} · zadnja sinhronizacija: {cas(k.vasco_sync_ob)}
                       {k.vasco_sporocilo ? ` — ${k.vasco_sporocilo}` : ""}
                       {k.odobreno_rocno && <> · odobreno ročno</>}

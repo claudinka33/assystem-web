@@ -724,3 +724,138 @@ table.st-tab tr.on td:first-child { box-shadow: inset 3px 0 0 var(--a-red); }
   .st-graf { padding: 10px 8px 14px; gap: 1px; }
   .st-delez { width: 50px; }
 }
+
+/* ============================================================
+   KOMPAKTNI SLOJ (nov. 2026) — gost, pregleden videz v slogu Intrix:
+   manjša sistemska pisava, nižje vrstice, tanjši robovi, manj praznega prostora.
+   ============================================================ */
+.adm {
+  --a-r: 6px;
+  --a-sh: 0 1px 2px rgba(20, 22, 26, .05);
+  --a-bg: #eef0f3;
+  --a-line: #dde1e6;
+  grid-template-columns: 216px minmax(0, 1fr);
+  font-family: "Inter", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.45;
+}
+.adm button, .adm input, .adm select, .adm textarea { font-family: inherit; }
+
+/* stranski meni */
+.adm-logo { padding: 12px 14px; gap: 9px; }
+.adm-logo-znak { width: 30px; height: 30px; font-size: 12px; border-radius: 6px; }
+.adm-logo b { font-size: 14px; }
+.adm-logo small { font-size: 10.5px; margin-top: 1px; }
+.adm-bok nav { padding: 6px 8px 12px; }
+.adm-bok nav a { padding: 5px 9px; gap: 9px; font-size: 12.5px; border-radius: 5px; margin: 0; }
+.adm-bok nav a svg { width: 15px; height: 15px; }
+.adm-bok .skupina { padding: 12px 9px 3px; font-size: 9.5px; letter-spacing: 1.2px; }
+.stevec { min-width: 17px; height: 17px; font-size: 10px; padding: 0 5px; }
+.adm-uporabnik { padding: 9px 12px 11px; gap: 9px; font-size: 12px; }
+.adm-uporabnik .avatar { width: 28px; height: 28px; font-size: 11px; }
+.adm-uporabnik .akcije a, .adm-odjava { font-size: 11.5px; }
+
+/* glava in telo */
+.adm-glava { padding: 10px 22px; min-height: 50px; gap: 12px; }
+.adm-glava h1 { font-size: 17px; font-weight: 700; letter-spacing: -.1px; }
+.adm-glava > span { font-size: 11.5px !important; padding: 2px 9px; border-radius: 4px; }
+.adm-nad { font-size: 10px; }
+.adm-telo { padding: 14px 22px 40px; max-width: 1500px; }
+.adm-telo > p:first-child { font-size: 12px !important; line-height: 1.5; margin-bottom: 10px; }
+
+/* nadzorna plošča */
+.adm-pozornost, .adm-mirno { padding: 8px 12px; margin-bottom: 12px; font-size: 12.5px; }
+.adm-pozornost-el { padding: 3px 10px; font-size: 12.5px; border-radius: 4px; }
+.adm-kartice { gap: 10px; }
+.adm-kartica { padding: 12px 14px; }
+.adm-kartica .ik { width: 28px; height: 28px; right: 12px; top: 12px; border-radius: 6px; }
+.adm-kartica b { font-size: 22px; }
+.adm-kartica span { font-size: 11.5px; }
+.adm-naslov { font-size: 10.5px; margin: 18px 0 8px; }
+.adm-hitro { gap: 6px; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+.adm-hitro a { padding: 7px 10px; font-size: 12.5px; }
+.adm-dva { gap: 10px; margin-top: 18px; }
+.adm-panel header { padding: 8px 12px; }
+.adm-panel header h2 { font-size: 13px; }
+.adm-panel header a { font-size: 12px; }
+.adm-panel li { padding: 6px 12px; font-size: 12.5px; gap: 10px; }
+.adm-panel li small { font-size: 11.5px; }
+.adm-panel .prazno { padding: 12px; font-size: 12.5px; }
+
+/* tabele */
+table.adm-tab th { font-size: 10px; padding: 6px 10px; letter-spacing: .6px; }
+table.adm-tab td { padding: 5px 10px; font-size: 12.5px; }
+table.adm-tab img { width: 32px; height: 32px; border-radius: 4px; }
+table.adm-tab tbody tr:nth-child(even) { background: #fafbfc; }
+table.adm-tab tbody tr:hover { background: #f1f4f8; }
+
+/* obrazci */
+.adm-obr { padding: 12px 14px; max-width: 1100px; }
+details.adm-obr { padding: 8px 12px; }
+.adm-polje { margin-bottom: 9px; }
+.adm-polje label { font-size: 11px; font-weight: 600; margin-bottom: 3px; color: #5b6168; text-transform: none; }
+.adm-polje input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="hidden"]):not([type="submit"]),
+.adm-polje select,
+.adm-polje textarea,
+.adm select,
+.adm input[type="search"] {
+  padding: 5px 8px;
+  font-size: 12.5px;
+  border-radius: 4px;
+  border-color: #cfd4da;
+  min-height: 30px;
+}
+.adm-polje textarea { min-height: 70px; }
+.adm-polje .namig { font-size: 11px; margin-top: 3px; }
+.adm-vrsta, .adm-vrsta-3 { gap: 10px; }
+
+/* gumbi */
+.gumb { padding: 5px 12px; font-size: 12.5px; border-radius: 4px; gap: 6px; min-height: 30px; }
+.gumb.mini { padding: 2px 8px; font-size: 11.5px; min-height: 24px; }
+.ikona-gumb { width: 26px; height: 26px; border-radius: 4px; }
+
+/* značke, sporočila */
+.znacka { padding: 1px 7px; font-size: 10.5px; border-radius: 3px; }
+.opozorilo, .uspeh { padding: 7px 11px; font-size: 12.5px; margin-bottom: 10px; border-radius: 4px; }
+.adm-info { font-size: 11.5px; padding: 2px 9px; border-radius: 4px; }
+.adm-namig { font-size: 11.5px; margin-top: 10px; }
+.zavihki { gap: 4px; margin-bottom: 10px; }
+.zavihki a { padding: 3px 10px; font-size: 12px; border-radius: 4px; }
+
+/* kategorije, izdelki */
+.kat-seznam { gap: 6px; max-width: 1300px; }
+.kat-vrstica { padding: 5px 10px; gap: 10px; }
+.kat-ime b { font-size: 13px; }
+.kat-slika img, .kat-slika .brez { width: 32px; height: 32px; }
+.izd-nav a { padding: 8px 10px; font-size: 12px; }
+.izd-kartica { margin-bottom: 10px; }
+.izd-kartica > header { padding: 10px 14px 8px; }
+.izd-kartica > header h2 { font-size: 14px; }
+.izd-kartica > header p { font-size: 11.5px; }
+.izd-kartica-telo { padding: 12px 14px; }
+.izd-shrani { padding: 7px 12px; }
+
+/* seznami tipa »vrstica + razpri« (naročila, B2B) */
+.vrstice { background: #fff; border: 1px solid var(--a-line); border-radius: var(--a-r); box-shadow: var(--a-sh); overflow: hidden; }
+.vrstice > details { border-bottom: 1px solid #e8ebef; }
+.vrstice > details:last-child { border-bottom: 0; }
+.vrstice > details[open] { background: #fbfcfd; }
+.vrstice > details > summary { list-style: none; cursor: pointer; }
+.vrstice > details > summary::-webkit-details-marker { display: none; }
+.vrstice > details > summary:hover { background: #f3f6f9; }
+.vrstice-glava, .vrstice > details > summary { display: grid; align-items: center; gap: 10px; padding: 6px 12px; font-size: 12.5px; }
+.vrstice-glava { background: var(--a-soft); border-bottom: 1px solid var(--a-line); font-size: 10px; font-weight: 600; letter-spacing: .6px; text-transform: uppercase; color: var(--a-muted); }
+.vrstice .siv { color: var(--a-muted); }
+.vrstice .ell { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.vrstice .des { text-align: right; }
+.vrstice-podrobno { padding: 8px 12px 12px; border-top: 1px dashed #e3e6ea; }
+
+@media (max-width: 900px) {
+  .adm { grid-template-columns: 1fr; }
+  .adm-bok { width: 240px; }
+  .vrstice { overflow-x: auto; }
+  .vrstice-glava, .vrstice > details > summary { min-width: 880px; }
+}
+.adm h1, .adm h2, .adm h3, .adm h4 { font-family: inherit; letter-spacing: -.1px; }
+.adm h2 { font-size: 15px; }
+.adm h3 { font-size: 13.5px; }

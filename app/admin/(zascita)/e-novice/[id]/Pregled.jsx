@@ -70,7 +70,7 @@ export default async function Pregled({ k, sp = {} }) {
   return (
     <div style={{ display: "grid", gridTemplateColumns: "minmax(280px, 340px) minmax(0, 1fr)", gap: 20, alignItems: "start" }}>
       {/* LEVO: podatki in akcije */}
-      <div className="adm-obr" style={{ maxWidth: "none", padding: 18, fontSize: 14 }}>
+      <div className="adm-obr" style={{ maxWidth: "none", padding: 18, fontSize: 13 }}>
         <p style={label}>Zadeva</p>
         <p style={{ margin: "0 0 14px", fontWeight: 600 }}>{k.zadeva}</p>
         <p style={label}>Komu</p>
@@ -107,7 +107,7 @@ export default async function Pregled({ k, sp = {} }) {
           </button>
         </form>
         {k.nadrejena_id && (
-          <p style={{ fontSize: 12.5, color: "#6e767e", marginTop: 12 }}>
+          <p style={{ fontSize: 11.5, color: "#6e767e", marginTop: 12 }}>
             Ponovitev kampanje <Link href={`/admin/e-novice/${k.nadrejena_id}`}>#{k.nadrejena_id}</Link>
           </p>
         )}
@@ -118,7 +118,7 @@ export default async function Pregled({ k, sp = {} }) {
         {poslano && (
           <>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10, gap: 10, flexWrap: "wrap" }}>
-              <h2 style={{ fontSize: 15, margin: 0 }}>Statistika</h2>
+              <h2 style={{ fontSize: 13.5, margin: 0 }}>Statistika</h2>
               <OsveziStatistiko id={k.id} samodejno={rabiOsvezitev(k)} statistikaOb={k.statistika_ob} />
             </div>
             {napakaBaze && <div className="opozorilo">Baza: {napakaBaze}</div>}
@@ -133,7 +133,7 @@ export default async function Pregled({ k, sp = {} }) {
             </div>
 
             {s.dostavljeno > 0 && !s.odprli && !s.kliknili && (
-              <div className="opozorilo" style={{ fontSize: 13 }}>
+              <div className="opozorilo" style={{ fontSize: 12 }}>
                 Ni nobenega odprtja ali klika. Preveri, ali sta v Resendu vklopljena <b>Open tracking</b> in{" "}
                 <b>Click tracking</b> (Resend → Domains → assystem.si → Configuration).
               </div>
@@ -141,7 +141,7 @@ export default async function Pregled({ k, sp = {} }) {
 
             {s.povezave?.length > 0 && (
               <>
-                <h3 style={{ fontSize: 14, margin: "6px 0 8px" }}>Kliki po povezavah</h3>
+                <h3 style={{ fontSize: 13, margin: "6px 0 8px" }}>Kliki po povezavah</h3>
                 <table className="adm-tab" style={{ marginBottom: 20 }}>
                   <thead>
                     <tr>
@@ -153,7 +153,7 @@ export default async function Pregled({ k, sp = {} }) {
                   <tbody>
                     {s.povezave.map((p) => (
                       <tr key={p.url}>
-                        <td style={{ wordBreak: "break-all", fontSize: 13 }}>
+                        <td style={{ wordBreak: "break-all", fontSize: 12 }}>
                           <a href={p.url} target="_blank" rel="noreferrer">
                             {p.url}
                           </a>
@@ -167,7 +167,7 @@ export default async function Pregled({ k, sp = {} }) {
               </>
             )}
 
-            <h3 style={{ fontSize: 14, margin: "6px 0 8px" }}>Prejemniki</h3>
+            <h3 style={{ fontSize: 13, margin: "6px 0 8px" }}>Prejemniki</h3>
             <div style={{ display: "flex", justifyContent: "space-between", gap: 10, flexWrap: "wrap", alignItems: "center" }}>
               <nav className="zavihki" style={{ marginBottom: 10 }}>
                 {FILTRI.map(([f, ime]) => (
@@ -183,12 +183,12 @@ export default async function Pregled({ k, sp = {} }) {
                   name="q"
                   defaultValue={iskanje}
                   placeholder="Išči e-naslov"
-                  style={{ padding: "7px 10px", border: "1px solid #ccd0d4", borderRadius: 8, fontSize: 13 }}
+                  style={{ padding: "7px 10px", border: "1px solid #ccd0d4", borderRadius: 8, fontSize: 12 }}
                 />
               </form>
             </div>
             {prejemniki.length === 0 ? (
-              <p style={{ color: "#6e767e", fontSize: 13 }}>
+              <p style={{ color: "#6e767e", fontSize: 12 }}>
                 {k.statistika_ob ? "Ni prejemnikov v tem filtru." : "Statistika se nalaga …"}
               </p>
             ) : (
@@ -234,13 +234,13 @@ export default async function Pregled({ k, sp = {} }) {
               </table>
             )}
             {prejemniki.length === 1000 && (
-              <p style={{ fontSize: 12.5, color: "#6e767e" }}>Prikazanih prvih 1000 — celoten seznam je v izvozu.</p>
+              <p style={{ fontSize: 11.5, color: "#6e767e" }}>Prikazanih prvih 1000 — celoten seznam je v izvozu.</p>
             )}
           </>
         )}
 
         <details className="adm-obr" style={{ marginTop: poslano ? 22 : 0 }} open={!poslano}>
-          <summary style={{ cursor: "pointer", fontWeight: 600, fontSize: 14 }}>Predogled maila</summary>
+          <summary style={{ cursor: "pointer", fontWeight: 600, fontSize: 13 }}>Predogled maila</summary>
           <iframe
             title="Predogled maila"
             srcDoc={k.html || ""}

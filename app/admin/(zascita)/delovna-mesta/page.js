@@ -44,7 +44,7 @@ export default async function DelovnaMesta() {
                 <tr key={m.id}>
                   <td>
                     <b>{m.naziv}</b>
-                    <div style={{ fontSize: 12.5, color: "#6e7276" }}>{m.slug}</div>
+                    <div style={{ fontSize: 11.5, color: "#6e7276" }}>{m.slug}</div>
                   </td>
                   <td style={{ color: "#6e7276" }}>{m.lokacija ?? "—"}</td>
                   <td style={{ color: "#6e7276" }}>{m.vrsta ?? "—"}</td>

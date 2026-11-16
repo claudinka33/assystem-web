@@ -129,7 +129,7 @@ export default function VideiIzdelka({ izdelekId, zacetni }) {
       </div>
       <div style={{ display: "flex", gap: 16, alignItems: "center", flexWrap: "wrap" }}>
         {ytPredogled && <img src={`https://i.ytimg.com/vi/${ytPredogled}/default.jpg`} alt="" style={{ height: 48, borderRadius: 6 }} />}
-        <label style={{ display: "flex", gap: 8, alignItems: "center", fontSize: 14 }}>
+        <label style={{ display: "flex", gap: 8, alignItems: "center", fontSize: 13 }}>
           <input type="checkbox" checked={samodejno} onChange={(e) => setSamodejno(e.target.checked)} />
           Predvajaj takoj ob odprtju strani (brez zvoka, v zanki)
         </label>

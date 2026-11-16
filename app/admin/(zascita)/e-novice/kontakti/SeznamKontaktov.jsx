@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { nastaviPanoge, spremeniPrijavo, izbrisiKontakt } from "@/lib/akcije/enovice-kontakti";
 
 const sivo = "#6e767e";
-const polje = { padding: "9px 11px", border: "1px solid #c6cace", borderRadius: 6, fontSize: 14 };
+const polje = { padding: "9px 11px", border: "1px solid #c6cace", borderRadius: 6, fontSize: 13 };
 
 function Stevec({ n, naziv, on, onClick }) {
   return (
@@ -17,7 +17,7 @@ function Stevec({ n, naziv, on, onClick }) {
         color: on ? "#fff" : "inherit",
         borderRadius: 20,
         padding: "6px 14px",
-        fontSize: 13.5,
+        fontSize: 12.5,
         fontWeight: 600,
         cursor: "pointer",
       }}
@@ -107,7 +107,7 @@ export default function SeznamKontaktov({ kontakti, panoge }) {
                         </span>
                       ))
                     ) : (
-                      <span style={{ color: "#C8102E", fontSize: 13 }}>+ dodaj panogo</span>
+                      <span style={{ color: "#C8102E", fontSize: 12 }}>+ dodaj panogo</span>
                     )}
                     <span style={{ fontSize: 12, color: sivo }}>✎</span>
                   </summary>
@@ -115,7 +115,7 @@ export default function SeznamKontaktov({ kontakti, panoge }) {
                     <input type="hidden" name="email" value={k.email} />
                     <input type="hidden" name="prej" value={k.panoge.join(",")} />
                     {panoge.map((p) => (
-                      <label key={p.id} style={{ display: "flex", gap: 6, alignItems: "center", fontSize: 13.5, fontWeight: 400, padding: "2px 0" }}>
+                      <label key={p.id} style={{ display: "flex", gap: 6, alignItems: "center", fontSize: 12.5, fontWeight: 400, padding: "2px 0" }}>
                         <input type="checkbox" name="panoge" value={p.id} defaultChecked={k.panoge.includes(p.id)} style={{ width: "auto", margin: 0 }} /> {p.ime}
                       </label>
                     ))}
@@ -153,7 +153,7 @@ export default function SeznamKontaktov({ kontakti, panoge }) {
           ))}
         </tbody>
       </table>
-      {vrstice.length > 500 && <p style={{ color: sivo, fontSize: 13 }}>Prikazanih je prvih 500 — zoži iskanje.</p>}
+      {vrstice.length > 500 && <p style={{ color: sivo, fontSize: 12 }}>Prikazanih je prvih 500 — zoži iskanje.</p>}
     </>
   );
 }
