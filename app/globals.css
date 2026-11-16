@@ -3590,3 +3590,16 @@ a.b2b-profil:hover { background: #a50d26; }
 .b2bz-spodaj span:last-child { color: var(--color-muted); }
 @media (max-width: 1000px) { .b2bz { justify-self: center; transform: none; margin-top: 10px; } }
 @media (max-width: 620px) { .b2bz { display: none; } }
+
+/* Stran izdelka: manjše kartice pakiranja in drobnejša tabela artiklov */
+.izd-emb-k { grid-template-columns: repeat(auto-fill, minmax(140px, 165px)); gap: 6px; }
+.izd-emb-k button { grid-template-columns: 44px 1fr; gap: 8px; padding: 5px 8px 5px 5px; }
+.izd-emb-k button.on { padding: 4px 7px 4px 4px; }
+.izd-emb-sl { width: 44px; height: 38px; }
+.izd-emb-ni { font-size: 17px; }
+.izd-emb-tx b { font-size: 12.5px; }
+.izd-emb-tx em, .izd-emb-tx span { font-size: 11px; }
+.izd-tab th { font-size: 9.5px; }
+.izd-tab td { font-size: 12.5px; padding-top: 4px; padding-bottom: 4px; }
+.izd-tab td.izd-dim { font-size: 13px; }
+.izd-tab td.izd-naziv { font-size: 12px; line-height: 1.3; }
