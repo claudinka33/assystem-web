@@ -48,8 +48,7 @@ export default async function B2BKupci({ searchParams }) {
       </div>
       <div className="adm-telo">
         <p style={{ fontSize: 13, color: "#6e767e", marginTop: 0 }}>
-          as-terminal vsaki 2 minuti poišče partnerja v Vascu po davčni. Če se e-naslov ali domena ujema s partnerjem, se kupec aktivira
-          sam. Ostale odobri tukaj — pri novem podjetju ga najprej odpri v Vascu in vpiši šifro partnerja. Z »+ Nov B2B kupec« lahko podjetje odpreš sam: vpiši davčno, poišči podatke, dodaj kontakt — kupec dobi mail za potrditev in geslo.
+          Vsak nov B2B kupec potrebuje odobritev: odpri »Uredi«, preveri podjetje, izberi poslovalnico in klikni »Shrani in odobri«. as-terminal vsaki 2 minuti poveže kupca s partnerjem v Vascu (po davčni) in prenese cene. Z »+ Nov B2B kupec« podjetje odpreš sam — kupec dobi mail za potrditev in geslo. »Vklopi račune v B2B« pokaže kupcu letošnje račune iz Vasca.
         </p>
         {napaka && <div className="opozorilo" style={{ marginBottom: 12 }}>{napaka}</div>}
         {poslano && (
