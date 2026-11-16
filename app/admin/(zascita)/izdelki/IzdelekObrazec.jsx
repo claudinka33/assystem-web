@@ -45,7 +45,7 @@ export function ShraniVrstica({ izdelek }) {
   );
 }
 
-export function OsnovnoPolja({ izdelek, kategorije }) {
+export function OsnovnoPolja({ izdelek, kategorije, predlogZnamke }) {
   const i = izdelek ?? {};
   const f = OBRAZEC;
   return (
@@ -66,8 +66,8 @@ export function OsnovnoPolja({ izdelek, kategorije }) {
       <div className="adm-vrsta-3">
         <div className="adm-polje">
           <label htmlFor="znamka">Znamka</label>
-          <select form={f} id="znamka" name="znamka" defaultValue={normZnamka(i.znamka) ?? ""} style={{ width: "100%" }}>
-            <option value="">— samodejno po šifri —</option>
+          <select form={f} id="znamka" name="znamka" defaultValue={normZnamka(i.znamka) ?? predlogZnamke ?? ""} style={{ width: "100%" }}>
+            {!predlogZnamke && <option value="">— samodejno po šifri —</option>}
             {ZNAMKE.map((z) => <option key={z} value={z}>{ZNAMKE_INFO[z].ime}</option>)}
           </select>
         </div>

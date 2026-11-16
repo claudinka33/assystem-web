@@ -1,3 +1,4 @@
+import { dolociZnamko } from "@/lib/znamke";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { supabaseAdmin } from "@/lib/supabase-server";
@@ -29,7 +30,7 @@ export default async function UrediIzdelek({ params }) {
 
   const [{ data: izdelek }, { data: kategorije }, { data: artikli }, { data: dokumenti }] = await Promise.all([
     sb.from("izdelki").select("*").eq("id", id).single(),
-    sb.from("kategorije").select("id, naziv, slug").order("naziv"),
+    sb.from("kategorije").select("id, naziv, slug, nadrejena_id").order("naziv"),
     sb.from("artikli").select("*").eq("izdelek_id", id).order("sifra"),
     sb.from("dokumenti").select("*").eq("izdelek_id", id).order("tip"),
   ]);
@@ -43,6 +44,10 @@ export default async function UrediIzdelek({ params }) {
       ? [{ ...VIDEI_IZDELKOV[izdelek.slug], samodejno: true }]
       : [];
   const kat = (kategorije ?? []).find((k) => k.id === izdelek.kategorija_id);
+  // znamka, ki jo izdelek dejansko ima (vpis ali pravilo po šifram/kategoriji) — prikaže se v izbirniku
+  let koren = kat;
+  for (let n = 0; koren?.nadrejena_id && n < 10; n++) koren = (kategorije ?? []).find((k) => k.id === koren.nadrejena_id);
+  const znamkaIzdelka = dolociZnamko({ znamka: izdelek.znamka, sifre: (artikli ?? []).map((a) => a.sifra), slug: izdelek.slug, korenska: koren?.slug ?? "" });
   const javniUrl = kat ? `/program/${kat.slug}/${izdelek.slug}` : null;
   const art = artikli ?? [];
   const dok = dokumenti ?? [];
@@ -106,7 +111,7 @@ export default async function UrediIzdelek({ params }) {
         <ObrazecIzdelka izdelek={izdelek} />
 
         <Kartica id="osnovno" naslov="Osnovni podatki" opis="Naziv, kategorija, znamka in objava.">
-          <OsnovnoPolja izdelek={izdelek} kategorije={kategorije ?? []} />
+          <OsnovnoPolja izdelek={izdelek} kategorije={kategorije ?? []} predlogZnamke={znamkaIzdelka} />
         </Kartica>
 
         <Kartica id="slike" naslov="Slike" opis="Povleci več slik naenkrat. Prva oz. »★ Glavna« je slika na seznamu izdelkov.">
