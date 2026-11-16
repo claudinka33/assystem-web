@@ -1,17 +1,22 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useActionState, useEffect } from "react";
 import { dogodek } from "@/lib/dogodki";
 import { prijavaNaNovice } from "@/lib/akcije/enovice";
 
 // Rdeči pas z vzorcem vijakov nad nogo — prijava na e-novice (Resend Contacts).
 export default function PrijavaNovice() {
+  const pot = usePathname();
   const [stanje, akcija, caka] = useActionState(prijavaNaNovice, null);
 
   useEffect(() => {
     if (stanje?.stanje === "ok") dogodek("prijava_novice");
   }, [stanje]);
+
+  // Pas s prijavo je samo na prvi strani.
+  if (pot !== "/") return null;
 
   return (
     <section className="enov" aria-labelledby="enov-naslov">
