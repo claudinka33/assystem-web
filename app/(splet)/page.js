@@ -141,10 +141,11 @@ async function Domov() {
                     b,
                     "domov.zmogljivosti.besedilo",
                     "besedilo",
-                    "V Šmarju pri Jelšah in Bistrici ob Sotli s hladnim kovanjem in brizganjem plastike izdelujemo pritrdila, ki jih prodajamo pod znamko ASfix. Montaža in pakiranje potekata pri nas, tudi za druge blagovne znamke. Naši lastni izdelki:"
-                  )}
+                    "V Šmarju pri Jelšah in Bistrici ob Sotli s hladnim kovanjem in brizganjem plastike izdelujemo pritrdila, ki jih prodajamo pod znamko ASfix. Montaža in pakiranje potekata pri nas, tudi za druge blagovne znamke."
+                  ).replace(/\s*Naši lastni izdelki:?\s*$/, "")}
                 </p>
               </div>
+              <p className="lastni-nasl">Naši lastni izdelki:</p>
               <div className="lastni-izd">
                 {lastniIzdelki.map((x) => (
                   <Link key={x.naziv} href={x.pot} className="lastni-k">
