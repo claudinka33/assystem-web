@@ -57,7 +57,9 @@ const MENI = [
     { naziv: "Besedila na strani", pot: "/admin/vsebine", ikona: "besedila" },
     { naziv: "Katalogi in gradiva", pot: "/admin/gradiva", ikona: "prijave" },
     { naziv: "Novice", pot: "/admin/novice", ikona: "novice" },
-    { naziv: "E-novice (mailing)", pot: "/admin/e-novice", ikona: "mail", tocno: true },
+  ]},
+  { skupina: "E-mailing", povezave: [
+    { naziv: "E-novice", pot: "/admin/e-novice", ikona: "mail", tocno: true },
     { naziv: "Baza kontaktov", pot: "/admin/baza", ikona: "kontakti" },
   ]},
   { skupina: "Zaposlovanje", povezave: [
