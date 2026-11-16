@@ -1,7 +1,8 @@
 import Link from "next/link";
 import ZnamkaZnak from "@/components/ZnamkaZnak";
 import { notFound } from "next/navigation";
-import { pridobiIzdelek, pridobiPonudbo, pridobiSorodne } from "@/lib/podatki";
+import { pridobiIzdelek, pridobiPonudbo, pridobiSorodne, pridobiDrevoPrograma } from "@/lib/podatki";
+import HitriProgram from "@/components/HitriProgram";
 import TabelaArtiklov from "@/components/TabelaArtiklov";
 import { SLIKE_VREDNOSTI } from "@/lib/slike-vrednosti";
 import GalerijaIzdelka from "@/components/GalerijaIzdelka";
@@ -94,9 +95,25 @@ async function StranIzdelka({ params }) {
     href: `/program/${kategorija}/${izdelek}`,
   };
   const povprasevanje = `/kontakt?izdelek=${encodeURIComponent(i.naziv)}&vir=izdelek`;
+  const drevo = await pridobiDrevoPrograma();
+  // prejšnji / naslednji izdelek v isti kategoriji
+  const najdi = (vozli) => {
+    for (const v of vozli) {
+      const idx = v.izdelki.findIndex((x) => x.href.endsWith(`/${izdelek}`));
+      if (idx >= 0) return { v, idx };
+      const r = najdi(v.otroci);
+      if (r) return r;
+    }
+    return null;
+  };
+  const mesto = najdi(drevo);
+  const prejsnji = mesto && mesto.idx > 0 ? mesto.v.izdelki[mesto.idx - 1] : null;
+  const naslednji = mesto && mesto.idx < mesto.v.izdelki.length - 1 ? mesto.v.izdelki[mesto.idx + 1] : null;
+  const trenutnaPot = mesto ? mesto.v.izdelki[mesto.idx].href : `/program/${kategorija}/${izdelek}`;
 
   return (
     <>
+    {drevo.length > 0 && <HitriProgram drevo={drevo} trenutni={trenutnaPot} />}
     <section className="izd">
       <div className="w izd-w">
         <nav className="drobtine">
@@ -174,6 +191,12 @@ async function StranIzdelka({ params }) {
       <div className="izd-tab izd-tab-siroka">
         <div className="izd-tab-gl">
           <h2>Dimenzije in šifre</h2>
+          {(prejsnji || naslednji) && (
+            <nav className="izd-sosedi">
+              {prejsnji && <Link href={prejsnji.href}>← {prejsnji.naziv}</Link>}
+              {naslednji && <Link href={naslednji.href}>{naslednji.naziv} →</Link>}
+            </nav>
+          )}
         </div>
         <TabelaArtiklov artikli={artikli} stolpci={stolpci} naziviRazlicni={naziviRazlicni} embalaza={i.embalaza ?? []} izdelek={{ naziv: i.naziv, pot: `/program/${kategorija}/${izdelek}`, slika: i.slika_url ?? null, znamka: i.znamka ?? null }} slikeVrednosti={SLIKE_VREDNOSTI[izdelek] ?? null} />
         <p className="izd-opomba">

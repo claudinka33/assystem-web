@@ -3444,3 +3444,32 @@ a.b2b-profil { background: #c8102e; color: #fff !important; font-weight: 700; pa
 a.b2b-profil:hover { background: #a50d26; }
 .b2b-prijavljen .util-odjava button { opacity: .8; }
 @media (max-width: 760px) { .b2b-kdo { max-width: 130px; } }
+
+/* Ni na zalogi: brez dodajanja v košarico */
+.vk-ni { display: inline-flex; flex-direction: column; align-items: flex-end; gap: 3px; }
+.vk-ni button { background: #e7e9ec; color: #7b8086; border: 0; font: inherit; font-weight: 700; font-size: 12.5px; padding: 8px 14px; cursor: not-allowed; }
+.vk-ni small { font-size: 11px; color: #8a8f94; }
+
+/* Hitri program (stran izdelka) */
+.hp-zavihek { position: fixed; left: 0; top: 50%; transform: translateY(-50%) rotate(180deg); writing-mode: vertical-rl; z-index: 60; background: #2b2f33; color: #fff; border: 0; padding: 14px 8px; font: inherit; font-weight: 700; font-size: 12.5px; letter-spacing: .04em; cursor: pointer; border-radius: 0 6px 6px 0; box-shadow: 0 4px 14px rgba(0,0,0,.18); }
+.hp-zavihek span { display: inline-block; transform: rotate(90deg); margin-bottom: 6px; }
+.hp-zavihek:hover { background: #c8102e; }
+.hp-panel { position: fixed; left: 0; top: 0; bottom: 0; width: 300px; z-index: 70; background: #fff; border-right: 1px solid #e3e6ea; box-shadow: 6px 0 24px rgba(0,0,0,.12); display: flex; flex-direction: column; }
+.hp-glava { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: #2b2f33; color: #fff; font-size: 14px; }
+.hp-glava button { background: none; border: 0; color: #fff; font-size: 16px; cursor: pointer; }
+.hp-isk { margin: 10px 12px 6px; padding: 7px 10px; border: 1px solid #d4d8dd; font: inherit; font-size: 13px; }
+.hp-drevo, .hp-drevo ul { list-style: none; margin: 0; padding: 0; }
+.hp-drevo { overflow-y: auto; flex: 1; padding: 0 6px 10px; }
+.hp-drevo ul { padding-left: 12px; }
+.hp-kat-gumb { display: flex; gap: 6px; align-items: baseline; width: 100%; text-align: left; background: none; border: 0; padding: 6px 6px; font: inherit; font-size: 13px; font-weight: 700; color: #23262a; cursor: pointer; }
+.hp-kat-gumb i { font-style: normal; color: #9ba0a5; font-size: 10px; width: 10px; }
+.hp-kat.g1 > .hp-kat-gumb, .hp-kat.g2 > .hp-kat-gumb { font-weight: 600; font-size: 12.5px; }
+.hp-kat.akt > .hp-kat-gumb { color: #c8102e; }
+.hp-izd { display: block; padding: 4px 8px 4px 22px; font-size: 12.5px; color: #3a3e42; text-decoration: none; border-radius: 3px; }
+.hp-izd:hover { background: #f2f4f6; color: #c8102e; }
+.hp-izd.on { background: #c8102e; color: #fff; font-weight: 700; }
+.hp-vse { display: block; padding: 10px 14px; border-top: 1px solid #eceef1; font-size: 13px; font-weight: 700; color: #c8102e; text-decoration: none; }
+.izd-sosedi { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; }
+.izd-sosedi a { font-size: 12.5px; font-weight: 600; padding: 5px 10px; border: 1px solid #d4d8dd; color: #2b2f33; text-decoration: none; white-space: nowrap; }
+.izd-sosedi a:hover { border-color: #c8102e; color: #c8102e; }
+@media (min-width: 1500px) { body:has(.hp-panel) .izd, body:has(.hp-panel) .izd-tab-siroka { margin-left: 300px; } }
