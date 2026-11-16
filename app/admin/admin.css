@@ -1138,3 +1138,6 @@ details.adm-obr { padding: 8px 12px; }
 .tl-odg .povp-izd { margin-top: 8px; }
 .povp-vrsta .tl-seznam { margin-left: 0; }
 @media (max-width: 760px) { .tl-seznam { margin-left: 0; } }
+
+.bz-stanje { background: none; border: 1px solid transparent; border-radius: 999px; padding: 2px 8px; cursor: pointer; font: inherit; }
+.bz-stanje:hover { border-color: #cfd4da; background: #f6f7f8; }

@@ -185,6 +185,28 @@ export function OdjavaGumb({ email, odjavljen }) {
   );
 }
 
+// Klik na luč preklopi Aktiven ↔ Neaktiven (odjavljen od mailingov, tudi v Resendu).
+export function StanjeGumb({ email, odjavljen, title }) {
+  const [caka, zacni] = useTransition();
+  const [st, setSt] = useState(odjavljen);
+  return (
+    <button
+      type="button"
+      className="bz-stanje"
+      disabled={caka}
+      title={`${title}\nKlikni za ${st ? "ponovno aktivacijo" : "odjavo od mailingov"}`}
+      onClick={() =>
+        zacni(async () => {
+          const r = await preklopiOdjavo(email, !st);
+          if (r?.ok) setSt(!st);
+        })
+      }
+    >
+      {caka ? <i className="bz-luc">…</i> : st ? <i className="bz-luc rdeca">Neaktiven</i> : <i className="bz-luc zelena">Aktiven</i>}
+    </button>
+  );
+}
+
 const datum = (d) => (d ? new Date(d).toLocaleDateString("sl-SI") : "");
 
 // Ena vrstica baze: hitra izbira panoge + »Uredi« odpre obrazec pod vrstico.
@@ -200,8 +222,8 @@ export function Vrstica({ k, panoge, poslovalnice = [] }) {
           {k.poslovalnica || k.kraj ? <>{k.poslovalnica}{k.poslovalnica && k.kraj ? ", " : ""}<span className="siv">{k.kraj}</span></> : <span className="siv">—</span>}
         </span>
         <span data-l="Panoga"><PanogaIzbira email={k.email} panoge={panoge} izbrane={k.panoge ?? []} /></span>
-        <span data-l="Stanje" title={`Vir: ${k.vir} · dodan ${datum(k.ustvarjeno)}${k.soglasje ? " · soglasje za e-novice" : ""}`}>
-          {k.odjavljen ? <i className="bz-luc rdeca">Odjavljen</i> : <i className="bz-luc zelena">Aktiven</i>}
+        <span data-l="Stanje">
+          <StanjeGumb email={k.email} odjavljen={k.odjavljen} title={`Vir: ${k.vir} · dodan ${datum(k.ustvarjeno)}${k.soglasje ? " · soglasje za e-novice" : ""}`} />
         </span>
         <button type="button" className="bz-uredi" onClick={() => setOdprto(!odprto)}>{odprto ? "Zapri ▴" : "Uredi ▾"}</button>
       </div>

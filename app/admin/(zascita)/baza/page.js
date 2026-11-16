@@ -95,7 +95,7 @@ export default async function Baza({ searchParams }) {
               </Link>
             ))}
             <div className="bz-loc">Stanje</div>
-            <Link href={url({ stanje: stanje === "odjavljeni" ? "" : "odjavljeni" })} className={stanje === "odjavljeni" ? "on" : ""}><span>Odjavljeni</span><em>{odjavljeni}</em></Link>
+            <Link href={url({ stanje: stanje === "odjavljeni" ? "" : "odjavljeni" })} className={stanje === "odjavljeni" ? "on" : ""}><span>Neaktivni (odjavljeni)</span><em>{odjavljeni}</em></Link>
             <Link href={url({ stanje: stanje === "soglasje" ? "" : "soglasje" })} className={stanje === "soglasje" ? "on" : ""}><span>S soglasjem (e-novice)</span></Link>
             <div className="bz-loc">Regija</div>
             {REGIJE.map(([r, ime], i) => (
