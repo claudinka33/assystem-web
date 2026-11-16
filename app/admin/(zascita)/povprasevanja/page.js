@@ -5,6 +5,15 @@ export const dynamic = "force-dynamic";
 
 const statusi = ["novo", "v obdelavi", "zaključeno"];
 
+// »Odgovori« odpre e-pošto z naslovom in citatom vprašanja
+function odgovor(p) {
+  const izd = (p.izdelki ?? []).filter((x) => !x.datoteka).map((x) => `${x.naziv}${x.sifra ? ` (${x.sifra})` : ""}`).join(", ");
+  const tema = (p.vir ?? "").startsWith("rok-dobave") ? `Rok dobave${izd ? `: ${izd}` : ""}` : `Vaše povpraševanje${izd ? `: ${izd}` : ""}`;
+  const citat = (p.sporocilo ?? "").split("\n").map((v) => `> ${v}`).join("\n");
+  const telo = `Pozdravljeni,\n\n\n\nLep pozdrav,\nAS system d.o.o.\n\n${citat}`;
+  return `mailto:${p.email}?subject=${encodeURIComponent(tema)}&body=${encodeURIComponent(telo)}`;
+}
+
 export default async function Povprasevanja() {
   const { data } = await supabaseAdmin()
     .from("povprasevanja")
@@ -37,7 +46,7 @@ export default async function Povprasevanja() {
           </div>
         ) : (
           seznam.map((p) => (
-            <div key={p.id} className="adm-obr" style={{ marginBottom: 14 }}>
+            <div key={p.id} id={`p-${p.id}`} className="adm-obr adm-povp" style={{ marginBottom: 14 }}>
               <div style={{ display: "flex", justifyContent: "space-between", gap: 16 }}>
                 <div>
                   <b style={{ fontSize: 14 }}>{p.ime}</b>
@@ -49,7 +58,12 @@ export default async function Povprasevanja() {
                     {p.telefon && ` · ${p.telefon}`} · vir: {p.vir}
                   </div>
                 </div>
-                <span className={p.status === "novo" ? "znacka novo" : "znacka ne"}>{p.status}</span>
+                <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+                  <a className="gumb" href={odgovor(p)}>
+                    Odgovori
+                  </a>
+                  <span className={p.status === "novo" ? "znacka novo" : "znacka ne"}>{p.status}</span>
+                </div>
               </div>
 
               {(p.izdelki ?? []).length > 0 && (

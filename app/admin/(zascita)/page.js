@@ -175,11 +175,13 @@ export default async function NadzornaPlosca({ searchParams }) {
               <ul>
                 {povprasevanja.map((p) => (
                   <li key={p.id}>
-                    <div>
-                      <b>{p.ime}</b>
-                      <small>{p.podjetje ? `${p.podjetje} · ` : ""}{cas(p.ustvarjeno)}</small>
-                    </div>
-                    <span className={p.status === "novo" ? "znacka novo" : "znacka ne"}>{p.status}</span>
+                    <Link href={`/admin/povprasevanja#p-${p.id}`} className="nad-povezava">
+                      <div>
+                        <b>{p.ime}</b>
+                        <small>{p.podjetje ? `${p.podjetje} · ` : ""}{cas(p.ustvarjeno)}</small>
+                      </div>
+                      <span className={p.status === "novo" ? "znacka novo" : "znacka ne"}>{p.status}</span>
+                    </Link>
                   </li>
                 ))}
               </ul>
