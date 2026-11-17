@@ -4196,3 +4196,11 @@ button.kos-gumb { background: none; border: 0; padding: 0; cursor: pointer; font
   .mk-ozadje { display: block; position: fixed; inset: 0; background: rgba(0,0,0,.35); z-index: 1199; }
   .mk { position: fixed; top: 64px; left: 8px; right: 8px; width: auto; max-height: calc(100vh - 80px); }
 }
+
+/* Znamke: oznaka »Ste tukaj« ne sme pobegniti iz kartice (telefon, ozke kartice) */
+.dz-k { position: relative; overflow: hidden; }
+.dz-glava { min-width: 0; }
+.dz-logo-ok { min-width: 0; }
+@media (max-width: 760px) {
+  .dz-glava em { position: absolute; top: 0; right: 0; margin: 0 !important; font-size: 9px !important; padding: 3px 7px !important; }
+}
