@@ -4161,3 +4161,38 @@ a.b2b-profil:hover { background: #a50d26; }
 
 /* RAL barvna pikica */
 .g-ral { display: inline-block; width: 11px; height: 11px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; box-shadow: inset 0 0 0 1px rgba(0,0,0,.18); flex: none; }
+
+/* Mini košarica v glavi */
+.mk-ovoj { position: relative; display: inline-flex; flex: none; }
+button.kos-gumb { background: none; border: 0; padding: 0; cursor: pointer; font: inherit; }
+.mk-ozadje { display: none; }
+.mk { position: absolute; top: calc(100% + 14px); right: -12px; width: 380px; max-height: min(78vh, 620px); display: flex; flex-direction: column; background: #fff; border: 1px solid var(--color-line, #dfe2e5); box-shadow: 0 14px 40px rgba(0,0,0,.16); z-index: 1200; text-align: left; color: #2d3135; }
+.mk-gl { display: flex; align-items: center; gap: 8px; padding: 12px 14px; border-bottom: 1px solid #e6e8eb; }
+.mk-gl b { font-size: 14px; text-transform: uppercase; letter-spacing: .04em; }
+.mk-gl span { font-size: 12px; color: #80868c; }
+.mk-x { margin-left: auto; background: none; border: 0; font-size: 22px; line-height: 1; cursor: pointer; color: #6b7177; }
+.mk-prazno { padding: 22px 14px; margin: 0; font-size: 13px; color: #6b7177; }
+.mk-sez { list-style: none; margin: 0; padding: 0; overflow-y: auto; flex: 1 1 auto; }
+.mk-sez li { display: grid; grid-template-columns: 48px 1fr auto; gap: 10px; padding: 10px 14px; border-bottom: 1px solid #eef0f2; align-items: start; }
+.mk-sl { width: 48px; height: 48px; border: 1px solid #eceef0; display: flex; align-items: center; justify-content: center; background: #fff; }
+.mk-sl img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.mk-op { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.mk-op b { font-size: 12.5px; line-height: 1.3; }
+.mk-op small { font-size: 11px; color: #80868c; }
+.mk-st { display: inline-flex; align-self: flex-start; margin-top: 4px; border: 1px solid #c6cace; height: 26px; }
+.mk-st button { width: 24px; border: 0; background: #f2f3f5; font-size: 15px; cursor: pointer; color: #2d3135; padding: 0; }
+.mk-st button:disabled { color: #b5b9be; cursor: default; }
+.mk-st em { font-style: normal; min-width: 30px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; border-left: 1px solid #e1e3e6; border-right: 1px solid #e1e3e6; }
+.mk-c { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; font-size: 13px; font-weight: 700; white-space: nowrap; }
+.mk-od { background: none; border: 0; color: #9aa0a6; font-size: 18px; line-height: 1; cursor: pointer; padding: 0; }
+.mk-od:hover { color: var(--color-red); }
+.mk-sk { display: flex; justify-content: space-between; align-items: baseline; padding: 12px 14px 6px; font-size: 13px; }
+.mk-sk b { font-size: 17px; }
+.mk-gumbi { display: grid; grid-template-columns: 1fr 1.3fr; gap: 8px; padding: 8px 14px 14px; }
+.mk-gumbi a { display: flex; align-items: center; justify-content: center; height: 38px; font-size: 13px; font-weight: 700; text-decoration: none; }
+.mk-g1 { background: var(--color-red); color: #fff !important; }
+.mk-g2 { border: 1px solid #2d3135; color: #2d3135 !important; }
+@media (max-width: 760px) {
+  .mk-ozadje { display: block; position: fixed; inset: 0; background: rgba(0,0,0,.35); z-index: 1199; }
+  .mk { position: fixed; top: 64px; left: 8px; right: 8px; width: auto; max-height: calc(100vh - 80px); }
+}

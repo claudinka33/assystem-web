@@ -94,7 +94,7 @@ function Kosarica() {
                 </div>
                 <div className="ksb-pak" data-l="Pakiranje">
                   <b>{x.kos > 1 ? `${x.kos.toLocaleString("sl-SI")} kos` : "1 kos"}</b>
-                  <span>{pakiranje(x) || (x.kos > 1 ? "pakiranje" : "kos")}</span>
+                  {x.kos > 1 && <span>{pakiranje(x) || "pakiranje"}</span>}
                 </div>
                 <div className="ksb-kol" data-l="Količina">
                   <div className="ks-st">
