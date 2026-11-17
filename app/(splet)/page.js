@@ -74,15 +74,15 @@ async function Domov() {
             video: "/videi/proizvodnja-hero.mp4",
             poster: "/slike/proizvodnja/hero-video-poster.jpg",
             oznaka: "Bespoke manufacturing",
-            naslov: "Vaša skica. Naš izdelek.",
+            naslov: "Pritrdila po vaši meri.",
             besedilo:
-              "Sidra, udarni vijaki, zidni vložki in vijaki po vaši risbi, v vaši izvedbi in vaši embalaži. Iz lastne proizvodnje v Sloveniji.",
+              "Pošljite skico ali risbo. Sidra, udarni vijaki, zidni vložki in vijaki izdelamo v vaši dimenziji, izvedbi in embalaži, v lastni proizvodnji v Sloveniji.",
             gumbi: [
               { naziv: "Pošljite skico", pot: "/bespoke#povprasevanje", slog: "bel" },
               { naziv: "Lastna proizvodnja", pot: "/proizvodnja", slog: "obroba" },
               { naziv: "Poglej predstavitveni video", pot: jezikStrani === "sl" ? VIDEO_SL : VIDEO_EN, slog: "video" },
             ],
-            opomba: "Lastna proizvodnja · Šmarje pri Jelšah in Bistrica ob Sotli",
+            opomba: "Šmarje pri Jelšah · Bistrica ob Sotli",
           },
           {
             tip: "b2b",
