@@ -16,9 +16,11 @@ const norm = (x) => String(x ?? "").toLowerCase().replace(/\s+/g, "");
 const st = (x) => new Intl.NumberFormat("sl-SI", { useGrouping: "always", maximumFractionDigits: 2 }).format(x);
 
 // Slika embalaže pred šifro: takoj se vidi, ali je škatla ali vrečka
-function slikaPakiranja(a, znamka, pot) {
+function slikaPakiranja(a, znamka, pot, embalaza) {
   const v = String((a.lastnosti ?? {}).Pakiranje ?? "").toLowerCase();
   if (!v) return null;
+  const lastna = (embalaza ?? []).find((e) => e.slika && e.lastnost === "Pakiranje" && String(e.vrednost).toLowerCase() === v);
+  if (lastna) return lastna.slika;
   const D = "/slike/embalaza/ikone/";
   const asco = znamka === "ASco" || String(pot ?? "").startsWith("/program/vijacno-blago");
   if (v.startsWith("škatla") || v === "osnovno") {
@@ -130,7 +132,7 @@ function Cena({ cena, b2b }) {
   );
 }
 
-function TabelaGosta({ artikli: vhodni, stolpci, izdelek = null }) {
+function TabelaGosta({ artikli: vhodni, stolpci, izdelek = null, naziviRazlicni = false, embalaza = [] }) {
   const { t } = useJezik();
   const artikli = useMemo(
     () => [...vhodni].sort((a, b) => (a.premer ?? 0) - (b.premer ?? 0) || (a.dolzina ?? 0) - (b.dolzina ?? 0) || String(a.sifra).localeCompare(String(b.sifra))),
@@ -217,6 +219,7 @@ function TabelaGosta({ artikli: vhodni, stolpci, izdelek = null }) {
               <th className="g-th-sl" aria-label="Embalaža" />
               <th>Šifra</th>
               <th>EAN</th>
+              {naziviRazlicni && <th>Naziv</th>}
               <th>Dimenzija</th>
               {stolpciLastnosti.map((k) => <th key={k}>{k}</th>)}
               {imaPakiranje && <th>Pakiranje</th>}
@@ -232,9 +235,10 @@ function TabelaGosta({ artikli: vhodni, stolpci, izdelek = null }) {
               const n = kosov(a);
               return (
                 <tr key={a.id} id={`art-${a.sifra}`} className={`${zal ? "" : "g-ni"}${oznacena === a.sifra ? " g-oznacen" : ""}`}>
-                  <td className="g-sl">{slikaPakiranja(a, izdelek?.znamka, izdelek?.pot) ? <img src={slikaPakiranja(a, izdelek?.znamka, izdelek?.pot)} alt={(a.lastnosti ?? {}).Pakiranje ?? ""} loading="lazy" /> : null}</td>
+                  <td className="g-sl">{slikaPakiranja(a, izdelek?.znamka, izdelek?.pot, embalaza) ? <img src={slikaPakiranja(a, izdelek?.znamka, izdelek?.pot, embalaza)} alt={(a.lastnosti ?? {}).Pakiranje ?? ""} loading="lazy" /> : null}</td>
                   <td className="g-sif" data-l="Šifra" translate="no">{a.sifra}</td>
                   <td className="g-ean" data-l="EAN" translate="no">{a.ean ?? "—"}</td>
+                  {naziviRazlicni && <td className="g-las g-naz" data-l="Naziv">{a.naziv}</td>}
                   <td className="g-dim" translate="no">{a.dimenzija ?? "—"}</td>
                   {stolpciLastnosti.map((k) => <td key={k} className="g-las" data-l={k}>{(a.lastnosti ?? {})[k] ?? "—"}</td>)}
                   {imaPakiranje && <td className="g-las" data-l="Pakiranje">{(a.lastnosti ?? {}).Pakiranje ?? "—"}</td>}

@@ -3913,3 +3913,9 @@ a.b2b-profil:hover { background: #a50d26; }
   .hp-zavihek { padding: 8px 3px; font-size: 10px; }
   .izd-w { padding-left: 26px !important; }
 }
+.g-naz { white-space: normal !important; min-width: 140px; font-size: 12px; }
+@media (max-width: 760px) {
+  .g-t .g-k { flex: 0 0 100%; display: flex; justify-content: flex-end; margin: 6px 0 0; }
+  .g-t .g-zaloga { flex: 0 0 100%; }
+  .g-naz { min-width: 0; }
+}

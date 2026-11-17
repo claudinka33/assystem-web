@@ -111,8 +111,8 @@ async function StranIzdelka({ params }) {
   const mesto = najdi(drevo);
   const prejsnji = mesto && mesto.idx > 0 ? mesto.v.izdelki[mesto.idx - 1] : null;
   const naslednji = mesto && mesto.idx < mesto.v.izdelki.length - 1 ? mesto.v.izdelki[mesto.idx + 1] : null;
-  // Gosti (data-dense) prikaz — zaenkrat za Silvermate, nato za vse izdelke
-  const gosto = i.znamka === "Silvermate";
+  // Gosti (data-dense) prikaz za vse izdelke
+  const gosto = true;
   const trenutnaPot = mesto ? mesto.v.izdelki[mesto.idx].href : `/program/${kategorija}/${izdelek}`;
 
   return (
@@ -237,12 +237,12 @@ async function StranIzdelka({ params }) {
           )}
         </div>
         {gosto ? (
-          <TabelaGosta artikli={artikli} stolpci={stolpci} izdelek={{ naziv: i.naziv, pot: `/program/${kategorija}/${izdelek}`, slika: i.slika_url ?? null, znamka: i.znamka ?? null }} />
+          <TabelaGosta artikli={artikli} stolpci={stolpci} naziviRazlicni={naziviRazlicni} embalaza={i.embalaza ?? []} izdelek={{ naziv: i.naziv, pot: `/program/${kategorija}/${izdelek}`, slika: i.slika_url ?? null, znamka: i.znamka ?? null }} />
         ) : (
         <TabelaArtiklov artikli={artikli} stolpci={stolpci} naziviRazlicni={naziviRazlicni} embalaza={i.embalaza ?? []} izdelek={{ naziv: i.naziv, pot: `/program/${kategorija}/${izdelek}`, slika: i.slika_url ?? null, znamka: i.znamka ?? null }} slikeVrednosti={SLIKE_VREDNOSTI[izdelek] ?? null} />
         )}
         <p className="izd-opomba">
-          Cene so maloprodajne z DDV, za pakiranje v stolpcu »Kos v pak.«. Za večje količine in podjetja <Link href={povprasevanje}>pošljite povpraševanje</Link>.
+          Cene so maloprodajne z DDV, za eno pakiranje (stolpec »Kos v pak.«). Za večje količine in podjetja <Link href={povprasevanje}>pošljite povpraševanje</Link>.
         </p>
       </div>
     )}
