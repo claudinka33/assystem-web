@@ -52,6 +52,7 @@ export default function ZnamkaHero({
             </div>
           )}
         </div>
+        {slika && (
         <div className="zn-slika">
           <Image
             src={slika}
@@ -63,6 +64,7 @@ export default function ZnamkaHero({
             style={{ width: "100%", height: "auto" }}
           />
         </div>
+        )}
       </div>
     </section>
   );

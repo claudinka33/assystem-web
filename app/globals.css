@@ -4054,3 +4054,51 @@ a.b2b-profil:hover { background: #a50d26; }
   .hb .hb-naslov { font-size: 22px; }
   .vrata { grid-template-columns: minmax(0, 1fr) !important; }
 }
+
+/* ===== Telefon v2: gumbi v eni vrstici, manjše pisave, manj praznega ===== */
+@media (max-width: 760px) {
+  .acts, .zn-gumbi, .vrata-cta, .trg-gumbi { display: flex; flex-wrap: wrap; gap: 8px; }
+  .b { padding: 9px 12px !important; font-size: 11.5px !important; letter-spacing: .3px; width: auto !important; }
+  .acts .b, .zn-gumbi .b { flex: 0 1 auto; }
+  .sec { padding: 22px 0; }
+  .st { margin-bottom: 12px; }
+  .st p, .sec p { font-size: 13.5px; line-height: 1.5; }
+  .more { font-size: 12px; }
+  /* velike slike (škatla ASfix ipd.) */
+  .sec img { max-height: 240px; object-fit: contain; }
+  .qua > div:last-child img, .qua .hero-im { max-height: 200px; }
+  /* kakovost: ETA, CE, DoP, ISO */
+  .kak-cert > div, .cert-k, .qua-cert > div { padding: 10px 12px !important; }
+  .kak-cert b, .cert-k b { font-size: 20px !important; }
+  /* znamka hero */
+  .zn-hero h1, .zn-naslov { font-size: 22px !important; }
+  .zn-hero p { font-size: 13.5px; }
+  .zn-znacke span, .zn-znacka { font-size: 10px; padding: 4px 8px; }
+  /* igra: koraki manjši */
+  .ig-koraki button, .ig-korak { padding: 6px 10px !important; font-size: 11.5px !important; }
+}
+
+/* ===== Košarica na telefonu: kompaktno, brez praznega prostora ===== */
+@media (max-width: 900px) {
+  .ksb-vr, .ksb-tab.b2c .ksb-vr { grid-template-columns: 44px minmax(0, 1fr) auto 22px; gap: 4px 10px; padding: 8px 10px; align-items: start; }
+  .ksb-sl { width: 44px; height: 44px; grid-row: 1 / span 2; }
+  .ksb-vr > .ksb-ime { grid-column: 2 / 4; grid-row: 1; }
+  .ksb-ime a, .ksb-ime > b { font-size: 12.5px; }
+  .ksb-vr > .ks-x { grid-column: 4; grid-row: 1; }
+  .ksb-vr > .ksb-pak { grid-column: 2; grid-row: 2; flex-direction: row; align-items: baseline; gap: 4px; align-self: center; }
+  .ksb-vr > .ksb-kol { grid-column: 3 / 5; grid-row: 2; justify-self: end; }
+  .ksb-kol .ks-st { transform: none; height: 30px; }
+  .ksb-kol .ks-st button { width: 28px; }
+  .ksb-kol .ks-st input { width: 38px; font-size: 13px; }
+  .ksb-vr > [data-l].d { grid-column: 2 / 5; font-size: 12px; padding: 0; }
+  .ksb-vr > [data-l].d::before { font-size: 10.5px; }
+  .ksb-vr > .ksb-vred { font-size: 13px; }
+}
+@media (max-width: 760px) {
+  .cert div { padding: 10px 12px !important; }
+  .cert b { font-size: 20px !important; }
+  .cert span { font-size: 11.5px !important; }
+  .igra-koraki { gap: 5px !important; }
+  .igra-koraki li { padding: 4px 8px 4px 4px !important; font-size: 11px !important; }
+  .igra-koraki li > span, .igra-koraki li i { width: 22px !important; height: 22px !important; font-size: 11px !important; }
+}

@@ -94,11 +94,6 @@ async function ASfix() {
         naslov="Pritrdila, ki jih trgovec lahko zagovarja"
         opis="Jeklena sidra, zidni vložki, vložki za mavčne plošče, udarni in Turbo vijaki, kemične mase in pritrdila za inštalacije, v embalaži, pripravljeni za polico."
         znacke={["Slovenska znamka", "ETA", "Iz zaloge"]}
-        slika="/slike/stojala/asfix-stojalo.jpg"
-        slikaW={893}
-        slikaH={1600}
-        stojalo
-        slikaAlt="Prodajna polica ASfix"
         gumbi={[
           { href: "/program", naziv: "Prodajni program", cls: "b-w" },
           { href: "/kontakt?vir=asfix", naziv: "Povpraševanje →", cls: "b-o" },
