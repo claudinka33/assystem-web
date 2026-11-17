@@ -38,7 +38,8 @@ function slikaPakiranja(a, znamka, pot, embalaza) {
   return null;
 }
 // Enota za količino v košarici: 4 škatle, 2 vrečki …
-function enota(a, n) {
+function enota(a, n, kos) {
+  if (!(kos > 1)) return "kos";
   const v = String((a.lastnosti ?? {}).Pakiranje ?? "").toLowerCase();
   const m = n % 100;
   if (v.startsWith("škatla") || v === "osnovno") return m === 1 ? "škatla" : m === 2 ? "škatli" : m === 3 || m === 4 ? "škatle" : "škatel";
@@ -87,7 +88,7 @@ function Kosarica({ a, cena, izdelek, b2b }) {
         onChange={(e) => setKol(Math.max(1, Number(e.target.value) || 1))}
         aria-label={cena.kos > 1 ? `Število pakiranj po ${cena.kos} kos` : "Količina"}
       />
-      <span className="g-enota">{enota(a, kol)}{cena.kos > 1 && <small>{st(kol * cena.kos)} kos</small>}</span>
+      <span className="g-enota">{enota(a, kol, cena.kos)}{cena.kos > 1 && <small>{st(kol * cena.kos)} kos</small>}</span>
       <button
         type="button"
         className={ok ? "on" : ""}
