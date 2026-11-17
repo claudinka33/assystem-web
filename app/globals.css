@@ -4102,3 +4102,14 @@ a.b2b-profil:hover { background: #a50d26; }
   .igra-koraki li { padding: 4px 8px 4px 4px !important; font-size: 11px !important; }
   .igra-koraki li > span, .igra-koraki li i { width: 22px !important; height: 22px !important; font-size: 11px !important; }
 }
+@media (max-width: 760px) {
+  .ac-izv > div, .asco-izv > div, .izv-k { padding: 10px 12px !important; }
+  .ac-izv b, .izv-k b { font-size: 20px !important; }
+}
+@media (max-width: 760px) {
+  .izvedbe > div { padding: 10px 12px; border-top-width: 3px; }
+  .izvedbe b { font-size: 18px; }
+  .izvedbe span { font-size: 10px; }
+  .izvedbe p { font-size: 12px; margin-top: 5px; line-height: 1.4; }
+  .zn-hero .zn-slika { max-width: 200px; margin: 0 auto; }
+}

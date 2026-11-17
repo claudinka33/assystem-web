@@ -191,7 +191,7 @@ async function ASco() {
           <div className="st">
             <span>Izvedbe</span>
             <h2>Material izberete po okolju</h2>
-            <p>Ista mera v različnih izvedbah. V trgovini barva vrečke loči pocinkano od nerjavnega.</p>
+            <p>Ista mera v različnih izvedbah. V trgovini barva vrečke loči pocinkano od nerjavečega.</p>
           </div>
           <div className="izvedbe">
             {izvedbe.map((x) => (
