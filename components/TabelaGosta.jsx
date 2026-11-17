@@ -248,11 +248,11 @@ function TabelaGosta({ artikli: vhodni, stolpci, izdelek = null, naziviRazlicni 
                 <tr key={a.id} id={`art-${a.sifra}`} className={`${zal ? "" : "g-ni"}${oznacena === a.sifra ? " g-oznacen" : ""}`}>
                   <td className="g-sl">{slikaPakiranja(a, izdelek?.znamka, izdelek?.pot, embalaza) ? <img src={slikaPakiranja(a, izdelek?.znamka, izdelek?.pot, embalaza)} alt={(a.lastnosti ?? {}).Pakiranje ?? ""} loading="lazy" /> : null}</td>
                   <td className="g-sif" data-l="Šifra" translate="no">{a.sifra}</td>
-                  <td className="g-ean" data-l="EAN" translate="no">{a.ean ?? "—"}</td>
+                  <td className={`g-ean${a.ean ? "" : " g-prazno"}`} data-l="EAN" translate="no">{a.ean ?? "—"}</td>
                   {naziviRazlicni && <td className="g-las g-naz" data-l="Naziv">{a.naziv}</td>}
                   <td className="g-dim" translate="no">{a.dimenzija ?? "—"}</td>
-                  {stolpciLastnosti.map((k) => <td key={k} className="g-las" data-l={k}>{(a.lastnosti ?? {})[k] ?? "—"}</td>)}
-                  {imaPakiranje && <td className="g-las" data-l="Pakiranje">{vrednost(a, "Pakiranje") ?? "—"}</td>}
+                  {stolpciLastnosti.map((k) => <td key={k} className={`g-las${(a.lastnosti ?? {})[k] ? "" : " g-prazno"}`} data-l={k}>{(a.lastnosti ?? {})[k] ?? "—"}</td>)}
+                  {imaPakiranje && <td className={`g-las${vrednost(a, "Pakiranje") ? "" : " g-prazno"}`} data-l="Pakiranje">{vrednost(a, "Pakiranje") ?? "—"}</td>}
                   <td className="d g-pak" data-l="Kos v pak.">{n ? `${st(n)} kos` : "—"}</td>
                   <td className="g-zaloga">{zal ? <span className="g-z da"><span className="g-pika da" />Na zalogi</span> : <span className="g-z ne"><span className="g-pika ne" />Ni na zalogi</span>}</td>
                   <td className="d g-c"><Cena cena={cenaZa(a)} b2b={b2b} /></td>

@@ -3946,3 +3946,25 @@ a.b2b-profil:hover { background: #a50d26; }
 .hp-izd::before { content: "›"; position: absolute; left: 18px; top: 3px; font-weight: 800; color: #9aa0a6; }
 .hp-izd:hover::before { color: #c8102e; }
 .hp-izd.on::before { color: #fff; }
+/* telefon v3: slika zgoraj čez celo širino, kompaktne vrstice artiklov */
+@media (max-width: 760px) {
+  .g-vrh { grid-template-columns: minmax(0, 1fr) !important; }
+  .g-gal { aspect-ratio: 16 / 9; width: 100%; }
+  .g-t tr { padding: 6px 8px; margin-bottom: 4px; }
+  .g-t td.g-sl { width: 30px; }
+  .g-sl img { width: 26px; height: 26px; }
+  .g-t .g-dim { flex: 1 0 calc(100% - 140px); font-size: 14px; padding-top: 0 !important; }
+  .g-t .g-c { width: 110px; }
+  .g-t .g-sif, .g-t .g-ean, .g-t .g-las { flex: 0 0 auto; padding-left: 0 !important; margin-right: 8px; font-size: 10.5px; line-height: 1.4; }
+  .g-t .g-sif { margin-left: 30px; }
+  .g-t .g-pak, .g-t .g-prazno { display: none !important; }
+  .g-t .g-zaloga { flex: 1 1 auto; padding-left: 30px !important; margin-top: 4px; }
+  .g-t .g-k { flex: none; margin: 4px 0 0 auto; display: block; }
+  .g-vk input { height: 26px; width: 34px; }
+  .g-vk > button, .g-vk-ni .rok-gumb { height: 26px; }
+}
+@media (max-width: 380px) {
+  .g-t td.g-sl { width: 0; padding: 0 !important; overflow: hidden; }
+  .g-t .g-sif { margin-left: 0; }
+  .g-t .g-zaloga { padding-left: 0 !important; }
+}
