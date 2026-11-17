@@ -18,7 +18,7 @@ const st = (x) => new Intl.NumberFormat("sl-SI", { useGrouping: "always", maximu
 // Slika embalaže pred šifro: takoj se vidi, ali je škatla ali vrečka
 function slikaPakiranja(a, znamka, pot, embalaza) {
   const v = String((a.lastnosti ?? {}).Pakiranje ?? "").toLowerCase();
-  if (!v) return null;
+  if (!v) return vrecaBrezTiska(pot) ? "/slike/embalaza/ikone/vrecka-prozorna.jpg" : null;
   const lastna = (embalaza ?? []).find((e) => e.slika && e.lastnost === "Pakiranje" && String(e.vrednost).toLowerCase() === v);
   if (lastna) return lastna.slika;
   const D = "/slike/embalaza/ikone/";
@@ -37,10 +37,15 @@ function slikaPakiranja(a, znamka, pot, embalaza) {
   }
   return null;
 }
+// Zidni vložki in udarni vijaki brez navedenega pakiranja: prozorna vrečka po 50 ali 100 kos
+function vrecaBrezTiska(pot) {
+  const p = String(pot ?? "");
+  return p.startsWith("/program/zidni-vlozki") || p.includes("udarni");
+}
 // Enota za količino v košarici: 4 škatle, 2 vrečki …
-function enota(a, n, kos) {
+function enota(a, n, kos, pot) {
   if (!(kos > 1)) return "kos";
-  const v = String((a.lastnosti ?? {}).Pakiranje ?? "").toLowerCase();
+  const v = String((a.lastnosti ?? {}).Pakiranje ?? (vrecaBrezTiska(pot) ? "vrečka" : "")).toLowerCase();
   const m = n % 100;
   if (v.startsWith("škatla") || v === "osnovno") return m === 1 ? "škatla" : m === 2 ? "škatli" : m === 3 || m === 4 ? "škatle" : "škatel";
   if (v.startsWith("vrečka")) return m === 1 ? "vrečka" : m === 2 ? "vrečki" : m === 3 || m === 4 ? "vrečke" : "vrečk";
@@ -88,7 +93,7 @@ function Kosarica({ a, cena, izdelek, b2b }) {
         onChange={(e) => setKol(Math.max(1, Number(e.target.value) || 1))}
         aria-label={cena.kos > 1 ? `Število pakiranj po ${cena.kos} kos` : "Količina"}
       />
-      <span className="g-enota">{enota(a, kol, cena.kos)}{cena.kos > 1 && <small>{st(kol * cena.kos)} kos</small>}</span>
+      <span className="g-enota">{enota(a, kol, cena.kos, izdelek?.pot)}{cena.kos > 1 && <small>{st(kol * cena.kos)} kos</small>}</span>
       <button
         type="button"
         className={ok ? "on" : ""}
