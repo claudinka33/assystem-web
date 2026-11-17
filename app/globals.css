@@ -3837,3 +3837,55 @@ a.b2b-profil:hover { background: #a50d26; }
   .g-sl img { width: 28px; height: 28px; }
   .g-enota small { display: none; }
 }
+
+/* ===== Kompaktnejša stran: manj praznega prostora (sekcije, CTA, e-novice, noga) ===== */
+.sec { padding: 40px 0; }
+.st { margin-bottom: 20px; }
+.pgh { padding: 28px 0; }
+.cta .w { padding-top: 22px; padding-bottom: 22px; gap: 18px; }
+.cta h2 { font-size: clamp(20px, 2vw, 26px); }
+.cta p { margin-top: 4px; font-size: 14px; }
+.enov { padding: 20px 0 22px; }
+.enov .w { gap: 24px; }
+.enov h2 { font-size: 21px; }
+.enov-besedilo p { margin-top: 4px; font-size: 14px; }
+.enov-vrsta input, .enov-vrsta button { padding-top: 10px; padding-bottom: 10px; }
+.enov-privolitev { margin-top: 6px; }
+.ftr { padding: 28px 0 0; font-size: 13px; }
+.ftr .w { gap: 28px; }
+.ftr b { margin-bottom: 8px; font-size: 13px; }
+.ftr a { padding: 2px 0; }
+.ftr-podjetje .logo-belo { margin-bottom: 12px; }
+.ftr-podjetje .logo-belo img { width: 120px; height: auto; }
+.ftr-naslov { margin-bottom: 8px; line-height: 1.5; }
+.ftr a.ftr-tel { font-size: 16px; }
+.ftr-druzbena { margin-top: 10px; }
+.fb { margin-top: 22px; }
+.fb .w { padding-top: 12px; padding-bottom: 12px; }
+.fb .w { gap: 8px; }
+.ftr-pravno { gap: 4px 16px; font-size: 12px; }
+.fb-spodaj { font-size: 12px; }
+.fb-desno img { width: 80px; height: auto; }
+@media (max-width: 760px) {
+  .sec { padding: 28px 0; }
+  .st { margin-bottom: 14px; }
+  .pgh { padding: 20px 0; }
+  .cta .w { padding-top: 16px; padding-bottom: 16px; }
+  .ftr .w { gap: 18px 20px; }
+}
+
+/* ===== Okno »Vprašaj za rok« v gostem slogu ===== */
+.g-vk > input { width: 46px; }
+.rok-okno { max-width: 440px; padding: 0; border-top: 4px solid var(--color-red); font-size: 13px; }
+.rok-okno > h3 { font-size: 15px; letter-spacing: .04em; margin: 0; padding: 14px 44px 2px 18px; }
+.rok-art { margin: 0; padding: 0 18px 12px; font-size: 12.5px; border-bottom: 1px solid #eceef1; }
+.rok-okno form, .rok-uspeh { padding: 14px 18px 16px; gap: 10px; }
+.rok-zapri { top: 10px; right: 12px; font-size: 22px; }
+.rok-okno label { font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: #6b7076; gap: 4px; }
+.rok-okno input, .rok-okno textarea { width: 100% !important; height: auto !important; text-align: left !important; font-size: 13px; padding: 8px 10px; border: 1px solid #c9cdd2; text-transform: none; letter-spacing: 0; color: var(--color-ink); }
+.rok-okno input:focus, .rok-okno textarea:focus { outline: none; border-color: #2b2f33; }
+.rok-okno textarea { min-height: 110px; resize: vertical; }
+.rok-okno .b { justify-self: stretch; padding: 9px 14px; font-size: 12.5px; }
+.rok-kdo { font-size: 12.5px; padding: 8px 10px; }
+.rok-drobno { font-size: 11px; }
+.g-vk .rok-ozadje, .g-vk .rok-okno { white-space: normal; text-align: left; }
