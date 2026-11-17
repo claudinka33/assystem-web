@@ -8,7 +8,7 @@ import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 const metadataSl = {
   title: "Kontakt",
   description:
-    "Kontakt AS system d.o.o.: telefon +386 3 800 70 00, info@as-system.si. Kontakti po oddelkih in lokaciji v Šmarju pri Jelšah in Bistrici ob Sotli.",
+    "Kontakt AS system d.o.o.: komerciala +386 40 934 316, centrala +386 3 800 70 00, info@as-system.si. Kontakti po oddelkih in lokaciji v Šmarju pri Jelšah in Bistrici ob Sotli.",
   alternates: { canonical: "/kontakt" },
 };
 
@@ -42,8 +42,12 @@ async function Kontakt({ searchParams }) {
             </p>
             <div className="kt-hitro">
               <a href={`tel:${site.telefonRaw}`}>
-                <small>Telefon</small>
+                <small>Telefon · komerciala</small>
                 <b>{site.telefon}</b>
+              </a>
+              <a href={`tel:${site.telefonCentralaRaw}`}>
+                <small>Centrala</small>
+                <b>{site.telefonCentrala}</b>
               </a>
               <a href={`mailto:${site.email}`}>
                 <small>E-pošta</small>

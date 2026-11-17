@@ -25,7 +25,7 @@ function Zasebnost() {
       <h2>2. Pooblaščena oseba za varstvo osebnih podatkov</h2>
       <p>
         Pooblaščena oseba za varstvo osebnih podatkov je <b>Sara Jagodič</b>,{" "}
-        <a href="mailto:sara.jagodic@as-system.si">sara.jagodic@as-system.si</a>, telefon {site.telefon}. Nanjo se
+        <a href="mailto:sara.jagodic@as-system.si">sara.jagodic@as-system.si</a>, telefon {site.telefonCentrala}. Nanjo se
         obrnite z vsemi vprašanji o osebnih podatkih in z zahtevami za uveljavljanje pravic.
       </p>
 

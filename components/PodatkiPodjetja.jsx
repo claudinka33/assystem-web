@@ -13,7 +13,8 @@ export default function PodatkiPodjetja() {
     p.osnovniKapital && ["Osnovni kapital", p.osnovniKapital],
     ["Zastopnik", p.zastopnik],
     ["Transakcijski račun", p.trr],
-    ["Telefon", site.telefon],
+    ["Telefon (komerciala)", site.telefon],
+    ["Telefon (centrala)", site.telefonCentrala],
     ["E-pošta", `${site.email} · naročila: ${site.emailProdaja}`],
   ].filter(Boolean);
   return (

@@ -3999,3 +3999,4 @@ a.b2b-profil:hover { background: #a50d26; }
   .g-kar-3 { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
   .g-kar-3 .g-vk { width: auto !important; flex-wrap: nowrap; }
 }
+.ftr a small { font-size: 10.5px; color: var(--color-muted-2); font-weight: 400; margin-left: 4px; }

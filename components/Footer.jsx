@@ -29,7 +29,8 @@ export default function Footer({ kategorije: izBaze }) {
               <br />
               {site.lokacije[0].naslov}
             </p>
-            <a className="ftr-tel" href={`tel:${site.telefonRaw}`}>{site.telefon}</a>
+            <a className="ftr-tel" href={`tel:${site.telefonRaw}`}>{site.telefon} <small>komerciala</small></a>
+            <a className="ftr-mail" href={`tel:${site.telefonCentralaRaw}`}>{site.telefonCentrala} <small>centrala</small></a>
             <a className="ftr-mail" href={`mailto:${site.email}`}>{site.email}</a>
             <p className="ftr-cas">Pon–pet 7.00–15.00</p>
             <div className="ftr-druzbena">
