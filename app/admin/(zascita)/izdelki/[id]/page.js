@@ -28,11 +28,12 @@ export default async function UrediIzdelek({ params }) {
   const { id } = await params;
   const sb = supabaseAdmin();
 
-  const [{ data: izdelek }, { data: kategorije }, { data: artikli }, { data: dokumenti }] = await Promise.all([
+  const [{ data: izdelek }, { data: kategorije }, { data: artikli }, { data: dokumenti }, { data: dodatne }] = await Promise.all([
     sb.from("izdelki").select("*").eq("id", id).single(),
     sb.from("kategorije").select("id, naziv, slug, nadrejena_id").order("naziv"),
     sb.from("artikli").select("*").eq("izdelek_id", id).order("sifra"),
     sb.from("dokumenti").select("*").eq("izdelek_id", id).order("tip"),
+    sb.from("izdelki_kategorije").select("kategorija_id").eq("izdelek_id", id),
   ]);
 
   if (!izdelek) notFound();
@@ -111,7 +112,7 @@ export default async function UrediIzdelek({ params }) {
         <ObrazecIzdelka izdelek={izdelek} />
 
         <Kartica id="osnovno" naslov="Osnovni podatki" opis="Naziv, kategorija, znamka in objava.">
-          <OsnovnoPolja izdelek={izdelek} kategorije={kategorije ?? []} predlogZnamke={znamkaIzdelka} />
+          <OsnovnoPolja izdelek={izdelek} kategorije={kategorije ?? []} predlogZnamke={znamkaIzdelka} dodatne={(dodatne ?? []).map((d) => String(d.kategorija_id))} />
         </Kartica>
 
         <Kartica id="slike" naslov="Slike" opis="Povleci več slik naenkrat. Prva oz. »★ Glavna« je slika na seznamu izdelkov.">

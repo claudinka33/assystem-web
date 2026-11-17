@@ -45,7 +45,7 @@ export function ShraniVrstica({ izdelek }) {
   );
 }
 
-export function OsnovnoPolja({ izdelek, kategorije, predlogZnamke }) {
+export function OsnovnoPolja({ izdelek, kategorije, predlogZnamke, dodatne = [] }) {
   const i = izdelek ?? {};
   const f = OBRAZEC;
   return (
@@ -61,6 +61,17 @@ export function OsnovnoPolja({ izdelek, kategorije, predlogZnamke }) {
             <option value="">— izberi —</option>
             {kategorije.map((k) => <option key={k.id} value={k.id}>{k.naziv}</option>)}
           </select>
+        </div>
+      </div>
+      <div className="adm-polje">
+        <label>Prikaži tudi v kategorijah <span className="siv" style={{ fontWeight: 400 }}>(isti izdelek in artikli na več mestih)</span></label>
+        <input form={f} type="hidden" name="dodatne_kategorije_poslano" value="1" />
+        <div className="adm-dod-kat">
+          {kategorije.filter((k) => String(k.id) !== String(i.kategorija_id ?? "")).map((k) => (
+            <label key={k.id}>
+              <input form={f} type="checkbox" name="dodatne_kategorije" value={k.id} defaultChecked={dodatne.includes(String(k.id))} /> {k.naziv}
+            </label>
+          ))}
         </div>
       </div>
       <div className="adm-vrsta-3">
