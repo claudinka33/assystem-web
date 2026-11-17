@@ -103,7 +103,6 @@ async function Domov() {
               "Sidra, zidni vložki, kemična pritrditev, vijaki in vse za montažo. Dimenzije, pakiranja in cene na enem mestu.",
             gumbi: [
               { naziv: "Ves prodajni program", pot: "/program", slog: "bel" },
-              { naziv: "Katalogi", pot: "/katalogi", slog: "obroba" },
             ],
             ploscice: kategorije.slice(0, 6).map((k) => ({ naziv: k.naziv, pot: `/program/${k.slug}`, slika: k.slika ?? null })),
           },

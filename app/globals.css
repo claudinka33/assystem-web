@@ -4000,3 +4000,57 @@ a.b2b-profil:hover { background: #a50d26; }
   .g-kar-3 .g-vk { width: auto !important; flex-wrap: nowrap; }
 }
 .ftr a small { font-size: 10.5px; color: var(--color-muted-2); font-weight: 400; margin-left: 4px; }
+
+/* ===== Domača stran na telefonu in tablici: kompaktno, nič čez rob ===== */
+@media (max-width: 1000px) {
+  .hero .w { grid-template-columns: minmax(0, 1fr); }
+  .hb .hero .w { min-height: 0; }
+}
+@media (max-width: 760px) {
+  .hb .hero .w { padding-top: 18px; padding-bottom: 60px; gap: 14px; }
+  .hb .hb-naslov { font-size: 25px; margin-top: 10px; line-height: 1.1; }
+  .hero p { font-size: 14px; margin-top: 8px; line-height: 1.5; }
+  .kick { font-size: 10px; letter-spacing: 1.5px; padding: 4px 9px; }
+  .hero .acts { gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+  .hero .acts .b { padding: 9px 14px; font-size: 12px; letter-spacing: .5px; }
+  .hero .b-video { font-size: 12px; gap: 8px; }
+  .hero .b-video:before, .hero .b-video svg { transform: scale(.8); }
+  .hb-nadzor { bottom: 10px; padding: 3px; gap: 4px; }
+  .hb-puscica { width: 26px; height: 26px; font-size: 16px; }
+  .hb-pika { width: 24px; }
+  /* B2B banner: predogled portala tudi na telefonu, pomanjšan */
+  .b2bz { display: block !important; justify-self: stretch; width: 100%; transform: none; font-size: 12px; box-shadow: 0 12px 26px rgba(0,0,0,.3); margin-top: 0; }
+  .b2bz-tel { padding: 10px 12px 12px; gap: 5px; }
+  .b2bz-gl b { font-size: 14px; }
+  .b2bz-vr { grid-template-columns: 1fr auto 48px 24px; gap: 8px; padding: 6px 0; }
+  .b2bz-vr i { width: 24px; height: 24px; }
+  .b2bz-vr:nth-child(n+5) { display: none; }
+  /* Prodajni program: ploščice kategorij 3 v vrsti, majhne */
+  .hb-plosc { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 6px; justify-self: stretch; max-width: none; }
+  .hb-pl { padding: 5px 5px 7px; box-shadow: 0 6px 14px rgba(0,0,0,.2); }
+  .hb-pl:nth-child(n+5) { display: grid !important; }
+  .hb-pl b { font-size: 9.5px; margin-top: 5px; padding-left: 5px; border-left-width: 2px; overflow-wrap: anywhere; }
+  /* prednosti: 2 × 2, majhno */
+  .adv .w { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .adv .w > div { padding: 10px 12px; }
+  .adv b { font-size: 13px; gap: 6px; margin-bottom: 1px; }
+  .adv span { font-size: 11.5px; line-height: 1.35; display: block; }
+  /* splošno: manjši naslovi in besedila */
+  .st h2 { font-size: 22px !important; }
+  .st > span { font-size: 10.5px; letter-spacing: 1.6px; }
+  .st p { font-size: 14px; }
+  .sec p { font-size: 14px; }
+  .vrata { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 8px; }
+  .vrata-k { padding: 12px 12px 14px; gap: 4px; border-top-width: 3px; }
+  .vrata-k > b { font-size: 20px; }
+  .vrata-k em { font-size: 9.5px; margin-top: 2px; letter-spacing: .8px; }
+  .vrata-k h3 { font-size: 13px; }
+  .vrata-k p { font-size: 12px; line-height: 1.4; }
+  .vrata-cta .b { padding: 7px 10px; font-size: 11px; }
+  .vrata-cta .more { font-size: 11.5px; }
+  .b { padding: 10px 16px; font-size: 12.5px; }
+}
+@media (max-width: 380px) {
+  .hb .hb-naslov { font-size: 22px; }
+  .vrata { grid-template-columns: minmax(0, 1fr) !important; }
+}
