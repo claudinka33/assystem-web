@@ -15,6 +15,21 @@ const KORAK = 20; // prvih 20 vrstic, ostale z gumbom »Pokaži vse«
 const norm = (x) => String(x ?? "").toLowerCase().replace(/\s+/g, "");
 const st = (x) => new Intl.NumberFormat("sl-SI", { useGrouping: "always", maximumFractionDigits: 2 }).format(x);
 
+// Barvna pikica za RAL odtenke (strešni vijaki ipd.)
+const RAL = {
+  "1013": "#E3D9C6", "1015": "#E6D2B5", "1021": "#F6B600", "3000": "#A72920", "3005": "#5E2028", "3009": "#6D342D",
+  "3011": "#792423", "3016": "#B44C43", "5010": "#13447C", "5015": "#2874B2", "6005": "#0F4336", "6011": "#587F40",
+  "6020": "#37422F", "7001": "#8C969D", "7016": "#383E42", "7024": "#474A50", "7035": "#CBD0CC", "7037": "#7A7B7A",
+  "7043": "#4E5452", "8003": "#80542F", "8004": "#8F4E35", "8011": "#5A3826", "8012": "#66332B", "8017": "#442F29",
+  "8019": "#3D3635", "9001": "#E9E0D2", "9002": "#D7D5CB", "9005": "#0E0E10", "9006": "#A1A1A0", "9007": "#878581",
+  "9010": "#F7F9EF", "9016": "#F7F9F4",
+};
+function RalPika({ v }) {
+  const m = String(v ?? "").match(/RAL\s*(\d{4})/i);
+  const barva = m && RAL[m[1]];
+  return barva ? <i className="g-ral" style={{ background: barva }} aria-hidden="true" /> : null;
+}
+
 // Slika embalaže pred šifro: takoj se vidi, ali je škatla ali vrečka
 function slikaPakiranja(a, znamka, pot, embalaza, naziv) {
   const v = String((a.lastnosti ?? {}).Pakiranje ?? "").toLowerCase();
@@ -245,7 +260,7 @@ function TabelaGosta({ artikli: vhodni, stolpci, izdelek = null, naziviRazlicni 
               <em>{k}</em>
               {vr.map(([v, n]) => (
                 <button key={v} type="button" className={izbrani[k] === v ? "on" : ""} onClick={() => { setIzbrani({ ...izbrani, [k]: izbrani[k] === v ? undefined : v }); setPrikazano(KORAK); }}>
-                  {v}
+                  <RalPika v={v} />{v}
                 </button>
               ))}
             </span>
@@ -289,7 +304,7 @@ function TabelaGosta({ artikli: vhodni, stolpci, izdelek = null, naziviRazlicni 
                   <td className={`g-ean${a.ean ? "" : " g-prazno"}`} data-l="EAN" translate="no">{a.ean ?? "—"}</td>
                   {naziviRazlicni && <td className="g-las g-naz" data-l="Naziv">{a.naziv}</td>}
                   <td className="g-dim" translate="no">{a.dimenzija ?? "—"}</td>
-                  {stolpciLastnosti.map((k) => <td key={k} className={`g-las${(a.lastnosti ?? {})[k] ? "" : " g-prazno"}`} data-l={k}>{(a.lastnosti ?? {})[k] ?? "—"}</td>)}
+                  {stolpciLastnosti.map((k) => <td key={k} className={`g-las${(a.lastnosti ?? {})[k] ? "" : " g-prazno"}`} data-l={k}><RalPika v={(a.lastnosti ?? {})[k]} />{(a.lastnosti ?? {})[k] ?? "—"}</td>)}
                   <td className="g-pakv" data-l="Pakiranje">{vrstaPak(a, izdelek?.naziv, izdelek?.znamka, izdelek?.pot) ?? (n ? "" : "—")}{n ? <small>{st(n)} kos</small> : null}</td>
                   <td className="g-zaloga">{zal ? <span className="g-z da"><span className="g-pika da" />Na zalogi</span> : <span className="g-z ne"><span className="g-pika ne" />Ni na zalogi</span>}</td>
                   <td className="d g-c"><Cena cena={cenaZa(a)} b2b={b2b} /></td>
@@ -324,7 +339,7 @@ function TabelaGosta({ artikli: vhodni, stolpci, izdelek = null, naziviRazlicni 
               </div>
               <div className="g-kar-2">
                 {podatki.map(([k, v]) => (
-                  <span key={k + v}>{k ? <em>{k}:</em> : null} <span translate="no">{v}</span></span>
+                  <span key={k + v}>{k ? <em>{k}:</em> : null} <span translate="no"><RalPika v={v} />{v}</span></span>
                 ))}
               </div>
               <div className="g-kar-3">
