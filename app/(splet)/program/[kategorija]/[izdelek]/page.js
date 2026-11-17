@@ -5,7 +5,7 @@ import { pridobiIzdelek, pridobiPonudbo, pridobiSorodne, pridobiDrevoPrograma } 
 import HitriProgram from "@/components/HitriProgram";
 import TabelaArtiklov from "@/components/TabelaArtiklov";
 import TabelaGosta from "@/components/TabelaGosta";
-import Image from "next/image";
+import SlikaVrh from "@/components/SlikaVrh";
 import { SLIKE_VREDNOSTI } from "@/lib/slike-vrednosti";
 import GalerijaIzdelka from "@/components/GalerijaIzdelka";
 import IgraIzdelka from "@/components/IgraIzdelka";
@@ -134,7 +134,7 @@ async function StranIzdelka({ params }) {
         {gosto && (
           <div className="g-vrh">
             <div className="g-gal">
-              {slike[0] ? <Image src={slike[0]} alt={i.naziv} fill priority sizes="(max-width: 760px) 100vw, 300px" style={{ objectFit: "contain", padding: 10 }} /> : null}
+              <SlikaVrh slika={slike[0] ?? null} naziv={i.naziv} />
             </div>
             <div className="g-vrh-tx">
               <p className="g-vrh-kat">{i.kategorije?.naziv}</p>
@@ -237,7 +237,7 @@ async function StranIzdelka({ params }) {
           )}
         </div>
         {gosto ? (
-          <TabelaGosta artikli={artikli} stolpci={stolpci} naziviRazlicni={naziviRazlicni} embalaza={i.embalaza ?? []} izdelek={{ naziv: i.naziv, pot: `/program/${kategorija}/${izdelek}`, slika: i.slika_url ?? null, znamka: i.znamka ?? null }} />
+          <TabelaGosta artikli={artikli} stolpci={stolpci} naziviRazlicni={naziviRazlicni} embalaza={i.embalaza ?? []} slikeVrednosti={SLIKE_VREDNOSTI[izdelek] ?? null} izdelek={{ naziv: i.naziv, pot: `/program/${kategorija}/${izdelek}`, slika: i.slika_url ?? null, znamka: i.znamka ?? null }} />
         ) : (
         <TabelaArtiklov artikli={artikli} stolpci={stolpci} naziviRazlicni={naziviRazlicni} embalaza={i.embalaza ?? []} izdelek={{ naziv: i.naziv, pot: `/program/${kategorija}/${izdelek}`, slika: i.slika_url ?? null, znamka: i.znamka ?? null }} slikeVrednosti={SLIKE_VREDNOSTI[izdelek] ?? null} />
         )}

@@ -18,7 +18,11 @@ const st = (x) => new Intl.NumberFormat("sl-SI", { useGrouping: "always", maximu
 // Slika embalaže pred šifro: takoj se vidi, ali je škatla ali vrečka
 function slikaPakiranja(a, znamka, pot, embalaza, naziv) {
   const v = String((a.lastnosti ?? {}).Pakiranje ?? "").toLowerCase();
-  if (!v) return vrecaBrezTiska(naziv) ? "/slike/embalaza/ikone/vrecka-prozorna.jpg" : null;
+  if (!v) {
+    if (vrecaBrezTiska(naziv)) return "/slike/embalaza/ikone/vrecka-prozorna.jpg";
+    const privzeta = privzetaSkatla(a, znamka, pot);
+    return privzeta ? "/slike/embalaza/ikone/" + privzeta : null;
+  }
   const lastna = (embalaza ?? []).find((e) => e.slika && e.lastnost === "Pakiranje" && String(e.vrednost).toLowerCase() === v);
   if (lastna) return lastna.slika;
   const D = "/slike/embalaza/ikone/";
@@ -38,14 +42,21 @@ function slikaPakiranja(a, znamka, pot, embalaza, naziv) {
   return null;
 }
 // Zidni vložki in udarni vijaki brez navedenega pakiranja: prozorna vrečka po 50 ali 100 kos
+// Brez vpisanega pakiranja: ASfix (šifra AF…) = škatla AFR41, ASco = rjava ASco škatla
+function privzetaSkatla(a, znamka, pot) {
+  if (znamka === "Silvermate" || znamka === "MUNGO") return null;
+  if (String(a.sifra ?? "").toUpperCase().startsWith("AF")) return "asfix-afr41.jpg";
+  if (znamka === "ASco" || String(pot ?? "").startsWith("/program/vijacno-blago") || String(pot ?? "").startsWith("/program/kljuke")) return "asco-skatla.jpg";
+  return "asfix-afr41.jpg";
+}
 // UVS, UVZ (udarni vijak), ZVKR, ZVK (zidni vložek z robom / brez roba), vložek za stiropor, ZV.A, ZV.I
 function vrecaBrezTiska(naziv) {
   return /udarni vijak|zidni vložek z robom|zidni vložek brez roba|stiropor|zv\.a\b|zv\.i\b/i.test(String(naziv ?? ""));
 }
 // Enota za količino v košarici: 4 škatle, 2 vrečki …
-function enota(a, n, kos, naziv) {
+function enota(a, n, kos, naziv, znamka, pot) {
   if (!(kos > 1)) return "kos";
-  const v = String((a.lastnosti ?? {}).Pakiranje ?? (vrecaBrezTiska(naziv) ? "vrečka" : "")).toLowerCase();
+  const v = String((a.lastnosti ?? {}).Pakiranje ?? (vrecaBrezTiska(naziv) ? "vrečka" : privzetaSkatla(a, znamka, pot) ? "škatla" : "")).toLowerCase();
   const m = n % 100;
   if (v.startsWith("škatla") || v === "osnovno") return m === 1 ? "škatla" : m === 2 ? "škatli" : m === 3 || m === 4 ? "škatle" : "škatel";
   if (v.startsWith("vrečka")) return m === 1 ? "vrečka" : m === 2 ? "vrečki" : m === 3 || m === 4 ? "vrečke" : "vrečk";
@@ -93,7 +104,7 @@ function Kosarica({ a, cena, izdelek, b2b }) {
         onChange={(e) => setKol(Math.max(1, Number(e.target.value) || 1))}
         aria-label={cena.kos > 1 ? `Število pakiranj po ${cena.kos} kos` : "Količina"}
       />
-      <span className="g-enota">{enota(a, kol, cena.kos, izdelek?.naziv)}{cena.kos > 1 && <small>{st(kol * cena.kos)} kos</small>}</span>
+      <span className="g-enota">{enota(a, kol, cena.kos, izdelek?.naziv, izdelek?.znamka, izdelek?.pot)}{cena.kos > 1 && <small>{st(kol * cena.kos)} kos</small>}</span>
       <button
         type="button"
         className={ok ? "on" : ""}
@@ -149,7 +160,7 @@ function Cena({ cena, b2b }) {
   );
 }
 
-function TabelaGosta({ artikli: vhodni, stolpci, izdelek = null, naziviRazlicni = false, embalaza = [] }) {
+function TabelaGosta({ artikli: vhodni, stolpci, izdelek = null, naziviRazlicni = false, embalaza = [], slikeVrednosti = null }) {
   const { t } = useJezik();
   const artikli = useMemo(
     () => [...vhodni].sort((a, b) => (a.premer ?? 0) - (b.premer ?? 0) || (a.dolzina ?? 0) - (b.dolzina ?? 0) || String(a.sifra).localeCompare(String(b.sifra))),
@@ -173,6 +184,13 @@ function TabelaGosta({ artikli: vhodni, stolpci, izdelek = null, naziviRazlicni 
     }, 200);
     return () => clearTimeout(t0);
   }, [vhodni]);
+
+  // Izbrana vrednost s svojo sliko (npr. metrični navoj) zamenja sliko na vrhu
+  useEffect(() => {
+    if (!slikeVrednosti) return;
+    const e = Object.values(izbrani).filter(Boolean).map((v) => slikeVrednosti[String(v).toLowerCase()]).find(Boolean);
+    window.dispatchEvent(new CustomEvent("izdelek-slika", { detail: e ? e.slika : null }));
+  }, [izbrani, slikeVrednosti]);
 
   // Filtri: lastnosti z 2–10 vrednostmi (Pakiranje prvo)
   const filtri = useMemo(() => {
