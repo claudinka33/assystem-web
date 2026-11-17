@@ -3889,3 +3889,20 @@ a.b2b-profil:hover { background: #a50d26; }
 .rok-kdo { font-size: 12.5px; padding: 8px 10px; }
 .rok-drobno { font-size: 11px; }
 .g-vk .rok-ozadje, .g-vk .rok-okno { white-space: normal; text-align: left; }
+/* telefon v2: kartica artikla s flex vrsticami (brez rezanja gumbov) */
+@media (max-width: 760px) {
+  .g-t tr { display: flex !important; flex-wrap: wrap; align-items: flex-start; gap: 0; padding: 8px; }
+  .g-t td { grid-column: auto !important; grid-row: auto !important; }
+  .g-t td.g-sl { width: 40px; flex: none; }
+  .g-t .g-dim { flex: 1 1 0; min-width: 0; padding-top: 2px !important; }
+  .g-t .g-c { flex: none; text-align: right; }
+  .g-t .g-sif, .g-t .g-ean, .g-t .g-las, .g-t .g-pak { flex: 0 0 100%; padding-left: 40px !important; text-align: left; }
+  .g-t .g-zaloga { flex: 1 1 auto; padding-left: 40px !important; margin-top: 8px; align-self: center; }
+  .g-t .g-k { flex: none; margin: 8px 0 0 auto; }
+  .hdr .logo img { max-width: 120px; height: auto; }
+}
+@media (max-width: 380px) {
+  .g-t td.g-sl { width: 32px; }
+  .g-t .g-sif, .g-t .g-ean, .g-t .g-las, .g-t .g-pak, .g-t .g-zaloga { padding-left: 32px !important; }
+  .hdr .logo img { max-width: 100px; }
+}
