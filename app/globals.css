@@ -3772,3 +3772,68 @@ a.b2b-profil:hover { background: #a50d26; }
   .g-t .g-k { grid-column: 1 / -1; justify-self: end; }
 }
 .g-gal { position: relative; aspect-ratio: 3 / 2; background: #fff; border: 1px solid #eef0f2; align-self: stretch; min-height: 180px; }
+
+/* ===== Mobilni popravki strani izdelka (vsi telefoni, tudi 320 px) ===== */
+.izd-glavno { min-width: 0; }
+@media (max-width: 1100px) { .izd-okvir { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 760px) {
+  .izd-w { padding-left: 12px; padding-right: 12px; }
+  .drobtine { font-size: 11.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .izd-tab-gl { flex-wrap: wrap; gap: 6px; }
+  .izd-tab-gl h2 { font-size: 15px !important; }
+  .izd-sosedi { margin-left: 0; }
+  .izd-sosedi a { font-size: 11.5px; padding: 4px 8px; white-space: normal; }
+  .izd-opomba { font-size: 12px; }
+  /* vrh */
+  .g-vrh { grid-template-columns: 96px minmax(0, 1fr); gap: 10px; padding: 10px; }
+  .g-gal { aspect-ratio: 1 / 1; min-height: 0; align-self: start; }
+  .g-vrh-h1 { font-size: 16px; gap: 6px; }
+  .g-vrh-h1 img { height: 16px; }
+  .g-vrh-kat { font-size: 9.5px; }
+  .g-vrh-opis { font-size: 12px; }
+  .g-oz { font-size: 10.5px; padding: 1px 6px; }
+  .g-vrh-gumbi { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 5px; }
+  .g-vrh-gumbi .g-gumb { flex: 1 1 120px; padding: 6px 8px; font-size: 11.5px; }
+  /* filtri: vodoravni drsnik, manjši */
+  .g-orodja { gap: 6px; }
+  .g-chips { gap: 4px 8px; }
+  .g-chips button { padding: 3px 7px; font-size: 11.5px; }
+  .g-isk { font-size: 13px; padding: 5px 8px; }
+  /* kartice artiklov: jasna mreža brez praznin */
+  .g-t tr { grid-template-columns: 36px minmax(0, 1fr) auto; gap: 1px 8px; padding: 8px; align-items: start; }
+  .g-t td.g-sl { grid-column: 1; grid-row: 1 / span 2; width: 36px; }
+  .g-sl img { width: 34px; height: 34px; }
+  .g-t .g-dim { grid-column: 2; grid-row: 1; font-size: 14px; }
+  .g-t .g-c { grid-column: 3; grid-row: 1 / span 2; }
+  .g-t .g-sif, .g-t .g-ean, .g-t .g-las, .g-t .g-pak { grid-column: 2; font-size: 11px; line-height: 1.35; }
+  .g-t .g-zaloga { grid-column: 1 / 3; margin-top: 6px; align-self: center; }
+  .g-t .g-k { grid-column: 3; grid-row: auto; margin-top: 6px; justify-self: end; }
+  .g-z { font-size: 11px; }
+  .g-cena b { font-size: 13px; }
+  .g-cena small { font-size: 9.5px; white-space: nowrap; }
+  .g-vk { gap: 4px; }
+  .g-vk input { width: 38px; height: 28px; font-size: 12px; }
+  .g-enota { min-width: 0; font-size: 10.5px; }
+  .g-vk > button { width: auto; padding: 0 10px; font-size: 11px; }
+  .g-vk-ni .rok-gumb { width: auto; padding: 0 10px; font-size: 11px; }
+  .g-pas { padding: 6px 8px; gap: 6px; font-size: 11.5px; }
+  .g-pas-gumb { padding: 6px 10px; font-size: 11.5px; }
+  /* zavihek prodajnega programa ožji */
+  .hp-zavihek { padding: 10px 5px; font-size: 11px; }
+  .hp-panel { width: min(290px, 86vw); }
+  /* pop-up B2B manjši */
+  .popb2b h2 { font-size: 20px; }
+  .popb2b-opis { font-size: 13.5px; margin-bottom: 10px; }
+  .popb2b-desno { padding: 16px 16px 14px; }
+  .popb2b-levo b { font-size: 19px; }
+  .popb2b-levo li { white-space: normal; font-size: 11.5px; }
+  .popb2b input[type="email"], .popb2b input[type="text"], .popb2b input[type="tel"] { padding: 9px 11px; font-size: 14px; }
+  .popb2b-gumb { padding: 11px 14px; font-size: 13.5px; }
+  .popb2b-kljuk, .popb2b-mali { font-size: 11.5px; }
+}
+@media (max-width: 380px) {
+  .g-vrh { grid-template-columns: 72px minmax(0, 1fr); }
+  .g-t tr { grid-template-columns: 30px minmax(0, 1fr) auto; }
+  .g-sl img { width: 28px; height: 28px; }
+  .g-enota small { display: none; }
+}
