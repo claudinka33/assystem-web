@@ -59,7 +59,7 @@ export default async function NadzornaPlosca({ searchParams }) {
     prestej("povprasevanja", ["status", "novo"]),
     zadnji("narocila", "id, stevilka, tip, kontakt_ime, kontakt_email, kontakt_telefon, skupaj, status, status_placila, nacin_placila, nacin_dostave, naslov_dostava, naslov_racun, vasco_predracun, vasco_napaka, ustvarjeno, b2b_kupci(podjetje, vasco_naziv), narocilo_postavke(id)", "id", 8),
     zadnji("povprasevanja", "id, ime, podjetje, email, telefon, status, ustvarjeno, vir", "ustvarjeno", 8),
-    zadnji("b2b_kupci", "id, podjetje, vasco_naziv, ime, email, telefon, davcna, status, vasco_sporocilo, ustvarjeno", "ustvarjeno", 6),
+    zadnji("b2b_kupci", "*", "ustvarjeno", 6),
   ]);
 
   // statistika virov povpraševanj (zadnjih 30 dni)
