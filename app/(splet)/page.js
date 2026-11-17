@@ -335,25 +335,6 @@ async function Domov() {
       {/* ---------- Instagram ---------- */}
       <InstagramObjave />
 
-      {/* ---------- Private label ---------- */}
-      <div className="cta">
-        <div className="w">
-          <div>
-            <h2>{v(b, "domov.cta.naslov", "naslov", "Pritrdila pod vašo blagovno znamko")}</h2>
-            <p>
-              {v(
-                b,
-                "domov.cta.besedilo",
-                "besedilo",
-                "Izdelke zapakiramo v vašo embalažo in pod vašo blagovno znamko."
-              )}
-            </p>
-          </div>
-          <Link className="b b-w" href="/private-label">
-            Kako poteka →
-          </Link>
-        </div>
-      </div>
     </>
   );
 }
