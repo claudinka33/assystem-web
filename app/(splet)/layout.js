@@ -12,12 +12,13 @@ import NIZI_ODJEMALCA from "@/lib/i18n/nizi-odjemalca.json";
 import { supabaseAdmin } from "@/lib/supabase-server";
 import { KLJUC_POPUP, razcleniPopup, BESEDILA_POPUP } from "@/lib/popup";
 import { kljuc } from "@/lib/i18n/skupno";
+import { fetchPodatki } from "@/lib/predpomnilnik";
 
 // Nastavitve pop-upa (Admin → Prodaja → Pop-up), v /en in /de prevedene.
 async function nastavitvePopupa(j) {
   let n;
   try {
-    const { data } = await supabaseAdmin().from("nastavitve").select("vrednost").eq("kljuc", KLJUC_POPUP).maybeSingle();
+    const { data } = await supabaseAdmin({ fetch: fetchPodatki }).from("nastavitve").select("vrednost").eq("kljuc", KLJUC_POPUP).maybeSingle();
     n = razcleniPopup(data?.vrednost);
   } catch {
     n = razcleniPopup(null);

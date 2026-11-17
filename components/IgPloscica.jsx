@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { prevedeno } from "@/lib/i18n/odjemalec";
 
 /* Ena ploščica Instagram objave. Video se predvaja sam (brez zvoka, v zanki),
@@ -7,6 +7,18 @@ import { prevedeno } from "@/lib/i18n/odjemalec";
    ko je viden. Pri »manj gibanja« v sistemu se predvaja samo ob prehodu z miško. */
 function IgPloscica({ o }) {
   const ref = useRef(null);
+  const ovoj = useRef(null);
+  // video (in njegov poster) se naloži šele, ko je ploščica blizu zaslona
+  const [blizu, setBlizu] = useState(false);
+
+  useEffect(() => {
+    const a = ovoj.current;
+    if (!a || !o.video) return;
+    if (!("IntersectionObserver" in window)) { setBlizu(true); return; }
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setBlizu(true); io.disconnect(); } }, { rootMargin: "200px" });
+    io.observe(a);
+    return () => io.disconnect();
+  }, [o.video]);
 
   useEffect(() => {
     const v = ref.current;
@@ -22,12 +34,13 @@ function IgPloscica({ o }) {
     );
     io.observe(v);
     return () => io.disconnect();
-  }, []);
+  }, [blizu]);
 
   const igraj = () => ref.current?.play().catch(() => {});
 
   return (
     <a
+      ref={ovoj}
       className="ig-obj"
       href={o.povezava}
       target="_blank"
@@ -35,7 +48,7 @@ function IgPloscica({ o }) {
       aria-label={o.opis ? o.opis.slice(0, 90) : "Objava na Instagramu"}
       onMouseEnter={o.video ? igraj : undefined}
     >
-      {o.video ? (
+      {o.video && blizu ? (
         <video ref={ref} src={o.video} poster={o.slika} muted loop playsInline preload="none" aria-hidden="true" />
       ) : (
         // eslint-disable-next-line @next/next/no-img-element
