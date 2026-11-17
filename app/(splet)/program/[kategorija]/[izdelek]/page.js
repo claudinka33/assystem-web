@@ -65,7 +65,9 @@ async function StranIzdelka({ params }) {
 
   const artikli = (i.artikli ?? [])
     .filter((a) => a.objavljeno)
-    .sort((a, b) => (a.premer ?? 0) - (b.premer ?? 0) || (a.dolzina ?? 0) - (b.dolzina ?? 0));
+    .sort((a, b) => (a.premer ?? 0) - (b.premer ?? 0) || (a.dolzina ?? 0) - (b.dolzina ?? 0))
+    // v brskalnik pošljemo samo polja, ki jih tabela rabi (manjša stran pri izdelkih s stotinami artiklov)
+    .map(({ ustvarjeno, vasco_sync_at, teza_vasco, teza_g, izdelek_id, objavljeno, v_trgovini, min_narocilo, cena_mpc, ddv, slika_url, ...a }) => a);
   const dokumenti = i.dokumenti ?? [];
   // Pas VIDEO · LETAK · CERTIFIKAT: Silvermate ima svoje gradivo, drugi izdelki iz dokumentov
   const dokLetak = dokumenti.find((d) => d.tip === "letak" || d.tip === "katalog");
