@@ -166,7 +166,6 @@ function TabelaGosta({ artikli: vhodni, stolpci, izdelek = null }) {
       .filter(([, vr]) => vr.length >= 2 && vr.length <= 10);
   }, [artikli, stolpci]);
 
-  const naZalogi = artikli.filter((a) => Number(a.zaloga) > 0).length;
   const vidni = useMemo(() => {
     const iq = norm(q);
     return artikli.filter((a) => {
@@ -199,7 +198,7 @@ function TabelaGosta({ artikli: vhodni, stolpci, izdelek = null }) {
             </span>
           ))}
           <button type="button" className={`g-zal${samoZaloga ? " on" : ""}`} onClick={() => setSamoZaloga(!samoZaloga)}>
-            <span className="g-pika da" /> Samo na zalogi <i>{naZalogi}</i>
+            <span className="g-pika da" /> Zaloga
           </button>
         </div>
         <input type="search" className="g-isk" value={q} onChange={(e) => { setQ(e.target.value); setPrikazano(KORAK); }} placeholder="Išči šifro, EAN ali dimenzijo …" />

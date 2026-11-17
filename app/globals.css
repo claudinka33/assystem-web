@@ -3759,3 +3759,4 @@ a.b2b-profil:hover { background: #a50d26; }
   .g-t .g-zaloga { grid-column: 2; }
   .g-t .g-k { grid-column: 1 / -1; justify-self: end; }
 }
+.g-gal { position: relative; aspect-ratio: 3 / 2; background: #fff; border: 1px solid #eef0f2; align-self: stretch; min-height: 180px; }

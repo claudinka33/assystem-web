@@ -5,6 +5,7 @@ import { pridobiIzdelek, pridobiPonudbo, pridobiSorodne, pridobiDrevoPrograma } 
 import HitriProgram from "@/components/HitriProgram";
 import TabelaArtiklov from "@/components/TabelaArtiklov";
 import TabelaGosta from "@/components/TabelaGosta";
+import Image from "next/image";
 import { SLIKE_VREDNOSTI } from "@/lib/slike-vrednosti";
 import GalerijaIzdelka from "@/components/GalerijaIzdelka";
 import IgraIzdelka from "@/components/IgraIzdelka";
@@ -133,7 +134,7 @@ async function StranIzdelka({ params }) {
         {gosto && (
           <div className="g-vrh">
             <div className="g-gal">
-              <GalerijaIzdelka slike={slike} naziv={i.naziv} />
+              {slike[0] ? <Image src={slike[0]} alt={i.naziv} fill priority sizes="(max-width: 760px) 100vw, 300px" style={{ objectFit: "contain", padding: 10 }} /> : null}
             </div>
             <div className="g-vrh-tx">
               <p className="g-vrh-kat">{i.kategorije?.naziv}</p>
