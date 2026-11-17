@@ -3982,3 +3982,20 @@ a.b2b-profil:hover { background: #a50d26; }
   .g-vk > button { padding: 0 8px; }
   .izd-tab, .izd-glavno, .g-tab { max-width: 100%; overflow-x: hidden; }
 }
+/* telefon v5: kartice so svoj blok (tabela skrita) */
+.g-kartice { display: none; }
+@media (max-width: 760px) {
+  .g-ovoj { display: none !important; }
+  .g-kartice { display: grid; gap: 5px; }
+  .g-kar { background: #fff; border: 1px solid var(--color-line); padding: 7px 9px; min-width: 0; }
+  .g-kar.g-ni { background: #fcfcfd; }
+  .g-kar.g-oznacen { background: #fff7d6; }
+  .g-kar-1 { display: flex; align-items: flex-start; gap: 8px; min-width: 0; }
+  .g-kar-1 img { width: 28px; height: 28px; object-fit: contain; flex: none; }
+  .g-kar-1 > b { flex: 1 1 auto; min-width: 0; font-size: 14px; font-weight: 800; line-height: 1.25; padding-top: 3px; }
+  .g-kar-1 .g-cena { flex: none; }
+  .g-kar-2 { display: flex; flex-wrap: wrap; gap: 0 10px; margin-top: 2px; font-size: 10.5px; color: var(--color-muted); line-height: 1.45; }
+  .g-kar-2 em { font-style: normal; color: var(--color-muted-2); }
+  .g-kar-3 { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+  .g-kar-3 .g-vk { width: auto !important; flex-wrap: nowrap; }
+}

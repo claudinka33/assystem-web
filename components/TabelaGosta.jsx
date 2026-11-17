@@ -271,6 +271,39 @@ function TabelaGosta({ artikli: vhodni, stolpci, izdelek = null, naziviRazlicni 
           </tbody>
         </table>
       </div>
+      {/* Telefon: kompaktne kartice namesto tabele */}
+      <div className="g-kartice">
+        {prikaz.map((a) => {
+          const zal = Number(a.zaloga) > 0;
+          const sl = slikaPakiranja(a, izdelek?.znamka, izdelek?.pot, embalaza, izdelek?.naziv);
+          const podatki = [
+            ["Šifra", a.sifra],
+            ["EAN", a.ean],
+            ...(naziviRazlicni ? [["", a.naziv]] : []),
+            ...stolpciLastnosti.map((k) => [k, (a.lastnosti ?? {})[k]]),
+            ...(imaPakiranje ? [["Pakiranje", vrednost(a, "Pakiranje")]] : []),
+          ].filter(([, v]) => v);
+          return (
+            <div key={a.id} className={`g-kar${zal ? "" : " g-ni"}${oznacena === a.sifra ? " g-oznacen" : ""}`}>
+              <div className="g-kar-1">
+                {sl ? <img src={sl} alt="" loading="lazy" /> : null}
+                <b translate="no">{a.dimenzija ?? a.sifra}</b>
+                <Cena cena={cenaZa(a)} b2b={b2b} />
+              </div>
+              <div className="g-kar-2">
+                {podatki.map(([k, v]) => (
+                  <span key={k + v}>{k ? <em>{k}:</em> : null} <span translate="no">{v}</span></span>
+                ))}
+              </div>
+              <div className="g-kar-3">
+                {zal ? <span className="g-z da"><span className="g-pika da" />Na zalogi</span> : <span className="g-z ne"><span className="g-pika ne" />Ni na zalogi</span>}
+                <Kosarica a={a} cena={cenaZa(a)} izdelek={izdelek} b2b={b2b} />
+              </div>
+            </div>
+          );
+        })}
+        {prikaz.length === 0 && <p className="g-siv">Ni artiklov za izbrane filtre.</p>}
+      </div>
       {vidni.length > prikazano && (
         <button type="button" className="g-vec" onClick={() => setPrikazano(prikazano + KORAK)}>Prikaži več ({vidni.length - prikazano})</button>
       )}
