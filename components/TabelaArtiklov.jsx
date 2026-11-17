@@ -158,11 +158,11 @@ function privzetaEmbalaza(asco, znamka) {
     ];
   return [
     asco
-      ? { lastnost: "Pakiranje", vrednost: "škatla", naziv: "Škatla", opis: "Originalno pakiranje za podjetja in serviserje. Število kosov v škatli je v stolpcu »Kos v pak.«.", slika: "/slike/embalaza/ASco_skatla.png" }
-      : { lastnost: "Pakiranje", vrednost: "škatla", naziv: "Škatla", opis: "ASfix škatla za podjetja in serviserje. Število kosov v škatli je v stolpcu »Kos v pak.«.", slika: "/slike/embalaza/AFR41.png" },
+      ? { lastnost: "Pakiranje", vrednost: "škatla", naziv: "Škatla", opis: "Originalno pakiranje za podjetja in serviserje. Število kosov v škatli je v stolpcu »Pakiranje«.", slika: "/slike/embalaza/ASco_skatla.png" }
+      : { lastnost: "Pakiranje", vrednost: "škatla", naziv: "Škatla", opis: "ASfix škatla za podjetja in serviserje. Število kosov v škatli je v stolpcu »Pakiranje«.", slika: "/slike/embalaza/AFR41.png" },
     asco
       ? { lastnost: "Pakiranje", vrednost: "vrečka", naziv: "Vrečka", opis: "Maloprodajna vrečka z eurolukno za obešanje na prodajno stojalo.", slika: "/slike/embalaza/ASco_vrecka_modra.png" }
-      : { lastnost: "Pakiranje", vrednost: "vrečka", naziv: "Vrečka", opis: "Rdeča ASfix vrečka z eurolukno za obešanje na prodajno stojalo. Število kosov v vrečki je v stolpcu »Kos v pak.«.", slika: "/polica/vrecka-rdeca.png" },
+      : { lastnost: "Pakiranje", vrednost: "vrečka", naziv: "Vrečka", opis: "Rdeča ASfix vrečka z eurolukno za obešanje na prodajno stojalo. Število kosov v vrečki je v stolpcu »Pakiranje«.", slika: "/polica/vrecka-rdeca.png" },
     { lastnost: "Pakiranje", vrednost: "blister", naziv: "Blister", opis: "Maloprodajno pakiranje v blistru za obešanje na stojalo." },
   ];
 }
