@@ -2,7 +2,7 @@ import { dolociZnamko } from "@/lib/znamke";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { supabaseAdmin } from "@/lib/supabase-server";
-import { izbrisiArtikel, izbrisiDokument, izbrisiIzdelek, shraniArtikel, shraniDokument } from "@/lib/akcije/skupno";
+import { izbrisiArtikel, izbrisiDokument, izbrisiIzdelek, premakniArtikle, shraniArtikel, shraniDokument } from "@/lib/akcije/skupno";
 import { Kartica, ObrazecIzdelka, OpisiPolja, OsnovnoPolja, SeoPolja, ShraniVrstica } from "../IzdelekObrazec";
 import NalozSliko from "@/app/admin/NalozSliko";
 import UvozArtiklov from "@/app/admin/UvozArtiklov";
@@ -35,6 +35,7 @@ export default async function UrediIzdelek({ params }) {
     sb.from("dokumenti").select("*").eq("izdelek_id", id).order("tip"),
     sb.from("izdelki_kategorije").select("kategorija_id").eq("izdelek_id", id),
   ]);
+  const { data: vsiIzdelki } = await sb.from("izdelki").select("id, naziv").order("naziv");
 
   if (!izdelek) notFound();
 
@@ -167,6 +168,28 @@ export default async function UrediIzdelek({ params }) {
             </table>
           ) : (
             <p className="prazno-besedilo">Izdelek še nima artiklov. Dodaj jih ročno ali uvozi iz Excela.</p>
+          )}
+
+          {art.length > 0 && (
+            <div className="izd-razpri">
+              <details>
+                <summary>⇄ Premakni artikle v drug izdelek</summary>
+                <form action={premakniArtikle} style={{ marginTop: 14 }}>
+                  <input type="hidden" name="izdelek_id" value={izdelek.id} />
+                  <div className="adm-vrsta-3">
+                    <div className="adm-polje"><label htmlFor="predpona">Šifre, ki se začnejo z *</label><input id="predpona" name="predpona" type="text" required placeholder="AS39" /></div>
+                    <div className="adm-polje">
+                      <label htmlFor="cilj_id">V izdelek *</label>
+                      <select id="cilj_id" name="cilj_id" required style={{ width: "100%" }} defaultValue="">
+                        <option value="" disabled>Izberi izdelek</option>
+                        {(vsiIzdelki ?? []).filter((x) => x.id !== izdelek.id).map((x) => <option key={x.id} value={x.id}>{x.naziv}</option>)}
+                      </select>
+                    </div>
+                  </div>
+                  <button className="gumb" type="submit">Premakni</button>
+                </form>
+              </details>
+            </div>
           )}
 
           <div className="izd-razpri">
