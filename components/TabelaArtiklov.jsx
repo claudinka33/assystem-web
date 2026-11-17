@@ -11,7 +11,7 @@ import { prevedeno } from "@/lib/i18n/odjemalec";
 
 // Tabela artiklov na strani izdelka: iskanje, filtri po lastnostih
 // (material, trdnost, pakiranje ...) in postopen prikaz pri dolgih seznamih.
-const KORAK = 80;
+const KORAK = 20; // prvih 20 vrstic, ostale z gumbom »Pokaži vse«
 
 // Ko artikla ni na zalogi, roka dobave ne poznamo -> kupec ga z enim klikom vpraša prek obrazca.
 function Zaloga({ vrednost, sifra, izdelek, dimenzija }) {
@@ -507,8 +507,8 @@ function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicni, embalaza = [
       </div>
 
       {vidni.length > prikazano && (
-        <button type="button" className="izd-vec" onClick={() => setPrikazano(prikazano + KORAK * 3)}>
-          Prikaži več ({vidni.length - prikazano} še)
+        <button type="button" className="izd-vec" onClick={() => setPrikazano(vidni.length)}>
+          Pokaži vse ({vidni.length})
         </button>
       )}
     </>

@@ -11,7 +11,7 @@ import { prevedeno, useJezik } from "@/lib/i18n/odjemalec";
 
 // Gosta (data-dense) tabela artiklov: oznake za filtre, kratke vrstice,
 // zaloga samo da/ne, enak stolpec za košarico; na telefonu kompaktne kartice.
-const KORAK = 100;
+const KORAK = 20; // prvih 20 vrstic, ostale z gumbom »Pokaži vse«
 const norm = (x) => String(x ?? "").toLowerCase().replace(/\s+/g, "");
 const st = (x) => new Intl.NumberFormat("sl-SI", { useGrouping: "always", maximumFractionDigits: 2 }).format(x);
 
@@ -305,7 +305,7 @@ function TabelaGosta({ artikli: vhodni, stolpci, izdelek = null, naziviRazlicni 
         {prikaz.length === 0 && <p className="g-siv">Ni artiklov za izbrane filtre.</p>}
       </div>
       {vidni.length > prikazano && (
-        <button type="button" className="g-vec" onClick={() => setPrikazano(prikazano + KORAK)}>Prikaži več ({vidni.length - prikazano})</button>
+        <button type="button" className="g-vec" onClick={() => setPrikazano(vidni.length)}>Pokaži vse ({vidni.length})</button>
       )}
       <PasKosarice b2b={b2b} />
     </div>
