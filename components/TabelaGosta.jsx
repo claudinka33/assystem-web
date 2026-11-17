@@ -131,14 +131,14 @@ function Cena({ cena, b2b }) {
       <span className="g-cena">
         <b>{eur(cena.neto)}</b>
         {cena.popust > 0 && <s>{eur(cena.redna)}</s>}
-        {cena.na100Neto != null && <small>{eur(cena.na100Neto)} / 100 kos</small>}
+        {(cena.na100Neto != null || cena.kos === 100) && <small>{eur(cena.na100Neto ?? cena.neto)} / 100 kos</small>}
         <small>brez DDV{cena.popust > 0 ? ` · −${String(cena.popust).replace(".", ",")} %` : ""}</small>
       </span>
     );
   return (
     <span className="g-cena">
       <b>{eur(cena.bruto)}</b>
-      <small>{cena.na100Bruto !== null ? `${eur(cena.na100Bruto)} / 100 kos · z DDV` : "z DDV"}</small>
+      <small>{cena.na100Bruto != null ? `${eur(cena.na100Bruto)} / 100 kos · z DDV` : cena.kos === 100 ? `${eur(cena.bruto)} / 100 kos · z DDV` : "z DDV"}</small>
     </span>
   );
 }
