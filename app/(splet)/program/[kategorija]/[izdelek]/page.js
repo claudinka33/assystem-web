@@ -5,7 +5,6 @@ import { pridobiIzdelek, pridobiPonudbo, pridobiSorodne, pridobiDrevoPrograma } 
 import HitriProgram from "@/components/HitriProgram";
 import TabelaArtiklov from "@/components/TabelaArtiklov";
 import TabelaGosta from "@/components/TabelaGosta";
-import Image from "next/image";
 import { SLIKE_VREDNOSTI } from "@/lib/slike-vrednosti";
 import GalerijaIzdelka from "@/components/GalerijaIzdelka";
 import IgraIzdelka from "@/components/IgraIzdelka";
@@ -113,7 +112,6 @@ async function StranIzdelka({ params }) {
   const naslednji = mesto && mesto.idx < mesto.v.izdelki.length - 1 ? mesto.v.izdelki[mesto.idx + 1] : null;
   // Gosti (data-dense) prikaz — zaenkrat za Silvermate, nato za vse izdelke
   const gosto = i.znamka === "Silvermate";
-  const naZalogi = artikli.filter((a) => Number(a.zaloga) > 0).length;
   const trenutnaPot = mesto ? mesto.v.izdelki[mesto.idx].href : `/program/${kategorija}/${izdelek}`;
 
   return (
@@ -134,8 +132,8 @@ async function StranIzdelka({ params }) {
 
         {gosto && (
           <div className="g-vrh">
-            <div className="g-vrh-sl">
-              {slike[0] ? <Image src={slike[0]} alt={i.naziv} fill sizes="120px" style={{ objectFit: "contain" }} /> : null}
+            <div className="g-gal">
+              <GalerijaIzdelka slike={slike} naziv={i.naziv} />
             </div>
             <div className="g-vrh-tx">
               <p className="g-vrh-kat">{i.kategorije?.naziv}</p>
@@ -144,7 +142,6 @@ async function StranIzdelka({ params }) {
               <div className="g-vrh-oz">
                 {i.eta_stevilka && <span className="g-oz r"><em>ETA</em>{i.eta_stevilka}</span>}
                 {skupne.map(([k, v]) => <span key={k} className="g-oz"><em>{k}</em>{v}</span>)}
-                {artikli.length > 0 && <span className="g-oz g-oz-st"><b translate="no">{artikli.length}</b>&nbsp;artiklov · <span className="g-pika da" /><b translate="no">{naZalogi}</b>&nbsp;na zalogi</span>}
               </div>
               {i.prednosti?.length > 0 && (
                 <ul className="g-vrh-pred">{i.prednosti.map((p) => <li key={p}>{p}</li>)}</ul>

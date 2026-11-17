@@ -3731,3 +3731,31 @@ a.b2b-profil:hover { background: #a50d26; }
 @media (max-width: 1240px) { .b2b-gumb span { display: none; } .b2b-gumb { padding: 9px 10px; } }
 @media (max-width: 1100px) { .b2b-gumb span { display: inline; } }
 @media (max-width: 480px) { .b2b-gumb span { display: none; } }
+
+/* gosti prikaz v2: galerija, slika embalaže, enota količine */
+.g-vrh { grid-template-columns: 300px minmax(0, 1fr) auto; }
+.g-gal .izd-slika { aspect-ratio: 3 / 2; }
+.g-gal .izd-mini { grid-template-columns: repeat(7, 1fr); gap: 4px; margin-top: 5px; }
+.g-gal .izd-oznaka { display: none; }
+.g-th-sl { width: 44px; }
+.g-t td.g-sl { width: 44px; padding: 3px 4px 3px 8px; }
+.g-sl img { width: 34px; height: 34px; object-fit: contain; display: block; background: #fff; }
+.g-vk { width: auto; gap: 5px; }
+.g-enota { display: inline-grid; line-height: 1.1; font-size: 11.5px; font-weight: 700; color: #3a3e42; min-width: 50px; text-align: left; }
+.g-enota small { font-size: 10px; font-weight: 500; color: var(--color-muted-2); }
+.g-vk > button { width: 92px; }
+.g-vk-ni .rok-gumb { width: 197px; }
+@media (max-width: 1100px) {
+  .g-vrh { grid-template-columns: 240px minmax(0, 1fr); }
+}
+@media (max-width: 760px) {
+  .g-vrh { grid-template-columns: 1fr; }
+  .g-gal .izd-mini { grid-template-columns: repeat(7, 1fr); }
+  .g-t tr { grid-template-columns: 40px minmax(0, 1fr) auto; }
+  .g-t td.g-sl { grid-column: 1; grid-row: 1 / span 3; padding: 0; width: 40px; }
+  .g-t .g-dim { grid-column: 2; }
+  .g-t .g-c { grid-column: 3; }
+  .g-t .g-sif, .g-t .g-ean, .g-t .g-las, .g-t .g-pak { grid-column: 2 / -1; }
+  .g-t .g-zaloga { grid-column: 2; }
+  .g-t .g-k { grid-column: 1 / -1; justify-self: end; }
+}

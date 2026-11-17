@@ -15,6 +15,36 @@ const KORAK = 100;
 const norm = (x) => String(x ?? "").toLowerCase().replace(/\s+/g, "");
 const st = (x) => new Intl.NumberFormat("sl-SI", { useGrouping: "always", maximumFractionDigits: 2 }).format(x);
 
+// Slika embalaže pred šifro: takoj se vidi, ali je škatla ali vrečka
+function slikaPakiranja(a, znamka, pot) {
+  const v = String((a.lastnosti ?? {}).Pakiranje ?? "").toLowerCase();
+  if (!v) return null;
+  const D = "/slike/embalaza/ikone/";
+  const asco = znamka === "ASco" || String(pot ?? "").startsWith("/program/vijacno-blago");
+  if (v.startsWith("škatla") || v === "osnovno") {
+    if (znamka === "Silvermate") return "/slike/silvermate/skatla-silvermate.png";
+    if (znamka === "MUNGO") return null;
+    if (asco) return D + "asco-skatla.jpg";
+    const afr = v.match(/afr(51|71|81)/);
+    return D + (afr ? `asfix-afr${afr[1]}.jpg` : "asfix-afr41.jpg");
+  }
+  if (v.startsWith("vrečka")) {
+    if (znamka === "Silvermate" || znamka === "MUNGO") return null;
+    if (!asco) return D + "asfix-vrecka-rdeca.jpg";
+    return /A2|A4|INOX/.test(String((a.lastnosti ?? {}).Material ?? "").toUpperCase()) ? D + "asco-vrecka-zelena.jpg" : D + "asco-vrecka-modra.jpg";
+  }
+  return null;
+}
+// Enota za količino v košarici: 4 škatle, 2 vrečki …
+function enota(a, n) {
+  const v = String((a.lastnosti ?? {}).Pakiranje ?? "").toLowerCase();
+  const m = n % 100;
+  if (v.startsWith("škatla") || v === "osnovno") return m === 1 ? "škatla" : m === 2 ? "škatli" : m === 3 || m === 4 ? "škatle" : "škatel";
+  if (v.startsWith("vrečka")) return m === 1 ? "vrečka" : m === 2 ? "vrečki" : m === 3 || m === 4 ? "vrečke" : "vrečk";
+  if (v.startsWith("blister")) return m === 1 ? "blister" : m === 2 ? "blistra" : m === 3 || m === 4 ? "blistri" : "blistrov";
+  return "pak.";
+}
+
 function kosov(a) {
   if (a.pakiranje) return Number(a.pakiranje) || null;
   return null;
@@ -36,7 +66,7 @@ function Kosarica({ a, cena, izdelek, b2b }) {
       </span>
     );
   return (
-    <span className="g-vk">
+    <span className="g-vk" title={cena.kos > 1 ? `${kol} × ${cena.kos} kos = ${st(kol * cena.kos)} kos` : undefined}>
       <input
         type="number"
         min="1"
@@ -44,6 +74,7 @@ function Kosarica({ a, cena, izdelek, b2b }) {
         onChange={(e) => setKol(Math.max(1, Number(e.target.value) || 1))}
         aria-label={cena.kos > 1 ? `Število pakiranj po ${cena.kos} kos` : "Količina"}
       />
+      <span className="g-enota">{enota(a, kol)}{cena.kos > 1 && <small>{st(kol * cena.kos)} kos</small>}</span>
       <button
         type="button"
         className={ok ? "on" : ""}
@@ -87,13 +118,14 @@ function Cena({ cena, b2b }) {
       <span className="g-cena">
         <b>{eur(cena.neto)}</b>
         {cena.popust > 0 && <s>{eur(cena.redna)}</s>}
+        {cena.na100Neto != null && <small>{eur(cena.na100Neto)} / 100 kos</small>}
         <small>brez DDV{cena.popust > 0 ? ` · −${String(cena.popust).replace(".", ",")} %` : ""}</small>
       </span>
     );
   return (
     <span className="g-cena">
       <b>{eur(cena.bruto)}</b>
-      {cena.na100Bruto !== null && cena.kos !== 100 ? <small>{eur(cena.na100Bruto)} / 100 kos</small> : <small>z DDV</small>}
+      <small>{cena.na100Bruto !== null ? `${eur(cena.na100Bruto)} / 100 kos · z DDV` : "z DDV"}</small>
     </span>
   );
 }
@@ -183,6 +215,7 @@ function TabelaGosta({ artikli: vhodni, stolpci, izdelek = null }) {
         <table className="g-t">
           <thead>
             <tr>
+              <th className="g-th-sl" aria-label="Embalaža" />
               <th>Šifra</th>
               <th>EAN</th>
               <th>Dimenzija</th>
@@ -200,6 +233,7 @@ function TabelaGosta({ artikli: vhodni, stolpci, izdelek = null }) {
               const n = kosov(a);
               return (
                 <tr key={a.id} id={`art-${a.sifra}`} className={`${zal ? "" : "g-ni"}${oznacena === a.sifra ? " g-oznacen" : ""}`}>
+                  <td className="g-sl">{slikaPakiranja(a, izdelek?.znamka, izdelek?.pot) ? <img src={slikaPakiranja(a, izdelek?.znamka, izdelek?.pot)} alt={(a.lastnosti ?? {}).Pakiranje ?? ""} loading="lazy" /> : null}</td>
                   <td className="g-sif" data-l="Šifra" translate="no">{a.sifra}</td>
                   <td className="g-ean" data-l="EAN" translate="no">{a.ean ?? "—"}</td>
                   <td className="g-dim" translate="no">{a.dimenzija ?? "—"}</td>
