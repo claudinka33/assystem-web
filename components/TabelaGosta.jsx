@@ -88,7 +88,9 @@ function vrstaPak(a, naziv, znamka, pot) {
 }
 
 function Kosarica({ a, cena, izdelek, b2b }) {
-  const [kol, setKol] = useState(1);
+  // Vnos je besedilo, da lahko številko izbrišeš in vpišeš novo; količina je vedno vsaj 1
+  const [vnos, setVnos] = useState("1");
+  const kol = Math.max(1, parseInt(vnos, 10) || 1);
   const [ok, setOk] = useState(false);
   if (!(Number(a.zaloga) > 0))
     return (
@@ -104,13 +106,20 @@ function Kosarica({ a, cena, izdelek, b2b }) {
     );
   return (
     <span className="g-vk" title={cena.kos > 1 ? `${kol} × ${cena.kos} kos = ${st(kol * cena.kos)} kos` : undefined}>
-      <input
-        type="number"
-        min="1"
-        value={kol}
-        onChange={(e) => setKol(Math.max(1, Number(e.target.value) || 1))}
-        aria-label={cena.kos > 1 ? `Število pakiranj po ${cena.kos} kos` : "Količina"}
-      />
+      <span className="g-st">
+        <button type="button" aria-label="Manj" onClick={() => setVnos(String(Math.max(1, kol - 1)))} disabled={kol <= 1}>−</button>
+        <input
+          type="text"
+          inputMode="numeric"
+          pattern="[0-9]*"
+          value={vnos}
+          onFocus={(e) => e.target.select()}
+          onChange={(e) => setVnos(e.target.value.replace(/\D/g, "").slice(0, 4))}
+          onBlur={() => setVnos(String(kol))}
+          aria-label={cena.kos > 1 ? `Število pakiranj po ${cena.kos} kos` : "Količina"}
+        />
+        <button type="button" aria-label="Več" onClick={() => setVnos(String(kol + 1))}>+</button>
+      </span>
       <span className="g-enota">{enota(a, kol, cena.kos, izdelek?.naziv, izdelek?.znamka, izdelek?.pot)}{cena.kos > 1 && <small>{st(kol * cena.kos)} kos</small>}</span>
       <button
         type="button"

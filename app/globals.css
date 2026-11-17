@@ -4142,3 +4142,19 @@ a.b2b-profil:hover { background: #a50d26; }
 /* Pakiranje: vrsta (škatla / vrečka) in pod njo število kosov */
 .g-pakv { white-space: nowrap; }
 .g-pakv small { display: block; font-size: 11px; color: var(--color-muted); font-variant-numeric: tabular-nums; margin-top: 1px; }
+
+/* Količina: − / + in vnos brez povečave na telefonu (iOS poveča polje pod 16px) */
+.g-vk .g-st { display: inline-flex; align-items: stretch; border: 1px solid #c6cace; height: 28px; background: #fff; flex: none; }
+.g-vk .g-st button { width: 22px !important; height: auto !important; padding: 0 !important; background: #f2f3f5 !important; color: #2d3135 !important; font-size: 15px !important; font-weight: 600; line-height: 1; border: 0; }
+.g-vk .g-st button:disabled { color: #b5b9be !important; cursor: default; }
+.g-vk .g-st input { width: 34px !important; height: auto !important; border: 0 !important; border-left: 1px solid #e1e3e6 !important; border-right: 1px solid #e1e3e6 !important; padding: 0 !important; font-size: 13px; text-align: center; -moz-appearance: textfield; }
+@media (max-width: 1024px) {
+  .g-vk .g-st { height: 32px; }
+  .g-vk .g-st button { width: 28px !important; font-size: 17px !important; }
+  .g-vk .g-st input { width: 36px !important; font-size: 16px !important; }
+  .g-vk > button { height: 32px !important; }
+}
+/* Telefon: brez samodejne povečave pri kliku v polje (vsa polja vsaj 16px) */
+@media (max-width: 760px) {
+  input:not([type="checkbox"]):not([type="radio"]), select, textarea { font-size: 16px !important; }
+}
