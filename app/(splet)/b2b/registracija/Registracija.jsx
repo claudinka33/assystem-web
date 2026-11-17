@@ -80,7 +80,7 @@ function Registracija() {
         <label>Ponovi geslo *<input name="geslo2" type="password" required minLength={8} autoComplete="new-password" /></label>
       </div>
       <p className="blag-op" style={{ margin: "10px 0 6px" }}>
-        Uporabite službeni e-naslov podjetja: če se ujema s podatki v našem sistemu, dostop odobrimo samodejno.
+        Uporabite službeni e-naslov podjetja, da vas v našem sistemu hitreje prepoznamo.
       </p>
       <div className="reg-dno">
         <label className="blag-pog" style={{ margin: 0 }}>
