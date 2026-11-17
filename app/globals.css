@@ -3590,6 +3590,18 @@ a.b2b-profil:hover { background: #a50d26; }
 .b2bz-spodaj span:last-child { color: var(--color-muted); }
 @media (max-width: 1000px) { .b2bz { justify-self: center; transform: none; margin-top: 10px; } }
 @media (max-width: 620px) { .b2bz { display: none; } }
+/* Banner Prodajni program: rdeče ozadje s šraufki, ploščice kategorij */
+.hero.hb-prog { background: var(--color-red) url("/vzorec-rdeca.png") repeat; background-size: 600px auto; }
+.hero.hb-prog:before { display: none; }
+.hero.hb-prog .kick { background: #2b2f33; }
+.hero.hb-prog .b.b-w { color: var(--color-red); }
+.hb-plosc { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; width: 100%; max-width: 560px; justify-self: end; }
+.hb-pl { display: grid; grid-template-rows: auto auto; background: #fff; color: #1b1e21; padding: 10px 10px 12px; box-shadow: 0 14px 30px rgba(0, 0, 0, 0.22); transition: transform 0.2s, box-shadow 0.2s; }
+.hb-pl:hover { transform: translateY(-4px); box-shadow: 0 20px 36px rgba(0, 0, 0, 0.3); }
+.hb-pl-im { position: relative; aspect-ratio: 4 / 3; background: #f3f4f5; }
+.hb-pl b { margin-top: 9px; font-size: 13px; font-weight: 800; line-height: 1.25; text-transform: uppercase; border-left: 3px solid var(--color-red); padding-left: 8px; }
+@media (max-width: 1000px) { .hb-plosc { justify-self: stretch; max-width: none; } }
+@media (max-width: 620px) { .hb-plosc { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; } .hb-pl:nth-child(n+5) { display: none; } }
 
 /* Stran izdelka: manjše kartice pakiranja in drobnejša tabela artiklov */
 .izd-emb-k { grid-template-columns: repeat(auto-fill, minmax(140px, 165px)); gap: 6px; }

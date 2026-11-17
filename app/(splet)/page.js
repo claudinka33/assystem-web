@@ -96,19 +96,16 @@ async function Domov() {
             ],
           },
           {
-            tip: "slika",
-            slika: "/hero-izdelki-2026.png",
-            sirina: 1100,
-            visina: 1044,
-            alt: "Pritrdila ASfix: jekleno sidro TXH7, zidni vložki, kemično sidro EASF TOP, udarni vijaki, vrečka in škatla",
-            oznaka: "Prodajni program ASfix",
-            naslov: "Od sidra do vijaka. Takoj iz zaloge.",
+            tip: "program",
+            oznaka: "Prodajni program",
+            naslov: "Najdite pravo pritrdilo.",
             besedilo:
-              "Jeklena sidra, zidni vložki, udarni vijaki, kemična sidra in vijačno blago. Za trgovine, izvajalce in distributerje.",
+              "Sidra, zidni vložki, kemična pritrditev, vijaki in vse za montažo. Dimenzije, pakiranja in cene na enem mestu.",
             gumbi: [
-              { naziv: "Prodajni program", pot: "/program", slog: "bel" },
-              { naziv: "Kontaktirajte nas", pot: "/kontakt", slog: "obroba" },
+              { naziv: "Ves prodajni program", pot: "/program", slog: "bel" },
+              { naziv: "Katalogi", pot: "/katalogi", slog: "obroba" },
             ],
+            ploscice: kategorije.slice(0, 6).map((k) => ({ naziv: k.naziv, pot: `/program/${k.slug}`, slika: k.slika ?? null })),
           },
         ]}
       />

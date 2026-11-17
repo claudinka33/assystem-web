@@ -74,7 +74,7 @@ function HeroBannerji({ bannerji = [] }) {
         return (
           <section
             key={k}
-            className={`hero hb-sl${b.tip === "video" ? " hero-video" : ""}${k === i ? " on" : ""}`}
+            className={`hero hb-sl${b.tip === "video" ? " hero-video" : ""}${b.tip === "program" ? " hb-prog" : ""}${k === i ? " on" : ""}`}
             aria-hidden={k === i ? undefined : "true"}
             inert={k === i ? undefined : true}
           >
@@ -107,6 +107,20 @@ function HeroBannerji({ bannerji = [] }) {
                 )}
               </div>
               {b.tip === "b2b" && <B2bZaslon />}
+              {b.tip === "program" && b.ploscice?.length > 0 && (
+                <div className="hb-plosc">
+                  {b.ploscice.map((p) => (
+                    <Link key={p.pot} href={p.pot} className="hb-pl">
+                      <span className="hb-pl-im">
+                        {p.slika && (
+                          <Image src={p.slika} alt="" fill sizes="160px" style={{ objectFit: "contain", padding: 10, mixBlendMode: "multiply" }} />
+                        )}
+                      </span>
+                      <b>{p.naziv}</b>
+                    </Link>
+                  ))}
+                </div>
+              )}
               {b.tip === "slika" && b.slika && (
                 <div className="hero-im">
                   <Image
