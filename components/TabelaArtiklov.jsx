@@ -36,9 +36,11 @@ function VKosarico({ a, cena, izdelek, b2b }) {
   if (!cena) return <span className="izd-siv">na povpraševanje</span>;
   if (!(Number(a.zaloga) > 0))
     return (
-      <span className="vk-ni">
-        <button type="button" disabled>Ni na zalogi</button>
-        <small>Rok dobave: vprašajte nas</small>
+      <span className="vk-w">
+        <span className="vk">
+          <button type="button" className="vk-gumb vk-off" disabled>Ni na zalogi</button>
+        </span>
+        <span className="vk-sk">Rok dobave: vprašajte nas</span>
       </span>
     );
   const vPak = cena.kos > 1; // cena velja za pakiranje (npr. 100 kos), količina = število pakiranj
@@ -49,7 +51,7 @@ function VKosarico({ a, cena, izdelek, b2b }) {
       <span className="vk-x">{vPak ? `× ${cena.kos} kos` : a.enota && a.enota !== "kos" ? a.enota : "kos"}</span>
       <button
         type="button"
-        className={ok ? "on" : ""}
+        className={`vk-gumb${ok ? " on" : ""}`}
         onClick={() => {
           dodaj(
             {

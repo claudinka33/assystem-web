@@ -3603,3 +3603,15 @@ a.b2b-profil:hover { background: #a50d26; }
 .izd-tab td { font-size: 12.5px; padding-top: 4px; padding-bottom: 4px; }
 .izd-tab td.izd-dim { font-size: 13px; }
 .izd-tab td.izd-naziv { font-size: 12px; line-height: 1.3; }
+
+/* Tabela artiklov: vse v enem pogledu, enaki gumbi za »V košarico« in »Ni na zalogi« */
+.izd-tab-siroka { overflow-x: auto; }
+.izd-tab-siroka table { min-width: 0; }
+.izd-tab td:last-child { width: 1%; }
+.vk { gap: 3px; }
+.vk input { width: 42px; padding: 4px 4px; font-size: 12.5px; }
+.izd-tab .vk-x { min-width: 0; font-size: 11px; margin-right: 2px; }
+.vk .vk-gumb { width: 92px; height: 28px; padding: 0 6px; font-size: 11.5px; font-weight: 700; border: 0; white-space: nowrap; text-align: center; }
+.vk .vk-gumb.vk-off { background: #e7e9ec; color: #7b8086; cursor: not-allowed; margin-left: 0; }
+.vk-w .vk-sk { font-size: 10.5px; }
+.vk-w:has(.vk-off) { justify-items: end; }
