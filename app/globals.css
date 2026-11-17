@@ -4138,3 +4138,7 @@ a.b2b-profil:hover { background: #a50d26; }
   .k h3 { font-size: 12.5px !important; }
   .k p { font-size: 11.5px !important; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 }
+
+/* Pakiranje: vrsta (škatla / vrečka) in pod njo število kosov */
+.g-pakv { white-space: nowrap; }
+.g-pakv small { display: block; font-size: 11px; color: var(--color-muted); font-variant-numeric: tabular-nums; margin-top: 1px; }

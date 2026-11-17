@@ -75,9 +75,16 @@ function skupina(k, v) {
 }
 const vrednost = (a, k) => skupina(k, (a.lastnosti ?? {})[k]);
 
+// Koliko kosov je v enem pakiranju: najprej iz Vasca (pakiranje), sicer iz naziva / lastnosti (»100 kos«, »a 50«, »/100«)
 function kosov(a) {
-  if (a.pakiranje) return Number(a.pakiranje) || null;
-  return null;
+  if (Number(a.pakiranje) > 0) return Number(a.pakiranje);
+  const besedilo = [a.naziv, ...Object.values(a.lastnosti ?? {})].join(" ");
+  const m = besedilo.match(/(\d{1,5})\s*(?:kos|kom|pcs|stk)\b/i) || besedilo.match(/(?:\ba|\/)\s*(\d{2,5})\b(?!\s*mm)/i);
+  return m ? Number(m[1]) || null : null;
+}
+// Vrsta pakiranja: vpisana lastnost, sicer ista kot slika pred šifro (vrečka / škatla)
+function vrstaPak(a, naziv, znamka, pot) {
+  return vrednost(a, "Pakiranje") ?? (vrecaBrezTiska(naziv) ? "vrečka" : privzetaSkatla(a, znamka, pot) ? "škatla" : null);
 }
 
 function Kosarica({ a, cena, izdelek, b2b }) {
@@ -256,8 +263,7 @@ function TabelaGosta({ artikli: vhodni, stolpci, izdelek = null, naziviRazlicni 
               {naziviRazlicni && <th>Naziv</th>}
               <th>Dimenzija</th>
               {stolpciLastnosti.map((k) => <th key={k}>{k}</th>)}
-              {imaPakiranje && <th>Pakiranje</th>}
-              <th className="d">Kos v pak.</th>
+              <th>Pakiranje</th>
               <th>Zaloga</th>
               <th className="d">{b2b ? "Vaša cena" : "Cena z DDV"}</th>
               <th className="d">Košarica</th>
@@ -275,8 +281,7 @@ function TabelaGosta({ artikli: vhodni, stolpci, izdelek = null, naziviRazlicni 
                   {naziviRazlicni && <td className="g-las g-naz" data-l="Naziv">{a.naziv}</td>}
                   <td className="g-dim" translate="no">{a.dimenzija ?? "—"}</td>
                   {stolpciLastnosti.map((k) => <td key={k} className={`g-las${(a.lastnosti ?? {})[k] ? "" : " g-prazno"}`} data-l={k}>{(a.lastnosti ?? {})[k] ?? "—"}</td>)}
-                  {imaPakiranje && <td className={`g-las${vrednost(a, "Pakiranje") ? "" : " g-prazno"}`} data-l="Pakiranje">{vrednost(a, "Pakiranje") ?? "—"}</td>}
-                  <td className="d g-pak" data-l="Kos v pak.">{n ? `${st(n)} kos` : "—"}</td>
+                  <td className="g-pakv" data-l="Pakiranje">{vrstaPak(a, izdelek?.naziv, izdelek?.znamka, izdelek?.pot) ?? (n ? "" : "—")}{n ? <small>{st(n)} kos</small> : null}</td>
                   <td className="g-zaloga">{zal ? <span className="g-z da"><span className="g-pika da" />Na zalogi</span> : <span className="g-z ne"><span className="g-pika ne" />Ni na zalogi</span>}</td>
                   <td className="d g-c"><Cena cena={cenaZa(a)} b2b={b2b} /></td>
                   <td className="d g-k"><Kosarica a={a} cena={cenaZa(a)} izdelek={izdelek} b2b={b2b} /></td>
@@ -299,7 +304,7 @@ function TabelaGosta({ artikli: vhodni, stolpci, izdelek = null, naziviRazlicni 
             ["EAN", a.ean],
             ...(naziviRazlicni ? [["", a.naziv]] : []),
             ...stolpciLastnosti.map((k) => [k, (a.lastnosti ?? {})[k]]),
-            ...(imaPakiranje ? [["Pakiranje", vrednost(a, "Pakiranje")]] : []),
+            ["Pakiranje", [vrstaPak(a, izdelek?.naziv, izdelek?.znamka, izdelek?.pot), kosov(a) ? `${st(kosov(a))} kos` : null].filter(Boolean).join(" · ")],
           ].filter(([, v]) => v);
           return (
             <div key={a.id} className={`g-kar${zal ? "" : " g-ni"}${oznacena === a.sifra ? " g-oznacen" : ""}`}>
