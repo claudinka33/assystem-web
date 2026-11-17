@@ -47,6 +47,17 @@ function enota(a, n) {
   return "pak.";
 }
 
+// Pakiranje združimo: "škatla AFR41", "škatla AFR51" … = škatla; vse vrečke = vrečka
+function skupina(k, v) {
+  if (k !== "Pakiranje" || typeof v !== "string") return v;
+  const x = v.toLowerCase();
+  if (x.startsWith("škatla") || x === "osnovno") return "škatla";
+  if (x.startsWith("vrečka")) return "vrečka";
+  if (x.startsWith("blister")) return "blister";
+  return v;
+}
+const vrednost = (a, k) => skupina(k, (a.lastnosti ?? {})[k]);
+
 function kosov(a) {
   if (a.pakiranje) return Number(a.pakiranje) || null;
   return null;
@@ -162,8 +173,8 @@ function TabelaGosta({ artikli: vhodni, stolpci, izdelek = null, naziviRazlicni 
     const kljuci = [...new Set(["Pakiranje", ...stolpci])];
     return kljuci
       .map((k) => {
-        const vr = [...new Set(artikli.map((a) => (a.lastnosti ?? {})[k]).filter(Boolean))].sort((x, y) => String(x).localeCompare(String(y), "sl", { numeric: true }));
-        return [k, vr.map((v) => [v, artikli.filter((a) => (a.lastnosti ?? {})[k] === v).length])];
+        const vr = [...new Set(artikli.map((a) => vrednost(a, k)).filter(Boolean))].sort((x, y) => String(x).localeCompare(String(y), "sl", { numeric: true }));
+        return [k, vr.map((v) => [v, artikli.filter((a) => vrednost(a, k) === v).length])];
       })
       .filter(([, vr]) => vr.length >= 2 && vr.length <= 10);
   }, [artikli, stolpci]);
@@ -171,7 +182,7 @@ function TabelaGosta({ artikli: vhodni, stolpci, izdelek = null, naziviRazlicni 
   const vidni = useMemo(() => {
     const iq = norm(q);
     return artikli.filter((a) => {
-      for (const [k, v] of Object.entries(izbrani)) if (v && (a.lastnosti ?? {})[k] !== v) return false;
+      for (const [k, v] of Object.entries(izbrani)) if (v && vrednost(a, k) !== v) return false;
       if (samoZaloga && !(Number(a.zaloga) > 0)) return false;
       if (!iq) return true;
       return norm(`${a.sifra} ${a.dimenzija ?? ""} ${a.ean ?? ""}`).includes(iq);
@@ -187,14 +198,14 @@ function TabelaGosta({ artikli: vhodni, stolpci, izdelek = null, naziviRazlicni 
       <div className="g-orodja">
         <div className="g-chips">
           <button type="button" className={!Object.values(izbrani).some(Boolean) && !samoZaloga ? "on" : ""} onClick={() => { setIzbrani({}); setSamoZaloga(false); setQ(""); }}>
-            Vsi artikli <i>{artikli.length}</i>
+            Vsi artikli
           </button>
           {filtri.map(([k, vr]) => (
             <span key={k} className="g-skupina">
               <em>{k}</em>
               {vr.map(([v, n]) => (
                 <button key={v} type="button" className={izbrani[k] === v ? "on" : ""} onClick={() => { setIzbrani({ ...izbrani, [k]: izbrani[k] === v ? undefined : v }); setPrikazano(KORAK); }}>
-                  {v} <i>{n}</i>
+                  {v}
                 </button>
               ))}
             </span>
@@ -207,7 +218,6 @@ function TabelaGosta({ artikli: vhodni, stolpci, izdelek = null, naziviRazlicni 
       </div>
       {filtrirano && (
         <p className="g-stevec">
-          {t("Prikazanih")} {vidni.length} / {artikli.length} ·{" "}
           <button type="button" onClick={() => { setIzbrani({}); setSamoZaloga(false); setQ(""); }}>Prikaži vse</button>
         </p>
       )}
@@ -241,7 +251,7 @@ function TabelaGosta({ artikli: vhodni, stolpci, izdelek = null, naziviRazlicni 
                   {naziviRazlicni && <td className="g-las g-naz" data-l="Naziv">{a.naziv}</td>}
                   <td className="g-dim" translate="no">{a.dimenzija ?? "—"}</td>
                   {stolpciLastnosti.map((k) => <td key={k} className="g-las" data-l={k}>{(a.lastnosti ?? {})[k] ?? "—"}</td>)}
-                  {imaPakiranje && <td className="g-las" data-l="Pakiranje">{(a.lastnosti ?? {}).Pakiranje ?? "—"}</td>}
+                  {imaPakiranje && <td className="g-las" data-l="Pakiranje">{vrednost(a, "Pakiranje") ?? "—"}</td>}
                   <td className="d g-pak" data-l="Kos v pak.">{n ? `${st(n)} kos` : "—"}</td>
                   <td className="g-zaloga">{zal ? <span className="g-z da"><span className="g-pika da" />Na zalogi</span> : <span className="g-z ne"><span className="g-pika ne" />Ni na zalogi</span>}</td>
                   <td className="d g-c"><Cena cena={cenaZa(a)} b2b={b2b} /></td>
