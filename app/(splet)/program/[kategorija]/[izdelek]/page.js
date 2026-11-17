@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { pridobiIzdelek, pridobiPonudbo, pridobiSorodne, pridobiDrevoPrograma } from "@/lib/podatki";
 import HitriProgram from "@/components/HitriProgram";
 import TabelaArtiklov from "@/components/TabelaArtiklov";
+import TabelaGosta from "@/components/TabelaGosta";
+import Image from "next/image";
 import { SLIKE_VREDNOSTI } from "@/lib/slike-vrednosti";
 import GalerijaIzdelka from "@/components/GalerijaIzdelka";
 import IgraIzdelka from "@/components/IgraIzdelka";
@@ -109,6 +111,9 @@ async function StranIzdelka({ params }) {
   const mesto = najdi(drevo);
   const prejsnji = mesto && mesto.idx > 0 ? mesto.v.izdelki[mesto.idx - 1] : null;
   const naslednji = mesto && mesto.idx < mesto.v.izdelki.length - 1 ? mesto.v.izdelki[mesto.idx + 1] : null;
+  // Gosti (data-dense) prikaz — zaenkrat za Silvermate, nato za vse izdelke
+  const gosto = i.znamka === "Silvermate";
+  const naZalogi = artikli.filter((a) => Number(a.zaloga) > 0).length;
   const trenutnaPot = mesto ? mesto.v.izdelki[mesto.idx].href : `/program/${kategorija}/${izdelek}`;
 
   return (
@@ -127,6 +132,35 @@ async function StranIzdelka({ params }) {
           {i.naziv}
         </nav>
 
+        {gosto && (
+          <div className="g-vrh">
+            <div className="g-vrh-sl">
+              {slike[0] ? <Image src={slike[0]} alt={i.naziv} fill sizes="120px" style={{ objectFit: "contain" }} /> : null}
+            </div>
+            <div className="g-vrh-tx">
+              <p className="g-vrh-kat">{i.kategorije?.naziv}</p>
+              <h1 className="g-vrh-h1">{i.naziv} <ZnamkaZnak znamka={i.znamka} /></h1>
+              {i.kratek_opis && <p className="g-vrh-opis">{i.kratek_opis}</p>}
+              <div className="g-vrh-oz">
+                {i.eta_stevilka && <span className="g-oz r"><em>ETA</em>{i.eta_stevilka}</span>}
+                {skupne.map(([k, v]) => <span key={k} className="g-oz"><em>{k}</em>{v}</span>)}
+                {artikli.length > 0 && <span className="g-oz g-oz-st"><b translate="no">{artikli.length}</b>&nbsp;artiklov · <span className="g-pika da" /><b translate="no">{naZalogi}</b>&nbsp;na zalogi</span>}
+              </div>
+              {i.prednosti?.length > 0 && (
+                <ul className="g-vrh-pred">{i.prednosti.map((p) => <li key={p}>{p}</li>)}</ul>
+              )}
+            </div>
+            <div className="g-vrh-gumbi">
+              <Link className="g-gumb r" href={povprasevanje}>Povpraševanje</Link>
+              {(mediji?.video || mediji?.certifikat) && <a className="g-gumb" href="#mediji">Video in certifikat</a>}
+              {dokumenti.slice(0, 3).map((d) => (
+                <a key={d.id} className="g-gumb" href={d.datoteka_url} target="_blank" rel="noreferrer">{oznakeTipov[d.tip] ?? d.tip} · PDF</a>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {!gosto && (
         <div className="izd-grid">
           {/* Levo: slika, prednosti, dokumenti, povpraševanje — ostane na mestu ob skrolanju */}
           <aside className="izd-levo">
@@ -190,6 +224,7 @@ async function StranIzdelka({ params }) {
 
           </div>
         </div>
+        )}
 
         {/* Tabela in opis čez celo širino */}
     {artikli.length > 0 && (
@@ -203,7 +238,11 @@ async function StranIzdelka({ params }) {
             </nav>
           )}
         </div>
+        {gosto ? (
+          <TabelaGosta artikli={artikli} stolpci={stolpci} izdelek={{ naziv: i.naziv, pot: `/program/${kategorija}/${izdelek}`, slika: i.slika_url ?? null, znamka: i.znamka ?? null }} />
+        ) : (
         <TabelaArtiklov artikli={artikli} stolpci={stolpci} naziviRazlicni={naziviRazlicni} embalaza={i.embalaza ?? []} izdelek={{ naziv: i.naziv, pot: `/program/${kategorija}/${izdelek}`, slika: i.slika_url ?? null, znamka: i.znamka ?? null }} slikeVrednosti={SLIKE_VREDNOSTI[izdelek] ?? null} />
+        )}
         <p className="izd-opomba">
           Cene so maloprodajne z DDV, za pakiranje v stolpcu »Kos v pak.«. Za večje količine in podjetja <Link href={povprasevanje}>pošljite povpraševanje</Link>.
         </p>
@@ -211,7 +250,7 @@ async function StranIzdelka({ params }) {
     )}
 
     {/* Video in certifikat pod tabelo */}
-    <div className="izd-mediji-spodaj"><MedijiBanner {...mediji} /></div>
+    <div className="izd-mediji-spodaj" id="mediji"><MedijiBanner {...mediji} /></div>
 
     {(i.opis || i.tehnicni_opis || i.uporaba?.length > 0) && (
       <div className="izd-opis">
