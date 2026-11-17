@@ -4113,3 +4113,19 @@ a.b2b-profil:hover { background: #a50d26; }
   .izvedbe p { font-size: 12px; margin-top: 5px; line-height: 1.4; }
   .zn-hero .zn-slika { max-width: 200px; margin: 0 auto; }
 }
+
+/* ===== Telefon: vse mreže kartic kot »Kaj iščete« — 2 v vrsti, majhne ===== */
+@media (max-width: 760px) {
+  :is(.dz,.bs-kaj,.dejstva,.embalaza,.izvedbe,.lastni-izd,.on-dodatno,.on-izd,.on-koga,.on-zakaj,.on-trgi,.on-lok,.on-nums,.pl-emb,.pl-izdelki,.podlage,.pr-lok,.trg-emb,.trg-kaj,.zem-st,.koraki-st,.cert,.vrata,.kats,.pr-police,.trg-police,.zn-police) { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 8px !important; }
+  :is(.dz,.bs-kaj,.dejstva,.embalaza,.izvedbe,.lastni-izd,.on-dodatno,.on-izd,.on-koga,.on-zakaj,.on-trgi,.on-lok,.on-nums,.pl-emb,.pl-izdelki,.podlage,.pr-lok,.trg-emb,.trg-kaj,.zem-st,.koraki-st,.cert,.vrata,.kats,.pr-police,.trg-police,.zn-police) > * { padding: 12px !important; min-width: 0; }
+  :is(.dz,.bs-kaj,.dejstva,.embalaza,.izvedbe,.lastni-izd,.on-dodatno,.on-izd,.on-koga,.on-zakaj,.on-trgi,.on-lok,.on-nums,.pl-emb,.pl-izdelki,.podlage,.pr-lok,.trg-emb,.trg-kaj,.zem-st,.koraki-st,.cert,.vrata,.kats,.pr-police,.trg-police,.zn-police) h3, :is(.dz,.bs-kaj,.dejstva,.embalaza,.izvedbe,.lastni-izd,.on-dodatno,.on-izd,.on-koga,.on-zakaj,.on-trgi,.on-lok,.on-nums,.pl-emb,.pl-izdelki,.podlage,.pr-lok,.trg-emb,.trg-kaj,.zem-st,.koraki-st,.cert,.vrata,.kats,.pr-police,.trg-police,.zn-police) h4 { font-size: 13px !important; line-height: 1.25; }
+  :is(.dz,.bs-kaj,.dejstva,.embalaza,.izvedbe,.lastni-izd,.on-dodatno,.on-izd,.on-koga,.on-zakaj,.on-trgi,.on-lok,.on-nums,.pl-emb,.pl-izdelki,.podlage,.pr-lok,.trg-emb,.trg-kaj,.zem-st,.koraki-st,.cert,.vrata,.kats,.pr-police,.trg-police,.zn-police) p { font-size: 12px !important; line-height: 1.4; margin-top: 4px; }
+  :is(.dz,.bs-kaj,.dejstva,.embalaza,.izvedbe,.lastni-izd,.on-dodatno,.on-izd,.on-koga,.on-zakaj,.on-trgi,.on-lok,.on-nums,.pl-emb,.pl-izdelki,.podlage,.pr-lok,.trg-emb,.trg-kaj,.zem-st,.koraki-st,.cert,.vrata,.kats,.pr-police,.trg-police,.zn-police) small, :is(.dz,.bs-kaj,.dejstva,.embalaza,.izvedbe,.lastni-izd,.on-dodatno,.on-izd,.on-koga,.on-zakaj,.on-trgi,.on-lok,.on-nums,.pl-emb,.pl-izdelki,.podlage,.pr-lok,.trg-emb,.trg-kaj,.zem-st,.koraki-st,.cert,.vrata,.kats,.pr-police,.trg-police,.zn-police) em { font-size: 10.5px !important; }
+  :is(.dz,.bs-kaj,.dejstva,.embalaza,.izvedbe,.lastni-izd,.on-dodatno,.on-izd,.on-koga,.on-zakaj,.on-trgi,.on-lok,.on-nums,.pl-emb,.pl-izdelki,.podlage,.pr-lok,.trg-emb,.trg-kaj,.zem-st,.koraki-st,.cert,.vrata,.kats,.pr-police,.trg-police,.zn-police) .more, :is(.dz,.bs-kaj,.dejstva,.embalaza,.izvedbe,.lastni-izd,.on-dodatno,.on-izd,.on-koga,.on-zakaj,.on-trgi,.on-lok,.on-nums,.pl-emb,.pl-izdelki,.podlage,.pr-lok,.trg-emb,.trg-kaj,.zem-st,.koraki-st,.cert,.vrata,.kats,.pr-police,.trg-police,.zn-police) .dz-vec { font-size: 11.5px !important; }
+  .dz img { max-height: 34px; width: auto !important; }
+  .st h2 { font-size: 20px !important; }
+  .st > span { font-size: 10px !important; }
+}
+@media (max-width: 360px) {
+  :is(.dz,.bs-kaj,.dejstva,.embalaza,.izvedbe,.lastni-izd,.on-dodatno,.on-izd,.on-koga,.on-zakaj,.on-trgi,.on-lok,.on-nums,.pl-emb,.pl-izdelki,.podlage,.pr-lok,.trg-emb,.trg-kaj,.zem-st,.koraki-st,.cert,.vrata,.kats,.pr-police,.trg-police,.zn-police) { grid-template-columns: minmax(0, 1fr) !important; }
+}
