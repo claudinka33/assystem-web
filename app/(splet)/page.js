@@ -172,25 +172,6 @@ async function Domov() {
       {/* ---------- Naše znamke ---------- */}
       <DveZnamki />
 
-      {/* ---------- Iskanje izdelkov ---------- */}
-      <section className="isci-pas">
-        <div className="w">
-          <div>
-            <span>Iskanje</span>
-            <h2>Poiščite izdelek</h2>
-          </div>
-          <form action="/iskanje" className="hero-isci">
-            <input
-              name="q"
-              type="search"
-              placeholder="Vpišite šifro, EAN ali naziv…"
-              aria-label="Iskanje izdelkov"
-            />
-            <button type="submit">Išči</button>
-          </form>
-        </div>
-      </section>
-
       {/* ---------- Kaj ponujamo ---------- */}
       <section className="sec" id="program">
         <div className="w">
