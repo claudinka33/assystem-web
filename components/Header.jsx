@@ -53,7 +53,7 @@ function Header({ kategorije = [], skrite = [], jezik = "sl" }) {
         <div className="w">
           <span>{site.ime} · proizvajalec pritrdilne tehnike od {site.ustanovljeno}</span>
           <span className="lang">
-            <B2BPovezava /> · <Link href="/katalogi">Katalogi</Link> · <Link href="/zaposlitev">Zaposlitev</Link>
+            <B2BPovezava />
             {" | "}
             <Jeziki jezik={jezik} />
           </span>
@@ -135,6 +135,11 @@ function Header({ kategorije = [], skrite = [], jezik = "sl" }) {
             </svg>
           </Link>
 
+          <Link href="/b2b" className="b2b-gumb" title="B2B portal za podjetja: vaše cene, naročila in računi">
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M4 21V5l8-3 8 3v16M9 21v-5h6v5M8 8h2M14 8h2M8 12h2M14 12h2" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+            <span>B2B portal</span>
+          </Link>
+
           <KosaricaGumb />
 
           <a className="tel" href={`tel:${site.telefonRaw}`}>
@@ -180,7 +185,7 @@ function Header({ kategorije = [], skrite = [], jezik = "sl" }) {
                   </div>
                 );
               })}
-              <Link href="/b2b" onClick={() => setOdprt(false)}>B2B prijava za podjetja</Link>
+              <Link href="/b2b" className="mob-b2b" onClick={() => setOdprt(false)}>B2B portal za podjetja →</Link>
               <div className="mob-jeziki">
                 <Jeziki jezik={jezik} />
               </div>

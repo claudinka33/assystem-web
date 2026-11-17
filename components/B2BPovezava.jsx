@@ -63,7 +63,7 @@ function B2BPovezava() {
   if (!s)
     return (
       <Link href="/b2b" className="b2b-link">
-        B2B prijava
+        B2B prijava za podjetja →
       </Link>
     );
   return (

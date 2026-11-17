@@ -3720,3 +3720,14 @@ a.b2b-profil:hover { background: #a50d26; }
   .g-t .d { text-align: right; }
   .g-pas { font-size: 12px; }
 }
+
+/* B2B portal gumb v glavi */
+.b2b-gumb { display: inline-flex; align-items: center; gap: 7px; flex: none; background: var(--color-red); color: #fff !important; font-weight: 800; font-size: 13.5px; padding: 9px 14px; white-space: nowrap; text-decoration: none; }
+.b2b-gumb:hover { background: #a50d26; }
+.util .b2b-link { color: #fff; background: var(--color-red); padding: 3px 10px; font-weight: 700; text-decoration: none; }
+.util .b2b-link:hover { background: #a50d26; }
+.mob-b2b { background: var(--color-red); color: #fff !important; font-weight: 800; padding: 10px 14px !important; margin: 6px 0; }
+@media (max-width: 1440px) { .nav { gap: 18px; } }
+@media (max-width: 1240px) { .b2b-gumb span { display: none; } .b2b-gumb { padding: 9px 10px; } }
+@media (max-width: 1100px) { .b2b-gumb span { display: inline; } }
+@media (max-width: 480px) { .b2b-gumb span { display: none; } }
