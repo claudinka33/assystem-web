@@ -20,9 +20,9 @@ const napacenSveder = (ime) => (d, prav) => (d < prav ? `Sveder Ø${fmt(d)} je p
    ================================================================= */
 const TU = { okvir: 60 };
 export const turbo = sestavi({
-  id: "turbo", postavitev: "tla", u: 2, naslov: "Turbo vijak skozi okvir v beton",
+  id: "turbo", postavitev: "tla", u: 2, privzeto: { L: 92 }, naslov: "Turbo vijak skozi okvir v beton",
   luknje: [480, 760],
-  element: { korak: "Postavite okvir", gumbNapis: "Postavite OKENSKI OKVIR", gumb: { x: 600, y: 420 }, debelina: TU.okvir, potrdilo: "Okvir je na mestu. Izberite dolžino vijaka.",
+  element: { korak: "Postavite okvir", gumbNapis: "Postavite OKENSKI OKVIR", gumb: { x: 600, y: 420 }, debelina: TU.okvir, potrdilo: "Okvir je na mestu. Zdaj vrtajte skozi okvir v beton.",
     risba: (s, g) => <rect x="280" y={-g.tEl} width="640" height={g.tEl} fill="url(#v-les)" stroke={C.ink} strokeWidth="2" /> },
   izbire: [{ pred: "vrtaj", naziv: "Izberite vijak", scenarij: `Okenski okvir je debel ${TU.okvir} mm, podlaga je beton. Turbo vijak mora biti v betonu vsaj 30 mm.`,
     skupine: [izbor("L", "Turbo Ø7,5: dolžina", [52, 72, 92, 112, 132], (v) => `7,5 × ${v}`)],
@@ -30,12 +30,12 @@ export const turbo = sestavi({
     potrdilo: (I) => `Turbo 7,5 × ${I.L}: v betonu bo ${I.L - TU.okvir} mm. Zdaj vrtajte skozi okvir.` }],
   vrtanje: { svedri: [6, 7, 8], pravi: 7, napaka: (d) => (d > 7 ? "Prevelika izvrtina: navoj Turbo vijaka v betonu ne prime. Vrtajte s svedrom Ø7." : "Za Turbo vijak v beton vrtajte s svedrom Ø7 (v votlo opeko Ø6,5)."),
     globina: (I) => (I.L ?? 92) - TU.okvir + 10, premer: 7, mera: (I) => `Ø7 · h₁ = ${(I.L ?? 92) - TU.okvir + 10} mm`, navodilo: "Držite miško nad rdečo oznako, vrtajte skozi okvir v beton." },
-  vijak: { vstavi: "Nastavite vijak", L: (I) => I.L ?? 92, d: 7.5, navoj: "lesni", glava: "ugrez", vstop: 0, koncnaGlava: -TU.okvir, korak: "Privijte vijak", navodilo: "Nastavite vijačnik na glavo vijaka in držite miško, navoj se sam ureže v beton." },
-  orodja: [...svedri([6, 7, 8]), { ...OROD.pihalka, napaka: "Pri Turbo vijaku luknje ne čistite, vijak kar privijte." }, roka("vijak", "Turbo vijak", "Turbo vijak je v roki. Kliknite na luknjo v okvirju."), OROD.vijacnik, { ...OROD.kladivo, napaka: "Turbo vijaka ne zabijate: privijte ga z vijačnikom." }],
+  vijak: { vstavi: "Nastavite vijak", L: (I) => I.L ?? 92, d: 7.5, navoj: "lesni", glava: "ugrez", koncnaGlava: -TU.okvir, korak: "Privijte vijak", navodilo: "Nastavite vijačnik na glavo vijaka in držite miško, navoj se sam ureže v beton." },
+  orodja: [...svedri([6, 7, 8]), { ...OROD.pihalka, napaka: "Pri Turbo vijaku luknje ne čistite, vijak kar privijte." }, roka("vijak", "Turbo 7,5 × 92", "Turbo vijak je v roki. Kliknite na luknjo v okvirju."), OROD.vijacnik, { ...OROD.kladivo, napaka: "Turbo vijaka ne zabijate: privijte ga z vijačnikom." }],
   oznaka: (I) => `Turbo 7,5 × ${I.L}`,
-  napisi: [{ x: 24, y: 576, t: "BETON", velikost: 18 }, { x: 290, y: 225, t: "OKENSKI OKVIR 60 mm" }],
+  napisi: [{ x: 24, y: 576, t: "BETON", velikost: 18 }, { x: 290, y: 225, t: "OKENSKI OKVIR 60 mm", poElementu: true }],
   podatki: [["Vijak", "Turbo Ø7,5, ugreznjena glava TX30"], ["Sveder v beton", "Ø7 mm"], ["Sveder v votlo opeko", "Ø6,5 mm"], ["V betonu", "vsaj 30 mm"], ["Dolžina", "debelina okvirja + sidranje"], ["Čiščenje luknje", "ni potrebno"]],
-  konec: { napis: "PRITRJENO", kratko: "Okvir je pritrjen: brez vložka.", naslov: "Okvir je pritrjen brez vložka", besedilo: "Izbrali ste dolžino glede na debelino okvirja, vrtali s svedrom Ø7 skozi okvir v beton in vijaka privili. Navoj se sam ureže v beton, luknje ni treba čistiti, vložek ni potreben.", povezave: [ponudba("turbo")] },
+  konec: { napis: "PRITRJENO", kratko: "Okvir je pritrjen: brez vložka.", naslov: "Okvir je pritrjen brez vložka", besedilo: "Turbo vijak 7,5 × 92 je dovolj dolg za okvir 60 mm. Vrtali ste s svedrom Ø7 skozi okvir v beton in vijaka privili. Navoj se sam ureže v beton, luknje ni treba čistiti, vložek ni potreben.", povezave: [ponudba("turbo")] },
 });
 
 /* =================================================================
@@ -44,10 +44,10 @@ export const turbo = sestavi({
 function okvirni({ id, tip, ime, elementIme, tFix, omet, risba, napisi, konecBesedilo }) {
   const tSkupaj = tFix + omet;
   return sestavi({
-    id, postavitev: "stena", u: 2.3, naslov: `${tip}: ${elementIme.toLowerCase()} skozi element v zid`,
+    id, postavitev: "stena", u: 2.3, privzeto: { L: tip === "AF-RS" ? 140 : 100 }, naslov: `${tip}: ${elementIme.toLowerCase()} skozi element v zid`,
     podlage: [{ tip: "omet", od: 0, do: omet }, { tip: "zid", od: omet, do: 400 }],
     luknje: [190, 410],
-    element: { korak: `Prislonite ${elementIme.toLowerCase()}`, gumbNapis: `Prislonite ${elementIme.toUpperCase()}`, gumb: { x: 820, y: 270 }, debelina: tFix, risba, potrdilo: `${elementIme} je na mestu. Izberite dolžino vložka.` },
+    element: { korak: `Prislonite ${elementIme.toLowerCase()}`, gumbNapis: `Prislonite ${elementIme.toUpperCase()}`, gumb: { x: 820, y: 270 }, debelina: tFix, risba, potrdilo: `${elementIme} je na mestu. Zdaj vrtajte skozi ${elementIme.toLowerCase()} v zid.` },
     izbire: [{ pred: "vrtaj", naziv: "Izberite vložek", scenarij: `${elementIme} je debel ${tFix} mm, omet ${omet} mm: skupaj ${tSkupaj} mm do nosilnega zidu. ${tip} 10 mora biti v zidu vsaj 60 mm (h_ef).`,
       skupine: [izbor("L", `${tip} Ø10: dolžina`, [80, 100, 120, 140, 160], (v) => `10 × ${v}`)],
       preveri: (sel) => (sel.L - tSkupaj < 60 ? `10 × ${sel.L} je prekratek: v zidu bi bil ${Math.max(0, sel.L - tSkupaj)} mm, potrebnih je 60 mm (dolžina ≥ ${tSkupaj + 60} mm).` : null),
@@ -56,7 +56,7 @@ function okvirni({ id, tip, ime, elementIme, tFix, omet, risba, napisi, konecBes
     pihaj: { naziv: "Izpihajte luknjo" },
     vlozek: { korak: `Vstavite ${tip}`, dolzina: (I) => (I.L ?? 120) - 4, premer: 10, vrh: -tFix, barva: C.najlon, razpr: 3, navodilo: "Kliknite v luknjo: vložek potisnite skozi element, prirobnica naleže nanj." },
     vijak: { brezVstavi: true, L: (I) => (I.L ?? 120) - 2, d: 7, navoj: "metricni", glava: tip === "AF-RS" ? "ugrez" : "plosca", vstop: (I) => -tFix + (I.L ?? 120) - 12, koncnaGlava: tip === "AF-RS" ? -tFix : undefined, korak: "Privijte vijak", navodilo: "Nastavite vijačnik na glavo in držite, vložek se razpre v zidu." },
-    orodja: [...svedri([8, 10, 12]), OROD.pihalka, roka("vlozek", `${tip} 10`, `${tip} je v roki. Kliknite v luknjo.`), OROD.vijacnik, { ...OROD.kladivo, napaka: `${tip} ne zabijate: privijte vijak, da se vložek razpre.` }],
+    orodja: [...svedri([8, 10, 12]), OROD.pihalka, roka("vlozek", `${tip} 10 × ${tip === "AF-RS" ? 140 : 100}`, `${tip} je v roki. Kliknite v luknjo.`), OROD.vijacnik, { ...OROD.kladivo, napaka: `${tip} ne zabijate: privijte vijak, da se vložek razpre.` }],
     oznaka: (I) => `${tip} 10 × ${I.L}`,
     napisi: [{ x: 24, y: 576, t: "ZID", velikost: 18 }, { x: 384, y: 590, t: "OMET", velikost: 12 }, ...(napisi ?? [])],
     podatki: [["Vložek", `${tip} Ø8 / Ø10 / Ø12`], ["Sveder", "enak premeru vložka"], ["Sidranje Ø10", "h_ef 60 mm, h₁ 70 mm"], ["Dolžina", "element + omet + 60 mm"], ["Montaža", "skozi element"], ["Nastavek/ključ", tip === "AF-RS" ? "torx" : "SW13 / TX40"], ["Podlage", "beton, opeka, zidaki, siporex"]],
@@ -66,12 +66,12 @@ function okvirni({ id, tip, ime, elementIme, tFix, omet, risba, napisi, konecBes
 export const afrkKlima = okvirni({
   id: "afrk", tip: "AF-RK", ime: "AF-RK", elementIme: "Nosilec klime", tFix: 4, omet: 20,
   risba: (s, g) => (<g><rect x="70" y={-g.tEl} width="460" height={g.tEl} fill={C.jeklo} stroke={C.ink} strokeWidth="2" /><rect x="70" y={-g.tEl - 180} width="10" height="180" fill={C.jeklo} stroke={C.ink} strokeWidth="2" /></g>),
-  konecBesedilo: "Dolžino ste izbrali glede na nosilec in omet, vrtali skozi nosilec v zid, luknji izpihali in vložka AF-RK potisnili skozi nosilec. Ko vijak privijete, se vložek razpre v nosilnem zidu, velika prirobnica pa naleže na nosilec.",
+  konecBesedilo: "Vrtali ste skozi nosilec v zid, luknji izpihali in vložka AF-RK potisnili skozi nosilec. Ko vijak privijete, se vložek razpre v nosilnem zidu, velika prirobnica pa naleže na nosilec.",
 });
 export const afrs = okvirni({
   id: "afrs", tip: "AF-RS", ime: "AF-RS", elementIme: "Okvir", tFix: 50, omet: 15,
   risba: (s, g) => <rect x="130" y={-g.tEl} width="340" height={g.tEl} fill="url(#v-les)" stroke={C.ink} strokeWidth="2" />,
-  konecBesedilo: "Dolžino ste izbrali glede na okvir in omet, vrtali skozi okvir v zid, luknji izpihali in vložka AF-RS potisnili skozi okvir. Ugreznjena glava ostane poravnana z okvirjem.",
+  konecBesedilo: "Vrtali ste skozi okvir v zid, luknji izpihali in vložka AF-RS potisnili skozi okvir. Ugreznjena glava ostane poravnana z okvirjem.",
 });
 
 /* =================================================================
@@ -80,7 +80,7 @@ export const afrs = okvirni({
 const MQ = { 5: 25, 6: 30, 8: 40, 10: 50, 12: 60, 14: 70 };
 const MQ_VIJ = { 5: [3, 4], 6: [4, 5], 8: [4.5, 6], 10: [6, 8], 12: [8, 10], 14: [10, 12] };
 export const mq = sestavi({
-  id: "mq", postavitev: "stena", u: 3.2, podlaga: "zid", naslov: "Zidni vložek MQ: nosilec na opečni zid",
+  id: "mq", postavitev: "stena", u: 3.2, privzeto: { v: 8, d: 5, L: 50 }, podlaga: "zid", naslov: "Zidni vložek MQ: nosilec na opečni zid",
   luknje: [190, 410],
   izbire: [
     { pred: "vrtaj", naziv: "Izberite vložek", scenarij: "Pritrdil boste kovinski nosilec debeline 3 mm. Izberite velikost vložka MQ.",
@@ -100,14 +100,14 @@ export const mq = sestavi({
   vrtanje: { svedri: [5, 6, 8, 10, 12, 14], pravi: (I) => I.v ?? 8, napaka: napacenSveder("vložek MQ"), globina: (I) => MQ[I.v ?? 8] + 10, premer: (I) => I.v ?? 8, mera: (I) => `Ø${I.v} · h₁ ≥ ${MQ[I.v] + 10} mm`, delci: "#c9a08a" },
   pihaj: { naziv: "Izpihajte luknjo" },
   vlozek: { korak: "Vstavite MQ", dolzina: (I) => MQ[I.v ?? 8], premer: (I) => I.v ?? 8, barva: "#5c6064", razpr: 2.5, navodilo: "Kliknite v luknjo: vložek potisnite do prirobnice." },
-  element: { potem: true, predVijakom: true, korak: "Prislonite nosilec", debelina: 3, potrdilo: "Nosilec je na mestu. Izberite vijak.", vRoki: () => <rect x="-50" y="-8" width="100" height="8" fill={C.jeklo} stroke={C.ink} strokeWidth="1.5" />,
+  element: { potem: true, predVijakom: true, korak: "Prislonite nosilec", debelina: 3, potrdilo: "Nosilec je na mestu. Zdaj nastavite vijak.", vRoki: () => <rect x="-50" y="-8" width="100" height="8" fill={C.jeklo} stroke={C.ink} strokeWidth="1.5" />,
     risba: (s, g) => <rect x="120" y={-g.tEl} width="360" height={g.tEl} fill={C.jeklo} stroke={C.ink} strokeWidth="1.5" /> },
   vijak: { vstavi: "Nastavite vijak", L: (I) => I.L ?? 50, d: (I) => I.d ?? 5, navoj: "lesni", glava: "plosca", korak: "Privijte vijak", navodilo: "Nastavite vijačnik na glavo vijaka in držite, vložek se razpre na štiri strani." },
-  orodja: [...svedri([5, 6, 8, 10, 12, 14]), OROD.pihalka, roka("vlozek", "Vložek MQ", "Vložek MQ je v roki. Kliknite v luknjo."), elOrodje("Nosilec"), roka("vijak", "Lesni vijak", "Vijak je v roki. Kliknite na luknjo v nosilcu."), OROD.vijacnik],
+  orodja: [...svedri([5, 6, 8, 10, 12, 14]), OROD.pihalka, roka("vlozek", "Vložek MQ 8 × 40", "Vložek MQ je v roki. Kliknite v luknjo."), elOrodje("Nosilec"), roka("vijak", "Lesni vijak 5 × 50", "Vijak je v roki. Kliknite na luknjo v nosilcu."), OROD.vijacnik],
   oznaka: (I) => `MQ Ø${I.v} × ${MQ[I.v]}${I.d ? ` · vijak ${fmt(I.d)} × ${I.L}` : ""}`,
   napisi: [{ x: 24, y: 576, t: "OPEČNI ZID", velikost: 18 }],
   podatki: [["Vložek", "MQ Ø5 do Ø14, najlon"], ["Sveder", "enak premeru vložka"], ["Globina", "dolžina vložka + 10 mm"], ["Vijak Ø8 vložek", "Ø4,5–6 mm"], ["Dolžina vijaka", "vložek + element + premer vijaka"], ["Podlage", "beton, polna in votla opeka"]],
-  konec: { napis: "PRITRJENO", kratko: "Nosilec je pritrjen.", naslov: "Nosilec je pritrjen", besedilo: "Vložek, sveder in vijak ste izbrali tako, da se ujemajo: sveder je enak premeru vložka, vijak razpre vložek po vsej dolžini. Vložek MQ se razpre na štiri strani in se zagozdi v opeki.", povezave: [ponudba("mq")] },
+  konec: { napis: "PRITRJENO", kratko: "Nosilec je pritrjen.", naslov: "Nosilec je pritrjen", besedilo: "Sveder Ø8 je enak premeru vložka MQ 8 × 40, lesni vijak 5 × 50 razpre vložek po vsej dolžini. Vložek MQ se razpre na štiri strani in se zagozdi v opeki.", povezave: [ponudba("mq")] },
 });
 
 /* =================================================================
@@ -118,7 +118,7 @@ const MREZ = { "12x80": { d: 12, L: 80, M: [8] }, "16x85": { d: 16, L: 85, M: [8
 function kemija({ id, naslov, votla, vir, konec, podatki, tNos = 10 }) {
   const hef = (I) => (votla ? MREZ[I.s ?? "16x85"].L : HEF[I.M ?? 10]);
   return sestavi({
-    id, postavitev: "stena", u: 1.75, podlaga: votla ? "zid" : "beton", naslov,
+    id, postavitev: "stena", u: 1.75, privzeto: votla ? { M: 10, s: "16x85", Lp: 140 } : { M: 10, Lp: 140 }, podlaga: votla ? "zid" : "beton", naslov,
     luknje: [190, 410],
     izbire: [
       { pred: "vrtaj", naziv: votla ? "Izberite palico in mrežico" : "Izberite palico", scenarij: votla ? "Votla opeka. Nosilec debeline 10 mm pritrdite z navojnima palicama in kovinsko mrežico." : "Beton. Nosilec debeline 10 mm pritrdite z navojnima palicama v kemični masi.",
@@ -138,7 +138,7 @@ function kemija({ id, naslov, votla, vir, konec, podatki, tNos = 10 }) {
     element: { korak: "Namestite nosilec", potem: true, debelina: tNos, navodilo: "Ko masa otrdi, kliknite v prizor, da namestite nosilec.", potrdilo: "Masa je otrdela, nosilec je na palicah.", vRoki: () => <rect x="-50" y="-18" width="100" height="18" fill={C.jeklo} stroke={C.ink} strokeWidth="1.5" />,
       risba: (s, g) => <rect x="110" y={-g.tEl} width="380" height={g.tEl} fill={C.jeklo} stroke={C.ink} strokeWidth="1.5" /> },
     matica: { d: (I) => I.M ?? 10, naY: () => -tNos, podlozkaKorak: "Podložka DIN 125", korak: "Zategnite matico" },
-    orodja: [...svedri(votla ? [12, 16, 20] : [10, 12, 14]), ...(votla ? [roka("vlozek", "Kovinska mrežica", "Mrežica je v roki. Kliknite v luknjo."), { ...OROD.pihalka, napaka: "V votli steni luknje ne čistite, vstavite mrežico." }] : [OROD.pihalka]), OROD.pistola, roka("palica", "Navojna palica", "Navojna palica je v roki. Kliknite na luknjo."), elOrodje("Nosilec"), roka("podlozka", "Podložka", "Podložka je v roki. Kliknite na palico.", "element"), OROD.kljuc],
+    orodja: [...svedri(votla ? [12, 16, 20] : [10, 12, 14]), ...(votla ? [roka("vlozek", "Mrežica 16 × 85", "Mrežica je v roki. Kliknite v luknjo."), { ...OROD.pihalka, napaka: "V votli steni luknje ne čistite, vstavite mrežico." }] : [OROD.pihalka]), OROD.pistola, roka("palica", "Navojna palica M10", "Navojna palica je v roki. Kliknite na luknjo."), elOrodje("Nosilec"), roka("podlozka", "Podložka", "Podložka je v roki. Kliknite na palico.", "element"), OROD.kljuc],
     vRoki: (k) => (k === "palica" ? <g><rect x="-6" y="-120" width="12" height="120" fill={C.jeklo} stroke={C.ink} strokeWidth="1.3" />{Array.from({ length: 20 }, (_, i) => <line key={i} x1="-6" y1={-6 - i * 6} x2="6" y2={-9 - i * 6} stroke={C.ink} strokeWidth="0.8" />)}</g> : null),
     oznaka: (I) => (I.Lp ? `M${I.M} × ${I.Lp}` : `M${I.M}`),
     napisi: [{ x: 24, y: 576, t: votla ? "VOTLA OPEKA" : "BETON", velikost: 18 }],
@@ -148,13 +148,13 @@ function kemija({ id, naslov, votla, vir, konec, podatki, tNos = 10 }) {
 }
 export const kemijaBeton = kemija({ id: "kemija-beton", vir: "kemija", naslov: "Kemična masa: palici v beton",
   podatki: [["EASF TOP", "suh in vlažen beton, navojne in armaturne palice"], ["PESF TOP", "suha podlaga, navojne palice, popravilo lukenj"], ["Sveder", "premer palice + 2 mm"], ["Globina", "M8 80 · M10 90 · M12 110 mm"], ["Luknja", "temeljito očistite in izpihajte"], ["Prvi del mase", "iztisnite v odpadek"]],
-  konec: { naslov: "Nosilec je pritrjen s kemično maso", besedilo: "Izbrali ste palico, pravi sveder in globino, luknji očistili, napolnili z maso od dna navzgor in vstavili palici z vrtenjem. Ko je masa otrdela, ste nosilec privili s podložkama in maticama." } });
+  konec: { naslov: "Nosilec je pritrjen s kemično maso", besedilo: "Za palico M10 ste vrtali s svedrom Ø12, luknji očistili, napolnili z maso od dna navzgor in vstavili palici z vrtenjem. Ko je masa otrdela, ste nosilec privili s podložkama in maticama." } });
 export const kemijaVotla = kemija({ id: "kemija-votla", vir: "mrezica", votla: true, naslov: "Kemična masa v votlo opeko z mrežico",
   podatki: [["Mrežica", "kovinska, 1 m: odrežete po meri"], ["M8", "mrežica 12 × 80 ali 16 × 85"], ["M10", "mrežica 16 × 85"], ["M12", "mrežica 20 × 85"], ["Sveder", "premer mrežice"], ["Votla stena", "luknje ne čistite"]],
-  konec: { naslov: "Nosilec je pritrjen v votlo opeko", besedilo: "Mrežica ustreza palici in luknji, napolnili ste jo z maso in vstavili palici. Mrežica zadrži maso, da ne steče v votline opeke." } });
+  konec: { naslov: "Nosilec je pritrjen v votlo opeko", besedilo: "Mrežico 16 × 85 ste vstavili v luknjo Ø16, jo napolnili ste jo z maso in vstavili palici. Mrežica zadrži maso, da ne steče v votline opeke." } });
 export const kemija975 = kemija({ id: "palica-975", vir: "din975", naslov: "Navojna palica DIN 975: nosilec na beton",
   podatki: [["Palica", "DIN 975, odrežete po meri"], ["Matica", "DIN 934"], ["Podložka", "DIN 125"], ["Spajanje palic", "podaljšana matica DIN 6334"], ["Sveder", "premer palice + 2 mm"], ["Masa", "ASfix EASF TOP ali PESF TOP"]],
-  konec: { naslov: "Nosilec je pritrjen", besedilo: "Palico DIN 975 ste odrezali na pravo dolžino, jo vgradili v beton s kemično maso in nosilec privili s podložko DIN 125 in matico DIN 934." } });
+  konec: { naslov: "Nosilec je pritrjen", besedilo: "Palico DIN 975 M10 ste vgradili v beton s kemično maso in nosilec privili s podložko DIN 125 in matico DIN 934." } });
 
 /* =================================================================
    CEVNO DRŽALO: vložek MQ + hanger vijak + držalo + cev (stena / strop)
@@ -163,7 +163,7 @@ const HANG = { 6: 8, 8: 10, 10: 12 };
 function cevno({ id, strop }) {
   const X = strop ? [480, 720] : [190, 410];
   return sestavi({
-    id, postavitev: strop ? "strop" : "stena", u: 2.6, podlaga: "beton", naslov: strop ? "Cevno držalo v strop" : "Cevno držalo na steno",
+    id, postavitev: strop ? "strop" : "stena", u: 2.6, privzeto: { M: 8, v: 10 }, podlaga: "beton", naslov: strop ? "Cevno držalo v strop" : "Cevno držalo na steno",
     luknje: X,
     izbire: [{ pred: "vrtaj", naziv: "Izberite pritrdila", scenarij: "Cevno držalo ima priključek M8. Izberite hanger vijak in vložek MQ zanj.",
       skupine: [izbor("M", "Hanger vijak", [6, 8, 10], (v) => `M${v}`), izbor("v", "Vložek MQ", [8, 10, 12], (v) => `Ø${v} × ${MQ[v]}`)],
@@ -176,12 +176,12 @@ function cevno({ id, strop }) {
     element: { korak: "Privijte držalo", potem: true, debelina: 0, navodilo: "Kliknite v prizor: držali privijte na navoj M8.", potrdilo: "Držali sta na vijakih. Vstavite cev.", vRoki: () => <circle cx="0" cy="-60" r="50" fill="none" stroke="#9aa3aa" strokeWidth="10" />,
       risba: (s) => (<g>{X.map((x) => { const y0 = -32 * 2.6 - 6; return (<g key={x}><rect x={x - 12} y={y0 - 26} width="24" height="30" fill="#b9c1c7" stroke={C.ink} strokeWidth="1.5" /><circle cx={x} cy={y0 - 26 - 64} r="62" fill="none" stroke="#9aa3aa" strokeWidth="14" /><circle cx={x} cy={y0 - 26 - 64} r="54" fill="none" stroke="#232527" strokeWidth="6" />{s.nap[0][s.nap[0].length - 1] >= 100 && <circle cx={x} cy={y0 - 26 - 64} r="50" fill="#d5dadf" stroke="#a9b0b6" strokeWidth="3" />}</g>); })}</g>) },
     dodatno: { naziv: "Vstavite cev", tip: "postavi", orodje: "cev", navodilo: "Kliknite v prizor: vstavite cev in zaprite držali.", potrdilo: "Cev je v držalih." },
-    orodja: [...svedri([8, 10, 12]), OROD.pihalka, roka("vlozek", "Vložek MQ", "Vložek MQ je v roki. Kliknite v luknjo."), roka("vijak", "Hanger vijak", "Hanger vijak je v roki. Kliknite na vložek."), OROD.vijacnik, elOrodje("Cevno držalo"), { id: "cev", naziv: "Vodovodna cev", risba: "roka", ikona: "trak", izbrano: "Cev je v roki. Kliknite v prizor." }],
+    orodja: [...svedri([8, 10, 12]), OROD.pihalka, roka("vlozek", "Vložek MQ 10 × 50", "Vložek MQ je v roki. Kliknite v luknjo."), roka("vijak", "Hanger M8", "Hanger vijak je v roki. Kliknite na vložek."), OROD.vijacnik, elOrodje("Cevno držalo"), { id: "cev", naziv: "Vodovodna cev", risba: "roka", ikona: "trak", izbrano: "Cev je v roki. Kliknite v prizor." }],
     vRoki: (k) => (k === "cev" ? <circle cx="0" cy="-40" r="36" fill="#d5dadf" stroke="#a9b0b6" strokeWidth="3" /> : null),
     oznaka: (I) => `hanger M${I.M} · MQ Ø${I.v}`,
     napisi: [strop ? { x: 24, y: 214, t: "STROP", velikost: 18 } : { x: 24, y: 576, t: "STENA", velikost: 18 }],
     podatki: [["Vložek", "MQ Ø10 × 50"], ["Hanger vijak", "lesni navoj + M8"], ["Držalo", "priključek M8, gumijasti vložek"], ["Sveder", "Ø10, globina 60 mm"], ["Premeri cevi", "od 12–14 mm (1/4\") naprej"]],
-    konec: { napis: "PRITRJENO", kratko: "Cev je pritrjena.", naslov: "Cev je pritrjena", besedilo: `Za priključek M8 ste izbrali hanger M8 in vložek MQ Ø10, v ${strop ? "strop" : "steno"} vrtali s svedrom Ø10, privili hanger in nanj cevno držalo. Gumijasti vložek duši tresljaje in hrup.`, povezave: [ponudba(id)] },
+    konec: { napis: "PRITRJENO", kratko: "Cev je pritrjena.", naslov: "Cev je pritrjena", besedilo: `V ${strop ? "strop" : "steno"} ste vrtali s svedrom Ø10, privili hanger in nanj cevno držalo. Gumijasti vložek duši tresljaje in hrup.`, povezave: [ponudba(id)] },
   });
 }
 export const cevnoStena = cevno({ id: "cevno", strop: false });
@@ -192,7 +192,7 @@ export const cevnoStrop = cevno({ id: "hanger", strop: true });
    ================================================================= */
 const EPS = 80;
 export const stiropor = sestavi({
-  id: "stiropor", postavitev: "stena", u: 2.8, naslov: "Vložek za stiropor: svetilo na fasado",
+  id: "stiropor", postavitev: "stena", u: 2.8, privzeto: { v: 60, s: "4×40" }, naslov: "Vložek za stiropor: svetilo na fasado",
   podlage: [{ tip: "eps", od: 0, do: EPS }, { tip: "zid", od: EPS, do: 400 }],
   luknje: [200, 400],
   izbire: [
@@ -206,32 +206,32 @@ export const stiropor = sestavi({
       potrdilo: "Lesni vijak 4 × 40, pravi vijak za vložek za stiropor." },
   ],
   vlozek: { korak: "Privijte vložek", dolzina: (I) => I.v ?? 60, premer: (I) => ((I.v ?? 60) > 60 ? 16 : 12), barva: (I) => ((I.v ?? 60) > 60 ? "#f4f4f2" : "#9a9ea2"), navodilo: "Kliknite na rdečo oznako: vložek privijte v stiropor, prirobnica poravnana s fasado." },
-  element: { potem: true, predVijakom: true, korak: "Prislonite svetilo", debelina: 4, vRoki: () => <rect x="-60" y="-50" width="120" height="50" rx="10" fill="#f2f2ee" stroke={C.ink} strokeWidth="2" />, potrdilo: "Svetilo je na mestu. Izberite vijak.",
+  element: { potem: true, predVijakom: true, korak: "Prislonite svetilo", debelina: 4, vRoki: () => <rect x="-60" y="-50" width="120" height="50" rx="10" fill="#f2f2ee" stroke={C.ink} strokeWidth="2" />, potrdilo: "Svetilo je na mestu. Zdaj nastavite vijak.",
     risba: (s, g) => (<g><rect x="150" y={-g.tEl} width="300" height={g.tEl} fill="#3a3f44" stroke={C.ink} strokeWidth="1.5" /><rect x="220" y={-g.tEl - 90} width="160" height="90" rx="14" fill="#f2f2ee" stroke={C.ink} strokeWidth="2" /></g>) },
   vijak: { vstavi: "Nastavite vijak", L: (I) => (I.s === "5×60" ? 60 : I.s === "3,5×30" ? 30 : 40), d: (I) => (I.s === "5×60" ? 5 : I.s === "3,5×30" ? 3.5 : 4), navoj: "lesni", glava: "plosca", korak: "Privijte vijak", navodilo: "Nastavite vijačnik na glavo vijaka in držite, ne pretegnite, da se stiropor ne poškoduje." },
-  orodja: [roka("vlozek", "Vložek za stiropor", "Vložek je v roki. Kliknite na rdečo oznako."), elOrodje("Svetilo", "enota"), roka("vijak", "Lesni vijak", "Vijak je v roki. Kliknite na vložek."), OROD.vijacnik, { ...OROD.sveder(10), napaka: "Vložek za stiropor se sam privije v izolacijo, vrtanje ni potrebno." }],
+  orodja: [roka("vlozek", "Vložek za stiropor 60", "Vložek je v roki. Kliknite na rdečo oznako."), elOrodje("Svetilo", "enota"), roka("vijak", "Lesni vijak 4 × 40", "Vijak je v roki. Kliknite na vložek."), OROD.vijacnik, { ...OROD.sveder(10), napaka: "Vložek za stiropor se sam privije v izolacijo, vrtanje ni potrebno." }],
   oznaka: (I) => `vložek ${I.v} mm${I.s ? ` · ${I.s.replace("×", " × ")}` : ""}`,
   napisi: [{ x: 210, y: 576, t: `STIROPOR ${EPS} mm`, velikost: 15 }, { x: 14, y: 576, t: "ZID", velikost: 15 }],
   podatki: [["Velikosti", "50, 60 in 95 mm"], ["Vijak", "lesni vijak 4 × 40"], ["Pravilo", "vložek ne sme seči do zidu"], ["Za", "svetila, nabiralnike, hišne številke"], ["Ni za", "pritrjevanje izolacijskih plošč"], ["Pozor", "vijaka ne pretegnite"]],
-  konec: { napis: "PRITRJENO", kratko: "Svetilo je pritrjeno.", naslov: "Svetilo je na fasadi", besedilo: "Vložek ste izbrali tako, da ostane v stiroporu in ne seže do zidu, ga privili v izolacijo, prislonili svetilo in privili lesna vijaka 4 × 40.", povezave: [ponudba("stiropor")] },
+  konec: { napis: "PRITRJENO", kratko: "Svetilo je pritrjeno.", naslov: "Svetilo je na fasadi", besedilo: "Vložek 60 mm ostane v stiroporu in ne seže do zidu. Privili ste ga v izolacijo, prislonili svetilo in privili lesna vijaka 4 × 40.", povezave: [ponudba("stiropor")] },
 });
 
 /* =================================================================
    VLOŽEK ZA MAVČNE PLOŠČE: nosilec police
    ================================================================= */
 export const gips = sestavi({
-  id: "gips", postavitev: "tla", u: 5, naslov: "Vložek za mavčne plošče: nosilec police",
+  id: "gips", postavitev: "tla", u: 5, privzeto: { s: "4,5×30" }, naslov: "Vložek za mavčne plošče: nosilec police",
   podlage: [{ tip: "mavec", od: 0, do: 12.5 }],
   luknje: [480, 720],
   vlozek: { korak: "Privijte vložek", dolzina: 32, premer: 13, barva: "#f4f4f2", navodilo: "Kliknite na rdečo oznako: vložek se z rezili sam privije v ploščo, brez vrtanja." },
-  element: { potem: true, predVijakom: true, korak: "Prislonite nosilec", debelina: 3, potrdilo: "Nosilec je na mestu. Izberite vijak.", vRoki: () => <rect x="-50" y="-8" width="100" height="8" fill={C.jeklo} stroke={C.ink} strokeWidth="1.5" />,
+  element: { potem: true, predVijakom: true, korak: "Prislonite nosilec", debelina: 3, potrdilo: "Nosilec je na mestu. Zdaj nastavite vijak.", vRoki: () => <rect x="-50" y="-8" width="100" height="8" fill={C.jeklo} stroke={C.ink} strokeWidth="1.5" />,
     risba: (s, g) => (<g><rect x="380" y={-g.tEl} width="440" height={g.tEl} fill={C.jeklo} stroke={C.ink} strokeWidth="1.5" /><rect x="590" y={-g.tEl - 140} width="20" height="140" fill={C.jeklo} stroke={C.ink} strokeWidth="1.5" /></g>) },
   izbire: [{ pred: "vijak", naziv: "Izberite vijak", scenarij: "Vložek 13 × 32, nosilec 3 mm. Vijak mora ostati v vložku.",
     skupine: [izbor("s", "Lesni vijak", ["3,5×25", "4,5×30", "4,5×50", "6×40"], (v) => v.replace("×", " × "))],
     preveri: (sel) => ({ "3,5×25": "Vijak 3,5 × 25 je pretanek, vložek se ne razpre dovolj. Uporabite 4,5 × 30.", "4,5×50": "Vijak 4,5 × 50 je predolg, šel bi skozi vložek v votli prostor. Vijak mora ostati v vložku: 4,5 × 30.", "6×40": "Vijak Ø6 je predebel: vložek bi počil in mavec bi se zdrobil. Uporabite 4,5 × 30." }[sel.s] ?? null),
     potrdilo: "Lesni vijak 4,5 × 30 ostane v vložku." }],
   vijak: { vstavi: "Nastavite vijak", L: 30, d: 4.5, navoj: "lesni", glava: "plosca", korak: "Privijte vijak", hitrost: 3, navodilo: "Nastavite vijačnik na glavo in držite, ne pretegnite, mavčna plošča se lahko deformira." },
-  orodja: [roka("vlozek", "Vložek za mavec", "Vložek je v roki. Kliknite na rdečo oznako."), elOrodje("Nosilec police"), roka("vijak", "Lesni vijak", "Vijak je v roki. Kliknite na vložek."), OROD.vijacnik, { ...OROD.sveder(8), napaka: "Za ta vložek ne vrtate, konica z rezili se sama zavrta v mavčno ploščo." }, { ...OROD.kladivo, napaka: "Plastičnega vložka ne zabijate: mavec bi se zdrobil." }],
+  orodja: [roka("vlozek", "Vložek za mavec", "Vložek je v roki. Kliknite na rdečo oznako."), elOrodje("Nosilec police"), roka("vijak", "Lesni vijak 4,5 × 30", "Vijak je v roki. Kliknite na vložek."), OROD.vijacnik, { ...OROD.sveder(8), napaka: "Za ta vložek ne vrtate, konica z rezili se sama zavrta v mavčno ploščo." }, { ...OROD.kladivo, napaka: "Plastičnega vložka ne zabijate: mavec bi se zdrobil." }],
   oznaka: (I) => (I.s ? `vijak ${I.s.replace("×", " × ")}` : "vložek 13 × 32"),
   napisi: [{ x: 24, y: 300 + 12.5 * 5 + 24, t: "MAVČNA PLOŠČA 12,5 mm", velikost: 15 }, { x: 24, y: 576, t: "votli prostor", velikost: 14, barva: "#8f9599" }],
   podatki: [["Vložek", "13 × 32 mm, najlon"], ["Vijak", "lesni vijak 4,5 × 30"], ["Vrtanje", "ni potrebno"], ["Plošča", "ena ali dve mavčni plošči"], ["Pozor", "ne pretegnite: plošča se deformira"]],
@@ -258,7 +258,7 @@ export const wc = sestavi({
 });
 function obesi({ id, ime, risba, vRoki, konec, podatki, vir }) {
   return sestavi({
-    id, postavitev: "stena", u: 2.2, podlaga: "zid", naslov: `Komplet za ${ime.toLowerCase()}`,
+    id, postavitev: "stena", u: 2.2, privzeto: { k: "10x120" }, podlaga: "zid", naslov: `Komplet za ${ime.toLowerCase()}`,
     luknje: [190, 410],
     izbire: [{ pred: "vrtaj", naziv: "Izberite komplet", scenarij: `Nosilna pločevina ${ime.toLowerCase()}a je debela 2 mm. Med zidom in pločevino je 20 mm prostora za poravnavo.`,
       skupine: [izbor("k", "Komplet (hanger vijak)", ["8x100", "10x120", "10x140"], (v) => v.replace("x", " × "))],
@@ -269,7 +269,7 @@ function obesi({ id, ime, risba, vRoki, konec, podatki, vir }) {
     vijak: { tip: "hanger", vstop: 0, vstavi: "Nastavite hanger", Lles: (I) => (I.k?.startsWith("8") ? 50 : 60), Lmet: (I) => Number(I.k?.split("x")[1] ?? 120) - (I.k?.startsWith("8") ? 50 : 60), d: (I) => (I.k?.startsWith("8") ? 8 : 10), korak: "Privijte hanger", navodilo: "Nastavite vijačnik z nastavkom na vijak in držite, lesni navoj gre v vložek, metrični ostane zunaj." },
     element: { potem: true, korak: `Obesite ${ime.toLowerCase()}`, debelina: 2, risba, vRoki, navodilo: `Kliknite v prizor: ${ime.toLowerCase()} nadenete od strani na vijaka.`, potrdilo: `${ime} visi na vijakih.` },
     matica: { d: (I) => (I.k?.startsWith("8") ? 8 : 10), naY: (I) => -(Number(I.k?.split("x")[1] ?? 120) - (I.k?.startsWith("8") ? 50 : 60)) + 28, podlozkaKorak: "Podložka", korak: "Zategnite matico", navodilo: "Nastavite ključ na matico in držite, z maticama poravnate v navpičnico." },
-    orodja: [OROD.sveder(10), OROD.sveder(12), OROD.pihalka, roka("vlozek", "Vložek", "Vložek je v roki. Kliknite v luknjo."), roka("vijak", "Hanger vijak", "Hanger je v roki. Kliknite na vložek."), OROD.vijacnik, elOrodje(ime, "enota"), roka("podlozka", "Podložka", "Podložka je v roki. Kliknite na vijak.", "element"), OROD.kljuc],
+    orodja: [OROD.sveder(10), OROD.sveder(12), OROD.pihalka, roka("vlozek", "Vložek 12 × 60", "Vložek je v roki. Kliknite v luknjo."), roka("vijak", "Hanger 10 × 120", "Hanger je v roki. Kliknite na vložek."), OROD.vijacnik, elOrodje(ime, "enota"), roka("podlozka", "Podložka", "Podložka je v roki. Kliknite na vijak.", "element"), OROD.kljuc],
     oznaka: (I) => `hanger ${I.k?.replace("x", " × ")}`,
     napisi: [{ x: 24, y: 576, t: "ZID", velikost: 18 }],
     podatki,
@@ -292,21 +292,21 @@ const KAP = { 3.5: [0.7, 2.25], 4.2: [1.75, 3.0], 4.8: [1.75, 4.4], 5.5: [1.75, 
 const T7504 = { plocevina: 0.75, lega: 3 };
 const T7504_SK = T7504.plocevina + T7504.lega;
 export const din7504 = sestavi({
-  id: "din7504", postavitev: "tla", u: 11, naslov: "Samovrtalni vijak DIN 7504: pločevina na lego",
+  id: "din7504", postavitev: "tla", u: 11, privzeto: { d: 5.5, L: 19 }, naslov: "Samovrtalni vijak DIN 7504: pločevina na lego",
   podlage: [{ tip: "jeklo", od: 0, do: T7504.lega }],
   luknje: [470, 730],
-  element: { korak: "Položite pločevino", gumbNapis: "Položite TRAPEZNO PLOČEVINO", gumb: { x: 600, y: 470 }, debelina: T7504.plocevina, potrdilo: "Pločevina leži na legi. Izberite vijak.",
+  element: { korak: "Položite pločevino", gumbNapis: "Položite TRAPEZNO PLOČEVINO", gumb: { x: 600, y: 470 }, debelina: T7504.plocevina, potrdilo: "Pločevina leži na legi. Vzemite samovrtalni vijak.",
     risba: (s, g) => <path d={`M -400 ${-g.tEl} L 540 ${-g.tEl} L 565 -60 L 635 -60 L 660 ${-g.tEl} L 1600 ${-g.tEl} L 1600 0 L -400 0 Z`} fill="#8fa3b5" stroke={C.ink} strokeWidth="1.5" /> },
   izbire: [{ pred: "vijak", naziv: "Izberite vijak", scenarij: `Trapezna pločevina ${fmt(T7504.plocevina)} mm + jeklena lega ${T7504.lega} mm = ${fmt(T7504_SK)} mm skupaj. Vrtalna zmogljivost vijaka mora pokriti skupno debelino.`,
     skupine: [izbor("d", "Premer DIN 7504 K", [3.5, 4.2, 4.8, 5.5, 6.3], (v) => `Ø${fmt(v)}`), izbor("L", "Dolžina", [13, 16, 19, 22, 25], (v) => `${v} mm`)],
     preveri: (sel) => { const [a, b] = KAP[sel.d]; if (T7504_SK > b) return `Ø${fmt(sel.d)} zvrta največ ${fmt(b)} mm jekla: tukaj je ${fmt(T7504_SK)} mm. Izberite večji premer.`; if (T7504_SK < a) return `Ø${fmt(sel.d)} je za tako tanko pločevino prevelik.`; if (sel.L < T7504_SK + 11) return `Vijak ${sel.L} mm je prekratek: svedrasta konica mora v celoti skozi obe plasti, preden navoj prime (vsaj ${Math.ceil(T7504_SK + 11)} mm).`; return null; },
     potrdilo: (I) => `DIN 7504 K ${fmt(I.d)} × ${I.L}: zvrta ${fmt(KAP[I.d][0])}–${fmt(KAP[I.d][1])} mm.` }],
   vijak: { vstavi: "Nastavite vijak", L: (I) => I.L ?? 19, d: (I) => I.d ?? 5.5, navoj: "svedrast", glava: "prirobnica", korak: "Privijte", hitrost: 2.5, navodilo: "Nastavite vijačnik na glavo in držite, konica izvrta luknjo, vijak izreže navoj in se privije." },
-  orodja: [roka("vijak", "DIN 7504 K", "Samovrtalni vijak je v roki. Kliknite na pločevino nad lego."), OROD.vijacnik, { ...OROD.sveder(5), napaka: "Samovrtalnega vijaka ne predvrtate: svedrasta konica sama izvrta luknjo." }],
+  orodja: [roka("vijak", "DIN 7504 K 5,5 × 19", "Samovrtalni vijak je v roki. Kliknite na pločevino nad lego."), OROD.vijacnik, { ...OROD.sveder(5), napaka: "Samovrtalnega vijaka ne predvrtate: svedrasta konica sama izvrta luknjo." }],
   oznaka: (I) => `DIN 7504 K ${fmt(I.d)} × ${I.L}`,
   napisi: [{ x: 28, y: 352, t: "JEKLENA LEGA 3 mm", velikost: 15 }],
   podatki: [["Ø3,5", "0,7–2,25 mm"], ["Ø4,2", "1,75–3,0 mm"], ["Ø4,8", "1,75–4,4 mm"], ["Ø5,5", "1,75–5,25 mm"], ["Ø6,3", "2,0–6,0 mm"], ["Glave", "K šestroba, N lečasta, P ugrezna"]],
-  konec: { napis: "PRITRJENO", kratko: "Pločevina je pritrjena.", naslov: "Pločevina je pritrjena", besedilo: "Premer ste izbrali po vrtalni zmogljivosti (skupna debelina obeh plasti), dolžino pa tako, da gre svedrasta konica v celoti skozi, preden navoj prime. Vijak v enem koraku izvrta, izreže navoj in se privije, brez predvrtanja.", povezave: [ponudba("din7504")] },
+  konec: { napis: "PRITRJENO", kratko: "Pločevina je pritrjena.", naslov: "Pločevina je pritrjena", besedilo: "DIN 7504 K 5,5 × 19 zvrta skupno debelino obeh plasti. Vijak v enem koraku izvrta, izreže navoj in se privije, brez predvrtanja.", povezave: [ponudba("din7504")] },
 });
 
 /* =================================================================
@@ -314,16 +314,16 @@ export const din7504 = sestavi({
    ================================================================= */
 const PILOT = { 3.5: 2.9, 4.2: 3.4, 4.8: 3.9 };
 export const kniping = sestavi({
-  id: "kniping", postavitev: "tla", u: 13, naslov: "Kniping vijak: spoj prezračevalnega kanala",
+  id: "kniping", postavitev: "tla", u: 13, privzeto: { d: 4.2, L: 13 }, naslov: "Kniping vijak: spoj prezračevalnega kanala",
   podlage: [{ tip: "jeklo", od: 0, do: 1 }],
   luknje: [480, 720],
-  element: { korak: "Prekrijte spoj", gumbNapis: "Prekrijte SPOJ", gumb: { x: 600, y: 470 }, debelina: 1, risba: (s, g) => <rect x="380" y={-g.tEl} width="440" height={g.tEl} fill="#b2bbc1" stroke={C.ink} strokeWidth="1.2" />, potrdilo: "Spojni del prekriva kanal. Izberite vijak." },
+  element: { korak: "Prekrijte spoj", gumbNapis: "Prekrijte SPOJ", gumb: { x: 600, y: 470 }, debelina: 1, risba: (s, g) => <rect x="380" y={-g.tEl} width="440" height={g.tEl} fill="#b2bbc1" stroke={C.ink} strokeWidth="1.2" />, potrdilo: "Spojni del prekriva kanal. Zdaj predvrtajte." },
   izbire: [{ pred: "vrtaj", naziv: "Izberite vijak", scenarij: "Spojni del 1 mm + kanal 1 mm = 2 mm jeklene pločevine. Luknja za pločevinski vijak je manjša od premera vijaka.",
     skupine: [izbor("d", "Premer DIN 7981", [3.5, 4.2, 4.8], (v) => `Ø${fmt(v)}`), izbor("L", "Dolžina", [9.5, 13, 16], (v) => `${fmt(v)} mm`)],
     potrdilo: (I) => `DIN 7981 ${fmt(I.d)} × ${fmt(I.L)}: predvrtajte Ø${fmt(PILOT[I.d])}.` }],
   vrtanje: { svedri: [2.9, 3.4, 3.9, 4.8], pravi: (I) => PILOT[I.d ?? 4.2], napaka: (d, prav) => (d > prav ? `Luknja Ø${fmt(d)} je prevelika: navoj v pločevini ne bo prijel. Za ta vijak predvrtajte Ø${fmt(prav)}.` : `Luknja Ø${fmt(d)} je premajhna: vijak bi se zlomil ali pretrgal pločevino. Predvrtajte Ø${fmt(prav)}.`), globina: 1.2, premer: (I) => PILOT[I.d ?? 4.2], navodilo: "Držite miško nad rdečo oznako, izvrtajte skozi spojni del in kanal." },
   vijak: { vstavi: "Nastavite vijak", L: (I) => I.L ?? 13, d: (I) => I.d ?? 4.2, navoj: "lesni", glava: "plosca", korak: "Privijte", hitrost: 3, navodilo: "Nastavite vijačnik na glavo in držite, vijak si sam oblikuje navoj v pločevini." },
-  orodja: [...svedri([2.9, 3.4, 3.9, 4.8]), roka("vijak", "DIN 7981", "Kniping vijak je v roki. Kliknite v luknjo."), OROD.vijacnik],
+  orodja: [...svedri([2.9, 3.4, 3.9, 4.8]), roka("vijak", "DIN 7981 4,2 × 13", "Kniping vijak je v roki. Kliknite v luknjo."), OROD.vijacnik],
   oznaka: (I) => `DIN 7981 ${fmt(I.d)} × ${fmt(I.L)}`,
   napisi: [{ x: 28, y: 345, t: "KANAL 1 mm", velikost: 15 }],
   podatki: [["DIN 7981", "lečasta glava"], ["DIN 7982", "ugrezna glava"], ["Konica", "ostra (oblika C)"], ["Luknja Ø3,5", "≈ Ø2,9 mm"], ["Luknja Ø4,2", "≈ Ø3,4 mm"], ["Luknja Ø4,8", "≈ Ø3,9 mm"]],
@@ -335,7 +335,7 @@ export const kniping = sestavi({
    ================================================================= */
 const T603 = { deska: 25, steber: 4 };
 export const din603 = sestavi({
-  id: "din603", postavitev: "tla", u: 3.6, naslov: "Sponski vijak DIN 603: stranica prikolice",
+  id: "din603", postavitev: "tla", u: 3.6, privzeto: { M: 8, L: 40 }, naslov: "Sponski vijak DIN 603: stranica prikolice",
   podlage: [{ tip: "les", od: 0, do: T603.deska }, { tip: "jeklo", od: T603.deska, do: T603.deska + T603.steber }],
   luknje: [500, 700],
   izbire: [{ pred: "vrtaj", naziv: "Izberite vijak", scenarij: `Deska stranice ${T603.deska} mm + jeklen steber ${T603.steber} mm. Luknje v stebru so za M8. Pod steberom pride podložka in matica.`,
@@ -345,12 +345,12 @@ export const din603 = sestavi({
   vrtanje: { svedri: [6, 8, 10], pravi: 8, napaka: napacenSveder("vijak M8"), globina: T603.deska + T603.steber, premer: 8, mera: "Ø8 · skozi desko in steber" },
   vijak: { vstavi: "Vstavite vijak", L: (I) => I.L ?? 40, d: 8, navoj: "metricni", glava: "goba", orodje: "kladivo", udarec: 34, vstop: (I) => (I.L ?? 40) - 12, korak: "Zabijte do glave", navodilo: "Nekaj udarcev s kladivom: štirirobi vrat se zagozdi v les." },
   matica: { d: 8, spodaj: true, naY: () => T603.deska + T603.steber, podlozkaKorak: "Podložka DIN 125", korak: "Zategnite matico DIN 934", navodilo: "Nastavite ključ na matico pod steberom in držite." },
-  orodja: [...svedri([6, 8, 10]), roka("vijak", "DIN 603", "Sponski vijak je v roki. Kliknite v luknjo."), OROD.kladivo, roka("podlozka", "Podložka DIN 125", "Podložka je v roki. Kliknite pod vijak.", "element"), OROD.kljuc],
+  orodja: [...svedri([6, 8, 10]), roka("vijak", "DIN 603 M8 × 40", "Sponski vijak je v roki. Kliknite v luknjo."), OROD.kladivo, roka("podlozka", "Podložka DIN 125", "Podložka je v roki. Kliknite pod vijak.", "element"), OROD.kljuc],
   oznaka: (I) => `DIN 603 M8 × ${I.L}`,
   doseg: 120,
   napisi: [{ x: 28, y: 300 + T603.deska * 3.6 - 14, t: "DESKA STRANICE 25 mm", velikost: 14 }, { x: 28, y: 300 + (T603.deska + T603.steber) * 3.6 + 22, t: "JEKLEN STEBER 4 mm", velikost: 14 }],
   podatki: [["Vijak", "DIN 603, polokrogla glava"], ["Vrat", "štirirobi: se zagozdi v les"], ["Luknja", "enaka premeru vijaka"], ["Dolžina", "deska + steber + podložka + matica + 2 navoja"], ["Matica", "DIN 934"], ["Podložka", "DIN 125"]],
-  konec: { napis: "PRITRJENO", kratko: "Stranica je pritrjena.", naslov: "Stranica prikolice je pritrjena", besedilo: "Vijak M8 ste izbrali po luknjah v stebru, dolžino po debelini spoja, izvrtali skozi desko in steber, vijak zabili do glave in pod steberom zategnili matico s podložko. Štirirobi vrat preprečuje vrtenje vijaka.", povezave: [ponudba("din603")] },
+  konec: { napis: "PRITRJENO", kratko: "Stranica je pritrjena.", naslov: "Stranica prikolice je pritrjena", besedilo: "Izvrtali ste skozi desko in steber, vijak zabili do glave in pod steberom zategnili matico s podložko. Štirirobi vrat preprečuje vrtenje vijaka.", povezave: [ponudba("din603")] },
 });
 
 /* =================================================================
@@ -358,9 +358,9 @@ export const din603 = sestavi({
    ================================================================= */
 const P571 = { 6: 4, 8: 5, 10: 6 };
 export const din571 = sestavi({
-  id: "din571", postavitev: "stena", u: 2.6, podlaga: "les", naslov: "Vijak stojalni DIN 571: kotnik na steber",
+  id: "din571", postavitev: "stena", u: 2.6, privzeto: { d: 8, L: 60 }, podlaga: "les", naslov: "Vijak stojalni DIN 571: kotnik na steber",
   luknje: [200, 400],
-  element: { korak: "Prislonite kotnik", gumbNapis: "Prislonite KOTNIK", gumb: { x: 820, y: 270 }, debelina: 3, potrdilo: "Kotnik je na mestu. Izberite vijak.",
+  element: { korak: "Prislonite kotnik", gumbNapis: "Prislonite KOTNIK", gumb: { x: 820, y: 270 }, debelina: 3, potrdilo: "Kotnik je na mestu. Zdaj predvrtajte les.",
     risba: (s, g) => (<g><rect x="120" y={-g.tEl} width="360" height={g.tEl} fill={C.jeklo} stroke={C.ink} strokeWidth="1.5" /><rect x="120" y={-g.tEl - 130} width={g.tEl} height="130" fill={C.jeklo} stroke={C.ink} strokeWidth="1.5" /></g>) },
   izbire: [{ pred: "vrtaj", naziv: "Izberite vijak", scenarij: "Kotnik 3 mm ima luknje Ø9. Vijak naj bo v lesu vsaj 6 × premer.",
     skupine: [izbor("d", "Premer DIN 571", [6, 8, 10], (v) => `Ø${v}`), izbor("L", "Dolžina", [40, 60, 80, 100], (v) => `${v} mm`)],
@@ -368,11 +368,11 @@ export const din571 = sestavi({
     potrdilo: (I) => `DIN 571 ${I.d} × ${I.L}: predvrtajte Ø${P571[I.d]}.` }],
   vrtanje: { svedri: [4, 5, 6, 8], pravi: (I) => P571[I.d ?? 8], napaka: (d, prav) => (d > prav ? `Predvrtajte tanjše: Ø${prav}. Pri Ø${d} lesni navoj ne bi prijel.` : `Ø${d} je premajhen: les bi lahko počil. Predvrtajte Ø${prav}.`), globina: (I) => (I.L ?? 60) - 6, premer: (I) => P571[I.d ?? 8], mera: (I) => `predvrtajte Ø${P571[I.d]}`, delci: "#c99a62", navodilo: "Držite miško ob rdeči oznaki, predvrtajte les skozi luknjo v kotniku." },
   vijak: { vstavi: "Nastavite vijak s podložko", L: (I) => I.L ?? 60, d: (I) => I.d ?? 8, navoj: "lesni", glava: "sestroba", orodje: "kljuc", korak: "Privijte s ključem", navodilo: "Nastavite ključ na šestrobo glavo in držite, dokler ne naleže." },
-  orodja: [...svedri([4, 5, 6, 8]), roka("vijak", "DIN 571", "Vijak je v roki. Kliknite na luknjo v kotniku."), OROD.kljuc, { ...OROD.vijacnik, napaka: "Šestroba glava DIN 571 se privija s ključem ali nasadnim ključem." }],
+  orodja: [...svedri([4, 5, 6, 8]), roka("vijak", "DIN 571 8 × 60", "Vijak je v roki. Kliknite na luknjo v kotniku."), OROD.kljuc, { ...OROD.vijacnik, napaka: "Šestroba glava DIN 571 se privija s ključem ali nasadnim ključem." }],
   oznaka: (I) => `DIN 571 ${I.d} × ${I.L}`,
   napisi: [{ x: 24, y: 576, t: "LESEN STEBER", velikost: 18 }],
   podatki: [["Vijak", "DIN 571, šestroba glava"], ["Predvrtanje", "≈ 0,6 × premer"], ["V lesu", "vsaj 6 × premer"], ["Podložka", "DIN 125"], ["Privijanje", "ključ ali nasadni ključ"]],
-  konec: { napis: "PRITRJENO", kratko: "Kotnik je pritrjen.", naslov: "Kotnik je pritrjen", besedilo: "Premer ste izbrali po luknji v kotniku, dolžino tako, da je vijak v lesu vsaj 6 × premer, les predvrtali tanjše od vijaka in vijaka privili s ključem.", povezave: [ponudba("din571")] },
+  konec: { napis: "PRITRJENO", kratko: "Kotnik je pritrjen.", naslov: "Kotnik je pritrjen", besedilo: "Les ste predvrtali skozi kotnik s svedrom Ø5, tanjše od vijaka in vijaka privili s ključem.", povezave: [ponudba("din571")] },
 });
 
 /* =================================================================
@@ -380,7 +380,7 @@ export const din571 = sestavi({
    ================================================================= */
 const TSP = 10;
 export const maticniSpoj = sestavi({
-  id: "maticni", postavitev: "tla", u: 4.2, naslov: "Spoj po DIN: vijak, podložke, matica",
+  id: "maticni", postavitev: "tla", u: 4.2, privzeto: { M: 10, L: 40 }, naslov: "Spoj po DIN: vijak, podložke, matica",
   podlage: [],
   luknje: [500, 700],
   // dve ločeni plošči (preklopni spoj): zgornja sega levo, spodnja desno, prekrivata se pri luknjah
@@ -404,12 +404,12 @@ export const maticniSpoj = sestavi({
   vijak: { vstavi: "Vstavite vijak s podložko", brezPrivijanja: true, L: (I) => I.L ?? 40, d: 10, navoj: "metricni", glava: "sestroba", koncnaGlava: -2 - 7, vstaviNavodilo: "Kliknite v luknjo: vijak DIN 933 s podložko DIN 125 vstavite skozi obe plošči." },
   matica: { d: 10, spodaj: true, vzmetna: true, naY: () => 2 * TSP, podlozkaKorak: "Podložki 125 + 127B", podlozkaNavodilo: "Kliknite pod vijak: nadenite podložko DIN 125 in vzmetno podložko DIN 127B.", korak: "Zategnite matico DIN 934", navodilo: "Nastavite ključ na matico in držite." },
   risbaNad: (s) => (s.korak >= 2 || s.koncano ? <g>{[500, 700].map((x) => <rect key={x} x={x - 42} y={-2 * 4.2} width="84" height={2 * 4.2} fill="#d5d9dc" stroke={C.ink} strokeWidth="1" />)}</g> : null),
-  orodja: [roka("vijak", "DIN 933 + DIN 125", "Vijak s podložko je v roki. Kliknite v luknjo."), roka("podlozka", "Podložki 125 + 127B", "Podložki sta v roki. Kliknite pod vijak.", "element"), OROD.kljuc],
+  orodja: [roka("vijak", "DIN 933 M10 × 40 + DIN 125", "Vijak s podložko je v roki. Kliknite v luknjo."), roka("podlozka", "Podložki 125 + 127B", "Podložki sta v roki. Kliknite pod vijak.", "element"), OROD.kljuc],
   oznaka: (I) => `DIN 933 M10 × ${I.L}`,
   doseg: 130,
   napisi: [{ x: 790, y: 300 + 2 * TSP * 4.2 + 30, t: "DVE LOČENI JEKLENI PLOŠČI, SKUPAJ 20 mm", velikost: 14 }],
   podatki: [["Vijak", "DIN 933 / DIN 931"], ["Podložka", "DIN 125"], ["Vzmetna podložka", "DIN 127B"], ["Matica", "DIN 934"], ["Dolžina", "spoj + podložke + matica + 2 navoja"], ["Namesto vzmetne", "samovarovalna matica DIN 985"]],
-  konec: { napis: "PRITRJENO", kratko: "Spoj je zategnjen.", naslov: "Spoj po DIN je zategnjen", besedilo: "Premer ste izbrali po luknji, dolžino po debelini spoja s podložkami in matico. Namesto vzmetne podložke lahko uporabite samovarovalno matico DIN 985.", povezave: [ponudba("asco")] },
+  konec: { napis: "PRITRJENO", kratko: "Spoj je zategnjen.", naslov: "Spoj po DIN je zategnjen", besedilo: "Vijak DIN 933 M10 × 40 s podložko ste vstavili skozi obe plošči, spodaj nadeli podložko DIN 125 in vzmetno podložko DIN 127B ter zategnili matico DIN 934. Namesto vzmetne podložke lahko uporabite samovarovalno matico DIN 985.", povezave: [ponudba("asco")] },
 });
 
 /* =================================================================
@@ -420,9 +420,9 @@ const HNOM_TX1 = { 10: 60, 16: 100 };   // približno, po podatkih za TXH7 — p
 const tx1Sel = (I) => TX1.izbire[I.a ?? "16x250"];
 const tx1Beton = (I) => tx1Sel(I).L - TX1.les - tx1Sel(I).M - 5;   // del sidra v betonu
 export const tx1Siroka = sestavi({
-  id: "tx1", postavitev: "tla", u: 1.05, podlaga: "beton", naslov: "TX1 s široko podložko: lega na betonski venec",
+  id: "tx1", postavitev: "tla", u: 1.05, privzeto: { a: "16x250" }, podlaga: "beton", naslov: "TX1 s široko podložko: lega na betonski venec",
   luknje: [440, 760], doseg: 100,
-  element: { korak: "Položite lego", gumbNapis: "Položite LESENO LEGO", gumb: { x: 600, y: 420 }, debelina: TX1.les, potrdilo: "Lega leži na vencu. Izberite sidro.",
+  element: { korak: "Položite lego", gumbNapis: "Položite LESENO LEGO", gumb: { x: 600, y: 420 }, debelina: TX1.les, potrdilo: "Lega leži na vencu. Zdaj vrtajte skozi les v beton.",
     risba: (s, g) => (<g><rect x="150" y={-g.tEl} width="900" height={g.tEl} fill="url(#v-les)" stroke={C.ink} strokeWidth="2" />
       {s.koncano && <g>{[290, 600, 910].map((x) => <rect key={x} x={x - 40} y={-g.tEl - 96} width="80" height="96" fill="#ddb984" stroke={C.ink} strokeWidth="2" />)}
         <rect x="110" y={-g.tEl - 116} width="980" height="20" fill="#c99a62" stroke={C.ink} strokeWidth="1.5" />
@@ -444,11 +444,11 @@ export const tx1Siroka = sestavi({
     { naziv: "Zategnite matico", orodje: "kljuc", nacin: "drzi", korak: 5, navodilo: "Nastavite ključ na matico in držite, objemka se v betonu razpre.", preskok: "Najprej zabijte sidro do podložke." },
     { naziv: "Postavite streho", tip: "postavi", orodje: "streha", navodilo: "Kliknite v prizor: na pritrjeno lego postavite špirovce in kritino.", potrdilo: "Streha je na legi.", preskok: "Najprej zategnite obe matici." },
   ],
-  orodja: [...svedri([10, 12, 16, 18]), OROD.pihalka, roka("vijak", "Sidro TX1", "Sidro TX1 je v roki. Kliknite na luknjo v legi."), OROD.kladivo, OROD.kljuc,
+  orodja: [...svedri([10, 12, 16, 18]), OROD.pihalka, roka("vijak", "TX1 M16 × 250", "Sidro TX1 je v roki. Kliknite na luknjo v legi."), OROD.kladivo, OROD.kljuc,
     { id: "streha", naziv: "Strešna konstrukcija", risba: "roka", ikona: "element", izbrano: "Špirovci in kritina so pripravljeni. Kliknite v prizor." }, { ...OROD.vijacnik, napaka: "Sidro TX1 se zabije s kladivom, matica pa zategne s ključem." }],
   vRoki: (k) => (k === "streha" ? <g><rect x="-80" y="-60" width="160" height="16" fill="#c99a62" stroke={C.ink} strokeWidth="1.5" /><path d="M -80 -60 q 40 -36 80 0 q 40 -36 80 0" fill="none" stroke="#b5432c" strokeWidth="8" /></g> : null),
   oznaka: (I) => `TX1 M${tx1Sel(I).M} × ${tx1Sel(I).L}`,
-  napisi: [{ x: 24, y: 576, t: "BETONSKI VENEC", velikost: 18 }, { x: 160, y: 300 - TX1.les * 1.05 + 26, t: `LESENA LEGA (ŠPIROVEC) ${TX1.les} mm`, velikost: 15 }],
+  napisi: [{ x: 24, y: 576, t: "BETONSKI VENEC", velikost: 18 }, { x: 160, y: 300 - TX1.les * 1.05 + 26, t: `LESENA LEGA (ŠPIROVEC) ${TX1.les} mm`, velikost: 15, poElementu: true }],
   podatki: [["Sidro", "TX1 z veliko podložko DIN 9021 / DIN 440"], ["Certifikat", "ETA-17/0638"], ["Sveder", "enak premeru sidra"], ["Montaža", "skozi les naravnost v beton"], ["Izvrtina", "očistite in izpihajte"], ["Zategovanje", "ključ: objemka se razpre"]],
-  konec: { napis: "PRITRJENO", kratko: "Lega je pritrjena, streha je na njej.", naslov: "Lega je trdno na betonu", besedilo: "Sidro ste izbrali glede na debelino lege, vrtali skozi les v betonski venec, izvrtini očistili, sidri zabili do široke podložke in matici zategnili. Široka podložka razporedi pritisk na les, zato se matica ne vtisne v lego. Nato gre na lego strešna konstrukcija.", povezave: [ponudba("tx1")] },
+  konec: { napis: "PRITRJENO", kratko: "Lega je pritrjena, streha je na njej.", naslov: "Lega je trdno na betonu", besedilo: "Sidro TX1 M16 × 250 je dolgo ravno prav za lego 120 mm. Vrtali ste skozi les v betonski venec, izvrtini očistili, sidri zabili do široke podložke in matici zategnili. Široka podložka razporedi pritisk na les, zato se matica ne vtisne v lego. Nato gre na lego strešna konstrukcija.", povezave: [ponudba("tx1")] },
 });

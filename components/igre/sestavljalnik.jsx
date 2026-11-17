@@ -153,7 +153,9 @@ export function sestavi(o) {
   const koraki = [];
   const ix = {};
   const add = (kljuc, k) => { ix[kljuc] = koraki.length; koraki.push({ ...k, kljuc }); };
-  const izbiraPred = (kljuc) => (o.izbire ?? []).filter((z) => z.pred === kljuc).forEach((z, i) => add(`izbira-${kljuc}-${i}`, { tip: "izbira", naziv: z.naziv, navodilo: z.navodilo ?? "Izberite v desnem stolpcu in potrdite izbiro.", scenarij: z.scenarij, skupine: z.skupine, preveri: z.preveri, potrdilo: z.potrdilo }));
+  // Ena sama dimenzija: igra teče s privzeto izbiro (o.privzeto), brez korakov izbiranja.
+  const privzeto = o.privzeto ?? {};
+  const izbiraPred = () => {};
 
   const el = o.element;
   const elPrej = el && !el.potem;
@@ -161,8 +163,8 @@ export function sestavi(o) {
   if (elPrej) add("element", { naziv: el.korak ?? "Postavite element", tip: "postavi", navodilo: el.navodilo ?? "Kliknite v prizor.", potrdilo: el.potrdilo });
   izbiraPred("vrtaj");
   if (o.vrtanje) add("vrtaj", {
-    naziv: o.vrtanje.naziv ?? "Izvrtajte", orodje: o.vrtanje.svedri ? o.vrtanje.svedri.map((d) => `sveder${d}`) : "sveder", nacin: "drzi", korak: 4, delci: o.vrtanje.delci ?? "#b9b4a4",
-    vzemi: o.vrtanje.vzemi ?? "Vzemite iz orodjarne pravi sveder.", navodilo: o.vrtanje.navodilo ?? "Držite miško nad rdečo oznako, dokler luknja ni izvrtana.",
+    naziv: o.vrtanje.naziv ?? "Izvrtajte", orodje: o.vrtanje.svedri ? [`sveder${F(o.vrtanje.pravi ?? o.vrtanje.svedri[0], privzeto)}`] : "sveder", nacin: "drzi", korak: 4, delci: o.vrtanje.delci ?? "#b9b4a4",
+    vzemi: o.vrtanje.vzemi ?? `Vzemite iz orodjarne sveder Ø${fmt(F(o.vrtanje.pravi ?? o.vrtanje.svedri?.[0] ?? "", privzeto))}.`, navodilo: o.vrtanje.navodilo ?? "Držite miško nad rdečo oznako, dokler luknja ni izvrtana.",
     preveriOrodje: o.vrtanje.pravi ? (id, s) => { const d = Number(id.replace("sveder", "")); const prav = F(o.vrtanje.pravi, s.izbor); return d === prav ? null : (o.vrtanje.napaka?.(d, prav, s.izbor) ?? `Za to izbiro potrebujete sveder Ø${String(prav).replace(".", ",")}.`); } : undefined,
   });
   if (o.pihaj) add("pihaj", { naziv: o.pihaj.naziv ?? "Očistite luknjo", orodje: "pihalka", nacin: "drzi", korak: 7, delci: C.prah, navodilo: o.pihaj.navodilo ?? "Držite miško nad luknjo, dokler prah ne izgine.", preskok: "Luknja je še polna prahu, najprej jo očistite." });
@@ -288,7 +290,14 @@ export function sestavi(o) {
     dosegZadetka: o.doseg ?? 90,
     luknje: X.map((x) => tr(x, 0)),
     cilj,
-    orodja: o.orodja,
+    // v orodjarni je samo pravi sveder (orodja z razlago napake ostanejo)
+    // orodjarna po vrstnem redu uporabe, orodja za razlago napake na koncu
+    orodja: (() => {
+      const ok = o.orodja.filter((t) => !(t.id?.startsWith("sveder") && !t.napaka && o.vrtanje?.pravi != null && t.id !== `sveder${F(o.vrtanje.pravi, privzeto)}`));
+      const prvi = (t) => { if (t.napaka) return 999; const i = koraki.findIndex((k) => (Array.isArray(k.orodje) ? k.orodje.includes(t.id) : k.orodje === t.id)); return i < 0 ? 500 : i; };
+      return ok.map((t, i) => [t, prvi(t), i]).sort((a, b) => a[1] - b[1] || a[2] - b[2]).map((x) => x[0]);
+    })(),
+    privzeto,
     koraki,
     prijem(id, li, s) {
       const x = X[li], g = geo(s), k = kljucKoraka(s);
@@ -342,7 +351,7 @@ export function sestavi(o) {
           })}
           <g transform={pos.g}>{narisiLokalno(s)}</g>
           {!s.koncano && !prvi && (naLuknji.includes(k) || (k?.startsWith("dodatno") && koraki[s.korak]?.tip !== "postavi")) && X.map((x, li) => (s.nap[li][s.korak] < 100 ? <Tarca key={li} {...cilj(li, s)} /> : null))}
-          {(o.napisi ?? []).map((n, i) => (typeof n === "function" ? <g key={i}>{n(s, tr, g)}</g> : <Napis key={i} x={n.x} y={n.y} barva={n.barva ?? C.ink} velikost={n.velikost ?? 17} sidro={n.sidro}>{n.t}</Napis>))}
+          {(o.napisi ?? []).filter((n) => typeof n === "function" || !n.poElementu || done(s, 0, "element")).map((n, i) => (typeof n === "function" ? <g key={i}>{n(s, tr, g)}</g> : <Napis key={i} x={n.x} y={n.y} barva={n.barva ?? C.ink} velikost={n.velikost ?? 17} sidro={n.sidro}>{n.t}</Napis>))}
           {has("vrtaj") && o.vrtanje.mera && s.nap[0][ix.vrtaj] >= 100 && s.korak <= (ix.vlozek ?? ix.masa ?? ix.vstavi ?? 99) && (() => {
             const a = tr(X[0] - g.hd / 2 - 22, 0), b = tr(X[0] - g.hd / 2 - 22, g.D);
             return <Mera x1={a.x} y1={a.y} x2={b.x} y2={b.y} napis={F(o.vrtanje.mera, g.I)} stran={-1} />;

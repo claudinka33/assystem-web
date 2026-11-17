@@ -228,7 +228,7 @@ function luknjeUvs(s, { X, vrh, tla, L, iVrt, iVstavi, iZabij, lesTla }) {
 
 const uvsOrodje = { id: "uvs", naziv: "UVS 6 × 40", risba: "roka", ikona: "vlozek", izbrano: "UVS je v roki. Kliknite v izvrtino." };
 const uvsVRoki = () => <g transform={`translate(0 ${-U.vlozek})`}><UvsRisba x={0} vrh={0} glava={-U.ven} /></g>;
-const uvsSvedri = (dolzina) => svedri(6, [5, 6, 8], U.K, dolzina, (d) => (d < 6
+const uvsSvedri = (dolzina) => svedri(6, [6], U.K, dolzina, (d) => (d < 6
   ? "Premajhna izvrtina: UVS 6 ne gre v luknjo. Vrtajte s svedrom Ø6."
   : "Prevelika izvrtina: vložek se ne razpre in ne drži. Vrtajte s svedrom Ø6."));
 const uvsNapacenVijacnik = { ...vijacnik, napaka: "UVS ne privijate: vijak zabijete s kladivom, glava se ugrezne v ovratnik vložka." };
@@ -454,7 +454,6 @@ export const trak = {
   smer: 0,
   orodja: [
     { id: "trak12", naziv: "Trak 12 mm", risba: "roka", ikona: "trak", brezRotacije: true, izbrano: "Trak 12 mm je v roki. Kliknite na kable, da jih prekrijete." },
-    { id: "trak17", naziv: "Trak 17 mm", risba: "roka", ikona: "trak", brezRotacije: true, izbrano: "Trak 17 mm je v roki, širši trak prenese večjo obremenitev. Kliknite na kable." },
     ...uvsSvedri(P.L + 30),
     uvsOrodje,
     kladivo(),
@@ -462,7 +461,7 @@ export const trak = {
   ],
   koraki: [
     { naziv: "Položite kable", tip: "postavi", navodilo: "Kliknite na tla, da položite kable.", obmocje: (t) => t.y > 300, potrdilo: "Kabli so na tleh. Zdaj jih prekrijte s trakom." },
-    { naziv: "Prekrijte s trakom", tip: "postavi", orodje: ["trak12", "trak17"], vzemi: "Vzemite perforiran trak 12 ali 17 mm.", navodilo: "Kliknite na kable, da jih prekrijete s perforiranim trakom.", obmocje: (t) => Math.abs(t.x - 600) < 160 && t.y > 260, potrdilo: "Trak je čez kable. Vrtajte skozi luknje v traku." },
+    { naziv: "Prekrijte s trakom", tip: "postavi", orodje: "trak12", vzemi: "Vzemite perforiran trak 12 mm.", navodilo: "Kliknite na kable, da jih prekrijete s perforiranim trakom.", obmocje: (t) => Math.abs(t.x - 600) < 160 && t.y > 260, potrdilo: "Trak je čez kable. Vrtajte skozi luknje v traku." },
     { naziv: "Izvrtajte luknji", orodje: "sveder6", nacin: "drzi", korak: 5, delci: "#b9b4a4", navodilo: "Držite miško nad rdečo oznako, vrtajte skozi trak v beton.", preskok: "Najprej prekrijte kable s trakom." },
     { naziv: "Vstavite UVS", orodje: "uvs", nacin: "klik", navodilo: "Kliknite v vsako izvrtino." },
     { naziv: "Zabijte vijaka", orodje: "kladivo", nacin: "udarci", korak: 25, navodilo: "Vsak klik je en udarec. Štirje udarci na vijak." },

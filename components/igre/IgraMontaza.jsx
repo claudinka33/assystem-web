@@ -40,7 +40,7 @@ function IgraMontaza({ cfg }) {
   const [izbire, setIzbire] = useState({});
   const [sporocilo, setSporocilo] = useState(null);
   const [napaka, setNapaka] = useState(false);
-  const [izbor, setIzbor] = useState({});      // potrjene izbire (premer, dolžina …)
+  const [izbor, setIzbor] = useState(() => ({ ...(cfg.privzeto ?? {}) }));      // potrjene izbire (premer, dolžina …)
   const [osnutek, setOsnutek] = useState({});  // izbira, ki še ni potrjena
   const javljeno = useRef(false);
 
@@ -183,7 +183,7 @@ function IgraMontaza({ cfg }) {
   }
 
   function ponovi() {
-    setIzbor({}); setOsnutek({});
+    setIzbor({ ...(cfg.privzeto ?? {}) }); setOsnutek({});
     ustavi(); setNap(zacetne()); setOrodje(null); setDelci([]); setIzbire({});
     setSporocilo(null); setNapaka(false); javljeno.current = false;
   }

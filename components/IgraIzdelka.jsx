@@ -13,10 +13,10 @@ const IGRE = {
     opis: "Šest korakov, kot gredo na gradbišču. Izberite sveder in sidro, izvrtajte, izpihajte luknje, zabijte sidra in jih zategnite.",
     Komponenta: IgraSidranje,
   },
-  "jekleno-sidro-tx1-siroka-podlozka": { naslov: "Pritrdite leseno lego na betonski venec", opis: "Izberite sidro TX1 glede na debelino lege, vrtajte skozi les v beton, očistite, zabijte sidri do široke podložke, zategnite matici in postavite streho.", cfg: tx1Siroka },
+  "jekleno-sidro-tx1-siroka-podlozka": { naslov: "Pritrdite leseno lego na betonski venec", opis: "Sidro TX1 M16 × 250: vrtajte skozi les v beton, očistite, zabijte sidri do široke podložke, zategnite matici in postavite streho.", cfg: tx1Siroka },
   "turbo-vijak-za-beton": {
     naslov: "Pritrdite okenski okvir v beton",
-    opis: "Izberite pravi sveder, vrtajte skozi okvir in vijaka privijte naravnost v beton, brez vložka in brez čiščenja luknje.",
+    opis: "Turbo vijak 7,5 × 92: vrtajte s svedrom Ø7 skozi okvir in vijaka privijte naravnost v beton, brez vložka in brez čiščenja luknje.",
     cfg: turbo,
   },
   "udarni-vijak-nylon": {
@@ -40,7 +40,7 @@ const IGRE = {
     cfg: afrkKlima,
   },
   "univerzalni-vijak-z-vlozkom-af-rs": { naslov: "Pritrdite okvir skozi element v zid", opis: "Okvir prislonite, vrtajte skozi okvir, očistite luknjo, vložek AF-RS potisnite skozi okvir in privijte.", cfg: afrs },
-  "zidni-vlozek-mq": { naslov: "Pritrdite nosilec na opečni zid", opis: "Izberite sveder, izvrtajte in očistite luknji, vstavite vložka MQ, prislonite nosilec in privijte vijaka.", cfg: mq },
+  "zidni-vlozek-mq": { naslov: "Pritrdite nosilec na opečni zid", opis: "Izvrtajte in očistite luknji, vstavite vložka MQ 8 × 40, prislonite nosilec in privijte vijaka.", cfg: mq },
   "kemicno-sidro-easf-top": { naslov: "Vgradite palico v beton s kemično maso", opis: "Izvrtajte in očistite luknji, napolnite ju z maso, vstavite navojni palici, nato namestite nosilec in zategnite matici.", cfg: kemijaBeton },
   "kemicno-sidro-pesf-top": { naslov: "Vgradite palico v beton s kemično maso", opis: "Izvrtajte in očistite luknji, napolnite ju z maso, vstavite navojni palici, nato namestite nosilec in zategnite matici.", cfg: kemijaBeton },
   "perforiran-vlozek-kovinski-1m": { naslov: "Kemična masa v votlo opeko", opis: "Izvrtajte luknji, vstavite kovinsko mrežico, napolnite jo z maso in vstavite palici, v votli steni luknje ne čistite.", cfg: kemijaVotla },
