@@ -44,7 +44,6 @@ const sidra = [
   { izdelek: "Jekleno sidro TXH7", eta: "ETA-21/0597", dop: "01/22" },
   { izdelek: "Jekleno sidro TX1", eta: "ETA-17/0638", dop: "17/01" },
   { izdelek: "Jekleno sidro TXm2", eta: "ETA-23/0137", dop: "2873-CPR-0137" },
-  { izdelek: "Jekleno sidro TXm2r", eta: "ETA-23/0136", dop: "2873-CPR-0136" },
 ];
 
 const kontrola = [
