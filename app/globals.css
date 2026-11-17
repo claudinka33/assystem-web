@@ -3919,3 +3919,25 @@ a.b2b-profil:hover { background: #a50d26; }
   .g-t .g-zaloga { flex: 0 0 100%; }
   .g-naz { min-width: 0; }
 }
+
+/* košarica v glavi se ne sme stisniti */
+.kos-gumb, .kos-gumb svg { flex: none; }
+.kos-gumb svg { width: 22px; height: 22px; }
+/* noga v2: bel logotip brez okvirja, kompaktno */
+.ftr .logo-belo { background: none; padding: 0; }
+.ftr .logo-belo img { height: 40px; width: auto; filter: brightness(0) invert(1); }
+.ftr { padding-top: 22px; }
+.ftr .w { grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: 20px; }
+.ftr-podjetje .logo-belo { margin-bottom: 8px; }
+.ftr-naslov { font-size: 12.5px; margin-bottom: 4px; }
+.ftr a.ftr-tel { font-size: 14px; }
+.ftr a.ftr-mail, .ftr-cas { font-size: 12.5px; }
+.ftr-cas { margin-top: 2px; }
+.ftr-druzbena { margin-top: 6px; }
+.ftr b { margin-bottom: 6px; font-size: 12px; }
+.ftr a { padding: 1px 0; font-size: 12.5px; }
+.fb { margin-top: 14px; }
+.fb .w { padding-top: 8px; padding-bottom: 8px; gap: 4px; }
+.ftr-pravno a, .ftr-piskotki, .fb-spodaj { font-size: 11.5px; }
+.fb-desno img { width: 64px; }
+@media (max-width: 760px) { .ftr .w { grid-template-columns: 1fr 1fr; gap: 14px; } .ftr-podjetje { grid-column: 1 / -1; } }
