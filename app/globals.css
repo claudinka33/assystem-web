@@ -3906,3 +3906,10 @@ a.b2b-profil:hover { background: #a50d26; }
   .g-t .g-sif, .g-t .g-ean, .g-t .g-las, .g-t .g-pak, .g-t .g-zaloga { padding-left: 32px !important; }
   .hdr .logo img { max-width: 100px; }
 }
+@media (max-width: 760px) {
+  .g-t td.g-sl { order: 0; } .g-t .g-dim { order: 1; } .g-t .g-c { order: 2; }
+  .g-t .g-sif { order: 3; } .g-t .g-ean { order: 4; } .g-t .g-las { order: 5; } .g-t .g-pak { order: 6; }
+  .g-t .g-zaloga { order: 7; } .g-t .g-k { order: 8; }
+  .hp-zavihek { padding: 8px 3px; font-size: 10px; }
+  .izd-w { padding-left: 26px !important; }
+}
