@@ -1172,3 +1172,18 @@ details.adm-obr { padding: 8px 12px; }
 .adm-dod-kat { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 3px 14px; max-height: 190px; overflow-y: auto; border: 1px solid var(--a-line); border-radius: 4px; padding: 8px 10px; background: #fff; }
 .adm-dod-kat label { display: flex; gap: 6px; align-items: center; font-size: 12.5px; font-weight: 400; margin: 0; }
 .adm-dod-kat input { width: auto; margin: 0; }
+
+/* nadzorna plošča: bogatejši seznami in barve stanj */
+.nad-seznam li { padding: 0 !important; }
+.nad-seznam .nad-povezava { display: flex; align-items: center; gap: 10px; padding: 8px 14px; color: inherit; text-decoration: none; }
+.nad-seznam .nad-povezava:hover { background: #f7f8fa; }
+.nad-gl { display: grid; gap: 1px; min-width: 0; flex: 1; }
+.nad-gl small { color: #6e767e; font-size: 11.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nad-gl .nad-ime { color: #2b2f33; }
+.nad-des { display: grid; justify-items: end; gap: 3px; flex: none; }
+.znacka.zn-novo { background: #fdeaed; color: #c8102e; }
+.znacka.zn-placilo { background: #fff3dc; color: #a35d00; }
+.znacka.zn-obdelava { background: #e6f0fb; color: #1f5fa8; }
+.znacka.zn-poslano { background: #efe8fb; color: #6a3fb5; }
+.znacka.zn-koncano { background: #e5f5ea; color: #1a7f3c; }
+.znacka.zn-preklic { background: #f0f2f4; color: #8a8f94; }

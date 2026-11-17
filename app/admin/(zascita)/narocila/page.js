@@ -1,6 +1,7 @@
 import { supabaseAdmin } from "@/lib/supabase-server";
 import { spremeniNarocilo } from "@/lib/akcije/narocila-admin";
 import { eur } from "@/lib/cene";
+import { stanjeNarocila } from "@/lib/narocila-stanje";
 
 export const dynamic = "force-dynamic";
 
@@ -73,7 +74,7 @@ export default async function Narocila() {
                 {n.vasco_predracun ? <b>{n.vasco_predracun}</b> : n.vasco_napaka ? <span style={{ color: "#cb2026" }}>napaka</span> : <span className="siv">čaka</span>}
               </span>
               <b className="des">{eur(Number(n.skupaj))}</b>
-              <span><span className={n.status === "novo" ? "znacka novo" : n.status === "preklicano" ? "znacka ne" : "znacka da"}>{n.status}</span></span>
+              <span><span className={`znacka ${stanjeNarocila(n).razred}`}>{stanjeNarocila(n).oznaka}</span></span>
             </summary>
             <div className="vrstice-podrobno">
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "4px 20px", marginBottom: 8 }}>
