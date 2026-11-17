@@ -16,9 +16,9 @@ const norm = (x) => String(x ?? "").toLowerCase().replace(/\s+/g, "");
 const st = (x) => new Intl.NumberFormat("sl-SI", { useGrouping: "always", maximumFractionDigits: 2 }).format(x);
 
 // Slika embalaže pred šifro: takoj se vidi, ali je škatla ali vrečka
-function slikaPakiranja(a, znamka, pot, embalaza) {
+function slikaPakiranja(a, znamka, pot, embalaza, naziv) {
   const v = String((a.lastnosti ?? {}).Pakiranje ?? "").toLowerCase();
-  if (!v) return vrecaBrezTiska(pot) ? "/slike/embalaza/ikone/vrecka-prozorna.jpg" : null;
+  if (!v) return vrecaBrezTiska(naziv) ? "/slike/embalaza/ikone/vrecka-prozorna.jpg" : null;
   const lastna = (embalaza ?? []).find((e) => e.slika && e.lastnost === "Pakiranje" && String(e.vrednost).toLowerCase() === v);
   if (lastna) return lastna.slika;
   const D = "/slike/embalaza/ikone/";
@@ -38,14 +38,14 @@ function slikaPakiranja(a, znamka, pot, embalaza) {
   return null;
 }
 // Zidni vložki in udarni vijaki brez navedenega pakiranja: prozorna vrečka po 50 ali 100 kos
-function vrecaBrezTiska(pot) {
-  const p = String(pot ?? "");
-  return p.startsWith("/program/zidni-vlozki") || p.includes("udarni");
+// UVS, UVZ (udarni vijak), ZVKR, ZVK (zidni vložek z robom / brez roba), vložek za stiropor, ZV.A, ZV.I
+function vrecaBrezTiska(naziv) {
+  return /udarni vijak|zidni vložek z robom|zidni vložek brez roba|stiropor|zv\.a\b|zv\.i\b/i.test(String(naziv ?? ""));
 }
 // Enota za količino v košarici: 4 škatle, 2 vrečki …
-function enota(a, n, kos, pot) {
+function enota(a, n, kos, naziv) {
   if (!(kos > 1)) return "kos";
-  const v = String((a.lastnosti ?? {}).Pakiranje ?? (vrecaBrezTiska(pot) ? "vrečka" : "")).toLowerCase();
+  const v = String((a.lastnosti ?? {}).Pakiranje ?? (vrecaBrezTiska(naziv) ? "vrečka" : "")).toLowerCase();
   const m = n % 100;
   if (v.startsWith("škatla") || v === "osnovno") return m === 1 ? "škatla" : m === 2 ? "škatli" : m === 3 || m === 4 ? "škatle" : "škatel";
   if (v.startsWith("vrečka")) return m === 1 ? "vrečka" : m === 2 ? "vrečki" : m === 3 || m === 4 ? "vrečke" : "vrečk";
@@ -93,7 +93,7 @@ function Kosarica({ a, cena, izdelek, b2b }) {
         onChange={(e) => setKol(Math.max(1, Number(e.target.value) || 1))}
         aria-label={cena.kos > 1 ? `Število pakiranj po ${cena.kos} kos` : "Količina"}
       />
-      <span className="g-enota">{enota(a, kol, cena.kos, izdelek?.pot)}{cena.kos > 1 && <small>{st(kol * cena.kos)} kos</small>}</span>
+      <span className="g-enota">{enota(a, kol, cena.kos, izdelek?.naziv)}{cena.kos > 1 && <small>{st(kol * cena.kos)} kos</small>}</span>
       <button
         type="button"
         className={ok ? "on" : ""}
@@ -251,7 +251,7 @@ function TabelaGosta({ artikli: vhodni, stolpci, izdelek = null, naziviRazlicni 
               const n = kosov(a);
               return (
                 <tr key={a.id} id={`art-${a.sifra}`} className={`${zal ? "" : "g-ni"}${oznacena === a.sifra ? " g-oznacen" : ""}`}>
-                  <td className="g-sl">{slikaPakiranja(a, izdelek?.znamka, izdelek?.pot, embalaza) ? <img src={slikaPakiranja(a, izdelek?.znamka, izdelek?.pot, embalaza)} alt={(a.lastnosti ?? {}).Pakiranje ?? ""} loading="lazy" /> : null}</td>
+                  <td className="g-sl">{slikaPakiranja(a, izdelek?.znamka, izdelek?.pot, embalaza, izdelek?.naziv) ? <img src={slikaPakiranja(a, izdelek?.znamka, izdelek?.pot, embalaza, izdelek?.naziv)} alt={(a.lastnosti ?? {}).Pakiranje ?? ""} loading="lazy" /> : null}</td>
                   <td className="g-sif" data-l="Šifra" translate="no">{a.sifra}</td>
                   <td className={`g-ean${a.ean ? "" : " g-prazno"}`} data-l="EAN" translate="no">{a.ean ?? "—"}</td>
                   {naziviRazlicni && <td className="g-las g-naz" data-l="Naziv">{a.naziv}</td>}
