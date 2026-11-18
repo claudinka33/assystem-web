@@ -25,8 +25,10 @@ export const lokacije = [
   },
 ];
 
-export function Stik({ p, svetlo }) {
-  if (!p) return null;
+// Osebni telefoni in e-naslovi zaposlenih niso javni (samo ime in funkcija);
+// B2B kupec vidi kontakt svojega komercialista v B2B računu (pokazi).
+export function Stik({ p, svetlo, pokazi = false }) {
+  if (!p || !pokazi) return null;
   const nic = !p.tel && !p.mob && !p.email;
   return (
     <ul className={`on-stik${svetlo ? " svetlo" : ""}`}>

@@ -4288,3 +4288,10 @@ button.kos-gumb { background: none; border: 0; padding: 0; cursor: pointer; font
 .b2b-zaklep { max-width: 620px; margin: 30px auto; padding: 28px; background: #fff; border: 1px solid var(--color-line); border-top: 4px solid var(--color-red); text-align: center; }
 .b2b-zaklep h1 { font-size: 22px; margin: 0 0 10px; }
 .b2b-zaklep p { color: var(--color-muted); margin: 0 0 18px; }
+
+/* B2B račun: kontakt komercialista */
+.b2bp-kom { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 18px; background: #fff; border: 1px solid var(--color-line); border-left: 4px solid var(--color-red); padding: 10px 14px; margin: 10px 0; }
+.b2bp-kom em { font-style: normal; font-size: 10.5px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--color-red); flex-basis: 100%; }
+.b2bp-kom b { font-size: 15px; }
+.b2bp-kom > span { color: var(--color-muted); font-size: 13px; }
+.b2bp-kom .on-stik { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 0; padding: 0; list-style: none; }

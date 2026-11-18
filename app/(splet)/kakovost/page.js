@@ -238,20 +238,6 @@ async function Kakovost() {
               <small>Kontakt za kakovost</small>
               <strong>{kakovostnik?.ime}</strong>
               <span>Vodja kakovosti</span>
-              <ul className="on-stik">
-                {kakovostnik?.mob && (
-                  <li>
-                    <span>M</span>
-                    <a href={`tel:${telRaw(kakovostnik.mob)}`}>{kakovostnik.mob}</a>
-                  </li>
-                )}
-                {kakovostnik?.email && (
-                  <li>
-                    <span>@</span>
-                    <a href={`mailto:${kakovostnik.email}`}>{kakovostnik.email}</a>
-                  </li>
-                )}
-              </ul>
               <p>Reklamacije, kontrolni zapisi, sledljivost serije ali dokumentacija za projekt.</p>
               <Link className="b b-r" href="/reklamacije">Prijava reklamacije →</Link>
             </div>

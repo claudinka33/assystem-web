@@ -6,6 +6,8 @@ import { odjava } from "@/lib/akcije/b2b";
 import { supabaseAdmin } from "@/lib/supabase-server";
 import { eur } from "@/lib/cene";
 import { site } from "@/lib/site";
+import { poisci } from "@/lib/kontakti";
+import { Stik } from "@/components/KontaktBloki";
 import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
 const metadataSl = { title: "Moj B2B račun", robots: { index: false } };
@@ -108,6 +110,30 @@ async function Racun({ searchParams }) {
             )}
           </div>
         </div>
+
+        {(() => {
+          const kom = k.komercialist ? poisci(k.komercialist) : null;
+          return (
+            <div className="b2bp-kom">
+              <em>{kom ? "Vaš komercialist" : "Vaša podpora"}</em>
+              {kom ? (
+                <>
+                  <b>{kom.ime}</b>
+                  <span>{kom.vloga}</span>
+                  <Stik p={kom} pokazi />
+                </>
+              ) : (
+                <>
+                  <b>Prodaja AS system</b>
+                  <ul className="on-stik">
+                    <li><span>T</span><a href={`tel:${site.telefonRaw}`}>{site.telefon}</a></li>
+                    <li><span>@</span><a href={`mailto:${site.email}`}>{site.email}</a></li>
+                  </ul>
+                </>
+              )}
+            </div>
+          );
+        })()}
 
         <div className="b2bp-zav">
           <nav>

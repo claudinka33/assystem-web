@@ -5,6 +5,7 @@ import IzbrisiGumb from "../../IzbrisiGumb";
 import Osvezi from "../../Osvezi";
 import NovB2B from "./NovB2B";
 import IskalnikB2B from "./IskalnikB2B";
+import { komercialisti } from "@/lib/kontakti";
 
 export const dynamic = "force-dynamic";
 
@@ -162,6 +163,22 @@ export default async function B2BKupci({ searchParams }) {
                                   </select>
                                 </div>
                               )}
+                              <div className="adm-polje s3">
+                                <label>Komercialist (kupec vidi njegove kontakte v B2B računu)</label>
+                                <select name="komercialist" defaultValue={k.komercialist ?? ""}>
+                                  <option value="">— ni določen (prikaže se splošni kontakt) —</option>
+                                  {komercialisti().map((x) => (
+                                    <option key={x.ime} value={x.ime}>{x.ime} — {x.vloga}</option>
+                                  ))}
+                                </select>
+                              </div>
+                              <div className="adm-polje s3">
+                                <input type="hidden" name="trgovec_polje" value="1" />
+                                <label style={{ display: "flex", gap: 8, alignItems: "center", fontWeight: 600 }}>
+                                  <input type="checkbox" name="trgovec" defaultChecked={k.trgovec === true} style={{ width: "auto" }} />
+                                  Trgovec — vidi stran »Za trgovce« in police (velja za vse uporabnike podjetja)
+                                </label>
+                              </div>
                               <div className="adm-polje s3"><label>Interna opomba / kontakti</label><textarea name="opomba_interna" rows={2} defaultValue={k.opomba_interna ?? ""} /></div>
                             </div>
                             <div className="b2ba-akcije">

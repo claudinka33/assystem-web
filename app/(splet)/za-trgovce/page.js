@@ -5,19 +5,17 @@ import { site } from "@/lib/site";
 import { ZNAMKE_INFO } from "@/lib/znamke";
 import { dostopPolice } from "@/lib/b2b";
 import ZaklenjenoB2B from "@/components/ZaklenjenoB2B";
-import MenjavaSlik from "@/components/MenjavaSlik";
+import { pridobiIzdelkePoSlugih } from "@/lib/podatki";
 import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
-// Glava: artikli iz B2B ponudbe, menjajo se vsaki 2 s
+// Glava: ploščice izdelkov (kot glavni banner na domači strani s kategorijami)
 const IZDELKI_HERO = [
-  { src: "/slike/asfix/txh7.png", naziv: "Jekleno sidro TXH7" },
-  { src: "/slike/asfix/udarni.png", naziv: "Udarni vijak" },
-  { src: "/slike/asfix/mq.png", naziv: "Zidni vložek MQ" },
-  { src: "/slike/asfix/turbo.png", naziv: "Turbo vijak" },
-  { src: "/slike/asfix/gips.png", naziv: "Vložek za mavčne plošče" },
-  { src: "/slike/asfix/trak.png", naziv: "Perforiran trak" },
-  { src: "/slike/asfix/afr41.png", naziv: "Škatla ASfix" },
-  { src: "/slike/asfix/vrecka-rdeca.png", naziv: "Vrečka ASfix" },
+  { slug: "jekleno-sidro-txh7", src: "/slike/asfix/txh7.png", naziv: "Jekleno sidro TXH7" },
+  { slug: "udarni-vijak-nylon", src: "/slike/asfix/udarni.png", naziv: "Udarni vijak" },
+  { slug: "zidni-vlozek-mq", src: "/slike/asfix/mq.png", naziv: "Zidni vložek MQ" },
+  { slug: "turbo-vijak-za-beton", src: "/slike/asfix/turbo.png", naziv: "Turbo vijak" },
+  { slug: "vlozek-za-gips-plasticni", src: "/slike/asfix/gips.png", naziv: "Vložek za mavčne plošče" },
+  { slug: "perforiran-trak", src: "/slike/asfix/trak.png", naziv: "Perforiran trak" },
 ];
 
 export const dynamic = "force-dynamic";
@@ -53,6 +51,7 @@ const embalaza = [
 
 async function ZaTrgovce() {
   const { dostop, prijavljen } = await dostopPolice();
+  const izBaze = await pridobiIzdelkePoSlugih(IZDELKI_HERO.map((x) => x.slug));
   const kajSlike = dostop ? KAJ_SLIKE : KAJ_SLIKE.map((s) => (s.includes("/trgovci/") ? "/slike/znamke/asfix-vrecka.jpg" : s));
   const emb = dostop ? embalaza : embalaza.map((e) => ({ ...e, slike: e.slike.filter(([src]) => !src.includes("polica")) }));
   return (
@@ -81,11 +80,36 @@ async function ZaTrgovce() {
               <a className="b b-o" href="#dolzine">Dolžine polic</a>
             </div>
           </div>
-          <div className="trg-hero-menjava">
-            <MenjavaSlik slike={IZDELKI_HERO} />
+          <div className="hb-plosc">
+            {IZDELKI_HERO.map((x) => {
+              const d = izBaze[x.slug];
+              return (
+                <Link key={x.slug} href={d?.href ?? "/program"} className="hb-pl">
+                  <span className="hb-pl-im">
+                    <Image src={d?.slika || x.src} alt="" fill sizes="160px" style={{ objectFit: "contain", padding: 10, mixBlendMode: "multiply" }} />
+                  </span>
+                  <b>{x.naziv}</b>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>
+
+      {!dostop ? (
+        <section className="sec">
+          <div className="w">
+            <ZaklenjenoB2B
+              naprej="/za-trgovce"
+              prijavljen={prijavljen}
+              naslov="Stran je na voljo B2B trgovcem"
+              besedilo="Prodajni program, police, planograme in embalažo za trgovine pokažemo samo trgovcem z B2B dostopom. Prijavite se ali registrirajte podjetje."
+              opombaPrijavljen="Vaš B2B račun še ni označen kot trgovec. Ko ga potrdimo, bo stran vidna tukaj."
+            />
+          </div>
+        </section>
+      ) : (
+        <>
 
       <section className="sec">
         <div className="w">
@@ -232,6 +256,8 @@ async function ZaTrgovce() {
           </div>
         </div>
       </section>
+        </>
+      )}
     </>
   );
 }
