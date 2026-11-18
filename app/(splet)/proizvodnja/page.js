@@ -478,8 +478,6 @@ function Proizvodnja() {
           </div>
           <div className="pr-kak">
             <KorakiSlike
-              href="/kakovost"
-              gumb="Več o kakovosti →"
               koraki={[
                 { naslov: "Nosilnost", podnaslov: "Preizkus", opis: "Preizkus izvlečne sile sider v betonu.", slika: "/slike/foto/kakovost-03.jpg", alt: "Sidro med preizkusom nosilnosti" },
                 { naslov: "Mere", podnaslov: "Optična kontrola", opis: "Optično merjenje profila in navoja, brez dotika.", slika: "/slike/foto/kakovost-04.jpg", alt: "Optično merjenje vijaka" },
@@ -494,9 +492,6 @@ function Proizvodnja() {
                 </div>
               ))}
             </div>
-          </div>
-          <div style={{ marginTop: 22 }}>
-            <Link className="more" href="/kakovost">Več o kakovosti →</Link>
           </div>
         </div>
       </section>

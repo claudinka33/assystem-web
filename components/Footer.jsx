@@ -54,7 +54,6 @@ export default function Footer({ kategorije: izBaze }) {
             <b>Podjetje</b>
             <Link href="/o-nas">O nas</Link>
             <Link href="/proizvodnja">Proizvodnja</Link>
-            <Link href="/kakovost">Kakovost</Link>
             <Link href="/aktualno">Aktualno</Link>
             <Link href="/zaposlitev">Zaposlitev</Link>
             <Link href="/kontakt">Kontakt</Link>

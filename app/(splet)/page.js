@@ -298,9 +298,6 @@ async function Domov() {
                   </div>
                 ))}
               </div>
-              <Link className="more" href="/kakovost" style={{ display: "inline-block", marginTop: 22 }}>
-                Certifikati in prenosi →
-              </Link>
             </div>
           </div>
         </div>

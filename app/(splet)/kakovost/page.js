@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import Image from "next/image";
 import FotoGalerija from "@/components/FotoGalerija";
 import { FOTO_KAKOVOST } from "@/lib/foto";
@@ -60,6 +61,8 @@ const sistem = [
 ];
 
 async function Kakovost() {
+  // Stran je začasno skrita (v nadgradnji). Za ponovni vklop izbriši to vrstico ter vrni povezave v meniju, nogi in sitemapu.
+  notFound();
   const dokumenti = await pridobiDokumente();
   const kakovostnik = poisci("Mitja Babič");
 

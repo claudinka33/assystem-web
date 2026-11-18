@@ -342,9 +342,6 @@ function ONas() {
                   </div>
                 </div>
               ))}
-              <Link className="more" href="/kakovost" style={{ marginTop: 8 }}>
-                Več o kakovosti →
-              </Link>
             </div>
           </div>
         </div>
