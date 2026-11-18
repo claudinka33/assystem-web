@@ -317,32 +317,6 @@ function Proizvodnja() {
         </div>
       </section>
 
-      {/* Strojni park */}
-      <section className="on-stroji">
-        <div className="w">
-          <div className="st">
-            <span>Strojni park</span>
-            <h2>Proizvodno podjetje, ne trgovina s skladiščem</h2>
-            <p>Trenutno stanje strojnega parka: stroji in ljudje, ki jih znajo voditi.</p>
-          </div>
-          <div className="on-stroji-g">
-            {stroji.map((g) => (
-              <div key={g.naziv}>
-                <h3>{g.naziv}</h3>
-                <small>{g.kraj}</small>
-                <ul>
-                  {g.vrstice.map(([n, t]) => (
-                    <li key={t}>
-                      <b>{n}×</b>
-                      <span>{t}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Lokaciji */}
       <section className="sec" id="lokacije">
