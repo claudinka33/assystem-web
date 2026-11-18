@@ -3,6 +3,7 @@ import { supabaseAdmin, trenutniAdmin } from "@/lib/supabase-server";
 import AdminMeni from "../AdminMeni";
 import NeStej from "../NeStej";
 import Obvestila from "../Obvestila";
+import IskalniSeznami from "../IskalniSeznami";
 import "../admin.css";
 
 export const metadata = {
@@ -37,6 +38,7 @@ export default async function AdminLayout({ children }) {
     <div className="adm">
       <NeStej />
       <Obvestila />
+      <IskalniSeznami />
       <AdminMeni ime={admin.ime} stevci={{ narocila, b2b, povprasevanja }} dovoljenja={admin.dovoljenja} />
       <div className="adm-vsebina">{children}</div>
     </div>
