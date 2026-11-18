@@ -79,14 +79,17 @@ export default function IskalniSeznami() {
   useEffect(() => {
     if (!odprt) return;
     vnos.current?.focus();
+    // Klik zunaj okna ga zapre; poslušalec dodamo šele po trenutnem kliku,
+    // sicer bi isti klik, ki je okno odprl, okno takoj zaprl.
     const zapri = (e) => {
-      if (e.target.closest?.(".isk-okno")) return;
+      if (e.target.closest?.(".isk-okno") || e.target === odprt.sel) return;
       setOdprt(null);
     };
     const ob = () => setOdprt(null);
-    document.addEventListener("mousedown", zapri);
+    const t = setTimeout(() => document.addEventListener("mousedown", zapri), 0);
     window.addEventListener("resize", ob);
     return () => {
+      clearTimeout(t);
       document.removeEventListener("mousedown", zapri);
       window.removeEventListener("resize", ob);
     };
