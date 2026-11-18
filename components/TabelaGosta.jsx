@@ -322,7 +322,14 @@ function TabelaGosta({ artikli: vhodni, stolpci, izdelek = null, naziviRazlicni 
           <Link className="g-b2b-r" href="/b2b/registracija">Postanite B2B kupec →</Link>
         </div>
       )}
-      {b2b && !b2b.aktiven && (
+      {b2b?.admin && (
+        <div className="g-b2b-pas g-b2b-cakanje">
+          <div>
+            <b>Administratorski pogled: redne veleprodajne cene (brez DDV) in zaloga.</b>
+          </div>
+        </div>
+      )}
+      {b2b && !b2b.aktiven && !b2b.admin && (
         <div className="g-b2b-pas g-b2b-cakanje">
           <div>
             <b>Vidite redne veleprodajne cene (brez DDV).</b>
