@@ -5,7 +5,6 @@ import ZaklenjenoB2B from "@/components/ZaklenjenoB2B";
 import IgraSidranje from "@/components/IgraSidranje";
 import ZnamkaHero from "@/components/ZnamkaHero";
 import DveZnamki from "@/components/DveZnamki";
-import PotiProdaje from "@/components/PotiProdaje";
 import FotoGalerija from "@/components/FotoGalerija";
 import { FOTO_SIDRA, FOTO_MONTAZA, FOTO_PAKIRANJE, FOTO_SKLADISCE } from "@/lib/foto";
 import { pridobiIzdelkePoSlugih } from "@/lib/podatki";
@@ -380,7 +379,6 @@ async function ASfix() {
           </Link>
         </div>
       </div>
-      <PotiProdaje izpusti="/asfix" />
     </>
   );
 }
