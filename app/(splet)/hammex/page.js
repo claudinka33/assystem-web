@@ -80,9 +80,9 @@ async function Hammer() {
   return (
     <>
       <ZnamkaHero
-        podlaga="svetla"
+        podlaga="antracit"
         ime="HAMMEX"
-        logo="/slike/znamke/hammex-logo.png"
+        logo="/slike/znamke/hammex-logo-negativ.png"
         oznaka="Blagovna znamka · žeblji"
         naslov="Žeblji HAMMEX"
         opis="Gradbeni žičniki, lepenkarji, strojni žičniki v traku in kolarniki, za ročno zabijanje in pnevmatske žebljalnike."
@@ -93,7 +93,7 @@ async function Hammer() {
         slikaAlt="Žeblji HAMMEX: strojni žičniki v traku, gradbeni žičniki in lepenkarji"
         gumbi={[
           { href: KAT, naziv: "Žeblji v katalogu", cls: "b-r" },
-          { href: "/kontakt?vir=hammex", naziv: "Povpraševanje →", cls: "b-d" },
+          { href: "/kontakt?vir=hammex", naziv: "Povpraševanje →", cls: "b-o" },
         ]}
       />
 

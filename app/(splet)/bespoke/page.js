@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import VideoOzadje from "@/components/VideoOzadje";
-import ObrazecPovprasevanje from "@/components/ObrazecPovprasevanje";
+import BespokeObrazec from "@/components/BespokeObrazec";
 import PotiProdaje from "@/components/PotiProdaje";
 import KorakiSlike from "@/components/KorakiSlike";
 import FotoGalerija from "@/components/FotoGalerija";
@@ -199,32 +199,53 @@ function Bespoke() {
         </div>
       </section>
 
-      <section className="sec" id="povprasevanje">
+      <section className="sec bo-sec" id="povprasevanje">
         <div className="w">
-          <div className="qua" style={{ alignItems: "flex-start" }}>
-            <div>
+          <div className="bo-mreza">
+            <div className="bo-levo">
               <div className="st">
-                <span>Povpraševanje</span>
-                <h2>Pošljite skico</h2>
+                <span>Povpraševanje · Bespoke</span>
+                <h2>Od skice do serije</h2>
                 <p>
-                  Priložite skico, risbo ali tehnično dokumentacijo in napišite letno količino. Tehnolog jo pregleda in
-                  pripravimo ponudbo. Če risbe nimate, opišite izdelek ali nam pošljite vzorec.
+                  Bespoke pomeni izdelano po meri naročnika. Ne izbirate iz kataloga, ampak nam poveste, kaj mora
+                  pritrdilo narediti, mi pa ga razvijemo, izdelamo in zapakiramo v lastni proizvodnji v Sloveniji.
+                </p>
+                <p>
+                  Začnete lahko z natančno tehnično risbo, s skico na papirju, z vzorcem, ki ga želite nadomestiti, ali
+                  samo z opisom težave. Tehnolog pregleda podatke, predlaga material, zaščito in način izdelave, nato
+                  pripravimo ponudbo s ceno, minimalno količino in rokom.
                 </p>
               </div>
+
+              <div className="bo-blok">
+                <h3>Kaj nam pomaga pri ponudbi</h3>
+                <ul className="bo-check">
+                  <li><b>Risba ali skica</b> z merami: premer, dolžina, navoj, oblika glave</li>
+                  <li><b>Letna količina</b> in velikost posamezne serije</li>
+                  <li><b>Material in zaščita</b>, če ju že poznate</li>
+                  <li><b>Namen uporabe</b>: podlaga, obremenitev, okolje (vlaga, zunanja uporaba)</li>
+                  <li><b>Embalaža</b>: razsuto, škatle ali vrečke z vašo znamko</li>
+                </ul>
+                <p className="bo-mali">Ne poznate vseh podatkov? Ni težave. Pošljite, kar imate, ostalo uskladimo skupaj.</p>
+              </div>
+
+              <div className="bo-blok">
+                <h3>Kaj sledi</h3>
+                <ol className="bo-sledi">
+                  <li><b>Pregled</b><span>Tehnolog pregleda risbo ali vzorec in vas po potrebi pokliče.</span></li>
+                  <li><b>Ponudba</b><span>Predlog izvedbe, cena, minimalna količina in rok izdelave.</span></li>
+                  <li><b>Vzorci</b><span>Po potrditvi izdelamo vzorce za preizkus.</span></li>
+                  <li><b>Serija</b><span>Redna proizvodnja, pakiranje in dostava.</span></li>
+                </ol>
+              </div>
+
+              <div className="bo-zaupno">
+                <b>Zaupno</b>
+                <span>Vaše risbe in podatke uporabimo samo za pripravo ponudbe in jih ne posredujemo naprej.</span>
+              </div>
             </div>
-            <ObrazecPovprasevanje
-              vir="bespoke"
-              naslov="Povpraševanje: izdelava po meri"
-              dodatnaPolja={[
-                { oznaka: "Izdelek", moznosti: ["vijak po risbi", "jekleno sidro", "udarni vijak", "zidni vložek", "perforiran trak", "drugo"] },
-                { oznaka: "Letna količina", namig: "npr. 100.000 kosov" },
-                { oznaka: "Material", moznosti: ["jeklo za hladno preoblikovanje", "borovo jeklo (kaljeno)", "nerjavno jeklo", "po risbi / ne vem"] },
-                { oznaka: "Površinska zaščita", namig: "npr. pocinkano, črno, brez" },
-                { oznaka: "Želeni rok", namig: "npr. prva serija v 8 tednih" },
-              ]}
-              priloga="Skica, risba ali tehnična dokumentacija"
-              namig="Namen uporabe, posebne zahteve, standard …"
-            />
+
+            <BespokeObrazec />
           </div>
         </div>
       </section>

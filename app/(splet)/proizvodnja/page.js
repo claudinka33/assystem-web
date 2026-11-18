@@ -412,52 +412,6 @@ function Proizvodnja() {
         </div>
       </section>
 
-      {/* Na polici */}
-      <section className="pr-polica-sec">
-        <div className="w">
-          <div className="pr-polica">
-            <div>
-              <div className="st">
-                <span>Zadnji korak</span>
-                <h2>Na polici trgovca</h2>
-                <p>
-                  Iz montaže gre blago naravnost na polico, pripravljeno za
-                  prodajo, brez prepakiranja. Police sestavimo iz standardnih
-                  modulov (1, 2, 4 in 6 m) v postavitve do 20 metrov. Po
-                  želji pripravimo tudi posamezno polico za vašo trgovino.
-                </p>
-              </div>
-              <ul className="pr-polica-tocke">
-                <li>
-                  <b>Prodajna tabla »V kaj pritrjuješ?«</b>
-                  <span>Kupec najprej izbere podlago, nato pritrdilo, manj vprašanj na blagajni.</span>
-                </li>
-                <li>
-                  <b>Vrečke z izveskom</b>
-                  <span>Vložki, udarni vijaki in sidra v manjših količinah, na kavljih.</span>
-                </li>
-                <li>
-                  <b>Škatle z jasno šifro</b>
-                  <span>Dimenzija in količina sta vidni s prednje strani škatle.</span>
-                </li>
-              </ul>
-              <Link className="b b-r" href="/za-trgovce" style={{ marginTop: 26 }}>
-                Ponudba za trgovce →
-              </Link>
-            </div>
-            <div className="pr-polica-im">
-              <Image
-                src="/slike/proizvodnja/polica-asfix-1m.jpg"
-                alt="Prodajna polica ASfix z vrečkami, škatlami in prodajno tablo"
-                width={1100}
-                height={1970}
-                sizes="(max-width: 1000px) 80vw, 460px"
-                style={{ width: "100%", height: "auto" }}
-              />
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Vijaki po naročilu */}
       <section className="sec">

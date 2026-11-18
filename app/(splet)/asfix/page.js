@@ -45,6 +45,7 @@ const IZDELKI = {
   txm2: { naziv: "Jekleno sidro TXm2", opis: "Razpiralno jekleno sidro za beton z oceno ETA.", slika: "/slike/asfix/txh7.png", slug: "jekleno-sidro-txm2", skupina: "pritrdila-za-beton", brezMreze: true },
   afrs: { naziv: "Univerzalni vijak z vložkom AF-RS", opis: "Vložek z vijakom za okvirje in late.", slika: "/slike/asfix/afrk.png", slug: "univerzalni-vijak-z-vlozkom-af-rs", skupina: "pritrdila-za-instalacije", brezMreze: true },
   gipsVijak: { naziv: "Vijak za mavčne plošče", opis: "Za pritrjevanje mavčnih plošč na podkonstrukcijo.", slika: "/slike/asfix/gips.png", slug: "vijak-za-mavcne-plosce-fini-navoj", skupina: "pritrdila-za-suhomontazo", brezMreze: true },
+  ips: { naziv: "Vijak za stiropor IPS", opis: "Za pritrjevanje skozi toplotno izolacijo.", slika: "/slike/asfix/stiropor.png", slug: "vijak-za-stiropor-ips", skupina: "pritrdila-za-streho", brezMreze: true },
   trak: { naziv: "Perforiran trak", opis: "Za obešanje cevi in inštalacij.", slika: "/slike/asfix/trak.png", slug: "perforiran-trak", skupina: "pritrdila-za-instalacije" },
 };
 
@@ -52,7 +53,7 @@ const podlage = [
   { naziv: "Beton", opis: "Nosilna jeklena sidra, Turbo vijaki in kemična sidra za največje obremenitve.", slika: "/slike/asfix/podlaga-beton-2.jpg", izdelki: ["txh7", "turbo", "easf", "udarni", "mq"] },
   { naziv: "Opeka in votlaki", opis: "Vložki z veliko oprijemno površino in kemična masa z mrežico.", slika: "/slike/asfix/podlaga-opeka-2.jpg", izdelki: ["mq", "udarni", "pesf", "afrk", "afrs"] },
   { naziv: "Mavčne plošče", opis: "Vložki za suhomontažo, ki se za ploščo razprejo.", slika: "/slike/asfix/podlaga-gips-2.jpg", izdelki: ["gips", "gipsKov", "gipsVijak"] },
-  { naziv: "Fasada in izolacija", opis: "Vložki za pritrjevanje v toplotno izolacijo.", slika: "/slike/asfix/podlaga-izolacija-2.jpg", izdelki: ["stiropor"] },
+  { naziv: "Fasada in izolacija", opis: "Vložki in vijaki za pritrjevanje v toplotno izolacijo in skozi njo.", slika: "/slike/asfix/podlaga-izolacija-2.jpg", izdelki: ["stiropor", "ips", "afrk", "afrs"] },
 ];
 
 const embalaza = [
@@ -94,6 +95,11 @@ async function ASfix() {
         naslov="Pritrdila, ki jih trgovec lahko zagovarja"
         opis="Jeklena sidra, zidni vložki, vložki za mavčne plošče, udarni in Turbo vijaki, kemične mase in pritrdila za inštalacije, v embalaži, pripravljeni za polico."
         znacke={["Slovenska znamka", "ETA", "Iz zaloge"]}
+        slika="/slike/stojala/asfix-stojalo.jpg"
+        slikaW={893}
+        slikaH={1600}
+        stojalo
+        slikaAlt="Prodajna polica ASfix, 1 m"
         gumbi={[
           { href: "/program", naziv: "Prodajni program", cls: "b-w" },
           { href: "/kontakt?vir=asfix", naziv: "Povpraševanje →", cls: "b-o" },
