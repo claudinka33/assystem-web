@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import ZnamkaHero from "@/components/ZnamkaHero";
 import DveZnamki from "@/components/DveZnamki";
-import PotiProdaje from "@/components/PotiProdaje";
 import FotoGalerija from "@/components/FotoGalerija";
 import { FOTO_ZEBLJI } from "@/lib/foto";
 import { pridobiIzdelkePoSlugih } from "@/lib/podatki";
@@ -229,7 +228,6 @@ async function Hammer() {
           </Link>
         </div>
       </div>
-      <PotiProdaje izpusti="/hammex" />
     </>
   );
 }

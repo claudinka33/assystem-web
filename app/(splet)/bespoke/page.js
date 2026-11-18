@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import VideoOzadje from "@/components/VideoOzadje";
 import BespokeObrazec from "@/components/BespokeObrazec";
-import PotiProdaje from "@/components/PotiProdaje";
 import KorakiSlike from "@/components/KorakiSlike";
 import FotoGalerija from "@/components/FotoGalerija";
 import { FOTO_VPN, FOTO_KOVANJE, FOTO_KAKOVOST } from "@/lib/foto";
@@ -250,7 +249,6 @@ function Bespoke() {
         </div>
       </section>
 
-      <PotiProdaje izpusti="/bespoke" />
     </>
   );
 }

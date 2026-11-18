@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import KorakiSlike from "@/components/KorakiSlike";
 import ObrazecPrivateLabel from "@/components/ObrazecPrivateLabel";
-import PotiProdaje from "@/components/PotiProdaje";
 import { site } from "@/lib/site";
 import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
@@ -229,7 +228,6 @@ function PrivateLabel() {
         </div>
       </section>
 
-      <PotiProdaje izpusti="/private-label" />
     </>
   );
 }
