@@ -4,7 +4,6 @@ import { dostopPolice } from "@/lib/b2b";
 import ZaklenjenoB2B from "@/components/ZaklenjenoB2B";
 import ZnamkaHero from "@/components/ZnamkaHero";
 import DveZnamki from "@/components/DveZnamki";
-import PotiProdaje from "@/components/PotiProdaje";
 import FotoGalerija from "@/components/FotoGalerija";
 import { FOTO_PAKIRANJE, FOTO_EKIPA, FOTO_SKLADISCE } from "@/lib/foto";
 import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
@@ -343,7 +342,6 @@ async function ASco() {
           </Link>
         </div>
       </div>
-      <PotiProdaje izpusti="/asco" />
     </>
   );
 }
