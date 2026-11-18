@@ -118,10 +118,10 @@ async function Novica({ params }) {
             )}
 
             <div className="clanek-box temen">
-              <h3>Naročite na spletu</h3>
-              <p>Pritrdilna tehnika ASfix in vijačno blago ASco iz zaloge. Podjetja naročajo po svojih cenah v B2B portalu.</p>
-              <Link className="b b-r" href="/program">Izdelki →</Link>
-              <Link className="clanek-povezava" href="/b2b">B2B prijava za podjetja →</Link>
+              <h3>B2B portal za podjetja</h3>
+              <p>Cene, zaloga in spletno naročanje za podjetja. Registrirajte se in po potrditvi e-naslova takoj vidite cene.</p>
+              <Link className="b b-r" href="/b2b/registracija">Postanite B2B kupec →</Link>
+              <Link className="clanek-povezava" href="/b2b">B2B prijava →</Link>
             </div>
 
             <div className="clanek-box">
