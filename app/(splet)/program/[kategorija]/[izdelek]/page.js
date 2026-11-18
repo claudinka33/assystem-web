@@ -15,6 +15,7 @@ import KajSePonujamo from "@/components/KajSePonujamo";
 import SilvermateVsebina from "@/components/SilvermateVsebina";
 import { SILVERMATE_IZDELKI, SILVERMATE_MEDIJI } from "@/lib/silvermate";
 import MedijiBanner from "@/components/MedijiBanner";
+import CertifikatiB2B from "@/components/CertifikatiB2B";
 import { VIDEI_IZDELKOV } from "@/lib/videi";
 import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
@@ -67,21 +68,26 @@ async function StranIzdelka({ params }) {
     .filter((a) => a.objavljeno)
     .sort((a, b) => (a.premer ?? 0) - (b.premer ?? 0) || (a.dolzina ?? 0) - (b.dolzina ?? 0))
     // v brskalnik pošljemo samo polja, ki jih tabela rabi (manjša stran pri izdelkih s stotinami artiklov)
-    .map(({ ustvarjeno, vasco_sync_at, teza_vasco, teza_g, izdelek_id, objavljeno, v_trgovini, min_narocilo, cena_mpc, ddv, slika_url, ...a }) => a);
-  const dokumenti = i.dokumenti ?? [];
+    .map(({ ustvarjeno, vasco_sync_at, teza_vasco, teza_g, izdelek_id, objavljeno, v_trgovini, min_narocilo, cena_mpc, cena_vasco, cena_vpc, zaloga, ddv, slika_url, ...a }) => a);
+  // cene in zaloga se v brskalnik ne pošiljajo: vidijo jih samo prijavljeni B2B uporabniki (TabelaGosta jih naloži sama)
+  // Certifikati (ETA, DoP) so samo za B2B uporabnike: v statično stran ne gredo, naloži jih CertifikatiB2B
+  const CERT = ["eta", "dop", "certifikat"];
+  const vsiDokumenti = i.dokumenti ?? [];
+  const imaCertifikate = vsiDokumenti.some((d) => CERT.includes(d.tip));
+  const dokumenti = vsiDokumenti.filter((d) => !CERT.includes(d.tip));
   // Pas VIDEO · LETAK · CERTIFIKAT: Silvermate ima svoje gradivo, drugi izdelki iz dokumentov
   const dokLetak = dokumenti.find((d) => d.tip === "letak" || d.tip === "katalog");
-  const dokEta = dokumenti.find((d) => d.tip === "eta" || d.tip === "certifikat" || d.tip === "dop");
+  const dokEta = null;
   const mediji =
     i.znamka === "Silvermate"
       ? { ...SILVERMATE_MEDIJI, ...(dokEta ? { certifikat: { ...SILVERMATE_MEDIJI.certifikat, url: dokEta.datoteka_url, opis: "Odprite PDF ↓" } } : {}) }
       : {
           video: (VIDEI_IZDELKOV[izdelek]?.prednost ? VIDEI_IZDELKOV[izdelek] : null) ?? i.videi?.[0] ?? VIDEI_IZDELKOV[izdelek] ?? null,
           letak: dokLetak ? { url: dokLetak.datoteka_url, naziv: dokLetak.naziv } : null,
-          certifikat: dokEta
-            ? { oznaka: i.eta_stevilka ?? oznakeTipov[dokEta.tip] ?? "ETA", url: dokEta.datoteka_url, naslov: dokEta.naziv, opis: "Odprite PDF ↓" }
-            : i.eta_stevilka
-              ? { oznaka: i.eta_stevilka, url: `/kontakt?izdelek=${encodeURIComponent(i.eta_stevilka + " " + i.naziv)}&vir=certifikat`, opis: "Pošljemo na zahtevo →" }
+          // certifikati so samo za B2B kupce (prijavljeni jih vidijo pod »Dokumentacija«)
+          certifikat:
+            imaCertifikate || i.eta_stevilka
+              ? { oznaka: i.eta_stevilka ?? "ETA", url: "/b2b/registracija", naslov: "Certifikat (ETA, DoP)", opis: "Na voljo B2B kupcem →" }
               : null,
         };
   const galerija = Array.isArray(i.galerija) ? i.galerija : [];
@@ -209,9 +215,10 @@ async function StranIzdelka({ params }) {
             )}
 
 
-            {dokumenti.length > 0 && (
+            {(dokumenti.length > 0 || imaCertifikate) && (
               <div className="izd-dok">
                 <p className="izd-mali">Dokumentacija</p>
+                {imaCertifikate && <CertifikatiB2B izdelekId={i.id} />}
                 {dokumenti.map((d) => (
                   <a key={d.id} href={d.datoteka_url} target="_blank" rel="noreferrer">
                     <b>{oznakeTipov[d.tip] ?? d.tip}</b>
@@ -244,7 +251,7 @@ async function StranIzdelka({ params }) {
         <TabelaArtiklov artikli={artikli} stolpci={stolpci} naziviRazlicni={naziviRazlicni} embalaza={i.embalaza ?? []} izdelek={{ naziv: i.naziv, pot: `/program/${kategorija}/${izdelek}`, slika: i.slika_url ?? null, znamka: i.znamka ?? null }} slikeVrednosti={SLIKE_VREDNOSTI[izdelek] ?? null} />
         )}
         <p className="izd-opomba">
-          Cene so maloprodajne z DDV, za eno pakiranje (število kosov je v stolpcu »Pakiranje«). Za večje količine in podjetja <Link href={povprasevanje}>pošljite povpraševanje</Link>.
+          Cene in zaloga so vidne prijavljenim B2B kupcem, za eno pakiranje (število kosov je v stolpcu »Pakiranje«). Za večje količine <Link href={povprasevanje}>pošljite povpraševanje</Link>.
         </p>
       </div>
     )}

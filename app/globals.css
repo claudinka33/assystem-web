@@ -4270,3 +4270,21 @@ button.kos-gumb { background: none; border: 0; padding: 0; cursor: pointer; font
 @media (max-width: 760px) {
   .dz-glava em { position: absolute; top: 0; right: 0; margin: 0 !important; font-size: 9px !important; padding: 3px 7px !important; }
 }
+
+/* B2B: cene, zaloga in certifikati samo za B2B uporabnike */
+.g-b2b-pas { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; background: #fff4f4; border: 1px solid #f0c9cd; border-left: 4px solid var(--color-red); padding: 10px 14px; margin: 0 0 10px; font-size: 13px; }
+.g-b2b-pas > div { flex: 1 1 260px; display: flex; flex-direction: column; gap: 2px; }
+.g-b2b-pas span { color: var(--color-muted); font-size: 12.5px; }
+.g-b2b-pas a { display: inline-flex; align-items: center; height: 32px; padding: 0 14px; font-weight: 700; font-size: 12.5px; text-decoration: none; white-space: nowrap; }
+.g-b2b-p { border: 1px solid #2d3135; color: #2d3135 !important; background: #fff; }
+.g-b2b-r { background: var(--color-red); color: #fff !important; }
+.g-b2b-cakanje { background: #f5f7f9; border-color: #dfe3e7; border-left-color: #2d3135; }
+.g-zak { display: inline-flex; flex-direction: column; align-items: flex-end; gap: 2px; white-space: nowrap; }
+.g-zak b { font-size: 12px; color: #2d3135; }
+.g-zak a { font-size: 11.5px; font-weight: 700; color: var(--color-red); }
+.g-kar-1 .g-zak { align-items: flex-end; }
+.izd-dok .izd-dok-zak { border-style: dashed !important; }
+.izd-dok .izd-dok-zak em { color: var(--color-red); font-weight: 700; font-style: normal; }
+.b2b-zaklep { max-width: 620px; margin: 30px auto; padding: 28px; background: #fff; border: 1px solid var(--color-line); border-top: 4px solid var(--color-red); text-align: center; }
+.b2b-zaklep h1 { font-size: 22px; margin: 0 0 10px; }
+.b2b-zaklep p { color: var(--color-muted); margin: 0 0 18px; }

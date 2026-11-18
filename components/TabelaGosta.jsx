@@ -120,12 +120,12 @@ function vrstaPak(a, naziv, znamka, pot) {
   return vrednost(a, "Pakiranje") ?? (vrecaBrezTiska(naziv) ? "vrečka" : privzetaSkatla(a, znamka, pot) ? "škatla" : null);
 }
 
-function Kosarica({ a, cena, izdelek, b2b }) {
+function Kosarica({ a, cena, izdelek, b2b, zaloga }) {
   // Vnos je besedilo, da lahko številko izbrišeš in vpišeš novo; količina je vedno vsaj 1
   const [vnos, setVnos] = useState("1");
   const kol = Math.max(1, parseInt(vnos, 10) || 1);
   const [ok, setOk] = useState(false);
-  if (!(Number(a.zaloga) > 0))
+  if (!(Number(zaloga) > 0))
     return (
       <span className="g-vk g-vk-ni">
         <VprasajZaRok sifra={a.sifra} naziv={izdelek?.naziv} dimenzija={a.dimenzija} />
@@ -190,7 +190,19 @@ function Kosarica({ a, cena, izdelek, b2b }) {
   );
 }
 
+// Cena samo za B2B: neprijavljen obiskovalec vidi povabilo k registraciji
+function CenaZaklenjena() {
+  return (
+    <span className="g-zak">
+      <b>🔒 Cena za B2B kupce</b>
+      <Link href="/b2b/registracija">Postanite B2B kupec →</Link>
+    </span>
+  );
+}
+
 function Cena({ cena, b2b }) {
+  if (b2b === false) return <CenaZaklenjena />;
+  if (b2b === null) return <span className="g-siv">…</span>;
   if (!cena) return <span className="g-siv">—</span>;
   if (b2b)
     return (
@@ -216,7 +228,10 @@ function TabelaGosta({ artikli: vhodni, stolpci, izdelek = null, naziviRazlicni 
     [vhodni]
   );
   const b2b = useB2BCene(useMemo(() => vhodni.map((a) => a.id), [vhodni]));
-  const cenaZa = (a) => (b2b ? b2b.cene[a.id] ?? null : cenaArtikla(a));
+  // Cene in zaloga pridejo s strežnika samo za prijavljene B2B uporabnike (b2b === false: skrito)
+  const cenaZa = (a) => (b2b ? b2b.cene[a.id] ?? null : null);
+  const zalogaZa = (a) => (b2b ? b2b.zaloga?.[a.id] ?? 0 : null);
+  const odklenjeno = Boolean(b2b);
   const [q, setQ] = useState("");
   const [izbrani, setIzbrani] = useState({});
   const [samoZaloga, setSamoZaloga] = useState(false);
@@ -256,11 +271,11 @@ function TabelaGosta({ artikli: vhodni, stolpci, izdelek = null, naziviRazlicni 
     const iq = norm(q);
     return artikli.filter((a) => {
       for (const [k, v] of Object.entries(izbrani)) if (v && vrednost(a, k) !== v) return false;
-      if (samoZaloga && !(Number(a.zaloga) > 0)) return false;
+      if (samoZaloga && odklenjeno && !(Number(zalogaZa(a)) > 0)) return false;
       if (!iq) return true;
       return norm(`${a.sifra} ${a.dimenzija ?? ""} ${a.ean ?? ""}`).includes(iq);
     });
-  }, [artikli, izbrani, samoZaloga, q]);
+  }, [artikli, izbrani, samoZaloga, q, b2b]);
   const prikaz = vidni.slice(0, prikazano);
   const stolpciLastnosti = stolpci.filter((k) => k !== "Pakiranje");
   const imaPakiranje = artikli.some((a) => (a.lastnosti ?? {}).Pakiranje);
@@ -283,9 +298,11 @@ function TabelaGosta({ artikli: vhodni, stolpci, izdelek = null, naziviRazlicni 
               ))}
             </span>
           ))}
-          <button type="button" className={`g-zal${samoZaloga ? " on" : ""}`} onClick={() => setSamoZaloga(!samoZaloga)}>
-            <span className="g-pika da" /> Zaloga
-          </button>
+          {odklenjeno && (
+            <button type="button" className={`g-zal${samoZaloga ? " on" : ""}`} onClick={() => setSamoZaloga(!samoZaloga)}>
+              <span className="g-pika da" /> Zaloga
+            </button>
+          )}
         </div>
         <input type="search" className="g-isk" value={q} onChange={(e) => { setQ(e.target.value); setPrikazano(KORAK); }} placeholder="Išči šifro, EAN ali dimenzijo …" />
       </div>
@@ -295,6 +312,24 @@ function TabelaGosta({ artikli: vhodni, stolpci, izdelek = null, naziviRazlicni 
         </p>
       )}
 
+      {b2b === false && (
+        <div className="g-b2b-pas">
+          <div>
+            <b>Cene, zaloga in naročanje so na voljo samo B2B kupcem.</b>
+            <span>Registrirajte podjetje in po potrditvi e-naslova takoj vidite cene.</span>
+          </div>
+          <Link className="g-b2b-p" href="/b2b">Prijava</Link>
+          <Link className="g-b2b-r" href="/b2b/registracija">Postanite B2B kupec →</Link>
+        </div>
+      )}
+      {b2b && !b2b.aktiven && (
+        <div className="g-b2b-pas g-b2b-cakanje">
+          <div>
+            <b>Vidite redne veleprodajne cene (brez DDV).</b>
+            <span>Vaše posebne cene in naročanje bodo na voljo, ko vaš račun odobrimo.</span>
+          </div>
+        </div>
+      )}
       <div className="g-ovoj">
         <table className="g-t">
           <thead>
@@ -306,14 +341,14 @@ function TabelaGosta({ artikli: vhodni, stolpci, izdelek = null, naziviRazlicni 
               <th>Dimenzija</th>
               {stolpciLastnosti.map((k) => <th key={k}>{k}</th>)}
               <th>Pakiranje</th>
-              <th>Zaloga</th>
-              <th className="d">{b2b ? "Vaša cena" : "Cena z DDV"}</th>
-              <th className="d">Košarica</th>
+              {odklenjeno && <th>Zaloga</th>}
+              <th className="d">{b2b?.aktiven ? "Vaša cena" : b2b ? "Cena VPC" : "Cena"}</th>
+              {odklenjeno && <th className="d">Košarica</th>}
             </tr>
           </thead>
           <tbody>
             {prikaz.map((a) => {
-              const zal = Number(a.zaloga) > 0;
+              const zal = !odklenjeno || Number(zalogaZa(a)) > 0;
               const n = kosov(a);
               return (
                 <tr key={a.id} id={`art-${a.sifra}`} className={`${zal ? "" : "g-ni"}${oznacena === a.sifra ? " g-oznacen" : ""}`}>
@@ -324,9 +359,9 @@ function TabelaGosta({ artikli: vhodni, stolpci, izdelek = null, naziviRazlicni 
                   <td className="g-dim" translate="no">{a.dimenzija ?? "—"}</td>
                   {stolpciLastnosti.map((k) => <td key={k} className={`g-las${(a.lastnosti ?? {})[k] ? "" : " g-prazno"}`} data-l={k}><RalPika v={(a.lastnosti ?? {})[k]} />{(a.lastnosti ?? {})[k] ?? "—"}</td>)}
                   <td className="g-pakv" data-l="Pakiranje">{vrstaPak(a, izdelek?.naziv, izdelek?.znamka, izdelek?.pot) ?? (n ? "" : "—")}{n ? <small>{st(n)} kos</small> : null}</td>
-                  <td className="g-zaloga">{zal ? <span className="g-z da"><span className="g-pika da" />Na zalogi</span> : <span className="g-z ne"><span className="g-pika ne" />Ni na zalogi</span>}</td>
+                  {odklenjeno && <td className="g-zaloga">{zal ? <span className="g-z da"><span className="g-pika da" />Na zalogi</span> : <span className="g-z ne"><span className="g-pika ne" />Ni na zalogi</span>}</td>}
                   <td className="d g-c"><Cena cena={cenaZa(a)} b2b={b2b} /></td>
-                  <td className="d g-k"><Kosarica a={a} cena={cenaZa(a)} izdelek={izdelek} b2b={b2b} /></td>
+                  {odklenjeno && <td className="d g-k"><Kosarica a={a} cena={cenaZa(a)} izdelek={izdelek} b2b={b2b} zaloga={zalogaZa(a)} /></td>}
                 </tr>
               );
             })}
@@ -339,7 +374,7 @@ function TabelaGosta({ artikli: vhodni, stolpci, izdelek = null, naziviRazlicni 
       {/* Telefon: kompaktne kartice namesto tabele */}
       <div className="g-kartice">
         {prikaz.map((a) => {
-          const zal = Number(a.zaloga) > 0;
+          const zal = !odklenjeno || Number(zalogaZa(a)) > 0;
           const sl = slikaPakiranja(a, izdelek?.znamka, izdelek?.pot, embalaza, izdelek?.naziv);
           const podatki = [
             ["Šifra", a.sifra],
@@ -360,10 +395,12 @@ function TabelaGosta({ artikli: vhodni, stolpci, izdelek = null, naziviRazlicni 
                   <span key={k + v}>{k ? <em>{k}:</em> : null} <span translate="no"><RalPika v={v} />{v}</span></span>
                 ))}
               </div>
-              <div className="g-kar-3">
-                {zal ? <span className="g-z da"><span className="g-pika da" />Na zalogi</span> : <span className="g-z ne"><span className="g-pika ne" />Ni na zalogi</span>}
-                <Kosarica a={a} cena={cenaZa(a)} izdelek={izdelek} b2b={b2b} />
-              </div>
+              {odklenjeno && (
+                <div className="g-kar-3">
+                  {zal ? <span className="g-z da"><span className="g-pika da" />Na zalogi</span> : <span className="g-z ne"><span className="g-pika ne" />Ni na zalogi</span>}
+                  <Kosarica a={a} cena={cenaZa(a)} izdelek={izdelek} b2b={b2b} zaloga={zalogaZa(a)} />
+                </div>
+              )}
             </div>
           );
         })}
