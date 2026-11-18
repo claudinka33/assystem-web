@@ -46,8 +46,8 @@ const lastniIzdelki = [
 ];
 
 const koraki = [
-  ["Poiščite izdelek", "Po šifri, EAN kodi ali nazivu. Pri izdelku so dimenzije, pakiranja, zaloga in cena."],
-  ["Dodajte v košarico", "Izberite pakiranje in količino. Plačate po predračunu ali po povzetju."],
+  ["Registrirajte podjetje", "B2B registracija z davčno številko. Po potrditvi e-naslova vidite cene in zalogo."],
+  ["Dodajte v košarico", "Izberite pakiranje in količino. Po odobritvi naročate po svojem ceniku in plačate na račun."],
   ["Prevzem ali dostava", "Pošljemo s Pošto Slovenije, nad 100 € brez DDV brezplačno. Lahko tudi prevzamete osebno v Šmarju pri Jelšah."],
 ];
 

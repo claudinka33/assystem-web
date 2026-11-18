@@ -2,136 +2,140 @@ import Link from "next/link";
 import PravnaStran from "@/components/PravnaStran";
 import PodatkiPodjetja from "@/components/PodatkiPodjetja";
 import { site } from "@/lib/site";
-import { VELJA_OD, IRPS_SEZNAM, eur0 } from "@/lib/pravno";
+import { VELJA_OD } from "@/lib/pravno";
 import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
 const metadataSl = {
   title: "Splošni pogoji poslovanja",
-  description: "Splošni pogoji nakupa v spletni trgovini AS system d.o.o., naročilo, cene, plačilo, dostava, odstop, reklamacije in reševanje sporov.",
+  description: "Splošni pogoji B2B spletnega naročanja pri AS system d.o.o.: registracija, cene, naročilo, plačilo na račun, dostava, reklamacije in reševanje sporov.",
   alternates: { canonical: "/splosni-pogoji" },
 };
 
 function SplosniPogoji() {
   const t = site.trgovina;
   return (
-    <PravnaStran pot="/splosni-pogoji" naslov="Splošni pogoji poslovanja" opis="Pogoji nakupa v spletni trgovini assystem.si." veljaOd={VELJA_OD}>
+    <PravnaStran pot="/splosni-pogoji" naslov="Splošni pogoji poslovanja" opis="Pogoji B2B spletnega naročanja na assystem.si za podjetja in samostojne podjetnike." veljaOd={VELJA_OD}>
       <h2>1. Ponudnik</h2>
-      <p>Spletno trgovino na naslovu assystem.si upravlja:</p>
+      <p>Spletni B2B portal na naslovu assystem.si upravlja:</p>
       <PodatkiPodjetja />
 
-      <h2>2. Uporaba pogojev</h2>
+      <h2>2. Komu je namenjena spletna prodaja</h2>
       <p>
-        Ti splošni pogoji urejajo nakup blaga v spletni trgovini assystem.si med ponudnikom in kupcem. Veljajo skupaj z
-        zakonodajo Republike Slovenije, predvsem z Zakonom o varstvu potrošnikov (ZVPot-1), Obligacijskim zakonikom (OZ)
-        in Zakonom o elektronskem poslovanju na trgu (ZEPT).
+        Spletno naročanje na assystem.si je namenjeno izključno <b>poslovnim kupcem</b>: pravnim osebam in samostojnim
+        podjetnikom, ki kupujejo za svojo dejavnost (B2B). Prodaje potrošnikom (B2C) prek spletne strani ne izvajamo.
       </p>
-      <ul>
-        <li><b>Potrošnik</b> je fizična oseba, ki kupuje za namene zunaj svoje pridobitne dejavnosti.</li>
-        <li><b>Poslovni kupec</b> je pravna oseba ali samostojni podjetnik, ki kupuje za svojo dejavnost. Za poslovne kupce veljajo tudi posebna določila v 11. točki.</li>
-      </ul>
       <p>
-        Z oddajo naročila kupec potrdi, da je pogoje prebral in se z njimi strinja. Pogoji so objavljeni na tej strani, kjer
-        jih lahko kadar koli shranite ali natisnete. Pogodba se sklene v slovenskem jeziku.
+        Ti pogoji urejajo razmerje med ponudnikom in poslovnim kupcem pri naročanju prek B2B portala. Veljajo skupaj z
+        zakonodajo Republike Slovenije, predvsem z Obligacijskim zakonikom (OZ) in Zakonom o elektronskem poslovanju na trgu
+        (ZEPT). Določila Zakona o varstvu potrošnikov (ZVPot-1), med njimi pravica do odstopa od pogodbe, za poslovne kupce
+        ne veljajo.
+      </p>
+      <p>
+        Posebne cene, rabati, plačilni roki in drugi pogoji, dogovorjeni s posameznim kupcem (pogodba, ponudba, cenik),
+        imajo prednost pred temi pogoji. Z oddajo naročila kupec potrdi, da je pogoje prebral in se z njimi strinja.
+        Pogodba se sklene v slovenskem jeziku.
       </p>
 
-      <h2>3. Izdelki in tehnični podatki</h2>
+      <h2>3. B2B registracija in dostop</h2>
+      <ul>
+        <li>Cene, zaloga, certifikati in spletno naročanje so na voljo samo registriranim B2B uporabnikom.</li>
+        <li>Podjetje se registrira z davčno številko in kontaktnimi podatki. Po potrditvi e-naslova uporabnik vidi redne veleprodajne cene (brez DDV).</li>
+        <li>Prodaja podatke preveri in dostop odobri ročno. Po odobritvi uporabnik vidi cene po svojem ceniku (posebne cene oziroma rabat) in lahko oddaja naročila.</li>
+        <li>Ponudnik lahko registracijo zavrne ali dostop ukine, predvsem če podatki niso točni ali kupec ne izpolnjuje obveznosti.</li>
+        <li>Kupec skrbi za varnost svojih gesel in odgovarja za naročila, oddana z dostopom njegovega podjetja. Eno podjetje ima lahko več uporabnikov in poslovalnic.</li>
+      </ul>
+
+      <h2>4. Izdelki in tehnični podatki</h2>
       <p>
-        Pri vsakem izdelku navajamo šifro, dimenzijo, material oziroma površinsko zaščito, število kosov v pakiranju,
-        stanje zaloge in ceno. Fotografije so simbolične; barva embalaže in tisk se lahko razlikujeta.
+        Pri izdelkih navajamo šifro, dimenzijo, material oziroma površinsko zaščito in pakiranje. Fotografije so
+        simbolične; barva embalaže in tisk se lahko razlikujeta.
       </p>
       <p>
         Podatki o nosilnosti in vgradnji so informativni. Za nosilne pritrditve sta merodajni evropska tehnična ocena (ETA)
-        in izjava o lastnostih (DoP), ki sta objavljeni pri izdelku, ter presoja projektanta oziroma izvajalca.
+        in izjava o lastnostih (DoP), ki sta B2B uporabnikom na voljo pri izdelku, ter presoja projektanta oziroma izvajalca.
       </p>
 
-      <h2>4. Cene</h2>
+      <h2>5. Cene</h2>
       <ul>
-        <li>Cene so v evrih (EUR) in vključujejo 22 % DDV.</li>
+        <li>Cene so v evrih (EUR) in <b>ne vključujejo DDV</b>, ki se obračuna na računu po veljavni stopnji.</li>
         <li>Cena velja za eno pakiranje (število kosov je navedeno pri artiklu). Cena za 100 kosov je zapisana samo za lažjo primerjavo.</li>
-        <li>Stroški dostave niso vključeni v ceno izdelka. Pred oddajo naročila so jasno prikazani na blagajni (glej <Link href="/dostava">Dostava in pošiljanje</Link>).</li>
-        <li>Velja cena, ki je prikazana ob oddaji naročila. Če je cena zaradi očitne tehnične napake napačna, vas o tem obvestimo in naročila ne izvedemo brez vaše ponovne potrditve.</li>
+        <li>Odobren kupec vidi svojo ceno; ob njej je zaradi primerjave prikazana redna veleprodajna cena (VPC).</li>
+        <li>Velja cena, ki je prikazana ob oddaji naročila. Če je cena zaradi očitne tehnične napake napačna, kupca obvestimo in naročila ne izvedemo brez njegove ponovne potrditve.</li>
       </ul>
 
-      <h2>5. Naročilo in sklenitev pogodbe</h2>
+      <h2>6. Naročilo in sklenitev pogodbe</h2>
       <ol>
-        <li>Izdelke v želeni količini dodate v košarico.</li>
-        <li>Na blagajni vpišete podatke za račun in dostavo ter izberete način dostave in plačila.</li>
-        <li>Pred oddajo vidite povzetek: izdelke, ceno, stroške dostave in skupni znesek.</li>
-        <li>Naročilo oddate s klikom na gumb <b>»Oddaj naročilo z obveznostjo plačila«</b>.</li>
+        <li>Prijavljeni B2B uporabnik doda izdelke v košarico.</li>
+        <li>Na blagajni izbere poslovalnico oziroma naslov dostave in način dostave.</li>
+        <li>Pred oddajo vidi povzetek: izdelke, cene, stroške dostave in skupni znesek.</li>
+        <li>Naročilo odda s potrditvijo na blagajni.</li>
       </ol>
       <p>
-        Po oddaji prejmete na e-naslov potrdilo o prejemu naročila s številko naročila in povzetkom. Pogodba je sklenjena,
-        ko prejmete to potrdilo. Naročilo hranimo v elektronski obliki; na zahtevo vam pošljemo njegovo kopijo.
+        Po oddaji kupec prejme potrdilo o prejemu naročila po e-pošti. Pogodba je sklenjena, ko ponudnik naročilo potrdi
+        oziroma izdelke odpremi. Naročila in račune podjetja kupec vidi v svojem B2B računu.
       </p>
       <p>
-        Napake pri vnosu lahko popravite pred oddajo naročila (v košarici in na blagajni). Po oddaji nas za popravek
-        pokličite ali pišite na {site.emailProdaja}, preden je naročilo odpremljeno.
+        Za popravek ali preklic že oddanega naročila nas pokličite na {site.telefon} ali pišite na {site.emailProdaja},
+        preden je naročilo odpremljeno.
       </p>
 
-      <h2>6. Zaloga in dobavni rok</h2>
+      <h2>7. Zaloga in dobavni rok</h2>
       <p>
-        Pri vsakem artiklu je prikazano, ali je <b>na zalogi</b> ali dobavljiv <b>po naročilu</b>. Zaloga se usklajuje z
-        našim skladiščem večkrat na dan. Izdelke na zalogi odpremimo {t.odprema}. Za artikle po naročilu vam dobavni rok
-        sporočimo po e-pošti. Če izdelka ne moremo dobaviti, vas obvestimo, že plačani znesek pa vrnemo najkasneje v 14
-        dneh.
+        B2B uporabnik pri artiklu vidi, ali je na zalogi. Zaloga se usklajuje z našim skladiščem večkrat na dan. Izdelke na
+        zalogi odpremimo {t.odprema}. Za artikle, ki niso na zalogi, dobavni rok sporočimo na zahtevo oziroma po e-pošti.
+        Dobavni roki so informativni, razen če so pisno dogovorjeni.
       </p>
 
-      <h2>7. Plačilo</h2>
+      <h2>8. Plačilo</h2>
       <p>
-        Na voljo so plačilo s plačilno kartico (Stripe), PayPal, plačilo po predračunu in plačilo po povzetju. Podrobnosti so na strani{" "}
-        <Link href="/nacini-placila">Načini plačila</Link>. Račun prejmete s pošiljko ali po e-pošti.
+        Naročila prek B2B portala se plačajo <b>na račun</b>, v plačilnem roku, ki je dogovorjen s kupcem. Pri zamudi s
+        plačilom ponudnik obračuna zakonske zamudne obresti in lahko ustavi nadaljnje dobave do poravnave obveznosti.
+        Podrobnosti so na strani <Link href="/nacini-placila">Načini plačila</Link>.
       </p>
 
-      <h2>8. Dostava</h2>
+      <h2>9. Dostava in prevzem</h2>
       <p>
         Pošiljke dostavlja Pošta Slovenije, mogoč je tudi osebni prevzem v Šmarju pri Jelšah. Poštnina je odvisna od
-        vrednosti blaga brez DDV: {t.razredi}. Osebni prevzem je brezplačen. Vse o rokih in prevzemu je na
-        strani <Link href="/dostava">Dostava in pošiljanje</Link>.
+        vrednosti blaga brez DDV: {t.razredi}. Osebni prevzem je brezplačen. Tveganje za izgubo ali poškodbo blaga preide na
+        kupca ob prevzemu. Več na strani <Link href="/dostava">Dostava in pošiljanje</Link>.
       </p>
 
-      <h2>9. Odstop od pogodbe</h2>
+      <h2>10. Vračilo blaga</h2>
       <p>
-        Potrošnik lahko v 14 dneh od prejema blaga odstopi od pogodbe brez navedbe razloga. Postopek, izjeme in obrazec so
-        na strani <Link href="/odstop-od-pogodbe">Odstop od pogodbe in vračilo</Link>.
+        Ker gre za poslovno prodajo, zakonska pravica do odstopa od pogodbe v 14 dneh ne velja. Vračilo brezhibnega blaga je
+        mogoče samo po predhodnem dogovoru s prodajo. Več na strani <Link href="/odstop-od-pogodbe">Vračilo blaga</Link>.
       </p>
 
-      <h2>10. Jamstvo za skladnost in reklamacije</h2>
-      <p>
-        Za blago velja zakonsko jamstvo za skladnost dve leti od dobave. Kako uveljavljate reklamacijo, je opisano na
-        strani <Link href="/reklamacije">Reklamacije in jamstvo</Link>.
-      </p>
-
-      <h2>11. Poslovni kupci</h2>
+      <h2>11. Stvarne napake in reklamacije</h2>
       <ul>
-        <li>Pravica do odstopa od pogodbe in določila ZVPot-1, ki varujejo potrošnike, za poslovne kupce ne veljajo.</li>
-        <li>Količinske razlike in vidne napake mora poslovni kupec sporočiti ob prevzemu oziroma najkasneje v 8 dneh, skrite napake pa takoj po odkritju (461. člen OZ).</li>
-        <li>Posebne cene, rabati in plačilni roki veljajo po dogovoru oziroma pogodbi s ponudnikom, ki ima prednost pred temi pogoji.</li>
-        <li>Za spore s poslovnimi kupci je pristojno stvarno pristojno sodišče v Celju.</li>
+        <li>Količinske razlike in vidne napake mora kupec sporočiti ob prevzemu oziroma najkasneje v 8 dneh od prevzema.</li>
+        <li>Skrite napake mora kupec sporočiti takoj, ko jih odkrije, najkasneje pa v enem letu od dobave (461. in 462. člen OZ).</li>
+        <li>Ponudnik ne odgovarja za napake, ki so posledica nepravilne vgradnje, uporabe v nasprotju z navodili ali obrabe.</li>
       </ul>
-
-      <h2>12. Varstvo osebnih podatkov</h2>
       <p>
-        Podatke kupcev uporabljamo samo za izvedbo naročila in zakonske obveznosti. Več na strani{" "}
-        <Link href="/zasebnost">Politika zasebnosti</Link>.
+        Postopek je opisan na strani <Link href="/reklamacije">Reklamacije</Link>.
       </p>
 
-      <h2>13. Pritožbe in reševanje sporov</h2>
+      <h2>12. Omejitev odgovornosti</h2>
       <p>
-        Pritožbo lahko oddate po e-pošti na {site.emailProdaja}, po telefonu {site.telefon} ali po pošti na naslov sedeža.
-        Prejem pritožbe potrdimo v petih delovnih dneh, vas obvestimo, kako dolgo jo bomo obravnavali, in vas sproti
-        obveščamo o poteku postopka. Spore skušamo vedno rešiti sporazumno.
+        Ponudnik odgovarja za skladnost dobavljenega blaga s specifikacijo. Za posredno škodo in izgubljeni dobiček ponudnik
+        ne odgovarja, razen če je škoda povzročena namerno ali iz hude malomarnosti.
       </p>
-      <div className="pravno-okvir">
-        <p>
-          <b>Izvensodno reševanje potrošniških sporov (IRPS).</b> V skladu z zakonodajo ponudnik ne priznava nobenega
-          izvajalca izvensodnega reševanja potrošniških sporov kot pristojnega za rešitev spora, ki bi ga lahko začel
-          potrošnik. Seznam izvajalcev IRPS, ki jih je priznala Republika Slovenija, je objavljen na{" "}
-          <a href={IRPS_SEZNAM} target="_blank" rel="noreferrer">portalu OPSI (podatki.gov.si)</a>.
-        </p>
-      </div>
-      <p>Če spora ni mogoče rešiti sporazumno, je za potrošnike pristojno sodišče po zakonu, za razmerja pa velja pravo Republike Slovenije.</p>
 
-      <h2>14. Spremembe pogojev</h2>
+      <h2>13. Varstvo osebnih podatkov</h2>
+      <p>
+        Podatke kontaktnih oseb kupcev uporabljamo za upravljanje B2B dostopa, izvedbo naročil in zakonske obveznosti. Več
+        na strani <Link href="/zasebnost">Politika zasebnosti</Link>.
+      </p>
+
+      <h2>14. Reševanje sporov</h2>
+      <p>
+        Spore skušamo vedno rešiti sporazumno. Pritožbo lahko oddate po e-pošti na {site.emailProdaja}, po telefonu{" "}
+        {site.telefon} ali po pošti na naslov sedeža. Če spora ni mogoče rešiti sporazumno, je pristojno stvarno pristojno
+        sodišče v Celju. Za razmerja velja pravo Republike Slovenije.
+      </p>
+
+      <h2>15. Spremembe pogojev</h2>
       <p>
         Ponudnik lahko pogoje spremeni. Za posamezno naročilo veljajo pogoji, ki so bili objavljeni ob njegovi oddaji.
       </p>
