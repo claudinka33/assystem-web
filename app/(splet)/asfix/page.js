@@ -45,6 +45,7 @@ const IZDELKI = {
   txm2: { naziv: "Jekleno sidro TXm2", opis: "Razpiralno jekleno sidro za beton z oceno ETA.", slika: "/slike/asfix/txh7.png", slug: "jekleno-sidro-txm2", skupina: "pritrdila-za-beton", brezMreze: true },
   afrs: { naziv: "Univerzalni vijak z vložkom AF-RS", opis: "Vložek z vijakom za okvirje in late.", slika: "/slike/asfix/afrk.png", slug: "univerzalni-vijak-z-vlozkom-af-rs", skupina: "pritrdila-za-instalacije", brezMreze: true },
   gipsVijak: { naziv: "Vijak za mavčne plošče", opis: "Za pritrjevanje mavčnih plošč na podkonstrukcijo.", slika: "/slike/asfix/gips.png", slug: "vijak-za-mavcne-plosce-fini-navoj", skupina: "pritrdila-za-suhomontazo", brezMreze: true },
+  gipsMolly: { naziv: "Vijak z vložkom za mavčne plošče", opis: "Kovinski razpiralni vložek z vijakom za težje predmete.", slika: "/slike/Vijak_z_vlozkom_GIPS.jpeg", slug: "vijak-z-vlozkom-za-gips", skupina: "pritrdila-za-suhomontazo", brezMreze: true },
   ips: { naziv: "Vijak za stiropor IPS", opis: "Za pritrjevanje skozi toplotno izolacijo.", slika: "/slike/asfix/stiropor.png", slug: "vijak-za-stiropor-ips", skupina: "pritrdila-za-streho", brezMreze: true },
   trak: { naziv: "Perforiran trak", opis: "Za obešanje cevi in inštalacij.", slika: "/slike/asfix/trak.png", slug: "perforiran-trak", skupina: "pritrdila-za-instalacije" },
 };
@@ -52,7 +53,7 @@ const IZDELKI = {
 const podlage = [
   { naziv: "Beton", opis: "Nosilna jeklena sidra, Turbo vijaki in kemična sidra za največje obremenitve.", slika: "/slike/asfix/podlaga-beton-2.jpg", izdelki: ["txh7", "turbo", "easf", "udarni", "mq"] },
   { naziv: "Opeka in votlaki", opis: "Vložki z veliko oprijemno površino in kemična masa z mrežico.", slika: "/slike/asfix/podlaga-opeka-2.jpg", izdelki: ["mq", "udarni", "pesf", "afrk", "afrs"] },
-  { naziv: "Mavčne plošče", opis: "Vložki za suhomontažo, ki se za ploščo razprejo.", slika: "/slike/asfix/podlaga-gips-2.jpg", izdelki: ["gips", "gipsKov", "gipsVijak"] },
+  { naziv: "Mavčne plošče", opis: "Vložki za suhomontažo, ki se za ploščo razprejo.", slika: "/slike/asfix/podlaga-gips-2.jpg", izdelki: ["gips", "gipsKov", "gipsMolly", "gipsVijak"] },
   { naziv: "Fasada in izolacija", opis: "Vložki in vijaki za pritrjevanje v toplotno izolacijo in skozi njo.", slika: "/slike/asfix/podlaga-izolacija-2.jpg", izdelki: ["stiropor", "ips", "afrk", "afrs"] },
 ];
 
