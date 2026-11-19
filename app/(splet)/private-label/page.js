@@ -108,8 +108,18 @@ function PrivateLabel() {
           </div>
           <div className="pl-pret">
             <div className="pl-pret-k">
-              <div className="pl-pret-im">
-                <Image src="/slike/asfix/afr41.png" alt="Škatla ASfix" fill sizes="(max-width: 800px) 90vw, 460px" style={{ objectFit: "contain" }} />
+              <div className="pl-pret-im pl-pret-izd">
+                {[
+                  ["txh7", "Jekleno sidro TXH7"],
+                  ["udarni", "Udarni vijak"],
+                  ["mq", "Zidni vložek"],
+                  ["turbo", "Turbo vijak za beton"],
+                  ["gips", "Vložek za mavčne plošče"],
+                ].map(([s, n]) => (
+                  <span key={s} title={n}>
+                    <Image src={`/slike/asfix/${s}.png`} alt={n} fill sizes="160px" style={{ objectFit: "contain", padding: 6 }} />
+                  </span>
+                ))}
               </div>
               <small>Naš izdelek</small>
               <b>Proizveden in preverjen pri nas</b>

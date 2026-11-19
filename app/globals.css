@@ -4301,3 +4301,9 @@ button.kos-gumb { background: none; border: 0; padding: 0; cursor: pointer; font
 .g-t td.g-c > *, .g-t .g-c .g-zak { align-items: flex-start !important; text-align: left !important; }
 .g-t td.g-k .g-vk { justify-content: flex-start !important; }
 @media (min-width: 761px) { .g-t .g-cena { justify-items: start; } }
+
+/* Private label: naši izdelki iz lastne proizvodnje namesto škatle */
+.pl-pret-izd { display: grid !important; grid-template-columns: repeat(6, 1fr); gap: 6px; padding: 10px; }
+.pl-pret-izd > span { position: relative; grid-column: span 2; min-height: 0; }
+.pl-pret-izd > span:nth-child(4) { grid-column: 2 / span 2; }
+.pl-pret-izd > span:nth-child(5) { grid-column: 4 / span 2; }
