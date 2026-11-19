@@ -251,6 +251,7 @@ async function StranIzdelka({ params }) {
         <TabelaArtiklov artikli={artikli} stolpci={stolpci} naziviRazlicni={naziviRazlicni} embalaza={i.embalaza ?? []} izdelek={{ naziv: i.naziv, pot: `/program/${kategorija}/${izdelek}`, slika: i.slika_url ?? null, znamka: i.znamka ?? null }} slikeVrednosti={SLIKE_VREDNOSTI[izdelek] ?? null} />
         )}
         <p className="izd-opomba">
+          {/navojn\w* palic|palic\w* navojn/i.test(i.naziv) && <>Navojne palice so pakirane v svežnjih po 10, 25 ali 50 kos, na obeh koncih povezane s folijo. </>}
           Cene in zaloga so vidne prijavljenim B2B kupcem, za eno pakiranje (število kosov je v stolpcu »Pakiranje«). Za večje količine <Link href={povprasevanje}>pošljite povpraševanje</Link>.
         </p>
       </div>

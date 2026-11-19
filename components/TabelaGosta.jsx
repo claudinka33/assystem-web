@@ -49,7 +49,12 @@ function RalPika({ v }) {
 }
 
 // Slika embalaže pred šifro: takoj se vidi, ali je škatla ali vrečka
+// Navojne palice niso v škatlah: pakirane so v svežnjih (10, 25 ali 50 kos), na koncih povezane s folijo
+const SVEZENJ = /navojn\w* palic|palic\w* navojn/i;
+const jeSvezenj = (a, naziv) => SVEZENJ.test(String(a?.naziv ?? "")) || SVEZENJ.test(String(naziv ?? ""));
+
 function slikaPakiranja(a, znamka, pot, embalaza, naziv) {
+  if (jeSvezenj(a, naziv)) return "/slike/embalaza/ikone/svezenj-palic.jpg";
   const v = String((a.lastnosti ?? {}).Pakiranje ?? "").toLowerCase();
   if (!v) {
     if (vrecaBrezTiska(naziv)) return "/slike/embalaza/ikone/vrecka-prozorna.jpg";
@@ -89,6 +94,8 @@ function vrecaBrezTiska(naziv) {
 // Enota za količino v košarici: 4 škatle, 2 vrečki …
 function enota(a, n, kos, naziv, znamka, pot) {
   if (!(kos > 1)) return "kos";
+  const m0 = n % 100;
+  if (jeSvezenj(a, naziv)) return m0 === 1 ? "sveženj" : m0 === 2 ? "svežnja" : m0 === 3 || m0 === 4 ? "svežnji" : "svežnjev";
   const v = String((a.lastnosti ?? {}).Pakiranje ?? (vrecaBrezTiska(naziv) ? "vrečka" : privzetaSkatla(a, znamka, pot) ? "škatla" : "")).toLowerCase();
   const m = n % 100;
   if (v.startsWith("škatla") || v === "osnovno") return m === 1 ? "škatla" : m === 2 ? "škatli" : m === 3 || m === 4 ? "škatle" : "škatel";
@@ -106,7 +113,7 @@ function skupina(k, v) {
   if (x.startsWith("blister")) return "blister";
   return v;
 }
-const vrednost = (a, k) => skupina(k, (a.lastnosti ?? {})[k]);
+const vrednost = (a, k) => (k === "Pakiranje" && jeSvezenj(a) ? "sveženj" : skupina(k, (a.lastnosti ?? {})[k]));
 
 // Koliko kosov je v enem pakiranju: najprej iz Vasca (pakiranje), sicer iz naziva / lastnosti (»100 kos«, »a 50«, »/100«)
 function kosov(a) {
@@ -117,6 +124,7 @@ function kosov(a) {
 }
 // Vrsta pakiranja: vpisana lastnost, sicer ista kot slika pred šifro (vrečka / škatla)
 function vrstaPak(a, naziv, znamka, pot) {
+  if (jeSvezenj(a, naziv)) return "sveženj";
   return vrednost(a, "Pakiranje") ?? (vrecaBrezTiska(naziv) ? "vrečka" : privzetaSkatla(a, znamka, pot) ? "škatla" : null);
 }
 
