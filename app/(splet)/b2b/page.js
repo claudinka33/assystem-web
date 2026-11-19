@@ -21,7 +21,9 @@ async function B2B({ searchParams }) {
         <p className="izd-kat">Za podjetja</p>
         <h1 className="izd-h1">B2B spletna trgovina</h1>
         {napaka === "povezava" && (
-          <div className="b2b-info" style={{ marginTop: 16 }}>Povezava je neveljavna ali je potekla. Prijavi se ali zahtevaj novo povezavo za geslo.</div>
+          <div className="b2b-info" style={{ marginTop: 16 }}>
+            Povezava je neveljavna ali je potekla. <Link href="/b2b/pozabljeno-geslo?potekla=1" style={{ color: "var(--color-red)", fontWeight: 700 }}>Pošljite si novo povezavo za geslo →</Link>
+          </div>
         )}
         <div className="b2b-mreza" style={{ marginTop: 24 }}>
           <div className="b2b-skatla">
