@@ -4296,7 +4296,8 @@ button.kos-gumb { background: none; border: 0; padding: 0; cursor: pointer; font
 .b2bp-kom > span { color: var(--color-muted); font-size: 13px; }
 .b2bp-kom .on-stik { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 0; padding: 0; list-style: none; }
 
-/* Tabela: naslovi Šifra, EAN in Košarica na sredini nad vsebino */
-.g-t th.g-th-c { text-align: center !important; }
-.g-t td.g-sif, .g-t td.g-ean { text-align: center !important; }
-.g-t td.g-k .g-vk { justify-content: center; }
+/* Tabela: vsi naslovi in vrednosti poravnani levo */
+.g-t th, .g-t td { text-align: left !important; }
+.g-t td.g-c > *, .g-t .g-c .g-zak { align-items: flex-start !important; text-align: left !important; }
+.g-t td.g-k .g-vk { justify-content: flex-start !important; }
+@media (min-width: 761px) { .g-t .g-cena { justify-items: start; } }
