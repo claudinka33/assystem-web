@@ -350,15 +350,15 @@ function TabelaGosta({ artikli: vhodni, stolpci, izdelek = null, naziviRazlicni 
           <thead>
             <tr>
               <th className="g-th-sl" aria-label="Embalaža" />
-              <th>Šifra</th>
-              <th>EAN</th>
+              <th className="g-th-c">Šifra</th>
+              <th className="g-th-c">EAN</th>
               {naziviRazlicni && <th>Naziv</th>}
               <th>Dimenzija</th>
               {stolpciLastnosti.map((k) => <th key={k}>{k}</th>)}
               <th>Pakiranje</th>
               {odklenjeno && <th>Zaloga</th>}
               <th className="d">{b2b?.aktiven ? "Vaša cena" : b2b ? "Cena VPC" : "Cena"}</th>
-              {odklenjeno && <th className="d">Košarica</th>}
+              {odklenjeno && <th className="g-th-c">Košarica</th>}
             </tr>
           </thead>
           <tbody>

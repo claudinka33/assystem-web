@@ -4295,3 +4295,8 @@ button.kos-gumb { background: none; border: 0; padding: 0; cursor: pointer; font
 .b2bp-kom b { font-size: 15px; }
 .b2bp-kom > span { color: var(--color-muted); font-size: 13px; }
 .b2bp-kom .on-stik { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 0; padding: 0; list-style: none; }
+
+/* Tabela: naslovi Šifra, EAN in Košarica na sredini nad vsebino */
+.g-t th.g-th-c { text-align: center !important; }
+.g-t td.g-sif, .g-t td.g-ean { text-align: center !important; }
+.g-t td.g-k .g-vk { justify-content: center; }
