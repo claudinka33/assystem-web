@@ -10,7 +10,9 @@ const IZDELKI = [
   { v: "Jeklena sidra", o: "TXH7 z oceno ETA" },
   { v: "Udarni vijaki", o: "Z najlonskim vložkom" },
   { v: "Zidni vložki", o: "Za polne in votle stene" },
-  { v: "Vložki za mavčne plošče", o: "Kovinski in plastični" },
+  { v: "Vložki za mavčne plošče", o: "Plastični samovrezni" },
+  { v: "Turbo vijaki za beton", o: "Brez vložka" },
+  { v: "Perforiran montažni trak", o: "Za cevi in kanale" },
   { v: "Drugo", o: "Opišete v zadnjem koraku" },
   { v: "Še ne vem", o: "Svetujemo vam" },
 ];

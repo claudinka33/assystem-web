@@ -209,9 +209,9 @@ function PrivateLabel() {
               href="/proizvodnja#foto"
               gumb="Poglejte proizvodnjo →"
               koraki={[
-                { naslov: "Kovanje", podnaslov: "Proizvodnja", opis: "Sidra in vijaki iz hladnega kovanja.", slika: "/slike/foto/proizvodnja-13.jpg", alt: "Vijaki iz hladnega kovanja" },
-                { naslov: "Brizganje", podnaslov: "Proizvodnja", opis: "Najlonski vložki iz lastne proizvodnje.", slika: "/slike/foto/plastika-03.jpg", alt: "Zidni vložki na tekočem traku" },
-                { naslov: "Kontrola", podnaslov: "Kakovost", opis: "Preizkusi in meritve vsake serije.", slika: "/slike/foto/kakovost-04.jpg", alt: "Optično merjenje vijaka" },
+                { naslov: "Montaža sider", podnaslov: "Proizvodnja", opis: "Jeklena sidra sestavimo na lastnih avtomatskih linijah.", slika: "/slike/foto/montaza-08.jpg", alt: "Avtomatska montaža jeklenih sider" },
+                { naslov: "Zidni vložki", podnaslov: "Proizvodnja", opis: "Najlonski vložki iz lastne proizvodnje.", slika: "/slike/foto/plastika-03.jpg", alt: "Zidni vložki na tekočem traku" },
+                { naslov: "Pakiranje", podnaslov: "Vaša embalaža", opis: "Avtomatsko pakiranje v škatle in vrečke z vašo znamko.", slika: "/slike/foto/pakiranje-06.jpg", alt: "Avtomatsko pakiranje v škatle" },
               ]}
             />
           </div>
