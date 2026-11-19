@@ -72,7 +72,6 @@ async function ZaTrgovce() {
             <ul className="zn-znacke">
               <li>Police 1 – 20 m</li>
               <li>Planogram po meri</li>
-              <li>Zaloga takoj</li>
               <li>Dopolnjevanje</li>
             </ul>
             <div className="zn-gumbi">
