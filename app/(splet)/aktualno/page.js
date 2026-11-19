@@ -32,7 +32,7 @@ async function Aktualno({ searchParams }) {
             <Link href="/aktualno" className={!izbrana ? "on" : undefined}>
               Vsi
             </Link>
-            {VRSTE_CLANKOV.map((v) => (
+            {VRSTE_CLANKOV.filter((v) => v.kljuc !== "aktualno").map((v) => (
               <Link key={v.kljuc} href={`/aktualno?vrsta=${v.kljuc}`} className={izbrana === v.kljuc ? "on" : undefined}>
                 {v.naziv}
               </Link>

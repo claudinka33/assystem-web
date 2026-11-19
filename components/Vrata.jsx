@@ -1,17 +1,9 @@
 import Link from "next/link";
 
-/* Kaj iščete? Pet vstopnih poti: B2C, B2B, trgovci, private label, vijaki po risbi. */
+/* Kaj iščete? Štiri vstopne poti: B2B, trgovci, private label, vijaki po risbi. */
 const VRATA = [
   {
     st: "01",
-    kdo: "Za domačo rabo",
-    naslov: "Pritrdilo za vaš projekt",
-    opis: "Poiščite izdelek po šifri ali podlagi in ga naročite brez registracije.",
-    cta: "Izdelki",
-    pot: "/program",
-  },
-  {
-    st: "02",
     kdo: "Podjetja in izvajalci",
     naslov: "Poslovni nakup",
     opis: "Vaše cene, pregled naročil in plačilo na račun z dogovorjenim rokom plačila.",
@@ -19,7 +11,7 @@ const VRATA = [
     pot: "/b2b",
   },
   {
-    st: "03",
+    st: "02",
     kdo: "Trgovine",
     naslov: "Program in police",
     opis: "Sestavimo prodajni program in postavitev police od 1 do 20 metrov.",
@@ -27,7 +19,7 @@ const VRATA = [
     pot: "/za-trgovce",
   },
   {
-    st: "04",
+    st: "03",
     kdo: "Blagovne znamke",
     naslov: "Private label",
     opis: "Naše izdelke zapakiramo v vašo embalažo in pod vašo znamko.",
@@ -35,7 +27,7 @@ const VRATA = [
     pot: "/private-label",
   },
   {
-    st: "05",
+    st: "04",
     kdo: "Bespoke",
     naslov: "Izdelava po meri",
     opis: "Prinesite skico ali risbo: vijake in naše izdelke izdelamo po vaših merah.",
