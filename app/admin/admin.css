@@ -1198,3 +1198,23 @@ details.adm-obr { padding: 8px 12px; }
 .isk-okno li.isk-akt { background: #f1f3f5; }
 .isk-okno li.isk-izb { font-weight: 700; color: #c8102e; }
 .isk-okno li.isk-ne { color: #a3a8ad; cursor: default; }
+
+/* Sporočila strankam (e-mail predloge) */
+.ep-skupina { margin-bottom: 26px; }
+.ep-skupina h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: #6e7276; margin: 0 0 8px; }
+.ep-kartica { background: #fff; border: 1px solid #e3e5e8; margin-bottom: 8px; }
+.ep-kartica.odprta { border-color: #C8102E; }
+.ep-glava { width: 100%; display: flex; gap: 12px; align-items: center; padding: 14px 16px; background: none; border: 0; cursor: pointer; text-align: left; font: inherit; }
+.ep-zad { color: #6e7276; font-size: 13px; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ep-oznaka { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 10px; background: #eef0f2; color: #3f4140; white-space: nowrap; }
+.ep-oznaka.da { background: #e3f4e8; color: #1a7f3c; }
+.ep-oznaka.ne { background: #f6e3e5; color: #C8102E; }
+.ep-oznaka.spr { background: #fff3d6; color: #8a6100; }
+.ep-puscica { color: #6e7276; font-size: 11px; }
+.ep-ured { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; padding: 4px 16px 18px; border-top: 1px solid #eef0f2; }
+@media (max-width: 1100px) { .ep-ured { grid-template-columns: minmax(0, 1fr); } }
+.ep-spr { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12px; color: #6e7276; margin: 4px 0 14px; }
+.ep-spr code { background: #eef0f2; padding: 1px 5px; color: #1a1d21; }
+.ep-zadeva { font-size: 13px; padding: 8px 12px; background: #f4f5f6; border: 1px solid #e3e5e8; border-bottom: 0; }
+.ep-zadeva span { color: #6e7276; }
+.ep-mail { background: #fff; border: 1px solid #e3e5e8; padding: 22px; }

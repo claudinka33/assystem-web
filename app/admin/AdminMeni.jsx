@@ -64,6 +64,7 @@ const MENI = [
     { naziv: "E-novice", pot: "/admin/e-novice", ikona: "mail", tocno: true },
     { naziv: "Baza kontaktov", pot: "/admin/baza", ikona: "kontakti" },
     { naziv: "Poslana sporočila", pot: "/admin/poslano", ikona: "mail" },
+    { naziv: "Sporočila strankam", pot: "/admin/email-predloge", ikona: "mail" },
   ]},
   { skupina: "Zaposlovanje", povezave: [
     { naziv: "Delovna mesta", pot: "/admin/delovna-mesta", ikona: "delo" },
