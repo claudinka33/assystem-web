@@ -15,7 +15,7 @@ const ZNACKA = { aktiven: "znacka da", caka_odobritev: "znacka novo", preverjanj
 const norm = (x) => String(x ?? "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
 
 export default async function B2BKupci({ searchParams }) {
-  const { napaka, shranjeno, poslano, izbrisano } = await searchParams;
+  const { napaka, shranjeno, poslano, izbrisano, geslo } = await searchParams;
   const sb = supabaseAdmin();
   const { data, error } = await sb.from("b2b_kupci").select("*").order("ustvarjeno", { ascending: false }).limit(3000);
   if (error)
@@ -54,6 +54,7 @@ export default async function B2BKupci({ searchParams }) {
       </div>
       <div className="adm-telo siroko">
         {napaka && <div className="opozorilo">{napaka}</div>}
+        {geslo && <div className="uspeh">✓ Geslo je nastavljeno za <b>{geslo}</b>. Uporabnik se prijavi na assystem.si → B2B prijava z e-naslovom in tem geslom.</div>}
         {poslano && <div className="uspeh">✓ Povabilo za potrditev in geslo je poslano na <b>{poslano}</b>.</div>}
         {izbrisano && <div className="uspeh">B2B uporabnik {izbrisano} je izbrisan. Njegova naročila ostanejo v seznamu naročil.</div>}
         {shranjeno && (
@@ -187,6 +188,11 @@ export default async function B2BKupci({ searchParams }) {
                               <button className="gumb siv" type="submit" name="akcija" value="preveri">Preveri v Vascu</button>
                               {k.status !== "zavrnjen" && <button className="gumb siv" type="submit" name="akcija" value="povabilo">Pošlji povabilo za geslo</button>}
                               {k.status !== "zavrnjen" && <button className="gumb siv" type="submit" name="akcija" value="zavrni">Zavrni</button>}
+                            </div>
+                            <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap", marginTop: 10, paddingTop: 10, borderTop: "1px dashed #ddd" }}>
+                              <span style={{ fontSize: 12, color: "#666" }}>Ročno geslo (brez povezave po e-pošti, ne poteče):</span>
+                              <input name="novo_geslo" type="text" autoComplete="off" placeholder="vsaj 8 znakov" style={{ width: 180 }} />
+                              <button className="gumb siv" type="submit" name="akcija" value="geslo" formNoValidate>Nastavi geslo</button>
                             </div>
                           </form>
                           <div className="b2ba-brisi">
