@@ -24,7 +24,9 @@ const izdelki = [
   { naziv: "Jeklena sidra", primer: "TXH7 z evropsko tehnično oceno", slika: "/slike/asfix/txh7.png", pot: "/program/pritrdila-za-beton" },
   { naziv: "Udarni vijaki", primer: "Z najlonskim vložkom", slika: "/slike/o-nas/udarni-vodoravno.png", pot: "/program/klasicna-pritrdila" },
   { naziv: "Zidni vložki", primer: "Za polne in votle materiale", slika: "/slike/asfix/mq.png", pot: "/program/klasicna-pritrdila" },
-  { naziv: "Vložki za mavčne plošče", primer: "Kovinski in plastični", slika: "/slike/asfix/gips-kov.png", pot: "/program/pritrdila-za-suhomontazo" },
+  { naziv: "Vložki za mavčne plošče", primer: "Plastični samovrezni vložek", slika: "/slike/asfix/gips.png", pot: "/program/pritrdila-za-suhomontazo" },
+  { naziv: "Turbo vijaki za beton", primer: "Brez vložka, neposredno v beton", slika: "/slike/asfix/turbo.png", pot: "/program/pritrdila-za-beton" },
+  { naziv: "Perforiran montažni trak", primer: "Za obešanje cevi in kanalov", slika: "/slike/asfix/trak.png", pot: "/program/pritrdila-za-instalacije" },
 ];
 
 const embalaza = [
@@ -150,7 +152,7 @@ function PrivateLabel() {
             <h2>Kaj lahko dobite pod svojo znamko</h2>
             <p>Izdelki iz naše proizvodnje. Za celoten seznam nas vprašajte.</p>
           </div>
-          <div className="trg-kaj">
+          <div className="trg-kaj trg-kaj-3">
             {izdelki.map((x, i) => (
               <Link key={x.naziv} href={x.pot} className="trg-kaj-k" style={{ textDecoration: "none" }}>
                 <div className="trg-kaj-im">
