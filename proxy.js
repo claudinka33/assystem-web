@@ -81,6 +81,13 @@ export async function proxy(request) {
     return NextResponse.rewrite(url, { request: { headers: h } });
   };
 
+  // Zaposlitev je samo v slovenski različici: /en/zaposlitev → /en
+  if (jezikZahteve && (pathname === "/zaposlitev" || pathname.startsWith("/zaposlitev/"))) {
+    const cilj = request.nextUrl.clone();
+    cilj.pathname = `/${jezikZahteve}`;
+    return NextResponse.redirect(cilj);
+  }
+
   // Administracija in API nimata jezikovnih različic.
   if (jezikZahteve && (pathname.startsWith("/admin") || pathname.startsWith("/api/"))) {
     const cilj = request.nextUrl.clone();

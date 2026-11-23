@@ -12,7 +12,7 @@ const DRUZBENA = [
   ["TikTok", site.druzbena.tiktok],
 ];
 
-export default function Footer({ kategorije: izBaze }) {
+export default function Footer({ kategorije: izBaze, jezik = "sl" }) {
   const seznam = izBaze?.length ? izBaze : kategorije;
   return (
     <>
@@ -55,7 +55,7 @@ export default function Footer({ kategorije: izBaze }) {
             <Link href="/o-nas">O nas</Link>
             <Link href="/proizvodnja">Proizvodnja</Link>
             <Link href="/aktualno">Aktualno</Link>
-            <Link href="/zaposlitev">Zaposlitev</Link>
+            {jezik === "sl" && <Link href="/zaposlitev">Zaposlitev</Link>}
             <Link href="/kontakt">Kontakt</Link>
           </div>
 

@@ -74,7 +74,7 @@ function Header({ kategorije = [], skrite = [], jezik = "sl" }) {
           </Link>
 
           <nav className="nav">
-            {navigacija.map((el) => {
+            {navigacija.filter((el) => jezik === "sl" || !el.samoSl).map((el) => {
               const pod = podPostavke(el, kategorije, skrite);
               if (!pod.length)
                 return (
@@ -167,7 +167,7 @@ function Header({ kategorije = [], skrite = [], jezik = "sl" }) {
                 <input name="q" type="search" placeholder="Išči po šifri, EAN ali nazivu…" aria-label="Iskanje izdelkov" />
                 <button type="submit" aria-label="Išči">→</button>
               </form>
-              {navigacija.map((el) => {
+              {navigacija.filter((el) => jezik === "sl" || !el.samoSl).map((el) => {
                 const pod = podPostavke(el, kategorije, skrite);
                 if (!pod.length)
                   return (

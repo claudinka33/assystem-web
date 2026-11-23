@@ -44,7 +44,7 @@ export default async function SpletLayout({ children }) {
   const slovar = j === "sl" ? null : await prevedi(j, NIZI_ODJEMALCA, { vir: "odjemalec" });
   const popup = await nastavitvePopupa(j);
   const glava = <Header kategorije={kategorijeMeni} skrite={skrite} jezik={j} />;
-  const noga = <Footer kategorije={kategorijeMeni} />;
+  const noga = <Footer kategorije={kategorijeMeni} jezik={j} />;
 
   return (
     <JezikProvider jezik={j} slovar={slovar}>

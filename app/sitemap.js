@@ -48,6 +48,7 @@ export default async function sitemap() {
   // Vsaka stran ima tudi angleško (/en) in nemško (/de) različico.
   return vnosi.map((v) => {
     const pot = v.url.slice(site.url.length) || "";
+    if (pot.startsWith("/zaposlitev")) return v; // samo slovensko
     return {
       ...v,
       alternates: {
