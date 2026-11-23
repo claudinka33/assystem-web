@@ -8,7 +8,7 @@ const NA_STRAN = 100;
 
 export default async function Prevodi({ searchParams }) {
   const sp = await searchParams;
-  const jezik = ["en", "de"].includes(sp?.jezik) ? sp.jezik : "en";
+  const jezik = ["en", "de", "hr"].includes(sp?.jezik) ? sp.jezik : "en";
   const q = (sp?.q ?? "").trim();
   const samoRocni = sp?.rocno === "1";
   const stran = Math.max(1, Number(sp?.stran) || 1);
@@ -59,6 +59,7 @@ export default async function Prevodi({ searchParams }) {
           <select name="jezik" defaultValue={jezik} aria-label="Jezik">
             <option value="en">Angleščina (EN)</option>
             <option value="de">Nemščina (DE)</option>
+            <option value="hr">Hrvaščina (HR)</option>
           </select>
           <input name="q" type="search" defaultValue={q} placeholder="Išči po slovenskem besedilu ali prevodu…" aria-label="Iskanje" style={{ minWidth: 320 }} />
           <label style={{ fontSize: 13, display: "flex", gap: 6, alignItems: "center" }}>

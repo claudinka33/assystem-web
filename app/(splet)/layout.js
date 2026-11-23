@@ -8,6 +8,7 @@ import { jezik } from "@/lib/i18n/streznik";
 import { prevediDrevo } from "@/lib/i18n/drevo";
 import { prevedi } from "@/lib/i18n/prevajalnik";
 import { JezikProvider } from "@/lib/i18n/odjemalec";
+import PredlogJezika from "@/components/PredlogJezika";
 import NIZI_ODJEMALCA from "@/lib/i18n/nizi-odjemalca.json";
 import { supabaseAdmin } from "@/lib/supabase-server";
 import { KLJUC_POPUP, razcleniPopup, BESEDILA_POPUP } from "@/lib/popup";
@@ -53,6 +54,7 @@ export default async function SpletLayout({ children }) {
       <Merjenje />
       <Sledenje />
       <PopupB2B n={popup} />
+      <PredlogJezika jezik={j} />
     </JezikProvider>
   );
 }

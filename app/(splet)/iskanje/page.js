@@ -2,7 +2,6 @@ import { stevilo, najdenih, ZADETEK } from "@/lib/sklanjanje";
 import Image from "next/image";
 import ZnamkaZnak from "@/components/ZnamkaZnak";
 import Link from "next/link";
-import NaslovStrani from "@/components/NaslovStrani";
 import { isci } from "@/lib/podatki";
 import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
@@ -19,30 +18,24 @@ async function Iskanje({ searchParams }) {
 
   return (
     <>
-      <NaslovStrani
-        oznaka="Iskanje"
-        naslov={niz ? `Rezultati za „${niz}“` : "Iskanje"}
-        opis={
-          niz
-            ? `${najdenih(skupaj)} med izdelki in šiframi artiklov.`
-            : "Vpišite šifro artikla, EAN kodo ali naziv izdelka."
-        }
-      />
-
-      <section className="sec">
+      <section className="is-glava">
         <div className="w">
-          <form action="/iskanje" className="obr" style={{ maxWidth: 640, marginBottom: 40 }}>
-            <div className="obr-polje" style={{ marginBottom: 0 }}>
-              <label htmlFor="q">Šifra, EAN ali naziv</label>
-              <div style={{ display: "flex", gap: 10 }}>
-                <input id="q" name="q" type="text" defaultValue={niz} placeholder="npr. TXH7 ali M10x90" />
-                <button className="b b-r" type="submit" style={{ flex: "none" }}>
-                  Išči
-                </button>
-              </div>
-            </div>
+          <div className="is-glava-tx">
+            <nav className="drobtine">
+              <Link href="/">Domov</Link> / Iskanje
+            </nav>
+            <h1>{niz ? <>Rezultati za „{niz}“</> : "Iskanje"}</h1>
+            <p>{niz ? `${najdenih(skupaj)} med izdelki in šiframi artiklov.` : "Vpišite šifro artikla, EAN kodo ali naziv izdelka."}</p>
+          </div>
+          <form action="/iskanje" className="is-obr">
+            <input name="q" type="search" defaultValue={niz} placeholder="Šifra, EAN ali naziv (npr. TXH7 ali M10x90)" aria-label="Iskanje" autoFocus={!niz} />
+            <button type="submit">Išči</button>
           </form>
+        </div>
+      </section>
 
+      <section className="sec is-rez">
+        <div className="w">
           {niz && skupaj === 0 && (
             <div className="priprava">
               <h2>Ni zadetkov</h2>
@@ -63,7 +56,7 @@ async function Iskanje({ searchParams }) {
                 <span>Izdelki</span>
                 <h2>{stevilo(izdelki.length, ZADETEK)}</h2>
               </div>
-              <div className="kats" style={{ marginBottom: 50 }}>
+              <div className="kats is-kats" style={{ marginBottom: 44 }}>
                 {izdelki.map((i) => (
                   <Link
                     key={i.id}

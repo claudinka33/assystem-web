@@ -66,7 +66,7 @@ async function imaDostopDoPolic(request) {
 export async function proxy(request) {
   // ---------- jezik: /en/... in /de/... sta prevedeni različici slovenske strani ----------
   const izvirnaPot = request.nextUrl.pathname;
-  const ujemanje = izvirnaPot.match(/^\/(en|de)(\/|$)/);
+  const ujemanje = izvirnaPot.match(/^\/(en|de|hr)(\/|$)/);
   const jezikZahteve = ujemanje ? ujemanje[1] : null;
   const pathname = jezikZahteve ? izvirnaPot.slice(3) || "/" : izvirnaPot;
 

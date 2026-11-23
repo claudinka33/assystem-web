@@ -39,6 +39,7 @@ function Jeziki({ jezik }) {
 
 function Header({ kategorije = [], skrite = [], jezik = "sl" }) {
   const [odprt, setOdprt] = useState(false);
+  const [isci, setIsci] = useState(false);
   // Spustni meni, ki je bil pravkar kliknjen — skrit, dokler miška ne zapusti postavke.
   const [zaprt, setZaprt] = useState(null);
   const zapri = (n) => {
@@ -128,12 +129,12 @@ function Header({ kategorije = [], skrite = [], jezik = "sl" }) {
             <button type="submit" aria-label="Išči">→</button>
           </form>
 
-          <Link href="/iskanje" className="isci-ikona" aria-label="Iskanje izdelkov">
+          <button type="button" className="isci-ikona" aria-label="Iskanje izdelkov" aria-expanded={isci} onClick={() => setIsci(!isci)}>
             <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
               <circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" strokeWidth="2" />
               <line x1="15.5" y1="15.5" x2="21" y2="21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
             </svg>
-          </Link>
+          </button>
 
           <Link href="/b2b" className="b2b-gumb" title="B2B portal za podjetja: vaše cene, naročila in računi">
             <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M4 21V5l8-3 8 3v16M9 21v-5h6v5M8 8h2M14 8h2M8 12h2M14 12h2" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
@@ -194,6 +195,14 @@ function Header({ kategorije = [], skrite = [], jezik = "sl" }) {
               </a>
             </div>
           </nav>
+        )}
+        {isci && (
+          <div className="isci-pop">
+            <form action="/iskanje" onSubmit={() => setIsci(false)}>
+              <input name="q" type="search" placeholder="Šifra, EAN ali naziv izdelka" aria-label="Iskanje" autoFocus />
+              <button type="submit">Išči</button>
+            </form>
+          </div>
         )}
       </header>
     </>

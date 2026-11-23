@@ -64,10 +64,10 @@ const koraki = [
 ];
 
 const panoge = [
-  ["Elektro industrija", "vijaki za ohišja, priključke in sestave"],
-  ["Lesna industrija", "vijaki za pohištvo in okovje"],
-  ["Gradbeništvo", "posebni vijaki za sisteme in montažo"],
-  ["Splošna industrija", "sestavni deli po risbi naročnika"],
+  ["Elektro industrija", "Vijaki za ohišja, priključke in sestave.", <path key="e" d="M13 2 4 14h7l-1 8 9-12h-7l1-8z" />],
+  ["Lesna industrija", "Vijaki za pohištvo in okovje.", <><path d="M12 3 5 13h4l-3 5h12l-3-5h4z" /><path d="M12 18v3" /></>],
+  ["Gradbeništvo", "Posebni vijaki za sisteme in montažo.", <><path d="M3 21h18" /><path d="M5 21V8l7-5 7 5v13" /><path d="M9 21v-6h6v6" /></>],
+  ["Splošna industrija", "Sestavni deli po risbi naročnika.", <><circle cx="12" cy="12" r="3" /><path d="M12 2v3M12 19v3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1 7 17M17 7l2.1-2.1" /></>],
 ];
 
 function Bespoke() {
@@ -184,11 +184,14 @@ function Bespoke() {
             <span>Za koga</span>
             <h2>Panoge, za katere delamo</h2>
           </div>
-          <div className="kats">
-            {panoge.map(([n, o]) => (
-              <div key={n} className="k" style={{ padding: "22px 22px" }}>
+          <div className="bs-panoge">
+            {panoge.map(([n, o, ik]) => (
+              <div key={n} className="bs-panoga">
+                <span className="bs-panoga-ik" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">{ik}</svg>
+                </span>
                 <h3>{n}</h3>
-                <p style={{ marginTop: 8 }}>{o}</p>
+                <p>{o}</p>
               </div>
             ))}
           </div>

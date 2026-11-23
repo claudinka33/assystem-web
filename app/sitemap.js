@@ -51,7 +51,7 @@ export default async function sitemap() {
     return {
       ...v,
       alternates: {
-        languages: { sl: v.url, en: `${site.url}/en${pot}`, de: `${site.url}/de${pot}` },
+        languages: { sl: v.url, en: `${site.url}/en${pot}`, de: `${site.url}/de${pot}`, hr: `${site.url}/hr${pot}` },
       },
     };
   });
