@@ -25,7 +25,6 @@ const izdelki = [
   { naziv: "Udarni vijaki", primer: "Z najlonskim vložkom", slika: "/slike/o-nas/udarni-vodoravno.png", pot: "/program/klasicna-pritrdila" },
   { naziv: "Zidni vložki", primer: "Za polne in votle materiale", slika: "/slike/asfix/mq.png", pot: "/program/klasicna-pritrdila" },
   { naziv: "Vložki za mavčne plošče", primer: "Plastični samovrezni vložek", slika: "/slike/asfix/gips.png", pot: "/program/pritrdila-za-suhomontazo" },
-  { naziv: "Turbo vijaki za beton", primer: "Brez vložka, neposredno v beton", slika: "/slike/asfix/turbo.png", pot: "/program/pritrdila-za-beton" },
   { naziv: "Perforiran montažni trak", primer: "Za obešanje cevi in kanalov", slika: "/slike/asfix/trak.png", pot: "/program/pritrdila-za-instalacije" },
 ];
 
@@ -115,8 +114,8 @@ function PrivateLabel() {
                   ["txh7", "Jekleno sidro TXH7"],
                   ["udarni", "Udarni vijak"],
                   ["mq", "Zidni vložek"],
-                  ["turbo", "Turbo vijak za beton"],
                   ["gips", "Vložek za mavčne plošče"],
+                  ["trak", "Perforiran montažni trak"],
                 ].map(([s, n]) => (
                   <span key={s} title={n}>
                     <Image src={`/slike/asfix/${s}.png`} alt={n} fill sizes="160px" style={{ objectFit: "contain", padding: 6 }} />

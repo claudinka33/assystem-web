@@ -43,9 +43,16 @@ const izdelki = [
     pot: "/program/klasicna-pritrdila",
   },
   {
+    naziv: "Vložki za mavčne plošče",
+    oznaka: "Enojne in dvojne plošče",
+    opis: "Plastični samovrezni vložek za suhomontažo, privije se naravnost v mavčno ploščo.",
+    slika: "/slike/asfix/gips.png",
+    pot: "/program/pritrdila-za-suhomontazo",
+  },
+  {
     naziv: "Perforiran trak",
     oznaka: "12 mm · 17 mm",
-    opis: "Pocinkan montažni trak za inštalacije in prezračevanje, v praktični škatli po 10 m.",
+    opis: "Pocinkan montažni trak za inštalacije in prezračevanje, navit na črn plastični kolut po 10 m.",
     slika: "/slike/asfix/trak.png",
     pot: "/program/pritrdila-za-instalacije",
   },
@@ -251,11 +258,11 @@ function Proizvodnja() {
             <span>Lastna proizvodnja</span>
             <h2>Kaj izdelamo sami</h2>
             <p>
-              Štiri skupine izdelkov so v celoti naše, od postopka do pakiranja.
+              Pet skupin izdelkov je v celoti naših, od postopka do pakiranja.
               Vse so na voljo pod znamko ASfix ali pod vašo blagovno znamko.
             </p>
           </div>
-          <div className="on-izd stiri">
+          <div className="on-izd stiri pet">
             {izdelki.map((i) => (
               <Link key={i.naziv} href={i.pot} className="on-izd-k">
                 <div className="on-izd-im">
