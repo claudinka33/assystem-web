@@ -1,8 +1,2 @@
-GET most/prejeto/r2_04.png 200
-GET most/prejeto/r2_05.png 200
-GET most/prejeto/r2_06.png 200
-GET most/prejeto/r2_07.png 200
-GET most/prejeto/r2_08.png 200
-GET most/prejeto/r2_09.png 200
-GET most/prejeto/r2_10.png 200
-GET most/prejeto/r2_13.png 200
+GET most/prejeto/r3_04.png 200
+GET most/prejeto/r3_07.png 200
