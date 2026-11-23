@@ -171,9 +171,9 @@ const lokacije = [
 
 const pakiranje = [
   ["Vrečke z izveskom", "Za police trgovin: od malih do velikih vrečk."],
-  ["Škatle", "Družina škatel ASfix za avtomatsko in ročno pakiranje."],
+  ["Škatle", "Družina škatel ASfix s standardnimi količinami za sidra, vložke in perforiran trak."],
   ["Embalaža kupca", "Vaša znamka, vaša etiketa, vaša EAN koda."],
-  ["Poljubna količina", "Velikost pakiranja prilagodimo kupcu in prodajnemu mestu."],
+  ["Količina v vrečki po želji", "V vrečke pakiramo po 10, 20, 30, 40, 50 ali drugo število kosov, kot ga potrebuje kupec."],
 ];
 
 const galerija = [
@@ -356,7 +356,7 @@ function Proizvodnja() {
                 <h2>Pakiranje po meri kupca</h2>
                 <p>
                   Lastno pakiranje je eden naših najmočnejših argumentov. Kupcu
-                  ponudimo poljubno velikost pakiranja in pakiranje v njegovo
+                  ponudimo vrečke s količino po želji in pakiranje v njegovo
                   embalažo: česar uvozniki ne zmorejo.
                 </p>
               </div>
