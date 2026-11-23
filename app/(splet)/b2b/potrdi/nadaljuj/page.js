@@ -9,7 +9,8 @@ async function Nadaljuj({ searchParams }) {
   return (
     <section className="sec">
       <div className="w" style={{ maxWidth: 560 }}>
-        <div className="b2b-zaklep">
+        <div className="b2b-potrdi">
+          <span className="b2b-potrdi-oz">B2B dostop</span>
           <h1>{geslo ? "Nastavite geslo za B2B dostop" : "Potrdite e-naslov"}</h1>
           <p>{geslo ? "Kliknite gumb in si nastavite svoje geslo za prijavo v B2B portal." : "Kliknite gumb, da potrdite e-naslov in odprete svoj B2B račun."}</p>
           <form method="post" action="/b2b/potrdi">
