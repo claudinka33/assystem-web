@@ -4,7 +4,21 @@ import VideoOzadje from "@/components/VideoOzadje";
 import BespokeObrazec from "@/components/BespokeObrazec";
 import KorakiSlike from "@/components/KorakiSlike";
 import FotoGalerija from "@/components/FotoGalerija";
-import { FOTO_VPN, FOTO_KOVANJE, FOTO_KAKOVOST } from "@/lib/foto";
+import { FOTO_VPN, FOTO_KOVANJE, FOTO_KAKOVOST, FOTO_VIJAKI, FOTO_EKIPA } from "@/lib/foto";
+
+// Proizvodnja in kontrola za galerijo (meritve iz proizvodnje gredo pod Kontrolo)
+const jeMeritev = (x) => /kontrol|merjen|meritev|merilom/i.test(x.alt);
+const BS_PROIZVODNJA = [
+  ...FOTO_KOVANJE.filter((x) => !jeMeritev(x)),
+  ...FOTO_VIJAKI.filter((x) => !jeMeritev(x)),
+  ...FOTO_EKIPA.filter((x) => /ekipa-0[57]/.test(x.src)),
+];
+const BS_KONTROLA = [
+  ...FOTO_KAKOVOST.filter((x) => !/sidr/i.test(x.alt)),
+  ...FOTO_KOVANJE.filter(jeMeritev),
+  ...FOTO_VIJAKI.filter(jeMeritev),
+  ...FOTO_EKIPA.filter((x) => /ekipa-06/.test(x.src)),
+];
 import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
 const metadataSl = {
@@ -191,8 +205,8 @@ function Bespoke() {
           <FotoGalerija
             skupine={[
               { naziv: "Primeri vijakov", slike: FOTO_VPN },
-              { naziv: "Proizvodnja", slike: FOTO_KOVANJE.slice(0, 9) },
-              { naziv: "Kontrola", slike: FOTO_KAKOVOST.filter((x) => !/sidr/i.test(x.alt)) },
+              { naziv: "Proizvodnja", slike: BS_PROIZVODNJA },
+              { naziv: "Kontrola", slike: BS_KONTROLA },
             ]}
           />
         </div>
