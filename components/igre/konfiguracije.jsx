@@ -238,7 +238,7 @@ export const uvs = {
   naslovPrizora: "Udarni vijak UVS: profil na beton",
   luknje: U.X.map((x) => ({ x, y: U.vrh })),
   smer: 0,
-  orodja: [...uvsSvedri(U.L + 30), uvsOrodje, kladivo(), uvsNapacenVijacnik],
+  orodja: [...uvsSvedri(U.L + 30), uvsOrodje, kladivo()],
   koraki: [
     { naziv: "Postavite profil", tip: "postavi", navodilo: "Kliknite na beton, da postavite kovinski profil za mavčne plošče.", obmocje: (t) => t.y > 300, potrdilo: "Profil je na mestu. Vrtate kar skozi luknje v profilu." },
     { naziv: "Izvrtajte luknje", orodje: "sveder6", nacin: "drzi", korak: 5, delci: "#b9b4a4", navodilo: "Držite miško nad rdečo oznako, vrtajte skozi profil v beton." },
@@ -457,7 +457,6 @@ export const trak = {
     ...uvsSvedri(P.L + 30),
     uvsOrodje,
     kladivo(),
-    uvsNapacenVijacnik,
   ],
   koraki: [
     { naziv: "Položite kable", tip: "postavi", navodilo: "Kliknite na tla, da položite kable.", obmocje: (t) => t.y > 300, potrdilo: "Kabli so na tleh. Zdaj jih prekrijte s trakom." },

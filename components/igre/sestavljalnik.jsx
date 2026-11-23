@@ -170,6 +170,7 @@ export function sestavi(o) {
   if (o.pihaj) add("pihaj", { naziv: o.pihaj.naziv ?? "Očistite luknjo", orodje: "pihalka", nacin: "drzi", korak: 7, delci: C.prah, navodilo: o.pihaj.navodilo ?? "Držite miško nad luknjo, dokler prah ne izgine.", preskok: "Luknja je še polna prahu, najprej jo očistite." });
   izbiraPred("vlozek");
   if (o.vlozek) add("vlozek", { naziv: o.vlozek.korak ?? "Vstavite vložek", orodje: "vlozek", nacin: "klik", navodilo: o.vlozek.navodilo ?? "Kliknite v vsako luknjo." });
+  if (o.vlozek?.privij) add("privijVlozek", { naziv: o.vlozek.privij.korak ?? "Privijte vložek", orodje: "vijacnik", nacin: "drzi", korak: o.vlozek.privij.hitrost ?? 3, navodilo: o.vlozek.privij.navodilo ?? "Nastavite vijačnik na vložek in držite miško, dokler vložek ne naleže.", preskok: "Najprej nastavite vložek." });
   if (o.masa) add("masa", { naziv: "Napolnite z maso", orodje: "pistola", nacin: "drzi", korak: 5, navodilo: o.masa.navodilo ?? "Držite miško nad luknjo: masa naj napolnite dve tretjini luknje, od dna navzgor.", preskok: "Najprej napolnite luknjo s kemično maso." });
   if (el?.potem && el.predVijakom) add("element", { naziv: el.korak ?? "Prislonite element", tip: "postavi", orodje: "element", navodilo: el.navodilo ?? "Kliknite v prizor.", potrdilo: el.potrdilo, preskok: "Najprej pripravite pritrdila." });
   izbiraPred("vijak");
@@ -246,7 +247,7 @@ export function sestavi(o) {
               {has("pihaj") && vrt >= 1 && pih < 1 && Array.from({ length: Math.ceil((1 - pih) * 16) }, (_, i) => (
                 <circle key={i} cx={x + (((i * 37) % 10) / 10 - 0.5) * g.hd * 0.7} cy={g.D - 3 - ((i * 11) % Math.max(10, g.D * 0.5))} r={1.4 + (i % 3) * 0.6} fill={C.prah} />
               ))}
-              {has("vlozek") && done(s, li, "vlozek") && <Vlozek x={x} vrh={g.vrhVlozka} L={g.vL} d={g.vd} barva={F(o.vlozek.barva, g.I)} razpr={q * (o.vlozek.razpr ?? 2)} mrezica={o.vlozek.mrezica} prirobnica={o.vlozek.prirobnica !== false} />}
+              {has("vlozek") && done(s, li, "vlozek") && <Vlozek x={x} vrh={g.vrhVlozka - (1 - pr(s, li, "privijVlozek")) * g.vL * 0.92} L={g.vL} d={g.vd} barva={F(o.vlozek.barva, g.I)} razpr={q * (o.vlozek.razpr ?? 2)} mrezica={o.vlozek.mrezica} prirobnica={o.vlozek.prirobnica !== false} />}
               {has("masa") && masa > 0 && (() => { const f = Math.min(1, 0.66 * masa + (masa >= 1 ? 0.34 * q : 0)); const w = o.vlozek?.mrezica ? g.vd - 4 : g.hd; return <rect x={x - w / 2} y={g.D - g.D * f} width={w} height={g.D * f} fill="#8e979f" opacity="0.92" />; })()}
               {vz && (nastavljen || q > 0) && (vz.tip === "hanger"
                 ? <Hanger x={x} vrh={glavaVijaka(g, q)} Lles={g.Lles} Lmet={g.Lmet} d={g.d} faza={q * 40} />
@@ -293,9 +294,10 @@ export function sestavi(o) {
     // v orodjarni je samo pravi sveder (orodja z razlago napake ostanejo)
     // orodjarna po vrstnem redu uporabe, orodja za razlago napake na koncu
     orodja: (() => {
-      const ok = o.orodja.filter((t) => !(t.id?.startsWith("sveder") && !t.napaka && o.vrtanje?.pravi != null && t.id !== `sveder${F(o.vrtanje.pravi, privzeto)}`));
+      // v orodjarni samo orodja, ki jih igra res potrebuje (brez "napačnih" orodij)
+      const ok = o.orodja.filter((t) => !t.napaka && !(t.id?.startsWith("sveder") && o.vrtanje?.pravi != null && t.id !== `sveder${F(o.vrtanje.pravi, privzeto)}`));
       const prvi = (t) => { if (t.napaka) return 999; const i = koraki.findIndex((k) => (Array.isArray(k.orodje) ? k.orodje.includes(t.id) : k.orodje === t.id)); return i < 0 ? 500 : i; };
-      return ok.map((t, i) => [t, prvi(t), i]).sort((a, b) => a[1] - b[1] || a[2] - b[2]).map((x) => x[0]);
+      return ok.map((t, i) => [t, prvi(t), i]).filter((x) => x[1] < 500).sort((a, b) => a[1] - b[1] || a[2] - b[2]).map((x) => x[0]);
     })(),
     privzeto,
     koraki,
@@ -305,6 +307,7 @@ export function sestavi(o) {
       if (id === "pihalka") return tr(x, g.D * 0.35);
       if (id === "pistola") return tr(x, g.D * (1 - 0.66 * pr(s, li, "masa")));
       if (k === "vijak") return tr(x, glavaVijaka(g, pr(s, li, "vijak")));
+      if (k === "privijVlozek" && id === "vijacnik") return tr(x, g.vrhVlozka - (1 - pr(s, li, "privijVlozek")) * g.vL * 0.92);
       if (k?.startsWith("dodatno") && vz && id === "kljuc") return tr(x, glavaVijaka(g, 1) + (vz.glava === "sidro" ? g.d * 1.4 : 0));
       if (id === "kljuc" && mt) return tr(x, maticaY(s, li) + (mt.spodaj ? (F(mt.d, g.I) * u) : -(F(mt.d, g.I) * u * 0.4)));
       return null;
@@ -339,7 +342,7 @@ export function sestavi(o) {
       const g = geo(s);
       const prvi = elPrej && s.nap[0][ix.element] < 100;
       const k = kljucKoraka(s);
-      const naLuknji = ["vrtaj", "pihaj", "vlozek", "masa", "vstavi", "vijak", "podlozka", "matica"];
+      const naLuknji = ["vrtaj", "pihaj", "vlozek", "privijVlozek", "masa", "vstavi", "vijak", "podlozka", "matica"];
       return (
         <g>
           {(o.podlage ?? [{ tip: o.podlaga ?? "beton", od: 0, do: 400 }]).map((p, i) => {
