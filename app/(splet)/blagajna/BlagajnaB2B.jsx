@@ -149,7 +149,7 @@ function BlagajnaB2B({ kupec, dostave, prodajalne }) {
                   <span className="ik"><Ikona ime="racun" /></span>
                   <span>
                     <b>Na račun</b>
-                    <small>Račun prejmete z blagom{kupec.rok ? `, rok plačila ${kupec.rok} dni` : ""}</small>
+                    <small>Račun prejmete po e-pošti ali po pošti{kupec.rok ? `, rok plačila ${kupec.rok} dni` : ""}</small>
                   </span>
                   <span />
                 </label>

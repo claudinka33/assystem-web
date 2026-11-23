@@ -68,7 +68,7 @@ async function Hvala({ searchParams }) {
         )}
         {n.nacin_placila === "racun" && (
           <p style={{ marginTop: 14 }}>
-            Naročilo <b>{eur(Number(n.skupaj))}</b> (z DDV) smo prejeli. Račun prejmete z blagom. Potrdilo smo vam poslali po e-pošti,
+            Naročilo <b>{eur(Number(n.skupaj))}</b> (z DDV) smo prejeli. Račun prejmete po e-pošti ali po pošti. Potrdilo smo vam poslali po e-pošti,
             naročilo vidite tudi v <Link href="/b2b/racun">svojem B2B računu</Link>.
           </p>
         )}
@@ -89,7 +89,7 @@ async function Hvala({ searchParams }) {
 
         <p style={{ marginTop: 14 }}>
           Za vprašanja smo na voljo na <a href={`tel:${site.telefonRaw}`}>{site.telefon}</a> ali{" "}
-          <a href={`mailto:${site.emailProdaja}`}>{site.emailProdaja}</a>.
+          <a href={`mailto:${n.nacin_placila === "racun" ? site.emailB2B : site.emailProdaja}`}>{n.nacin_placila === "racun" ? site.emailB2B : site.emailProdaja}</a>.
         </p>
         <Link className="b b-r" href="/program" style={{ marginTop: 24, display: "inline-block" }}>Nazaj na program</Link>
         <Konverzija stevilka={n.stevilka} znesek={Number(n.skupaj)} />

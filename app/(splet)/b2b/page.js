@@ -47,7 +47,7 @@ async function B2B({ searchParams }) {
             </p>
             <Link className="b b-g" href="/b2b/registracija" style={{ display: "inline-block", marginTop: 14 }}>Registracija podjetja</Link>
             <p style={{ fontSize: 14, marginTop: 18, color: "var(--color-muted)" }}>
-              Vprašanja: <a href={`tel:${site.telefonRaw}`}>{site.telefon}</a> · <a href={`mailto:${site.emailProdaja}`}>{site.emailProdaja}</a>
+              Vprašanja: <a href={`tel:${site.telefonRaw}`}>{site.telefon}</a> · <a href={`mailto:${site.emailB2B}`}>{site.emailB2B}</a>
             </p>
           </div>
         </div>

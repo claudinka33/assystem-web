@@ -140,7 +140,7 @@ async function Racun({ searchParams }) {
                   <b>Prodaja AS system</b>
                   <ul className="on-stik">
                     <li><span>T</span><a href={`tel:${site.telefonRaw}`}>{site.telefon}</a></li>
-                    <li><span>@</span><a href={`mailto:${site.email}`}>{site.email}</a></li>
+                    <li><span>@</span><a href={`mailto:${site.emailB2B}`}>{site.emailB2B}</a></li>
                   </ul>
                 </>
               )}
@@ -344,7 +344,7 @@ async function Racun({ searchParams }) {
             ))}
           </div>
         )}
-        <p className="b2bp-noga">Sprememba podatkov podjetja ali poslovalnice: pišite na {site.emailProdaja}.</p>
+        <p className="b2bp-noga">Vprašanja in spremembe podatkov podjetja ali poslovalnice: pišite na <a href={`mailto:${site.emailB2B}`}>{site.emailB2B}</a>.</p>
       </div>
     </section>
   );
