@@ -251,7 +251,6 @@ async function StranIzdelka({ params }) {
         <TabelaArtiklov artikli={artikli} stolpci={stolpci} naziviRazlicni={naziviRazlicni} embalaza={i.embalaza ?? []} izdelek={{ naziv: i.naziv, slug: izdelek, pot: `/program/${kategorija}/${izdelek}`, slika: i.slika_url ?? null, znamka: i.znamka ?? null }} slikeVrednosti={SLIKE_VREDNOSTI[izdelek] ?? null} />
         )}
         <p className="izd-opomba">
-          {izdelek === "jekleno-sidro-txh7" && <>Dolžine, krajše od 75 mm (M8, M10) oziroma 90 mm (M12), niso zajete v ETA-21/0597 in so označene »brez ETA«. </>}
           {/navojn\w* palic|palic\w* navojn/i.test(i.naziv) && <>Navojne palice so pakirane v svežnjih po 10, 25 ali 50 kos, na obeh koncih povezane s folijo. </>}
           Cene in zaloga so vidne prijavljenim B2B kupcem, za eno pakiranje (število kosov je v stolpcu »Pakiranje«). Za večje količine <Link href={povprasevanje}>pošljite povpraševanje</Link>.
         </p>

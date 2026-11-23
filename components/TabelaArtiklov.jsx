@@ -470,7 +470,7 @@ function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicni, embalaza = [
                 <td className="izd-siv izd-ean" data-l="EAN">{a.ean ?? "—"}</td>
                 <td className="mk-cela izd-naziv" data-l="Naziv">
                   {a.naziv}
-                  {brezEta(izdelek, a.dimenzija) && (
+                  {b2b && brezEta(izdelek, a.dimenzija) && (
                     <span className="brez-eta" title="Ta dolžina ni zajeta v evropski tehnični oceni (ETA).">brez ETA</span>
                   )}
                 </td>
