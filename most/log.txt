@@ -1,1 +1,14 @@
-
+PUT most/src/vpn_01.jpg 200
+PUT most/src/vpn_02.jpg 200
+PUT most/src/vpn_03.jpg 200
+PUT most/src/vpn_04.jpg 200
+PUT most/src/vpn_05.jpg 200
+PUT most/src/vpn_06.jpg 200
+PUT most/src/vpn_07.jpg 200
+PUT most/src/vpn_08.jpg 200
+PUT most/src/vpn_09.jpg 200
+PUT most/src/vpn_10.jpg 200
+PUT most/src/vpn_11.jpg 200
+PUT most/src/vpn_12.jpg 200
+PUT most/src/vpn_13.jpg 200
+PUT most/src/vpn_14.jpg 200
