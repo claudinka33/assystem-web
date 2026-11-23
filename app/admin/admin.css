@@ -1218,3 +1218,24 @@ details.adm-obr { padding: 8px 12px; }
 .ep-zadeva { font-size: 13px; padding: 8px 12px; background: #f4f5f6; border: 1px solid #e3e5e8; border-bottom: 0; }
 .ep-zadeva span { color: #6e7276; }
 .ep-mail { background: #fff; border: 1px solid #e3e5e8; padding: 22px; }
+
+/* Prijave za zaposlitev */
+.prj { display: grid; gap: 14px; max-width: 980px; }
+.prj-k { background: #fff; border: 1px solid #e3e5e8; border-left: 4px solid #cb2026; border-radius: 6px; padding: 16px 18px; }
+.prj-gl { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.prj-ime { display: block; font-size: 16px; }
+.prj-mesto { display: inline-block; margin-top: 4px; font-size: 12px; font-weight: 600; background: #f1f2f4; color: #3f4140; padding: 3px 8px; border-radius: 4px; }
+.prj-gl time { font-size: 12.5px; color: #6e7276; white-space: nowrap; }
+.prj-podatki { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 20px; margin: 14px 0 0; }
+.prj-podatki dt, .prj-sp small, .prj-cv small { display: block; font-size: 10.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #9ba0a5; margin-bottom: 3px; }
+.prj-podatki dd { margin: 0; font-size: 13.5px; }
+.prj-podatki a { color: #cb2026; }
+.prj-sp { margin-top: 14px; }
+.prj-sp p { margin: 0; font-size: 13.5px; white-space: pre-wrap; color: #3f4140; background: #f8f9fa; padding: 10px 12px; border-radius: 4px; }
+.prj-cv { margin-top: 14px; }
+.prj-dat { display: inline-flex; align-items: center; gap: 10px; border: 1px solid #d5d9dd; border-radius: 6px; padding: 8px 12px 8px 8px; text-decoration: none; color: #2b2f33; background: #fff; max-width: 100%; }
+.prj-dat:hover { border-color: #cb2026; }
+.prj-dat-ik { flex: none; width: 38px; height: 44px; border-radius: 4px; background: #cb2026; color: #fff; font-size: 10.5px; font-weight: 800; display: grid; place-items: center; }
+.prj-dat-ime { font-weight: 600; font-size: 13.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.prj-dat-odpri { flex: none; font-size: 12.5px; color: #cb2026; font-weight: 700; }
+@media (max-width: 700px) { .prj-podatki { grid-template-columns: 1fr; } }

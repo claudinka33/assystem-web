@@ -24,6 +24,12 @@ export default async function Prijave() {
     }
   }
 
+  const imeDatoteke = (pot) => {
+    const ime = String(pot ?? "").split("/").pop();
+    return /^cv-\d+\./.test(ime) ? ime.replace(/^cv-\d+/, "zivljenjepis") : ime;
+  };
+  const koncnica = (pot) => String(pot ?? "").split(".").pop().toUpperCase();
+
   return (
     <>
       <div className="adm-glava">
@@ -35,48 +41,41 @@ export default async function Prijave() {
         {seznam.length === 0 ? (
           <div className="opozorilo">Prijav še ni.</div>
         ) : (
-          <table className="adm-tab">
-            <thead>
-              <tr>
-                <th>Ime</th>
-                <th>Kontakt</th>
-                <th>Delovno mesto</th>
-                <th style={{ width: 110 }}>Prejeto</th>
-                <th style={{ width: 120 }}>Življenjepis</th>
-              </tr>
-            </thead>
-            <tbody>
-              {seznam.map((p) => (
-                <tr key={p.id}>
-                  <td>
-                    <b>{p.ime}</b>
-                    {p.sporocilo && (
-                      <div style={{ fontSize: 11.5, color: "#6e7276", marginTop: 4, maxWidth: 420 }}>
-                        {p.sporocilo}
-                      </div>
-                    )}
-                  </td>
-                  <td style={{ fontSize: 12.5 }}>
-                    <a href={`mailto:${p.email}`} style={{ color: "#cb2026" }}>
-                      {p.email}
+          <div className="prj">
+            {seznam.map((p) => (
+              <article key={p.id} className="prj-k">
+                <header className="prj-gl">
+                  <div>
+                    <b className="prj-ime">{p.ime}</b>
+                    <span className="prj-mesto">{p.delovna_mesta?.naziv ?? p.delovno_mesto_naziv ?? "Splošna prijava"}</span>
+                  </div>
+                  <time>{datumSlo(p.ustvarjeno)}</time>
+                </header>
+                <dl className="prj-podatki">
+                  <div><dt>E-naslov</dt><dd><a href={`mailto:${p.email}`}>{p.email}</a></dd></div>
+                  <div><dt>Telefon</dt><dd>{p.telefon ? <a href={`tel:${p.telefon.replace(/\s+/g, "")}`}>{p.telefon}</a> : "—"}</dd></div>
+                </dl>
+                {p.sporocilo && (
+                  <div className="prj-sp">
+                    <small>Nekaj besed o sebi</small>
+                    <p>{p.sporocilo}</p>
+                  </div>
+                )}
+                <div className="prj-cv">
+                  <small>Življenjepis</small>
+                  {povezave[p.id] ? (
+                    <a className="prj-dat" href={povezave[p.id]} target="_blank" rel="noreferrer">
+                      <span className="prj-dat-ik">{koncnica(p.cv_url)}</span>
+                      <span className="prj-dat-ime">{imeDatoteke(p.cv_url)}</span>
+                      <span className="prj-dat-odpri">Odpri ↗</span>
                     </a>
-                    {p.telefon && <div>{p.telefon}</div>}
-                  </td>
-                  <td style={{ color: "#6e7276" }}>{p.delovna_mesta?.naziv ?? "Splošna prijava"}</td>
-                  <td>{datumSlo(p.ustvarjeno)}</td>
-                  <td>
-                    {povezave[p.id] ? (
-                      <a className="gumb siv mini" href={povezave[p.id]} target="_blank" rel="noreferrer">
-                        Odpri
-                      </a>
-                    ) : (
-                      <span style={{ color: "#9ba0a5" }}>—</span>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                  ) : (
+                    <span style={{ color: "#9ba0a5" }}>ni priložen</span>
+                  )}
+                </div>
+              </article>
+            ))}
+          </div>
         )}
       </div>
     </>

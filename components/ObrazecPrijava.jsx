@@ -72,8 +72,8 @@ function ObrazecPrijava({ delovnaMesta = [], izbrano }) {
       </div>
 
       <div className="obr-polje">
-        <label htmlFor="cv">Življenjepis (PDF, DOC, do 10 MB)</label>
-        <input id="cv" name="cv" type="file" accept=".pdf,.doc,.docx" />
+        <label htmlFor="cv">Življenjepis * (PDF, DOC, do 10 MB)</label>
+        <input id="cv" name="cv" type="file" accept=".pdf,.doc,.docx" required />
       </div>
 
       <div className="obr-polje">
