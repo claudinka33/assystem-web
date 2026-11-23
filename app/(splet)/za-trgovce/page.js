@@ -41,7 +41,7 @@ const dolzine = [
   { m: "6 m – 20 m", opis: "Večje postavitve po meri trgovine, tudi kombinacija ASfix in ASco.", slika: null },
 ];
 
-const KAJ_SLIKE = ["/slike/proizvodnja/hero-izdelki.png", "/slike/trgovci/asfix-polica-2m-bela.jpg", "/slike/znamke/asfix-afr41-sredina.png", "/slike/asfix-paleta-txm2.jpg"];
+const KAJ_SLIKE = ["/slike/proizvodnja/bespoke-izdelki.jpg", "/slike/trgovci/asfix-polica-2m-bela.jpg", "/slike/znamke/asfix-afr41-sredina.png", "/slike/asfix-paleta-txm2.jpg"];
 
 const embalaza = [
   { znamka: "ASfix", slike: [["/slike/znamke/asfix-afr41-sredina.png", "Škatla ASfix", "6% 8%"], ["/slike/znamke/asfix-vrecka.jpg", "Rdeča vrečka ASfix"], ["/slike/asfix-paleta-txm2.jpg", "Paleta škatel ASfix"]], opis: "Škatle v enotnem dizajnu, vrečke z izveskom za perforirano steno in cele palete za večje trgovine." },
