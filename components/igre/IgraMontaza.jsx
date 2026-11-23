@@ -1,5 +1,6 @@
 "use client";
 
+import KonecIgre from "@/components/igre/KonecIgre";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { dogodek } from "@/lib/dogodki";
@@ -329,16 +330,7 @@ function IgraMontaza({ cfg }) {
       </div>
 
       {koncano && cfg.konec && (
-        <div className="igra-konec">
-          <h3>{cfg.konec.naslov}</h3>
-          <p>{cfg.konec.besedilo}</p>
-          <div className="igra-konec-gumbi">
-            {(cfg.konec.povezave ?? []).map((p, i) => (
-              <Link key={p.href} className={`b ${i === 0 ? "b-r" : "b-d"}`} href={p.href}>{p.label}</Link>
-            ))}
-            <button type="button" className="b b-d" onClick={ponovi}>Poskusite znova</button>
-          </div>
-        </div>
+        <KonecIgre naslov={cfg.konec.naslov} besedilo={cfg.konec.besedilo} povezave={cfg.konec.povezave ?? []} ponovi={ponovi} />
       )}
 
       {!koncano && <button type="button" className="igra-ponovi" onClick={ponovi}>Začnite znova</button>}

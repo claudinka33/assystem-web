@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
+import KonecIgre from "@/components/igre/KonecIgre";
 import { dogodek } from "@/lib/dogodki";
 import { prevedeno } from "@/lib/i18n/odjemalec";
 
@@ -681,19 +682,12 @@ function IgraSidranje() {
       </div>
 
       {korak === 6 && (
-        <div className="igra-konec">
-          <h3>Ograja je pritrjena</h3>
-          <p>
-            Obe sidri sta izvrtani s pravim svedrom, izpihani, zabiti do
-            plošče in zategnjeni s predpisanim momentom. Prav izpih izvrtine je korak, ki ga na gradbišču
-            največkrat izpustijo: in prav ta najbolj zniža nosilnost pritrditve.
-          </p>
-          <div className="igra-konec-gumbi">
-            <Link className="b b-r" href="/program/pritrdila-za-beton">Poglejte sidra TXH7</Link>
-            <Link className="b b-d" href="/kontakt?vir=igra">Zahtevajte ponudbo</Link>
-            <button type="button" className="b b-d" onClick={ponovi}>Poskusite znova</button>
-          </div>
-        </div>
+        <KonecIgre
+          naslov="Ograja je pritrjena"
+          besedilo="Obe sidri sta izvrtani s pravim svedrom, izpihani, zabiti do plošče in zategnjeni s predpisanim momentom. Prav izpih izvrtine je korak, ki ga na gradbišču največkrat izpustijo: in prav ta najbolj zniža nosilnost pritrditve."
+          povezave={[{ href: "/program/pritrdila-za-beton/jekleno-sidro-txh7", label: "Poglejte sidra TXH7" }, { href: "/kontakt?vir=igra", label: "Zahtevajte ponudbo" }]}
+          ponovi={ponovi}
+        />
       )}
 
       {korak !== 6 && (
