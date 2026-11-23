@@ -7,6 +7,7 @@ import { dodaj, useKosarica } from "@/lib/kosarica";
 import { dogodek } from "@/lib/dogodki";
 import { useB2BCene } from "@/lib/b2b-klient";
 import VprasajZaRok from "@/components/VprasajZaRok";
+import { brezEta } from "@/lib/eta";
 import { prevedeno, useJezik } from "@/lib/i18n/odjemalec";
 
 // Gosta (data-dense) tabela artiklov: oznake za filtre, kratke vrstice,
@@ -371,7 +372,7 @@ function TabelaGosta({ artikli: vhodni, stolpci, izdelek = null, naziviRazlicni 
                   <td className="g-sif" data-l="Šifra" translate="no">{a.sifra}</td>
                   <td className={`g-ean${a.ean ? "" : " g-prazno"}`} data-l="EAN" translate="no">{a.ean ?? "—"}</td>
                   {naziviRazlicni && <td className="g-las g-naz" data-l="Naziv">{a.naziv}</td>}
-                  <td className="g-dim" translate="no">{a.dimenzija ?? "—"}</td>
+                  <td className="g-dim" translate="no">{a.dimenzija ?? "—"}{brezEta(izdelek, a.dimenzija) && <span className="brez-eta" title="Ta dolžina ni zajeta v evropski tehnični oceni (ETA).">brez ETA</span>}</td>
                   {stolpciLastnosti.map((k) => <td key={k} className={`g-las${(a.lastnosti ?? {})[k] ? "" : " g-prazno"}`} data-l={k}><RalPika v={(a.lastnosti ?? {})[k]} />{(a.lastnosti ?? {})[k] ?? "—"}</td>)}
                   <td className="g-pakv" data-l="Pakiranje">{vrstaPak(a, izdelek?.naziv, izdelek?.znamka, izdelek?.pot) ?? (n ? "" : "—")}{n ? <small>{st(n)} kos</small> : null}</td>
                   {odklenjeno && <td className="g-zaloga">{zal ? <span className="g-z da"><span className="g-pika da" />Na zalogi</span> : <span className="g-z ne"><span className="g-pika ne" />Ni na zalogi</span>}</td>}
@@ -402,7 +403,7 @@ function TabelaGosta({ artikli: vhodni, stolpci, izdelek = null, naziviRazlicni 
             <div key={a.id} className={`g-kar${zal ? "" : " g-ni"}${oznacena === a.sifra ? " g-oznacen" : ""}`}>
               <div className="g-kar-1">
                 {sl ? <img src={sl} alt="" loading="lazy" /> : null}
-                <b translate="no">{a.dimenzija ?? a.sifra}</b>
+                <b translate="no">{a.dimenzija ?? a.sifra}</b>{brezEta(izdelek, a.dimenzija) && <span className="brez-eta">brez ETA</span>}
                 <Cena cena={cenaZa(a)} b2b={b2b} />
               </div>
               <div className="g-kar-2">

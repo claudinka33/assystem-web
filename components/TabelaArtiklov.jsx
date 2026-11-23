@@ -6,6 +6,7 @@ import { cenaArtikla, eur } from "@/lib/cene";
 import { dodaj } from "@/lib/kosarica";
 import { dogodek } from "@/lib/dogodki";
 import { useB2BCene } from "@/lib/b2b-klient";
+import { brezEta } from "@/lib/eta";
 import VprasajZaRok from "@/components/VprasajZaRok";
 import { prevedeno } from "@/lib/i18n/odjemalec";
 
@@ -14,19 +15,6 @@ import { prevedeno } from "@/lib/i18n/odjemalec";
 const KORAK = 20; // prvih 20 vrstic, ostale z gumbom »Pokaži vse«
 
 // Ko artikla ni na zalogi, roka dobave ne poznamo -> kupec ga z enim klikom vpraša prek obrazca.
-// Dolžine, ki jih pokriva ETA (najmanjša dolžina po premeru). Krajše dolžine dobijo oznako »brez ETA«.
-const ETA_MIN_DOLZINA = {
-  "jekleno-sidro-txh7": { 8: 75, 10: 75, 12: 90 }, // ETA-21/0597, tabela A1
-};
-
-function brezEta(izdelek, dimenzija) {
-  const meje = ETA_MIN_DOLZINA[izdelek?.slug];
-  const m = meje && String(dimenzija ?? "").match(/M\s*(\d+)\s*[x×]\s*(\d+)/i);
-  if (!m) return false;
-  const min = meje[Number(m[1])];
-  return min ? Number(m[2]) < min : false;
-}
-
 function Zaloga({ vrednost, sifra, izdelek, dimenzija }) {
   if (vrednost > 0)
     return (
