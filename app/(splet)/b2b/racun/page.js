@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import OsnutekGumbi from "./OsnutekGumbi";
-import { trenutniB2B, prodajalneKupca, B2B_STATUSI, jeAktiven, racuniVklopljeni, enotaVasco, kolicinaZaPrikaz } from "@/lib/b2b";
+import { trenutniB2B, prodajalneKupca, B2B_STATUSI, jeAktiven, racuniVklopljeni, enotaVasco, kolicinaZaPrikaz, posebneCene, cenaPakiranjaZaKupca, vpcArtikla } from "@/lib/b2b";
 import { odjava } from "@/lib/akcije/b2b";
 import { supabaseAdmin } from "@/lib/supabase-server";
-import { eur } from "@/lib/cene";
+import { eur, cenaArtikla } from "@/lib/cene";
 import { site } from "@/lib/site";
 import { poisci } from "@/lib/kontakti";
 import { Stik } from "@/components/KontaktBloki";
@@ -53,7 +53,20 @@ async function Racun({ searchParams }) {
   // Osnutek = shranjena košarica (velja 3 dni od zadnje spremembe)
   const osnutekVelja = kos?.posodobljeno ? new Date(new Date(kos.posodobljeno).getTime() + 3 * 86400000) : null;
   const osnutek = osnutekVelja && osnutekVelja > new Date() && Array.isArray(kos.postavke) ? kos.postavke : [];
-  const osnutekNeto = osnutek.reduce((s, x) => s + Number(x.cenaNeto || 0) * Number(x.kolicina || 0), 0);
+  // Trenutne cene in zaloga za postavke osnutka (cene samo za odobrene B2B kupce)
+  const osnutekArt = {};
+  if (osnutek.length) {
+    const { data: arts } = await sb.from("artikli").select("*").in("sifra", osnutek.map((x) => x.sifra).filter(Boolean).slice(0, 300));
+    const posebne = aktiven ? await posebneCene(k.vasco_partner, (arts ?? []).map((a) => a.sifra)) : {};
+    for (const a of arts ?? []) {
+      const redna = cenaArtikla(a, vpcArtikla(a) || undefined);
+      const c = aktiven ? cenaPakiranjaZaKupca(a, k, posebne) : null;
+      const popust = c && redna?.neto && redna.neto > c.neto ? Math.round((1 - c.neto / redna.neto) * 1000) / 10 : 0;
+      osnutekArt[a.sifra] = { a, c, redna, popust };
+    }
+  }
+  const cenaOsnutka = (x) => (aktiven ? osnutekArt[x.sifra]?.c?.neto ?? (x.cenaNeto != null ? Number(x.cenaNeto) : null) : null);
+  const osnutekNeto = osnutek.reduce((s, x) => s + Number(cenaOsnutka(x) || 0) * Number(x.kolicina || 0), 0);
   const racuni = racRes?.data ?? [];
   const imeKupca = Object.fromEntries((sodelavci ?? []).map((x) => [x.id, x.ime]));
   const mojaPoslovalnica = k.prodajalna ? prodajalne.find((p) => p.sifra === k.prodajalna) : null;
@@ -171,21 +184,38 @@ async function Racun({ searchParams }) {
               </p>
               <div className="b2bp-post" style={{ padding: 0, background: "none" }}>
                 <table>
-                  <thead><tr><th>Šifra</th><th>Artikel</th><th className="d">Količina</th><th className="d">Cena brez DDV</th><th className="d">Vrednost brez DDV</th></tr></thead>
+                  <thead><tr><th>Šifra</th><th>Artikel</th><th>Pakiranje</th><th>Zaloga</th><th className="d">Količina</th>{aktiven && <><th className="d">VPC</th><th className="d">Rabat</th></>}<th className="d">Vaša cena</th><th className="d">Vrednost brez DDV</th></tr></thead>
                   <tbody>
-                    {osnutek.map((x, i) => (
-                      <tr key={i}>
-                        <td>{x.sifra}</td>
-                        <td>{x.pot ? <Link href={x.pot}>{x.naziv}</Link> : x.naziv} {x.dimenzija ? <b>{x.dimenzija}</b> : null}</td>
-                        <td className="d"><b>{(Number(x.kolicina) * (Number(x.kos) || 1)).toLocaleString("sl-SI")} kos</b>{Number(x.kos) > 1 && <small className="b2bp-kpod">{x.kolicina} × {x.kos} kos</small>}</td>
-                        <td className="d">{x.cenaNeto != null ? eur(Number(x.cenaNeto)) : "—"}{Number(x.kos) > 1 && <small className="b2bp-en"> / {x.kos} kos</small>}</td>
-                        <td className="d"><b>{eur(Number(x.cenaNeto || 0) * Number(x.kolicina || 0))}</b></td>
-                      </tr>
-                    ))}
+                    {osnutek.map((x, i) => {
+                      const o = osnutekArt[x.sifra];
+                      const a = o?.a;
+                      const cena = cenaOsnutka(x);
+                      const kos = Number(o?.c?.kos ?? x.kos) || 1;
+                      const zaloga = Number(a?.zaloga) || 0;
+                      const pak = String((a?.lastnosti ?? {}).Pakiranje ?? "").toLowerCase();
+                      return (
+                        <tr key={i}>
+                          <td>{x.sifra}{a?.ean && <small className="b2bp-kpod">EAN {a.ean}</small>}</td>
+                          <td>{x.pot ? <Link href={x.pot}>{x.naziv}</Link> : x.naziv} {x.dimenzija ? <b>{x.dimenzija}</b> : null}</td>
+                          <td>{pak || "—"}{kos > 1 && <small className="b2bp-kpod">{kos.toLocaleString("sl-SI")} kos</small>}</td>
+                          <td>{a ? (zaloga > 0 ? <span style={{ color: "#1a7f3c", fontWeight: 600 }}>● Na zalogi</span> : <span style={{ color: "#cb2026", fontWeight: 600 }}>● Po naročilu</span>) : "—"}</td>
+                          <td className="d"><b>{(Number(x.kolicina) * kos).toLocaleString("sl-SI")} kos</b>{kos > 1 && <small className="b2bp-kpod">{x.kolicina} × {kos} kos</small>}</td>
+                          {aktiven && (
+                            <>
+                              <td className="d">{o?.redna ? eur(o.redna.neto) : "—"}</td>
+                              <td className="d">{o?.popust ? `${o.popust.toLocaleString("sl-SI")} %` : "—"}</td>
+                            </>
+                          )}
+                          <td className="d">{cena != null ? <>{eur(cena)}{kos > 1 && <small className="b2bp-en"> / {kos} kos</small>}</> : <span className="b2bp-en">po odobritvi</span>}</td>
+                          <td className="d"><b>{cena != null ? eur(cena * Number(x.kolicina || 0)) : "—"}</b></td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
-                  <tfoot><tr><td colSpan={4} className="d">Skupaj brez DDV</td><td className="d"><b>{eur(osnutekNeto)}</b></td></tr></tfoot>
+                  <tfoot><tr><td colSpan={aktiven ? 8 : 6} className="d">Skupaj brez DDV</td><td className="d"><b>{aktiven ? eur(osnutekNeto) : "—"}</b></td></tr></tfoot>
                 </table>
               </div>
+              {!aktiven && <p className="b2bp-osn-info">Cene in rabati so vidni, ko vaš B2B račun odobrimo. Osnutek ostane shranjen in ga lahko oddate po odobritvi.</p>}
               <OsnutekGumbi />
             </div>
           )

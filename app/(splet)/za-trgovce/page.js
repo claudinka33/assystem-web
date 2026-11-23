@@ -101,9 +101,9 @@ async function ZaTrgovce() {
             <ZaklenjenoB2B
               naprej="/za-trgovce"
               prijavljen={prijavljen}
-              naslov="Stran je na voljo B2B trgovcem"
-              besedilo="Prodajni program, police, planograme in embalažo za trgovine pokažemo samo trgovcem z B2B dostopom. Prijavite se ali registrirajte podjetje."
-              opombaPrijavljen="Vaš B2B račun še ni označen kot trgovec. Ko ga potrdimo, bo stran vidna tukaj."
+              naslov="Samo za trgovce"
+              besedilo="Ta stran je namenjena izključno trgovcem. Prodajni program, police, planograme in embalažo za trgovine pokažemo samo trgovinam z B2B dostopom. Če ste trgovec, se prijavite ali registrirajte podjetje."
+              opombaPrijavljen="Ta vsebina je na voljo samo trgovcem. Če niste trgovec, do nje žal ne morete dostopati. Če ste trgovec, nam to sporočite na info@as-system.si ali +386 40 934 316 in vaš račun odobrimo za trgovce, nato bo stran vidna tukaj."
             />
           </div>
         </section>

@@ -4367,3 +4367,9 @@ button.kos-gumb { background: none; border: 0; padding: 0; cursor: pointer; font
 .rok-gumb:hover, .g-vk > button.rok-gumb:hover, .vk button.rok-gumb:hover { background: #fff !important; border-color: var(--color-green) !important; color: var(--color-green-2) !important; }
 .rok-gumb { padding: 5px 10px; border-radius: 2px; text-decoration: none !important; }
 .g-vk .rok-gumb { padding: 0 6px; }
+/* Zaklenjen blok (bel okvir): vidna oznaka in naslov */
+.b2b-zaklep { color: var(--color-ink); text-align: left; }
+.b2b-zaklep-tx span { color: var(--color-red); }
+.b2b-zaklep-tx h3 { color: var(--color-ink); }
+.b2b-zaklep-tx p { color: var(--color-muted); }
+.b2b-zaklep-op { color: var(--color-ink) !important; background: #fff6e5; border-left: 3px solid #e0a000; padding: 10px 14px; }

@@ -32,7 +32,7 @@ function Registracija() {
   if (stanje?.ok)
     return (
       <div className="b2b-ok">
-        <b>Skoraj končano.</b> Na <b>{stanje.email}</b> smo poslali povezavo za potrditev e-naslova. Klikni jo, nato se lahko prijaviš.
+        <b>Skoraj končano.</b> Na <b>{stanje.email}</b> smo poslali povezavo za potrditev e-naslova. Kliknite jo, nato se lahko prijavite.
         Če sporočila ni v nekaj minutah, preverite mapo z neželeno pošto.
       </div>
     );
