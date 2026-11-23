@@ -101,7 +101,8 @@ export async function proxy(request) {
   }
 
   // ---------- zaklep strani ----------
-  const geslo = process.env.SPLET_GESLO;
+  // Stran je javna od 23. 11. 2026. Zaklep z geslom se vklopi samo, če je SPLET_ZAKLEP=1.
+  const geslo = process.env.SPLET_ZAKLEP === "1" ? process.env.SPLET_GESLO : null;
   if (geslo) {
     const dovoljeno =
       PROSTO.some((p) => pathname === p || pathname.startsWith(p + "/")) ||
