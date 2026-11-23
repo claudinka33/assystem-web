@@ -4436,3 +4436,12 @@ button.isci-ikona { border: 0; background: none; cursor: pointer; }
 .predlog-jezika a { background: var(--color-green); color: #fff; font-weight: 800; padding: 8px 14px; text-decoration: none; white-space: nowrap; }
 .predlog-jezika a:hover { background: var(--color-green-2); }
 .predlog-jezika button { background: none; border: 0; color: rgba(255,255,255,.7); text-decoration: underline; cursor: pointer; font: inherit; font-size: 13px; }
+/* Registracija podjetja na telefonu: eno polje v vrsti, nič ne gleda čez rob */
+.reg-mreza > label { min-width: 0; }
+.reg-mreza input { width: 100%; min-width: 0; box-sizing: border-box; }
+@media (max-width: 640px) {
+  .reg-mreza { grid-template-columns: minmax(0, 1fr) !important; }
+  .reg-mreza .r2, .reg-mreza > label { grid-column: 1 / -1 !important; }
+  .reg-dno { flex-direction: column; align-items: stretch; }
+  .reg-dno .b { width: 100%; text-align: center; }
+}
