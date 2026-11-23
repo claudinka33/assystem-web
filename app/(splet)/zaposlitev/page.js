@@ -38,6 +38,8 @@ async function Zaposlitev() {
     <>
       <NaslovStrani
         oznaka="Kariera"
+        slika="/slike/foto/ekipa-04.jpg"
+        slikaAlt="Sodelavka AS system ob stroju v proizvodnji"
         naslov={v(b, "zaposlitev.uvod.naslov", "naslov", "Pridružite se ekipi AS system")}
         opis={v(
           b,

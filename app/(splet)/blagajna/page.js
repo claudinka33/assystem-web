@@ -27,7 +27,7 @@ async function Stran() {
               <>
                 <h1>Naročanje je na voljo B2B kupcem</h1>
                 <p>Cene, zaloga in spletno naročanje so na voljo registriranim podjetjem. Registrirajte se in po potrditvi e-naslova takoj vidite cene.</p>
-                <Link className="b b-r" href="/b2b/registracija">Postanite B2B kupec →</Link> <Link className="b b-o" href="/b2b">Prijava</Link>
+                <Link className="b b-g" href="/b2b/registracija">Postanite B2B kupec →</Link> <Link className="b b-o" href="/b2b">Prijava</Link>
               </>
             )}
           </div>

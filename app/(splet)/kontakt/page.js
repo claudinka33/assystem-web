@@ -1,14 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import ObrazecPovprasevanje from "@/components/ObrazecPovprasevanje";
-import { KontaktiOddelki, Lokacije } from "@/components/KontaktBloki";
+import { Lokacije } from "@/components/KontaktBloki";
 import { site } from "@/lib/site";
 import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
 const metadataSl = {
   title: "Kontakt",
   description:
-    "Kontakt AS system d.o.o.: komerciala +386 40 934 316, centrala +386 3 800 70 00, info@as-system.si. Kontakti po oddelkih in lokaciji v Šmarju pri Jelšah in Bistrici ob Sotli.",
+    "Kontakt AS system d.o.o.: komerciala +386 40 934 316, centrala +386 3 800 70 00, info@as-system.si. Lokaciji v Šmarju pri Jelšah in Bistrici ob Sotli.",
   alternates: { canonical: "/kontakt" },
 };
 
@@ -89,10 +89,10 @@ async function Kontakt({ searchParams }) {
               <div className="kt-kartica temna">
                 <small>Hitro do prave osebe</small>
                 <ul className="kt-usmeri">
-                  <li><b>Prodaja v Sloveniji in na Hrvaškem</b><a href="#kontakti">Manja Part →</a></li>
-                  <li><b>Izvoz in distributerji</b><a href="#kontakti">Špela Sedminek →</a></li>
-                  <li><b>Vijaki po naročilu</b><a href="#kontakti">Špela Sedminek →</a></li>
-                  <li><b>Private label</b><a href="#kontakti">Manja Part · Špela Sedminek →</a></li>
+                  <li><b>Prodaja v Sloveniji in na Hrvaškem</b><span>Manja Part</span></li>
+                  <li><b>Izvoz in distributerji</b><span>Špela Sedminek</span></li>
+                  <li><b>Vijaki po naročilu</b><span>Špela Sedminek</span></li>
+                  <li><b>Private label</b><span>Manja Part · Špela Sedminek</span></li>
                   <li><b>Reklamacije</b><Link href="/reklamacije">prijava reklamacije →</Link></li>
                 </ul>
               </div>
@@ -117,7 +117,6 @@ async function Kontakt({ searchParams }) {
         </div>
       </section>
 
-      <KontaktiOddelki />
       <Lokacije />
     </>
   );

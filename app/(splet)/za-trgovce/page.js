@@ -75,7 +75,7 @@ async function ZaTrgovce() {
               <li>Dopolnjevanje</li>
             </ul>
             <div className="zn-gumbi">
-              <a className="b b-r" href="#povprasevanje">Predlog police →</a>
+              <a className="b b-g" href="#povprasevanje">Predlog police →</a>
               <a className="b b-o" href="#dolzine">Dolžine polic</a>
             </div>
           </div>

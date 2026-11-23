@@ -94,7 +94,7 @@ function Bespoke() {
               <li>Vaša embalaža</li>
             </ul>
             <div className="zn-gumbi">
-              <a className="b b-r" href="#povprasevanje">Pošljite skico</a>
+              <a className="b b-g" href="#povprasevanje">Pošljite skico</a>
               <Link className="b b-o" href="/proizvodnja">Naša proizvodnja</Link>
             </div>
           </div>

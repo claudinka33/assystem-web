@@ -45,7 +45,7 @@ async function B2B({ searchParams }) {
             <p style={{ marginTop: 18 }}>
               Po registraciji in potrditvi e-naslova vsako prijavo pregledamo in odobrimo ročno — praviloma v 1 delovnem dnevu. Ko je dostop odobren, vas obvestimo po e-pošti.
             </p>
-            <Link className="b b-r" href="/b2b/registracija" style={{ display: "inline-block", marginTop: 14 }}>Registracija podjetja</Link>
+            <Link className="b b-g" href="/b2b/registracija" style={{ display: "inline-block", marginTop: 14 }}>Registracija podjetja</Link>
             <p style={{ fontSize: 14, marginTop: 18, color: "var(--color-muted)" }}>
               Vprašanja: <a href={`tel:${site.telefonRaw}`}>{site.telefon}</a> · <a href={`mailto:${site.emailProdaja}`}>{site.emailProdaja}</a>
             </p>

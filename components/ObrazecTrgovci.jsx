@@ -172,7 +172,7 @@ function ObrazecTrgovci() {
           <button type="button" className="ot-nazaj" onClick={() => setKorak(2)}>
             ← Nazaj
           </button>
-          <button className="b b-r" type="submit" disabled={caka}>
+          <button className="b b-g" type="submit" disabled={caka}>
             {caka ? "Pošiljam…" : "Pošljite povpraševanje"}
           </button>
         </div>

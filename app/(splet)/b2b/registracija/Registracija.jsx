@@ -91,7 +91,7 @@ function Registracija() {
         <label className="blag-pog" style={{ margin: 0 }}>
           <input type="checkbox" name="novice" /> Želim prejemati e-novice AS system (novosti, akcije, nasveti). Odjava je mogoča kadarkoli.
         </label>
-        <button className="b b-r" type="submit" disabled={cakam}>{cakam ? "Pošiljam …" : "Registriraj podjetje"}</button>
+        <button className="b b-g" type="submit" disabled={cakam}>{cakam ? "Pošiljam …" : "Registriraj podjetje"}</button>
       </div>
     </form>
   );

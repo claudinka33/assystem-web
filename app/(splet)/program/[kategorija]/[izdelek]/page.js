@@ -199,7 +199,7 @@ async function StranIzdelka({ params }) {
             )}
 
             <div className="izd-hitro">
-              <Link className="b b-r" href={povprasevanje}>Pošljite povpraševanje</Link>
+              <Link className="b b-g" href={povprasevanje}>Pošljite povpraševanje</Link>
               {artikli.length > 0 && <a className="b b-o" href="#artikli">Dimenzije in cene ↓</a>}
             </div>
 

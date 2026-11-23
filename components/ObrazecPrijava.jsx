@@ -87,7 +87,7 @@ function ObrazecPrijava({ delovnaMesta = [], izbrano }) {
         </span>
       </label>
 
-      <button className="b b-r" type="submit" disabled={caka}>
+      <button className="b b-g" type="submit" disabled={caka}>
         {caka ? "Pošiljam…" : "Oddaj prijavo"}
       </button>
     </form>

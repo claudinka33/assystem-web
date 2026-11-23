@@ -100,7 +100,7 @@ function VprasajZaRok({ sifra, naziv, dimenzija }) {
                   <textarea rows={6} value={sporocilo} onChange={(e) => setSporocilo(e.target.value)} />
                 </label>
                 {stanje?.stanje === "napaka" && <p className="obr-napaka">{stanje.sporocilo}</p>}
-                <button className="b b-r" type="submit" disabled={caka || b2b === undefined}>
+                <button className="b b-g" type="submit" disabled={caka || b2b === undefined}>
                   {caka ? "Pošiljam…" : "Pošlji"}
                 </button>
                 {b2b === null && <p className="rok-drobno">Podatke uporabimo samo za odgovor na to vprašanje.</p>}

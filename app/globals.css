@@ -4314,3 +4314,30 @@ button.kos-gumb { background: none; border: 0; padding: 0; cursor: pointer; font
 
 /* Oznaka »brez ETA« pri dolžinah, ki jih ETA ne pokriva */
 .brez-eta { display: inline-block; margin-left: 8px; padding: 1px 7px; border: 1px solid #c8102e; color: #c8102e; border-radius: 3px; font-size: 11px; font-weight: 600; letter-spacing: .02em; white-space: nowrap; vertical-align: middle; }
+
+/* Naslovni del strani s sliko na desni (npr. Zaposlitev) */
+.pgh-s .w { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 48px; align-items: center; }
+.pgh-slika { border-radius: 4px; overflow: hidden; box-shadow: 0 18px 40px rgba(0, 0, 0, 0.14); border-bottom: 4px solid var(--color-red); }
+.pgh-slika img { display: block; width: 100%; height: auto; max-height: 340px; object-fit: cover; }
+@media (max-width: 1000px) {
+  .pgh-s .w { grid-template-columns: 1fr; gap: 24px; }
+  .pgh-slika img { max-height: 240px; }
+}
+
+/* Zeleni gumbi za vse, kar vodi do nakupa, povpraševanja, prijave ali registracije */
+:root { --color-green: #1a9a4b; --color-green-2: #137a3a; }
+.kt-usmeri span { color: rgba(255, 255, 255, 0.78); font-size: 14px; }
+.b-g { background: var(--color-green); color: #fff; }
+.b-g:hover { background: var(--color-green-2); }
+.trg-gumb, .popb2b-gumb, .g-pas-gumb, .b2b-gumb, .mk-g1, .g-b2b-r, .enov-obr button[type="submit"] { background: var(--color-green) !important; color: #fff !important; }
+.trg-gumb:hover, .popb2b-gumb:hover, .g-pas-gumb:hover, .b2b-gumb:hover, .mk-g1:hover, .g-b2b-r:hover, .enov-obr button[type="submit"]:hover { background: var(--color-green-2) !important; }
+.trg-gumb:disabled, .trg-gumb[aria-disabled="true"] { background: var(--color-muted-2) !important; }
+.g-pas-gumb.prazno { background: #eceef1 !important; color: #8a8f94 !important; }
+.vk-gumb:not(.vk-off) { background: var(--color-green); color: #fff; }
+.vk-gumb:not(.vk-off):hover { background: var(--color-green-2); }
+.util .b2b-link { background: var(--color-green); }
+.util .b2b-link:hover { background: var(--color-green-2); }
+.g-b2b-pas { border-left-color: var(--color-green); }
+.g-vk > button:not(.on) { background: var(--color-green); }
+.g-vk > button:not(.on):hover { background: var(--color-green-2); }
+.g-vk > button.on, .vk button.on { background: #0f6b31; }

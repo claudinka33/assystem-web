@@ -158,7 +158,7 @@ function ONas() {
               <li>ISO 9001</li>
             </ul>
             <div className="zn-gumbi">
-              <a className="b b-r" href="/kontakt#kontakti">Kontakti</a>
+              <a className="b b-g" href="/kontakt">Kontakti</a>
               <a className="b b-o" href="#lokacije">Kje smo</a>
             </div>
           </div>

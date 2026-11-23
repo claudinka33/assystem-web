@@ -101,7 +101,7 @@ function ObrazecPovprasevanje({ vir = "kontakt", izdelek, naslov, dodatnaPolja =
         />
       </div>
 
-      <button className="b b-r" type="submit" disabled={caka}>
+      <button className="b b-g" type="submit" disabled={caka}>
         {caka ? "Pošiljam…" : "Pošljite povpraševanje"}
       </button>
 

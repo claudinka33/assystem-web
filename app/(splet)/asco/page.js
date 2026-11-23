@@ -265,7 +265,7 @@ async function ASco() {
                 <li>Postavi se ob polico ASfix, sidra in vijaki na enem mestu.</li>
               </ul>
               <div className="zn-gumbi">
-                <Link className="b b-r" href="/kontakt?vir=asco-stojalo">
+                <Link className="b b-g" href="/kontakt?vir=asco-stojalo">
                   Želim stojalo →
                 </Link>
                 <Link className="b b-d" href="/asfix">
@@ -302,7 +302,7 @@ async function ASco() {
           </div>
           )}
           <div className="zn-gumbi" style={{ marginTop: 24 }}>
-            <Link className="b b-r" href="/za-trgovce#povprasevanje">
+            <Link className="b b-g" href="/za-trgovce#povprasevanje">
               Želim polico ASco →
             </Link>
             <Link className="b b-d" href="/za-trgovce">

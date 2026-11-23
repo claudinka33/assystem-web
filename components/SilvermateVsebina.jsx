@@ -164,7 +164,7 @@ export default function SilvermateVsebina({ tabela = false, glava = null, mediji
                 <li>Polico lahko postavite ob polici ASfix in ASco, vse za pritrjevanje na enem mestu.</li>
               </ul>
               <div className="zn-gumbi">
-                <Link className="b b-r" href="/za-trgovce#povprasevanje">
+                <Link className="b b-g" href="/za-trgovce#povprasevanje">
                   Želim polico Silvermate →
                 </Link>
                 <Link className="b b-d" href="/za-trgovce">

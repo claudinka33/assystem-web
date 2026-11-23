@@ -242,7 +242,7 @@ async function Kakovost() {
               <strong>{kakovostnik?.ime}</strong>
               <span>Vodja kakovosti</span>
               <p>Reklamacije, kontrolni zapisi, sledljivost serije ali dokumentacija za projekt.</p>
-              <Link className="b b-r" href="/reklamacije">Prijava reklamacije →</Link>
+              <Link className="b b-g" href="/reklamacije">Prijava reklamacije →</Link>
             </div>
           </div>
         </div>

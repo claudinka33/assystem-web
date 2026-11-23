@@ -19,7 +19,7 @@ export default function ZaklenjenoB2B({ naprej = "/za-trgovce", naslov = "Police
           <p className="b2b-zaklep-op">{opombaPrijavljen ?? "Vaš B2B dostop še ni aktiven, ko ga odobrimo, bodo police vidne tukaj."}</p>
         ) : (
           <div className="zn-gumbi">
-            <Link className="b b-r" href={`/b2b?naprej=${nap}`}>B2B prijava</Link>
+            <Link className="b b-g" href={`/b2b?naprej=${nap}`}>B2B prijava</Link>
             <Link className="b b-o" href="/b2b/registracija">Registracija podjetja</Link>
           </div>
         )}

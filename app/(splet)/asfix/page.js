@@ -341,7 +341,7 @@ async function ASfix() {
           </div>
           )}
           <div className="zn-gumbi" style={{ marginTop: 24 }}>
-            <Link className="b b-r" href="/za-trgovce#povprasevanje">
+            <Link className="b b-g" href="/za-trgovce#povprasevanje">
               Želim polico ASfix →
             </Link>
             <Link className="b b-d" href="/za-trgovce">

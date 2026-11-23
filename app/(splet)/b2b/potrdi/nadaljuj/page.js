@@ -16,7 +16,7 @@ async function Nadaljuj({ searchParams }) {
             <input type="hidden" name="token_hash" value={token_hash} />
             <input type="hidden" name="type" value={type} />
             <input type="hidden" name="nov" value={nov} />
-            <button className="b b-r" type="submit">{geslo ? "Nastavi geslo →" : "Potrdi e-naslov →"}</button>
+            <button className="b b-g" type="submit">{geslo ? "Nastavi geslo →" : "Potrdi e-naslov →"}</button>
           </form>
         </div>
       </div>

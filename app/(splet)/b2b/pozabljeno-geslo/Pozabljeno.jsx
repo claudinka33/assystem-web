@@ -12,7 +12,7 @@ function Pozabljeno() {
     <form action={akcija} className="b2b-obr">
       {stanje?.napaka && <p className="blag-nap">{stanje.napaka}</p>}
       <label>E-naslov<input name="email" type="email" required autoComplete="username" /></label>
-      <button className="b b-r" type="submit" disabled={cakam}>{cakam ? "Pošiljam …" : "Pošljite povezavo"}</button>
+      <button className="b b-g" type="submit" disabled={cakam}>{cakam ? "Pošiljam …" : "Pošljite povezavo"}</button>
     </form>
   );
 }

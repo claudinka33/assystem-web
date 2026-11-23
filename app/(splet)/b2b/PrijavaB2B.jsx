@@ -12,7 +12,7 @@ function PrijavaB2B({ naprej }) {
       {stanje?.napaka && <p className="blag-nap">{stanje.napaka}</p>}
       <label>E-naslov<input name="email" type="email" required autoComplete="username" /></label>
       <label>Geslo<input name="geslo" type="password" required autoComplete="current-password" /></label>
-      <button className="b b-r" type="submit" disabled={cakam}>{cakam ? "Prijavljam …" : "Prijava"}</button>
+      <button className="b b-g" type="submit" disabled={cakam}>{cakam ? "Prijavljam …" : "Prijava"}</button>
     </form>
   );
 }

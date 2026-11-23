@@ -120,7 +120,7 @@ async function Novica({ params }) {
             <div className="clanek-box temen">
               <h3>B2B portal za podjetja</h3>
               <p>Cene, zaloga in spletno naročanje za podjetja. Registrirajte se in po potrditvi e-naslova takoj vidite cene.</p>
-              <Link className="b b-r" href="/b2b/registracija">Postanite B2B kupec →</Link>
+              <Link className="b b-g" href="/b2b/registracija">Postanite B2B kupec →</Link>
               <Link className="clanek-povezava" href="/b2b">B2B prijava →</Link>
             </div>
 

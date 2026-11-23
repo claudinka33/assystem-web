@@ -67,7 +67,7 @@ function PrivateLabel() {
               <li>Doma in v tujino</li>
             </ul>
             <div className="zn-gumbi">
-              <a className="b b-r" href="#povprasevanje">Pošljite povpraševanje →</a>
+              <a className="b b-g" href="#povprasevanje">Pošljite povpraševanje →</a>
               <a className="b b-o" href="#potek">Kako poteka</a>
             </div>
           </div>
