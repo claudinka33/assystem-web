@@ -89,7 +89,7 @@ const certifikati = [
   ["ETA", "Evropska tehnična ocena", "Tehnično ovrednotenje nosilnih pritrdilnih elementov."],
   ["CE", "Oznaka skladnosti", "Skladnost z evropskimi direktivami in izjave o lastnostih (DoP)."],
   ["ISO", "ISO 9001:2015", "Certificiran sistem vodenja kakovosti. Bureau Veritas."],
-  ["F120", "Ognjevarnost", "120 minut: za zahtevne konstrukcijske vgradnje."],
+  ["LOT", "Sledljivost", "Vsaka serija je sledljiva od materiala do palete."],
 ];
 
 const trgi = [

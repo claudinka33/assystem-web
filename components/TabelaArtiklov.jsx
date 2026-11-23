@@ -14,6 +14,19 @@ import { prevedeno } from "@/lib/i18n/odjemalec";
 const KORAK = 20; // prvih 20 vrstic, ostale z gumbom »Pokaži vse«
 
 // Ko artikla ni na zalogi, roka dobave ne poznamo -> kupec ga z enim klikom vpraša prek obrazca.
+// Dolžine, ki jih pokriva ETA (najmanjša dolžina po premeru). Krajše dolžine dobijo oznako »brez ETA«.
+const ETA_MIN_DOLZINA = {
+  "jekleno-sidro-txh7": { 8: 75, 10: 75, 12: 90 }, // ETA-21/0597, tabela A1
+};
+
+function brezEta(izdelek, dimenzija) {
+  const meje = ETA_MIN_DOLZINA[izdelek?.slug];
+  const m = meje && String(dimenzija ?? "").match(/M\s*(\d+)\s*[x×]\s*(\d+)/i);
+  if (!m) return false;
+  const min = meje[Number(m[1])];
+  return min ? Number(m[2]) < min : false;
+}
+
 function Zaloga({ vrednost, sifra, izdelek, dimenzija }) {
   if (vrednost > 0)
     return (
@@ -467,7 +480,12 @@ function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicni, embalaza = [
                   {a.dimenzija && <span className="mk-dim">{a.dimenzija}</span>}
                 </td>
                 <td className="izd-siv izd-ean" data-l="EAN">{a.ean ?? "—"}</td>
-                <td className="mk-cela izd-naziv" data-l="Naziv">{a.naziv}</td>
+                <td className="mk-cela izd-naziv" data-l="Naziv">
+                  {a.naziv}
+                  {brezEta(izdelek, a.dimenzija) && (
+                    <span className="brez-eta" title="Ta dolžina ni zajeta v evropski tehnični oceni (ETA).">brez ETA</span>
+                  )}
+                </td>
                 <td className="mk-skrij izd-dim" data-l="Dimenzija">{a.dimenzija ?? "—"}</td>
                 {ostali.map((k) => (
                   <td key={k} data-l={k}>{(a.lastnosti ?? {})[k] ?? "—"}</td>

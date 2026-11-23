@@ -30,7 +30,7 @@ const pas = [
   ["ISO 9001", "Certificiran sistem kakovosti"],
   ["3", "Stopnje kontrole v proizvodnji"],
   ["LOT", "Sledljivost vsake serije"],
-  ["F120", "Ognjevarnost"],
+  ["ETA", "Evropske tehnične ocene za sidra"],
 ];
 
 const oznake = [
@@ -38,7 +38,7 @@ const oznake = [
   ["CE", "Oznaka skladnosti", "Izdelek ustreza zahtevam evropske zakonodaje za gradbene proizvode. Oznaka je na vsaki embalaži."],
   ["DoP", "Izjava o lastnostih", "Dokument, ki ga izvajalec priloži dokumentaciji objekta. Za vsako sidro ga pripravimo sami."],
   ["ISO", "ISO 9001:2015", "Certificiran sistem vodenja kakovosti (Bureau Veritas). Postopki so zapisani, nadzorovani in ponovljivi."],
-  ["F120", "Ognjevarnost", "Nosilnost sidra je dokazana 120 minut v požaru, za zahtevne konstrukcijske vgradnje."],
+  ["LOT", "Sledljivost", "Vsaka serija ima svojo oznako LOT, ki jo izsledimo od materiala do palete."],
 ];
 
 const sidra = [

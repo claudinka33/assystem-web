@@ -190,7 +190,7 @@ const galerija = [
 const kakovost = [
   ["ISO 9001:2015", "Certificiran sistem vodenja kakovosti (Bureau Veritas)."],
   ["ETA · CE · DoP", "Evropska tehnična ocena in izjave o lastnostih za nosilna sidra."],
-  ["F120", "Ognjevarnost 120 minut za zahtevne konstrukcijske vgradnje."],
+  ["Tri stopnje kontrole", "Vhodna, medfazna in končna kontrola vsake serije."],
   ["Sledljivost", "Vsaka serija ima LOT: od materiala do palete."],
 ];
 

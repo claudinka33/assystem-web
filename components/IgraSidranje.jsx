@@ -21,7 +21,7 @@ const SVEDRI = [8, 10, 12];
 // Katalog AS 2025 — TXH7
 const H1 = { 8: 65, 10: 70, 12: 90 };     // globina izvrtine
 const HNOM = { 8: 55, 10: 60, 12: 80 };   // globina vgradnje
-const MOMENT = { 8: 23, 10: 45, 12: 65 }; // moment zatezanja
+const MOMENT = { 8: 15, 10: 45, 12: 65 }; // montažni moment po ETA-21/0597 (potrdil Gregor, 23. 11. 2026)
 
 const SIDRA = [
   { id: "8x75", naziv: "TXH7 M8×75", premer: 8, dolzina: 75, opis: "Nadstreški, lažje konzole" },
