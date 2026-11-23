@@ -167,23 +167,6 @@ function Bespoke() {
       <section className="sec">
         <div className="w">
           <div className="st">
-            <span>Iz proizvodnje</span>
-            <h2>Primeri in proizvodnja</h2>
-            <p>Nekaj vijakov, ki smo jih izdelali po risbah naročnikov, in pogled v proizvodnjo. Kliknite sliko za povečavo.</p>
-          </div>
-          <FotoGalerija
-            skupine={[
-              { naziv: "Primeri vijakov", slike: FOTO_VPN },
-              { naziv: "Proizvodnja", slike: FOTO_KOVANJE.slice(0, 9) },
-              { naziv: "Kontrola", slike: FOTO_KAKOVOST.filter((x) => !/sidr/i.test(x.alt)) },
-            ]}
-          />
-        </div>
-      </section>
-
-      <section className="sec grey">
-        <div className="w">
-          <div className="st">
             <span>Za koga</span>
             <h2>Panoge, za katere delamo</h2>
           </div>
@@ -195,6 +178,23 @@ function Bespoke() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="sec grey">
+        <div className="w">
+          <div className="st">
+            <span>Iz proizvodnje</span>
+            <h2>Primeri in proizvodnja</h2>
+            <p>Nekaj vijakov, ki smo jih izdelali po risbah naročnikov, in pogled v proizvodnjo. Kliknite sliko za povečavo.</p>
+          </div>
+          <FotoGalerija
+            skupine={[
+              { naziv: "Primeri vijakov", slike: FOTO_VPN },
+              { naziv: "Proizvodnja", slike: FOTO_KOVANJE.slice(0, 9) },
+              { naziv: "Kontrola", slike: FOTO_KAKOVOST.filter((x) => !/sidr/i.test(x.alt)) },
+            ]}
+          />
         </div>
       </section>
 
