@@ -51,15 +51,10 @@ function Zaupanje() {
   return (
     <>
       <ul className="trg-zaupanje">
-        <li><Ikona ime="scit" velikost={17} /> Varno plačilo: podatkov o kartici ne vidimo in ne hranimo</li>
+        <li><Ikona ime="scit" velikost={17} /> Plačilo na račun z vašim dogovorjenim rokom plačila</li>
         <li><Ikona ime="tovornjak" velikost={17} /> Odprema v 1–2 delovnih dneh s Pošto Slovenije</li>
         <li><Ikona ime="tovarna" velikost={17} /> Kupujete neposredno pri proizvajalcu, od 1993</li>
       </ul>
-      <div className="trg-placila" aria-label="Načini plačila">
-        {["VISA", "Mastercard", "Maestro", "AMEX", "Apple Pay", "Google Pay", "PayPal", "Predračun"].map((x) => (
-          <span key={x}>{x}</span>
-        ))}
-      </div>
     </>
   );
 }

@@ -134,7 +134,6 @@ function Zasebnost() {
       <p>Podatke posredujemo samo, kadar je to potrebno za namen iz točke 4:</p>
       <ul>
         <li><b>Pošta Slovenije d.o.o.</b>: ime, naslov in telefon za dostavo pošiljke.</li>
-        <li><b>Ponudniki plačil</b> (Stripe, PayPal): podatki, potrebni za izvedbo plačila s kartico ali prek PayPala.</li>
         <li>
           <b>Obdelovalci</b>: Supabase (baza podatkov), Vercel (gostovanje strani), Resend (pošiljanje e-pošte in e-novic),
           Google (Google Analytics, Google Zemljevidi, YouTube), Meta (Meta Pixel) ter ponudniki našega poslovnega
@@ -165,18 +164,6 @@ function Zasebnost() {
             <td data-l="Sedež">ZDA</td>
             <td data-l="Namen">Meta Pixel (merjenje oglasov)</td>
             <td data-l="Varovalka">okvir DPF, standardne pogodbene klavzule</td>
-          </tr>
-          <tr>
-            <td className="mk-gl">Stripe</td>
-            <td data-l="Sedež">Irska, ZDA</td>
-            <td data-l="Namen">spletna plačila s kartico</td>
-            <td data-l="Varovalka">okvir DPF, standardne pogodbene klavzule</td>
-          </tr>
-          <tr>
-            <td className="mk-gl">PayPal</td>
-            <td data-l="Sedež">Luksemburg, ZDA</td>
-            <td data-l="Namen">plačila prek PayPala</td>
-            <td data-l="Varovalka">standardne pogodbene klavzule oziroma zavezujoča poslovna pravila</td>
           </tr>
           <tr>
             <td className="mk-gl">Supabase Inc.</td>

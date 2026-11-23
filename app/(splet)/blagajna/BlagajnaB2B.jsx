@@ -117,7 +117,7 @@ function BlagajnaB2B({ kupec, dostave, prodajalne }) {
                       <span className="ik"><Ikona ime={x.koda === "osebno" ? "trgovina" : "tovornjak"} /></span>
                       <span>
                         <b>{x.koda === "osebno" ? "Osebni prevzem" : x.naziv}</b>
-                        <small>{x.koda === "osebno" ? "Šmarje pri Jelšah, pon–pet 7–15" : "Na sedež ali poslovalnico"}</small>
+                        <small>{x.koda === "osebno" ? "Šmarje pri Jelšah, pon–pet 7–15" : "Na sedež, poslovalnico ali drug naslov"}</small>
                       </span>
                       <span className={`cena${c === 0 ? " zast" : ""}`}>{c === 0 ? "brezplačno" : eur(c)}</span>
                     </label>
@@ -128,13 +128,23 @@ function BlagajnaB2B({ kupec, dostave, prodajalne }) {
                 <div className="bl-polja" style={{ marginTop: 10 }}>
                   <label className="s6">
                     Naslov dostave
-                    <select value={prodajalna} onChange={(e) => setProdajalna(e.target.value)} disabled={Boolean(kupec.prodajalna)}>
+                    <select value={prodajalna} onChange={(e) => setProdajalna(e.target.value)}>
                       {!kupec.prodajalna && <option value="">Sedež: {kupec.naslov}</option>}
                       {prodajalne.filter((x) => !kupec.prodajalna || x.sifra === kupec.prodajalna).map((x) => (
                         <option key={x.sifra} value={x.sifra}>{x.naziv2 || x.naziv}: {x.naslov}, {x.posta}</option>
                       ))}
+                      <option value="drug">Drug naslov (vpišite spodaj)</option>
                     </select>
                   </label>
+                  {prodajalna === "drug" && (
+                    <>
+                      <label className="s3">Prejemnik (podjetje ali gradbišče) *<input name="dost_naziv" required maxLength={120} /></label>
+                      <label className="s3">Ulica in hišna številka *<input name="dost_ulica" required maxLength={120} autoComplete="shipping street-address" /></label>
+                      <label>Poštna številka *<input name="dost_posta" required maxLength={10} inputMode="numeric" autoComplete="shipping postal-code" /></label>
+                      <label>Kraj *<input name="dost_kraj" required maxLength={80} autoComplete="shipping address-level2" /></label>
+                      <label>Kontakt na naslovu (telefon)<input name="dost_telefon" maxLength={40} inputMode="tel" /></label>
+                    </>
+                  )}
                 </div>
               )}
             </div>

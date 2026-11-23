@@ -15,8 +15,8 @@ function NaciniPlacila() {
     <PravnaStran pot="/nacini-placila" naslov="Načini plačila" opis="Kako plačate B2B naročilo." veljaOd={VELJA_OD}>
       <h2>Plačilo na račun</h2>
       <p>
-        Naročila prek B2B portala plačate <b>na račun</b>. Račun z izkazanim DDV izstavimo ob odpremi in ga prejmete s
-        pošiljko ali po e-pošti. Vsi računi podjetja so na voljo tudi v vašem B2B računu, kjer jih lahko natisnete.
+        Naročila prek B2B portala plačate <b>na račun</b>. Račun z izkazanim DDV izstavimo ob odpremi in ga prejmete po
+        e-pošti ali po pošti. Vsi računi podjetja so na voljo tudi v vašem B2B računu, kjer jih lahko natisnete.
       </p>
       <ul>
         <li>Plačilni rok je tisti, ki je dogovorjen z vašim podjetjem (viden je v B2B računu pod »Plačilo«).</li>
