@@ -108,7 +108,7 @@ function Header({ kategorije = [], skrite = [], jezik = "sl" }) {
                       </>
                     )}
                     {!el.kategorije && pod.map((p) => (
-                      <Link key={p.pot} href={p.pot} onClick={() => zapri(el.naziv)}>
+                      <Link key={p.pot} href={p.pot} className={p.logo ? undefined : "tx"} onClick={() => zapri(el.naziv)}>
                         {p.logo ? (
                           <Image src={p.logo.logo} alt={p.naziv} width={Math.round((p.logo.w / p.logo.h) * 26)} height={26} style={{ height: 26, width: "auto" }} />
                         ) : (
