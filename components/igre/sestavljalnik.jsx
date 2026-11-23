@@ -222,6 +222,7 @@ export function sestavi(o) {
     if (k === "vijak") return tr(x, vz.tip === "hanger" ? glavaVijaka(g, pr(s, li, "vijak")) : glavaVijaka(g, pr(s, li, "vijak")));
     if (k === "matica" || k === "podlozka") return tr(x, maticaY(s, li) + (mt.spodaj ? 18 : -14));
     if (k?.startsWith("dodatno") && vz) return tr(x, glavaVijaka(g, 1) + (vz.glava === "sidro" ? g.d * 1.4 : 0));
+    if (k === "privijVlozek") return tr(x, g.vrhVlozka - (1 - pr(s, li, "privijVlozek")) * g.vL * 0.92);
     if (k === "masa" || k === "pihaj") return tr(x, -g.tPre);
     return tr(x, -g.tPre);
   }
