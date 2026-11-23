@@ -266,10 +266,8 @@ export const uvs = {
         )}
         {postavljen && (
           <g>
-            {/* stranica profila (za prerezom) in dno profila */}
-            <rect x="240" y="352" width="720" height={U.vrh - 352} fill="#e3e6e8" stroke={C.ink} strokeWidth="2" />
-            <rect x="240" y="352" width="720" height="8" fill={C.jekloS} stroke={C.ink} strokeWidth="1.5" />
-            <rect x="240" y={U.vrh} width="720" height={U.tla - U.vrh} fill={C.jeklo} stroke={C.ink} strokeWidth="2" />
+            {/* prerez U-profila: tanko dno in dve stranici, notranjost je prazna */}
+            <path d={`M 240 352 L 240 ${U.tla} L 960 ${U.tla} L 960 352 L 952 352 L 952 ${U.vrh} L 248 ${U.vrh} L 248 352 Z`} fill={C.jeklo} stroke={C.ink} strokeWidth="2" strokeLinejoin="round" />
             <Napis x={600} y={340} barva={C.ink} sidro="middle">KOVINSKI PROFIL ZA MAVČNE PLOŠČE</Napis>
             {luknjeUvs(s, { X: U.X, vrh: U.vrh, tla: U.tla, L: U.L, iVrt: 1, iVstavi: 2, iZabij: 3 })}
             {s.nap[0][3] >= 100 && <Napis x={U.X[0] - 30} y={U.vrh - 14} sidro="end">glava v ovratniku</Napis>}
