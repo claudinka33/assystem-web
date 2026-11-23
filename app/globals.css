@@ -4362,3 +4362,6 @@ button.kos-gumb { background: none; border: 0; padding: 0; cursor: pointer; font
 .b2b-potrdi h1 { font-size: clamp(24px, 3vw, 32px); font-weight: 900; text-transform: uppercase; line-height: 1.1; margin: 8px 0 12px; color: var(--color-ink); }
 .b2b-potrdi p { color: var(--color-muted); margin: 0 auto 24px; max-width: 40ch; }
 .b2b-potrdi .b { display: inline-block; min-width: 240px; padding: 15px 28px; white-space: nowrap; }
+/* »Vprašaj za rok«: sivo-bel okvirček, zeleno besedilo */
+.rok-gumb, .g-vk > button.rok-gumb, .vk button.rok-gumb { background: #f6f7f8 !important; color: var(--color-green) !important; border: 1px solid #d5d9dd !important; font-weight: 700; }
+.rok-gumb:hover, .g-vk > button.rok-gumb:hover, .vk button.rok-gumb:hover { background: #fff !important; border-color: var(--color-green) !important; color: var(--color-green-2) !important; }
