@@ -4365,3 +4365,5 @@ button.kos-gumb { background: none; border: 0; padding: 0; cursor: pointer; font
 /* »Vprašaj za rok«: sivo-bel okvirček, zeleno besedilo */
 .rok-gumb, .g-vk > button.rok-gumb, .vk button.rok-gumb { background: #f6f7f8 !important; color: var(--color-green) !important; border: 1px solid #d5d9dd !important; font-weight: 700; }
 .rok-gumb:hover, .g-vk > button.rok-gumb:hover, .vk button.rok-gumb:hover { background: #fff !important; border-color: var(--color-green) !important; color: var(--color-green-2) !important; }
+.rok-gumb { padding: 5px 10px; border-radius: 2px; text-decoration: none !important; }
+.g-vk .rok-gumb { padding: 0 6px; }
