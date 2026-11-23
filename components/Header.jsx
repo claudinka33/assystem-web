@@ -63,7 +63,16 @@ function Header({ kategorije = [], skrite = [], jezik = "sl" }) {
 
       <header className="hdr">
         <div className="w">
-          <Link href="/" className="logo" onClick={() => setOdprt(false)}>
+          <Link
+            href={jezik === "sl" ? "/" : `/${jezik}`}
+            className="logo"
+            onClick={() => {
+              setOdprt(false);
+              // Klik na logotip vedno pelje na vrh naslovnice (tudi če smo že na njej)
+              window.scrollTo({ top: 0, behavior: "smooth" });
+              setTimeout(() => window.scrollTo({ top: 0 }), 400);
+            }}
+          >
             <Image
               src="/logo-as-system.png"
               alt="AS system"
