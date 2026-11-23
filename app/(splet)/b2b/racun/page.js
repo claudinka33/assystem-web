@@ -184,7 +184,7 @@ async function Racun({ searchParams }) {
               </p>
               <div className="b2bp-post" style={{ padding: 0, background: "none" }}>
                 <table>
-                  <thead><tr><th>Šifra</th><th>Artikel</th><th>Pakiranje</th><th>Zaloga</th><th className="d">Količina</th><th className="d">Vaša cena</th><th className="d">Vrednost brez DDV</th></tr></thead>
+                  <thead><tr><th>Šifra</th><th>Artikel</th><th>Pakiranje</th><th>Zaloga</th><th className="d">Količina</th>{aktiven && <th className="d">Redna cena</th>}<th className="d">Vaša cena</th><th className="d">Vrednost brez DDV</th></tr></thead>
                   <tbody>
                     {osnutek.map((x, i) => {
                       const o = osnutekArt[x.sifra];
@@ -200,13 +200,18 @@ async function Racun({ searchParams }) {
                           <td>{pak || "—"}{kos > 1 && <small className="b2bp-kpod">{kos.toLocaleString("sl-SI")} kos</small>}</td>
                           <td>{a ? (zaloga > 0 ? <span style={{ color: "#1a7f3c", fontWeight: 600 }}>● Na zalogi</span> : <span style={{ color: "#cb2026", fontWeight: 600 }}>● Po naročilu</span>) : "—"}</td>
                           <td className="d"><b>{(Number(x.kolicina) * kos).toLocaleString("sl-SI")} kos</b>{kos > 1 && <small className="b2bp-kpod">{x.kolicina} × {kos} kos</small>}</td>
+                          {aktiven && (
+                            <>
+                              <td className="d">{o?.redna ? (o.popust > 0 ? <s style={{ color: "#8a8f94" }}>{eur(o.redna.neto)}</s> : eur(o.redna.neto)) : "—"}</td>
+                            </>
+                          )}
                           <td className="d">{cena != null ? <>{eur(cena)}{kos > 1 && <small className="b2bp-en"> / {kos} kos</small>}</> : <span className="b2bp-en">po odobritvi</span>}</td>
                           <td className="d"><b>{cena != null ? eur(cena * Number(x.kolicina || 0)) : "—"}</b></td>
                         </tr>
                       );
                     })}
                   </tbody>
-                  <tfoot><tr><td colSpan={6} className="d">Skupaj brez DDV</td><td className="d"><b>{aktiven ? eur(osnutekNeto) : "—"}</b></td></tr></tfoot>
+                  <tfoot><tr><td colSpan={aktiven ? 7 : 6} className="d">Skupaj brez DDV</td><td className="d"><b>{aktiven ? eur(osnutekNeto) : "—"}</b></td></tr></tfoot>
                 </table>
               </div>
               {!aktiven && <p className="b2bp-osn-info">Cene in rabati so vidni, ko vaš B2B račun odobrimo. Osnutek ostane shranjen in ga lahko oddate po odobritvi.</p>}
@@ -268,7 +273,7 @@ async function Racun({ searchParams }) {
                               {g.komercialist && <div><em>Komercialist</em>{g.komercialist}</div>}
                             </div>
                             <table>
-                              <thead><tr><th>Šifra</th><th>Artikel</th><th className="d">Količina</th><th className="d">Vaša cena</th><th className="d">Cena / kos</th><th className="d">DDV</th><th className="d">Vrednost brez DDV</th></tr></thead>
+                              <thead><tr><th>Šifra</th><th>Artikel</th><th className="d">Količina</th><th className="d">Redna cena</th><th className="d">Vaša cena</th><th className="d">Cena / kos</th><th className="d">DDV</th><th className="d">Vrednost brez DDV</th></tr></thead>
                               <tbody>
                                 {(r.postavke ?? []).map((v, i) => {
                                   const kol = kolicinaZaPrikaz(v.kolicina, v.enota);
@@ -278,6 +283,7 @@ async function Racun({ searchParams }) {
                                     <tr key={i}>
                                       <td>{v.sifra}</td><td>{String(v.naziv || "—").replace(/\n/g, " ")}</td>
                                       <td className="d"><b>{kol.glavno}</b>{kol.dodatek && <small className="b2bp-kpod">{kol.dodatek}</small>}</td>
+                                      <td className="d">{Number(v.prodajna_cena) ? (Number(v.prodajna_cena) > Number(v.cena) + 0.00005 ? <s style={{ color: "#8a8f94" }}>{eur(Number(v.prodajna_cena))}</s> : eur(Number(v.prodajna_cena))) : "—"}{en && <small className="b2bp-en"> / {en}</small>}</td>
                                       <td className="d">{eur(Number(v.cena))}{en && <small className="b2bp-en"> / {en}</small>}</td>
                                       <td className="d">{kosov ? new Intl.NumberFormat("sl-SI", { style: "currency", currency: "EUR", maximumFractionDigits: 4 }).format(Number(v.vrednost) / kosov) : "—"}</td>
                                       <td className="d">{v.ddv != null ? `${String(v.ddv).replace(".", ",")} %` : ""}</td>
@@ -287,9 +293,9 @@ async function Racun({ searchParams }) {
                                 })}
                               </tbody>
                               <tfoot>
-                                <tr><td colSpan={6} className="d">Skupaj brez DDV</td><td className="d"><b>{eur(Number(r.neto))}</b></td></tr>
-                                <tr><td colSpan={6} className="d">DDV</td><td className="d">{eur(Number(r.znesek) - Number(r.neto))}</td></tr>
-                                <tr><td colSpan={6} className="d"><b>Za plačilo</b></td><td className="d"><b>{eur(Number(r.znesek))}</b></td></tr>
+                                <tr><td colSpan={7} className="d">Skupaj brez DDV</td><td className="d"><b>{eur(Number(r.neto))}</b></td></tr>
+                                <tr><td colSpan={7} className="d">DDV</td><td className="d">{eur(Number(r.znesek) - Number(r.neto))}</td></tr>
+                                <tr><td colSpan={7} className="d"><b>Za plačilo</b></td><td className="d"><b>{eur(Number(r.znesek))}</b></td></tr>
                               </tfoot>
                             </table>
                           </>

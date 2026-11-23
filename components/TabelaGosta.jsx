@@ -216,10 +216,10 @@ function Cena({ cena, b2b }) {
   if (b2b)
     return (
       <span className="g-cena">
-        <b>{eur(cena.neto)}</b>
-        {cena.popust > 0 && <s>{eur(cena.redna)}</s>}
+        {cena.popust > 0 && <s title="Redna cena">{eur(cena.redna)}</s>}
+        <b title="Vaša neto cena">{eur(cena.neto)}</b>
         {(cena.na100Neto != null || cena.kos === 100) && <small>{eur(cena.na100Neto ?? cena.neto)} / 100 kos</small>}
-        <small>brez DDV{cena.popust > 0 ? ` · −${String(cena.popust).replace(".", ",")} %` : ""}</small>
+        <small>brez DDV</small>
       </span>
     );
   return (

@@ -3293,7 +3293,7 @@ tr.art-izbran > td { background: #fff4d6 !important; }
 .ksb-glava h1 { font-size: clamp(18px, 1.8vw, 22px); }
 .ksb-mreza { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 16px; align-items: start; }
 .ksb-tab { background: #fff; border: 1px solid #dde1e6; border-radius: 6px; overflow: hidden; }
-.ksb-vr { display: grid; grid-template-columns: 48px minmax(180px, 2.4fr) minmax(90px, .9fr) 150px minmax(110px, .9fr) minmax(90px, .8fr) minmax(100px, .9fr) 26px; gap: 10px; align-items: center; padding: 8px 12px; border-top: 1px solid #eceef1; }
+.ksb-vr { display: grid; grid-template-columns: 48px minmax(180px, 2.2fr) minmax(90px, .9fr) 150px minmax(90px, .8fr) minmax(110px, .9fr) minmax(90px, .8fr) minmax(100px, .9fr) 26px; gap: 10px; align-items: center; padding: 8px 12px; border-top: 1px solid #eceef1; }
 .ksb-tab.b2c .ksb-vr { grid-template-columns: 48px minmax(180px, 2.4fr) minmax(90px, .9fr) 150px minmax(110px, .9fr) minmax(90px, .8fr) minmax(100px, .9fr) 26px; }
 .ksb-vr-gl { border-top: 0; background: #f5f6f8; font-size: 9.5px; font-weight: 700; letter-spacing: .7px; text-transform: uppercase; color: #6e7276; padding-top: 7px; padding-bottom: 7px; }
 .ksb-vr .d { text-align: right; }

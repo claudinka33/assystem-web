@@ -430,7 +430,7 @@ function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicni, embalaza = [
               <th>Zaloga</th>
               {b2b ? (
                 <>
-                  {!b2b.aktiven && <th>VPC cena</th>}
+                  <th>VPC cena</th>
                   <th>Vaša cena</th>
                 </>
               ) : (
@@ -477,11 +477,9 @@ function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicni, embalaza = [
                 </td>
                 {b2b ? (
                   <>
-                    {!b2b.aktiven && (
-                      <td data-l="VPC cena">
-                        <VpcCena cena={cenaZa(a)} />
-                      </td>
-                    )}
+                    <td data-l="VPC cena">
+                      <VpcCena cena={cenaZa(a)} />
+                    </td>
                     <td data-l="Vaša cena">
                       <Cena cena={cenaZa(a)} b2b={b2b} />
                     </td>

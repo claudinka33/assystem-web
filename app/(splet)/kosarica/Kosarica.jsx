@@ -74,6 +74,7 @@ function Kosarica() {
               <span>Artikel</span>
               <span>Pakiranje</span>
               <span>Količina</span>
+              {b2b && <span className="d">Redna cena / pak.</span>}
               <span className="d">{b2b ? "Vaša cena / pak." : "Cena / pak."}</span>
               <span className="d">Cena / 100 kos</span>
               <span className="d">{b2b ? "Vrednost brez DDV" : "Vrednost z DDV"}</span>
@@ -109,6 +110,11 @@ function Kosarica() {
                   </div>
                   <span>{x.kos > 1 ? `= ${(x.kolicina * x.kos).toLocaleString("sl-SI")} kos` : ""}</span>
                 </div>
+                {b2b && (
+                  <div className="d" data-l="Redna cena / pak.">
+                    {rednaPak(x) != null && popustPak(x) > 0 ? <s className="ksb-redna">{eur(rednaPak(x))}</s> : <span className="ksb-siv">{rednaPak(x) != null ? eur(rednaPak(x)) : "—"}</span>}
+                  </div>
+                )}
                 <div className="d" data-l={b2b ? "Vaša cena / pak." : "Cena / pak."}>
                   {cenaPak(x) === null ? <span className="ksb-siv">ni cene</span> : <b>{eur(cenaPak(x))}</b>}
                 </div>
