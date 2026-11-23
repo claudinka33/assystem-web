@@ -3527,7 +3527,7 @@ a.b2b-profil:hover { background: #a50d26; }
 /* bespoke: kaj izdelamo po meri */
 .bs-kaj { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
 .bs-k { background: #fff; border: 1px solid var(--color-line); border-top: 4px solid var(--color-red); padding: 18px 20px 22px; }
-.bs-im { position: relative; aspect-ratio: 16 / 10; margin-bottom: 14px; background: var(--color-mist); }
+.bs-im { position: relative; aspect-ratio: 16 / 10; margin-bottom: 14px; background: #fff; }
 .bs-k h3 { font-size: 17px; font-weight: 800; text-transform: uppercase; }
 .bs-k p { margin-top: 8px; color: var(--color-muted); font-size: 14.5px; }
 @media (max-width: 900px) { .bs-kaj { grid-template-columns: minmax(0, 1fr); } }

@@ -24,12 +24,12 @@ const kaj = [
   {
     naziv: "Naši izdelki v vaši izvedbi",
     opis: "Jeklena sidra, udarni vijaki, zidni vložki in perforiran trak v dimenziji, materialu ali pakiranju, ki ga potrebujete.",
-    slika: "/slike/proizvodnja/hero-izdelki.png",
+    slika: "/slike/proizvodnja/bespoke-izdelki.jpg",
   },
   {
     naziv: "V vaši embalaži",
     opis: "Pakiranje v nevtralne bele škatle z vašo nalepko ali v embalažo z vašim logotipom (private label).",
-    slika: "/slike/znamke/asfix-afr41-private-label.png",
+    slika: "/slike/znamke/bespoke-private-label.jpg",
   },
 ];
 
