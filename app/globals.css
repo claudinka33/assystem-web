@@ -4341,3 +4341,7 @@ button.kos-gumb { background: none; border: 0; padding: 0; cursor: pointer; font
 .g-vk > button:not(.on) { background: var(--color-green); }
 .g-vk > button:not(.on):hover { background: var(--color-green-2); }
 .g-vk > button.on, .vk button.on { background: #0f6b31; }
+/* Manjše slike v kolažu (O nas) */
+.fg-kolaz { grid-template-columns: repeat(6, 1fr); grid-auto-rows: 120px; gap: 8px; }
+@media (max-width: 1000px) { .fg-kolaz { grid-template-columns: repeat(4, 1fr); grid-auto-rows: 110px; } }
+@media (max-width: 800px) { .fg-kolaz { grid-template-columns: repeat(3, 1fr); grid-auto-rows: 96px; gap: 6px; } }
