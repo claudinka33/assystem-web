@@ -4377,3 +4377,7 @@ button.kos-gumb { background: none; border: 0; padding: 0; cursor: pointer; font
 .nal-stran { min-height: 60vh; }
 .nal-trak { position: fixed; top: 0; left: 0; height: 3px; width: 100%; z-index: 9999; background: linear-gradient(90deg, transparent, var(--color-red), transparent); background-size: 50% 100%; background-repeat: no-repeat; animation: nal-trak 1s linear infinite; }
 @keyframes nal-trak { from { background-position: -50% 0; } to { background-position: 150% 0; } }
+/* HAMMEX ima pokončen logotip: večji, da je enako viden kot ostali */
+.dz-logo-ok { height: 76px; }
+.dz-logo.dz-logo-hammex { max-height: 76px; max-width: 100%; }
+@media (max-width: 700px) { .dz-logo.dz-logo-hammex { max-height: 80px; } }
