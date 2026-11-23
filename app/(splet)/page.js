@@ -39,7 +39,7 @@ const prednosti = [
 const lastniIzdelki = [
   { naziv: "Jekleno sidro TXH7", opis: "Z oceno ETA", slika: "/slike/asfix/txh7.png", pot: "/program/pritrdila-za-beton/jekleno-sidro-txh7" },
   { naziv: "Jekleno sidro TX1", opis: "Z oceno ETA", slika: "/slike/asfix/tx1.png", pot: "/program/pritrdila-za-beton/jekleno-sidro-tx1-siroka-podlozka" },
-  { naziv: "TX1 s široko podložko DIN 9021", opis: "Z oceno ETA", slika: "/slike/AF_TX1_9021_dolgo.jpeg", pot: "/program/pritrdila-za-beton/jekleno-sidro-tx1-siroka-podlozka" },
+  { naziv: "TX1 s široko podložko DIN 9021", opis: "Z oceno ETA", slika: "/slike/asfix/tx1-9021.png", pot: "/program/pritrdila-za-beton/jekleno-sidro-tx1-siroka-podlozka" },
   { naziv: "Udarni vijak UVS", opis: "Vložek in vijak v enem", slika: "/slike/AF_UVS_Nylon_png.jpeg", pot: "/program/pritrdila-za-suhomontazo/udarni-vijak-nylon" },
   { naziv: "Zidni vložek AS.MQ", opis: "Najlon PA6", slika: "/slike/asfix/mq.png", pot: "/program/zidni-vlozki/zidni-vlozek-mq" },
   { naziv: "Perforiran trak", opis: "12 mm in 17 mm", slika: "/slike/asfix/trak.png", pot: "/program/pritrdila-za-suhomontazo/perforiran-trak" },

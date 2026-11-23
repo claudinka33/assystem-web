@@ -30,7 +30,7 @@ const aduti = [
 // Slika se vzame z izdelka v katalogu (glavna slika iz admina); lokalna je le rezerva.
 const IZDELKI = {
   txh7: { naziv: "Jekleno sidro TXH7", opis: "Nosilno sidro za beton, z oceno ETA.", slika: "/slike/asfix/txh7.png", slug: "jekleno-sidro-txh7", skupina: "pritrdila-za-beton" },
-  tx1: { naziv: "Jekleno sidro TX1", opis: "S široko podložko za les in pločevino.", slika: "/slike/asfix/tx1.png", slug: "jekleno-sidro-tx1-siroka-podlozka", skupina: "pritrdila-za-beton" },
+  tx1: { naziv: "Jekleno sidro TX1", opis: "S široko podložko za les in pločevino.", slika: "/slike/asfix/tx1-9021.png", slug: "jekleno-sidro-tx1-siroka-podlozka", skupina: "pritrdila-za-beton" },
   turbo: { naziv: "Turbo vijak za beton", opis: "Privijete neposredno v beton: brez vložka.", slika: "/slike/asfix/turbo.png", slug: "turbo-vijak-za-beton", skupina: "pritrdila-za-beton" },
   mq: { naziv: "Najlonski zidni vložek", opis: "Za beton, polno in votlo opeko.", slika: "/slike/asfix/mq.png", slug: "zidni-vlozek-mq", skupina: "klasicna-pritrdila" },
   udarni: { naziv: "Udarni vijak", opis: "Hitra montaža brez privijanja.", slika: "/slike/asfix/udarni.png", slug: "udarni-vijak-nylon", skupina: "klasicna-pritrdila" },
