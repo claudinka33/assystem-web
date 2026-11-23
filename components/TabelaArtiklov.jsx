@@ -108,13 +108,6 @@ function Cena({ cena, b2b }) {
       <span className="izd-cena b2b-c">
         <b>
           {eur(cena.neto)}
-          {cena.popust > 0 ? (
-            <span className="b2b-cena" title={cena.posebna ? "Vaša cena, nižja od redne VPC" : "Vaš rabat na redno VPC"}>
-              −{String(cena.popust).replace(".", ",")} %
-            </span>
-          ) : cena.posebna ? (
-            <span className="b2b-cena" title="Posebna cena za vaše podjetje">VAŠA CENA</span>
-          ) : null}
         </b>
         <em>{cena.kos > 1 ? `za ${cena.kos} kos · ` : ""}brez DDV</em>
         {cena.na100Neto !== null && <em>{eur(cena.na100Neto)} / 100 kos</em>}
@@ -437,7 +430,7 @@ function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicni, embalaza = [
               <th>Zaloga</th>
               {b2b ? (
                 <>
-                  <th>VPC cena</th>
+                  {!b2b.aktiven && <th>VPC cena</th>}
                   <th>Vaša cena</th>
                 </>
               ) : (
@@ -484,9 +477,11 @@ function TabelaArtiklov({ artikli: vhodni, stolpci, naziviRazlicni, embalaza = [
                 </td>
                 {b2b ? (
                   <>
-                    <td data-l="VPC cena">
-                      <VpcCena cena={cenaZa(a)} />
-                    </td>
+                    {!b2b.aktiven && (
+                      <td data-l="VPC cena">
+                        <VpcCena cena={cenaZa(a)} />
+                      </td>
+                    )}
                     <td data-l="Vaša cena">
                       <Cena cena={cenaZa(a)} b2b={b2b} />
                     </td>

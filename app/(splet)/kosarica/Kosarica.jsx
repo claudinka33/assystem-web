@@ -74,7 +74,6 @@ function Kosarica() {
               <span>Artikel</span>
               <span>Pakiranje</span>
               <span>Količina</span>
-              {b2b && <span className="d">Redna cena / pak.</span>}
               <span className="d">{b2b ? "Vaša cena / pak." : "Cena / pak."}</span>
               <span className="d">Cena / 100 kos</span>
               <span className="d">{b2b ? "Vrednost brez DDV" : "Vrednost z DDV"}</span>
@@ -110,14 +109,8 @@ function Kosarica() {
                   </div>
                   <span>{x.kos > 1 ? `= ${(x.kolicina * x.kos).toLocaleString("sl-SI")} kos` : ""}</span>
                 </div>
-                {b2b && (
-                  <div className="d" data-l="Redna cena / pak.">
-                    {rednaPak(x) != null && popustPak(x) > 0 ? <s className="ksb-redna">{eur(rednaPak(x))}</s> : <span className="ksb-siv">{rednaPak(x) != null ? eur(rednaPak(x)) : "—"}</span>}
-                  </div>
-                )}
                 <div className="d" data-l={b2b ? "Vaša cena / pak." : "Cena / pak."}>
                   {cenaPak(x) === null ? <span className="ksb-siv">ni cene</span> : <b>{eur(cenaPak(x))}</b>}
-                  {popustPak(x) > 0 && <i className="ksb-pop">−{String(popustPak(x)).replace(".", ",")} %</i>}
                 </div>
                 <div className="d ksb-siv" data-l="Cena / 100 kos">{na100(x) != null ? eur(na100(x)) : "—"}</div>
                 <div className="d ksb-vred" data-l="Vrednost">{cenaPak(x) === null ? "—" : eur(vrstica(x))}</div>
@@ -141,12 +134,6 @@ function Kosarica() {
             <div className="trg-kar-g"><h2>Povzetek</h2></div>
             <div className="trg-kar-t">
               <BrezplacnaDostava bruto={bruto} />
-              {b2b && prihranek > 0.004 && (
-                <>
-                  <div className="trg-v"><span>Po redni ceni (VPC)</span><b><s style={{ color: "var(--color-muted)", fontWeight: 500 }}>{eur(redno)}</s></b></div>
-                  <div className="trg-v ksb-prih"><span>Vaš popust</span><b>−{eur(prihranek)}</b></div>
-                </>
-              )}
               <div className="trg-v"><span>Blago brez DDV</span><b>{eur(neto)}</b></div>
               <div className="trg-v"><span>DDV 22 %</span><b>{eur(zaokrozi(bruto - neto))}</b></div>
               <div className="trg-v"><span>Dostava</span><b>izračun na blagajni</b></div>
