@@ -4,10 +4,13 @@ import Link from "next/link";
 import { useActionState, useEffect } from "react";
 import { dogodek } from "@/lib/dogodki";
 import { posljiPrijavo } from "@/lib/akcije/obrazci";
+import { zNalaganjem } from "@/lib/nalaganje-klient";
+
+const oddaj = zNalaganjem(posljiPrijavo, "cv");
 import { prevedeno } from "@/lib/i18n/odjemalec";
 
 function ObrazecPrijava({ delovnaMesta = [], izbrano }) {
-  const [stanje, akcija, caka] = useActionState(posljiPrijavo, null);
+  const [stanje, akcija, caka] = useActionState(oddaj, null);
 
   // Konverzija za Google Analytics in Meta Pixel.
   useEffect(() => {
@@ -69,7 +72,7 @@ function ObrazecPrijava({ delovnaMesta = [], izbrano }) {
       </div>
 
       <div className="obr-polje">
-        <label htmlFor="cv">Življenjepis (PDF, DOC, do 4 MB)</label>
+        <label htmlFor="cv">Življenjepis (PDF, DOC, do 10 MB)</label>
         <input id="cv" name="cv" type="file" accept=".pdf,.doc,.docx" />
       </div>
 

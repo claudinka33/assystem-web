@@ -3,6 +3,9 @@
 import { useActionState, useEffect, useRef, useState } from "react";
 import { dogodek } from "@/lib/dogodki";
 import { posljiPovprasevanje } from "@/lib/akcije/obrazci";
+import { zNalaganjem } from "@/lib/nalaganje-klient";
+
+const oddaj = zNalaganjem(posljiPovprasevanje, "priloga");
 import { prevedeno, useJezik } from "@/lib/i18n/odjemalec";
 
 const IMAM = [
@@ -28,7 +31,7 @@ function Cip({ ime, vrednost, izbrano, onIzberi, vec = false }) {
 
 function BespokeObrazec() {
   const { t } = useJezik();
-  const [stanje, akcija, caka] = useActionState(posljiPovprasevanje, null);
+  const [stanje, akcija, caka] = useActionState(oddaj, null);
   const [korak, setKorak] = useState(0);
   const [imam, setImam] = useState("");
   const [izdelki, setIzdelki] = useState([]);
@@ -152,7 +155,7 @@ function BespokeObrazec() {
             onChange={(e) => setDatoteke([...e.target.files].map((f) => f.name))}
           />
           <b>Povlecite datoteke sem</b>
-          <span>ali kliknite za izbiro · PDF, DWG, DXF, STEP, JPG, PNG, ZIP · skupaj do 4 MB</span>
+          <span>ali kliknite za izbiro · PDF, DWG, DXF, STEP, JPG, PNG, ZIP · do 10 MB na datoteko</span>
         </label>
         {datoteke.length > 0 && (
           <ul className="bo-dat">

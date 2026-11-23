@@ -3,6 +3,9 @@
 import { useActionState, useEffect, useState } from "react";
 import { dogodek } from "@/lib/dogodki";
 import { posljiPovprasevanje } from "@/lib/akcije/obrazci";
+import { zNalaganjem } from "@/lib/nalaganje-klient";
+
+const oddaj = zNalaganjem(posljiPovprasevanje, "priloga");
 import { prevedeno } from "@/lib/i18n/odjemalec";
 
 // Vodeno povpraševanje za trgovce v treh korakih: program → prostor → kontakt.
@@ -42,7 +45,7 @@ function Polica({ s }) {
 }
 
 function ObrazecTrgovci() {
-  const [stanje, akcija, caka] = useActionState(posljiPovprasevanje, null);
+  const [stanje, akcija, caka] = useActionState(oddaj, null);
   const [korak, setKorak] = useState(1);
   const [programi, setProgrami] = useState([]);
   const [prostor, setProstor] = useState("");

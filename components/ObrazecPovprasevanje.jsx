@@ -3,10 +3,13 @@
 import { useActionState, useEffect } from "react";
 import { dogodek } from "@/lib/dogodki";
 import { posljiPovprasevanje } from "@/lib/akcije/obrazci";
+import { zNalaganjem } from "@/lib/nalaganje-klient";
+
+const oddaj = zNalaganjem(posljiPovprasevanje, "priloga");
 import { prevedeno } from "@/lib/i18n/odjemalec";
 
 function ObrazecPovprasevanje({ vir = "kontakt", izdelek, naslov, dodatnaPolja = [], priloga = null, namig }) {
-  const [stanje, akcija, caka] = useActionState(posljiPovprasevanje, null);
+  const [stanje, akcija, caka] = useActionState(oddaj, null);
 
   // Konverzija za Google Analytics in Meta Pixel.
   useEffect(() => {
@@ -87,7 +90,7 @@ function ObrazecPovprasevanje({ vir = "kontakt", izdelek, naslov, dodatnaPolja =
         <div className="obr-polje">
           <label htmlFor="priloga">{priloga}</label>
           <input id="priloga" name="priloga" type="file" multiple accept=".pdf,.dwg,.dxf,.step,.stp,.igs,.iges,.jpg,.jpeg,.png,.zip" />
-          <small style={{ color: "var(--color-muted)", fontSize: 12.5 }}>PDF, DWG, DXF, STEP, IGES, JPG, PNG ali ZIP, skupaj do 4 MB. Večje datoteke pošljite po e-pošti.</small>
+          <small style={{ color: "var(--color-muted)", fontSize: 12.5 }}>PDF, DWG, DXF, STEP, IGES, JPG, PNG ali ZIP, do 10 MB na datoteko. Večje datoteke pošljite po e-pošti.</small>
         </div>
       )}
 
