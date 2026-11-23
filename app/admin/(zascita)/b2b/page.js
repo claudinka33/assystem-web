@@ -34,7 +34,7 @@ export default async function B2BKupci({ searchParams }) {
     partnerji.length
       ? sb.from("b2b_prodajalne").select("vasco_partner, sifra, naziv, naziv2, naslov, posta").in("vasco_partner", partnerji).order("naziv2")
       : Promise.resolve({ data: [] }),
-    partnerji.length ? sb.from("b2b_racuni_partnerji").select("vasco_partner, zadnji_prenos_ob").in("vasco_partner", partnerji) : Promise.resolve({ data: [] }),
+    partnerji.length ? sb.from("b2b_racuni_partnerji").select("vasco_partner, vklopljeno_ob, zadnji_prenos_ob").in("vasco_partner", partnerji) : Promise.resolve({ data: [] }),
   ]);
   const racuniPartnerja = Object.fromEntries((racRes?.data ?? []).map((x) => [String(x.vasco_partner), x]));
   const prodajalnePartnerja = {};
@@ -95,7 +95,9 @@ export default async function B2BKupci({ searchParams }) {
                   <span data-l="Uporabniki" className="c">{uporabniki.length}</span>
                   <span data-l="Poslovalnice" className="c">{pr.length || "—"}</span>
                   <span data-l="Plačilo" className="siv">{g.vasco_partner ? `${g.rok_placila ?? "—"} dni · ${Number(g.rabat ?? 0)} %` : "—"}</span>
-                  <span data-l="Računi">{rac ? <i className="znacka da">vklopljeni</i> : <span className="siv">—</span>}</span>
+                  <span data-l="Računi">{rac ? (rac.zadnji_prenos_ob
+                    ? <i className="znacka da" title={`Zadnji prenos iz Vasca: ${new Date(rac.zadnji_prenos_ob).toLocaleString("sl-SI", { timeZone: "Europe/Ljubljana" })}`}>vklopljeni</i>
+                    : <i className="znacka novo" title={`Vklopljeno ${new Date(rac.vklopljeno_ob).toLocaleString("sl-SI", { timeZone: "Europe/Ljubljana" })} — as-terminal računov še ni prenesel`}>čaka prenos</i>) : <span className="siv">—</span>}</span>
                   <span data-l="Status"><i className={ZNACKA[najStatus]}>{B2B_STATUSI[najStatus] ?? najStatus}</i></span>
                 </summary>
 
