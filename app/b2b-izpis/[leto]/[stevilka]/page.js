@@ -86,7 +86,7 @@ export default async function IzpisRacuna({ params }) {
       `}</style>
       <Natisni />
       <div className="vr-list">
-        <div className="vr-kopija">Kopija računa · izpis iz B2B portala assystem.si</div>
+        <div className="vr-kopija">Kopija računa · izpis iz B2B portala as-system.si</div>
         <div className="vr-logo">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/as-system-logo.svg" alt="AS system" />

@@ -25,7 +25,7 @@ export default function SeoPolja({ izdelek }) {
       </div>
       <div className="google">
         <small>Predogled v Googlu</small>
-        <span className="google-url">assystem.si › program › {i.slug || "izdelek"}</span>
+        <span className="google-url">as-system.si › program › {i.slug || "izdelek"}</span>
         <b>{prikazNaslov.length > 62 ? prikazNaslov.slice(0, 60) + "…" : prikazNaslov}</b>
         <p>{prikazOpis.length > 162 ? prikazOpis.slice(0, 158) + "…" : prikazOpis}</p>
       </div>

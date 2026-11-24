@@ -35,7 +35,7 @@ export default async function Poslano({ searchParams }) {
       </div>
       <div className="adm-telo siroko">
         <p className="adm-namig" style={{ marginTop: 0 }}>
-          Vsi maili, ki jih pošlje spletna stran assystem.si (B2B registracije in odobritve, potrdila naročil, povpraševanja, vabila zaposlenim …).
+          Vsi maili, ki jih pošlje spletna stran as-system.si (B2B registracije in odobritve, potrdila naročil, povpraševanja, vabila zaposlenim …).
           Pri mailingih klikni Odpri za seznam prejemnikov (kdo je dobil, odprl, kliknil).
         </p>
         {napaka && <div className="opozorilo">Resend: {napaka}</div>}

@@ -31,7 +31,7 @@ const slug = (s) =>
 
 // Naredi kampanjsko povezavo, da se obisk v statistiki pokaže pod pravo kampanjo.
 export default function UtmGenerator() {
-  const [stran, setStran] = useState("https://assystem.si/");
+  const [stran, setStran] = useState("https://www.as-system.si/");
   const [kampanja, setKampanja] = useState("");
   const [vir, setVir] = useState("linkedin");
   const [medij, setMedij] = useState("social");
@@ -41,7 +41,7 @@ export default function UtmGenerator() {
   const povezava = useMemo(() => {
     if (!kampanja.trim()) return "";
     try {
-      const u = new URL(stran.trim() || "https://assystem.si/");
+      const u = new URL(stran.trim() || "https://www.as-system.si/");
       u.searchParams.set("utm_source", vir);
       u.searchParams.set("utm_medium", medij);
       u.searchParams.set("utm_campaign", slug(kampanja));
@@ -65,7 +65,7 @@ export default function UtmGenerator() {
       <h3>Generator kampanjske povezave</h3>
       <p>Ime kampanje naj vsebuje regijo, npr. <code>dach-sidra-nov26</code>, <code>hr-trgovci-zima</code> — potem v tabeli zgoraj takoj vidiš, katera regija deluje.</p>
       <div className="st-utm-polja">
-        <label>Stran<input value={stran} onChange={(e) => setStran(e.target.value)} placeholder="https://assystem.si/program/…" /></label>
+        <label>Stran<input value={stran} onChange={(e) => setStran(e.target.value)} placeholder="https://www.as-system.si/program/…" /></label>
         <label>Kampanja *<input value={kampanja} onChange={(e) => setKampanja(e.target.value)} placeholder="dach-sidra-nov26" /></label>
         <label>Kje bo povezava
           <select value={vir} onChange={(e) => setVir(e.target.value)}>

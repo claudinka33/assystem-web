@@ -5,7 +5,7 @@ import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
 const metadataSl = {
   title: "Izjava o dostopnosti",
-  description: "Izjava o dostopnosti spletne strani in spletne trgovine assystem.si.",
+  description: "Izjava o dostopnosti spletne strani in spletne trgovine as-system.si.",
   alternates: { canonical: "/izjava-o-dostopnosti" },
 };
 
@@ -13,7 +13,7 @@ function Dostopnost() {
   return (
     <PravnaStran pot="/izjava-o-dostopnosti" naslov="Izjava o dostopnosti" opis="Želimo, da stran lahko uporablja vsak." veljaOd={VELJA_OD}>
       <p>
-        {site.ime} se zavezuje, da bo spletno stran in spletno trgovino assystem.si omogočil dostopno v skladu z Zakonom o
+        {site.ime} se zavezuje, da bo spletno stran in spletno trgovino as-system.si omogočil dostopno v skladu z Zakonom o
         dostopnosti do proizvodov in storitev za invalide (ZDPSI). Kot merilo uporabljamo smernice WCAG 2.1 na ravni AA
         oziroma standard EN 301 549.
       </p>

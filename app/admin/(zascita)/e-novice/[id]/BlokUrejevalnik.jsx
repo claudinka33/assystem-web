@@ -179,7 +179,7 @@ function PoljeIzdelki({ vrednost = [], onChange }) {
             <input style={vnos} value={x.podnaslov || ""} onChange={(e) => spremeni(i, "podnaslov", e.target.value)} placeholder="Podnaslov (rdeč)" />
           </div>
           <textarea style={{ ...vnos, marginTop: 6, minHeight: 52 }} value={x.opis || ""} onChange={(e) => spremeni(i, "opis", e.target.value)} placeholder="Kratek opis" />
-          <input style={{ ...vnos, marginTop: 6 }} value={x.povezava || ""} onChange={(e) => spremeni(i, "povezava", e.target.value)} placeholder="Povezava (https://assystem.si/…)" />
+          <input style={{ ...vnos, marginTop: 6 }} value={x.povezava || ""} onChange={(e) => spremeni(i, "povezava", e.target.value)} placeholder="Povezava (https://www.as-system.si/…)" />
         </div>
       ))}
       {vrednost.length < 3 && (

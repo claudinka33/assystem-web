@@ -54,7 +54,7 @@ export default async function B2BKupci({ searchParams }) {
       </div>
       <div className="adm-telo siroko">
         {napaka && <div className="opozorilo">{napaka}</div>}
-        {geslo && <div className="uspeh">✓ Geslo je nastavljeno za <b>{geslo}</b>. Uporabnik se prijavi na assystem.si → B2B prijava z e-naslovom in tem geslom.</div>}
+        {geslo && <div className="uspeh">✓ Geslo je nastavljeno za <b>{geslo}</b>. Uporabnik se prijavi na as-system.si → B2B prijava z e-naslovom in tem geslom.</div>}
         {poslano && <div className="uspeh">✓ Povabilo za potrditev in geslo je poslano na <b>{poslano}</b>.</div>}
         {izbrisano && <div className="uspeh">B2B uporabnik {izbrisano} je izbrisan. Njegova naročila ostanejo v seznamu naročil.</div>}
         {shranjeno && (

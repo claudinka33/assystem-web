@@ -16,7 +16,7 @@ function Odstop() {
     <PravnaStran pot="/odstop-od-pogodbe" naslov="Vračilo blaga" opis="Vračilo blaga pri B2B naročilih." veljaOd={VELJA_OD}>
       <div className="pravno-okvir">
         <p>
-          Spletno naročanje na assystem.si je namenjeno samo <b>poslovnim kupcem</b> (podjetjem in samostojnim podjetnikom).
+          Spletno naročanje na as-system.si je namenjeno samo <b>poslovnim kupcem</b> (podjetjem in samostojnim podjetnikom).
           Zakonska pravica potrošnika do odstopa od pogodbe v 14 dneh zato ne velja.
         </p>
       </div>

@@ -38,7 +38,7 @@ export default async function ZnamkeIzdelkov({ searchParams }) {
         <div style={{ border: "1px solid #e3e5e8", borderRadius: 10, padding: "14px 16px", marginBottom: 22, maxWidth: 820 }}>
           <b style={{ display: "block", marginBottom: 4 }}>Znamke na spletni strani</b>
           <p style={{ color: "#6e767e", margin: "0 0 12px" }}>
-            Izklopljena znamka se na assystem.si ne pokaže nikjer (meni, stran znamke, izdelki, iskanje, Rešitve,
+            Izklopljena znamka se na as-system.si ne pokaže nikjer (meni, stran znamke, izdelki, iskanje, Rešitve,
             sitemap). Izdelki ostanejo tu v administraciji — z vklopom se vse vrne.
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>

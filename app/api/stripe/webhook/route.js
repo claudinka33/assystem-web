@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { stripePreveriPodpis } from "@/lib/placila";
 import { oznaciPlacano } from "@/lib/narocila-potrdila";
 
-// Stripe → Developers → Webhooks: https://assystem.si/api/stripe/webhook
+// Stripe → Developers → Webhooks: https://www.as-system.si/api/stripe/webhook
 // Dogodki: checkout.session.completed, checkout.session.async_payment_succeeded
 export async function POST(request) {
   const telo = await request.text();

@@ -14,14 +14,14 @@ const metadataSl = {
 function SplosniPogoji() {
   const t = site.trgovina;
   return (
-    <PravnaStran pot="/splosni-pogoji" naslov="Splošni pogoji poslovanja" opis="Pogoji B2B spletnega naročanja na assystem.si za podjetja in samostojne podjetnike." veljaOd={VELJA_OD}>
+    <PravnaStran pot="/splosni-pogoji" naslov="Splošni pogoji poslovanja" opis="Pogoji B2B spletnega naročanja na as-system.si za podjetja in samostojne podjetnike." veljaOd={VELJA_OD}>
       <h2>1. Ponudnik</h2>
-      <p>Spletni B2B portal na naslovu assystem.si upravlja:</p>
+      <p>Spletni B2B portal na naslovu as-system.si upravlja:</p>
       <PodatkiPodjetja />
 
       <h2>2. Komu je namenjena spletna prodaja</h2>
       <p>
-        Spletno naročanje na assystem.si je namenjeno izključno <b>poslovnim kupcem</b>: pravnim osebam in samostojnim
+        Spletno naročanje na as-system.si je namenjeno izključno <b>poslovnim kupcem</b>: pravnim osebam in samostojnim
         podjetnikom, ki kupujejo za svojo dejavnost (B2B). Prodaje potrošnikom (B2C) prek spletne strani ne izvajamo.
       </p>
       <p>

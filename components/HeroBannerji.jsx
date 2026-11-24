@@ -21,7 +21,7 @@ function B2bZaslon() {
     <div className="b2bz" aria-hidden="true">
       <div className="b2bz-vrh">
         <i /><i /><i />
-        <span>B2B portal · assystem.si</span>
+        <span>B2B portal · as-system.si</span>
       </div>
       <div className="b2bz-tel">
         <div className="b2bz-gl">

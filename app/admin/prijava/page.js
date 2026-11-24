@@ -19,7 +19,7 @@ export default async function Prijava({ searchParams }) {
       <div className="box">
         <img className="prijava-logo" src="/logo-as-system.png" alt="AS system" />
         <h1>Administracija</h1>
-        <p className="pod">Prijava za urejanje spletne strani assystem.si.</p>
+        <p className="pod">Prijava za urejanje spletne strani as-system.si.</p>
 
         {user ? (
           <>

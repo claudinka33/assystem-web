@@ -100,7 +100,7 @@ export default async function Uporabniki({ searchParams }) {
         )}
 
         <p style={{ marginTop: 0, opacity: 0.75 }}>
-          Zaposleni se prijavijo na <b>assystem.si/admin/prijava</b> z gumbom <b>Prijava z Microsoft</b> (službeni račun).
+          Zaposleni se prijavijo na <b>as-system.si/admin/prijava</b> z gumbom <b>Prijava z Microsoft</b> (službeni račun).
           Vidijo samo dele, ki jih odkljukaš. Ob dodajanju dobijo vabilo po mailu.
         </p>
 
