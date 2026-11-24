@@ -22,11 +22,17 @@ async function generateMetadataSl({ params }) {
 }
 
 // Vsebina: prazna vrstica = nov odstavek; vrstica z »– « ali »- « = alineja;
-// kratka vrstica brez pike na koncu = podnaslov.
+// kratka vrstica brez pike na koncu = podnaslov;
+// vrstica »[Besedilo](povezava)« = kartica za prenos (npr. PDF navodila).
 function Vsebina({ besedilo }) {
   const vrstice = String(besedilo ?? "").split("\n").map((v) => v.trim()).filter(Boolean);
   const bloki = [];
   for (const v of vrstice) {
+    const pov = /^\[(.+?)\]\((\S+)\)$/.exec(v);
+    if (pov) {
+      bloki.push({ tip: "prenos", tx: pov[1], url: pov[2] });
+      continue;
+    }
     const alineja = /^[–\-•]\s+/.test(v);
     if (alineja) {
       const zadnji = bloki[bloki.length - 1];
@@ -42,7 +48,16 @@ function Vsebina({ besedilo }) {
   return (
     <div className="clanek-vsebina">
       {bloki.map((b, i) =>
-        b.tip === "h2" ? (
+        b.tip === "prenos" ? (
+          <a key={i} className="clanek-prenos" href={b.url} target="_blank" rel="noopener" download={/\.pdf$/i.test(b.url) || undefined}>
+            <span className="clanek-prenos-ik">{/\.pdf$/i.test(b.url) ? "PDF" : "↗"}</span>
+            <span className="clanek-prenos-tx">
+              <b>{b.tx}</b>
+              <em>{/\.pdf$/i.test(b.url) ? "Prenesite PDF" : "Odprite povezavo"}</em>
+            </span>
+            <span className="clanek-prenos-g">Prenesi ↓</span>
+          </a>
+        ) : b.tip === "h2" ? (
           <h2 key={i}>{b.tx}</h2>
         ) : b.tip === "ul" ? (
           <ul key={i}>
@@ -122,6 +137,7 @@ async function Novica({ params }) {
               <p>Cene, zaloga in spletno naročanje za podjetja. Registrirajte se in po potrditvi e-naslova takoj vidite cene.</p>
               <Link className="b b-g" href="/b2b/registracija">Postanite B2B kupec →</Link>
               <Link className="clanek-povezava" href="/b2b">B2B prijava →</Link>
+              <a className="clanek-povezava" href="/dokumenti/AS-system_B2B-portal_navodila.pdf" target="_blank" rel="noopener">Navodila za B2B portal (PDF) ↓</a>
             </div>
 
             <div className="clanek-box">
