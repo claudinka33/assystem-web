@@ -4508,3 +4508,18 @@ button.isci-ikona { border: 0; background: none; cursor: pointer; }
 @media (max-width: 600px) { .clanek-vsebina ul { grid-template-columns: 1fr; } }
 /* HAMMEX na kartici znamk: večji tudi na računalniku */
 .dz img.dz-logo.dz-logo-hammex { height: 76px; max-height: 76px; width: auto; max-width: 100%; object-fit: contain; }
+
+/* Lokacije na telefonu: ena kartica pod drugo, foto čez celo širino, zemljevid nižji */
+@media (max-width: 700px) {
+  .on-lok.on-lok { grid-template-columns: minmax(0, 1fr) !important; gap: 14px !important; }
+  .on-lok.on-lok > .on-lok-k { padding: 0 !important; }
+  .on-lok-k .on-lok-foto { aspect-ratio: 16 / 8; }
+  .on-lok-k .on-lok-tx { padding: 16px 18px 14px; gap: 2px; }
+  .on-lok-k .on-lok-tx b { font-size: 19px; }
+  .on-lok-k .on-lok-tx p { font-size: 14px !important; }
+  .on-lok-k .on-lok-tx span { font-size: 13.5px; margin-bottom: 6px; }
+  .on-lok-k .on-lok-tx .more { font-size: 13px !important; }
+  .on-lok-k .zemljevid-zaklep { height: 150px !important; gap: 8px; padding: 14px; }
+  .on-lok-k .zemljevid-zaklep p { font-size: 11.5px; }
+  .on-lok-k iframe { height: 240px; }
+}
