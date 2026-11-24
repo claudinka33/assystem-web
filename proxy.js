@@ -66,6 +66,17 @@ async function imaDostopDoPolic(request) {
 export async function proxy(request) {
   // ---------- jezik: /en/... in /de/... sta prevedeni različici slovenske strani ----------
   const izvirnaPot = request.nextUrl.pathname;
+  // Stara stran as-system.si je imela jezik v ?lang=… → preusmeri na čist naslov (sl) ali /en, /de, /hr
+  const staraLang = request.nextUrl.searchParams.get("lang");
+  if (staraLang !== null) {
+    const cilj = request.nextUrl.clone();
+    cilj.searchParams.delete("lang");
+    const j = staraLang.toLowerCase().slice(0, 2);
+    if (["en", "de", "hr"].includes(j) && !/^\/(en|de|hr)(\/|$)/.test(izvirnaPot)) {
+      cilj.pathname = `/${j}${izvirnaPot === "/" ? "" : izvirnaPot}`;
+    }
+    return NextResponse.redirect(cilj, 308);
+  }
   const ujemanje = izvirnaPot.match(/^\/(en|de|hr)(\/|$)/);
   const jezikZahteve = ujemanje ? ujemanje[1] : null;
   const pathname = jezikZahteve ? izvirnaPot.slice(3) || "/" : izvirnaPot;
