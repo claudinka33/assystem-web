@@ -4472,3 +4472,18 @@ button.isci-ikona { border: 0; background: none; cursor: pointer; }
 .clanek-prenos-g { background: #fff; color: var(--color-ink); font-weight: 800; font-size: 13px; padding: 9px 14px; white-space: nowrap; }
 .clanek-prenos:hover .clanek-prenos-g { background: var(--color-red); color: #fff; }
 @media (max-width: 560px) { .clanek-prenos { grid-template-columns: 44px 1fr; } .clanek-prenos-ik { width: 44px; height: 44px; font-size: 13px; } .clanek-prenos-g { grid-column: 1 / -1; text-align: center; } }
+
+/* Telefon: HAMMEX logo večje (logo ima znak nad napisom, zato rabi več višine kot ostali) */
+@media (max-width: 700px) {
+  .dz .dz-logo-ok { height: 58px; }
+  .dz img.dz-logo.dz-logo-hammex { height: 58px !important; max-height: 58px !important; width: auto !important; max-width: 100% !important; object-fit: contain; }
+}
+/* O nas: fotografija sedeža na telefonu čez celo širino, napis manjši */
+@media (max-width: 700px) {
+  .zn-hero .zn-slika.on-foto { max-width: 100% !important; width: 100%; margin: 6px 0 0; }
+  .zn-hero .on-foto span { font-size: 11px; padding: 5px 9px; }
+}
+/* Kartice izdelkov (O nas, Proizvodnja): slika vedno v okvirju, tudi visoke (vložek za mavčne plošče) */
+.on-izd-im { overflow: hidden; }
+.on-izd-im img { height: 110px !important; width: auto !important; max-width: 100% !important; object-fit: contain; }
+@media (max-width: 700px) { .on-izd-im { height: 90px; } .on-izd-im img { height: 84px !important; } }
