@@ -169,8 +169,6 @@ function BlagajnaB2B({ kupec, dostave, prodajalne }) {
                   )}
                 </div>
               )}
-                </div>
-              )}
             </div>
           </section>
 
