@@ -4457,3 +4457,8 @@ button.isci-ikona { border: 0; background: none; cursor: pointer; }
 .bl-kam > label small { font-size: 13px; color: var(--color-muted); }
 .bl-kam > label select { height: 38px; padding: 0 10px; border: 1px solid #c6cace; background: #fff; font: inherit; font-size: 14px; width: 100%; min-width: 0; margin-top: 3px; }
 .bl-kam-polja { padding: 12px 14px 14px; border: 1px solid var(--color-red, #C8102E); border-top: 0; margin-top: -8px; background: #fff; }
+
+/* Telefon: zgornji pas (B2B prijava + jeziki) skrit – oboje je v meniju ☰, B2B gumb je v glavi */
+@media (max-width: 700px) {
+  .util { display: none; }
+}
