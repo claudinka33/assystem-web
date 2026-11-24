@@ -64,7 +64,7 @@ function Vsebina({ besedilo }) {
             {b.el.map((x, j) => {
               // »Naslov alineje. Opis …« → naslov krepko
               const m = /^([^.]{3,60}\.)\s+(.*)$/.exec(x);
-              return <li key={j}>{m ? <><b>{m[1]}</b> {m[2]}</> : x}</li>;
+              return <li key={j}>{m ? <><b>{m[1].replace(/\.$/, "")}</b><span>{m[2]}</span></> : <span>{x}</span>}</li>;
             })}
           </ul>
         ) : (
@@ -95,13 +95,14 @@ async function Novica({ params }) {
               <span>{datumSlo(n.objavljeno_dne)}</span>
             </div>
             <h1 className="clanek-naslov">{n.naslov}</h1>
-            {n.povzetek && <p className="clanek-uvod">{n.povzetek}</p>}
-
-            {n.slika_url && (
-              <div className="clanek-slika">
-                <Image src={n.slika_url} alt={n.naslov} fill sizes="(max-width: 1000px) 100vw, 780px" priority />
-              </div>
-            )}
+            <div className={`clanek-glava${n.slika_url ? "" : " brez-slike"}`}>
+              {n.povzetek && <p className="clanek-uvod">{n.povzetek}</p>}
+              {n.slika_url && (
+                <div className="clanek-slika">
+                  <Image src={n.slika_url} alt={n.naslov} fill sizes="(max-width: 700px) 100vw, 380px" priority />
+                </div>
+              )}
+            </div>
 
             <Vsebina besedilo={n.vsebina} />
 
