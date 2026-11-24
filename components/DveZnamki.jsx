@@ -40,7 +40,7 @@ export default async function DveZnamki({ trenutna, siv = true }) {
               <Link key={k} href={z.pot} className={`dz-k${tu ? " tu" : ""}`} aria-current={tu ? "page" : undefined}>
                 <div className="dz-glava">
                   <div className="dz-logo-ok">
-                    <Image src={z.logo} alt={z.ime} width={z.w} height={z.h} className={`dz-logo dz-logo-${k}`} />
+                    <Image src={z.logo} alt={z.ime} width={z.w} height={z.h} className={`dz-logo dz-logo-${k.toLowerCase()}`} />
                   </div>
                   {tu && <em>Ste tukaj</em>}
                 </div>

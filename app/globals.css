@@ -4506,3 +4506,5 @@ button.isci-ikona { border: 0; background: none; cursor: pointer; }
   .clanek-glava .clanek-slika { max-width: 520px; }
 }
 @media (max-width: 600px) { .clanek-vsebina ul { grid-template-columns: 1fr; } }
+/* HAMMEX na kartici znamk: večji tudi na računalniku */
+.dz img.dz-logo.dz-logo-hammex { height: 76px; max-height: 76px; width: auto; max-width: 100%; object-fit: contain; }
