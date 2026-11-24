@@ -4445,3 +4445,15 @@ button.isci-ikona { border: 0; background: none; cursor: pointer; }
   .reg-dno { flex-direction: column; align-items: stretch; }
   .reg-dno .b { width: 100%; text-align: center; }
 }
+
+/* Blagajna B2B: izbira naslova dostave */
+.bl-kam { margin-top: 16px; display: grid; gap: 8px; }
+.bl-kam h3 { margin: 0 0 2px; font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; color: var(--color-muted); }
+.bl-kam > label { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; border: 1px solid #c6cace; background: #fff; cursor: pointer; }
+.bl-kam > label.on { border-color: var(--color-red, #C8102E); background: #fff6f6; }
+.bl-kam > label > input { margin-top: 3px; accent-color: var(--color-red, #C8102E); width: 16px; height: 16px; flex: none; }
+.bl-kam > label > span { display: grid; gap: 3px; min-width: 0; flex: 1; }
+.bl-kam > label b { font-size: 14.5px; }
+.bl-kam > label small { font-size: 13px; color: var(--color-muted); }
+.bl-kam > label select { height: 38px; padding: 0 10px; border: 1px solid #c6cace; background: #fff; font: inherit; font-size: 14px; width: 100%; min-width: 0; margin-top: 3px; }
+.bl-kam-polja { padding: 12px 14px 14px; border: 1px solid var(--color-red, #C8102E); border-top: 0; margin-top: -8px; background: #fff; }

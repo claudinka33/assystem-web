@@ -19,6 +19,8 @@ function BlagajnaB2B({ kupec, dostave, prodajalne }) {
   const [napaka, setNapaka] = useState("");
   const [dost, setDost] = useState(String(dostave.find((x) => x.koda !== "osebno")?.id ?? dostave[0]?.id ?? 0));
   const [prodajalna, setProdajalna] = useState(kupec.prodajalna ? String(kupec.prodajalna) : "");
+  const posl = prodajalne.filter((x) => !kupec.prodajalna || x.sifra === kupec.prodajalna);
+  const [kam, setKam] = useState(kupec.prodajalna ? "posl" : "sedez");
   const [koda, setKoda] = useState(null);
   const [cakam, zacni] = useTransition();
 
@@ -75,7 +77,7 @@ function BlagajnaB2B({ kupec, dostave, prodajalne }) {
     setNapaka("");
     zacni(async () => {
       const r = await oddajNarocilo({
-        podatki: { ...f, dostava: dost, placilo: "racun", prodajalna: osebno ? "" : prodajalna, koda: koda?.koda ?? "", pogoji: f.pogoji === "on", novice: f.novice === "on" },
+        podatki: { ...f, dostava: dost, placilo: "racun", prodajalna: osebno ? "" : kam === "drug" ? "drug" : kam === "posl" ? String(prodajalna || posl[0]?.sifra || "") : "", koda: koda?.koda ?? "", pogoji: f.pogoji === "on", novice: f.novice === "on" },
         postavke: p.map((x) => ({ id: x.id, kolicina: x.kolicina })),
       });
       if (r?.napaka) return setNapaka(r.napaka);
@@ -117,7 +119,7 @@ function BlagajnaB2B({ kupec, dostave, prodajalne }) {
                       <span className="ik"><Ikona ime={x.koda === "osebno" ? "trgovina" : "tovornjak"} /></span>
                       <span>
                         <b>{x.koda === "osebno" ? "Osebni prevzem" : x.naziv}</b>
-                        <small>{x.koda === "osebno" ? "Šmarje pri Jelšah, pon–pet 7–15" : "Na sedež, poslovalnico ali drug naslov"}</small>
+                        <small>{x.koda === "osebno" ? "Šmarje pri Jelšah, pon–pet 7–15" : "Dostava na izbrani naslov"}</small>
                       </span>
                       <span className={`cena${c === 0 ? " zast" : ""}`}>{c === 0 ? "brezplačno" : eur(c)}</span>
                     </label>
@@ -125,26 +127,48 @@ function BlagajnaB2B({ kupec, dostave, prodajalne }) {
                 })}
               </div>
               {!osebno && (
-                <div className="bl-polja" style={{ marginTop: 10 }}>
-                  <label className="s6">
-                    Naslov dostave
-                    <select value={prodajalna} onChange={(e) => setProdajalna(e.target.value)}>
-                      {!kupec.prodajalna && <option value="">Sedež: {kupec.naslov}</option>}
-                      {prodajalne.filter((x) => !kupec.prodajalna || x.sifra === kupec.prodajalna).map((x) => (
-                        <option key={x.sifra} value={x.sifra}>{x.naziv2 || x.naziv}: {x.naslov}, {x.posta}</option>
-                      ))}
-                      <option value="drug">Drug naslov (vpišite spodaj)</option>
-                    </select>
+                <div className="bl-kam">
+                  <h3>Kam pošljemo?</h3>
+                  {!kupec.prodajalna && (
+                    <label className={kam === "sedez" ? "on" : ""}>
+                      <input type="radio" name="_kam" checked={kam === "sedez"} onChange={() => setKam("sedez")} />
+                      <span><b>Na sedež podjetja</b><small>{kupec.naslov}</small></span>
+                    </label>
+                  )}
+                  {posl.length > 0 && (
+                    <label className={kam === "posl" ? "on" : ""}>
+                      <input type="radio" name="_kam" checked={kam === "posl"} onChange={() => setKam("posl")} />
+                      <span>
+                        <b>V poslovalnico</b>
+                        {posl.length === 1 ? (
+                          <small>{posl[0].naziv2 || posl[0].naziv}: {posl[0].naslov}, {posl[0].posta}</small>
+                        ) : kam === "posl" ? (
+                          <select value={prodajalna || String(posl[0].sifra)} onChange={(e) => setProdajalna(e.target.value)} aria-label="Poslovalnica">
+                            {posl.map((x) => (
+                              <option key={x.sifra} value={x.sifra}>{x.naziv2 || x.naziv}: {x.naslov}, {x.posta}</option>
+                            ))}
+                          </select>
+                        ) : (
+                          <small>Izberite eno od svojih poslovalnic</small>
+                        )}
+                      </span>
+                    </label>
+                  )}
+                  <label className={kam === "drug" ? "on" : ""}>
+                    <input type="radio" name="_kam" checked={kam === "drug"} onChange={() => setKam("drug")} />
+                    <span><b>Na drug naslov</b><small>Na primer na gradbišče ali k vaši stranki</small></span>
                   </label>
-                  {prodajalna === "drug" && (
-                    <>
+                  {kam === "drug" && (
+                    <div className="bl-polja bl-kam-polja">
                       <label className="s3">Prejemnik (podjetje ali gradbišče) *<input name="dost_naziv" required maxLength={120} /></label>
                       <label className="s3">Ulica in hišna številka *<input name="dost_ulica" required maxLength={120} autoComplete="shipping street-address" /></label>
                       <label>Poštna številka *<input name="dost_posta" required maxLength={10} inputMode="numeric" autoComplete="shipping postal-code" /></label>
                       <label>Kraj *<input name="dost_kraj" required maxLength={80} autoComplete="shipping address-level2" /></label>
                       <label>Kontakt na naslovu (telefon)<input name="dost_telefon" maxLength={40} inputMode="tel" /></label>
-                    </>
+                    </div>
                   )}
+                </div>
+              )}
                 </div>
               )}
             </div>
