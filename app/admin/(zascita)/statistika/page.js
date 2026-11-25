@@ -2,6 +2,7 @@ import Link from "next/link";
 import { supabaseAdmin } from "@/lib/supabase-server";
 import { TRGI } from "@/lib/obisk";
 import UtmGenerator from "./UtmGenerator";
+import Podrobno from "./Podrobno";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Statistika obiska" };
@@ -69,6 +70,8 @@ const DOGODKI = {
   klik_email: "Klik na e-pošto",
   klik_telefon: "Klik na telefon",
 };
+// podrobni dogodki imajo svoje tabele spodaj
+const PODROBNI = new Set(["iskanje", "obrazec_zacet", "obrazec_oddan", "obrazec_opuscen", "klik"]);
 const imeDogodka = (k) => DOGODKI[k] || (k.startsWith("igra_") ? `Igra: ${k.replace(/^igra_|_koncana$/g, "").replace(/_/g, " ")} (končana)` : k);
 
 const OBDOBJA = [
@@ -567,11 +570,11 @@ export default async function Statistika({ searchParams }) {
           </Panel>
 
           <Panel naslov="Dejanja obiskovalcev" opis="Povpraševanja, košarica, prenosi, kliki na kontakt …">
-            {(data.dogodki ?? []).length === 0 ? <Prazno /> : (
+            {(data.dogodki ?? []).filter((x) => !PODROBNI.has(x.k)).length === 0 ? <Prazno /> : (
               <table className="adm-tab st-tab">
                 <thead><tr><th>Dejanje</th><th className="d">Kolikokrat</th><th className="d">Obisk.</th><th className="d">Vrednost</th></tr></thead>
                 <tbody>
-                  {data.dogodki.map((x) => (
+                  {data.dogodki.filter((x) => !PODROBNI.has(x.k)).map((x) => (
                     <tr key={x.k}>
                       <td><b>{imeDogodka(x.k)}</b></td>
                       <td className="d">{st(x.n)}</td>
@@ -631,6 +634,8 @@ export default async function Statistika({ searchParams }) {
             </div>
           </Panel>
         </div>
+
+        <Podrobno od={od} doo={doo} />
 
         <p className="adm-namig">
           Obiskovalec = anonimen dnevni odtis (brez piškotkov, IP se ne shrani), zato se isti človek v več dneh šteje večkrat.

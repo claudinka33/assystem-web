@@ -94,7 +94,7 @@ function Zasebnost() {
           </tr>
           <tr>
             <td className="mk-gl">Lastna statistika obiska</td>
-            <td data-l="Podatki">obiskana stran, država, vrsta naprave in dnevni anonimni odtis (IP naslova ne shranimo, piškotkov ne uporabljamo)</td>
+            <td data-l="Podatki">obiskana stran, država, vrsta naprave, uporaba iskalnika in obrazcev ter dnevni anonimni odtis (IP naslova ne shranimo, piškotkov ne uporabljamo). Pri prijavljenih B2B uporabnikih ogledi strani in izdelkov povežemo s podjetjem, da vam lahko komerciala pomaga pri naročilu.</td>
             <td data-l="Pravna podlaga">zakoniti interes (6(1)(f) GDPR)</td>
             <td data-l="Hramba">največ 2 leti</td>
           </tr>
@@ -136,7 +136,7 @@ function Zasebnost() {
         <li><b>Pošta Slovenije d.o.o.</b>: ime, naslov in telefon za dostavo pošiljke.</li>
         <li>
           <b>Obdelovalci</b>: Supabase (baza podatkov), Vercel (gostovanje strani), Resend (pošiljanje e-pošte in e-novic),
-          Google (Google Analytics, Google Zemljevidi, YouTube), Meta (Meta Pixel) ter ponudniki našega poslovnega
+          Google (Google Analytics, Google Zemljevidi, YouTube), Microsoft (Clarity), Meta (Meta Pixel) ter ponudniki našega poslovnega
           informacijskega sistema, računovodskih in IT storitev. Obdelovalci podatke obdelujejo samo po naših navodilih na
           podlagi pogodbe o obdelavi osebnih podatkov (člen 28 GDPR).
         </li>
@@ -158,6 +158,12 @@ function Zasebnost() {
             <td data-l="Sedež">ZDA</td>
             <td data-l="Namen">Google Analytics, Google Zemljevidi, YouTube</td>
             <td data-l="Varovalka">okvir EU–ZDA za zasebnost podatkov (DPF), standardne pogodbene klavzule</td>
+          </tr>
+          <tr>
+            <td className="mk-gl">Microsoft Corporation</td>
+            <td data-l="Sedež">ZDA</td>
+            <td data-l="Namen">Microsoft Clarity (analiza uporabe strani: toplotne karte, posnetki premikov in klikov)</td>
+            <td data-l="Varovalka">okvir DPF, standardne pogodbene klavzule</td>
           </tr>
           <tr>
             <td className="mk-gl">Meta Platforms Inc.</td>
@@ -185,7 +191,7 @@ function Zasebnost() {
           </tr>
         </tbody>
       </table>
-      <p>Podatke za Google Analytics in Meta Pixel prenesemo samo, če piškotkom privolite.</p>
+      <p>Podatke za Google Analytics, Microsoft Clarity in Meta Pixel prenesemo samo, če piškotkom privolite.</p>
 
       <h2>10. Piškotki in upravljanje privolitev</h2>
       <table className="mob-kartice">
@@ -210,6 +216,12 @@ function Zasebnost() {
             <td data-l="Vrsta">analitični (Google)</td>
             <td data-l="Namen">štetje obiskovalcev in ogledov strani</td>
             <td data-l="Trajanje">do 2 leti</td>
+          </tr>
+          <tr>
+            <td className="mk-gl">_clck, _clsk, CLID</td>
+            <td data-l="Vrsta">analitični (Microsoft Clarity)</td>
+            <td data-l="Namen">analiza uporabe strani: kam obiskovalci klikajo in kako se pomikajo po strani; vnosi v obrazce so zakriti</td>
+            <td data-l="Trajanje">do 1 leta</td>
           </tr>
           <tr>
             <td className="mk-gl">_fbp</td>

@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { createHash } from "node:crypto";
 import { supabaseAdmin } from "@/lib/supabase-server";
 import { razvrstiVir, trgDrzave, napravaIzUA, jeBot } from "@/lib/obisk";
+import { trenutniB2B, jeZaposleni } from "@/lib/b2b";
+import { B2B_PISKOTEK } from "@/lib/supabase-server";
 
 // Lastno merjenje obiska brez piškotkov. Brskalnik pošlje ogled strani ali dogodek,
 // strežnik doda državo/mesto (Vercel), anonimen dnevni odtis obiskovalca in vir.
@@ -76,7 +78,16 @@ export async function POST(request) {
     const vrednost = Number(b.vrednost);
     const podatki = b.podatki && typeof b.podatki === "object" ? b.podatki : null;
 
-    await supabaseAdmin().from("obiski").insert({
+    // prijavljen B2B kupec: obisk povežemo s podjetjem (za komercialo), zaposlenih ne štejemo
+    let b2b = null;
+    if (request.cookies.getAll().some((c) => c.name.startsWith(B2B_PISKOTEK))) {
+      try {
+        const k = await trenutniB2B();
+        if (k && !jeZaposleni(k)) b2b = { b2b_kupec: k.id, b2b_podjetje: rez(k.vasco_naziv || k.podjetje, 120) };
+      } catch {}
+    }
+
+    const vrstica = {
       obiskovalec,
       ime,
       pot,
@@ -100,7 +111,11 @@ export async function POST(request) {
       zaslon: sirina || null,
       vrednost: Number.isFinite(vrednost) ? vrednost : null,
       podatki: podatki && JSON.stringify(podatki).length < 2000 ? podatki : null,
-    });
+    };
+    const tabela = supabaseAdmin().from("obiski");
+    const { error } = await tabela.insert(b2b ? { ...vrstica, ...b2b } : vrstica);
+    // če stolpca za B2B še ni (SQL 55 ni zagnan), shrani obisk brez njega
+    if (error && b2b) await supabaseAdmin().from("obiski").insert(vrstica);
   } catch {
     // merjenje nikoli ne sme podreti strani
   }

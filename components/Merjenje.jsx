@@ -3,10 +3,12 @@
 import Script from "next/script";
 import { useEffect, useState } from "react";
 import { prevedeno } from "@/lib/i18n/odjemalec";
+import { site } from "@/lib/site";
 
 const KLJUC = "as_privolitev";
 const GA = process.env.NEXT_PUBLIC_GA_ID;
 const PIXEL = process.env.NEXT_PUBLIC_META_PIXEL_ID;
+const CLARITY = process.env.NEXT_PUBLIC_CLARITY_ID || site.clarityId;
 
 // Odpre pasico za spremembo odločitve (gumb v nogi in plavajoča ikona).
 export const ODPRI_PISKOTKE = "as-piskotki-odpri";
@@ -75,6 +77,17 @@ function Merjenje() {
               gtag('config', '${GA}', { anonymize_ip: true });`}
           </Script>
         </>
+      )}
+
+      {/* Microsoft Clarity: posnetki obiskov in toplotne karte, samo po privolitvi v analitiko.
+          Vnosna polja Clarity privzeto zakrije. */}
+      {analitika && CLARITY && (
+        <Script id="clarity" strategy="afterInteractive">
+          {`(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","${CLARITY}");
+            window.clarity("consentv2",{ad_Storage:"denied",analytics_Storage:"granted"});`}
+        </Script>
       )}
 
       {oglasi && PIXEL && (

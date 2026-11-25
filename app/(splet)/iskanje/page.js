@@ -2,6 +2,7 @@ import { stevilo, najdenih, ZADETEK } from "@/lib/sklanjanje";
 import Image from "next/image";
 import ZnamkaZnak from "@/components/ZnamkaZnak";
 import Link from "next/link";
+import BeleziIskanje from "@/components/BeleziIskanje";
 import { isci } from "@/lib/podatki";
 import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
 
@@ -18,6 +19,7 @@ async function Iskanje({ searchParams }) {
 
   return (
     <>
+      {niz && <BeleziIskanje q={niz} zadetki={skupaj} />}
       <section className="is-glava">
         <div className="w">
           <div className="is-glava-tx">
