@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState, useEffect, useRef, useState, useTransition } from "react";
-import { nastaviPanoge, shraniKontakt, uvoziVBazo, uskladiZResend, preklopiOdjavo, izbrisiKontaktIzBaze, izkljuciDomeno, odstraniIzkljucitev } from "@/lib/akcije/baza";
+import { dodajPanogo, nastaviPanoge, shraniKontakt, uvoziVBazo, uskladiZResend, preklopiOdjavo, izbrisiKontaktIzBaze, izkljuciDomeno, odstraniIzkljucitev } from "@/lib/akcije/baza";
 import IzbrisiGumb from "../../IzbrisiGumb";
 
 const norm = (x) => String(x ?? "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -278,5 +278,25 @@ export function IzkljuciDomeno({ domene }) {
         </div>
       )}
     </form>
+  );
+}
+
+// »+ Nova panoga« v levem stolpcu baze kontaktov.
+export function NovaPanoga() {
+  const [stanje, akcija, caka] = useActionState(dodajPanogo, null);
+  const ref = useRef(null);
+  useEffect(() => {
+    if (stanje?.ok) ref.current?.reset();
+  }, [stanje]);
+  return (
+    <details className="bz-nova-panoga" style={{ margin: "6px 0 4px", fontSize: 12 }}>
+      <summary style={{ cursor: "pointer", color: "#c8102e", fontWeight: 700, padding: "4px 8px" }}>+ Nova panoga</summary>
+      <form ref={ref} action={akcija} style={{ display: "flex", flexDirection: "column", gap: 6, padding: "6px 8px" }}>
+        <input name="ime" placeholder="Ime panoge, npr. Vodovodarji" maxLength={80} required style={{ padding: "6px 8px", border: "1px solid #c6cace", borderRadius: 6, font: "inherit", fontSize: 12 }} />
+        <button className="gumb mini" type="submit" disabled={caka}>{caka ? "Dodajam …" : "Dodaj panogo"}</button>
+        {stanje?.napaka && <span className="bz-ne">{stanje.napaka}</span>}
+        {stanje?.ok && <span className="bz-ok">✓ {stanje.sporocilo}</span>}
+      </form>
+    </details>
   );
 }
