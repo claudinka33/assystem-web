@@ -3,7 +3,7 @@ import { supabaseAdmin } from "@/lib/supabase-server";
 import { Suspense } from "react";
 import IskalnikBaze from "./IskalnikBaze";
 import { REGIJE, RAZVRSTI, filtrRegije } from "@/lib/baza-regije";
-import { KontaktObrazec, UvozBaze, UskladiGumb, Vrstica } from "./Deli";
+import { KontaktObrazec, UvozBaze, UskladiGumb, Vrstica, NovaPanoga } from "./Deli";
 
 export const dynamic = "force-dynamic";
 
@@ -94,6 +94,7 @@ export default async function Baza({ searchParams }) {
                 <span>{pa.ime}</span><em>{stevec[pa.sifra]}</em>
               </Link>
             ))}
+            <NovaPanoga />
             <div className="bz-loc">Stanje</div>
             <Link href={url({ stanje: stanje === "odjavljeni" ? "" : "odjavljeni" })} className={stanje === "odjavljeni" ? "on" : ""}><span>Neaktivni (odjavljeni)</span><em>{odjavljeni}</em></Link>
             <Link href={url({ stanje: stanje === "soglasje" ? "" : "soglasje" })} className={stanje === "soglasje" ? "on" : ""}><span>S soglasjem (e-novice)</span></Link>
