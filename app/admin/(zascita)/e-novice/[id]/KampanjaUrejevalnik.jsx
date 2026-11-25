@@ -8,6 +8,7 @@ import {
   posljiKampanjo,
   shraniKotPredlogo,
   izbrisiKampanjo,
+  prestejPrejemnike,
 } from "@/lib/akcije/enovice-kampanje";
 import { zgradiHtml, zacetniBloki, UNSUB } from "@/lib/enovice-bloki";
 import BlokUrejevalnik from "./BlokUrejevalnik";
@@ -99,6 +100,14 @@ export default function KampanjaUrejevalnik({ kampanja, segmenti, privzetiPosilj
 
   const [izbrane, setIzbrane] = useState(() => (kampanja.segment_id && segmenti.some((x) => x.id === kampanja.segment_id) ? [kampanja.segment_id] : []));
   const preklopi = (id) => setIzbrane((x) => (x.includes(id) ? x.filter((y) => y !== id) : [...x, id]));
+  const [stevilo, setStevilo] = useState(null);
+  const [stejem, setStejem] = useState(false);
+  useEffect(() => setStevilo(null), [izbrane]);
+  async function prestej() {
+    setStejem(true);
+    setStevilo(await prestejPrejemnike(izbrane));
+    setStejem(false);
+  }
   const [kdaj, setKdaj] = useState("zdaj");
   const [cas, setCas] = useState(() => {
     const d = new Date(Date.now() + 24 * 3600 * 1000);
@@ -368,6 +377,17 @@ export default function KampanjaUrejevalnik({ kampanja, segmenti, privzetiPosilj
                         ? "Izbrana 1 baza."
                         : `Izbranih ${izbrane.length} baz — kdor je v več bazah, dobi mail samo enkrat.`}
                   </div>
+                  {izbrane.length > 0 && (
+                    <div style={{ display: "flex", gap: 8, alignItems: "center", marginTop: 8, fontSize: 12 }}>
+                      <button type="button" className="gumb siv mini" onClick={prestej} disabled={stejem}>
+                        {stejem ? "Štejem …" : "Preštej prejemnike"}
+                      </button>
+                      {stevilo?.ok && (
+                        <b style={{ color: "#1a9a4b" }}>Mail bo dobilo {stevilo.skupaj} prejemnikov</b>
+                      )}
+                      {stevilo && !stevilo.ok && <span style={{ color: "#c8102e" }}>{stevilo.napaka}</span>}
+                    </div>
+                  )}
                 </div>
               ) : (
                 <p style={{ fontSize: 12, color: "#c8102e", margin: "0 0 10px" }}>Ni segmentov v Resendu.</p>
