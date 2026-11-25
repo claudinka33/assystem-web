@@ -97,7 +97,8 @@ export default function KampanjaUrejevalnik({ kampanja, segmenti, privzetiPosilj
   const [izbran, setIzbran] = useState(null);
   const [mobilni, setMobilni] = useState(false);
 
-  const [segment, setSegment] = useState(kampanja.segment_id ?? "");
+  const [izbrane, setIzbrane] = useState(() => (kampanja.segment_id && segmenti.some((x) => x.id === kampanja.segment_id) ? [kampanja.segment_id] : []));
+  const preklopi = (id) => setIzbrane((x) => (x.includes(id) ? x.filter((y) => y !== id) : [...x, id]));
   const [kdaj, setKdaj] = useState("zdaj");
   const [cas, setCas] = useState(() => {
     const d = new Date(Date.now() + 24 * 3600 * 1000);
@@ -161,7 +162,9 @@ export default function KampanjaUrejevalnik({ kampanja, segmenti, privzetiPosilj
     return () => window.removeEventListener("beforeunload", h);
   }, [json]);
 
-  const segmentIme = segmenti.find((s) => s.id === segment)?.name ?? kampanja.segment_ime ?? "";
+  const segmentIme = izbrane.length
+    ? segmenti.filter((s) => izbrane.includes(s.id)).map((s) => s.name).join(" + ")
+    : kampanja.segment_ime ?? "";
   const brezOdjave = nacin === "html" && v.html && !v.html.includes(UNSUB);
 
   function zamenjajNacin(nov) {
@@ -185,11 +188,11 @@ export default function KampanjaUrejevalnik({ kampanja, segmenti, privzetiPosilj
     const iso = kdaj === "nacrt" ? new Date(cas).toISOString() : null;
     const besedilo =
       kdaj === "nacrt"
-        ? `Načrtujem pošiljanje »${v.zadeva}« segmentu »${segmentIme}« za ${new Date(cas).toLocaleString("sl-SI")}?`
-        : `Res pošljem »${v.zadeva}« VSEM v segmentu »${segmentIme}« ZDAJ?`;
+        ? `Načrtujem pošiljanje »${v.zadeva}« ${izbrane.length > 1 ? `${izbrane.length} bazam` : "bazi"} »${segmentIme}« za ${new Date(cas).toLocaleString("sl-SI")}?`
+        : `Res pošljem »${v.zadeva}« VSEM v ${izbrane.length > 1 ? `${izbrane.length} bazah` : "bazi"} »${segmentIme}« ZDAJ?${izbrane.length > 1 ? "\n\nKdor je v več bazah, dobi mail samo enkrat." : ""}`;
     if (!window.confirm(besedilo)) return;
     zacni(async () => {
-      const r = await posljiKampanjo(kampanja.id, podatki, { segmentId: segment, segmentIme, kdaj: iso, potrjeno });
+      const r = await posljiKampanjo(kampanja.id, podatki, { segmentIds: izbrane, segmentIme, kdaj: iso, potrjeno });
       setPosljiS(r);
       if (r.stanje === "ok") {
         zadnje.current = json;
@@ -341,16 +344,34 @@ export default function KampanjaUrejevalnik({ kampanja, segmenti, privzetiPosilj
 
             <div style={blok}>
               <p style={korak}>3 · Pošlji</p>
-              <select value={segment} onChange={(e) => setSegment(e.target.value)} aria-label="Segment" style={{ ...vnos, marginBottom: 10 }}>
-                <option value="" disabled>
-                  {segmenti.length ? "Komu? (segment / panoga)" : "Ni segmentov v Resendu"}
-                </option>
-                {segmenti.map((s) => (
-                  <option key={s.id} value={s.id}>
-                    {s.name}
-                  </option>
-                ))}
-              </select>
+              {segmenti.length ? (
+                <div style={{ marginBottom: 10 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: 12, marginBottom: 6 }}>
+                    <span style={{ color: "#6e767e" }}>Komu? Označite eno ali več baz (panog)</span>
+                    <span style={{ display: "flex", gap: 10 }}>
+                      <button type="button" className="gumb siv mini" onClick={() => setIzbrane(segmenti.map((s) => s.id))}>Vse</button>
+                      <button type="button" className="gumb siv mini" onClick={() => setIzbrane([])} disabled={!izbrane.length}>Nobena</button>
+                    </span>
+                  </div>
+                  <div style={{ maxHeight: 220, overflowY: "auto", border: "1px solid #c6cace", borderRadius: 6, padding: "4px 8px", background: "#fff" }}>
+                    {segmenti.map((s) => (
+                      <label key={s.id} style={{ ...vrsta, fontSize: 12, padding: "5px 0", borderBottom: "1px solid #f0f1f2", cursor: "pointer" }}>
+                        <input type="checkbox" checked={izbrane.includes(s.id)} onChange={() => preklopi(s.id)} />
+                        {s.name}
+                      </label>
+                    ))}
+                  </div>
+                  <div style={{ fontSize: 11, color: "#6e767e", marginTop: 6 }}>
+                    {izbrane.length === 0
+                      ? "Ni izbrane baze."
+                      : izbrane.length === 1
+                        ? "Izbrana 1 baza."
+                        : `Izbranih ${izbrane.length} baz — kdor je v več bazah, dobi mail samo enkrat.`}
+                  </div>
+                </div>
+              ) : (
+                <p style={{ fontSize: 12, color: "#c8102e", margin: "0 0 10px" }}>Ni segmentov v Resendu.</p>
+              )}
 
               <div style={{ display: "flex", gap: 14, fontSize: 12, marginBottom: 8 }}>
                 <label style={vrsta}>
@@ -370,7 +391,7 @@ export default function KampanjaUrejevalnik({ kampanja, segmenti, privzetiPosilj
                 <input type="checkbox" checked={potrjeno} onChange={(e) => setPotrjeno(e.target.checked)} />
                 Test je pregledan – pošlji vsem
               </label>
-              <button type="button" className="gumb" onClick={poslji} disabled={caka || !segment || !potrjeno} style={{ width: "100%" }}>
+              <button type="button" className="gumb" onClick={poslji} disabled={caka || !izbrane.length || !potrjeno} style={{ width: "100%" }}>
                 {caka ? "…" : kdaj === "nacrt" ? "Načrtuj pošiljanje" : "Pošlji vsem"}
               </button>
               <Sporocilo s={posljiS} />
