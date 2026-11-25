@@ -1249,3 +1249,4 @@ details.adm-obr { padding: 8px 12px; }
 .st-tab td small { color: #6b6f72; }
 .st-panel > .st-vsebina { padding: 0 20px 18px; }
 .st-vsebina .st-mreza { gap: 22px; }
+.st-clarity { margin-left: auto; margin-right: 12px; align-self: center; white-space: nowrap; }

@@ -3,6 +3,7 @@ import { supabaseAdmin } from "@/lib/supabase-server";
 import { TRGI } from "@/lib/obisk";
 import UtmGenerator from "./UtmGenerator";
 import Podrobno from "./Podrobno";
+import { site } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Statistika obiska" };
@@ -203,6 +204,16 @@ export default async function Statistika({ searchParams }) {
           )}
         </p>
       </div>
+      {site.clarityId && (
+        <a
+          className="gumb siv mini st-clarity"
+          href={`https://clarity.microsoft.com/projects/view/${site.clarityId}/dashboard`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Posnetki in toplotne karte (Clarity) ↗
+        </a>
+      )}
       <div className="st-obdobja">
         {OBDOBJA.map(([k, n]) => (
           <Link key={k} href={url({ obdobje: k, od: null, do: null })} className={obdobje === k ? "on" : ""}>
