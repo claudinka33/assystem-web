@@ -32,7 +32,7 @@ function PrijavaNovice() {
             <b>Hvala, prijava je uspela.</b> Prvo e-novico prejmete ob naslednji izdaji.
           </p>
         ) : (
-          <form action={akcija} className="enov-obr">
+          <form action={akcija} className="enov-obr" data-obrazec="Prijava na e-novice">
             <input
               type="text"
               name="polje_za_robote"

@@ -15,7 +15,8 @@ function cas(sek) {
   const m = Math.floor(s / 60);
   return m ? `${m} min ${String(s % 60).padStart(2, "0")} s` : `${s} s`;
 }
-const cistNaslov = (n) => (n || "").replace(/\s*[|–-]\s*AS ?system.*$/i, "").trim();
+// naslovi s časa, ko je bila stran zaklenjena (»v prenovi«), se ne prikažejo
+const cistNaslov = (n) => (/v prenovi/i.test(n || "") ? "" : (n || "").replace(/\s*[|–-]\s*AS ?system.*$/i, "").trim());
 const imeDrz = new Intl.DisplayNames(["sl"], { type: "region" });
 function drzava(iso3) {
   // Search Console vrne 3-črkovne kode (svn, hrv …)
