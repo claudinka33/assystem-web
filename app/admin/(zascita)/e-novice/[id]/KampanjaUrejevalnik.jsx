@@ -408,9 +408,9 @@ export default function KampanjaUrejevalnik({ kampanja, segmenti, privzetiPosilj
                   <input type="radio" name="kdaj" checked={kdaj === "zdaj"} onChange={() => setKdaj("zdaj")} />
                   Pošlji zdaj
                 </label>
-                <label style={vrsta}>
-                  <input type="radio" name="kdaj" checked={kdaj === "nacrt"} onChange={() => setKdaj("nacrt")} />
-                  Načrtuj
+                <label style={{ ...vrsta, color: "#9aa0a6" }} title="Mailingi se pošiljajo kot posamezni maili — načrtovanje še ni na voljo.">
+                  <input type="radio" name="kdaj" checked={kdaj === "nacrt"} onChange={() => setKdaj("nacrt")} disabled />
+                  Načrtuj (kmalu)
                 </label>
               </div>
               {kdaj === "nacrt" && (
