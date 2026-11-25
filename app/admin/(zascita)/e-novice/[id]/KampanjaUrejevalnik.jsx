@@ -337,7 +337,7 @@ export default function KampanjaUrejevalnik({ kampanja, segmenti, privzetiPosilj
           <div className="adm-polje">
             <label htmlFor="posiljatelj">Pošiljatelj</label>
             <input id="posiljatelj" type="text" value={v.posiljatelj} onChange={nastavi("posiljatelj")} />
-            <p className="namig">Odgovori gredo na tjasa.mihevc@as-system.si (Tjaša).</p>
+            <p className="namig">Odgovori gredo na {(v.html || "").match(/<meta\s+name=["']odgovor-na["']\s+content=["']([^"'\s]+)["']/i)?.[1] || "tjasa.mihevc@as-system.si (Tjaša)"}.</p>
           </div>
         </details>
 
