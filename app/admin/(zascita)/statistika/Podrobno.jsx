@@ -125,7 +125,7 @@ async function GoogleIskanje({ od, doo }) {
               <tbody>
                 {g.strani.map((r) => {
                   let pot = r.keys[0];
-                  try { pot = decodeURIComponent(new URL(r.keys[0]).pathname); } catch {}
+                  try { const u = new URL(r.keys[0]); pot = decodeURIComponent(u.pathname + u.search); } catch {}
                   return (
                     <tr key={r.keys[0]}>
                       <td><a href={r.keys[0]} target="_blank" rel="noopener noreferrer">{pot}</a></td>
