@@ -45,12 +45,21 @@ function stran(ok, email) {
   );
 }
 
+async function varno(req) {
+  try {
+    return await odjavi(new URL(req.url));
+  } catch (e) {
+    console.error("Odjava od e-novic:", e?.message);
+    return { ok: false, email: "" };
+  }
+}
+
 export async function GET(req) {
-  const r = await odjavi(new URL(req.url));
+  const r = await varno(req);
   return stran(r.ok, r.email);
 }
 
 export async function POST(req) {
-  const r = await odjavi(new URL(req.url));
+  const r = await varno(req);
   return new Response(r.ok ? "OK" : "Neveljavno", { status: r.ok ? 200 : 400 });
 }
