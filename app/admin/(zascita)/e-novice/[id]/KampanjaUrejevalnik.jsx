@@ -8,7 +8,7 @@ import {
   posljiKampanjo,
   shraniKotPredlogo,
   izbrisiKampanjo,
-  prestejPrejemnike,
+  kontaktiBaz,
 } from "@/lib/akcije/enovice-kampanje";
 import { zgradiHtml, zacetniBloki, UNSUB } from "@/lib/enovice-bloki";
 import BlokUrejevalnik from "./BlokUrejevalnik";
@@ -100,14 +100,23 @@ export default function KampanjaUrejevalnik({ kampanja, segmenti, privzetiPosilj
 
   const [izbrane, setIzbrane] = useState(() => (kampanja.segment_id && segmenti.some((x) => x.id === kampanja.segment_id) ? [kampanja.segment_id] : []));
   const preklopi = (id) => setIzbrane((x) => (x.includes(id) ? x.filter((y) => y !== id) : [...x, id]));
-  const [stevilo, setStevilo] = useState(null);
-  const [stejem, setStejem] = useState(false);
-  useEffect(() => setStevilo(null), [izbrane]);
-  async function prestej() {
-    setStejem(true);
-    setStevilo(await prestejPrejemnike(izbrane));
-    setStejem(false);
-  }
+  // Kontakte vseh baz naložimo enkrat v ozadju, nato se prejemniki štejejo sproti ob vsakem kliku.
+  const [baze, setBaze] = useState(null); // { ok, poBazah } ali { ok:false, napaka }
+  useEffect(() => {
+    if (jePredloga || kampanja.status === "poslano" || !segmenti.length) return;
+    let ziv = true;
+    kontaktiBaz(segmenti.map((s) => s.id)).then((r) => ziv && setBaze(r)).catch((e) => ziv && setBaze({ ok: false, napaka: e.message }));
+    return () => {
+      ziv = false;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const prejemnikov = useMemo(() => {
+    if (!baze?.ok) return null;
+    const u = new Set();
+    for (const id of izbrane) for (const e of baze.poBazah[id] ?? []) u.add(e);
+    return u.size;
+  }, [baze, izbrane]);
   const [kdaj, setKdaj] = useState("zdaj");
   const [cas, setCas] = useState(() => {
     const d = new Date(Date.now() + 24 * 3600 * 1000);
@@ -366,7 +375,8 @@ export default function KampanjaUrejevalnik({ kampanja, segmenti, privzetiPosilj
                     {segmenti.map((s) => (
                       <label key={s.id} style={{ ...vrsta, fontSize: 12, padding: "5px 0", borderBottom: "1px solid #f0f1f2", cursor: "pointer" }}>
                         <input type="checkbox" checked={izbrane.includes(s.id)} onChange={() => preklopi(s.id)} />
-                        {s.name}
+                        <span style={{ flex: 1 }}>{s.name}</span>
+                        {baze?.ok && <span style={{ color: "#6e767e", fontVariantNumeric: "tabular-nums" }}>{baze.poBazah[s.id]?.length ?? 0}</span>}
                       </label>
                     ))}
                   </div>
@@ -377,17 +387,17 @@ export default function KampanjaUrejevalnik({ kampanja, segmenti, privzetiPosilj
                         ? "Izbrana 1 baza."
                         : `Izbranih ${izbrane.length} baz — kdor je v več bazah, dobi mail samo enkrat.`}
                   </div>
-                  {izbrane.length > 0 && (
-                    <div style={{ display: "flex", gap: 8, alignItems: "center", marginTop: 8, fontSize: 12 }}>
-                      <button type="button" className="gumb siv mini" onClick={prestej} disabled={stejem}>
-                        {stejem ? "Štejem …" : "Preštej prejemnike"}
-                      </button>
-                      {stevilo?.ok && (
-                        <b style={{ color: "#1a9a4b" }}>Mail bo dobilo {stevilo.skupaj} prejemnikov</b>
-                      )}
-                      {stevilo && !stevilo.ok && <span style={{ color: "#c8102e" }}>{stevilo.napaka}</span>}
-                    </div>
-                  )}
+                  <div style={{ marginTop: 8, fontSize: 13 }}>
+                    {!baze ? (
+                      <span style={{ color: "#6e767e" }}>Nalagam število kontaktov po bazah …</span>
+                    ) : !baze.ok ? (
+                      <span style={{ color: "#c8102e" }}>Števila ni bilo mogoče naložiti: {baze.napaka}</span>
+                    ) : (
+                      <b style={{ color: izbrane.length ? "#1a9a4b" : "#6e767e" }}>
+                        Mail bo dobilo {prejemnikov.toLocaleString("sl-SI")} prejemnikov
+                      </b>
+                    )}
+                  </div>
                 </div>
               ) : (
                 <p style={{ fontSize: 12, color: "#c8102e", margin: "0 0 10px" }}>Ni segmentov v Resendu.</p>
