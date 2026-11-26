@@ -236,8 +236,8 @@ export function Vrstica({ k, panoge, poslovalnice = [] }) {
           <div className="bz-det-noga">
             <OdjavaGumb email={k.email} odjavljen={k.odjavljen} />
             <span style={{ flex: 1 }} />
-            Izbriši iz baze
-            <IzbrisiGumb action={izbrisiKontaktIzBaze} id={k.email} ime={k.email} opozorilo="Kontakt se izbriše iz baze in iz Resenda." />
+            Izbriši za vedno
+            <IzbrisiGumb action={izbrisiKontaktIzBaze} id={k.email} ime={k.email} opozorilo="Kontakt se izbriše iz baze in iz Resenda in gre na seznam »Izbrisani – nikoli več«: noben uvoz (Vasco, Excel) ali obrazec ga ne doda nazaj in nikoli več ne dobi mailinga." />
           </div>
         </div>
       )}
@@ -245,7 +245,7 @@ export function Vrstica({ k, panoge, poslovalnice = [] }) {
   );
 }
 
-export function IzkljuciDomeno({ domene }) {
+export function IzkljuciDomeno({ domene, emaili = [] }) {
   const [stanje, akcija, caka] = useActionState(izkljuciDomeno, null);
   const [, zacni] = useTransition();
   return (
@@ -253,23 +253,26 @@ export function IzkljuciDomeno({ domene }) {
       action={akcija}
       className="bz-obr"
       onSubmit={(e) => {
-        const d = new FormData(e.currentTarget).get("domena");
-        if (!window.confirm(`Izbrišem VSE kontakte z domeno »${d}« in jih ne uvažam več?`)) e.preventDefault();
+        const d = String(new FormData(e.currentTarget).get("domena") || "").trim();
+        const sporocilo = d.includes("@") && !d.startsWith("@")
+          ? `Izbrišem ${d} za vedno? Ne bo več v bazi in nikoli več ne dobi mailinga.`
+          : `Izbrišem VSE kontakte z domeno »${d}« in jih ne uvažam več?`;
+        if (!window.confirm(sporocilo)) e.preventDefault();
       }}
     >
       <div className="adm-polje">
-        <label>Domena podjetja, ki ne obstaja več (izbriše vse kontakte z njo in jih ne uvaža več)</label>
-        <input name="domena" placeholder="npr. mtehnika.si" required />
+        <label>E-naslov (oseba ne želi več mailov) ali domena (podjetje ne obstaja več)</label>
+        <input name="domena" placeholder="npr. info@podjetje.si ali podjetje.si" required />
       </div>
       <div style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 8 }}>
-        <button className="gumb" type="submit" disabled={caka}>{caka ? "Brišem …" : "Izbriši domeno"}</button>
+        <button className="gumb" type="submit" disabled={caka}>{caka ? "Brišem …" : "Izbriši za vedno"}</button>
         {stanje?.napaka && <span className="bz-ne">{stanje.napaka}</span>}
         {stanje?.ok && <span className="bz-ok">✓ {stanje.sporocilo}</span>}
       </div>
-      {domene.length > 0 && (
+      {domene.length + emaili.length > 0 && (
         <div className="bz-cb">
-          <span className="siv">Izključene:</span>
-          {domene.map((d) => (
+          <span className="siv">Izbrisani ({domene.length + emaili.length}):</span>
+          {[...emaili, ...domene].map((d) => (
             <span key={d} className="znacka ne">
               {d}{" "}
               <button type="button" style={{ border: 0, background: "none", cursor: "pointer", color: "#cb2026" }} title="Spet dovoli" onClick={() => zacni(() => odstraniIzkljucitev(d))}>×</button>

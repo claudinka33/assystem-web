@@ -3,7 +3,8 @@ import { supabaseAdmin } from "@/lib/supabase-server";
 import { Suspense } from "react";
 import IskalnikBaze from "./IskalnikBaze";
 import { REGIJE, RAZVRSTI, filtrRegije } from "@/lib/baza-regije";
-import { KontaktObrazec, UvozBaze, UskladiGumb, Vrstica, NovaPanoga } from "./Deli";
+import { KontaktObrazec, UvozBaze, UskladiGumb, Vrstica, NovaPanoga, IzkljuciDomeno } from "./Deli";
+import { izkljucitve } from "@/lib/baza";
 
 export const dynamic = "force-dynamic";
 
@@ -30,6 +31,7 @@ export default async function Baza({ searchParams }) {
     ...(panoge ?? []).map((pa) => stej((x) => x.contains("panoge", [pa.sifra]))),
   ]);
   const poRegijah = await Promise.all(REGIJE.map(([r]) => stej((x) => filtrRegije(x, r))));
+  const izk = await izkljucitve(sb);
   const stevec = Object.fromEntries((panoge ?? []).map((pa, i) => [pa.sifra, poPanogah[i]]));
   const imePanoge = Object.fromEntries((panoge ?? []).map((pa) => [pa.sifra, pa.ime]));
 
@@ -122,6 +124,14 @@ export default async function Baza({ searchParams }) {
               {p === "nerazvrsceni" && <span className="bz-namig">Pri vsakem kontaktu izberi panogo — kontakt se takoj premakne.</span>}
             </div>
 
+            <details className="bz-izbrisani" style={{ margin: "0 0 10px" }}>
+              <summary style={{ cursor: "pointer", fontWeight: 700, color: "#c8102e", fontSize: 13 }}>
+                Izbrisani – nikoli več ({izk.emaili.size + izk.domene.size})
+              </summary>
+              <div style={{ paddingTop: 8 }}>
+                <IzkljuciDomeno emaili={[...izk.emaili].sort()} domene={[...izk.domene].sort()} />
+              </div>
+            </details>
             <div className="bz-tab">
               <div className="bz-vr bz-gl">
                 {["email", "ime", "podjetje", "kraj", "panoga", "stanje"].map((k) => {
