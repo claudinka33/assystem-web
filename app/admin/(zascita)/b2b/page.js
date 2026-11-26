@@ -86,7 +86,7 @@ export default async function B2BKupci({ searchParams }) {
             ].filter(Boolean).join(" "));
             const statusi = [...new Set(uporabniki.map((k) => k.status))].join(" ");
             return (
-              <details key={g.davcna} className="b2ba-podj" data-isk={isk} data-status={statusi} data-racuni={rac ? "1" : ""} open={najStatus === "caka_odobritev" || undefined}>
+              <details key={g.davcna} className="b2ba-podj" data-isk={isk} data-status={statusi} data-racuni={rac ? "1" : ""}>
                 <summary className="b2ba-vr">
                   <span className="ime"><b>{g.vasco_naziv || g.podjetje}</b>{g.ustavljena_prodaja && <i className="b2ba-ust">ustavljena prodaja</i>}</span>
                   <span data-l="Davčna">SI{g.davcna}</span>
@@ -124,7 +124,7 @@ export default async function B2BKupci({ searchParams }) {
 
                   <div className="b2ba-upor">
                     {uporabniki.map((k) => (
-                      <details key={k.id} className="b2ba-u" open={k.status === "caka_odobritev" || undefined}>
+                      <details key={k.id} className="b2ba-u">
                         <summary>
                           <span className="ime"><b>{k.ime}</b> <span className="siv">{k.email}{k.telefon ? ` · ${k.telefon}` : ""}</span></span>
                           <span className="siv">
