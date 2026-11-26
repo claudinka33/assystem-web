@@ -167,7 +167,7 @@ export default async function Pregled({ k, sp = {} }) {
               </>
             )}
 
-            <h3 style={{ fontSize: 13, margin: "6px 0 8px" }}>Prejemniki</h3>
+            <h3 id="prejemniki" style={{ fontSize: 13, margin: "6px 0 8px", scrollMarginTop: 16 }}>Prejemniki</h3>
             <div style={{ display: "flex", justifyContent: "space-between", gap: 10, flexWrap: "wrap", alignItems: "center" }}>
               <nav className="zavihki" style={{ marginBottom: 10 }}>
                 {FILTRI.map(([f, ime]) => (
@@ -176,7 +176,7 @@ export default async function Pregled({ k, sp = {} }) {
                   </Link>
                 ))}
               </nav>
-              <form style={{ marginBottom: 10 }}>
+              <form action="#prejemniki" style={{ marginBottom: 10 }}>
                 <input type="hidden" name="f" value={filter} />
                 <input
                   type="search"
