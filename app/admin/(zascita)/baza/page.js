@@ -22,17 +22,27 @@ export default async function Baza({ searchParams }) {
     );
 
 
-  // števci panog
-  const stej = (fn) => fn(sb.from("baza_kontakti").select("email", { count: "exact", head: true })).then((r) => r.count ?? 0);
-  const [vsi, nerazvrsceni, odjavljeni, ...poPanogah] = await Promise.all([
-    stej((x) => x),
-    stej((x) => x.eq("panoge", "{}")),
-    stej((x) => x.eq("odjavljen", true)),
-    ...(panoge ?? []).map((pa) => stej((x) => x.contains("panoge", [pa.sifra]))),
-  ]);
-  const poRegijah = await Promise.all(REGIJE.map(([r]) => stej((x) => filtrRegije(x, r))));
+  // števci panog in regij — en sam prenos (samo panoge, stanje, pošta) namesto ~40 ločenih štetij
+  const vrstice = [];
+  for (let od = 0; ; od += 1000) {
+    const { data } = await sb.from("baza_kontakti").select("panoge, odjavljen, posta").range(od, od + 999);
+    vrstice.push(...(data ?? []));
+    if (!data || data.length < 1000) break;
+  }
+  const vsi = vrstice.length;
+  const nerazvrsceni = vrstice.filter((v) => !(v.panoge ?? []).length).length;
+  const odjavljeni = vrstice.filter((v) => v.odjavljen).length;
+  const stevec = {};
+  for (const v of vrstice) for (const s of v.panoge ?? []) stevec[s] = (stevec[s] ?? 0) + 1;
+  const regijaJS = (posta, r) => {
+    const t = posta == null ? null : String(posta);
+    if (/^[1-9]$/.test(r)) return t != null && new RegExp(`^(SI-?)?${r}[0-9]{3}`).test(t);
+    if (r === "tujina") return t != null && !/^(SI-?)?[0-9]{4}/.test(t);
+    if (r === "brez") return t == null;
+    return true;
+  };
+  const poRegijah = REGIJE.map(([r]) => vrstice.filter((v) => regijaJS(v.posta, r)).length);
   const izk = await izkljucitve(sb);
-  const stevec = Object.fromEntries((panoge ?? []).map((pa, i) => [pa.sifra, poPanogah[i]]));
   const imePanoge = Object.fromEntries((panoge ?? []).map((pa) => [pa.sifra, pa.ime]));
 
   // seznam
@@ -44,9 +54,10 @@ export default async function Baza({ searchParams }) {
   if (stanje === "odjavljeni") poiz = poiz.eq("odjavljen", true);
   if (stanje === "soglasje") poiz = poiz.eq("soglasje", true);
   poiz = filtrRegije(poiz, regija);
-  const iskanje = q.trim().replace(/[,()%]/g, " ").trim();
-  if (iskanje) {
-    const v = `%${iskanje}%`;
+  // iskanje po besedah: vsaka beseda mora biti v kateremkoli polju (»notar bo« najde notar-boskovic.si)
+  const besede = q.replace(/[,()%*\\]/g, " ").split(/\s+/).map((x) => x.trim()).filter(Boolean).slice(0, 6);
+  for (const b of besede) {
+    const v = `%${b}%`;
     poiz = poiz.or(`email.ilike.${v},ime.ilike.${v},podjetje.ilike.${v},poslovalnica.ilike.${v},kraj.ilike.${v},davcna.ilike.${v},telefon.ilike.${v},opomba.ilike.${v}`);
   }
   const padajoce = red.startsWith("-");
@@ -93,7 +104,7 @@ export default async function Baza({ searchParams }) {
             <div className="bz-loc">Panoge</div>
             {(panoge ?? []).map((pa) => (
               <Link key={pa.sifra} href={url({ p: String(pa.sifra) })} className={Number(p) === pa.sifra ? "on" : ""}>
-                <span>{pa.ime}</span><em>{stevec[pa.sifra]}</em>
+                <span>{pa.ime}</span><em>{stevec[pa.sifra] ?? 0}</em>
               </Link>
             ))}
             <NovaPanoga />

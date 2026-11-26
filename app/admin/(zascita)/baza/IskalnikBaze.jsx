@@ -21,7 +21,7 @@ export default function IskalnikBaze({ q }) {
       const s = o.toString();
       router.replace(s ? `${pot}?${s}` : pot, { scroll: false });
     };
-    if (takoj) zazeni(); else t.current = setTimeout(zazeni, 300);
+    if (takoj) zazeni(); else t.current = setTimeout(zazeni, 450);
   }
 
   return (
