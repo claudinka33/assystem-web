@@ -84,7 +84,7 @@ export default async function B2BKupci({ searchParams }) {
           <div className="b2ba-vr b2ba-gl">
             <span>Podjetje</span><span>Davčna</span><span>Vasco</span><span>Sedež</span><span className="c">Upor.</span><span className="c">PE</span><span>Plačilo</span><span>Računi</span><span>Status</span>
           </div>
-          {seznam.map((uporabniki) => {
+          {seznam.map((uporabniki, zap) => {
             const g = uporabniki.find((x) => x.vasco_partner) ?? uporabniki[0];
             const pr = prodajalnePartnerja[g.vasco_partner] ?? [];
             const najStatus = [...uporabniki].sort((a, b) => VRSTNI_RED.indexOf(a.status) - VRSTNI_RED.indexOf(b.status))[0].status;
@@ -99,7 +99,7 @@ export default async function B2BKupci({ searchParams }) {
             return (
               <details key={g.davcna} className="b2ba-podj" data-isk={isk} data-status={statusi} data-racuni={rac ? "1" : ""}>
                 <summary className="b2ba-vr">
-                  <span className="ime"><b>{g.vasco_naziv || g.podjetje}</b>{g.ustavljena_prodaja && <i className="b2ba-ust">ustavljena prodaja</i>}</span>
+                  <span className="ime">{kljuc === "aktivni" && <span className="b2ba-zap">{zap + 1}.</span>}<b>{g.vasco_naziv || g.podjetje}</b>{g.ustavljena_prodaja && <i className="b2ba-ust">ustavljena prodaja</i>}</span>
                   <span data-l="Davčna">SI{g.davcna}</span>
                   <span data-l="Vasco">{g.vasco_partner ?? <i className="b2ba-rd">ni v Vascu</i>}</span>
                   <span data-l="Sedež" className="siv ell">{g.vasco_naslov ? `${g.vasco_naslov}, ${g.vasco_posta ?? ""}` : `${g.naslov ?? ""} ${g.posta ?? ""} ${g.kraj ?? ""}`}</span>
