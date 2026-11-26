@@ -30,6 +30,12 @@ export default function IskalnikB2B({ skupaj, stevci }) {
       el.hidden = !ok;
       if (ok) n++;
     });
+    document.querySelectorAll(".b2ba-sek").forEach((sek) => {
+      const v = [...sek.querySelectorAll(".b2ba-podj")].filter((el) => !el.hidden).length;
+      sek.hidden = v === 0;
+      const em = sek.querySelector(".b2ba-sek-gl em");
+      if (em) em.textContent = v;
+    });
     const ni = document.getElementById("b2ba-ni");
     if (ni) ni.hidden = n > 0;
     setVidnih(n);

@@ -1250,3 +1250,12 @@ details.adm-obr { padding: 8px 12px; }
 .st-panel > .st-vsebina { padding: 0 20px 18px; }
 .st-vsebina .st-mreza { gap: 22px; }
 .st-clarity { margin-left: auto; margin-right: 12px; align-self: center; white-space: nowrap; }
+
+/* B2B kupci: dva sklopa (neaktivni zgoraj, aktivni po abecedi) */
+.b2ba:has(.b2ba-sek) { background: transparent; border: 0; overflow: visible; display: grid; gap: 18px; }
+.b2ba-sek { background: #fff; border: 1px solid var(--a-line); border-radius: var(--a-r); overflow: hidden; }
+.b2ba-sek[hidden] { display: none; }
+.b2ba-sek-gl { padding: 11px 14px; font-size: 13px; font-weight: 700; color: #23262a; border-bottom: 1px solid var(--a-line); display: flex; align-items: center; gap: 8px; }
+.b2ba-sek-gl em { font-style: normal; font-size: 11px; font-weight: 600; background: var(--a-soft); border-radius: 10px; padding: 1px 8px; color: var(--a-muted); }
+.b2ba-sek-neaktivni .b2ba-sek-gl { border-left: 4px solid #cb2026; }
+.b2ba-sek-aktivni .b2ba-sek-gl { border-left: 4px solid #1a9a4b; }

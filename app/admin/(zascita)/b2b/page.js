@@ -44,6 +44,14 @@ export default async function B2BKupci({ searchParams }) {
     return x ? x.naziv2 || x.naziv : `poslovalnica ${sifra}`;
   };
   const stej = (s) => kupci.filter((k) => k.status === s).length;
+  const najStatusOf = (u) => [...u].sort((a, b) => VRSTNI_RED.indexOf(a.status) - VRSTNI_RED.indexOf(b.status))[0].status;
+  const imeOf = (u) => String((u.find((x) => x.vasco_partner) ?? u[0]).vasco_naziv || u[0].podjetje || "");
+  const neaktivne = skupine.filter((u) => najStatusOf(u) !== "aktiven");
+  const aktivne = skupine.filter((u) => najStatusOf(u) === "aktiven").sort((a, b) => imeOf(a).localeCompare(imeOf(b), "sl"));
+  const SEKCIJE = [
+    ["neaktivni", "Čakajo na obdelavo / neaktivni", neaktivne],
+    ["aktivni", "Aktivni kupci (po abecedi)", aktivne],
+  ];
 
   return (
     <>
@@ -69,11 +77,14 @@ export default async function B2BKupci({ searchParams }) {
         />
 
         <div className="b2ba">
+          {kupci.length === 0 && <p className="b2ba-prazno">Ni še registracij.</p>}
+          {SEKCIJE.map(([kljuc, naslov, seznam]) => seznam.length > 0 && (
+          <div key={kljuc} className={`b2ba-sek b2ba-sek-${kljuc}`}>
+          <div className="b2ba-sek-gl">{naslov} <em>{seznam.length}</em></div>
           <div className="b2ba-vr b2ba-gl">
             <span>Podjetje</span><span>Davčna</span><span>Vasco</span><span>Sedež</span><span className="c">Upor.</span><span className="c">PE</span><span>Plačilo</span><span>Računi</span><span>Status</span>
           </div>
-          {kupci.length === 0 && <p className="b2ba-prazno">Ni še registracij.</p>}
-          {skupine.map((uporabniki) => {
+          {seznam.map((uporabniki) => {
             const g = uporabniki.find((x) => x.vasco_partner) ?? uporabniki[0];
             const pr = prodajalnePartnerja[g.vasco_partner] ?? [];
             const najStatus = [...uporabniki].sort((a, b) => VRSTNI_RED.indexOf(a.status) - VRSTNI_RED.indexOf(b.status))[0].status;
@@ -209,6 +220,8 @@ export default async function B2BKupci({ searchParams }) {
               </details>
             );
           })}
+          </div>
+          ))}
           <p className="b2ba-prazno" id="b2ba-ni" hidden>Ni zadetkov.</p>
         </div>
       </div>
