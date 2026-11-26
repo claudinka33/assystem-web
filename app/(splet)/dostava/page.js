@@ -15,20 +15,20 @@ function Dostava() {
   return (
     <PravnaStran pot="/dostava" naslov="Dostava in pošiljanje" opis={`Brezplačna dostava za naročila nad ${eur0(t.brezplacnoNad)}.`} veljaOd={VELJA_OD}>
       <h2>Načini in stroški dostave</h2>
-      <table>
+      <table className="mob-kartice">
         <thead>
           <tr><th>Način</th><th>Cena</th><th>Opomba</th></tr>
         </thead>
         <tbody>
           <tr>
-            <td><b>Pošta Slovenije</b></td>
-            <td>do 50 €: 10 €<br />50–100 €: 5 €<br />nad {eur0(t.brezplacnoNad)}: brezplačno<br /><small>(vrednost blaga brez DDV)</small></td>
-            <td>Dostava na naslov podjetja ali poslovnice v Sloveniji.</td>
+            <td className="mk-gl"><b>Pošta Slovenije</b></td>
+            <td data-l="Cena">do 50 €: 10 €<br />50–100 €: 5 €<br />nad {eur0(t.brezplacnoNad)}: brezplačno<br /><small>(vrednost blaga brez DDV)</small></td>
+            <td data-l="Opomba">Dostava na naslov podjetja, poslovalnice ali drug naslov v Sloveniji.</td>
           </tr>
           <tr>
-            <td><b>Osebni prevzem</b></td>
-            <td>brezplačno</td>
-            <td>Šmarje pri Jelšah, {site.lokacije[0].naslov.split(",")[0]}. Pon–pet, 7.00–15.00, ko vas obvestimo, da je naročilo pripravljeno.</td>
+            <td className="mk-gl"><b>Osebni prevzem</b></td>
+            <td data-l="Cena">brezplačno</td>
+            <td data-l="Opomba">Šmarje pri Jelšah, {site.lokacije[0].naslov.split(",")[0]}. Pon–pet, 7.00–15.00, ko vas obvestimo, da je naročilo pripravljeno.</td>
           </tr>
         </tbody>
       </table>
