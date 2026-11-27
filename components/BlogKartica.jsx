@@ -9,7 +9,7 @@ export default function BlogKartica({ n }) {
   return (
     <div className="vrata-k blog-tab">
       <Link href={pot} className={`blog-tab-sl${n.slika_url ? "" : " prazna"}`} tabIndex={-1} aria-hidden="true">
-        {n.slika_url && <Image src={n.slika_url} alt="" fill sizes="(max-width: 620px) 100vw, (max-width: 1100px) 50vw, 300px" />}
+        {n.slika_url && <Image src={n.slika_url} alt={n.naslov ?? ""} fill sizes="(max-width: 620px) 100vw, (max-width: 1100px) 50vw, 300px" />}
       </Link>
       <div className="blog-tab-tx">
         <em>

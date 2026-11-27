@@ -13,6 +13,7 @@ import {
 import { kategorije as rezervne } from "@/lib/site";
 import { ZNAMKE, ZNAMKE_INFO, normZnamka } from "@/lib/znamke";
 import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
+import { JsonLd, podatkiDrobtin } from "@/components/StrukturiraniPodatki";
 
 export const revalidate = 60;
 
@@ -45,8 +46,16 @@ async function Kategorija({ params, searchParams }) {
   const izdelki = izbrana ? vsi.filter((i) => i.znamka === izbrana) : vsi;
   const podkategorije = k ? await pridobiPodkategorije(k.id) : [];
 
+  const naziv = k?.naziv ?? r.naziv;
+  const ldDrobtine = podatkiDrobtin([
+    ["Domov", "/"],
+    ["Program", "/program"],
+    [naziv, `/program/${kategorija}`],
+  ]);
+
   return (
     <>
+      <JsonLd podatki={ldDrobtine} />
       <NaslovStrani
         oznaka="Prodajni program"
         naslov={k?.naziv ?? r.naziv}

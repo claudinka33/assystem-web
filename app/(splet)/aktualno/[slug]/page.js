@@ -121,7 +121,7 @@ async function Novica({ params }) {
                   {drugi.map((d) => (
                     <Link key={d.slug} href={`/aktualno/${d.slug}`} className="clanek-drugi-el">
                       <span className={`clanek-drugi-sl${d.slika_url ? "" : " prazna"}`}>
-                        {d.slika_url && <Image src={d.slika_url} alt="" fill sizes="96px" />}
+                        {d.slika_url && <Image src={d.slika_url} alt={d.naslov ?? ""} fill sizes="96px" />}
                       </span>
                       <span>
                         <em>{nazivVrste(d.vrsta)}</em>

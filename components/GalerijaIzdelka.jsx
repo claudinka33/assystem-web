@@ -48,7 +48,7 @@ function GalerijaIzdelka({ slike, naziv }) {
               onClick={() => { setIzbrana(n); setZunanja(null); }}
               aria-label={`${naziv}: slika ${n + 1}`}
             >
-              <Image src={s} alt="" fill sizes="80px" style={{ objectFit: "contain", padding: 4 }} />
+              <Image src={s} alt={`${naziv} – slika ${n + 1}`} fill sizes="80px" style={{ objectFit: "contain", padding: 4 }} />
               {oznakaIz(s) && <span className="izd-oznaka">{oznakaIz(s)}</span>}
             </button>
           ))}

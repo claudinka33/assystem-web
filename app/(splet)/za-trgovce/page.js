@@ -85,7 +85,7 @@ async function ZaTrgovce() {
               return (
                 <Link key={x.slug} href={d?.href ?? "/program"} className="hb-pl">
                   <span className="hb-pl-im">
-                    <Image src={d?.slika || x.src} alt="" fill sizes="160px" style={{ objectFit: "contain", padding: 10, mixBlendMode: "multiply" }} />
+                    <Image src={d?.slika || x.src} alt={x.naziv} fill sizes="160px" style={{ objectFit: "contain", padding: 10, mixBlendMode: "multiply" }} />
                   </span>
                   <b>{x.naziv}</b>
                 </Link>

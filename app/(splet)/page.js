@@ -66,8 +66,11 @@ async function Domov() {
 
   return (
     <>
+      {/* Glavni naslov strani za Google in AI (bannerji imajo h2) */}
+      <h1 className="sr-only">AS system — slovenski proizvajalec pritrdilne tehnike ASfix in vijačnega blaga ASco</h1>
       {/* ---------- Glava: trije bannerji, menjava na 5 s ---------- */}
       <HeroBannerji
+        h1={false}
         bannerji={[
           {
             tip: "video",

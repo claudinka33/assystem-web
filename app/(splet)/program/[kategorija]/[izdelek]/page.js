@@ -18,6 +18,7 @@ import MedijiBanner from "@/components/MedijiBanner";
 import CertifikatiB2B from "@/components/CertifikatiB2B";
 import { VIDEI_IZDELKOV } from "@/lib/videi";
 import { prevedenaStran, prevediMetadata } from "@/lib/i18n/streznik";
+import { JsonLd, podatkiIzdelka, podatkiDrobtin } from "@/components/StrukturiraniPodatki";
 
 export const revalidate = 60;
 
@@ -123,8 +124,19 @@ async function StranIzdelka({ params }) {
   const gosto = true;
   const trenutnaPot = mesto ? mesto.v.izdelki[mesto.idx].href : `/program/${kategorija}/${izdelek}`;
 
+  const potIzdelka = `/program/${kategorija}/${izdelek}`;
+  const ldIzdelek = podatkiIzdelka({ i, pot: potIzdelka, slike, artikli });
+  const ldDrobtine = podatkiDrobtin([
+    ["Domov", "/"],
+    ["Program", "/program"],
+    [i.kategorije?.naziv ?? "Kategorija", `/program/${kategorija}`],
+    [i.naziv, potIzdelka],
+  ]);
+
   return (
     <>
+    <JsonLd podatki={ldIzdelek} />
+    <JsonLd podatki={ldDrobtine} />
     <section className="izd">
       <div className={`w izd-w${drevo.length > 0 ? " izd-okvir" : ""}`}>
         {drevo.length > 0 && (

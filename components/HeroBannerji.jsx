@@ -46,7 +46,7 @@ function B2bZaslon() {
   );
 }
 
-function HeroBannerji({ bannerji = [] }) {
+function HeroBannerji({ bannerji = [], h1 = true }) {
   const [i, setI] = useState(0);
   const [pavza, setPavza] = useState(false);
   const n = bannerji.length;
@@ -70,7 +70,7 @@ function HeroBannerji({ bannerji = [] }) {
       aria-roledescription="carousel"
     >
       {bannerji.map((b, k) => {
-        const Naslov = k === 0 ? "h1" : "h2";
+        const Naslov = h1 && k === 0 ? "h1" : "h2";
         return (
           <section
             key={k}
@@ -113,7 +113,7 @@ function HeroBannerji({ bannerji = [] }) {
                     <Link key={p.pot} href={p.pot} className="hb-pl">
                       <span className="hb-pl-im">
                         {p.slika && (
-                          <Image src={p.slika} alt="" fill sizes="160px" style={{ objectFit: "contain", padding: 10, mixBlendMode: "multiply" }} />
+                          <Image src={p.slika} alt={p.naziv ?? ""} fill sizes="160px" style={{ objectFit: "contain", padding: 10, mixBlendMode: "multiply" }} />
                         )}
                       </span>
                       <b>{p.naziv}</b>

@@ -14,6 +14,8 @@ import { supabaseAdmin } from "@/lib/supabase-server";
 import { KLJUC_POPUP, razcleniPopup, BESEDILA_POPUP } from "@/lib/popup";
 import { kljuc } from "@/lib/i18n/skupno";
 import { fetchPodatki } from "@/lib/predpomnilnik";
+import { JsonLd, podatkiPodjetja } from "@/components/StrukturiraniPodatki";
+import { ZNAMKE } from "@/lib/znamke";
 
 // Nastavitve pop-upa (Admin → Prodaja → Pop-up), v /en in /de prevedene.
 async function nastavitvePopupa(j) {
@@ -48,6 +50,7 @@ export default async function SpletLayout({ children }) {
 
   return (
     <JezikProvider jezik={j} slovar={slovar}>
+      <JsonLd podatki={podatkiPodjetja(ZNAMKE.filter((z) => !skrite.includes(z)))} />
       {j === "sl" ? glava : await prevediDrevo(glava, j)}
       <main>{children}</main>
       {j === "sl" ? noga : await prevediDrevo(noga, j)}
